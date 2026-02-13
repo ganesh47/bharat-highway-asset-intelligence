@@ -11,6 +11,43 @@ function resolveAssetPath(relPath) {
   return `${sanitizedRoot}${sanitizedRel}`;
 }
 
+function assetCandidates(relPath) {
+  const direct = relPath.replace(/^\/+/, '');
+  const seen = new Set();
+  const candidates = [];
+  const add = (value) => {
+    if (!value) {
+      return;
+    }
+    const normalized = value.startsWith('/') ? value : `/${value}`;
+    if (!seen.has(normalized)) {
+      seen.add(normalized);
+      candidates.push(normalized);
+    }
+  };
+
+  add(resolveAssetPath(direct));
+
+  const scriptPath = document.currentScript?.src;
+  if (scriptPath && scriptPath.includes('/apps/web/')) {
+    try {
+      const root = new URL(scriptPath).pathname.split('/apps/web/')[0];
+      add(`${root}/${direct}`);
+    } catch {
+      // keep best-effort
+    }
+  }
+
+  const pathname = (window.location.pathname || '/').replace(/^\/+/, '');
+  const firstSegment = pathname.split('/').filter(Boolean)[0];
+  if (firstSegment && !['apps', 'data', 'src', 'methodology.html'].includes(firstSegment)) {
+    add(`/${firstSegment}/${direct}`);
+  }
+
+  add(`/${direct}`);
+  return candidates;
+}
+
 const CATALOG_PATH = resolveAssetPath('data/manifests/catalog.json');
 const METHOD_URL = new URL('methodology.html', window.location.href).pathname;
 
@@ -61,7 +98,7 @@ function readResultRows(result) {
 
 async function queryRows(db, path) {
   const conn = await db.connect();
-  const candidates = [path, `/${path.replace(/^\/+/, '')}`];
+  const candidates = assetCandidates(path);
   for (const candidate of candidates) {
     try {
       const file = candidate.split('/').pop();
@@ -86,7 +123,7 @@ async function queryRows(db, path) {
 }
 
 async function readCatalog(path) {
-  const catalogCandidates = [path, '/data/manifests/catalog.json'];
+  const catalogCandidates = [...assetCandidates(path), resolveAssetPath('data/manifests/catalog.json')];
   for (const candidate of catalogCandidates) {
     try {
       const response = await fetch(candidate);
