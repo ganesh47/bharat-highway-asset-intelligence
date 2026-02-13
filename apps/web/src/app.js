@@ -61,16 +61,44 @@ function readResultRows(result) {
 
 async function queryRows(db, path) {
   const conn = await db.connect();
-  const file = path.split('/').pop();
-  const resp = await fetch(path);
-  const buffer = await resp.arrayBuffer();
-  await db.registerFileBuffer(file, new Uint8Array(buffer));
-  const result = await conn.query(`SELECT COUNT(*)::BIGINT AS row_count FROM read_parquet('${file}')`);
-  const rows = readResultRows(result);
+  const candidates = [path, `/${path.replace(/^\/+/, '')}`];
+  for (const candidate of candidates) {
+    try {
+      const file = candidate.split('/').pop();
+      const resp = await fetch(candidate);
+      if (!resp.ok) {
+        continue;
+      }
+      const buffer = await resp.arrayBuffer();
+      await db.registerFileBuffer(file, new Uint8Array(buffer));
+      const result = await conn.query(`SELECT COUNT(*)::BIGINT AS row_count FROM read_parquet('${file}')`);
+      const rows = readResultRows(result);
+      await conn.close();
+      if (!rows.length) return 0;
+      const first = rows[0] || {};
+      return Number(first.row_count ?? 0);
+    } catch (error) {
+      continue;
+    }
+  }
   await conn.close();
-  if (!rows.length) return 0;
-  const first = rows[0] || {};
-  return Number(first.row_count ?? 0);
+  return null;
+}
+
+async function readCatalog(path) {
+  const catalogCandidates = [path, '/data/manifests/catalog.json'];
+  for (const candidate of catalogCandidates) {
+    try {
+      const response = await fetch(candidate);
+      if (!response.ok) {
+        continue;
+      }
+      return await response.json();
+    } catch {
+      continue;
+    }
+  }
+  return null;
 }
 
 function MetricCard({ item, rowCount }) {
@@ -124,9 +152,10 @@ function App() {
 
     const run = async () => {
       try {
-        const response = await fetch(CATALOG_PATH);
-        if (!response.ok) throw new Error('manifest missing');
-        const payload = await response.json();
+        const payload = await readCatalog(CATALOG_PATH);
+        if (!payload || !payload.datasets) {
+          throw new Error('manifest missing');
+        }
         const items = payload.datasets || [];
         if (!mounted) return;
         const map = {};
@@ -153,7 +182,7 @@ function App() {
         }
       } catch (err) {
         if (mounted) {
-          setError('Could not load catalog. Run `python -m pipelines.ingest` first.');
+          setError(`Could not load catalog. Tried: ${CATALOG_PATH}. Run python -m pipelines.ingest and refresh.`);
           setLoading(false);
         }
       }
