@@ -1,0 +1,56 @@
+{
+  "source_id": "correlation_matrix",
+  "connector": "correlation_scoring",
+  "version": "0.1.0",
+  "status": "generated",
+  "output_table_path": "data/processed/correlation_matrix.parquet",
+  "metric_category": "model_output",
+  "source": {
+    "publisher": "Bharat Highway internal correlation engine",
+    "title": "Model-derived pairwise correlation matrix (state/year join)",
+    "retrieved_at": "2026-02-13T19:06:06.692030+00:00",
+    "official_flag": false,
+    "license_terms": "Model output for analysis only. Not an official policy statement."
+  },
+  "citations": {
+    "permanent_identifier": "correlation_matrix_v1",
+    "anchor": "derived_pairwise_pearson_state_year",
+    "note": "Derived from available numeric metrics across official measured and approved proxy inputs."
+  },
+  "manifest": {
+    "raw_files": [],
+    "output_files": [
+      {
+        "path": "data/processed/correlation_matrix.parquet",
+        "format": "parquet",
+        "sha256": "0b1ca820006e63ecfca6d692eb9afb98c24cd0fd39efee9071c828d9f7bf5ac1"
+      }
+    ],
+    "row_count": 351,
+    "columns": [
+      "metric_a",
+      "metric_b",
+      "source_a",
+      "source_b",
+      "correlation",
+      "overlap_records",
+      "year_min",
+      "year_max",
+      "created_at",
+      "method"
+    ]
+  },
+  "retrieved_at": "2026-02-13T19:06:06.692240+00:00",
+  "completeness_score": 0.5,
+  "recency_score": 0.5,
+  "provenance_score": 0.3,
+  "consistency_score": 0.5,
+  "overall_confidence_badge": "Low",
+  "overall_confidence_reason": [
+    "Low provenance confidence (source reliability category)",
+    "Missingness is high; check source completeness",
+    "Recency is stale against claimed update frequency",
+    "Schema/range checks showed potential consistency issues",
+    "Use for trend and risk ranking, not precise governance decisions"
+  ]
+}

@@ -1,0 +1,793 @@
+{
+  "generated_at": "2026-02-13T19:06:06.693083+00:00",
+  "datasets": [
+    {
+      "source_id": "data_gov_in_nhai_projects_api",
+      "connector": "data_gov_in_ogd",
+      "version": "0.1.0",
+      "status": "ok",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "National Highways Authority of India (NHAI)",
+        "title": "National Highways project-wise progress and execution data",
+        "domain": "data.gov.in",
+        "url": "https://api.data.gov.in/resource/{resource_id}",
+        "retrieval_method": "API call",
+        "access_type": "API",
+        "retrieved_at": "2026-02-13T19:06:06.180535+00:00",
+        "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "resource_id from data.gov.in",
+        "anchor": "manual_upload"
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/data_gov_in_nhai_projects_api.csv",
+            "sha256": "2c9bcea78d45a09d0d1c291fda9bfa5b00378c43e7e18c1b57e514f5f9aba455",
+            "size_bytes": 92
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/data_gov_in_nhai_projects_api.parquet",
+            "format": "parquet",
+            "sha256": "7ed6920662ca624c535572809ddf83e71be4d755128df01ce47d3b43a4987ddc"
+          }
+        ],
+        "row_count": 2,
+        "columns": [
+          "state",
+          "year",
+          "projects_started",
+          "projects_completed",
+          "source_type",
+          "source_id",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-02-13T19:06:06.188598+00:00",
+      "completeness_score": 1.0,
+      "recency_score": 1.0,
+      "provenance_score": 1.0,
+      "consistency_score": 1.0,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/data_gov_in_nhai_projects_api.parquet"
+    },
+    {
+      "source_id": "data_gov_in_nhai_project_finance_api",
+      "connector": "data_gov_in_ogd",
+      "version": "0.1.0",
+      "status": "ok",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "National Highways Authority of India (NHAI)",
+        "title": "National Highways project finance and budget allocation data",
+        "domain": "data.gov.in",
+        "url": "https://api.data.gov.in/resource/{resource_id}",
+        "retrieval_method": "API call",
+        "access_type": "API",
+        "retrieved_at": "2026-02-13T19:06:06.200454+00:00",
+        "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "resource_id + table/year/financial year",
+        "anchor": "manual_upload"
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/data_gov_in_nhai_project_finance_api.csv",
+            "sha256": "9bdd971b6d74fb50d77788e344995f2cfa74870d56100fc4542bd2ca4b45c022",
+            "size_bytes": 182
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
+            "format": "parquet",
+            "sha256": "e7ab1885c62d120af58460510f32f3b2344c7b12d1323adb61b31fea1e1fa40d"
+          }
+        ],
+        "row_count": 3,
+        "columns": [
+          "state",
+          "year",
+          "capital_allocation_crores",
+          "capital_released_crores",
+          "maintenance_allocation_crores",
+          "source_type",
+          "source_id",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-02-13T19:06:06.202417+00:00",
+      "completeness_score": 1.0,
+      "recency_score": 1.0,
+      "provenance_score": 1.0,
+      "consistency_score": 1.0,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/data_gov_in_nhai_project_finance_api.parquet"
+    },
+    {
+      "source_id": "morth_annual_report_pdf",
+      "connector": "morth_annual_report_pdf",
+      "version": "0.1.0",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "Ministry of Road Transport and Highways (MoRTH)",
+        "title": "MoRTH annual report PDF tables (selected annexes)",
+        "url": "https://morth.nic.in/annual-report",
+        "retrieved_at": "2026-02-13T19:06:06.205245+00:00",
+        "license_terms": "Open publication on morth.gov.in; verify page-level reuse permissions in the PDF footer or Gazette notice",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "annual report year + section/table identifier",
+        "anchor": "manual_annual_report_csv_page_reference",
+        "note": "Official annual-report table extracts imported from approved CSV snapshot."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/morth_annual_report_pdf.csv",
+            "sha256": "9fc3307365affac1cd36cdcd85d6bb4223898b0146bf1174512ac18a34d1de75",
+            "size_bytes": 354
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/morth_annual_report_pdf.parquet",
+            "sha256": "b83c734d1529b747c883eef0b0637bd31b6aa489427e76b70436afa9a1572e0c"
+          }
+        ],
+        "row_count": 6,
+        "columns": [
+          "state",
+          "year",
+          "metric_name",
+          "metric_value",
+          "unit",
+          "document_section",
+          "source_type",
+          "source_id",
+          "metric_category",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-02-13T19:06:06.205245+00:00",
+      "completeness_score": 0.909,
+      "recency_score": 0.98,
+      "provenance_score": 0.833,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/morth_annual_report_pdf.parquet"
+    },
+    {
+      "source_id": "nhai_press_release_index",
+      "connector": "nhai_publication_index",
+      "version": "0.1.0",
+      "status": "metadata_only",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "National Highways Authority of India (NHAI)",
+        "title": "NHAI publications and press release index",
+        "retrieved_at": "2026-02-13T19:06:06.214174+00:00",
+        "license_terms": "Official publication metadata reuse as per NHAI terms of use.",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "nhai_press_release_index",
+        "anchor": "index_page",
+        "note": "Metadata-only connector. Full page content not fetched to avoid prohibited scraping."
+      },
+      "manifest": {
+        "raw_files": [],
+        "output_files": [
+          {
+            "path": "data/processed/nhai_press_release_index.parquet",
+            "sha256": "38fb1ec2ae82f2aca27fc83993981258597ceb3399a18ffdae12b03be6caf958"
+          }
+        ],
+        "row_count": 1,
+        "columns": [
+          "source_id",
+          "source_type",
+          "dataset_source",
+          "metric_name",
+          "metric_value",
+          "unit",
+          "retrieved_at",
+          "publisher",
+          "retrieval_url",
+          "metric_category"
+        ]
+      },
+      "retrieved_at": "2026-02-13T19:06:06.214268+00:00",
+      "completeness_score": 0.62,
+      "recency_score": 0.62,
+      "provenance_score": 0.527,
+      "consistency_score": 0.62,
+      "overall_confidence_badge": "Low",
+      "overall_confidence_reason": [
+        "Schema/range checks showed potential consistency issues",
+        "Use for trend and risk ranking, not precise governance decisions",
+        "Metadata-only path; does not contain source metric values."
+      ],
+      "output_table_path": "data/processed/nhai_press_release_index.parquet"
+    },
+    {
+      "source_id": "ncrb_road_accidents_state_year",
+      "connector": "ncrb_accidents_pdf",
+      "version": "0.1.0",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "National Crime Records Bureau (NCRB)",
+        "title": "Road accident state and year summary tables",
+        "retrieved_at": "2026-02-13T19:06:06.219894+00:00",
+        "license_terms": "NCRB publication terms. Use only published tables and cite report/table numbers.",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "year and report table page numbers",
+        "anchor": "official_pdf_tables_or_manual_csv"
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/ncrb_road_accidents_state_year.csv",
+            "sha256": "50c027cb2981ffd71bb1addd1a8398241b12350b7bac1df266af97e518c7ee83",
+            "size_bytes": 167
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/ncrb_road_accidents_state_year.parquet",
+            "sha256": "dfc70e6fa99a14de40c6836654cd10eb314a2e2bc3dd6911364df3a09647f86f"
+          }
+        ],
+        "row_count": 3,
+        "columns": [
+          "state",
+          "year",
+          "total_accidents",
+          "fatal_crashes",
+          "total_killed",
+          "total_injured",
+          "source_type",
+          "source_id",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-02-13T19:06:06.219986+00:00",
+      "completeness_score": 0.98,
+      "recency_score": 0.98,
+      "provenance_score": 0.98,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/ncrb_road_accidents_state_year.parquet"
+    },
+    {
+      "source_id": "parliament_qa_highway_queries",
+      "connector": "parliament_qa_highway_queries_manual_csv",
+      "version": "0.1.0",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "Ministry of Statistics and Programme Implementation / Parliament Secretariat",
+        "title": "Parliamentary Questions and written replies on highways",
+        "url": "https://sansad.in/",
+        "retrieved_at": "2026-02-13T19:06:06.223100+00:00",
+        "license_terms": "Official parliament documentation; cite Q&A number and session/session year in methodology.",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "question number + session year",
+        "anchor": "official_q_and_a_session_index",
+        "note": "Parliament Q&A snapshot CSV imported through approved manual artifact."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/parliament_qa_highway_queries.csv",
+            "sha256": "54a88ddb6d2df978cc7a6fd40fd439ff8a82761299c814b248501e03612c2d27",
+            "size_bytes": 167
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/parliament_qa_highway_queries.parquet",
+            "sha256": "262769a4f9ce0695922d56af93510eeeb21b5a4b4ce69c61fc15f0ba27914eac"
+          }
+        ],
+        "row_count": 3,
+        "columns": [
+          "state",
+          "year",
+          "questions_raised",
+          "questions_answered",
+          "questions_pending",
+          "avg_response_days",
+          "source_type",
+          "source_id",
+          "metric_category",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-02-13T19:06:06.223100+00:00",
+      "completeness_score": 0.98,
+      "recency_score": 0.98,
+      "provenance_score": 0.833,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/parliament_qa_highway_queries.parquet"
+    },
+    {
+      "source_id": "rbi_mospi_macro_indicators",
+      "connector": "rbi_mospi_macro_pull",
+      "version": "0.1.0",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "Reserve Bank of India / Ministry of Statistics and Programme Implementation",
+        "title": "Macro indicators relevant to highway finance and inflation adjustments",
+        "url": "https://www.rbi.org.in/Scripts/{}",
+        "retrieved_at": "2026-02-13T19:06:06.231996+00:00",
+        "license_terms": "Official statistical products; confirm redistribution terms in portal.",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "official indicator code + release month",
+        "anchor": "official_manual_macro_snapshot",
+        "note": "Macro indicators imported through approved manual artifact."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/rbi_mospi_macro_indicators.csv",
+            "sha256": "c97ed498e465720fbb0b0f1c596d2ec9a16420777b2fc462549c56f2bd5fbad9",
+            "size_bytes": 273
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/rbi_mospi_macro_indicators.parquet",
+            "sha256": "194817694129c8574104a86ca6a373feff1c91f4e20bea56de96d94bed02569e"
+          }
+        ],
+        "row_count": 6,
+        "columns": [
+          "state",
+          "year",
+          "metric_name",
+          "metric_value",
+          "unit",
+          "source_type",
+          "source_id",
+          "metric_category",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-02-13T19:06:06.232110+00:00",
+      "completeness_score": 0.98,
+      "recency_score": 0.98,
+      "provenance_score": 0.98,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/rbi_mospi_macro_indicators.parquet"
+    },
+    {
+      "source_id": "morh_procurement_awards",
+      "connector": "morh_procurement_awards_stub",
+      "version": "0.1.0",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "Ministry of Road Transport and Highways (MoRTH)",
+        "title": "Procurement and award notices for highway works",
+        "url": "https://eprocure.gov.in",
+        "retrieved_at": "2026-02-13T19:06:06.236369+00:00",
+        "license_terms": "EProcurement portal terms and bidder-facing reuse restrictions.",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "notice number and award order id",
+        "anchor": "manual_procurement_or_annual_release_track",
+        "note": "Procurement CSV imported through approved manual artifact."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/morh_procurement_awards.csv",
+            "sha256": "275d633368319383c01d1e95089a49a847e8d2e2d255b9b70ccf8468d22567d1",
+            "size_bytes": 337
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/morh_procurement_awards.parquet",
+            "sha256": "bd1858c0e371b115fa4ac2b0751bd88529702b9b4cadf73188c53fd1d0e4eb37"
+          }
+        ],
+        "row_count": 6,
+        "columns": [
+          "state",
+          "year",
+          "metric_name",
+          "metric_value",
+          "unit",
+          "notice_id",
+          "source_type",
+          "source_id",
+          "metric_category",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-02-13T19:06:06.236369+00:00",
+      "completeness_score": 0.909,
+      "recency_score": 0.98,
+      "provenance_score": 0.833,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/morh_procurement_awards.parquet"
+    },
+    {
+      "source_id": "morh_contractor_disclosures",
+      "connector": "morh_contractor_disclosures_official_csv",
+      "version": "0.1.0",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "National Highways Authority of India (NHAI) / Ministry of Road Transport and Highways (MoRTH)",
+        "title": "Contractor qualification, performance, and award disclosures",
+        "url": "https://www.nhai.gov.in/en/contractor-disclosures",
+        "retrieved_at": "2026-02-13T19:06:06.242450+00:00",
+        "license_terms": "Use official releases and disclosures only; verify reuse permissions in associated notices.",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "notice/award order id and publication date",
+        "anchor": "official_notice_or_contract_award",
+        "note": "Contractor disclosure CSV imported through approved manual artifact."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/morh_contractor_disclosures.csv",
+            "sha256": "faf67e71edb6dfba035cb382fdec904e3e7eed0ba8e08b79498678a0632bfdeb",
+            "size_bytes": 262
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/morh_contractor_disclosures.parquet",
+            "sha256": "2cef64cd63c16473942049d455569373d4de418520f02a96f0e3246537db9833"
+          }
+        ],
+        "row_count": 2,
+        "columns": [
+          "state",
+          "year",
+          "project_id",
+          "project_name",
+          "contractor_name",
+          "contract_value_crores",
+          "award_status",
+          "source_type",
+          "source_id",
+          "metric_category",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-02-13T19:06:06.242450+00:00",
+      "completeness_score": 0.98,
+      "recency_score": 0.98,
+      "provenance_score": 0.833,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/morh_contractor_disclosures.parquet"
+    },
+    {
+      "source_id": "morh_arbitration_claims",
+      "connector": "morh_arbitration_claims_official_csv",
+      "version": "0.1.0",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "Ministry of Road Transport and Highways (MoRTH)",
+        "title": "Arbitration and claim settlements associated with highway projects",
+        "url": "https://morth.nic.in/arbitration-and-claims",
+        "retrieved_at": "2026-02-13T19:06:06.249576+00:00",
+        "license_terms": "Use only official releases, tribunal disclosures, and ministry-level replies.",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "order/award/case identifier and publication note",
+        "anchor": "official_claim_order_or_dispute_disposition",
+        "note": "Arbitration claim CSV imported through approved manual artifact."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/morh_arbitration_claims.csv",
+            "sha256": "d6a6890d72290880d7f89d0e8b05da9185e30077c25e60336a8dd766c7645ca5",
+            "size_bytes": 211
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/morh_arbitration_claims.parquet",
+            "sha256": "5408572ca854727bf83f0d003165a7e2255faf77df4f457c49df0e31a4ec6855"
+          }
+        ],
+        "row_count": 2,
+        "columns": [
+          "state",
+          "year",
+          "project_id",
+          "claim_id",
+          "claim_source",
+          "claim_amount_crores",
+          "claim_status",
+          "source_type",
+          "source_id",
+          "metric_category",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-02-13T19:06:06.249576+00:00",
+      "completeness_score": 0.98,
+      "recency_score": 0.98,
+      "provenance_score": 0.833,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/morh_arbitration_claims.parquet"
+    },
+    {
+      "source_id": "ncrb_toll_fastag_claims",
+      "connector": "ncrb_toll_fastag_claims_stub",
+      "version": "0.1.0",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "Ministry of Road Transport and Highways (MoRTH)",
+        "title": "Toll and FASTag collection quality signal snapshots",
+        "url": "https://fto.gov.in/api/toll-fastag",
+        "retrieved_at": "2026-02-13T19:06:06.256496+00:00",
+        "license_terms": "Portal specific API terms. Verify if telemetry fields are aggregated only.",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "API endpoint version and response schema",
+        "anchor": "manual_toll_fastag_release",
+        "note": "FASTag/quality snapshot CSV imported through approved manual artifact."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/ncrb_toll_fastag_claims.csv",
+            "sha256": "07540afcf8095df060c7b9a1776c2989e86436792e6056c59f0bf5417b97a10a",
+            "size_bytes": 372
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/ncrb_toll_fastag_claims.parquet",
+            "sha256": "c76fe43194525abd0de0452f1b2704f1811199b28d43a79bbc2673abe7c01ccc"
+          }
+        ],
+        "row_count": 6,
+        "columns": [
+          "state",
+          "year",
+          "metric_name",
+          "metric_value",
+          "unit",
+          "source_type",
+          "source_id",
+          "metric_category",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-02-13T19:06:06.256496+00:00",
+      "completeness_score": 0.98,
+      "recency_score": 0.98,
+      "provenance_score": 0.6859999999999999,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/ncrb_toll_fastag_claims.parquet"
+    },
+    {
+      "source_id": "quality_maintenance_indicators",
+      "connector": "quality_maintenance_proxy",
+      "version": "0.1.0",
+      "status": "manual_ingest",
+      "metric_category": "proxy_derived",
+      "source": {
+        "publisher": "OpenStreetMap Foundation / Academic proxy sources",
+        "title": "Corridor geometry and ancillary maintenance proxy indicators",
+        "url": "https://overpass-api.de/api/interpreter",
+        "retrieved_at": "2026-02-13T19:06:06.262296+00:00",
+        "license_terms": "OpenStreetMap ODbL terms; geometry/proxy use with attribution and separation from official metrics.",
+        "official_flag": false
+      },
+      "citations": {
+        "permanent_identifier": "Overpass query id or source timestamp",
+        "anchor": "openstreetmap_context_only",
+        "note": "This is proxy geometry/context only, not an official quality measurement."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/quality_maintenance_indicators.csv",
+            "sha256": "9f2dc71d751441e6e5b7b3f30d1748d447e7d50d513988bdc304f67f9800ba18",
+            "size_bytes": 325
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/quality_maintenance_indicators.parquet",
+            "sha256": "dcb3cf19cae97b7e182d62a1148f3189a95efcb2409d9af87df837413ffaa7fe"
+          }
+        ],
+        "row_count": 6,
+        "columns": [
+          "state",
+          "year",
+          "metric_name",
+          "metric_value",
+          "unit",
+          "source_type",
+          "source_id",
+          "metric_category",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-02-13T19:06:06.262296+00:00",
+      "completeness_score": 0.98,
+      "recency_score": 0.98,
+      "provenance_score": 0.588,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/quality_maintenance_indicators.parquet"
+    },
+    {
+      "source_id": "viirs_nightlights_proxy",
+      "connector": "viirs_nightlights_proxy_manual_csv",
+      "version": "0.1.0",
+      "status": "manual_ingest",
+      "metric_category": "proxy_derived",
+      "source": {
+        "publisher": "NASA Earthdata / NOAA",
+        "title": "VIIRS nightlights proxy activity index around national highways",
+        "url": "https://earthdata.nasa.gov/",
+        "retrieved_at": "2026-02-13T19:06:06.268206+00:00",
+        "license_terms": "Use NASA VIIRS proxy dataset under official redistribution terms; separate from measured infrastructure condition metrics.",
+        "official_flag": false
+      },
+      "citations": {
+        "permanent_identifier": "official nightlight scene id or annual product release",
+        "anchor": "proxy_nightlight_tile_metrics",
+        "note": "VIIRS proxy indicators imported through approved manual artifact; clearly marked as proxy-derived."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/viirs_nightlights_proxy.csv",
+            "sha256": "140cedfad9614c86b4c074472c256ee5e5f93ea0acbce8786fb4e67df0b82b0f",
+            "size_bytes": 160
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/viirs_nightlights_proxy.parquet",
+            "sha256": "23436906760a9998ef1a37deff29a8df23905b994f602ba02617e153a29365ff"
+          }
+        ],
+        "row_count": 3,
+        "columns": [
+          "state",
+          "year",
+          "nightlight_mean",
+          "nightlight_stddev",
+          "urban_activity_index",
+          "source_type",
+          "source_id",
+          "metric_category",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-02-13T19:06:06.268206+00:00",
+      "completeness_score": 0.98,
+      "recency_score": 0.98,
+      "provenance_score": 0.588,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/viirs_nightlights_proxy.parquet"
+    },
+    {
+      "source_id": "correlation_matrix",
+      "connector": "correlation_scoring",
+      "version": "0.1.0",
+      "status": "generated",
+      "output_table_path": "data/processed/correlation_matrix.parquet",
+      "metric_category": "model_output",
+      "source": {
+        "publisher": "Bharat Highway internal correlation engine",
+        "title": "Model-derived pairwise correlation matrix (state/year join)",
+        "retrieved_at": "2026-02-13T19:06:06.692030+00:00",
+        "official_flag": false,
+        "license_terms": "Model output for analysis only. Not an official policy statement."
+      },
+      "citations": {
+        "permanent_identifier": "correlation_matrix_v1",
+        "anchor": "derived_pairwise_pearson_state_year",
+        "note": "Derived from available numeric metrics across official measured and approved proxy inputs."
+      },
+      "manifest": {
+        "raw_files": [],
+        "output_files": [
+          {
+            "path": "data/processed/correlation_matrix.parquet",
+            "format": "parquet",
+            "sha256": "0b1ca820006e63ecfca6d692eb9afb98c24cd0fd39efee9071c828d9f7bf5ac1"
+          }
+        ],
+        "row_count": 351,
+        "columns": [
+          "metric_a",
+          "metric_b",
+          "source_a",
+          "source_b",
+          "correlation",
+          "overlap_records",
+          "year_min",
+          "year_max",
+          "created_at",
+          "method"
+        ]
+      },
+      "retrieved_at": "2026-02-13T19:06:06.692240+00:00",
+      "completeness_score": 0.5,
+      "recency_score": 0.5,
+      "provenance_score": 0.3,
+      "consistency_score": 0.5,
+      "overall_confidence_badge": "Low",
+      "overall_confidence_reason": [
+        "Low provenance confidence (source reliability category)",
+        "Missingness is high; check source completeness",
+        "Recency is stale against claimed update frequency",
+        "Schema/range checks showed potential consistency issues",
+        "Use for trend and risk ranking, not precise governance decisions"
+      ]
+    }
+  ]
+}

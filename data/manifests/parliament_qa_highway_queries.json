@@ -1,0 +1,57 @@
+{
+  "source_id": "parliament_qa_highway_queries",
+  "connector": "parliament_qa_highway_queries_manual_csv",
+  "version": "0.1.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "Ministry of Statistics and Programme Implementation / Parliament Secretariat",
+    "title": "Parliamentary Questions and written replies on highways",
+    "url": "https://sansad.in/",
+    "retrieved_at": "2026-02-13T19:06:06.223100+00:00",
+    "license_terms": "Official parliament documentation; cite Q&A number and session/session year in methodology.",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "question number + session year",
+    "anchor": "official_q_and_a_session_index",
+    "note": "Parliament Q&A snapshot CSV imported through approved manual artifact."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/parliament_qa_highway_queries.csv",
+        "sha256": "54a88ddb6d2df978cc7a6fd40fd439ff8a82761299c814b248501e03612c2d27",
+        "size_bytes": 167
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/parliament_qa_highway_queries.parquet",
+        "sha256": "262769a4f9ce0695922d56af93510eeeb21b5a4b4ce69c61fc15f0ba27914eac"
+      }
+    ],
+    "row_count": 3,
+    "columns": [
+      "state",
+      "year",
+      "questions_raised",
+      "questions_answered",
+      "questions_pending",
+      "avg_response_days",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-02-13T19:06:06.223100+00:00",
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.833,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/parliament_qa_highway_queries.parquet"
+}

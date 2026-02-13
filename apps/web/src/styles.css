@@ -1,0 +1,160 @@
+:root {
+  --bg: linear-gradient(130deg, #f3f7ff 0%, #effbf3 45%, #fff2db 100%);
+  --panel: rgba(255, 255, 255, 0.94);
+  --line: #d8e4ff;
+  --ink: #13253b;
+  --muted: #44515f;
+  --good: #0a8f52;
+  --warn: #b07a00;
+  --danger: #a0182d;
+  --accent: #1b4d91;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Trebuchet MS', 'Segoe UI', 'Verdana', sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+.app-shell {
+  padding: 24px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+header h1 {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(1.4rem, 2.5vw, 2.1rem);
+  letter-spacing: 0.02em;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin: 14px 0 22px;
+}
+
+.card {
+  background: var(--panel);
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  padding: 14px;
+  box-shadow: 0 14px 40px rgba(8, 32, 64, 0.08);
+  animation: rise 0.4s ease both;
+}
+
+.panel-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: slide 0.5s ease both;
+}
+
+.badge {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 0.78rem;
+  color: white;
+}
+
+.badge.high {
+  background: var(--good);
+}
+
+.badge.med {
+  background: var(--warn);
+}
+
+.badge.low {
+  background: var(--danger);
+}
+
+.metric-meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.source-type {
+  font-size: 0.8rem;
+  display: inline-flex;
+  gap: 8px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+}
+
+.source-type.official {
+  background: #ecf6ff;
+}
+
+.source-type.proxy {
+  background: #fff4e8;
+}
+
+.source-type.model {
+  background: #ffe7ed;
+}
+
+.status {
+  font-weight: 700;
+}
+
+.status.success {
+  color: var(--good);
+}
+
+.status.warn {
+  color: var(--danger);
+}
+
+button {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 14px;
+  cursor: pointer;
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(-8px);
+    opacity: 0.4;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 700px) {
+  .app-shell {
+    padding: 16px;
+  }
+}

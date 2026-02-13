@@ -1,0 +1,79 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Run research scan
+        run: |
+          python -m research.scan --inventory research/source_inventory.yaml --out research/source_inventory.json
+
+      - name: Run gap report
+        run: |
+          python -m research.gap_report --inventory research/source_inventory.yaml --out research/gaps.md
+
+      - name: Run official-first ingestion
+        run: |
+          python -m pipelines.ingest --inventory research/source_inventory.yaml
+
+      - name: Build correlation artifact
+        run: |
+          python -m pipelines.correlation
+
+      - name: Package static site
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/gh-pages/data/manifests /tmp/gh-pages/data/processed
+          cp -r apps/web/* /tmp/gh-pages/
+          cp -r data/manifests/* /tmp/gh-pages/data/manifests/
+          cp -r data/processed/* /tmp/gh-pages/data/processed/
+          cp data/manifests/catalog.json /tmp/gh-pages/data/
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: /tmp/gh-pages
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

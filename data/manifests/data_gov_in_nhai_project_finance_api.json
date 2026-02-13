@@ -1,0 +1,58 @@
+{
+  "source_id": "data_gov_in_nhai_project_finance_api",
+  "connector": "data_gov_in_ogd",
+  "version": "0.1.0",
+  "status": "ok",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI)",
+    "title": "National Highways project finance and budget allocation data",
+    "domain": "data.gov.in",
+    "url": "https://api.data.gov.in/resource/{resource_id}",
+    "retrieval_method": "API call",
+    "access_type": "API",
+    "retrieved_at": "2026-02-13T19:06:06.200454+00:00",
+    "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "resource_id + table/year/financial year",
+    "anchor": "manual_upload"
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/data_gov_in_nhai_project_finance_api.csv",
+        "sha256": "9bdd971b6d74fb50d77788e344995f2cfa74870d56100fc4542bd2ca4b45c022",
+        "size_bytes": 182
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
+        "format": "parquet",
+        "sha256": "e7ab1885c62d120af58460510f32f3b2344c7b12d1323adb61b31fea1e1fa40d"
+      }
+    ],
+    "row_count": 3,
+    "columns": [
+      "state",
+      "year",
+      "capital_allocation_crores",
+      "capital_released_crores",
+      "maintenance_allocation_crores",
+      "source_type",
+      "source_id",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-02-13T19:06:06.202417+00:00",
+  "completeness_score": 1.0,
+  "recency_score": 1.0,
+  "provenance_score": 1.0,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/data_gov_in_nhai_project_finance_api.parquet"
+}

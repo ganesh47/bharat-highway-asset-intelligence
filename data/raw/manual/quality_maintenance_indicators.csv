@@ -1,0 +1,7 @@
+state,year,metric_name,metric_value,unit
+Andhra Pradesh,2025,roughness_index,72,km_per_km
+Andhra Pradesh,2025,bridge_defect_index,0.21,Index
+Maharashtra,2025,roughness_index,65,km_per_km
+Maharashtra,2025,bridge_defect_index,0.18,Index
+Karnataka,2025,roughness_index,69,km_per_km
+Karnataka,2025,bridge_defect_index,0.16,Index

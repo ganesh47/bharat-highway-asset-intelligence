@@ -1,0 +1,56 @@
+{
+  "source_id": "ncrb_toll_fastag_claims",
+  "connector": "ncrb_toll_fastag_claims_stub",
+  "version": "0.1.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "Ministry of Road Transport and Highways (MoRTH)",
+    "title": "Toll and FASTag collection quality signal snapshots",
+    "url": "https://fto.gov.in/api/toll-fastag",
+    "retrieved_at": "2026-02-13T19:06:06.256496+00:00",
+    "license_terms": "Portal specific API terms. Verify if telemetry fields are aggregated only.",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "API endpoint version and response schema",
+    "anchor": "manual_toll_fastag_release",
+    "note": "FASTag/quality snapshot CSV imported through approved manual artifact."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/ncrb_toll_fastag_claims.csv",
+        "sha256": "07540afcf8095df060c7b9a1776c2989e86436792e6056c59f0bf5417b97a10a",
+        "size_bytes": 372
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/ncrb_toll_fastag_claims.parquet",
+        "sha256": "c76fe43194525abd0de0452f1b2704f1811199b28d43a79bbc2673abe7c01ccc"
+      }
+    ],
+    "row_count": 6,
+    "columns": [
+      "state",
+      "year",
+      "metric_name",
+      "metric_value",
+      "unit",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-02-13T19:06:06.256496+00:00",
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.6859999999999999,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/ncrb_toll_fastag_claims.parquet"
+}

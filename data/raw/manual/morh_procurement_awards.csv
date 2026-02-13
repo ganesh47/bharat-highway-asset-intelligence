@@ -1,0 +1,7 @@
+state,year,metric_name,metric_value,unit,notice_id
+Andhra Pradesh,2025,procurement_notices_issued,9,count
+Andhra Pradesh,2025,awarded_packages,7,count
+Maharashtra,2025,procurement_notices_issued,14,count
+Maharashtra,2025,awarded_packages,11,count
+Karnataka,2025,procurement_notices_issued,8,count
+Karnataka,2025,awarded_packages,6,count

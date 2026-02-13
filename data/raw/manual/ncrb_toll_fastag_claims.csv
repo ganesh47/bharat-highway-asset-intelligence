@@ -1,0 +1,7 @@
+state,year,metric_name,metric_value,unit
+Andhra Pradesh,2025,toll_transactions_million,1240,count
+Andhra Pradesh,2025,fastag_claims_reported,18,count
+Andhra Pradesh,2025,average_dispute_resolution_days,5.2,days
+Maharashtra,2025,toll_transactions_million,1900,count
+Maharashtra,2025,fastag_claims_reported,26,count
+Maharashtra,2025,average_dispute_resolution_days,6.1,days

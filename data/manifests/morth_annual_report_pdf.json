@@ -1,0 +1,57 @@
+{
+  "source_id": "morth_annual_report_pdf",
+  "connector": "morth_annual_report_pdf",
+  "version": "0.1.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "Ministry of Road Transport and Highways (MoRTH)",
+    "title": "MoRTH annual report PDF tables (selected annexes)",
+    "url": "https://morth.nic.in/annual-report",
+    "retrieved_at": "2026-02-13T19:06:06.205245+00:00",
+    "license_terms": "Open publication on morth.gov.in; verify page-level reuse permissions in the PDF footer or Gazette notice",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "annual report year + section/table identifier",
+    "anchor": "manual_annual_report_csv_page_reference",
+    "note": "Official annual-report table extracts imported from approved CSV snapshot."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/morth_annual_report_pdf.csv",
+        "sha256": "9fc3307365affac1cd36cdcd85d6bb4223898b0146bf1174512ac18a34d1de75",
+        "size_bytes": 354
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/morth_annual_report_pdf.parquet",
+        "sha256": "b83c734d1529b747c883eef0b0637bd31b6aa489427e76b70436afa9a1572e0c"
+      }
+    ],
+    "row_count": 6,
+    "columns": [
+      "state",
+      "year",
+      "metric_name",
+      "metric_value",
+      "unit",
+      "document_section",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-02-13T19:06:06.205245+00:00",
+  "completeness_score": 0.909,
+  "recency_score": 0.98,
+  "provenance_score": 0.833,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/morth_annual_report_pdf.parquet"
+}

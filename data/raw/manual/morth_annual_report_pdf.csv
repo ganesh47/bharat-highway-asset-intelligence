@@ -1,0 +1,7 @@
+state,year,metric_name,metric_value,unit,document_section
+Andhra Pradesh,2025,budgeted_projects_approved,3,count
+Andhra Pradesh,2025,completed_km_reported,420,km
+Maharashtra,2025,budgeted_projects_approved,5,count
+Maharashtra,2025,completed_km_reported,610,km
+Karnataka,2025,budgeted_projects_approved,4,count
+Karnataka,2025,completed_km_reported,355,km

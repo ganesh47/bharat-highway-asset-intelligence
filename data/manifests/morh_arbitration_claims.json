@@ -1,0 +1,58 @@
+{
+  "source_id": "morh_arbitration_claims",
+  "connector": "morh_arbitration_claims_official_csv",
+  "version": "0.1.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "Ministry of Road Transport and Highways (MoRTH)",
+    "title": "Arbitration and claim settlements associated with highway projects",
+    "url": "https://morth.nic.in/arbitration-and-claims",
+    "retrieved_at": "2026-02-13T19:06:06.249576+00:00",
+    "license_terms": "Use only official releases, tribunal disclosures, and ministry-level replies.",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "order/award/case identifier and publication note",
+    "anchor": "official_claim_order_or_dispute_disposition",
+    "note": "Arbitration claim CSV imported through approved manual artifact."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/morh_arbitration_claims.csv",
+        "sha256": "d6a6890d72290880d7f89d0e8b05da9185e30077c25e60336a8dd766c7645ca5",
+        "size_bytes": 211
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/morh_arbitration_claims.parquet",
+        "sha256": "5408572ca854727bf83f0d003165a7e2255faf77df4f457c49df0e31a4ec6855"
+      }
+    ],
+    "row_count": 2,
+    "columns": [
+      "state",
+      "year",
+      "project_id",
+      "claim_id",
+      "claim_source",
+      "claim_amount_crores",
+      "claim_status",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-02-13T19:06:06.249576+00:00",
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.833,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/morh_arbitration_claims.parquet"
+}

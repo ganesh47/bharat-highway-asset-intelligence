@@ -1,0 +1,58 @@
+{
+  "source_id": "morh_contractor_disclosures",
+  "connector": "morh_contractor_disclosures_official_csv",
+  "version": "0.1.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI) / Ministry of Road Transport and Highways (MoRTH)",
+    "title": "Contractor qualification, performance, and award disclosures",
+    "url": "https://www.nhai.gov.in/en/contractor-disclosures",
+    "retrieved_at": "2026-02-13T19:06:06.242450+00:00",
+    "license_terms": "Use official releases and disclosures only; verify reuse permissions in associated notices.",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "notice/award order id and publication date",
+    "anchor": "official_notice_or_contract_award",
+    "note": "Contractor disclosure CSV imported through approved manual artifact."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/morh_contractor_disclosures.csv",
+        "sha256": "faf67e71edb6dfba035cb382fdec904e3e7eed0ba8e08b79498678a0632bfdeb",
+        "size_bytes": 262
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/morh_contractor_disclosures.parquet",
+        "sha256": "2cef64cd63c16473942049d455569373d4de418520f02a96f0e3246537db9833"
+      }
+    ],
+    "row_count": 2,
+    "columns": [
+      "state",
+      "year",
+      "project_id",
+      "project_name",
+      "contractor_name",
+      "contract_value_crores",
+      "award_status",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-02-13T19:06:06.242450+00:00",
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.833,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/morh_contractor_disclosures.parquet"
+}

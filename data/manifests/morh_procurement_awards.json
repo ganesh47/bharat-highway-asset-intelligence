@@ -1,0 +1,57 @@
+{
+  "source_id": "morh_procurement_awards",
+  "connector": "morh_procurement_awards_stub",
+  "version": "0.1.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "Ministry of Road Transport and Highways (MoRTH)",
+    "title": "Procurement and award notices for highway works",
+    "url": "https://eprocure.gov.in",
+    "retrieved_at": "2026-02-13T19:06:06.236369+00:00",
+    "license_terms": "EProcurement portal terms and bidder-facing reuse restrictions.",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "notice number and award order id",
+    "anchor": "manual_procurement_or_annual_release_track",
+    "note": "Procurement CSV imported through approved manual artifact."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/morh_procurement_awards.csv",
+        "sha256": "275d633368319383c01d1e95089a49a847e8d2e2d255b9b70ccf8468d22567d1",
+        "size_bytes": 337
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/morh_procurement_awards.parquet",
+        "sha256": "bd1858c0e371b115fa4ac2b0751bd88529702b9b4cadf73188c53fd1d0e4eb37"
+      }
+    ],
+    "row_count": 6,
+    "columns": [
+      "state",
+      "year",
+      "metric_name",
+      "metric_value",
+      "unit",
+      "notice_id",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-02-13T19:06:06.236369+00:00",
+  "completeness_score": 0.909,
+  "recency_score": 0.98,
+  "provenance_score": 0.833,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/morh_procurement_awards.parquet"
+}

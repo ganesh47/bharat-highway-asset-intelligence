@@ -1,0 +1,281 @@
+version: 1
+last_updated: '2026-02-13'
+sources:
+  - source_id: data_gov_in_nhai_projects_api
+    official_flag: true
+    publisher_org: National Highways Authority of India (NHAI)
+    domain: data.gov.in
+    dataset_title: National Highways project-wise progress and execution data
+    theme: projects
+    access_type: API
+    auth: key
+    update_frequency: monthly
+    geographic_granularity: corridor
+    temporal_coverage: 2014-2026
+    license_terms: "Open Government Data License - India (OGL), subject to data.gov.in terms"
+    retrieval_method: API call
+    reliability_grade: A
+    reliability_justification: Official source published on India OGD platform with API metadata and versioned resource identifiers.
+    known_limitations: "May include delayed updates for corridor-level project reporting when agencies file late updates."
+    allow_auto_fetch: true
+    url: https://api.data.gov.in/resource/{resource_id}
+    resource_id: PLACEHOLDER_RESOURCE_ID
+    resource_id_env: DATAGOVIN_NHAI_RESOURCE_ID
+    api_key_env: DATAGOVIN_API_KEY
+    permanent_identifier_hint: "resource_id from data.gov.in"
+    notes: "Set DATAGOVIN_NHAI_RESOURCE_ID and DATAGOVIN_API_KEY in environment before auto-fetch."
+
+  - source_id: data_gov_in_nhai_project_finance_api
+    official_flag: true
+    publisher_org: National Highways Authority of India (NHAI)
+    domain: data.gov.in
+    dataset_title: National Highways project finance and budget allocation data
+    theme: finance
+    access_type: API
+    auth: key
+    update_frequency: monthly
+    geographic_granularity: corridor
+    temporal_coverage: 2018-2026
+    license_terms: "Open Government Data License - India (OGL), subject to data.gov.in terms"
+    retrieval_method: API call
+    reliability_grade: A
+    reliability_justification: Official finance-focused reporting aligned to National Highway project execution and budget flow.
+    known_limitations: "Budget and release fields can be revised by corrigenda and ministry clarifications."
+    allow_auto_fetch: true
+    url: https://api.data.gov.in/resource/{resource_id}
+    resource_id: PLACEHOLDER_FINANCE_RESOURCE_ID
+    resource_id_env: DATAGOVIN_NHAI_FINANCE_RESOURCE_ID
+    api_key_env: DATAGOVIN_API_KEY
+    permanent_identifier_hint: "resource_id + table/year/financial year"
+    notes: "Use approved API key and official resource id; local/manual CSV fallback is supported for non-production runs."
+
+  - source_id: morth_annual_report_pdf
+    official_flag: true
+    publisher_org: Ministry of Road Transport and Highways (MoRTH)
+    domain: morth.nic.in
+    dataset_title: MoRTH annual report PDF tables (selected annexes)
+    theme: finance
+    access_type: PDF
+    auth: none
+    update_frequency: annual
+    geographic_granularity: nation
+    temporal_coverage: 2022-present
+    license_terms: "Open publication on morth.gov.in; verify page-level reuse permissions in the PDF footer or Gazette notice"
+    retrieval_method: manual
+    reliability_grade: B
+    reliability_justification: Official statutory reporting, but data must be parsed from PDF tables with occasional extraction noise.
+    known_limitations: "Table extraction from scanned or merged PDFs may miss footnotes and row merges."
+    allow_auto_fetch: false
+    url: https://morth.nic.in/annual-report
+    permanent_identifier_hint: "annual report year + section/table identifier"
+    notes: "Use manual approval and local archival copy path under data/raw/manual for reproducibility."
+
+  - source_id: nhai_press_release_index
+    official_flag: true
+    publisher_org: National Highways Authority of India (NHAI)
+    domain: nhai.gov.in
+    dataset_title: NHAI publications and press release index
+    theme: projects
+    access_type: HTML
+    auth: none
+    update_frequency: monthly
+    geographic_granularity: nation
+    temporal_coverage: 2020-2026
+    license_terms: "Official publication metadata reuse as per NHAI terms of use."
+    retrieval_method: API call
+    reliability_grade: B
+    reliability_justification: Official newsroom metadata source, useful for provenance tracking and release timeline only.
+    known_limitations: "Only metadata/announce-level data; project performance metrics still need source documents."
+    allow_auto_fetch: false
+    url: https://www.nhai.gov.in/en/press-release
+    permanent_identifier_hint: "press-release page slug and publication date"
+    notes: "Metadata-only connector; does not scrape full article bodies."
+
+  - source_id: ncrb_road_accidents_state_year
+    official_flag: true
+    publisher_org: National Crime Records Bureau (NCRB)
+    domain: ncrb.gov.in
+    dataset_title: Road accident state and year summary tables
+    theme: safety
+    access_type: PDF
+    auth: none
+    update_frequency: annual
+    geographic_granularity: state
+    temporal_coverage: 2015-2025
+    license_terms: "NCRB publication terms. Use only published tables and cite report/table numbers."
+    retrieval_method: manual
+    reliability_grade: A
+    reliability_justification: Official yearly accident reporting used by Parliament/Q&A and policy briefs.
+    known_limitations: "Some states publish corrections after annual report release windows."
+    allow_auto_fetch: false
+    url: https://ncrb.gov.in/en/road-accidents-statistics
+    permanent_identifier_hint: "year and report table page numbers"
+    notes: "Set download paths manually in data/raw/manual and run through parser with explicit approval."
+
+  - source_id: parliament_qa_highway_queries
+    official_flag: true
+    publisher_org: Ministry of Statistics and Programme Implementation / Parliament Secretariat
+    domain: sansad.in
+    dataset_title: Parliamentary Questions and written replies on highways
+    theme: safety
+    access_type: CSV
+    auth: none
+    update_frequency: annual
+    geographic_granularity: state
+    temporal_coverage: 2019-2026
+    license_terms: "Official parliament documentation; cite Q&A number and session/session year in methodology."
+    retrieval_method: manual
+    reliability_grade: B
+    reliability_justification: "Official accountability records are authoritative; source is manually curated from committee and QA archives with approvals."
+    known_limitations: "Coverage is sparse for pre-2019 records and depends on state-wise question indexing quality."
+    allow_auto_fetch: false
+    url: https://sansad.in/
+    permanent_identifier_hint: "question number + session year"
+    notes: "Keep this as an official curated artifact under data/raw/manual with human approval."
+
+  - source_id: rbi_mospi_macro_indicators
+    official_flag: true
+    publisher_org: Reserve Bank of India / Ministry of Statistics and Programme Implementation
+    domain: rbi.org.in
+    dataset_title: Macro indicators relevant to highway finance and inflation adjustments
+    theme: macro
+    access_type: CSV
+    auth: none
+    update_frequency: monthly
+    geographic_granularity: nation
+    temporal_coverage: 2010-present
+    license_terms: "Official statistical products; confirm redistribution terms in portal."
+    retrieval_method: API call
+    reliability_grade: A
+    reliability_justification: Official macro indicators from central institutions; stable methodology and publication process.
+    known_limitations: "Coverage definitions can be revised between circulars and revisions may arrive post-release."
+    allow_auto_fetch: false
+    url: https://www.rbi.org.in/Scripts/{}
+    permanent_identifier_hint: "official indicator code + release month"
+    notes: "Endpoint examples vary by product page; leave disabled until an open, documented endpoint is provided."
+
+  - source_id: morh_procurement_awards
+    official_flag: true
+    publisher_org: Ministry of Road Transport and Highways (MoRTH)
+    domain: eprocure.gov.in
+    dataset_title: Procurement and award notices for highway works
+    theme: procurement_awards
+    access_type: portal
+    auth: restricted
+    update_frequency: monthly
+    geographic_granularity: corridor
+    temporal_coverage: 2018-present
+    license_terms: "EProcurement portal terms and bidder-facing reuse restrictions."
+    retrieval_method: manual
+    reliability_grade: B
+    reliability_justification: "Portal controls prevent reproducible crawling; value comes only from official release pages and parliamentary disclosures."
+    known_limitations: "Authenticated/robotically-restricted portal and captcha protections prevent programmatic access."
+    allow_auto_fetch: false
+    url: https://eprocure.gov.in
+    permanent_identifier_hint: "notice number and award order id"
+    notes: "Documented as a gap: manual retrieval only due captcha/restricted access."
+
+  - source_id: morh_contractor_disclosures
+    official_flag: true
+    publisher_org: National Highways Authority of India (NHAI) / Ministry of Road Transport and Highways (MoRTH)
+    domain: nhai.gov.in
+    dataset_title: Contractor qualification, performance, and award disclosures
+    theme: contractors
+    access_type: PDF
+    auth: restricted
+    update_frequency: annual
+    geographic_granularity: corridor
+    temporal_coverage: 2018-2026
+    license_terms: "Use official releases and disclosures only; verify reuse permissions in associated notices."
+    retrieval_method: manual
+    reliability_grade: B
+    reliability_justification: Official contract disclosures exist but often arrive as notices that require curated ingestion.
+    known_limitations: "Incomplete publication trails and inconsistent notice formatting across cycles."
+    allow_auto_fetch: false
+    url: https://www.nhai.gov.in/en/contractor-disclosures
+    permanent_identifier_hint: "notice/award order id and publication date"
+    notes: "Curation gate is manual due format and publication variability."
+
+  - source_id: morh_arbitration_claims
+    official_flag: true
+    publisher_org: Ministry of Road Transport and Highways (MoRTH)
+    domain: morth.nic.in
+    dataset_title: Arbitration and claim settlements associated with highway projects
+    theme: arbitration_claims
+    access_type: PDF
+    auth: restricted
+    update_frequency: annual
+    geographic_granularity: corridor
+    temporal_coverage: 2015-2026
+    license_terms: "Use only official releases, tribunal disclosures, and ministry-level replies."
+    retrieval_method: manual
+    reliability_grade: B
+    reliability_justification: Official legal updates are authoritative but are typically scattered across ministry archives and notices.
+    known_limitations: "Claims records are not published under a single public API."
+    allow_auto_fetch: false
+    url: https://morth.nic.in/arbitration-and-claims
+    permanent_identifier_hint: "order/award/case identifier and publication note"
+    notes: "Keep this source behind manual approval until official index references are standardized."
+
+  - source_id: ncrb_toll_fastag_claims
+    official_flag: true
+    publisher_org: Ministry of Road Transport and Highways (MoRTH)
+    domain: fto.gov.in
+    dataset_title: Toll and FASTag collection quality signal snapshots
+    theme: toll_fastag
+    access_type: API
+    update_frequency: monthly
+    geographic_granularity: nation
+    temporal_coverage: 2021-present
+    license_terms: "Portal specific API terms. Verify if telemetry fields are aggregated only."
+    retrieval_method: API call
+    reliability_grade: C
+    reliability_justification: "Source area is important, but API and portal behavior are controlled and intermittent; treat signals as provisional."
+    known_limitations: "Public API surface changes intermittently; historical re-run windows may have gaps."
+    auth: restricted
+    allow_auto_fetch: false
+    url: https://fto.gov.in/api/toll-fastag
+    permanent_identifier_hint: "API endpoint version and response schema"
+    notes: "Not currently implemented due access uncertainty."
+
+  - source_id: quality_maintenance_indicators
+    official_flag: false
+    publisher_org: OpenStreetMap Foundation / Academic proxy sources
+    domain: openstreetmap.org
+    dataset_title: Corridor geometry and ancillary maintenance proxy indicators
+    theme: quality_maintenance_signals
+    access_type: API
+    auth: none
+    update_frequency: monthly
+    geographic_granularity: corridor
+    temporal_coverage: ongoing
+    license_terms: "OpenStreetMap ODbL terms; geometry/proxy use with attribution and separation from official metrics."
+    retrieval_method: API call
+    reliability_grade: C
+    known_limitations: "Proxy only. Not an official measurement of highway condition."
+    reliability_justification: "Open mapping dataset useful for route geometry context; explicitly separated from official metrics."
+    allow_auto_fetch: false
+    url: https://overpass-api.de/api/interpreter
+    permanent_identifier_hint: "Overpass query id or source timestamp"
+    notes: "Use as geometry context only and mark as proxy-derived in UI."
+
+  - source_id: viirs_nightlights_proxy
+    official_flag: false
+    publisher_org: NASA Earthdata / NOAA
+    domain: earthdata.nasa.gov
+    dataset_title: VIIRS nightlights proxy activity index around national highways
+    theme: quality_maintenance_signals
+    access_type: CSV
+    auth: none
+    update_frequency: annual
+    geographic_granularity: corridor
+    temporal_coverage: 2015-2026
+    license_terms: "Use NASA VIIRS proxy dataset under official redistribution terms; separate from measured infrastructure condition metrics."
+    retrieval_method: manual
+    reliability_grade: C
+    reliability_justification: "Globally recognized satellite proxy; useful for correlation but not an official road condition measurement."
+    known_limitations: "Not a direct condition survey; requires careful interpretation and clear uncertainty disclosure."
+    allow_auto_fetch: false
+    url: https://earthdata.nasa.gov/
+    permanent_identifier_hint: "official nightlight scene id or annual product release"
+    notes: "Use only officially mirrored/stable snapshots; add through data/raw/manual for reproducibility."

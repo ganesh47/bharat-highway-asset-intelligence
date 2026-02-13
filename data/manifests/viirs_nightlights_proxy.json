@@ -1,0 +1,56 @@
+{
+  "source_id": "viirs_nightlights_proxy",
+  "connector": "viirs_nightlights_proxy_manual_csv",
+  "version": "0.1.0",
+  "status": "manual_ingest",
+  "metric_category": "proxy_derived",
+  "source": {
+    "publisher": "NASA Earthdata / NOAA",
+    "title": "VIIRS nightlights proxy activity index around national highways",
+    "url": "https://earthdata.nasa.gov/",
+    "retrieved_at": "2026-02-13T19:06:06.268206+00:00",
+    "license_terms": "Use NASA VIIRS proxy dataset under official redistribution terms; separate from measured infrastructure condition metrics.",
+    "official_flag": false
+  },
+  "citations": {
+    "permanent_identifier": "official nightlight scene id or annual product release",
+    "anchor": "proxy_nightlight_tile_metrics",
+    "note": "VIIRS proxy indicators imported through approved manual artifact; clearly marked as proxy-derived."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/viirs_nightlights_proxy.csv",
+        "sha256": "140cedfad9614c86b4c074472c256ee5e5f93ea0acbce8786fb4e67df0b82b0f",
+        "size_bytes": 160
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/viirs_nightlights_proxy.parquet",
+        "sha256": "23436906760a9998ef1a37deff29a8df23905b994f602ba02617e153a29365ff"
+      }
+    ],
+    "row_count": 3,
+    "columns": [
+      "state",
+      "year",
+      "nightlight_mean",
+      "nightlight_stddev",
+      "urban_activity_index",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-02-13T19:06:06.268206+00:00",
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.588,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/viirs_nightlights_proxy.parquet"
+}
