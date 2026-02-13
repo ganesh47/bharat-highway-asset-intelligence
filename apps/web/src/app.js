@@ -219,7 +219,7 @@ function App() {
         }
       } catch (err) {
         if (mounted) {
-          setError(`Could not load catalog. Tried: ${CATALOG_PATH}. Run python -m pipelines.ingest and refresh.`);
+          setError(`Could not load catalog from ${CATALOG_PATH}. Hard refresh (Ctrl/Cmd+Shift+R). If running locally: python -m pipelines.ingest then refresh.`);
           setLoading(false);
         }
       }
