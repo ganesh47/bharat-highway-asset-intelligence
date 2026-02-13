@@ -3,10 +3,9 @@ import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import * as duckdb from 'https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser.mjs';
 
 function resolveAssetPath(relPath) {
-  const pathname = window.location.pathname;
-  const normalizedPath = pathname.endsWith('/') ? pathname : pathname.slice(0, pathname.lastIndexOf('/') + 1);
-  const appMarker = '/apps/web';
-  const rootPath = normalizedPath.includes(appMarker) ? normalizedPath.split(appMarker)[0] : normalizedPath;
+  const pathname = window.location.pathname || '/';
+  const normalizedPath = pathname.endsWith('/') ? pathname : `${pathname}/`;
+  const rootPath = normalizedPath.replace(/\/?apps\/web\/?$/, '/');
   const sanitizedRoot = rootPath.endsWith('/') ? rootPath : `${rootPath}/`;
   const sanitizedRel = relPath.replace(/^\/+/, '');
   return `${sanitizedRoot}${sanitizedRel}`;
