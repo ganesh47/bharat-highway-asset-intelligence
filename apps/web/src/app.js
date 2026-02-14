@@ -40,7 +40,7 @@ function assetCandidates(relPath) {
       return;
     }
     const normalizedValues = [];
-    const normalized = value.startsWith('/') ? value : `/${value}`;
+    const normalized = (value.startsWith('/') ? value : `/${value}`).replace(/\/{2,}/g, '/');
     normalizedValues.push(normalized);
     const collapsed = collapseLeadingDuplicateSegments(normalized);
     if (collapsed && collapsed !== normalized) {
