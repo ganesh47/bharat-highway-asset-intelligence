@@ -7,7 +7,7 @@
   "source": {
     "publisher": "National Crime Records Bureau (NCRB)",
     "title": "Road accident state and year summary tables",
-    "retrieved_at": "2026-02-14T06:48:09.469717+00:00",
+    "retrieved_at": "2026-02-14T06:58:16.585271+00:00",
     "license_terms": "NCRB publication terms. Use only published tables and cite report/table numbers.",
     "official_flag": true
   },
@@ -26,7 +26,7 @@
     "output_files": [
       {
         "path": "data/processed/ncrb_road_accidents_state_year.parquet",
-        "sha256": "093a22b5a39f7021eb6055512d165cc916d1d02fde13f2f63f7410fd900c1e3f"
+        "sha256": "32a9c4ed7b0b88c2452dcd45057e9428d39eedfe390d9d7faba2ad5b0d9e724e"
       }
     ],
     "row_count": 3,
@@ -42,7 +42,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-14T06:48:09.469824+00:00",
+  "retrieved_at": "2026-02-14T06:58:16.585373+00:00",
   "completeness_score": 0.98,
   "recency_score": 0.98,
   "provenance_score": 0.98,

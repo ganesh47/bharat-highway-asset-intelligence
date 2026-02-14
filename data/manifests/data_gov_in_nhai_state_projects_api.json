@@ -11,7 +11,7 @@
     "url": "https://www.data.gov.in/resource/state-wise-number-nh-and-road-projects-relating-are-included-national-infrastructure",
     "retrieval_method": "API call",
     "access_type": "API",
-    "retrieved_at": "2026-02-14T06:50:51.635949+00:00",
+    "retrieved_at": "2026-02-14T06:57:55.051739+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
@@ -32,7 +32,7 @@
       {
         "path": "data/processed/data_gov_in_nhai_state_projects_api.parquet",
         "format": "parquet",
-        "sha256": "c7a7c74769d9b237307052c2f5b74a9726fb94e9fd012593a1500ec06188359e"
+        "sha256": "ef30a8f8c98105a7886be38e2f4749dee2667abd4bdbce88ada45477f94922cf"
       }
     ],
     "row_count": 5,
@@ -49,7 +49,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-14T06:50:51.635949+00:00",
+  "retrieved_at": "2026-02-14T06:57:55.051739+00:00",
   "skip_reason": "official_page_fetch_failed:HTTPSConnectionPool(host='www.data.gov.in', port=443): Read timed out. (read timeout=20)",
   "completeness_score": 0.98,
   "recency_score": 0.98,

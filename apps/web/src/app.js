@@ -4,14 +4,15 @@ import * as duckdb from 'https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0
 
 function detectSiteBase() {
   const path = window.location.pathname || '/';
-  const markerIndex = path.indexOf('/apps/web/');
+  const normalized = path.replace(/\/+/g, '/');
+  const markerIndex = normalized.indexOf('/apps/web/');
   if (markerIndex >= 0) {
-    return path.slice(0, markerIndex + 1);
+    return normalized.slice(0, markerIndex + 1);
   }
-  if (path.endsWith('/')) {
-    return path;
+  if (normalized.endsWith('/')) {
+    return normalized;
   }
-  return `${path.replace(/\/+[^/]*$/, '')}/`;
+  return `${normalized.replace(/\/+[^/]*$/, '')}/`;
 }
 
 const SITE_BASE = detectSiteBase();
@@ -25,11 +26,27 @@ function sitePath(relPath) {
 function candidatePaths(relPath) {
   const clean = relPath.replace(/^\/+/, '');
   const candidates = [sitePath(clean), `/${clean}`];
+  if (SITE_BASE && SITE_BASE.length > 1 && SITE_BASE !== '/'){
+    const firstSegment = SITE_BASE.split('/').filter(Boolean)[0];
+    if (firstSegment) {
+      candidates.push(`/${firstSegment}/${clean}`);
+    }
+  }
   const firstSegment = (window.location.pathname || '').split('/').filter(Boolean)[0];
   const alt = firstSegment ? `/${firstSegment}/${clean}` : null;
   if (alt && !candidates.includes(alt)) {
     candidates.push(alt);
   }
+
+  // Handle accidental duplicated repository base segments (e.g. /repo/repo/...).
+  const parts = (window.location.pathname || '/').split('/').filter(Boolean);
+  if (parts.length >= 2 && parts[0] === parts[1] && parts[0]) {
+    const dedup = `/${parts[0]}/${clean}`;
+    if (!candidates.includes(dedup)) {
+      candidates.push(dedup);
+    }
+  }
+
   return [...new Set(candidates)];
 }
 

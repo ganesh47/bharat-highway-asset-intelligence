@@ -54,16 +54,22 @@ jobs:
       - name: Package static site
         run: |
           set -euo pipefail
-          mkdir -p /tmp/gh-pages/data/manifests /tmp/gh-pages/data/processed /tmp/gh-pages/apps/web
+          mkdir -p /tmp/gh-pages/data/manifests /tmp/gh-pages/data/processed
           mkdir -p /tmp/gh-pages/duckdb
           cp -r apps/web/* /tmp/gh-pages/
+          mkdir -p /tmp/gh-pages/apps/web
+          cp -r apps/web/* /tmp/gh-pages/apps/web/
           cp -r data/manifests/* /tmp/gh-pages/data/manifests/
           cp -r data/processed/* /tmp/gh-pages/data/processed/
+          mkdir -p /tmp/gh-pages/apps/web/data/manifests /tmp/gh-pages/apps/web/data/processed /tmp/gh-pages/apps/web/duckdb
+          cp -r data/manifests/* /tmp/gh-pages/apps/web/data/manifests/
+          cp -r data/processed/* /tmp/gh-pages/apps/web/data/processed/
           curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-eh.wasm https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-eh.wasm
           curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-mvp.wasm https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-mvp.wasm
           curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-browser-eh.worker.js https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser-eh.worker.js
           curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-browser-mvp.worker.js https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser-mvp.worker.js
           curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-browser-coi.pthread.worker.js https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser-coi.pthread.worker.js
+          cp -r /tmp/gh-pages/duckdb/* /tmp/gh-pages/apps/web/duckdb/
           cp -r /tmp/gh-pages/data/manifests/catalog.json /tmp/gh-pages/data/
 
       - name: Configure GitHub Pages
