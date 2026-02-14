@@ -11,6 +11,17 @@ function resolveAssetPath(relPath) {
   return `${sanitizedRoot}${sanitizedRel}`;
 }
 
+function moduleRootPath() {
+  try {
+    const modulePath = new URL(import.meta.url).pathname;
+    const stripped = modulePath.replace(/\/src\/app\.js$/, '').replace(/\/+$/, '');
+    const normalized = stripped.replace(/\/?apps\/web\/?$/, '/');
+    return normalized.endsWith('/') ? normalized : `${normalized}/`;
+  } catch {
+    return '/';
+  }
+}
+
 function collapseLeadingDuplicateSegments(pathname) {
   const trimmed = pathname.replace(/^\/+|\/+$/g, '');
   const parts = trimmed.split('/').filter(Boolean);
@@ -45,6 +56,7 @@ function assetCandidates(relPath) {
   };
 
   add(resolveAssetPath(direct));
+  add(`${moduleRootPath()}/${direct}`);
 
   const scriptPath = document.currentScript?.src;
   if (scriptPath && scriptPath.includes('/apps/web/')) {
@@ -154,16 +166,27 @@ async function queryRows(db, path) {
 
 async function readCatalog(path) {
   const catalogCandidates = assetCandidates(path);
+  const failures = [];
   for (const candidate of catalogCandidates) {
     try {
       const response = await fetch(candidate);
       if (!response.ok) {
+        failures.push(`${candidate}: ${response.status}`);
         continue;
       }
-      return await response.json();
-    } catch {
+      const payload = await response.json();
+      if (!payload || !payload.datasets) {
+        failures.push(`${candidate}: missing datasets`);
+        continue;
+      }
+      return payload;
+    } catch (error) {
+      failures.push(`${candidate}: ${error?.message || 'parse error'}`);
       continue;
     }
+  }
+  if (typeof window !== 'undefined') {
+    window.__catalogLoadFailures = failures;
   }
   return null;
 }
@@ -249,7 +272,9 @@ function App() {
         }
       } catch (err) {
         if (mounted) {
-          setError(`Could not load catalog from ${CATALOG_PATH}. Hard refresh (Ctrl/Cmd+Shift+R). If running locally: python -m pipelines.ingest then refresh.`);
+          const attempts = window.__catalogLoadFailures || [];
+          const details = attempts.length ? ` Attempts: ${attempts.join(' | ')}` : '';
+          setError(`Could not load catalog from ${CATALOG_PATH}. Hard refresh (Ctrl/Cmd+Shift+R). If running locally: python -m pipelines.ingest then refresh.${details}`);
           setLoading(false);
         }
       }
