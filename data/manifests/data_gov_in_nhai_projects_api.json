@@ -1,52 +1,56 @@
 {
   "source_id": "data_gov_in_nhai_projects_api",
   "connector": "data_gov_in_ogd",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "status": "ok",
   "metric_category": "official_measured",
   "source": {
     "publisher": "National Highways Authority of India (NHAI)",
     "title": "National Highways project-wise progress and execution data",
     "domain": "data.gov.in",
-    "url": "https://api.data.gov.in/resource/{resource_id}",
+    "url": "https://www.data.gov.in/resource/project-wise-details-projects-construction-progress-length-national-highways-nhs-state",
     "retrieval_method": "API call",
     "access_type": "API",
-    "retrieved_at": "2026-02-14T05:39:29.105326+00:00",
+    "retrieved_at": "2026-02-14T06:47:21.140642+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
   "citations": {
     "permanent_identifier": "resource_id from data.gov.in",
-    "anchor": "manual_upload"
+    "anchor": "resource_page_file:https://www.data.gov.in/sites/default/files/RS_Session_266_AU_2662_1.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
   },
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/data_gov_in_nhai_projects_api.csv",
-        "sha256": "2c9bcea78d45a09d0d1c291fda9bfa5b00378c43e7e18c1b57e514f5f9aba455",
-        "size_bytes": 92
+        "path": "data/raw/data_gov_in_nhai_projects_api/data_gov_in_nhai_projects_api/raw_20260214_064722.csv",
+        "sha256": "8e350748bca06b4aa2a0d84b1ead500e5408cd59f50c01375c91de467c6b681a",
+        "size_bytes": 5441
       }
     ],
     "output_files": [
       {
         "path": "data/processed/data_gov_in_nhai_projects_api.parquet",
         "format": "parquet",
-        "sha256": "d758664f143eba61dc2472916ac8083348f44f4ab2558af55d7b3cd5dbea3a6f"
+        "sha256": "78b0fae2a78f8b546b46ab029f7be3fcfd33e39fc7e48d804799570440d24eee"
       }
     ],
-    "row_count": 2,
+    "row_count": 42,
     "columns": [
-      "state",
-      "year",
-      "projects_started",
-      "projects_completed",
+      "sl._no.",
+      "name_of_project",
+      "length_in_km",
+      "sanctioned_cost_rs._in_cr",
+      "construction_progress_pct",
       "source_type",
       "source_id",
+      "metric_category",
       "dataset_source",
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-14T05:39:29.121111+00:00",
+  "retrieved_at": "2026-02-14T06:47:21.140642+00:00",
+  "skip_reason": "api_fetch_failed:400 Client Error: Bad Request for url: https://api.data.gov.in/resource/%7Bresource_id%7D?api-key=&format=json&limit=50000",
   "completeness_score": 1.0,
   "recency_score": 1.0,
   "provenance_score": 1.0,

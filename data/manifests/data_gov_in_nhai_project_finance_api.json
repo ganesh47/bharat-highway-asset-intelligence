@@ -1,54 +1,61 @@
 {
   "source_id": "data_gov_in_nhai_project_finance_api",
   "connector": "data_gov_in_ogd",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "status": "ok",
   "metric_category": "official_measured",
   "source": {
     "publisher": "National Highways Authority of India (NHAI)",
     "title": "National Highways project finance and budget allocation data",
     "domain": "data.gov.in",
-    "url": "https://api.data.gov.in/resource/{resource_id}",
+    "url": "https://www.data.gov.in/resource/year-wise-details-funds-allocatedraised-and-expenditure-incurred-development-and",
     "retrieval_method": "API call",
     "access_type": "API",
-    "retrieved_at": "2026-02-14T05:39:29.144275+00:00",
+    "retrieved_at": "2026-02-14T06:47:22.297604+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
   "citations": {
     "permanent_identifier": "resource_id + table/year/financial year",
-    "anchor": "manual_upload"
+    "anchor": "resource_page_file:https://www.data.gov.in/sites/default/files/RS_Session_267_AU_1550_D.i.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
   },
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/data_gov_in_nhai_project_finance_api.csv",
-        "sha256": "9bdd971b6d74fb50d77788e344995f2cfa74870d56100fc4542bd2ca4b45c022",
-        "size_bytes": 182
+        "path": "data/raw/data_gov_in_nhai_project_finance_api/data_gov_in_nhai_project_finance_api/raw_20260214_064723.csv",
+        "sha256": "e1a77ef48a0620dfe81d081523db45da60e6f6c41654276294db593278836bb0",
+        "size_bytes": 648
       }
     ],
     "output_files": [
       {
         "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
         "format": "parquet",
-        "sha256": "df330d6966dcf3ad38a7e8ad07b4a37f2b95590e3fefcc73fe2052b00603d12d"
+        "sha256": "1bac69457f0c7dad4aac32aac1fb774347a36278f9144180884434cd808de6c5"
       }
     ],
-    "row_count": 3,
+    "row_count": 6,
     "columns": [
-      "state",
-      "year",
-      "capital_allocation_crores",
-      "capital_released_crores",
-      "maintenance_allocation_crores",
+      "year-wise",
+      "allocation/target_-_budgetary",
+      "allocation/target_-_iebr_target",
+      "allocation/target_-_others",
+      "allocation/target_-_total",
+      "expenditure/release_of_funds/actuals_-_budgetary",
+      "expenditure/release_of_funds/actuals_-_iebr_actual",
+      "expenditure/release_of_funds/actuals_-_others",
+      "expenditure/release_of_funds/actuals_-_total",
       "source_type",
       "source_id",
+      "metric_category",
       "dataset_source",
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-14T05:39:29.146449+00:00",
-  "completeness_score": 1.0,
+  "retrieved_at": "2026-02-14T06:47:22.297604+00:00",
+  "skip_reason": "api_fetch_failed:400 Client Error: Bad Request for url: https://api.data.gov.in/resource/%7Bresource_id%7D?api-key=&format=json&limit=50000",
+  "completeness_score": 0.976,
   "recency_score": 1.0,
   "provenance_score": 1.0,
   "consistency_score": 1.0,

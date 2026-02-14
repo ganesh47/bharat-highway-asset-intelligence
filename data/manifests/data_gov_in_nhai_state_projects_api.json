@@ -1,0 +1,61 @@
+{
+  "source_id": "data_gov_in_nhai_state_projects_api",
+  "connector": "data_gov_in_ogd",
+  "version": "0.2.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI)",
+    "title": "State-wise national highway and road project counts",
+    "domain": "data.gov.in",
+    "url": "https://www.data.gov.in/resource/state-wise-number-nh-and-road-projects-relating-are-included-national-infrastructure",
+    "retrieval_method": "API call",
+    "access_type": "API",
+    "retrieved_at": "2026-02-14T06:50:51.635949+00:00",
+    "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "resource_id from data.gov.in (or state projects page file)",
+    "anchor": "manual_upload",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/data_gov_in_nhai_state_projects_api.csv",
+        "sha256": "65b482de972b3afab75ae44b362d10b932dfa1e2e901db752c5d86d7245fdd07",
+        "size_bytes": 245
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/data_gov_in_nhai_state_projects_api.parquet",
+        "format": "parquet",
+        "sha256": "c7a7c74769d9b237307052c2f5b74a9726fb94e9fd012593a1500ec06188359e"
+      }
+    ],
+    "row_count": 5,
+    "columns": [
+      "sl._no.",
+      "state",
+      "number_of_nh_projects",
+      "length_in_km",
+      "capital_outlay__rs_in_cr_for_the_years_2020_to_2024",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-02-14T06:50:51.635949+00:00",
+  "skip_reason": "official_page_fetch_failed:HTTPSConnectionPool(host='www.data.gov.in', port=443): Read timed out. (read timeout=20)",
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.833,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/data_gov_in_nhai_state_projects_api.parquet"
+}

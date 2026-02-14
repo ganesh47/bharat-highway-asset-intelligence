@@ -1,124 +1,216 @@
 import React, { useEffect, useState } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
-import * as duckdb from 'https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser.mjs';
+import * as duckdb from 'https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm';
 
-function pickAssetPath(pathCandidates) {
-  return pickCanonicalAssetPath(pathCandidates) || resolveAssetPath(pathCandidates);
+function detectSiteBase() {
+  const path = window.location.pathname || '/';
+  const markerIndex = path.indexOf('/apps/web/');
+  if (markerIndex >= 0) {
+    return path.slice(0, markerIndex + 1);
+  }
+  if (path.endsWith('/')) {
+    return path;
+  }
+  return `${path.replace(/\/+[^/]*$/, '')}/`;
 }
 
-function pickDuckDBAssetPath(relPath) {
-  return pickAssetPath(assetCandidates(relPath));
+const SITE_BASE = detectSiteBase();
+
+function sitePath(relPath) {
+  const normalized = relPath.replace(/^\/+/, '');
+  const base = SITE_BASE || '/';
+  return `${base}${normalized}`.replace(/\/{2,}/g, '/');
+}
+
+function candidatePaths(relPath) {
+  const clean = relPath.replace(/^\/+/, '');
+  const candidates = [sitePath(clean), `/${clean}`];
+  const firstSegment = (window.location.pathname || '').split('/').filter(Boolean)[0];
+  const alt = firstSegment ? `/${firstSegment}/${clean}` : null;
+  if (alt && !candidates.includes(alt)) {
+    candidates.push(alt);
+  }
+  return [...new Set(candidates)];
+}
+
+async function readCatalog(path) {
+  const candidates = candidatePaths(path);
+  for (const candidate of candidates) {
+    try {
+      const response = await fetch(candidate, { cache: 'no-store' });
+      if (!response.ok) {
+        throw new Error(`${candidate}: ${response.status}`);
+      }
+      const payload = await response.json();
+      if (!payload || !payload.datasets) {
+        throw new Error(`${candidate}: missing datasets field`);
+      }
+      return payload;
+    } catch (error) {
+      if (typeof window !== 'undefined') {
+        window.__catalogLoadAttempts = window.__catalogLoadAttempts || [];
+        window.__catalogLoadAttempts.push(error.message || String(error));
+      }
+    }
+  }
+  return Promise.reject(new Error(`Catalog load failed for ${path}.`));
 }
 
 function getDuckDBBundleCandidates() {
-  const eh = {
-    mainModule: pickDuckDBAssetPath('duckdb/duckdb-eh.wasm'),
-    mainWorker: pickDuckDBAssetPath('duckdb/duckdb-browser-eh.worker.js'),
-    pthreadWorker: null,
+  return {
+    eh: {
+      mainModule: sitePath('duckdb/duckdb-eh.wasm'),
+      mainWorker: sitePath('duckdb/duckdb-browser-eh.worker.js'),
+      pthreadWorker: null,
+    },
+    mvp: {
+      mainModule: sitePath('duckdb/duckdb-mvp.wasm'),
+      mainWorker: sitePath('duckdb/duckdb-browser-mvp.worker.js'),
+      pthreadWorker: null,
+    },
   };
-  const mvp = {
-    mainModule: pickDuckDBAssetPath('duckdb/duckdb-mvp.wasm'),
-    mainWorker: pickDuckDBAssetPath('duckdb/duckdb-browser-mvp.worker.js'),
-    pthreadWorker: null,
-  };
-  return { eh, mvp };
 }
 
-function getDuckDBBundle() {
+async function initDuckDB() {
+  const features = await duckdb.getPlatformFeatures();
   const bundles = getDuckDBBundleCandidates();
-  return { eh: { ...bundles.eh }, mvp: { ...bundles.mvp } };
-}
+  const selected = features.wasmSIMD && features.wasmExceptions ? bundles.eh : bundles.mvp;
+  const logger = new duckdb.ConsoleLogger();
 
-function resolveAssetPath(relPath) {
-  const pathname = window.location.pathname || '/';
-  const normalizedPath = pathname.endsWith('/') ? pathname : `${pathname}/`;
-  const rootPath = normalizedPath.replace(/\/?apps\/web\/?$/, '/');
-  const sanitizedRoot = rootPath.endsWith('/') ? rootPath : `${rootPath}/`;
-  const sanitizedRel = relPath.replace(/^\/+/, '');
-  return `${sanitizedRoot}${sanitizedRel}`;
-}
+  const instantiate = async (bundle) => {
+    const worker = new Worker(bundle.mainWorker, { type: 'module' });
+    const db = new duckdb.AsyncDuckDB(logger, worker);
+    await db.instantiate(bundle.mainModule, bundle.pthreadWorker);
+    return db;
+  };
 
-function moduleRootPath() {
   try {
-    const modulePath = new URL(import.meta.url).pathname;
-    const stripped = modulePath.replace(/\/src\/app\.js$/, '').replace(/\/+$/, '');
-    const normalized = stripped.replace(/\/?apps\/web\/?$/, '/');
-    return normalized.endsWith('/') ? normalized : `${normalized}/`;
-  } catch {
-    return '/';
+    return await instantiate(selected);
+  } catch (error) {
+    if (selected !== bundles.mvp) {
+      return await instantiate(bundles.mvp);
+    }
+    throw error;
   }
 }
 
-function collapseLeadingDuplicateSegments(pathname) {
-  const trimmed = pathname.replace(/^\/+|\/+$/g, '');
-  const parts = trimmed.split('/').filter(Boolean);
-  if (parts.length >= 2 && parts[0] === parts[1]) {
-    return `/${parts.slice(1).join('/')}`;
+function extractRows(result) {
+  if (!result) return [];
+  if (typeof result.toArray === 'function') {
+    return result.toArray();
+  }
+  if (typeof result.toArrayOfObjects === 'function') {
+    return result.toArrayOfObjects();
+  }
+  if (typeof result.toJSON === 'function') {
+    try {
+      return JSON.parse(result.toJSON());
+    } catch {
+      return [];
+    }
+  }
+  return [];
+}
+
+async function queryParquetRowCount(db, path) {
+  const candidates = candidatePaths(path);
+  const conn = await db.connect();
+
+  for (const candidate of candidates) {
+    try {
+      const fileName = candidate.split('/').pop() || 'table.parquet';
+      const response = await fetch(candidate, { cache: 'no-store' });
+      if (!response.ok) {
+        continue;
+      }
+      const buffer = await response.arrayBuffer();
+      await conn.registerFileBuffer(fileName, new Uint8Array(buffer));
+      const query = await conn.query(`SELECT COUNT(*)::BIGINT AS row_count FROM read_parquet('${fileName}')`);
+      const rows = extractRows(query);
+      if (!rows.length) return 0;
+      return Number(rows[0]?.row_count || 0);
+    } catch {
+      continue;
+    }
   }
   return null;
 }
 
-function assetCandidates(relPath) {
-  const direct = relPath.replace(/^\/+/, '');
-  const seen = new Set();
-  const candidates = [];
-  const add = (value) => {
-    if (!value) {
+function clamp(n, min, max) {
+  if (n == null || Number.isNaN(n)) {
+    return min;
+  }
+  return Math.max(min, Math.min(max, n));
+}
+
+function SourceRowCountChart({ catalog, rowCounts }) {
+  const items = Object.values(catalog || {})
+    .map((item) => ({ item, rows: Number(rowCounts[item.source_id] || 0) }))
+    .filter((entry) => entry.rows > 0)
+    .sort((a, b) => b.rows - a.rows);
+
+  if (!items.length) {
+    return React.createElement('div', { className: 'card' }, 'No row-count data available yet.');
+  }
+
+  const maxRows = Math.max(...items.map((entry) => entry.rows), 1);
+  return React.createElement(
+    'div',
+    { className: 'chart card' },
+    React.createElement('h2', null, 'Top Source Row Counts'),
+    React.createElement(
+      'div',
+      { className: 'bars' },
+      ...items.slice(0, 12).map(({ item, rows }) => {
+        const width = clamp(Math.round((rows / maxRows) * 100), 5, 100);
+        const label = item?.source?.title || item.source_id || 'Source';
+        return React.createElement(
+          'div',
+          { key: item.source_id, className: 'bar-row' },
+          React.createElement('div', { className: 'bar-label', title: label }, label),
+          React.createElement(
+            'div',
+            { className: 'bar-track' },
+            React.createElement('div', { className: 'bar-fill', style: { width: `${width}%` } })
+          ),
+          React.createElement('div', { className: 'bar-value' }, rows.toLocaleString())
+        );
+      })
+    )
+  );
+}
+
+function QualityBreakdown({ catalog }) {
+  const official = [];
+  const proxy = [];
+  const model = [];
+
+  Object.values(catalog || {}).forEach((item) => {
+    const category = (item?.metric_category || item?.source_type || item?.source?.source_type || '').toLowerCase();
+    if (item?.source?.official_flag === false || category.includes('proxy')) {
+      proxy.push(item);
       return;
     }
-    const normalizedValues = [];
-    const normalized = (value.startsWith('/') ? value : `/${value}`).replace(/\/{2,}/g, '/');
-    normalizedValues.push(normalized);
-    const collapsed = collapseLeadingDuplicateSegments(normalized);
-    if (collapsed && collapsed !== normalized) {
-      normalizedValues.push(collapsed);
+    if (category.includes('model')) {
+      model.push(item);
+      return;
     }
+    official.push(item);
+  });
 
-    for (const candidate of normalizedValues) {
-      if (!seen.has(candidate)) {
-        seen.add(candidate);
-        candidates.push(candidate);
-      }
-    }
-  };
-
-  add(resolveAssetPath(direct));
-  add(`${moduleRootPath()}/${direct}`);
-
-  const scriptPath = document.currentScript?.src;
-  if (scriptPath && scriptPath.includes('/apps/web/')) {
-    try {
-      const root = new URL(scriptPath).pathname.split('/apps/web/')[0];
-      add(`${root}/${direct}`);
-    } catch {
-      // keep best-effort
-    }
-  }
-
-  const pathname = (window.location.pathname || '/').replace(/^\/+/, '');
-  const firstSegment = pathname.split('/').filter(Boolean)[0];
-  if (firstSegment && !['apps', 'data', 'src', 'methodology.html'].includes(firstSegment)) {
-    add(`/${firstSegment}/${direct}`);
-  }
-
-  add(`/${direct}`);
-  return candidates;
+  return React.createElement(
+    'div',
+    { className: 'chart card' },
+    React.createElement('h2', null, 'Coverage by Type'),
+    React.createElement(
+      'div',
+      { className: 'coverage-grid' },
+      React.createElement('div', { className: 'coverage-cell' }, `Official measured: ${official.length}`),
+      React.createElement('div', { className: 'coverage-cell' }, `Proxy-derived: ${proxy.length}`),
+      React.createElement('div', { className: 'coverage-cell' }, `Model outputs: ${model.length}`)
+    )
+  );
 }
-
-function pickCanonicalAssetPath(candidates) {
-  if (!Array.isArray(candidates) || !candidates.length) {
-    return null;
-  }
-  for (const candidate of candidates) {
-    if (!collapseLeadingDuplicateSegments(candidate)) {
-      return candidate;
-    }
-  }
-  return candidates[0];
-}
-
-const CATALOG_PATH = pickCanonicalAssetPath(assetCandidates('data/manifests/catalog.json')) || resolveAssetPath('data/manifests/catalog.json');
-const METHOD_URL = pickCanonicalAssetPath(assetCandidates('methodology.html')) || new URL('methodology.html', window.location.href).pathname;
 
 function sourceTypeTag(item) {
   const category = (item?.metric_category || item?.source_type || item?.source?.source_type || '').toLowerCase();
@@ -137,110 +229,8 @@ function sourceTypeTag(item) {
   return ['Official measured', 'official'];
 }
 
-async function initDuckDB() {
-  const features = await duckdb.getPlatformFeatures();
-  const localBundles = getDuckDBBundle();
-  const selected = (features.wasmSIMD && features.wasmExceptions)
-    ? localBundles.eh
-    : localBundles.mvp;
-
-  if (!selected.mainModule || !selected.mainWorker) {
-    throw new Error('Local DuckDB assets are missing (manifested paths not found).');
-  }
-
-  const logger = new duckdb.ConsoleLogger();
-  const instantiate = async (bundle) => {
-    const worker = new Worker(bundle.mainWorker, { type: 'module' });
-    const db = new duckdb.AsyncDuckDB(logger, worker);
-    await db.instantiate(bundle.mainModule, bundle.pthreadWorker);
-    return db;
-  };
-
-  try {
-    return await instantiate(selected);
-  } catch (error) {
-    if (selected !== localBundles.mvp && localBundles.mvp.mainModule && localBundles.mvp.mainWorker) {
-      return await instantiate(localBundles.mvp);
-    } else {
-      throw error;
-    }
-  }
-}
-
-function readResultRows(result) {
-  if (!result) return [];
-  if (typeof result.toArray === 'function') {
-    return result.toArray();
-  }
-  if (typeof result.toArrayOfObjects === 'function') {
-    return result.toArrayOfObjects();
-  }
-  if (typeof result.toJSON === 'function') {
-    try {
-      return JSON.parse(result.toJSON());
-    } catch (error) {
-      return [];
-    }
-  }
-  return [];
-}
-
-async function queryRows(db, path) {
-  const conn = await db.connect();
-  const candidates = assetCandidates(path);
-  for (const candidate of candidates) {
-    try {
-      const file = candidate.split('/').pop();
-      const resp = await fetch(candidate);
-      if (!resp.ok) {
-        continue;
-      }
-      const buffer = await resp.arrayBuffer();
-      await db.registerFileBuffer(file, new Uint8Array(buffer));
-      const result = await conn.query(`SELECT COUNT(*)::BIGINT AS row_count FROM read_parquet('${file}')`);
-      const rows = readResultRows(result);
-      await conn.close();
-      if (!rows.length) return 0;
-      const first = rows[0] || {};
-      return Number(first.row_count ?? 0);
-    } catch (error) {
-      continue;
-    }
-  }
-  await conn.close();
-  return null;
-}
-
-async function readCatalog(path) {
-  const catalogCandidates = assetCandidates(path);
-  const failures = [];
-  for (const candidate of catalogCandidates) {
-    try {
-      const response = await fetch(candidate);
-      if (!response.ok) {
-        failures.push(`${candidate}: ${response.status}`);
-        continue;
-      }
-      const payload = await response.json();
-      if (!payload || !payload.datasets) {
-        failures.push(`${candidate}: missing datasets`);
-        continue;
-      }
-      return payload;
-    } catch (error) {
-      failures.push(`${candidate}: ${error?.message || 'parse error'}`);
-      continue;
-    }
-  }
-  if (typeof window !== 'undefined') {
-    window.__catalogLoadFailures = failures;
-  }
-  return null;
-}
-
 function MetricCard({ item, rowCount }) {
   const [label, kind] = sourceTypeTag(item);
-
   const citation = item?.citations || {};
   const source = item?.source || {};
   const quality = {
@@ -253,28 +243,30 @@ function MetricCard({ item, rowCount }) {
   const permanentIdentifier = citation.permanent_identifier || source.permanent_identifier_hint || 'N/A';
   const anchor = citation.anchor || 'pending';
   const primarySource = `${source.publisher || item.source_id} / ${source.title || item?.source_id || 'Unknown source'}`;
+  const methodologyUrl = sitePath('methodology.html');
 
-  return (
-    React.createElement('div', { className: 'metric-card card' },
-      React.createElement('div', { className: `badge ${quality.overall_confidence_badge?.toLowerCase() || 'low'}`,
-        title: (reasons.length ? reasons.join(' | ') : 'Confidence reasons available in methodology.'),
+  return React.createElement(
+    'div',
+    { className: 'metric-card card' },
+    React.createElement(
+      'div',
+      {
+        className: `badge ${quality.overall_confidence_badge?.toLowerCase() || 'low'}`,
+        title: reasons.length ? reasons.join(' | ') : 'Confidence reasons available in methodology.',
       },
       quality.overall_confidence_badge || 'Low',
       React.createElement('span', { style: { fontSize: '0.75rem', opacity: 0.95 } }, ' / Why this badge? '),
-      React.createElement('a', { href: METHOD_URL, target: '_blank', style: {color: 'inherit', textDecoration: 'underline'} }, 'Methodology')
-      ),
-      React.createElement('h3', null, source.title || item.source_id),
-      React.createElement('div', { className: `source-type ${kind}` }, label),
-      React.createElement('div', { className: 'metric-meta' }, `Rows in parquet: ${rowCount}`),
-      React.createElement('div', { className: 'metric-meta' }, `Primary source: ${primarySource}`),
-      React.createElement('div', { className: 'metric-meta' }, `Retrieval date: ${retrievalDate}`),
-      React.createElement('div', { className: 'metric-meta' }, `Permanent identifier: ${permanentIdentifier}`),
-      React.createElement('div', { className: 'metric-meta' }, `Citation anchor: ${anchor}`),
-      React.createElement('div', { className: 'metric-meta' }, `License: ${license}`),
-      React.createElement('div', { className: `status ${item.skip_reason ? 'warn' : 'success'}` },
-        item.skip_reason ? `Skipped: ${item.skip_reason}` : 'Ready'
-      )
-    )
+      React.createElement('a', { href: methodologyUrl, target: '_blank', style: { color: 'inherit', textDecoration: 'underline' } }, 'Methodology')
+    ),
+    React.createElement('h3', null, source.title || item.source_id),
+    React.createElement('div', { className: `source-type ${kind}` }, label),
+    React.createElement('div', { className: 'metric-meta' }, `Rows in parquet: ${rowCount}`),
+    React.createElement('div', { className: 'metric-meta' }, `Primary source: ${primarySource}`),
+    React.createElement('div', { className: 'metric-meta' }, `Retrieval date: ${retrievalDate}`),
+    React.createElement('div', { className: 'metric-meta' }, `Permanent identifier: ${permanentIdentifier}`),
+    React.createElement('div', { className: 'metric-meta' }, `Citation anchor: ${anchor}`),
+    React.createElement('div', { className: 'metric-meta' }, `License: ${license}`),
+    React.createElement('div', { className: `status ${item.skip_reason ? 'warn' : 'success'}` }, item.skip_reason ? `Skipped: ${item.skip_reason}` : 'Ready')
   );
 }
 
@@ -290,11 +282,6 @@ function App() {
     const run = async () => {
       try {
         const payload = await readCatalog('data/manifests/catalog.json');
-        if (!payload || !payload.datasets) {
-          const attempts = window.__catalogLoadFailures || [];
-          const details = attempts.length ? ` Attempts: ${attempts.join(' | ')}` : '';
-          throw new Error(`Catalog load failed for ${CATALOG_PATH}.${details}`);
-        }
         const items = payload.datasets || [];
         if (!mounted) return;
 
@@ -309,13 +296,14 @@ function App() {
         } catch (duckDbErr) {
           throw new Error(`DuckDB initialization failed: ${duckDbErr?.message || 'Unknown error'}`);
         }
+
         const counts = {};
         for (const item of items) {
           const outputPath = item.output_table_path || `data/processed/${item.source_id}.parquet`;
           try {
-            const value = await queryRows(db, outputPath);
-            counts[item.source_id] = value;
-          } catch (error) {
+            const value = await queryParquetRowCount(db, outputPath);
+            counts[item.source_id] = Number.isFinite(value) ? value : Number(item?.manifest?.row_count || 0);
+          } catch {
             counts[item.source_id] = item?.manifest?.row_count || 0;
           }
         }
@@ -340,35 +328,32 @@ function App() {
   }, []);
 
   const officialCount = Object.values(catalog).filter((x) => {
-    const cat = (x?.metric_category || x?.source_type || '').toLowerCase();
-    return x?.source?.official_flag !== false && !cat.includes('proxy') && !cat.includes('model');
+    const category = (x?.metric_category || x?.source_type || '').toLowerCase();
+    return x?.source?.official_flag !== false && !category.includes('proxy') && !category.includes('model');
   }).length;
   const proxyCount = Object.values(catalog).filter((x) => (x?.source?.official_flag === false) || (x?.metric_category || '').toLowerCase().includes('proxy')).length;
   const modelCount = Object.values(catalog).filter((x) => (x?.metric_category || '').toLowerCase().includes('model')).length;
 
-  return (
-    React.createElement('div', { className: 'app-shell' },
-      React.createElement('header', null,
-        React.createElement('h1', null, 'Bharat Highway Evidence Console'),
-        React.createElement('p', { className: 'metric-meta' }, 'Official-first ingestion with source discovery, citations, and confidence scoring.')
-      ),
-      React.createElement('section', { className: 'summary' },
-        React.createElement('div', { className: 'card' }, `Official measured sources: ${officialCount}`),
-        React.createElement('div', { className: 'card' }, `Proxy-derived signals: ${proxyCount}`),
-        React.createElement('div', { className: 'card' }, `Model output signals: ${modelCount}`),
-        React.createElement('div', { className: 'card' }, `Catalog entries: ${Object.keys(catalog).length}`),
-        React.createElement('div', { className: 'card' }, loading ? 'Loading…' : `Data rows: ${Object.values(rowCounts).reduce((a, b) => a + (Number(b) || 0), 0)}`)
-      ),
-      React.createElement('section', { className: 'panel-grid' },
-        loading ? React.createElement('div', { className: 'card' }, 'Loading data from DuckDB-WASM...') : null,
-        error ? React.createElement('div', { className: 'card' }, error) : null,
-        ...Object.keys(catalog).map((sourceId) =>
-          React.createElement(MetricCard, {
-            key: sourceId,
-            item: catalog[sourceId],
-            rowCount: rowCounts[sourceId] || 0,
-          })
-        )
+  return React.createElement(
+    'div',
+    { className: 'app-shell' },
+    React.createElement('header', null, React.createElement('h1', null, 'Bharat Highway Evidence Console'), React.createElement('p', { className: 'metric-meta' }, 'Official-first ingestion with source discovery, citations, and confidence scoring.')),
+    React.createElement('section', { className: 'summary' },
+      React.createElement('div', { className: 'card' }, `Official measured sources: ${officialCount}`),
+      React.createElement('div', { className: 'card' }, `Proxy-derived signals: ${proxyCount}`),
+      React.createElement('div', { className: 'card' }, `Model output signals: ${modelCount}`),
+      React.createElement('div', { className: 'card' }, `Catalog entries: ${Object.keys(catalog).length}`),
+      React.createElement('div', { className: 'card' }, loading ? 'Loading…' : `Data rows: ${Object.values(rowCounts).reduce((a, b) => a + (Number(b) || 0), 0)}`)
+    ),
+    React.createElement('section', { className: 'charts-grid' },
+      React.createElement(QualityBreakdown, { catalog }),
+      React.createElement(SourceRowCountChart, { catalog, rowCounts })
+    ),
+    React.createElement('section', { className: 'panel-grid' },
+      loading ? React.createElement('div', { className: 'card' }, 'Loading data from DuckDB-WASM...') : null,
+      error ? React.createElement('div', { className: 'card' }, error) : null,
+      ...Object.keys(catalog).map((sourceId) =>
+        React.createElement(MetricCard, { key: sourceId, item: catalog[sourceId], rowCount: rowCounts[sourceId] || 0 })
       )
     )
   );

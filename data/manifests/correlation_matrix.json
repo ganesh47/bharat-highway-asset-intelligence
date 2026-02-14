@@ -8,7 +8,7 @@
   "source": {
     "publisher": "Bharat Highway internal correlation engine",
     "title": "Model-derived pairwise correlation matrix (state/year join)",
-    "retrieved_at": "2026-02-14T05:39:46.426513+00:00",
+    "retrieved_at": "2026-02-14T06:52:11.686220+00:00",
     "official_flag": false,
     "license_terms": "Model output for analysis only. Not an official policy statement."
   },
@@ -23,10 +23,10 @@
       {
         "path": "data/processed/correlation_matrix.parquet",
         "format": "parquet",
-        "sha256": "2c7bfacd00f01b950c6b55996c0990811c2324511b7842f46abad361704cdb37"
+        "sha256": "685152993aa1cad41222f2c94863cb4adc8ac336b90f2338a885d5f17bc7e7e9"
       }
     ],
-    "row_count": 351,
+    "row_count": 231,
     "columns": [
       "metric_a",
       "metric_b",
@@ -40,7 +40,7 @@
       "method"
     ]
   },
-  "retrieved_at": "2026-02-14T05:39:46.426691+00:00",
+  "retrieved_at": "2026-02-14T06:52:11.686425+00:00",
   "completeness_score": 0.5,
   "recency_score": 0.5,
   "provenance_score": 0.3,

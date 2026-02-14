@@ -16,16 +16,21 @@ from .loader import load_inventory, write_machine_inventory
 
 
 DEFAULT_HEADERS = {
-    "User-Agent": "BHAI-research-scan/0.1 (+https://example.local/official-first-scan)"
+    "User-Agent": (
+        "Mozilla/5.0 (compatible; BHAI-research-scan/0.2; +https://example.local/official-first-scan)"
+    )
 }
 
 
 def _safe_url(item: Dict[str, Any]) -> str | None:
-    url = item.get("url")
+    url = item.get("resource_page_url") or item.get("url")
     if not url:
         return None
     if "{resource_id}" not in url:
         return url
+
+    if str(item.get("resource_id", "")).startswith("PLACEHOLDER_"):
+        return None
 
     resource_id = item.get("resource_id")
     if not resource_id and item.get("resource_id_env"):
@@ -45,6 +50,8 @@ def _robots_allowed(url: str) -> Dict[str, Any]:
     parser.set_url(robots_url)
     try:
         resp = requests.get(robots_url, headers=DEFAULT_HEADERS, timeout=15)
+        if resp.status_code == 404:
+            return {"allowed": True, "crawl_delay": None, "reason": None}
         if resp.status_code >= 400:
             return {
                 "allowed": False,
@@ -122,8 +129,18 @@ def _scan_item(item: Dict[str, Any]) -> Dict[str, Any]:
 
     robots = _robots_allowed(url)
     if not robots.get("allowed"):
+        reason = robots.get("reason")
+        if reason and reason.startswith("robots_fetch"):
+            # best-effort probe for transient robots failures; keep strict on explicit disallow.
+            result.update(_http_probe(url))
+            result["crawl_delay_seconds"] = robots.get("crawl_delay")
+            result["scan_error"] = reason
+            if result.get("last_modified"):
+                result["last-modified"] = result["last_modified"]
+            return result
+
         result["status_ok"] = False
-        result["scan_error"] = robots.get("reason")
+        result["scan_error"] = reason
         result.update({"content_type": None, "etag": None, "last_modified": None, "http_status": None})
         return result
 

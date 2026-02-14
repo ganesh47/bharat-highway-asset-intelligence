@@ -14,6 +14,7 @@ sources:
     temporal_coverage: 2014-2026
     license_terms: "Open Government Data License - India (OGL), subject to data.gov.in terms"
     retrieval_method: API call
+    resource_page_url: https://www.data.gov.in/resource/project-wise-details-projects-construction-progress-length-national-highways-nhs-state
     reliability_grade: A
     reliability_justification: Official source published on India OGD platform with API metadata and versioned resource identifiers.
     known_limitations: "May include delayed updates for corridor-level project reporting when agencies file late updates."
@@ -38,6 +39,7 @@ sources:
     temporal_coverage: 2018-2026
     license_terms: "Open Government Data License - India (OGL), subject to data.gov.in terms"
     retrieval_method: API call
+    resource_page_url: https://www.data.gov.in/resource/year-wise-details-funds-allocatedraised-and-expenditure-incurred-development-and
     reliability_grade: A
     reliability_justification: Official finance-focused reporting aligned to National Highway project execution and budget flow.
     known_limitations: "Budget and release fields can be revised by corrigenda and ministry clarifications."
@@ -48,6 +50,31 @@ sources:
     api_key_env: DATAGOVIN_API_KEY
     permanent_identifier_hint: "resource_id + table/year/financial year"
     notes: "Use approved API key and official resource id; local/manual CSV fallback is supported for non-production runs."
+
+  - source_id: data_gov_in_nhai_state_projects_api
+    official_flag: true
+    publisher_org: National Highways Authority of India (NHAI)
+    domain: data.gov.in
+    dataset_title: State-wise national highway and road project counts
+    theme: projects
+    access_type: API
+    auth: key
+    update_frequency: annual
+    geographic_granularity: state
+    temporal_coverage: 2021-2026
+    license_terms: "Open Government Data License - India (OGL), subject to data.gov.in terms"
+    retrieval_method: API call
+    resource_page_url: https://www.data.gov.in/resource/state-wise-number-nh-and-road-projects-relating-are-included-national-infrastructure
+    reliability_grade: B
+    reliability_justification: Official data.gov.in state-level NH project inventory suitable for cross-state gap checks.
+    known_limitations: "This page publishes a compact summary; some releases may require manual validation for disaggregated filters."
+    allow_auto_fetch: true
+    url: https://api.data.gov.in/resource/{resource_id}
+    resource_id: PLACEHOLDER_STATE_PROJECTS_RESOURCE_ID
+    resource_id_env: DATAGOVIN_NHAI_STATE_PROJECTS_RESOURCE_ID
+    api_key_env: DATAGOVIN_API_KEY
+    permanent_identifier_hint: "resource_id from data.gov.in (or state projects page file)"
+    notes: "Page fallback handles public table files even when API keys or IDs are unavailable."
 
   - source_id: morth_annual_report_pdf
     official_flag: true
