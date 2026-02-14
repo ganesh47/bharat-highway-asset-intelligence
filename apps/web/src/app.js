@@ -74,7 +74,7 @@ function candidatePaths(relPath) {
   const clean = relPath.replace(/^\/+/, '');
   const candidates = [];
   const locationRel = new URL(clean, window.location.href).pathname;
-  candidates.push(sitePath(clean), `/${clean}`, locationRel);
+  candidates.push(sitePath(clean), locationRel);
   if (SITE_BASE && SITE_BASE.length > 1 && SITE_BASE !== '/'){
     const firstSegment = SITE_BASE.split('/').filter(Boolean)[0];
     if (firstSegment) {
