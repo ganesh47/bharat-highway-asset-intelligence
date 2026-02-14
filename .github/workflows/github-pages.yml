@@ -51,14 +51,21 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p /tmp/gh-pages/data/manifests /tmp/gh-pages/data/processed /tmp/gh-pages/apps/web
+          mkdir -p /tmp/gh-pages/duckdb
           cp -r apps/web/* /tmp/gh-pages/
           cp -r apps/web/* /tmp/gh-pages/apps/web/
           cp -r data/manifests/* /tmp/gh-pages/data/manifests/
           cp -r data/processed/* /tmp/gh-pages/data/processed/
           cp data/manifests/catalog.json /tmp/gh-pages/data/
+          curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-eh.wasm https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-eh.wasm
+          curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-mvp.wasm https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-mvp.wasm
+          curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-browser-eh.worker.js https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser-eh.worker.js
+          curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-browser-mvp.worker.js https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser-mvp.worker.js
+          curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-browser-coi.pthread.worker.js https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser-coi.pthread.worker.js
           mkdir -p /tmp/gh-pages/bharat-highway-asset-intelligence/apps /tmp/gh-pages/bharat-highway-asset-intelligence/data
           cp -r /tmp/gh-pages/index.html /tmp/gh-pages/src /tmp/gh-pages/methodology.html /tmp/gh-pages/apps/web /tmp/gh-pages/bharat-highway-asset-intelligence/
           cp -r /tmp/gh-pages/data/manifests /tmp/gh-pages/data/processed /tmp/gh-pages/bharat-highway-asset-intelligence/data/
+          cp -r /tmp/gh-pages/duckdb /tmp/gh-pages/bharat-highway-asset-intelligence/
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

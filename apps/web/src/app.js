@@ -1,6 +1,33 @@
 import React, { useEffect, useState } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
-import * as duckdb from 'https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser.mjs';
+import * as duckdb from 'https://esm.sh/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-wasm.bundle.mjs';
+
+function pickAssetPath(pathCandidates) {
+  return pickCanonicalAssetPath(pathCandidates) || resolveAssetPath(pathCandidates);
+}
+
+function pickDuckDBAssetPath(relPath) {
+  return pickAssetPath(assetCandidates(relPath));
+}
+
+function getDuckDBBundleCandidates() {
+  const eh = {
+    mainModule: pickDuckDBAssetPath('duckdb/duckdb-eh.wasm'),
+    mainWorker: pickDuckDBAssetPath('duckdb/duckdb-browser-eh.worker.js'),
+    pthreadWorker: null,
+  };
+  const mvp = {
+    mainModule: pickDuckDBAssetPath('duckdb/duckdb-mvp.wasm'),
+    mainWorker: pickDuckDBAssetPath('duckdb/duckdb-browser-mvp.worker.js'),
+    pthreadWorker: null,
+  };
+  return { eh, mvp };
+}
+
+function getDuckDBBundle() {
+  const bundles = getDuckDBBundleCandidates();
+  return { eh: { ...bundles.eh }, mvp: { ...bundles.mvp } };
+}
 
 function resolveAssetPath(relPath) {
   const pathname = window.location.pathname || '/';
@@ -111,12 +138,35 @@ function sourceTypeTag(item) {
 }
 
 async function initDuckDB() {
-  const JSDELIVR_BUNDLES = duckdb.getJsDelivrBundles();
-  const selected = await duckdb.selectBundle(JSDELIVR_BUNDLES);
+  const features = await duckdb.getPlatformFeatures();
+  const localBundles = getDuckDBBundle();
+  const selected = (features.wasmSIMD && features.wasmExceptions)
+    ? localBundles.eh
+    : localBundles.mvp;
+
+  if (!selected.mainModule || !selected.mainWorker) {
+    throw new Error('Local DuckDB assets are missing (manifested paths not found).');
+  }
+
   const logger = new duckdb.ConsoleLogger();
   const db = new duckdb.AsyncDuckDB(logger);
-  const worker = new Worker(selected.mainWorker);
-  await db.instantiate(selected.mainModule, selected.pthreadWorker, worker);
+
+  const instantiate = async (bundle) => {
+    const worker = new Worker(bundle.mainWorker);
+    await db.instantiate(bundle.mainModule, bundle.pthreadWorker, worker);
+  };
+
+  try {
+    await instantiate(selected);
+  } catch (error) {
+    if (selected !== localBundles.mvp && localBundles.mvp.mainModule && localBundles.mvp.mainWorker) {
+      const fallback = localBundles.mvp;
+      await instantiate(fallback);
+    } else {
+      throw error;
+    }
+  }
+
   return db;
 }
 
