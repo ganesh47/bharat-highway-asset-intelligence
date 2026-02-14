@@ -149,25 +149,22 @@ async function initDuckDB() {
   }
 
   const logger = new duckdb.ConsoleLogger();
-  const db = new duckdb.AsyncDuckDB(logger);
-
   const instantiate = async (bundle) => {
-    const worker = new Worker(bundle.mainWorker);
-    await db.instantiate(bundle.mainModule, bundle.pthreadWorker, worker);
+    const worker = new Worker(bundle.mainWorker, { type: 'module' });
+    const db = new duckdb.AsyncDuckDB(logger, worker);
+    await db.instantiate(bundle.mainModule, bundle.pthreadWorker);
+    return db;
   };
 
   try {
-    await instantiate(selected);
+    return await instantiate(selected);
   } catch (error) {
     if (selected !== localBundles.mvp && localBundles.mvp.mainModule && localBundles.mvp.mainWorker) {
-      const fallback = localBundles.mvp;
-      await instantiate(fallback);
+      return await instantiate(localBundles.mvp);
     } else {
       throw error;
     }
   }
-
-  return db;
 }
 
 function readResultRows(result) {
