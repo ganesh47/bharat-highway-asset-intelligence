@@ -2,17 +2,64 @@ import React, { useEffect, useState } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import * as duckdb from 'https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm';
 
-function detectSiteBase() {
-  const path = window.location.pathname || '/';
-  const normalized = path.replace(/\/+/g, '/');
+function normalizePath(path) {
+  return String(path || '/').replace(/\/+/g, '/');
+}
+
+function toRepoBaseFromPath(path) {
+  const normalized = normalizePath(path);
   const markerIndex = normalized.indexOf('/apps/web/');
   if (markerIndex >= 0) {
     return normalized.slice(0, markerIndex + 1);
   }
+
+  if (normalized === '/') {
+    return '/';
+  }
+
   if (normalized.endsWith('/')) {
     return normalized;
   }
-  return `${normalized.replace(/\/+[^/]*$/, '')}/`;
+
+  const segments = normalized.split('/').filter(Boolean);
+  const last = segments.at(-1) || '';
+  if (segments.length === 1 && !last.includes('.')) {
+    return `/${segments[0]}/`;
+  }
+
+  if (/\.[a-z0-9]+$/i.test(last)) {
+    return normalized.replace(/\/+[^/]+$/, '/');
+  }
+
+  return `${normalized.replace(/\/+[^/]*$/, '/')}`;
+}
+
+function detectScriptBase() {
+  const script =
+    document.querySelector('script[type="module"][src$="src/app.js"]') ||
+    document.querySelector('script[type="module"][src*="app.js"]') ||
+    document.querySelector('script[type="module"][src]');
+
+  if (!script?.src) {
+    return null;
+  }
+
+  try {
+    const scriptUrl = new URL(script.src, window.location.href);
+    return toRepoBaseFromPath(scriptUrl.pathname).replace(/\/src\/?$/, '/');
+  } catch {
+    return null;
+  }
+}
+
+function detectSiteBase() {
+  const scriptBase = detectScriptBase();
+  if (scriptBase) {
+    return scriptBase;
+  }
+
+  const locationBase = window.location.pathname || '/';
+  return toRepoBaseFromPath(locationBase);
 }
 
 const SITE_BASE = detectSiteBase();
@@ -25,7 +72,9 @@ function sitePath(relPath) {
 
 function candidatePaths(relPath) {
   const clean = relPath.replace(/^\/+/, '');
-  const candidates = [sitePath(clean), `/${clean}`];
+  const candidates = [];
+  const locationRel = new URL(clean, window.location.href).pathname;
+  candidates.push(sitePath(clean), `/${clean}`, locationRel);
   if (SITE_BASE && SITE_BASE.length > 1 && SITE_BASE !== '/'){
     const firstSegment = SITE_BASE.split('/').filter(Boolean)[0];
     if (firstSegment) {
