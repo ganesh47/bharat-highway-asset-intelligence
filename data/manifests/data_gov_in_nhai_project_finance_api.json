@@ -11,7 +11,7 @@
     "url": "https://api.data.gov.in/resource/{resource_id}",
     "retrieval_method": "API call",
     "access_type": "API",
-    "retrieved_at": "2026-02-13T19:06:06.200454+00:00",
+    "retrieved_at": "2026-02-14T05:23:03.410478+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
@@ -31,7 +31,7 @@
       {
         "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
         "format": "parquet",
-        "sha256": "e7ab1885c62d120af58460510f32f3b2344c7b12d1323adb61b31fea1e1fa40d"
+        "sha256": "5b7c774e8777a48d1518e8b50e18e0ddde869552308ae970fe13b736cbb76336"
       }
     ],
     "row_count": 3,
@@ -47,7 +47,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-13T19:06:06.202417+00:00",
+  "retrieved_at": "2026-02-14T05:23:03.412317+00:00",
   "completeness_score": 1.0,
   "recency_score": 1.0,
   "provenance_score": 1.0,

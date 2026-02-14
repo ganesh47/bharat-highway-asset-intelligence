@@ -11,6 +11,15 @@ function resolveAssetPath(relPath) {
   return `${sanitizedRoot}${sanitizedRel}`;
 }
 
+function collapseLeadingDuplicateSegments(pathname) {
+  const trimmed = pathname.replace(/^\/+|\/+$/g, '');
+  const parts = trimmed.split('/').filter(Boolean);
+  if (parts.length >= 2 && parts[0] === parts[1]) {
+    return `/${parts.slice(1).join('/')}`;
+  }
+  return null;
+}
+
 function assetCandidates(relPath) {
   const direct = relPath.replace(/^\/+/, '');
   const seen = new Set();
@@ -19,10 +28,19 @@ function assetCandidates(relPath) {
     if (!value) {
       return;
     }
+    const normalizedValues = [];
     const normalized = value.startsWith('/') ? value : `/${value}`;
-    if (!seen.has(normalized)) {
-      seen.add(normalized);
-      candidates.push(normalized);
+    normalizedValues.push(normalized);
+    const collapsed = collapseLeadingDuplicateSegments(normalized);
+    if (collapsed && collapsed !== normalized) {
+      normalizedValues.push(collapsed);
+    }
+
+    for (const candidate of normalizedValues) {
+      if (!seen.has(candidate)) {
+        seen.add(candidate);
+        candidates.push(candidate);
+      }
     }
   };
 
@@ -48,8 +66,20 @@ function assetCandidates(relPath) {
   return candidates;
 }
 
-const CATALOG_PATH = resolveAssetPath('data/manifests/catalog.json');
-const METHOD_URL = new URL('methodology.html', window.location.href).pathname;
+function pickCanonicalAssetPath(candidates) {
+  if (!Array.isArray(candidates) || !candidates.length) {
+    return null;
+  }
+  for (const candidate of candidates) {
+    if (!collapseLeadingDuplicateSegments(candidate)) {
+      return candidate;
+    }
+  }
+  return candidates[0];
+}
+
+const CATALOG_PATH = pickCanonicalAssetPath(assetCandidates('data/manifests/catalog.json')) || resolveAssetPath('data/manifests/catalog.json');
+const METHOD_URL = pickCanonicalAssetPath(assetCandidates('methodology.html')) || new URL('methodology.html', window.location.href).pathname;
 
 function sourceTypeTag(item) {
   const category = (item?.metric_category || item?.source_type || item?.source?.source_type || '').toLowerCase();
@@ -123,7 +153,7 @@ async function queryRows(db, path) {
 }
 
 async function readCatalog(path) {
-  const catalogCandidates = [...assetCandidates(path), resolveAssetPath('data/manifests/catalog.json')];
+  const catalogCandidates = assetCandidates(path);
   for (const candidate of catalogCandidates) {
     try {
       const response = await fetch(candidate);
@@ -189,7 +219,7 @@ function App() {
 
     const run = async () => {
       try {
-        const payload = await readCatalog(CATALOG_PATH);
+        const payload = await readCatalog('data/manifests/catalog.json');
         if (!payload || !payload.datasets) {
           throw new Error('manifest missing');
         }
@@ -203,7 +233,7 @@ function App() {
         const db = await initDuckDB();
         const counts = {};
         for (const item of items) {
-          const outputPath = resolveAssetPath(item.output_table_path || `data/processed/${item.source_id}.parquet`);
+          const outputPath = item.output_table_path || `data/processed/${item.source_id}.parquet`;
           try {
             const value = await queryRows(db, outputPath);
             counts[item.source_id] = value;

@@ -11,7 +11,7 @@
     "url": "https://api.data.gov.in/resource/{resource_id}",
     "retrieval_method": "API call",
     "access_type": "API",
-    "retrieved_at": "2026-02-13T19:06:06.180535+00:00",
+    "retrieved_at": "2026-02-14T05:23:03.372748+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
@@ -31,7 +31,7 @@
       {
         "path": "data/processed/data_gov_in_nhai_projects_api.parquet",
         "format": "parquet",
-        "sha256": "7ed6920662ca624c535572809ddf83e71be4d755128df01ce47d3b43a4987ddc"
+        "sha256": "269b33668602d0e7cfd697ad1abeda0451e79f8ef6a0549079764b01181128aa"
       }
     ],
     "row_count": 2,
@@ -46,7 +46,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-13T19:06:06.188598+00:00",
+  "retrieved_at": "2026-02-14T05:23:03.387219+00:00",
   "completeness_score": 1.0,
   "recency_score": 1.0,
   "provenance_score": 1.0,
