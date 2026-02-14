@@ -244,16 +244,24 @@ function App() {
       try {
         const payload = await readCatalog('data/manifests/catalog.json');
         if (!payload || !payload.datasets) {
-          throw new Error('manifest missing');
+          const attempts = window.__catalogLoadFailures || [];
+          const details = attempts.length ? ` Attempts: ${attempts.join(' | ')}` : '';
+          throw new Error(`Catalog load failed for ${CATALOG_PATH}.${details}`);
         }
         const items = payload.datasets || [];
         if (!mounted) return;
+
         const map = {};
         items.forEach((item) => {
           map[item.source_id] = item;
         });
 
-        const db = await initDuckDB();
+        let db;
+        try {
+          db = await initDuckDB();
+        } catch (duckDbErr) {
+          throw new Error(`DuckDB initialization failed: ${duckDbErr?.message || 'Unknown error'}`);
+        }
         const counts = {};
         for (const item of items) {
           const outputPath = item.output_table_path || `data/processed/${item.source_id}.parquet`;
@@ -272,9 +280,7 @@ function App() {
         }
       } catch (err) {
         if (mounted) {
-          const attempts = window.__catalogLoadFailures || [];
-          const details = attempts.length ? ` Attempts: ${attempts.join(' | ')}` : '';
-          setError(`Could not load catalog from ${CATALOG_PATH}. Hard refresh (Ctrl/Cmd+Shift+R). If running locally: python -m pipelines.ingest then refresh.${details}`);
+          setError(`${err?.message || 'Data pipeline init failed'}. Hard refresh (Ctrl/Cmd+Shift+R). If running locally: python -m pipelines.ingest then refresh.`);
           setLoading(false);
         }
       }
