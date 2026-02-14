@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
-import * as duckdb from 'https://esm.sh/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-wasm.bundle.mjs';
+import * as duckdb from 'https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser.mjs';
 
 function pickAssetPath(pathCandidates) {
   return pickCanonicalAssetPath(pathCandidates) || resolveAssetPath(pathCandidates);
