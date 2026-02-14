@@ -56,6 +56,9 @@ jobs:
           cp -r data/manifests/* /tmp/gh-pages/data/manifests/
           cp -r data/processed/* /tmp/gh-pages/data/processed/
           cp data/manifests/catalog.json /tmp/gh-pages/data/
+          mkdir -p /tmp/gh-pages/bharat-highway-asset-intelligence/apps /tmp/gh-pages/bharat-highway-asset-intelligence/data
+          cp -r /tmp/gh-pages/index.html /tmp/gh-pages/src /tmp/gh-pages/methodology.html /tmp/gh-pages/apps/web /tmp/gh-pages/bharat-highway-asset-intelligence/
+          cp -r /tmp/gh-pages/data/manifests /tmp/gh-pages/data/processed /tmp/gh-pages/bharat-highway-asset-intelligence/data/
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
