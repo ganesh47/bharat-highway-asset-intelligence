@@ -35,6 +35,26 @@ function dedupeList(items) {
   return out;
 }
 
+function rewriteLegacyDataPath(candidatePath) {
+  const candidate = normalizePath(candidatePath);
+  if (!candidate || !candidate.startsWith('/data/')) {
+    return candidate;
+  }
+
+  const parts = normalizePath(new URL(window.location.href).pathname).split('/').filter(Boolean);
+  const appsIndex = parts.lastIndexOf('apps');
+  if (appsIndex <= 0) {
+    return candidate;
+  }
+
+  const repoParts = parts.slice(0, appsIndex);
+  if (!repoParts.length) {
+    return candidate;
+  }
+
+  return `/${repoParts.join('/')}${candidate}`;
+}
+
 function getAssetRoots() {
   const pathname = normalizePath(new URL(window.location.href).pathname);
   const pageDir = pathname.endsWith('/') ? pathname : pathname.slice(0, pathname.lastIndexOf('/') + 1) || '/';
@@ -79,7 +99,7 @@ function candidateAssetPaths(relPath) {
   const pathAppsIndex = pathParts.lastIndexOf('apps');
   const isRepoHostedApp = pathAppsIndex >= 0 && pathParts[pathAppsIndex + 1] === 'web';
   const add = (value) => {
-    const normalized = normalizePath(value);
+    const normalized = rewriteLegacyDataPath(value);
     if (!normalized || seen.has(normalized)) {
       return;
     }
