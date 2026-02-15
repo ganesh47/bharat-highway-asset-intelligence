@@ -39,16 +39,20 @@ function getAssetRoots() {
   const pathname = normalizePath(new URL(window.location.href).pathname);
   const pageDir = pathname.endsWith('/') ? pathname : pathname.slice(0, pathname.lastIndexOf('/') + 1) || '/';
   const parts = pageDir.split('/').filter(Boolean);
-  const roots = new Set();
   const appsIndex = parts.lastIndexOf('apps');
+  const isRepoHostedApp = appsIndex > 0 && parts[appsIndex + 1] === 'web';
+  const roots = new Set();
 
-  roots.add('/');
   roots.add(dedupeConsecutiveSegments(pageDir) + (pageDir.endsWith('/') ? '/' : ''));
 
   if (parts.length) {
     if (parts[0] !== 'apps') {
       roots.add(`/${parts[0]}/`);
     }
+  }
+
+  if (!isRepoHostedApp) {
+    roots.add('/');
   }
 
   if (appsIndex >= 0 && parts[appsIndex + 1] === 'web') {
@@ -71,6 +75,9 @@ function candidateAssetPaths(relPath) {
   const clean = raw.replace(/^\/+/, '');
   const candidates = [];
   const seen = new Set();
+  const pathParts = normalizePath(new URL(window.location.href).pathname).split('/').filter(Boolean);
+  const pathAppsIndex = pathParts.lastIndexOf('apps');
+  const isRepoHostedApp = pathAppsIndex > 0 && pathParts[pathAppsIndex + 1] === 'web';
   const add = (value) => {
     const normalized = normalizePath(value);
     if (!normalized || seen.has(normalized)) {
@@ -81,7 +88,9 @@ function candidateAssetPaths(relPath) {
   };
 
   add(normalizePath(new URL(clean, window.location.href).pathname));
-  add(normalizePath(`/${clean}`));
+  if (!isRepoHostedApp) {
+    add(normalizePath(`/${clean}`));
+  }
 
   getAssetRoots().forEach((root) => {
     add(normalizePath(`${normalizePath(root)}/${clean}`));

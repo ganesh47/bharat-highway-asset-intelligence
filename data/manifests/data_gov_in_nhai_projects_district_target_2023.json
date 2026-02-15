@@ -11,7 +11,7 @@
     "url": "https://www.data.gov.in/resource/district-wise-details-project-target-length-national-highways-during-2023-24",
     "retrieval_method": "direct download",
     "access_type": "HTML",
-    "retrieved_at": "2026-02-15T06:43:51.452805+00:00",
+    "retrieved_at": "2026-02-15T06:51:34.368266+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
@@ -23,7 +23,7 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_nhai_projects_district_target_2023/data_gov_in_nhai_projects_district_target_2023/raw_20260215_064351.csv",
+        "path": "data/raw/data_gov_in_nhai_projects_district_target_2023/data_gov_in_nhai_projects_district_target_2023/raw_20260215_065134.csv",
         "sha256": "2793579e2f510ea5c6ad77a6d73b8a2efb41f14020bc9c88216acd694bf49f3a",
         "size_bytes": 5633
       }
@@ -32,7 +32,7 @@
       {
         "path": "data/processed/data_gov_in_nhai_projects_district_target_2023.parquet",
         "format": "parquet",
-        "sha256": "d0d3741954b2cba4ad84b7c8145d94c0f698f2349c4c6f91663cb108f755c98f"
+        "sha256": "c06f8721418f23f1ac7804c58ed75329fcf8ed6b222684bf9e327c5e79b24480"
       }
     ],
     "row_count": 47,
@@ -50,7 +50,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-15T06:43:51.452805+00:00",
+  "retrieved_at": "2026-02-15T06:51:34.368266+00:00",
   "completeness_score": 0.969,
   "recency_score": 1.0,
   "provenance_score": 0.85,

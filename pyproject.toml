@@ -14,5 +14,6 @@ dependencies = [
   "python-dateutil>=2.9",
   "pydantic>=2.8",
   "pyarrow>=14",
-  "duckdb>=1.1"
+  "duckdb>=1.1",
+  "playwright>=1.46"
 ]
