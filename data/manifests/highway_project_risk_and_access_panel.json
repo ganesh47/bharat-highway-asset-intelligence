@@ -1,0 +1,93 @@
+{
+  "source_id": "highway_project_risk_and_access_panel",
+  "connector": "highway_project_risk_panel",
+  "version": "0.1.0",
+  "status": "generated",
+  "metric_category": "model_output",
+  "source": {
+    "publisher": "Bharat Highway Intelligence Risk Lab",
+    "title": "Highway project decision support panel (model synthesis)",
+    "url": "",
+    "retrieved_at": "2026-02-15T07:38:57.247815+00:00",
+    "license_terms": "Model output for internal decision support only. Not an official measurement. Include uncertainty and confidence notes before policy use.",
+    "official_flag": false
+  },
+  "citations": {
+    "permanent_identifier": "model_signature+build_date",
+    "anchor": "model_seed:2026 | segments_per_project:5238",
+    "note": "Deterministic model expansion for decision support dashboards. Not an official statement of fact."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/processed/data_gov_in_nhai_projects_api.parquet",
+        "sha256": "3e5df856db8515577e8ff7fc12c43df072ce85e5075c89eccd50d662a9b12c34",
+        "size_bytes": 10998
+      },
+      {
+        "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
+        "sha256": "6cf2487b8bac242d206d883b9c3d2c787561affa4add11074873bcf4cdd810e0",
+        "size_bytes": 11249
+      },
+      {
+        "path": "data/processed/ncrb_road_accidents_state_year.parquet",
+        "sha256": "d9f3add10a005c204f8f4f0d5d26fcb2616868296b538bf84beb04b85ba6256d",
+        "size_bytes": 6125
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/highway_project_risk_and_access_panel.parquet",
+        "format": "parquet",
+        "sha256": "50fd5b3c69df3bad95b71acc0ea91523ed55cbc667036c114b65d60d32300655"
+      }
+    ],
+    "row_count": 219996,
+    "columns": [
+      "source_id",
+      "source_type",
+      "metric_category",
+      "model_signature",
+      "project_id",
+      "project_name",
+      "segment_id",
+      "observation_year",
+      "observation_month",
+      "state_assigned",
+      "terrain_type",
+      "sea_level_m",
+      "road_length_km",
+      "sanctioned_cost_cr",
+      "construction_progress_pct",
+      "estimated_revenue_generated_cr",
+      "land_acquisition_cost_cr",
+      "maintenance_cost_cr",
+      "city_access_hours",
+      "quality_score",
+      "safety_risk_score",
+      "delay_risk_score",
+      "project_duration_months",
+      "distance_to_major_city_hrs",
+      "budget_share_of_national",
+      "segment_risk_flag",
+      "dataset_source",
+      "retrieved_at",
+      "model_notes"
+    ]
+  },
+  "retrieved_at": "2026-02-15T07:38:57.247815+00:00",
+  "note": "Model outputs must be treated as estimates and scenario inputs, never as certified official facts.",
+  "completeness_score": 0.5,
+  "recency_score": 0.5,
+  "provenance_score": 0.3,
+  "consistency_score": 0.5,
+  "overall_confidence_badge": "Low",
+  "overall_confidence_reason": [
+    "Low provenance confidence (source reliability category)",
+    "Missingness is high; check source completeness",
+    "Recency is stale against claimed update frequency",
+    "Schema/range checks showed potential consistency issues",
+    "Use for trend and risk ranking, not precise governance decisions"
+  ],
+  "output_table_path": "data/processed/highway_project_risk_and_access_panel.parquet"
+}

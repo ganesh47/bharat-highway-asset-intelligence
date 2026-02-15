@@ -365,10 +365,13 @@ class DataGovInConnector:
         if api_url and resource_id and api_key and "{" in api_url:
             api_url = api_url.format(resource_id=resource_id)
 
-        can_use_api = bool(api_url and resource_id and api_key and "{resource_id}" not in api_url)
+        unresolved_template = bool(api_url and "{" in api_url and "}" in api_url)
+        can_use_api = bool(api_url and resource_id and api_key and not unresolved_template)
 
         if api_url and not can_use_api and not skip_reason:
-            if not resource_id:
+            if unresolved_template:
+                skip_reason = "api_skipped_unresolved_url_template"
+            elif not resource_id:
                 skip_reason = "api_skipped_missing_resource_id"
             elif not api_key:
                 skip_reason = "api_skipped_missing_api_key"

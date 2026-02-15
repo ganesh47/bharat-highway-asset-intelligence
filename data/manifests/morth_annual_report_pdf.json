@@ -8,7 +8,7 @@
     "publisher": "Ministry of Road Transport and Highways (MoRTH)",
     "title": "MoRTH annual report PDF tables (selected annexes)",
     "url": "https://morth.nic.in/annual-report",
-    "retrieved_at": "2026-02-15T06:51:34.442552+00:00",
+    "retrieved_at": "2026-02-15T07:38:57.231314+00:00",
     "license_terms": "Open publication on morth.gov.in; verify page-level reuse permissions in the PDF footer or Gazette notice",
     "official_flag": true
   },
@@ -21,14 +21,14 @@
     "raw_files": [
       {
         "path": "data/raw/manual/morth_annual_report_pdf.csv",
-        "sha256": "9fc3307365affac1cd36cdcd85d6bb4223898b0146bf1174512ac18a34d1de75",
-        "size_bytes": 354
+        "sha256": "dd0af8fb87d4637b990122dd6d76a00b9f183eb472e48b2b2ddd86418a0f7e03",
+        "size_bytes": 361
       }
     ],
     "output_files": [
       {
         "path": "data/processed/morth_annual_report_pdf.parquet",
-        "sha256": "b53fe0da5ba4e9cb17480fa6cae98774f49b7cff179bff14db4254520f47f0a1"
+        "sha256": "79ee388fc80df684c1559887b03a20b9dd78be22218845872cbd01ff03f27f22"
       }
     ],
     "row_count": 6,
@@ -46,7 +46,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-15T06:51:34.442552+00:00",
+  "retrieved_at": "2026-02-15T07:38:57.231314+00:00",
   "completeness_score": 0.909,
   "recency_score": 0.98,
   "provenance_score": 0.833,

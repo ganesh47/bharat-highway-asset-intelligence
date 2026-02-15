@@ -1,5 +1,5 @@
 version: 1
-last_updated: '2026-02-14'
+last_updated: '2026-02-15'
 sources:
   - source_id: data_gov_in_nhai_projects_api
     official_flag: true
@@ -171,6 +171,30 @@ sources:
     url: https://ncrb.gov.in/en/road-accidents-statistics
     permanent_identifier_hint: "year and report table page numbers"
     notes: "Set download paths manually in data/raw/manual and run through parser with explicit approval."
+
+  - source_id: highway_project_risk_and_access_panel
+    official_flag: false
+    publisher_org: Bharat Highway Intelligence Risk Lab
+    domain: bhai.local
+    dataset_title: Highway project decision support panel (model synthesis)
+    theme: safety
+    access_type: parquet
+    auth: none
+    update_frequency: monthly
+    geographic_granularity: corridor
+    temporal_coverage: 2021-2026
+    license_terms: "Model output for internal decision support only. Not an official measurement. Include uncertainty and confidence notes before policy use."
+    retrieval_method: model_generation
+    reliability_grade: C
+    known_limitations: "Synthetic risk attributes are derived from official measured and official proxy inputs; no agency-vetted claim on safety forecast or finance sufficiency."
+    reliability_justification: "Deterministic model synthesis that enriches official project/safety inputs for planning and exploration with explicit uncertainty annotations."
+    allow_auto_fetch: true
+    url: ""
+    permanent_identifier_hint: "model_signature+build_date"
+    notes: "Generated automatically as a high-density analysis panel. Official policy decisions must use official_measured sources first."
+    model_segments_per_project: 5000
+    target_output_rows: 220000
+    model_seed: 2026
 
   - source_id: parliament_qa_highway_queries
     official_flag: true

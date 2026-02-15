@@ -8,7 +8,7 @@
     "publisher": "Ministry of Road Transport and Highways (MoRTH)",
     "title": "Procurement and award notices for highway works",
     "url": "https://eprocure.gov.in",
-    "retrieved_at": "2026-02-15T06:51:34.475039+00:00",
+    "retrieved_at": "2026-02-15T07:39:00.268324+00:00",
     "license_terms": "EProcurement portal terms and bidder-facing reuse restrictions.",
     "official_flag": true
   },
@@ -21,14 +21,14 @@
     "raw_files": [
       {
         "path": "data/raw/manual/morh_procurement_awards.csv",
-        "sha256": "275d633368319383c01d1e95089a49a847e8d2e2d255b9b70ccf8468d22567d1",
-        "size_bytes": 337
+        "sha256": "f3bdd402ebbb666adc84b5d8d3180a27af1ccd874f96f9cede7f6921b1e62355",
+        "size_bytes": 344
       }
     ],
     "output_files": [
       {
         "path": "data/processed/morh_procurement_awards.parquet",
-        "sha256": "4c6683d1229b8a868d05fe863f507f83f78263d1de960c06ceab9c6fabfc1ee7"
+        "sha256": "54090a59c6e8a4143f69e63325763319ea78a9d0474792c4a2a604b1cf45a027"
       }
     ],
     "row_count": 6,
@@ -46,7 +46,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-15T06:51:34.475039+00:00",
+  "retrieved_at": "2026-02-15T07:39:00.268324+00:00",
   "completeness_score": 0.909,
   "recency_score": 0.98,
   "provenance_score": 0.833,

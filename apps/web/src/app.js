@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 
 const DUCKDB_MODULE_CANDIDATES = [
-  './duckdb/duckdb-browser.mjs',
   'https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser.mjs',
 ];
 
@@ -12,6 +11,18 @@ let cachedDuckDBModule = null;
 
 function normalizePath(path) {
   return String(path || '/').replace(/\/+/g, '/');
+}
+
+function getRepoPrefix() {
+  const parts = normalizePath(new URL(window.location.href).pathname).split('/').filter(Boolean);
+  const appsIndex = parts.lastIndexOf('apps');
+  if (appsIndex > 0) {
+    return `/${parts.slice(0, appsIndex).join('/')}`;
+  }
+  if (parts.length > 0 && parts[0] !== 'apps') {
+    return `/${parts[0]}`;
+  }
+  return '';
 }
 
 function dedupeConsecutiveSegments(path) {
@@ -41,22 +52,36 @@ function rewriteLegacyDataPath(candidatePath) {
     return candidate;
   }
 
-  const parts = normalizePath(new URL(window.location.href).pathname).split('/').filter(Boolean);
-  const appsIndex = parts.lastIndexOf('apps');
-  if (appsIndex <= 0) {
+  const repoPrefix = getRepoPrefix();
+  if (!repoPrefix) {
+    return candidate;
+  }
+  const candidatePathParts = candidate.replace(/^\/+/, '').split('/').filter(Boolean);
+  const prefixParts = repoPrefix.replace(/^\/+/, '').split('/').filter(Boolean);
+
+  if (
+    prefixParts.length > 0
+    && candidatePathParts.length >= prefixParts.length
+    && candidatePathParts.slice(0, prefixParts.length).join('/') === prefixParts.join('/')
+  ) {
     return candidate;
   }
 
-  const repoParts = parts.slice(0, appsIndex);
-  if (!repoParts.length) {
-    return candidate;
+  if (
+    prefixParts.length > 0
+    && candidatePathParts.length >= 2 * prefixParts.length
+    && candidatePathParts.slice(0, prefixParts.length).join('/') === prefixParts.join('/')
+    && candidatePathParts.slice(prefixParts.length, 2 * prefixParts.length).join('/') === prefixParts.join('/')
+  ) {
+    return normalizePath(`/${candidatePathParts.slice(prefixParts.length).join('/')}`);
   }
 
-  return `/${repoParts.join('/')}${candidate}`;
+  return `${repoPrefix}${candidate}`;
 }
 
 function getAssetRoots() {
   const pathname = normalizePath(new URL(window.location.href).pathname);
+  const repoPrefix = getRepoPrefix();
   const pageDir = pathname.endsWith('/') ? pathname : pathname.slice(0, pathname.lastIndexOf('/') + 1) || '/';
   const parts = pageDir.split('/').filter(Boolean);
   const appsIndex = parts.lastIndexOf('apps');
@@ -78,7 +103,7 @@ function getAssetRoots() {
     } else if (parts.length === 2) {
       roots.add('/');
     }
-  } else if (!isRepoHostedApp) {
+  } else if (!isRepoHostedApp && !repoPrefix) {
     roots.add('/');
   }
 
@@ -100,6 +125,8 @@ function candidateAssetPaths(relPath) {
   const pathParts = normalizePath(new URL(window.location.href).pathname).split('/').filter(Boolean);
   const pathAppsIndex = pathParts.lastIndexOf('apps');
   const isRepoHostedApp = pathAppsIndex >= 0 && pathParts[pathAppsIndex + 1] === 'web';
+  const repoPrefix = getRepoPrefix();
+  const hasRepoPrefix = Boolean(repoPrefix && repoPrefix !== '/');
   const add = (value) => {
     const normalized = rewriteLegacyDataPath(value);
     if (!normalized || seen.has(normalized)) {
@@ -109,9 +136,19 @@ function candidateAssetPaths(relPath) {
     candidates.push(normalized);
   };
 
-  add(normalizePath(new URL(clean, window.location.href).pathname));
-  if (!isRepoHostedApp) {
-    add(normalizePath(`/${clean}`));
+  if (isRepoHostedApp) {
+    add(normalizePath(new URL(clean, window.location.href).pathname));
+    if (repoPrefix) {
+      add(normalizePath(`${repoPrefix}/apps/web/${clean}`));
+      add(normalizePath(`${repoPrefix}/${clean}`));
+    } else {
+      add(normalizePath(`/${clean}`));
+    }
+  } else {
+    add(normalizePath(new URL(clean, window.location.href).pathname));
+    if (!hasRepoPrefix) {
+      add(normalizePath(`/${clean}`));
+    }
   }
 
   getAssetRoots().forEach((root) => {

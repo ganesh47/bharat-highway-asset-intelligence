@@ -8,7 +8,7 @@
     "publisher": "Ministry of Statistics and Programme Implementation / Parliament Secretariat",
     "title": "Parliamentary Questions and written replies on highways",
     "url": "https://sansad.in/",
-    "retrieved_at": "2026-02-15T06:51:34.461685+00:00",
+    "retrieved_at": "2026-02-15T07:39:00.255780+00:00",
     "license_terms": "Official parliament documentation; cite Q&A number and session/session year in methodology.",
     "official_flag": true
   },
@@ -21,14 +21,14 @@
     "raw_files": [
       {
         "path": "data/raw/manual/parliament_qa_highway_queries.csv",
-        "sha256": "54a88ddb6d2df978cc7a6fd40fd439ff8a82761299c814b248501e03612c2d27",
-        "size_bytes": 167
+        "sha256": "bcbb46bf254cf07cf94882727eecec35c51bc430f8a1ea15ce97699ab8df825f",
+        "size_bytes": 171
       }
     ],
     "output_files": [
       {
         "path": "data/processed/parliament_qa_highway_queries.parquet",
-        "sha256": "1835a3b0e51cc0d4753a7163679f8e94f8bca1bceef08ea779c48b954d12dcf7"
+        "sha256": "93752945d0fcd51102866e3d0052c955b0e925a2e10b2b79bbba565a2c2add7b"
       }
     ],
     "row_count": 3,
@@ -46,7 +46,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-15T06:51:34.461685+00:00",
+  "retrieved_at": "2026-02-15T07:39:00.255780+00:00",
   "completeness_score": 0.98,
   "recency_score": 0.98,
   "provenance_score": 0.833,
