@@ -71,13 +71,15 @@ function getAssetRoots() {
     }
   }
 
-  if (!isRepoHostedApp) {
-    roots.add('/');
-  }
-
   if (appsIndex >= 0 && parts[appsIndex + 1] === 'web') {
     const repoRootParts = parts.slice(0, appsIndex);
-    roots.add(repoRootParts.length ? `/${repoRootParts.join('/')}/` : '/');
+    if (repoRootParts.length > 0) {
+      roots.add(`/${repoRootParts.join('/')}/`);
+    } else if (parts.length === 2) {
+      roots.add('/');
+    }
+  } else if (!isRepoHostedApp) {
+    roots.add('/');
   }
 
   return Array.from(roots).map((root) => normalizePath(root));
