@@ -1,5 +1,5 @@
 version: 1
-last_updated: '2026-02-13'
+last_updated: '2026-02-14'
 sources:
   - source_id: data_gov_in_nhai_projects_api
     official_flag: true
@@ -25,6 +25,9 @@ sources:
     api_key_env: DATAGOVIN_API_KEY
     permanent_identifier_hint: "resource_id from data.gov.in"
     notes: "Set DATAGOVIN_NHAI_RESOURCE_ID and DATAGOVIN_API_KEY in environment before auto-fetch."
+    resource_file_urls:
+      - https://www.data.gov.in/sites/default/files/RS_Session_266_AU_2662_1.csv
+    manual_fallback: false
 
   - source_id: data_gov_in_nhai_project_finance_api
     official_flag: true
@@ -50,6 +53,9 @@ sources:
     api_key_env: DATAGOVIN_API_KEY
     permanent_identifier_hint: "resource_id + table/year/financial year"
     notes: "Use approved API key and official resource id; local/manual CSV fallback is supported for non-production runs."
+    resource_file_urls:
+      - https://www.data.gov.in/sites/default/files/RS_Session_267_AU_1550_D.i.csv
+    manual_fallback: false
 
   - source_id: data_gov_in_nhai_state_projects_api
     official_flag: true
@@ -75,6 +81,33 @@ sources:
     api_key_env: DATAGOVIN_API_KEY
     permanent_identifier_hint: "resource_id from data.gov.in (or state projects page file)"
     notes: "Page fallback handles public table files even when API keys or IDs are unavailable."
+    resource_file_urls:
+      - https://data.gov.in/sites/default/files/dataurl08122021/RS_Session_253_AU2230.C.csv
+    manual_fallback: false
+
+  - source_id: data_gov_in_nhai_projects_district_target_2023
+    official_flag: true
+    publisher_org: National Highways Authority of India (NHAI)
+    domain: data.gov.in
+    dataset_title: District-wise details of project target length of National Highways during 2023-24
+    theme: projects
+    access_type: HTML
+    auth: none
+    update_frequency: annual
+    geographic_granularity: district
+    temporal_coverage: 2023-24
+    license_terms: "Open Government Data License - India (OGL), subject to data.gov.in terms"
+    retrieval_method: direct download
+    resource_page_url: https://www.data.gov.in/resource/district-wise-details-project-target-length-national-highways-during-2023-24
+    resource_file_urls:
+      - https://www.data.gov.in/sites/default/files/RS_Session_263_AS_52_A_0.csv
+    reliability_grade: B
+    reliability_justification: Data is on official OGD resource page; file-level row totals are stable and suitable as district-level project indicators.
+    known_limitations: "Contains primarily 2023-24 snapshot rows; historical backfill may require alternate OGD resource pages."
+    allow_auto_fetch: true
+    notes: "Official file-based source to increase project coverage with district-level official measured rows."
+    permanent_identifier_hint: "resource file RS_Session_263_AS_52_A_0.csv"
+    url: https://www.data.gov.in/resource/district-wise-details-project-target-length-national-highways-during-2023-24
 
   - source_id: morth_annual_report_pdf
     official_flag: true

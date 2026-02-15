@@ -8,7 +8,7 @@
     "publisher": "Ministry of Road Transport and Highways (MoRTH)",
     "title": "Toll and FASTag collection quality signal snapshots",
     "url": "https://fto.gov.in/api/toll-fastag",
-    "retrieved_at": "2026-02-14T06:58:16.621969+00:00",
+    "retrieved_at": "2026-02-14T09:35:53.473000+00:00",
     "license_terms": "Portal specific API terms. Verify if telemetry fields are aggregated only.",
     "official_flag": true
   },
@@ -28,7 +28,7 @@
     "output_files": [
       {
         "path": "data/processed/ncrb_toll_fastag_claims.parquet",
-        "sha256": "277f778fa7b148c28e7e1b139b30a4ac0174d1606d1c1473eb2f9a5fe8ec2820"
+        "sha256": "7cdd0094e08e48cb999c36a92e14a6b27ebcc4b38f0712ec7f9b84ecd1d03d50"
       }
     ],
     "row_count": 6,
@@ -45,7 +45,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-14T06:58:16.621969+00:00",
+  "retrieved_at": "2026-02-14T09:35:53.473000+00:00",
   "completeness_score": 0.98,
   "recency_score": 0.98,
   "provenance_score": 0.6859999999999999,

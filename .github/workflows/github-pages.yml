@@ -66,6 +66,7 @@ jobs:
           cp -r data/processed/* /tmp/gh-pages/apps/web/data/processed/
           curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-eh.wasm https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-eh.wasm
           curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-mvp.wasm https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-mvp.wasm
+          curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-browser.mjs https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser.mjs
           curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-browser-eh.worker.js https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser-eh.worker.js
           curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-browser-mvp.worker.js https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser-mvp.worker.js
           curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-browser-coi.pthread.worker.js https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser-coi.pthread.worker.js

@@ -1,0 +1,61 @@
+{
+  "source_id": "data_gov_in_nhai_projects_district_target_2023",
+  "connector": "data_gov_in_ogd",
+  "version": "0.2.0",
+  "status": "ok",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI)",
+    "title": "District-wise details of project target length of National Highways during 2023-24",
+    "domain": "data.gov.in",
+    "url": "https://www.data.gov.in/resource/district-wise-details-project-target-length-national-highways-during-2023-24",
+    "retrieval_method": "direct download",
+    "access_type": "HTML",
+    "retrieved_at": "2026-02-14T09:35:52.990188+00:00",
+    "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "resource file RS_Session_263_AS_52_A_0.csv",
+    "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_263_AS_52_A_0.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/data_gov_in_nhai_projects_district_target_2023/data_gov_in_nhai_projects_district_target_2023/raw_20260214_093553.csv",
+        "sha256": "2793579e2f510ea5c6ad77a6d73b8a2efb41f14020bc9c88216acd694bf49f3a",
+        "size_bytes": 5633
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/data_gov_in_nhai_projects_district_target_2023.parquet",
+        "format": "parquet",
+        "sha256": "09ebb28a2425dedee543ea2fb601669c0f40166b0d33fb81898e9dd840d9ed65"
+      }
+    ],
+    "row_count": 47,
+    "columns": [
+      "sl._no.",
+      "district",
+      "name_of_ongoing_work",
+      "total_project_length_km",
+      "length_km_completed_till_31-03-2023",
+      "target_2023-24_in_km",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-02-14T09:35:52.990188+00:00",
+  "completeness_score": 0.969,
+  "recency_score": 1.0,
+  "provenance_score": 0.85,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/data_gov_in_nhai_projects_district_target_2023.parquet"
+}

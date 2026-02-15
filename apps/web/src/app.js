@@ -1,106 +1,97 @@
 import React, { useEffect, useState } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
-import * as duckdb from 'https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm';
+
+const DUCKDB_MODULE_CANDIDATES = [
+  './duckdb/duckdb-browser.mjs',
+  'https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser.mjs',
+];
+
+const DUCKDB_CDN_ROOT = 'https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist';
+
+let cachedDuckDBModule = null;
 
 function normalizePath(path) {
   return String(path || '/').replace(/\/+/g, '/');
 }
 
-function toRepoBaseFromPath(path) {
-  const normalized = normalizePath(path);
-  const markerIndex = normalized.indexOf('/apps/web/');
-  if (markerIndex >= 0) {
-    return normalized.slice(0, markerIndex + 1);
-  }
-
-  if (normalized === '/') {
-    return '/';
-  }
-
-  if (normalized.endsWith('/')) {
-    return normalized;
-  }
-
-  const segments = normalized.split('/').filter(Boolean);
-  const last = segments.at(-1) || '';
-  if (segments.length === 1 && !last.includes('.')) {
-    return `/${segments[0]}/`;
-  }
-
-  if (/\.[a-z0-9]+$/i.test(last)) {
-    return normalized.replace(/\/+[^/]+$/, '/');
-  }
-
-  return `${normalized.replace(/\/+[^/]*$/, '/')}`;
+function dedupeConsecutiveSegments(path) {
+  const parts = normalizePath(path).split('/').filter(Boolean);
+  const out = [];
+  parts.forEach((part) => {
+    if (out.length === 0 || out[out.length - 1] !== part) {
+      out.push(part);
+    }
+  });
+  return `/${out.join('/')}`;
 }
 
-function detectScriptBase() {
-  const script =
-    document.querySelector('script[type="module"][src$="src/app.js"]') ||
-    document.querySelector('script[type="module"][src*="app.js"]') ||
-    document.querySelector('script[type="module"][src]');
-
-  if (!script?.src) {
-    return null;
-  }
-
-  try {
-    const scriptUrl = new URL(script.src, window.location.href);
-    return toRepoBaseFromPath(scriptUrl.pathname).replace(/\/src\/?$/, '/');
-  } catch {
-    return null;
-  }
+function dedupeList(items) {
+  const out = [];
+  items.forEach((item) => {
+    if (!out.includes(item)) {
+      out.push(item);
+    }
+  });
+  return out;
 }
 
-function detectSiteBase() {
-  const scriptBase = detectScriptBase();
-  if (scriptBase) {
-    return scriptBase;
+function getAssetRoots() {
+  const pathname = normalizePath(new URL(window.location.href).pathname);
+  const pageDir = pathname.endsWith('/') ? pathname : pathname.slice(0, pathname.lastIndexOf('/') + 1) || '/';
+  const parts = pageDir.split('/').filter(Boolean);
+  const roots = new Set();
+  const appsIndex = parts.lastIndexOf('apps');
+
+  roots.add('/');
+  roots.add(dedupeConsecutiveSegments(pageDir) + (pageDir.endsWith('/') ? '/' : ''));
+
+  if (parts.length) {
+    if (parts[0] !== 'apps') {
+      roots.add(`/${parts[0]}/`);
+    }
   }
 
-  const locationBase = window.location.pathname || '/';
-  return toRepoBaseFromPath(locationBase);
+  if (appsIndex >= 0 && parts[appsIndex + 1] === 'web') {
+    const repoRootParts = parts.slice(0, appsIndex);
+    roots.add(repoRootParts.length ? `/${repoRootParts.join('/')}/` : '/');
+  }
+
+  return Array.from(roots).map((root) => normalizePath(root));
 }
 
-const SITE_BASE = detectSiteBase();
+function candidateAssetPaths(relPath) {
+  const raw = String(relPath || '').trim();
+  if (!raw) {
+    return ['/'];
+  }
+  if (/^https?:\/\//i.test(raw)) {
+    return [raw];
+  }
 
-function sitePath(relPath) {
-  const normalized = relPath.replace(/^\/+/, '');
-  const base = SITE_BASE || '/';
-  return `${base}${normalized}`.replace(/\/{2,}/g, '/');
-}
-
-function candidatePaths(relPath) {
-  const clean = relPath.replace(/^\/+/, '');
+  const clean = raw.replace(/^\/+/, '');
   const candidates = [];
-  const locationRel = new URL(clean, window.location.href).pathname;
-  candidates.push(sitePath(clean), locationRel);
-  if (SITE_BASE && SITE_BASE.length > 1 && SITE_BASE !== '/'){
-    const firstSegment = SITE_BASE.split('/').filter(Boolean)[0];
-    if (firstSegment) {
-      candidates.push(`/${firstSegment}/${clean}`);
+  const seen = new Set();
+  const add = (value) => {
+    const normalized = normalizePath(value);
+    if (!normalized || seen.has(normalized)) {
+      return;
     }
-  }
-  const firstSegment = (window.location.pathname || '').split('/').filter(Boolean)[0];
-  const alt = firstSegment ? `/${firstSegment}/${clean}` : null;
-  if (alt && !candidates.includes(alt)) {
-    candidates.push(alt);
-  }
+    seen.add(normalized);
+    candidates.push(normalized);
+  };
 
-  // Handle accidental duplicated repository base segments (e.g. /repo/repo/...).
-  const parts = (window.location.pathname || '/').split('/').filter(Boolean);
-  if (parts.length >= 2 && parts[0] === parts[1] && parts[0]) {
-    const dedup = `/${parts[0]}/${clean}`;
-    if (!candidates.includes(dedup)) {
-      candidates.push(dedup);
-    }
-  }
+  add(new URL(clean, window.location.href).pathname);
+  add(`/${clean}`);
 
-  return [...new Set(candidates)];
+  getAssetRoots().forEach((root) => {
+    add(`${normalizePath(root)}/${clean}`);
+  });
+
+  return dedupeList(candidates);
 }
 
 async function readCatalog(path) {
-  const candidates = candidatePaths(path);
+  const candidates = candidateAssetPaths(path);
   for (const candidate of candidates) {
     try {
       const response = await fetch(candidate, { cache: 'no-store' });
@@ -113,10 +104,8 @@ async function readCatalog(path) {
       }
       return payload;
     } catch (error) {
-      if (typeof window !== 'undefined') {
-        window.__catalogLoadAttempts = window.__catalogLoadAttempts || [];
-        window.__catalogLoadAttempts.push(error.message || String(error));
-      }
+      window.__catalogLoadAttempts = window.__catalogLoadAttempts || [];
+      window.__catalogLoadAttempts.push(error.message || String(error));
     }
   }
   return Promise.reject(new Error(`Catalog load failed for ${path}.`));
@@ -125,38 +114,113 @@ async function readCatalog(path) {
 function getDuckDBBundleCandidates() {
   return {
     eh: {
-      mainModule: sitePath('duckdb/duckdb-eh.wasm'),
-      mainWorker: sitePath('duckdb/duckdb-browser-eh.worker.js'),
+      mainModuleCandidates: [
+        ...candidateAssetPaths('duckdb/duckdb-eh.wasm'),
+        `${DUCKDB_CDN_ROOT}/duckdb-eh.wasm`,
+      ],
+      mainWorkerCandidates: [
+        ...candidateAssetPaths('duckdb/duckdb-browser-eh.worker.js'),
+        `${DUCKDB_CDN_ROOT}/duckdb-browser-eh.worker.js`,
+      ],
+      mainModule: `${DUCKDB_CDN_ROOT}/duckdb-eh.wasm`,
+      mainWorker: `${DUCKDB_CDN_ROOT}/duckdb-browser-eh.worker.js`,
       pthreadWorker: null,
     },
     mvp: {
-      mainModule: sitePath('duckdb/duckdb-mvp.wasm'),
-      mainWorker: sitePath('duckdb/duckdb-browser-mvp.worker.js'),
+      mainModuleCandidates: [
+        ...candidateAssetPaths('duckdb/duckdb-mvp.wasm'),
+        `${DUCKDB_CDN_ROOT}/duckdb-mvp.wasm`,
+      ],
+      mainWorkerCandidates: [
+        ...candidateAssetPaths('duckdb/duckdb-browser-mvp.worker.js'),
+        `${DUCKDB_CDN_ROOT}/duckdb-browser-mvp.worker.js`,
+      ],
+      mainModule: `${DUCKDB_CDN_ROOT}/duckdb-mvp.wasm`,
+      mainWorker: `${DUCKDB_CDN_ROOT}/duckdb-browser-mvp.worker.js`,
       pthreadWorker: null,
     },
   };
 }
 
+async function loadDuckDBModule() {
+  if (cachedDuckDBModule) {
+    return cachedDuckDBModule;
+  }
+
+  const moduleSources = [];
+  const seen = new Set();
+  DUCKDB_MODULE_CANDIDATES.forEach((candidate) => {
+    if (/^https?:\/\//i.test(candidate)) {
+      if (!seen.has(candidate)) {
+        seen.add(candidate);
+        moduleSources.push(candidate);
+      }
+    } else {
+      candidateAssetPaths(candidate).forEach((candidatePath) => {
+        if (!seen.has(candidatePath)) {
+          seen.add(candidatePath);
+          moduleSources.push(candidatePath);
+        }
+      });
+    }
+  });
+
+  const importErrors = [];
+  for (const source of moduleSources) {
+    try {
+      const duckdb = await import(source);
+      if (duckdb?.getPlatformFeatures && duckdb?.AsyncDuckDB && duckdb?.AsyncDuckDBConnection) {
+        cachedDuckDBModule = duckdb;
+        return duckdb;
+      }
+      importErrors.push(`${source}: missing DuckDB exports`);
+    } catch (error) {
+      importErrors.push(`${source}: ${error?.message || error}`);
+    }
+  }
+
+  throw new Error(`DuckDB module load failed (${importErrors.join(' | ')})`);
+}
+
 async function initDuckDB() {
+  const duckdb = await loadDuckDBModule();
   const features = await duckdb.getPlatformFeatures();
   const bundles = getDuckDBBundleCandidates();
   const selected = features.wasmSIMD && features.wasmExceptions ? bundles.eh : bundles.mvp;
   const logger = new duckdb.ConsoleLogger();
 
-  const instantiate = async (bundle) => {
-    const worker = new Worker(bundle.mainWorker, { type: 'module' });
+  const instantiate = async (mainModule, mainWorker, selectedBundle) => {
+    const worker = new Worker(mainWorker, { type: 'module' });
     const db = new duckdb.AsyncDuckDB(logger, worker);
-    await db.instantiate(bundle.mainModule, bundle.pthreadWorker);
+    await db.instantiate(mainModule, selectedBundle.pthreadWorker);
     return db;
   };
 
-  try {
-    return await instantiate(selected);
-  } catch (error) {
-    if (selected !== bundles.mvp) {
-      return await instantiate(bundles.mvp);
+  const tryBundle = async (bundle) => {
+    const moduleCount = Math.max(bundle.mainModuleCandidates.length, 1);
+    const workerCount = Math.max(bundle.mainWorkerCandidates.length, 1);
+    const total = Math.max(moduleCount, workerCount);
+
+    for (let i = 0; i < total; i += 1) {
+      const moduleUrl = bundle.mainModuleCandidates[i] || bundle.mainModule;
+      const workerUrl = bundle.mainWorkerCandidates[i] || bundle.mainWorker;
+      try {
+        return await instantiate(moduleUrl, workerUrl, bundle);
+      } catch (error) {
+        window.__duckDbLoadAttempts = window.__duckDbLoadAttempts || [];
+        window.__duckDbLoadAttempts.push(`${moduleUrl} | ${workerUrl}: ${error?.message || error}`);
+      }
     }
-    throw error;
+    throw new Error('All DuckDB bootstrap candidates failed');
+  };
+
+  try {
+    return await tryBundle(selected);
+  } catch (error) {
+    if (selected === bundles.mvp) {
+      throw error;
+    }
+    return tryBundle(bundles.mvp);
   }
 }
 
@@ -179,7 +243,7 @@ function extractRows(result) {
 }
 
 async function queryParquetRowCount(db, path) {
-  const candidates = candidatePaths(path);
+  const candidates = candidateAssetPaths(path);
   const conn = await db.connect();
 
   for (const candidate of candidates) {
@@ -309,7 +373,7 @@ function MetricCard({ item, rowCount }) {
   const permanentIdentifier = citation.permanent_identifier || source.permanent_identifier_hint || 'N/A';
   const anchor = citation.anchor || 'pending';
   const primarySource = `${source.publisher || item.source_id} / ${source.title || item?.source_id || 'Unknown source'}`;
-  const methodologyUrl = sitePath('methodology.html');
+  const methodologyUrl = candidateAssetPaths('methodology.html')[0] || 'methodology.html';
 
   return React.createElement(
     'div',

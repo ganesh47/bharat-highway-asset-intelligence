@@ -2,7 +2,7 @@
   "source_id": "data_gov_in_nhai_state_projects_api",
   "connector": "data_gov_in_ogd",
   "version": "0.2.0",
-  "status": "manual_ingest",
+  "status": "ok",
   "metric_category": "official_measured",
   "source": {
     "publisher": "National Highways Authority of India (NHAI)",
@@ -11,19 +11,19 @@
     "url": "https://www.data.gov.in/resource/state-wise-number-nh-and-road-projects-relating-are-included-national-infrastructure",
     "retrieval_method": "API call",
     "access_type": "API",
-    "retrieved_at": "2026-02-14T06:57:55.051739+00:00",
+    "retrieved_at": "2026-02-14T09:35:51.481772+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
   "citations": {
     "permanent_identifier": "resource_id from data.gov.in (or state projects page file)",
-    "anchor": "manual_upload",
+    "anchor": "resource_file:https://data.gov.in/sites/default/files/dataurl08122021/RS_Session_253_AU2230.C.csv",
     "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
   },
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/data_gov_in_nhai_state_projects_api.csv",
+        "path": "data/raw/data_gov_in_nhai_state_projects_api/data_gov_in_nhai_state_projects_api/raw_20260214_093552.csv",
         "sha256": "65b482de972b3afab75ae44b362d10b932dfa1e2e901db752c5d86d7245fdd07",
         "size_bytes": 245
       }
@@ -32,7 +32,7 @@
       {
         "path": "data/processed/data_gov_in_nhai_state_projects_api.parquet",
         "format": "parquet",
-        "sha256": "ef30a8f8c98105a7886be38e2f4749dee2667abd4bdbce88ada45477f94922cf"
+        "sha256": "9fe3d26431305de6bfc896d4b8f95e4cb5d420184ff86e58cdf266ece5d19a44"
       }
     ],
     "row_count": 5,
@@ -49,12 +49,11 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-14T06:57:55.051739+00:00",
-  "skip_reason": "official_page_fetch_failed:HTTPSConnectionPool(host='www.data.gov.in', port=443): Read timed out. (read timeout=20)",
-  "completeness_score": 0.98,
-  "recency_score": 0.98,
-  "provenance_score": 0.833,
-  "consistency_score": 0.98,
+  "retrieved_at": "2026-02-14T09:35:51.481772+00:00",
+  "completeness_score": 1.0,
+  "recency_score": 1.0,
+  "provenance_score": 0.85,
+  "consistency_score": 1.0,
   "overall_confidence_badge": "High",
   "overall_confidence_reason": [],
   "output_table_path": "data/processed/data_gov_in_nhai_state_projects_api.parquet"

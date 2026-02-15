@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+from urllib.parse import urlparse
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Optional
@@ -31,6 +32,7 @@ class DataGovInConnector:
             "data_gov_in_nhai_projects_api",
             "data_gov_in_nhai_project_finance_api",
             "data_gov_in_nhai_state_projects_api",
+            "data_gov_in_nhai_projects_district_target_2023",
         ],
         inputs=["source_inventory.source_item"],
         outputs=["parquet"],
@@ -116,6 +118,96 @@ class DataGovInConnector:
         return unique
 
     @staticmethod
+    def _safe_url_list(value: Any) -> list[str]:
+        if not value:
+            return []
+        if isinstance(value, str):
+            return [value]
+        if isinstance(value, (list, tuple, set)):
+            return [str(item) for item in value if item]
+        return []
+
+    @staticmethod
+    def _normalize_resource_url(url: str) -> str:
+        if not url:
+            return ""
+        return str(url).strip().replace(" ", "%20")
+
+    def _collect_resource_file_urls(self, source: Dict[str, Any], page_html: str | None = None) -> list[str]:
+        candidates: list[str] = []
+        candidates.extend(self._safe_url_list(source.get("resource_file_urls")))
+
+        # Prefer explicit file URLs from inventory first; only use page-derived candidates
+        # when no explicit file URL is provided by curation.
+        if not candidates and page_html:
+            candidates.extend(self._extract_file_candidates(page_html))
+
+        normalized: list[str] = []
+        for value in candidates:
+            if not value:
+                continue
+            normalized.append(self._normalize_resource_url(str(value)))
+        # Preserve first-seen order and remove duplicates.
+        out: list[str] = []
+        for item in normalized:
+            if item not in out:
+                out.append(item)
+        return out
+
+    def _read_file_candidate(self, url: str, raw_root: Path, source_id: str) -> tuple[pd.DataFrame | None, Path | None]:
+        response = requests.get(url, timeout=45, headers={"user-agent": "BHAI-research-scan/0.2"})
+        if not response.ok:
+            return None, None
+
+        content_type = (response.headers.get("Content-Type") or "").lower()
+        path_extension = ".csv"
+
+        if "json" in content_type:
+            try:
+                payload = response.json()
+                extension = ".json"
+                raw_path = self._write_raw_response(raw_root / source_id, source_id, response.text, extension)
+                return self._parse_api_records(payload), raw_path
+            except Exception:
+                # Fallback to text parsing for semi-CSV content mislabeled as JSON.
+                pass
+
+        guessed_ext = Path(urlparse(url).path).suffix.lower()
+        if guessed_ext in {".json"}:
+            path_extension = ".json"
+        elif guessed_ext in {".xlsx", ".xls"}:
+            path_extension = guessed_ext
+        elif guessed_ext in {".txt", ".tsv"}:
+            path_extension = ".txt"
+        elif guessed_ext in {".csv"}:
+            path_extension = ".csv"
+        elif guessed_ext:
+            path_extension = guessed_ext
+
+        if path_extension == ".json":
+            raw_path = self._write_raw_response(raw_root / source_id, source_id, response.text, ".json")
+            try:
+                return self._parse_api_records(response.json()), raw_path
+            except Exception:
+                return None, None
+        if path_extension in {".xls", ".xlsx"}:
+            raw_path = self._write_raw_response(raw_root / source_id, source_id, response.content, path_extension)
+            try:
+                return pd.read_excel(raw_path), raw_path
+            except Exception:
+                return None, None
+
+        raw_path = self._write_raw_response(raw_root / source_id, source_id, response.content, ".csv")
+        try:
+            return pd.read_csv(raw_path), raw_path
+        except Exception:
+            # Final tolerant fallback for small official files that may be TSV or plain text.
+            try:
+                return pd.read_csv(raw_path, sep="\t"), raw_path
+            except Exception:
+                return None, None
+
+    @staticmethod
     def _parse_api_records(payload: Any) -> pd.DataFrame:
         if isinstance(payload, dict):
             for key in API_RECORD_KEYS:
@@ -126,6 +218,45 @@ class DataGovInConnector:
             return pd.DataFrame(payload)
 
         raise ValueError("Unexpected API payload shape.")
+
+    @staticmethod
+    def _fetch_api_pages(api_url: str, base_params: Dict[str, Any], headers: Dict[str, str]) -> pd.DataFrame:
+        limit = int(base_params.get("limit", 5000))
+        offset = 0
+        pages: list[pd.DataFrame] = []
+        visited = 0
+        while len(pages) < 200:
+            query = dict(base_params)
+            query["offset"] = offset
+            response = requests.get(api_url, params=query, timeout=60, headers=headers)
+            response.raise_for_status()
+
+            payload = response.json()
+            page_df = DataGovInConnector._parse_api_records(payload)
+            if page_df.empty:
+                break
+
+            pages.append(page_df)
+            visited += len(page_df)
+
+            total = payload.get("total")
+            count = payload.get("count") or payload.get("records_count")
+            if isinstance(total, int) and visited >= total:
+                break
+            if isinstance(count, int):
+                if count < limit:
+                    break
+            elif len(page_df) < limit:
+                break
+            if total is None and len(page_df) < limit:
+                break
+            offset += limit
+            if offset > 200000:
+                break
+
+        if not pages:
+            return pd.DataFrame()
+        return pd.concat(pages, ignore_index=True)
 
     @staticmethod
     def _standardize_df(df: pd.DataFrame) -> pd.DataFrame:
@@ -195,7 +326,7 @@ class DataGovInConnector:
         ensure_dirs(raw_root.as_posix(), processed_root.as_posix(), manifest_root.as_posix())
 
         manual_df, manual_path = self._manual_file(source_id, raw_root)
-        raw_path: Optional[Path] = None
+        raw_paths: list[Path] = []
         anchor = "manual_upload"
         status = "candidate_ready"
         skip_reason = None
@@ -218,6 +349,7 @@ class DataGovInConnector:
                 skip_reason="auth_restriction",
             )
 
+        df_frames: list[pd.DataFrame] = []
         df: Optional[pd.DataFrame] = None
 
         # 1) API path (official JSON API)
@@ -236,101 +368,101 @@ class DataGovInConnector:
             params = {
                 "api-key": os.getenv(api_key, ""),
                 "format": "json",
-                "limit": 50000,
+                "limit": 5000,
             }
+            raw_path: Path | None = None
             try:
-                response = requests.get(api_url, params=params, timeout=60, headers=self._api_headers(source))
-                response.raise_for_status()
-                raw_path = self._write_raw_response(raw_root / source_id, source_id, response.text, ".json")
-                df = self._parse_api_records(response.json())
-                df = self._standardize_df(df)
+                api_df = self._fetch_api_pages(api_url, params, self._api_headers(source))
+                if not api_df.empty:
+                    raw_path = self._write_raw_response(raw_root / source_id, source_id, api_df.to_json(orient="records"), ".json")
+                if not api_df.empty:
+                    if raw_path is not None:
+                        raw_paths.append(raw_path)
+                    df_frames.append(api_df)
                 status = "automated"
                 anchor = f"api:{source_id}:{resource_id}"
             except Exception as exc:  # pragma: no cover - network dependent
                 skip_reason = f"api_fetch_failed:{exc}"
 
-        # 2) Official resource page fallback (official file link extraction)
-        if df is None and source.get("allow_auto_fetch") and source.get("resource_page_url"):
-            resource_url = source["resource_page_url"]
+        if len(df_frames) == 0 and source.get("allow_auto_fetch") and (
+            source.get("resource_page_url") or source.get("resource_file_urls")
+        ):
+            resource_url = source.get("resource_page_url")
+            page_status_issue = None
             try:
-                page_resp = requests.get(resource_url, timeout=45, headers={"user-agent": "BHAI-research-scan/0.2"})
-                page_resp.raise_for_status()
-                candidates = self._extract_file_candidates(page_resp.text)
+                page_resp = requests.get(
+                    resource_url,
+                    timeout=45,
+                    headers={"user-agent": "BHAI-research-scan/0.2"},
+                ) if resource_url else None
+                page_html = ""
+                if page_resp is not None:
+                    page_html = page_resp.text if page_resp.status_code < 400 else ""
+                    if page_resp.status_code >= 400:
+                        page_status_issue = f"resource_page_http_{page_resp.status_code}"
 
+                candidates = self._collect_resource_file_urls(source, page_html)
+                if not candidates:
+                    candidates = self._extract_file_candidates(page_html)
+
+                anchors = []
+                parse_failures = []
+                seen_candidate_paths: set[str] = set()
                 for candidate in candidates:
-                    candidate_resp = requests.get(candidate, timeout=20, headers={"user-agent": "BHAI-research-scan/0.2"})
-                    if not candidate_resp.ok:
+                    candidate_path = urlparse(candidate).path.rstrip("/").lower()
+                    if candidate_path in seen_candidate_paths:
+                        continue
+                    seen_candidate_paths.add(candidate_path)
+
+                    try:
+                        parsed_df, parsed_path = self._read_file_candidate(candidate, raw_root, source_id)
+                    except Exception as exc:
+                        parse_failures.append(f"{candidate}|{exc.__class__.__name__}")
                         continue
 
-                    content_type = (candidate_resp.headers.get("Content-Type") or "").lower()
-                    guessed_ext = candidate.lower().rsplit(".", 1)[-1]
+                    if parsed_df is None:
+                        parse_failures.append(candidate)
+                        continue
 
-                    if "json" in content_type or guessed_ext == "json":
-                        temp = self._write_raw_response(
-                            raw_root / source_id,
-                            source_id,
-                            candidate_resp.text,
-                            ".json",
-                        )
-                        response_payload = candidate_resp.json()
-                        df = self._parse_api_records(response_payload)
-                    elif "csv" in content_type or guessed_ext == "csv":
-                        temp = self._write_raw_response(
-                            raw_root / source_id,
-                            source_id,
-                            candidate_resp.content,
-                            ".csv",
-                        )
-                        df = pd.read_csv(temp)
-                    elif "excel" in content_type or guessed_ext in {"xls", "xlsx"}:
-                        temp = self._write_raw_response(
-                            raw_root / source_id,
-                            source_id,
-                            candidate_resp.content,
-                            ".xlsx",
-                        )
-                        df = pd.read_excel(temp)
-                    elif "text" in content_type and guessed_ext in {"txt", "tsv"}:
-                        temp = self._write_raw_response(
-                            raw_root / source_id,
-                            source_id,
-                            candidate_resp.text,
-                            ".csv",
-                        )
-                        df = pd.read_csv(temp)
-                    else:
-                        # Probe raw content as CSV as a tolerant fallback for small official attachments.
-                        temp = self._write_raw_response(
-                            raw_root / source_id,
-                            source_id,
-                            candidate_resp.content,
-                            ".csv",
-                        )
-                        try:
-                            df = pd.read_csv(temp)
-                        except Exception:
-                            df = None
+                    if parsed_df.empty:
+                        parse_failures.append(f"{candidate}|empty")
+                        continue
 
-                    if df is not None:
-                        raw_path = temp
-                        status = "ok"
-                        anchor = f"resource_page_file:{candidate}"
-                        break
+                    df_frames.append(parsed_df)
+                    if parsed_path is not None:
+                        raw_paths.append(parsed_path)
+                    status = "ok"
+                    anchors.append(candidate)
+                    # Stop at first usable official payload; additional mirrors are optional and
+                    # often duplicated / unstable.
+                    break
 
-                if df is None:
+                if not df_frames:
                     raise RuntimeError("No downloadable official table/file link was discoverable from resource page metadata.")
+                if anchors:
+                    anchor = "resource_file:" + anchors[0]
+                    if len(anchors) > 1:
+                        anchor += f" (+{len(anchors)-1} more file(s))"
+                    skip_reason = None
+                elif page_status_issue and not parse_failures:
+                    skip_reason = page_status_issue
+                elif parse_failures and not anchors:
+                    skip_reason = "resource_file_fetch_failed:" + " | ".join(parse_failures[:3])
             except Exception as exc:  # pragma: no cover - network dependent
-                skip_reason = f"official_page_fetch_failed:{exc}"
-                df = None
+                if not df_frames:
+                    skip_reason = f"official_page_fetch_failed:{exc}"
+                    df_frames = []
 
         # 3) Manual fallback (only if no approved API/page result)
-        if df is None and manual_df is not None:
+        allow_manual_fallback = bool(source.get("manual_fallback", True))
+        if len(df_frames) == 0 and manual_df is not None and allow_manual_fallback:
             df = manual_df.copy(deep=True)
-            raw_path = manual_path
+            raw_paths = [manual_path] if manual_path else []
             status = "manual_ingest"
             anchor = "manual_upload"
+            df_frames = [df]
 
-        if df is None:
+        if not df_frames:
             return ConnectorResult(
                 source_id=source_id,
                 output_table_path=output_path,
@@ -348,6 +480,10 @@ class DataGovInConnector:
                 skip_reason=skip_reason or "no_source_data_available",
             )
 
+        df = pd.concat(df_frames, ignore_index=True)
+        if not df.empty:
+            # Avoid duplicated rows when a source exposes repeated file mirrors.
+            df = df.drop_duplicates(ignore_index=True)
         df = self._standardize_df(df)
         df = self._parse_year(df)
 
@@ -376,12 +512,22 @@ class DataGovInConnector:
         }
 
         raw_files: list[dict] = []
-        if raw_path and raw_path.exists():
+        seen_raw_paths = set()
+        unique_raw_paths: list[Path] = []
+        for raw_file in raw_paths:
+            if raw_file is None or str(raw_file) in seen_raw_paths:
+                continue
+            seen_raw_paths.add(str(raw_file))
+            unique_raw_paths.append(raw_file)
+
+        for raw_file in unique_raw_paths:
+            if raw_file is None or not raw_file.exists():
+                continue
             raw_files.append(
                 {
-                    "path": str(raw_path),
-                    "sha256": sha256_for_file(raw_path),
-                    "size_bytes": raw_path.stat().st_size,
+                    "path": str(raw_file),
+                    "sha256": sha256_for_file(raw_file),
+                    "size_bytes": raw_file.stat().st_size,
                 }
             )
 

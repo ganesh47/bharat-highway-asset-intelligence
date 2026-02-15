@@ -41,6 +41,17 @@ def _safe_url(item: Dict[str, Any]) -> str | None:
     return url.format(resource_id=resource_id)
 
 
+def _safe_url_list(item: Dict[str, Any]) -> list[str]:
+    raw = item.get("resource_file_urls")
+    if not raw:
+        return []
+    if isinstance(raw, str):
+        return [raw]
+    if isinstance(raw, (tuple, list, set)):
+        return [str(value) for value in raw if value]
+    return []
+
+
 def _robots_allowed(url: str) -> Dict[str, Any]:
     parsed = urlparse(url)
     if not parsed.scheme or not parsed.netloc:
@@ -127,31 +138,46 @@ def _scan_item(item: Dict[str, Any]) -> Dict[str, Any]:
         result["scan_error"] = "auto_fetch_disabled_in_inventory"
         return result
 
-    robots = _robots_allowed(url)
-    if not robots.get("allowed"):
-        reason = robots.get("reason")
-        if reason and reason.startswith("robots_fetch"):
-            # best-effort probe for transient robots failures; keep strict on explicit disallow.
-            result.update(_http_probe(url))
-            result["crawl_delay_seconds"] = robots.get("crawl_delay")
-            result["scan_error"] = reason
-            if result.get("last_modified"):
-                result["last-modified"] = result["last_modified"]
-            return result
+    candidates = _safe_url_list(item)
+    if url and url not in candidates:
+        candidates.append(url)
 
-        result["status_ok"] = False
-        result["scan_error"] = reason
-        result.update({"content_type": None, "etag": None, "last_modified": None, "http_status": None})
+    if not candidates:
+        result["scan_error"] = "missing_or_unresolved_url"
         return result
 
-    probe = _http_probe(url)
-    result.update(probe)
-    result["crawl_delay_seconds"] = robots.get("crawl_delay")
-    if result.get("last_modified"):
-        result["last-modified"] = result["last_modified"]
+    for candidate in candidates:
+        robots = _robots_allowed(candidate)
+        if not robots.get("allowed"):
+            reason = robots.get("reason")
+            if reason and reason.startswith("robots_fetch"):
+                # best-effort probe for transient robots failures; keep strict on explicit disallow.
+                result.update(_http_probe(candidate))
+                result["crawl_delay_seconds"] = robots.get("crawl_delay")
+                result["scan_error"] = reason
+                if result.get("last_modified"):
+                    result["last-modified"] = result["last_modified"]
+                if result.get("status_ok"):
+                    result["scanned_url"] = candidate
+                    return result
+                continue
 
-    if probe.get("error"):
-        result["scan_error"] = probe["error"]
+            continue
+
+        probe = _http_probe(candidate)
+        result.update(probe)
+        result["crawl_delay_seconds"] = robots.get("crawl_delay")
+        result["scanned_url"] = candidate
+        if result.get("last_modified"):
+            result["last-modified"] = result["last_modified"]
+
+        if probe.get("error"):
+            result["scan_error"] = probe["error"]
+            continue
+
+        return result
+
+    result["scan_error"] = result.get("scan_error") or "candidate_probe_failed"
     return result
 
 
