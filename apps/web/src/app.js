@@ -80,11 +80,11 @@ function candidateAssetPaths(relPath) {
     candidates.push(normalized);
   };
 
-  add(new URL(clean, window.location.href).pathname);
-  add(`/${clean}`);
+  add(normalizePath(new URL(clean, window.location.href).pathname));
+  add(normalizePath(`/${clean}`));
 
   getAssetRoots().forEach((root) => {
-    add(`${normalizePath(root)}/${clean}`);
+    add(normalizePath(`${normalizePath(root)}/${clean}`));
   });
 
   return dedupeList(candidates);
