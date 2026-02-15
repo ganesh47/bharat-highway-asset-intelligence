@@ -40,7 +40,7 @@ function getAssetRoots() {
   const pageDir = pathname.endsWith('/') ? pathname : pathname.slice(0, pathname.lastIndexOf('/') + 1) || '/';
   const parts = pageDir.split('/').filter(Boolean);
   const appsIndex = parts.lastIndexOf('apps');
-  const isRepoHostedApp = appsIndex > 0 && parts[appsIndex + 1] === 'web';
+  const isRepoHostedApp = appsIndex >= 0 && parts[appsIndex + 1] === 'web';
   const roots = new Set();
 
   roots.add(dedupeConsecutiveSegments(pageDir) + (pageDir.endsWith('/') ? '/' : ''));
@@ -77,7 +77,7 @@ function candidateAssetPaths(relPath) {
   const seen = new Set();
   const pathParts = normalizePath(new URL(window.location.href).pathname).split('/').filter(Boolean);
   const pathAppsIndex = pathParts.lastIndexOf('apps');
-  const isRepoHostedApp = pathAppsIndex > 0 && pathParts[pathAppsIndex + 1] === 'web';
+  const isRepoHostedApp = pathAppsIndex >= 0 && pathParts[pathAppsIndex + 1] === 'web';
   const add = (value) => {
     const normalized = normalizePath(value);
     if (!normalized || seen.has(normalized)) {
