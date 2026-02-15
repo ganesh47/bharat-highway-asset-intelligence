@@ -360,13 +360,22 @@ class DataGovInConnector:
             resource_id = os.getenv(source.get("resource_id_env", "").strip(), None)
 
         api_url = source.get("url", "") if source.get("allow_auto_fetch") and source.get("access_type") == "API" else ""
-        api_key = source.get("api_key_env")
-        if api_url and resource_id and api_key:
+        api_key_name = source.get("api_key_env")
+        api_key = (os.getenv(api_key_name, "").strip() if isinstance(api_key_name, str) else "").strip()
+        if api_url and resource_id and api_key and "{" in api_url:
             api_url = api_url.format(resource_id=resource_id)
 
-        if api_url:
+        can_use_api = bool(api_url and resource_id and api_key and "{resource_id}" not in api_url)
+
+        if api_url and not can_use_api and not skip_reason:
+            if not resource_id:
+                skip_reason = "api_skipped_missing_resource_id"
+            elif not api_key:
+                skip_reason = "api_skipped_missing_api_key"
+
+        if can_use_api:
             params = {
-                "api-key": os.getenv(api_key, ""),
+                "api-key": api_key,
                 "format": "json",
                 "limit": 5000,
             }
@@ -388,20 +397,23 @@ class DataGovInConnector:
             source.get("resource_page_url") or source.get("resource_file_urls")
         ):
             resource_url = source.get("resource_page_url")
+            explicit_files = self._safe_url_list(source.get("resource_file_urls"))
             page_status_issue = None
             try:
-                page_resp = requests.get(
-                    resource_url,
-                    timeout=45,
-                    headers={"user-agent": "BHAI-research-scan/0.2"},
-                ) if resource_url else None
                 page_html = ""
-                if page_resp is not None:
-                    page_html = page_resp.text if page_resp.status_code < 400 else ""
-                    if page_resp.status_code >= 400:
-                        page_status_issue = f"resource_page_http_{page_resp.status_code}"
-
-                candidates = self._collect_resource_file_urls(source, page_html)
+                if explicit_files:
+                    candidates = self._collect_resource_file_urls(source, page_html)
+                else:
+                    page_resp = requests.get(
+                        resource_url,
+                        timeout=(8, 30),
+                        headers={"user-agent": "BHAI-research-scan/0.2"},
+                    ) if resource_url else None
+                    if page_resp is not None:
+                        page_html = page_resp.text if page_resp.status_code < 400 else ""
+                        if page_resp.status_code >= 400:
+                            page_status_issue = f"resource_page_http_{page_resp.status_code}"
+                    candidates = self._collect_resource_file_urls(source, page_html)
                 if not candidates:
                     candidates = self._extract_file_candidates(page_html)
 

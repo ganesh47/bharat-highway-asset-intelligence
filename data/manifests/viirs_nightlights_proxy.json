@@ -8,7 +8,7 @@
     "publisher": "NASA Earthdata / NOAA",
     "title": "VIIRS nightlights proxy activity index around national highways",
     "url": "https://earthdata.nasa.gov/",
-    "retrieved_at": "2026-02-14T09:35:53.483014+00:00",
+    "retrieved_at": "2026-02-15T06:43:51.595470+00:00",
     "license_terms": "Use NASA VIIRS proxy dataset under official redistribution terms; separate from measured infrastructure condition metrics.",
     "official_flag": false
   },
@@ -28,7 +28,7 @@
     "output_files": [
       {
         "path": "data/processed/viirs_nightlights_proxy.parquet",
-        "sha256": "3d0e377a7981dae33fb4c4c45e22ca553ee4188d3f2847c5c829dacce666609c"
+        "sha256": "66413cbf599ba839919e0a27476be1add6cdb0e8451fb04bc2be2aea6bea313f"
       }
     ],
     "row_count": 3,
@@ -45,7 +45,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-14T09:35:53.483014+00:00",
+  "retrieved_at": "2026-02-15T06:43:51.595470+00:00",
   "completeness_score": 0.98,
   "recency_score": 0.98,
   "provenance_score": 0.588,

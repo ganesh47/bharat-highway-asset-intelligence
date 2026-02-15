@@ -8,7 +8,7 @@
     "publisher": "National Highways Authority of India (NHAI) / Ministry of Road Transport and Highways (MoRTH)",
     "title": "Contractor qualification, performance, and award disclosures",
     "url": "https://www.nhai.gov.in/en/contractor-disclosures",
-    "retrieved_at": "2026-02-14T09:35:53.462655+00:00",
+    "retrieved_at": "2026-02-15T06:43:51.570774+00:00",
     "license_terms": "Use official releases and disclosures only; verify reuse permissions in associated notices.",
     "official_flag": true
   },
@@ -28,7 +28,7 @@
     "output_files": [
       {
         "path": "data/processed/morh_contractor_disclosures.parquet",
-        "sha256": "e4f08f5e2ec503bab1ae09f03b340192852840ebe857346ed03cb35db88801fa"
+        "sha256": "e2f60b16db82e5391434b0d99ff18062ce26c624899ba3f90b7b3701c72f51bf"
       }
     ],
     "row_count": 2,
@@ -47,7 +47,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-14T09:35:53.462655+00:00",
+  "retrieved_at": "2026-02-15T06:43:51.570774+00:00",
   "completeness_score": 0.98,
   "recency_score": 0.98,
   "provenance_score": 0.833,

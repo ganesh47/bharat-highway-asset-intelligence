@@ -27,7 +27,7 @@ sources:
     notes: "Set DATAGOVIN_NHAI_RESOURCE_ID and DATAGOVIN_API_KEY in environment before auto-fetch."
     resource_file_urls:
       - https://www.data.gov.in/sites/default/files/RS_Session_266_AU_2662_1.csv
-    manual_fallback: false
+    manual_fallback: true
 
   - source_id: data_gov_in_nhai_project_finance_api
     official_flag: true
@@ -55,7 +55,7 @@ sources:
     notes: "Use approved API key and official resource id; local/manual CSV fallback is supported for non-production runs."
     resource_file_urls:
       - https://www.data.gov.in/sites/default/files/RS_Session_267_AU_1550_D.i.csv
-    manual_fallback: false
+    manual_fallback: true
 
   - source_id: data_gov_in_nhai_state_projects_api
     official_flag: true
@@ -83,7 +83,7 @@ sources:
     notes: "Page fallback handles public table files even when API keys or IDs are unavailable."
     resource_file_urls:
       - https://data.gov.in/sites/default/files/dataurl08122021/RS_Session_253_AU2230.C.csv
-    manual_fallback: false
+    manual_fallback: true
 
   - source_id: data_gov_in_nhai_projects_district_target_2023
     official_flag: true
