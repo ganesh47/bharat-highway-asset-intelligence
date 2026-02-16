@@ -328,11 +328,32 @@ async function initDuckDB() {
 
 function extractRows(result) {
   if (!result) return [];
-  if (typeof result.toArray === 'function') {
-    return result.toArray();
-  }
   if (typeof result.toArrayOfObjects === 'function') {
     return result.toArrayOfObjects();
+  }
+  if (typeof result.toArray === 'function') {
+    const rows = result.toArray();
+    if (!rows.length) {
+      return [];
+    }
+    const firstRow = rows[0];
+    if (firstRow && typeof firstRow === 'object' && !Array.isArray(firstRow)) {
+      return rows;
+    }
+    if (!Array.isArray(firstRow)) {
+      return [];
+    }
+    const names = result.columnNames || [];
+    if (!names.length) {
+      return rows.map((row) => Object.fromEntries(row.map((value, index) => [`column_${index}`, value])));
+    }
+    return rows.map((row) => {
+      const obj = {};
+      names.forEach((name, index) => {
+        obj[name] = row[index];
+      });
+      return obj;
+    });
   }
   if (typeof result.toJSON === 'function') {
     try {
@@ -370,22 +391,30 @@ async function registerSourceBuffer(conn, sourcePath) {
         continue;
       }
       const buffer = await response.arrayBuffer();
-      await conn.registerFileBuffer(alias, new Uint8Array(buffer));
+      if (!cachedDuckDBInstance || typeof cachedDuckDBInstance.registerFileBuffer !== 'function') {
+        throw new Error('DuckDB instance is not ready for file registration');
+      }
+      await cachedDuckDBInstance.registerFileBuffer(alias, new Uint8Array(buffer));
       sourceAliasCache.set(`${sourcePath}::loaded`, true);
       return alias;
     } catch (error) {
       lastError.push(`${candidate}: ${error?.message || error}`);
     }
   }
-
   throw new Error(`Parquet unavailable: ${sourcePath}. Tried: ${lastError.join(' | ')}`);
 }
 
 async function queryParquetRows(conn, sourcePath, queryFactory) {
   const alias = await registerSourceBuffer(conn, sourcePath);
   const sql = typeof queryFactory === 'function' ? queryFactory(alias) : queryFactory;
-  const query = await conn.query(sql);
-  return extractRows(query);
+  let query;
+  try {
+    query = await conn.query(sql);
+  } catch (error) {
+    throw error;
+  }
+  const rows = extractRows(query);
+  return rows;
 }
 
 async function countRows(conn, sourcePath) {
@@ -1034,7 +1063,6 @@ async function loadAnalyticCatalog(conn, catalog) {
     SELECT
       "state_assigned" AS state,
       CAST("observation_year" AS INTEGER) AS observation_year,
-      CAST("city_access_hours" AS DOUBLE) AS city_access_hours,
       AVG(CAST("safety_risk_score" AS DOUBLE)) AS avg_safety_risk_score,
       AVG(CAST("delay_risk_score" AS DOUBLE)) AS avg_delay_risk_score,
       AVG(CAST("construction_progress_pct" AS DOUBLE)) AS avg_progress,
@@ -1208,7 +1236,6 @@ async function loadAnalyticCatalog(conn, catalog) {
   accidentRows.forEach((row) => stateList.add(row.state));
   modelStateRisk.forEach((row) => stateList.add(row.state));
   modelByStateSummary.forEach((row) => stateList.add(row.state));
-
   return {
     growthRows,
     financeRows,
@@ -1362,7 +1389,8 @@ function App() {
     const incident = num(acc.total_killed) || 0;
     const riskScore = num(model.avg_maintenance_cost_cr) ? num(model.avg_maintenance_cost_cr) : 0;
     const cityAccess = num(model.avg_road_length_km);
-    const modelConfidence = riskScore > 0 ? `${risk.toFixed(1)} proxy` : 'official+model blend';
+    const riskLabel = Number.isFinite(risk) ? risk.toFixed(1) : 'n/a';
+    const modelConfidence = riskScore > 0 ? `${riskLabel} proxy` : 'official+model blend';
     return {
       state: acc.state,
       x: incident > 0 ? incident : qualityProxy || 0.1,
