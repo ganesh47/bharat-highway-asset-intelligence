@@ -9,21 +9,21 @@
     "title": "National Highways project-wise progress and execution data",
     "domain": "data.gov.in",
     "url": "https://www.data.gov.in/resource/project-wise-details-projects-construction-progress-length-national-highways-nhs-state",
-    "retrieval_method": "API call",
-    "access_type": "API",
-    "retrieved_at": "2026-02-15T07:38:56.478402+00:00",
+    "retrieval_method": "direct download",
+    "access_type": "HTML",
+    "retrieved_at": "2026-02-16T05:48:14.070404+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
   "citations": {
-    "permanent_identifier": "resource_id from data.gov.in",
+    "permanent_identifier": "nid=603637137 (resource page)",
     "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_266_AU_2662_1.csv",
     "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
   },
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_nhai_projects_api/data_gov_in_nhai_projects_api/raw_20260215_073856.csv",
+        "path": "data/raw/data_gov_in_nhai_projects_api/data_gov_in_nhai_projects_api/raw_20260216_054814.csv",
         "sha256": "8e350748bca06b4aa2a0d84b1ead500e5408cd59f50c01375c91de467c6b681a",
         "size_bytes": 5441
       }
@@ -32,7 +32,7 @@
       {
         "path": "data/processed/data_gov_in_nhai_projects_api.parquet",
         "format": "parquet",
-        "sha256": "3e5df856db8515577e8ff7fc12c43df072ce85e5075c89eccd50d662a9b12c34"
+        "sha256": "205a7521e4e58c0ad2c0084e529fe5a052c257f8807c0fd406676833688fa449"
       }
     ],
     "row_count": 42,
@@ -49,7 +49,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-15T07:38:56.478402+00:00",
+  "retrieved_at": "2026-02-16T05:48:14.070404+00:00",
   "completeness_score": 1.0,
   "recency_score": 1.0,
   "provenance_score": 1.0,

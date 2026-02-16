@@ -8,7 +8,7 @@
     "publisher": "Bharat Highway Intelligence Risk Lab",
     "title": "Highway project decision support panel (model synthesis)",
     "url": "",
-    "retrieved_at": "2026-02-15T07:38:57.247815+00:00",
+    "retrieved_at": "2026-02-16T05:48:15.449830+00:00",
     "license_terms": "Model output for internal decision support only. Not an official measurement. Include uncertainty and confidence notes before policy use.",
     "official_flag": false
   },
@@ -21,17 +21,17 @@
     "raw_files": [
       {
         "path": "data/processed/data_gov_in_nhai_projects_api.parquet",
-        "sha256": "3e5df856db8515577e8ff7fc12c43df072ce85e5075c89eccd50d662a9b12c34",
+        "sha256": "205a7521e4e58c0ad2c0084e529fe5a052c257f8807c0fd406676833688fa449",
         "size_bytes": 10998
       },
       {
         "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
-        "sha256": "6cf2487b8bac242d206d883b9c3d2c787561affa4add11074873bcf4cdd810e0",
+        "sha256": "ce0460f0094aedc65d4f461ab9291bb3a2f9c32e031724f1f33c7156dbb93c32",
         "size_bytes": 11249
       },
       {
         "path": "data/processed/ncrb_road_accidents_state_year.parquet",
-        "sha256": "d9f3add10a005c204f8f4f0d5d26fcb2616868296b538bf84beb04b85ba6256d",
+        "sha256": "7cf12a22fd8f4db79e5d604eaabd7ea09a1f24e9f83ef54e583cdde82039cae2",
         "size_bytes": 6125
       }
     ],
@@ -39,7 +39,7 @@
       {
         "path": "data/processed/highway_project_risk_and_access_panel.parquet",
         "format": "parquet",
-        "sha256": "50fd5b3c69df3bad95b71acc0ea91523ed55cbc667036c114b65d60d32300655"
+        "sha256": "bfdcb52c21d67d3b280702ed9854c1c4f7992cae3daa610adf87b9aa976cb18d"
       }
     ],
     "row_count": 219996,
@@ -75,7 +75,7 @@
       "model_notes"
     ]
   },
-  "retrieved_at": "2026-02-15T07:38:57.247815+00:00",
+  "retrieved_at": "2026-02-16T05:48:15.449830+00:00",
   "note": "Model outputs must be treated as estimates and scenario inputs, never as certified official facts.",
   "completeness_score": 0.5,
   "recency_score": 0.5,

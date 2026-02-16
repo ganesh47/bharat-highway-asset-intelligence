@@ -1,0 +1,57 @@
+{
+  "source_id": "data_gov_in_nhai_yearwise_nh_constructed_2014_15",
+  "connector": "data_gov_in_ogd",
+  "version": "0.2.0",
+  "status": "ok",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI)",
+    "title": "Year-wise National Highways (NH) constructed by NHAI",
+    "domain": "data.gov.in",
+    "url": "https://www.data.gov.in/resource/year-wise-national-highway-nhs-constructed-national-highways-authority-india-nhai-2014-15",
+    "retrieval_method": "direct download",
+    "access_type": "HTML",
+    "retrieved_at": "2026-02-16T05:48:15.007493+00:00",
+    "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "nid=7214730 (resource page) / file RS_Session_256_AU_2333_2.csv",
+    "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_256_AU_2333_2.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/data_gov_in_nhai_yearwise_nh_constructed_2014_15/data_gov_in_nhai_yearwise_nh_constructed_2014_15/raw_20260216_054815.csv",
+        "sha256": "86d92b784b303d1772d9d012b0f0964924c22ba896ad8d5848f4ff298bd1d8bd",
+        "size_bytes": 185
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/data_gov_in_nhai_yearwise_nh_constructed_2014_15.parquet",
+        "format": "parquet",
+        "sha256": "870bfa7d1a5be508b04283c088717a98bac4c1e9cb69a3acb741ed7cd4554375"
+      }
+    ],
+    "row_count": 8,
+    "columns": [
+      "financial_year",
+      "length_of_nh_constructed_in_km",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-02-16T05:48:15.007493+00:00",
+  "completeness_score": 1.0,
+  "recency_score": 1.0,
+  "provenance_score": 0.85,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/data_gov_in_nhai_yearwise_nh_constructed_2014_15.parquet"
+}

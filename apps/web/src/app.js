@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 
 const DUCKDB_MODULE_CANDIDATES = [
-  'https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser.mjs',
+  './duckdb/duckdb-browser.mjs',
 ];
 
 const DUCKDB_CDN_ROOT = 'https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist';

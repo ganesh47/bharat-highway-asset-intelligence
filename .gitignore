@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+
+data/raw/
+data/processed/.ipynb_checkpoints/
+buildcheck/
+duckdb/

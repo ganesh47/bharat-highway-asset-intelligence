@@ -1,0 +1,59 @@
+{
+  "source_id": "data_gov_in_nhai_punjab_42_projects_implementation",
+  "connector": "data_gov_in_ogd",
+  "version": "0.2.0",
+  "status": "ok",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI)",
+    "title": "Project-wise list of 42 NH projects under implementation in Punjab",
+    "domain": "data.gov.in",
+    "url": "https://www.data.gov.in/resource/project-wise-details-42-national-highway-projects-are-under-implementation-punjab-reply",
+    "retrieval_method": "direct download",
+    "access_type": "HTML",
+    "retrieved_at": "2026-02-16T05:48:14.939535+00:00",
+    "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "nid=603256476 (resource page) / file RS_Session_265_AU_285_A_i.csv",
+    "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_265_AU_285_A_i.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/data_gov_in_nhai_punjab_42_projects_implementation/data_gov_in_nhai_punjab_42_projects_implementation/raw_20260216_054814.csv",
+        "sha256": "c6dab4f352ddaf735d72ee630ad75a587b2214fdf997af5969724ef6846917a2",
+        "size_bytes": 5399
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/data_gov_in_nhai_punjab_42_projects_implementation.parquet",
+        "format": "parquet",
+        "sha256": "9c7e2e1441d55ab3862c4201493e420468352e54ff971ee47b47eb8ced52b02e"
+      }
+    ],
+    "row_count": 43,
+    "columns": [
+      "sl._no.",
+      "name_of_project",
+      "scheduled_/revised_schedule_date_of_completion",
+      "length_km",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-02-16T05:48:14.939535+00:00",
+  "completeness_score": 0.997,
+  "recency_score": 1.0,
+  "provenance_score": 0.85,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/data_gov_in_nhai_punjab_42_projects_implementation.parquet"
+}

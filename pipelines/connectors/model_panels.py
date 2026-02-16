@@ -94,7 +94,27 @@ class HighwayProjectRiskPanelConnector:
             for state, row in accident_df.groupby("state"):
                 state_priors[state] = float(row["state_risk"].mean())
 
-        total_budget = _normalize_value(finance_rows.get("allocation/target_-_total", 1).sum() if not finance_rows.empty else 1)
+        total_budget = 1
+        if not finance_rows.empty:
+            budget_col = None
+            for candidate in ["allocation_target___total", "allocation/target_-_total"]:
+                if candidate in finance_rows.columns:
+                    budget_col = candidate
+                    break
+                if candidate in finance_rows.columns.str.lower():
+                    # fallback for already lowercased/normalized variants
+                    for col in finance_rows.columns:
+                        if col == candidate:
+                            budget_col = col
+                            break
+
+            if budget_col is not None:
+                total_budget = _normalize_value(finance_rows[budget_col].sum())
+            else:
+                try:
+                    total_budget = _normalize_value(finance_rows.sum(numeric_only=True).sum())
+                except Exception:
+                    total_budget = 1
         requested_segments_per_project = int(source.get("model_segments_per_project", 2500) or 2500)
         target_output_rows = int(source.get("target_output_rows", 220_000) or 220_000)
         if requested_segments_per_project <= 0:

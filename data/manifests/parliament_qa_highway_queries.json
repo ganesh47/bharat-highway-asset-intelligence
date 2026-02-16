@@ -8,7 +8,7 @@
     "publisher": "Ministry of Statistics and Programme Implementation / Parliament Secretariat",
     "title": "Parliamentary Questions and written replies on highways",
     "url": "https://sansad.in/",
-    "retrieved_at": "2026-02-15T07:39:00.255780+00:00",
+    "retrieved_at": "2026-02-16T05:48:18.504680+00:00",
     "license_terms": "Official parliament documentation; cite Q&A number and session/session year in methodology.",
     "official_flag": true
   },
@@ -28,7 +28,7 @@
     "output_files": [
       {
         "path": "data/processed/parliament_qa_highway_queries.parquet",
-        "sha256": "93752945d0fcd51102866e3d0052c955b0e925a2e10b2b79bbba565a2c2add7b"
+        "sha256": "2f57112dcf77f5b75b445016f9ff70e77b29535be6112bb7adf2bb074b98c7eb"
       }
     ],
     "row_count": 3,
@@ -46,7 +46,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-15T07:39:00.255780+00:00",
+  "retrieved_at": "2026-02-16T05:48:18.504680+00:00",
   "completeness_score": 0.98,
   "recency_score": 0.98,
   "provenance_score": 0.833,

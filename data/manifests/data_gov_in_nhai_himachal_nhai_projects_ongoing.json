@@ -1,0 +1,61 @@
+{
+  "source_id": "data_gov_in_nhai_himachal_nhai_projects_ongoing",
+  "connector": "data_gov_in_ogd",
+  "version": "0.2.0",
+  "status": "ok",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI)",
+    "title": "Project-wise ongoing NH projects in Himachal Pradesh",
+    "domain": "data.gov.in",
+    "url": "https://jk.data.gov.in/resource/project-wise-details-ongoing-national-highways-authority-india-nhai-projects-himachal",
+    "retrieval_method": "direct download",
+    "access_type": "HTML",
+    "retrieved_at": "2026-02-16T05:48:14.866750+00:00",
+    "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "nid=603798536 (resource page) / file RS_Session_267_AU_1543_A_and_B.1.csv",
+    "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_267_AU_1543_A_and_B.1.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/data_gov_in_nhai_himachal_nhai_projects_ongoing/data_gov_in_nhai_himachal_nhai_projects_ongoing/raw_20260216_054814.csv",
+        "sha256": "5b3d253aef7274d1a0e59b6c8f46fc687607adbadd931216bb77201944b52625",
+        "size_bytes": 3465
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/data_gov_in_nhai_himachal_nhai_projects_ongoing.parquet",
+        "format": "parquet",
+        "sha256": "c7d561602eeb9ab77cffdb0216e9d4801ce0fca8a5b76d2ee2407b1e7f86c539"
+      }
+    ],
+    "row_count": 15,
+    "columns": [
+      "sl._no.",
+      "name_of_project",
+      "revised_schedule_date_of_completion",
+      "sanctioned_amount_rs._in_crore",
+      "expenditure_till_date_rs._in_crore",
+      "physical_progress_in_percentage",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-02-16T05:48:14.866750+00:00",
+  "completeness_score": 1.0,
+  "recency_score": 1.0,
+  "provenance_score": 0.85,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/data_gov_in_nhai_himachal_nhai_projects_ongoing.parquet"
+}

@@ -33,6 +33,17 @@ class DataGovInConnector:
             "data_gov_in_nhai_project_finance_api",
             "data_gov_in_nhai_state_projects_api",
             "data_gov_in_nhai_projects_district_target_2023",
+            "data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs",
+            "data_gov_in_nhai_statewise_nh_project_status_2024_25",
+            "data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026",
+            "data_gov_in_nhai_himachal_nhai_projects_ongoing",
+            "data_gov_in_nhai_punjab_42_projects_implementation",
+            "data_gov_in_nhai_yearwise_nh_constructed_2014_15",
+            "data_gov_in_nhai_stateut_length_constructed_2019_24",
+            "data_gov_in_nhai_district_projects_implemented",
+            "data_gov_in_road_accidents_nhs_2003_2016",
+            "data_gov_in_road_accidents_india_2003_2016",
+            "data_gov_in_road_fatal_accidents_2003_2016",
         ],
         inputs=["source_inventory.source_item"],
         outputs=["parquet"],
@@ -198,14 +209,25 @@ class DataGovInConnector:
                 return None, None
 
         raw_path = self._write_raw_response(raw_root / source_id, source_id, response.content, ".csv")
-        try:
-            return pd.read_csv(raw_path), raw_path
-        except Exception:
-            # Final tolerant fallback for small official files that may be TSV or plain text.
+        encodings = ("utf-8-sig", "utf-8", "cp1252", "latin1")
+        last_error: Exception | None = None
+        for encoding in encodings:
             try:
-                return pd.read_csv(raw_path, sep="\t"), raw_path
+                return pd.read_csv(raw_path, encoding=encoding), raw_path
+            except Exception as exc:
+                last_error = exc
+                continue
+
+        # Final tolerant fallback for small official files that may be TSV or plain text.
+        for encoding in encodings:
+            try:
+                return pd.read_csv(raw_path, sep="\t", encoding=encoding), raw_path
             except Exception:
-                return None, None
+                pass
+
+        # Keep a lightweight breadcrumb for debugging, while still returning None on parse failure.
+        if last_error is not None:
+            raise last_error
 
     @staticmethod
     def _parse_api_records(payload: Any) -> pd.DataFrame:
@@ -287,6 +309,23 @@ class DataGovInConnector:
         return df
 
     @staticmethod
+    def _coerce_mixed_numeric_columns(df: pd.DataFrame) -> pd.DataFrame:
+        out = df.copy(deep=True)
+        for col in out.columns:
+            series = out[col]
+            if not pd.api.types.is_object_dtype(series.dtype):
+                continue
+            if series.dropna().empty:
+                continue
+
+            candidate = series.astype(str).str.strip().str.replace(",", "", regex=False)
+            candidate_numeric = pd.to_numeric(candidate, errors="coerce")
+            numeric_ratio = candidate_numeric.notna().mean()
+            if numeric_ratio >= 0.8:
+                out[col] = candidate_numeric
+        return out
+
+    @staticmethod
     def _write_raw_response(
         raw_root: Path,
         source_id: str,
@@ -310,6 +349,21 @@ class DataGovInConnector:
             "accept": "application/json",
             "user-agent": "BHAI-data-connector/0.2 (+official-first)",
         }
+
+    @staticmethod
+    def _resolve_api_key(source: Dict[str, Any]) -> str:
+        api_key_name = source.get("api_key_env")
+        api_key = ""
+        if isinstance(api_key_name, str) and api_key_name:
+            api_key = os.getenv(api_key_name, "").strip()
+
+        if not api_key:
+            api_key = os.getenv("DATA_GOV_IN_API_KEY", "").strip()
+
+        if not api_key:
+            api_key = os.getenv("DATAGOVIN_API_KEY", "").strip()
+
+        return api_key
 
     def run(
         self,
@@ -360,8 +414,7 @@ class DataGovInConnector:
             resource_id = os.getenv(source.get("resource_id_env", "").strip(), None)
 
         api_url = source.get("url", "") if source.get("allow_auto_fetch") and source.get("access_type") == "API" else ""
-        api_key_name = source.get("api_key_env")
-        api_key = (os.getenv(api_key_name, "").strip() if isinstance(api_key_name, str) else "").strip()
+        api_key = self._resolve_api_key(source)
         if api_url and resource_id and api_key and "{" in api_url:
             api_url = api_url.format(resource_id=resource_id)
 
@@ -501,6 +554,7 @@ class DataGovInConnector:
             df = df.drop_duplicates(ignore_index=True)
         df = self._standardize_df(df)
         df = self._parse_year(df)
+        df = self._coerce_mixed_numeric_columns(df)
 
         if "source_type" not in df.columns:
             df["source_type"] = "official_measured"

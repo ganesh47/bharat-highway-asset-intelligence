@@ -8,7 +8,7 @@
     "publisher": "Ministry of Road Transport and Highways (MoRTH)",
     "title": "Procurement and award notices for highway works",
     "url": "https://eprocure.gov.in",
-    "retrieved_at": "2026-02-15T07:39:00.268324+00:00",
+    "retrieved_at": "2026-02-16T05:48:18.521384+00:00",
     "license_terms": "EProcurement portal terms and bidder-facing reuse restrictions.",
     "official_flag": true
   },
@@ -28,7 +28,7 @@
     "output_files": [
       {
         "path": "data/processed/morh_procurement_awards.parquet",
-        "sha256": "54090a59c6e8a4143f69e63325763319ea78a9d0474792c4a2a604b1cf45a027"
+        "sha256": "df7e1f2cd61e418a976ef2b7fd1cc0679772f32a85c8761a545f8a0a479de811"
       }
     ],
     "row_count": 6,
@@ -46,7 +46,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-15T07:39:00.268324+00:00",
+  "retrieved_at": "2026-02-16T05:48:18.521384+00:00",
   "completeness_score": 0.909,
   "recency_score": 0.98,
   "provenance_score": 0.833,

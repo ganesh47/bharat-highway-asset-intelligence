@@ -1,0 +1,70 @@
+{
+  "source_id": "data_gov_in_road_accidents_nhs_2003_2016",
+  "connector": "data_gov_in_ogd",
+  "version": "0.2.0",
+  "status": "ok",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "Ministry of Road Transport and Highways (MoRTH)",
+    "title": "State/UT-wise total road accidents on National Highways (2003-2016)",
+    "domain": "data.gov.in",
+    "url": "https://www.data.gov.in/resource/state-ut-wise-total-number-road-accidents-national-highways-2003-2016",
+    "retrieval_method": "direct download",
+    "access_type": "HTML",
+    "retrieved_at": "2026-02-16T05:48:15.223638+00:00",
+    "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "nid=4071921 (resource page) / file No_of_Road_Acc_on_NHs_2003_to_2016.csv",
+    "anchor": "resource_file:https://www.data.gov.in/sites/default/files/datafile/No_of_Road_Acc_on_NHs_2003_to_2016.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/data_gov_in_road_accidents_nhs_2003_2016/data_gov_in_road_accidents_nhs_2003_2016/raw_20260216_054815.csv",
+        "sha256": "1b0d94766936dead48921847eff916ca967de9d72576f6f427541a842415709a",
+        "size_bytes": 2840
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/data_gov_in_road_accidents_nhs_2003_2016.parquet",
+        "format": "parquet",
+        "sha256": "7ce7c5391b8850a2df18971d558bbf8ecd37df83e7fb0ab698103a3d418637d5"
+      }
+    ],
+    "row_count": 37,
+    "columns": [
+      "states/uts",
+      "2003",
+      "2004",
+      "2005",
+      "2006",
+      "2007",
+      "2008",
+      "2009",
+      "2010",
+      "2011",
+      "2012",
+      "2013",
+      "2014",
+      "2015",
+      "2016",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-02-16T05:48:15.223638+00:00",
+  "completeness_score": 0.985,
+  "recency_score": 1.0,
+  "provenance_score": 0.85,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/data_gov_in_road_accidents_nhs_2003_2016.parquet"
+}

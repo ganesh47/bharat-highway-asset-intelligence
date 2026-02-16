@@ -1,0 +1,63 @@
+{
+  "source_id": "data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026",
+  "connector": "data_gov_in_ogd",
+  "version": "0.2.0",
+  "status": "ok",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI)",
+    "title": "Project-wise major ongoing NH works in Tamil Nadu (2024-2026)",
+    "domain": "data.gov.in",
+    "url": "https://www.data.gov.in/resource/project-wise-details-major-ongoing-works-projects-state-tamil-nadu-under-national-highway",
+    "retrieval_method": "direct download",
+    "access_type": "HTML",
+    "retrieved_at": "2026-02-16T05:48:14.805232+00:00",
+    "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "nid=603256479 (resource page) / file RS_Session_265_AU_286_C_ii.csv",
+    "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_265_AU_286_C_ii.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026/raw_20260216_054814.csv",
+        "sha256": "2b2e98b196e10d006292707a584fa49f0fdc82035d6a0f4c00f3cf2d44d9f65c",
+        "size_bytes": 13265
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026.parquet",
+        "format": "parquet",
+        "sha256": "45183947cc9b59b3e945a42cf980be7b2310b31ce8465ac27f3ec1564c5d525f"
+      }
+    ],
+    "row_count": 55,
+    "columns": [
+      "sl._no.",
+      "project_name",
+      "implementing_agency",
+      "appointed_date",
+      "revised_schedule_date_of_completion",
+      "physical_progress_pct",
+      "length_km",
+      "tpc_rs_in_crore",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-02-16T05:48:14.805232+00:00",
+  "completeness_score": 0.992,
+  "recency_score": 1.0,
+  "provenance_score": 0.85,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026.parquet"
+}

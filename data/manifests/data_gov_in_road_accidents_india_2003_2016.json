@@ -1,0 +1,70 @@
+{
+  "source_id": "data_gov_in_road_accidents_india_2003_2016",
+  "connector": "data_gov_in_ogd",
+  "version": "0.2.0",
+  "status": "ok",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "Ministry of Road Transport and Highways (MoRTH)",
+    "title": "State/UT-wise total road accidents in India (2003-2016)",
+    "domain": "data.gov.in",
+    "url": "https://www.data.gov.in/resource/state-ut-wise-total-number-road-accidents-india-2003-2016",
+    "retrieval_method": "direct download",
+    "access_type": "HTML",
+    "retrieved_at": "2026-02-16T05:48:15.291751+00:00",
+    "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "nid=4071841 (resource page) / file Total_No_of_Road_Accidents_in_States_UTs_2003-16.csv",
+    "anchor": "resource_file:https://www.data.gov.in/sites/default/files/datafile/Total_No_of_Road_Accidents_in_States_UTs_2003-16.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/data_gov_in_road_accidents_india_2003_2016/data_gov_in_road_accidents_india_2003_2016/raw_20260216_054815.csv",
+        "sha256": "28fc7e0aae4d7829740dc9b402dc7366a1e2c8cd537e683c7378a3039f1d7dbe",
+        "size_bytes": 3072
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/data_gov_in_road_accidents_india_2003_2016.parquet",
+        "format": "parquet",
+        "sha256": "91bdb2640b682fa1985ee0d0bf67adb3af6d44c9ad7ba1c5ee514111bc57b022"
+      }
+    ],
+    "row_count": 37,
+    "columns": [
+      "states/uts",
+      "2003",
+      "2004",
+      "2005",
+      "2006",
+      "2007",
+      "2008",
+      "2009",
+      "2010",
+      "2011",
+      "2012",
+      "2013",
+      "2014",
+      "2015",
+      "2016",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-02-16T05:48:15.291751+00:00",
+  "completeness_score": 0.984,
+  "recency_score": 1.0,
+  "provenance_score": 0.85,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/data_gov_in_road_accidents_india_2003_2016.parquet"
+}

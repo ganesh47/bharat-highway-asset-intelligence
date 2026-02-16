@@ -11,19 +11,19 @@
     "url": "https://www.data.gov.in/resource/year-wise-details-funds-allocatedraised-and-expenditure-incurred-development-and",
     "retrieval_method": "API call",
     "access_type": "API",
-    "retrieved_at": "2026-02-15T07:38:56.594503+00:00",
+    "retrieved_at": "2026-02-16T05:48:14.158612+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
   "citations": {
-    "permanent_identifier": "resource_id + table/year/financial year",
+    "permanent_identifier": "uuid c898c59e-1f0c-4c09-b195-7d3ac1cd19d4",
     "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_267_AU_1550_D.i.csv",
     "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
   },
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_nhai_project_finance_api/data_gov_in_nhai_project_finance_api/raw_20260215_073856.csv",
+        "path": "data/raw/data_gov_in_nhai_project_finance_api/data_gov_in_nhai_project_finance_api/raw_20260216_054814.csv",
         "sha256": "e1a77ef48a0620dfe81d081523db45da60e6f6c41654276294db593278836bb0",
         "size_bytes": 648
       }
@@ -32,7 +32,7 @@
       {
         "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
         "format": "parquet",
-        "sha256": "6cf2487b8bac242d206d883b9c3d2c787561affa4add11074873bcf4cdd810e0"
+        "sha256": "ce0460f0094aedc65d4f461ab9291bb3a2f9c32e031724f1f33c7156dbb93c32"
       }
     ],
     "row_count": 6,
@@ -53,7 +53,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-15T07:38:56.594503+00:00",
+  "retrieved_at": "2026-02-16T05:48:14.158612+00:00",
   "completeness_score": 0.976,
   "recency_score": 1.0,
   "provenance_score": 1.0,
