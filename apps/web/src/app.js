@@ -535,8 +535,8 @@ function LineChart({ title, description, series, xTick, tooltipKey, confidence, 
   const xMax = Math.max(...xValues);
   const yMin = Math.min(...yValues);
   const yMax = Math.max(...yValues);
-  const width = 760;
-  const height = 210;
+  const width = 980;
+  const height = 270;
   const pad = { top: 16, right: 16, bottom: 26, left: 42 };
   const plotW = width - pad.left - pad.right;
   const plotH = height - pad.top - pad.bottom;
@@ -622,8 +622,8 @@ function MultiLineChart({ title, description, layers, xTick, confidence, onHover
     max: Math.max(...allSeries.map((item) => num(item.y))),
   };
 
-  const width = 760;
-  const height = 230;
+  const width = 980;
+  const height = 290;
   const pad = { top: 16, right: 16, bottom: 26, left: 42 };
   const plotW = width - pad.left - pad.right;
   const plotH = height - pad.top - pad.bottom;
@@ -795,8 +795,8 @@ function ScatterChart({ title, rows, confidence, onHover }) {
     return React.createElement('div', { className: 'card insight-chart' }, React.createElement('div', { className: 'chart-title' }, title), React.createElement('div', { className: 'chart-meta' }, 'No scatter points.'));
   }
 
-  const width = 760;
-  const height = 220;
+  const width = 980;
+  const height = 300;
   const pad = { top: 20, right: 20, bottom: 28, left: 42 };
   const plotW = width - pad.left - pad.right;
   const plotH = height - pad.top - pad.bottom;

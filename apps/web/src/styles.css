@@ -23,7 +23,7 @@ body {
 
 .app-shell {
   padding: 24px;
-  max-width: 1140px;
+  max-width: 1560px;
   margin: 0 auto;
 }
 
@@ -94,7 +94,7 @@ header .subhead {
 .chart-grid {
   display: grid;
   gap: 12px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
 }
 
 .card {
@@ -157,7 +157,7 @@ header .subhead {
 
 .chart-svg-wrap svg {
   width: 100%;
-  height: 240px;
+  height: 300px;
   display: block;
 }
 
