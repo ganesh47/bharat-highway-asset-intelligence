@@ -23,7 +23,7 @@ body {
 
 .app-shell {
   padding: 24px;
-  max-width: 1560px;
+  max-width: 1820px;
   margin: 0 auto;
 }
 
@@ -94,7 +94,35 @@ header .subhead {
 .chart-grid {
   display: grid;
   gap: 12px;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.chart-grid[data-size='compact'] {
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.chart-grid[data-size='normal'] {
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+}
+
+.chart-grid[data-size='large'] {
+  grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
+}
+
+.chart-grid[data-size='xlarge'] {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 1200px) {
+  .chart-grid[data-size='large'] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .chart-grid[data-size='large'] .chart {
+    min-height: 460px;
+  }
 }
 
 .card {
@@ -157,8 +185,34 @@ header .subhead {
 
 .chart-svg-wrap svg {
   width: 100%;
-  height: 300px;
+  height: 290px;
   display: block;
+}
+
+.chart-grid[data-size='compact'] .chart-svg-wrap svg {
+  height: 220px;
+}
+
+.chart-grid[data-size='normal'] .chart-svg-wrap svg {
+  height: 290px;
+}
+
+.chart-grid[data-size='large'] .chart-svg-wrap svg {
+  height: 380px;
+}
+
+.chart-grid[data-size='xlarge'] .chart-svg-wrap svg {
+  height: 620px;
+}
+
+@media (min-width: 1200px) {
+  .chart-grid[data-size='large'] .chart-svg-wrap svg {
+    height: 430px;
+  }
+
+  .chart-grid[data-size='xlarge'] .chart-svg-wrap svg {
+    height: 720px;
+  }
 }
 
 .axis-line {
