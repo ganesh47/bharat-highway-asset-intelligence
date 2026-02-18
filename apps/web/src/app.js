@@ -1636,6 +1636,7 @@ function App() {
           type: 'button',
           className: `toggle ${chartScale === 'xlarge' ? 'active' : ''}`,
           onClick: () => setChartScale('xlarge'),
+          title: 'Show a large single-column chart layout for close reading and zoomed inspection',
         }, 'Focus')
       )
     ),
