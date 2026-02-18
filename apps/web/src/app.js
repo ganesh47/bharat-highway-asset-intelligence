@@ -708,7 +708,7 @@ function HorizontalBars({ title, rows, xLabel, yLabel, confidence, onHover, tool
   const series = (rows || [])
     .filter((item) => num(item.value, null) !== null)
     .sort((a, b) => num(b.value) - num(a.value));
-  const top = series.slice(0, 12);
+  const top = series;
   const max = Math.max(...top.map((item) => num(item.value)), 1);
 
   return React.createElement('div', { className: 'card insight-chart' },
@@ -790,7 +790,7 @@ function StackedStateStatus({ title, rows, confidence, onHover }) {
 function ScatterChart({ title, rows, confidence, onHover, chartScale = 1, xLabel = 'X', yLabel = 'Y', pointLabel = 'value' }) {
   const points = (rows || [])
     .filter((r) => Number.isFinite(num(r.x)) && Number.isFinite(num(r.y)))
-    .slice(0, 90);
+    .sort((a, b) => num(a.x) - num(b.x));
   if (!points.length) {
     return React.createElement('div', { className: 'card insight-chart' }, React.createElement('div', { className: 'chart-title' }, title), React.createElement('div', { className: 'chart-meta' }, 'No scatter points.'));
   }
@@ -1475,8 +1475,8 @@ function App() {
   })).filter((row) => Number.isFinite(row.x) && Number.isFinite(row.y));
 
   const modelSeriesByState = filteredStateRows?.modelStateRisk || [];
-  const modelLinesByState = analytics?.stateList?.length
-    ? analytics.stateList.slice(0, 1).map((state) => {
+  const modelLinesByState = activeStateList.length
+    ? activeStateList.map((state) => {
       const rows = modelSeriesByState
         .filter((item) => item.state === state)
         .map((item) => ({ x: item.year, y: item.safety_risk, label: `${item.state} ${item.year}` }));
