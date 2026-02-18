@@ -531,6 +531,8 @@ class DataGovInConnector:
             df_frames = [df]
 
         if not df_frames:
+            empty_df = pd.DataFrame()
+            write_parquet(empty_df, output_path)
             return ConnectorResult(
                 source_id=source_id,
                 output_table_path=output_path,
@@ -541,8 +543,30 @@ class DataGovInConnector:
                     "metric_category": "official_measured",
                     "source": {
                         "publisher": source.get("publisher_org"),
+                        "title": source.get("dataset_title"),
+                        "retrieved_at": now,
+                        "license_terms": source.get("license_terms"),
                         "official_flag": source.get("official_flag", True),
                     },
+                    "citations": {
+                        "permanent_identifier": source.get("permanent_identifier_hint") or source.get("resource_id")
+                        or source.get("resource_id_env"),
+                        "anchor": "manual_or_resource_unavailable",
+                        "note": "No parsed rows were retrieved from API/page/manual fallback for this source.",
+                    },
+                    "manifest": {
+                        "raw_files": [],
+                        "output_files": [
+                            {
+                                "path": str(output_path),
+                                "format": "parquet",
+                                "sha256": sha256_for_file(output_path),
+                            }
+                        ],
+                        "row_count": 0,
+                        "columns": [],
+                    },
+                    "retrieved_at": now,
                 },
                 skipped=True,
                 skip_reason=skip_reason or "no_source_data_available",
