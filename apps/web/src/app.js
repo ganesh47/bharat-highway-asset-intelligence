@@ -1489,6 +1489,7 @@ function App() {
     .map((row) => ({ label: row.state, value: row.length }))
     .filter((item) => item.value > 0);
   const statusBars = filteredStateRows?.stateStatusRows || [];
+  const activeStateList = analytics?.stateList || [];
 
   const safetyChartRows = ((analytics?.accidentRows || []).map((acc) => {
     const key = normalizeState(acc.state);
@@ -1520,8 +1521,6 @@ function App() {
       return { key: state, name: state, points: rows };
     }).filter((series) => series.points.length > 0)
     : [];
-
-  const activeStateList = analytics?.stateList || [];
 
   const macroLines = [
     {
