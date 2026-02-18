@@ -727,6 +727,19 @@ function HorizontalBars({ title, rows, xLabel, yLabel, confidence, onHover, tool
               className: 'bar-fill',
               style: { width: `${clamp(width, 5, 100)}%` },
               title: `${safeLabel(row.label)}: ${fmtNum(row.value)}`,
+              onMouseEnter: (event) => onHover({
+                visible: true,
+                x: event.clientX,
+                y: event.clientY,
+                text: tooltipText([safeLabel(row.label), `${safeLabel(xLabel || 'Metric')}: ${fmtNum(row.value)}`]),
+              }),
+              onMouseMove: (event) => onHover({
+                visible: true,
+                x: event.clientX,
+                y: event.clientY,
+                text: tooltipText([safeLabel(row.label), `${safeLabel(xLabel || 'Metric')}: ${fmtNum(row.value)}`]),
+              }),
+              onMouseLeave: () => onHover({ visible: false }),
             })
           ),
           React.createElement('div', { className: 'bar-value' }, fmtNum(row.value))
@@ -765,21 +778,45 @@ function StackedStateStatus({ title, rows, confidence, onHover }) {
           { color: '#0a8f52', value: completedPct },
           { color: '#b07a00', value: approvedPct },
         ];
-        const barTrack = React.createElement(
-          'div',
-          { className: 'bar-track', style: { height: 16, display: 'flex' } },
-          ...barSegments.map((segment) =>
-            React.createElement('div', {
-              className: 'bar-fill',
-              style: { width: `${clamp(segment.value, 0, 100)}%`, background: segment.color },
-            })
-          )
-        );
         return React.createElement(
           'div',
           { key: row.state, className: 'bar-row', style: { alignItems: 'start' } },
           React.createElement('div', { className: 'bar-label', title: row.state }, row.state),
-          barTrack,
+          React.createElement(
+            'div',
+            { className: 'bar-track', style: { height: 16, display: 'flex' } },
+            ...barSegments.map((segment) =>
+              React.createElement('div', {
+                className: 'bar-fill',
+                style: { width: `${clamp(segment.value, 0, 100)}%`, background: segment.color },
+                onMouseEnter: (event) => onHover({
+                  visible: true,
+                  x: event.clientX,
+                  y: event.clientY,
+                  text: tooltipText([
+                    row.state,
+                    `Under construction: ${fmtNum(row.under)}`,
+                    `Completed: ${fmtNum(row.completed)}`,
+                    `Approved: ${fmtNum(row.approved)}`,
+                    `Total: ${fmtNum(row.under + row.completed + row.approved)}`,
+                  ]),
+                }),
+                onMouseMove: (event) => onHover({
+                  visible: true,
+                  x: event.clientX,
+                  y: event.clientY,
+                  text: tooltipText([
+                    row.state,
+                    `Under construction: ${fmtNum(row.under)}`,
+                    `Completed: ${fmtNum(row.completed)}`,
+                    `Approved: ${fmtNum(row.approved)}`,
+                    `Total: ${fmtNum(row.under + row.completed + row.approved)}`,
+                  ]),
+                }),
+                onMouseLeave: () => onHover({ visible: false }),
+              })
+            )
+          ),
           React.createElement('div', { className: 'bar-value' }, fmtNum(row.under + row.completed + row.approved))
         );
       })),
