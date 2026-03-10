@@ -95,6 +95,7 @@ header .subhead {
   display: grid;
   gap: 12px;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  align-items: start;
   --chart-height: 290px;
 }
 

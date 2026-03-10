@@ -793,6 +793,7 @@ function LineChart({
   onHover,
   asOfDate,
   chartScale = 1,
+  chartHeight,
   xAxisLabel = 'X',
   yAxisLabel = 'Value',
 }) {
@@ -800,7 +801,10 @@ function LineChart({
     .filter((item) => Number.isFinite(num(item.x)) && Number.isFinite(num(item.y)))
     .sort((a, b) => num(a.x) - num(b.x));
   const width = 980;
-  const height = Math.round(270 * chartScale);
+  const computedHeight = Number.isFinite(num(chartHeight))
+    ? Math.round(num(chartHeight))
+    : Math.round(270 * chartScale);
+  const height = Math.max(120, computedHeight);
   const pad = { top: 16, right: 16, bottom: 26, left: 42 };
   const xValues = points.map((item) => num(item.x));
   const yValues = points.map((item) => num(item.y));
@@ -832,7 +836,11 @@ function LineChart({
       return;
     }
     const redraw = () => {
-      const rect = canvas.getBoundingClientRect();
+      const hostRect = host.getBoundingClientRect();
+      const rect = {
+        width: hostRect.width || canvas.clientWidth || 0,
+        height,
+      };
       if (!rect.width || !rect.height) {
         return;
       }
@@ -849,16 +857,16 @@ function LineChart({
       const yScale = (v) => pad.top + (1 - (num(v) - yMin) / (yMax - yMin)) * plotH;
 
       canvas.width = Math.floor(rect.width * dpr);
-      canvas.height = Math.floor(rect.height * dpr);
+      canvas.height = Math.floor(height * dpr);
       const ctx = canvas.getContext('2d');
       if (!ctx) {
         return;
       }
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.clearRect(0, 0, rect.width, rect.height);
+      ctx.clearRect(0, 0, rect.width, height);
       ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-      ctx.fillRect(0, 0, rect.width, rect.height);
+      ctx.fillRect(0, 0, rect.width, height);
       ctx.strokeStyle = '#d8e4ff';
       ctx.lineWidth = 1;
 
@@ -934,7 +942,7 @@ function LineChart({
       ctx.textAlign = 'center';
       ctx.textBaseline = 'bottom';
       ctx.font = '12px Trebuchet MS, Segoe UI, Arial, sans-serif';
-      ctx.fillText(xAxisLabel, width * 0.5 * scaleX, rect.height - 2);
+      ctx.fillText(xAxisLabel, width * 0.5 * scaleX, height - 2);
       ctx.save();
       ctx.translate(12, height * 0.5 * scaleY);
       ctx.rotate(-Math.PI / 2);
@@ -1002,11 +1010,11 @@ function LineChart({
     React.createElement('div', { className: 'insight-legend' },
       React.createElement('span', { className: 'insight-pill' }, `Points: ${points.length}`),
       React.createElement('span', { className: 'insight-pill' }, `Source trust: ${confidence.badge || 'Low'}`)),
-    React.createElement('div', { className: 'chart-svg-wrap' },
+    React.createElement('div', { className: 'chart-svg-wrap', style: { height: `${height}px` } },
       React.createElement('canvas', {
         ref: chartRef,
         className: 'chart-canvas',
-        style: { width: '100%', height: '100%', display: 'block' },
+        style: { width: '100%', height: `${height}px`, display: 'block' },
         onMouseMove: (event) => {
           const point = nearestPoint(event);
           if (!point) {
@@ -1037,6 +1045,7 @@ function MultiLineChart({
   asOfDate,
   tooltipTextLabel,
   chartScale = 1,
+  chartHeight,
   xAxisLabel = 'X',
   yAxisLabel = 'Value',
 }) {
@@ -1072,7 +1081,10 @@ function MultiLineChart({
   const yAxisTicks = axisTicks(yMin, yMax, 5);
 
   const width = 980;
-  const height = Math.round(290 * chartScale);
+  const computedHeight = Number.isFinite(num(chartHeight))
+    ? Math.round(num(chartHeight))
+    : Math.round(290 * chartScale);
+  const height = Math.max(120, computedHeight);
   const pad = { top: 16, right: 16, bottom: 26, left: 42 };
   const plotW = width - pad.left - pad.right;
   const plotH = height - pad.top - pad.bottom;
@@ -1091,8 +1103,16 @@ function MultiLineChart({
     if (!canvas || !allSeries.length) {
       return;
     }
+    const host = canvas.parentElement;
+    if (!host) {
+      return;
+    }
 
-    const rect = canvas.getBoundingClientRect();
+    const hostRect = host.getBoundingClientRect();
+    const rect = {
+      width: hostRect.width || canvas.clientWidth || 0,
+      height,
+    };
     if (!rect.width || !rect.height) {
       return;
     }
@@ -1106,16 +1126,16 @@ function MultiLineChart({
     const scaleY = rect.height / logicalHeight;
 
     canvas.width = Math.floor(rect.width * dpr);
-    canvas.height = Math.floor(rect.height * dpr);
+    canvas.height = Math.floor(height * dpr);
     const ctx = canvas.getContext('2d');
     if (!ctx) {
       return;
     }
 
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, rect.width, rect.height);
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
-    ctx.fillRect(0, 0, rect.width, rect.height);
+      ctx.clearRect(0, 0, rect.width, height);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
+      ctx.fillRect(0, 0, rect.width, height);
     ctx.strokeStyle = '#d8e4ff';
     ctx.lineWidth = 1;
 
@@ -1185,7 +1205,7 @@ function MultiLineChart({
     ctx.textAlign = 'center';
     ctx.textBaseline = 'bottom';
     ctx.font = '12px Trebuchet MS, Segoe UI, Arial, sans-serif';
-    ctx.fillText(xAxisLabel, width * 0.5 * scaleX, rect.height - 2);
+    ctx.fillText(xAxisLabel, width * 0.5 * scaleX, height - 2);
     ctx.save();
     ctx.translate(12, height * 0.5 * scaleY);
     ctx.rotate(-Math.PI / 2);
@@ -1259,11 +1279,11 @@ function MultiLineChart({
     ),
     React.createElement(
       'div',
-      { className: 'chart-svg-wrap' },
+      { className: 'chart-svg-wrap', style: { height: `${height}px` } },
       React.createElement('canvas', {
         ref: chartRef,
         className: 'chart-canvas',
-        style: { width: '100%', height: '100%', display: 'block' },
+        style: { width: '100%', height: `${height}px`, display: 'block' },
         onMouseMove: (event) => {
           const point = nearestPoint(event);
           if (!point) {
@@ -1398,6 +1418,7 @@ function ScatterChart({
   onHover,
   asOfDate,
   chartScale = 1,
+  chartHeight,
   xLabel = 'X',
   yLabel = 'Y',
   pointLabel = 'value',
@@ -1419,7 +1440,10 @@ function ScatterChart({
   }
 
   const width = 980;
-  const height = Math.round(300 * chartScale);
+  const computedHeight = Number.isFinite(num(chartHeight))
+    ? Math.round(num(chartHeight))
+    : Math.round(300 * chartScale);
+  const height = Math.max(120, computedHeight);
   const pad = { top: 20, right: 20, bottom: 28, left: 42 };
   const plotW = width - pad.left - pad.right;
   const plotH = height - pad.top - pad.bottom;
@@ -1448,7 +1472,16 @@ function ScatterChart({
       return;
     }
 
-    const rect = canvas.getBoundingClientRect();
+    const host = canvas.parentElement;
+    if (!host) {
+      return;
+    }
+
+    const hostRect = host.getBoundingClientRect();
+    const rect = {
+      width: hostRect.width || canvas.clientWidth || 0,
+      height,
+    };
     if (!rect.width || !rect.height) {
       return;
     }
@@ -1462,16 +1495,16 @@ function ScatterChart({
     const scaleY = rect.height / logicalHeight;
 
     canvas.width = Math.floor(rect.width * dpr);
-    canvas.height = Math.floor(rect.height * dpr);
+    canvas.height = Math.floor(height * dpr);
     const ctx = canvas.getContext('2d');
     if (!ctx) {
       return;
     }
 
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, rect.width, rect.height);
+    ctx.clearRect(0, 0, rect.width, height);
     ctx.fillStyle = 'rgba(255, 255, 255, 0.97)';
-    ctx.fillRect(0, 0, rect.width, rect.height);
+    ctx.fillRect(0, 0, rect.width, height);
     ctx.strokeStyle = '#d8e4ff';
     ctx.lineWidth = 1;
     ctx.beginPath();
@@ -1522,7 +1555,7 @@ function ScatterChart({
     ctx.textAlign = 'center';
     ctx.textBaseline = 'bottom';
     ctx.font = '12px Trebuchet MS, Segoe UI, Arial, sans-serif';
-    ctx.fillText(resolvedXAxisLabel, width * 0.5 * scaleX, rect.height - 2);
+    ctx.fillText(resolvedXAxisLabel, width * 0.5 * scaleX, height - 2);
     ctx.save();
     ctx.translate(12, height * 0.5 * scaleY);
     ctx.rotate(-Math.PI / 2);
@@ -1587,11 +1620,11 @@ function ScatterChart({
       React.createElement('span', { className: `badge ${String(confidence.badge || 'low').toLowerCase()}` }, `${confidence.badge || 'Low'} confidence`)
     ),
     React.createElement('div', { className: 'chart-meta' }, chartMetaText(`X=${xLabel}; Y=${yLabel}`, asOfDate)),
-    React.createElement('div', { className: 'chart-svg-wrap' },
+    React.createElement('div', { className: 'chart-svg-wrap', style: { height: `${height}px` } },
       React.createElement('canvas', {
         ref: chartRef,
         className: 'chart-canvas',
-        style: { width: '100%', height: '100%', display: 'block' },
+        style: { width: '100%', height: `${height}px`, display: 'block' },
         onMouseMove: (event) => {
           const point = nearestPoint(event);
           if (!point) {
@@ -2248,7 +2281,14 @@ function App() {
   const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0, text: '' });
 
   const chartScaleValue = { compact: 0.86, normal: 1, large: 1.35, xlarge: 2.0 };
+  const chartHeightsByScale = {
+    compact: 180,
+    normal: 250,
+    large: 390,
+    xlarge: 540,
+  };
   const activeChartScale = chartScaleValue[chartScale] || 1;
+  const activeChartHeight = chartHeightsByScale[chartScale] || chartHeightsByScale.normal;
 
   useEffect(() => {
     let mounted = true;
@@ -2658,6 +2698,7 @@ function App() {
         xAxisLabel: 'Year',
         yAxisLabel: 'Length (km)',
         chartScale: activeChartScale,
+        chartHeight: activeChartHeight,
       }),
       React.createElement(ChartTooltip, { tooltip }),
       React.createElement(MultiLineChart, {
@@ -2674,6 +2715,7 @@ function App() {
         xAxisLabel: 'Year',
         yAxisLabel: 'Amount (₹ crore)',
         chartScale: activeChartScale,
+        chartHeight: activeChartHeight,
       }),
       React.createElement(ChartTooltip, { tooltip }),
       React.createElement(HorizontalBars, {
@@ -2700,6 +2742,7 @@ function App() {
         xAxisLabel: 'Year',
         yAxisLabel: 'Amount (₹ crore)',
         chartScale: activeChartScale,
+        chartHeight: activeChartHeight,
       }),
       React.createElement(ChartTooltip, { tooltip }),
       React.createElement(HorizontalBars, {
@@ -2734,6 +2777,7 @@ function App() {
         xAxisLabel: 'NH length (km)',
         yAxisLabel: 'Permit fee (₹ in actuals)',
         chartScale: activeChartScale,
+        chartHeight: activeChartHeight,
       }),
       React.createElement(ChartTooltip, { tooltip }),
       React.createElement(StackedStateStatus, {
@@ -2754,6 +2798,7 @@ function App() {
         xAxisLabel: 'Incident intensity',
         yAxisLabel: 'Safety risk score',
         chartScale: activeChartScale,
+        chartHeight: activeChartHeight,
       }),
       React.createElement(MultiLineChart, {
         title: 'Model Risk Trajectory by State (proxy-informed)',
@@ -2766,6 +2811,7 @@ function App() {
         xAxisLabel: 'Year',
         yAxisLabel: 'Safety risk score',
         chartScale: activeChartScale,
+        chartHeight: activeChartHeight,
       }),
       React.createElement(MultiLineChart, {
         title: 'GDP & Infrastructure Context',
@@ -2778,6 +2824,7 @@ function App() {
         xAxisLabel: 'Year',
         yAxisLabel: 'Index value',
         chartScale: activeChartScale,
+        chartHeight: activeChartHeight,
       }),
       React.createElement(ScatterChart, {
         title: 'Project Economics: Land Acquisition vs Maintenance (Model Panel)',
@@ -2791,6 +2838,7 @@ function App() {
         xAxisLabel: 'Land acquisition cost (₹ crore)',
         yAxisLabel: 'Maintenance cost (₹ crore)',
         chartScale: activeChartScale,
+        chartHeight: activeChartHeight,
       })
     ),
     React.createElement(
