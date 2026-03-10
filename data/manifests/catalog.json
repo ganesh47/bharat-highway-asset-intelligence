@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-10T11:35:50.388530+00:00",
+  "generated_at": "2026-03-10T11:55:46.894905+00:00",
   "datasets": [
     {
       "source_id": "correlation_matrix",
@@ -1002,64 +1002,6 @@
       "output_table_path": "data/processed/data_gov_in_road_fatal_accidents_2003_2016.parquet"
     },
     {
-      "source_id": "morth_annual_report_pdf",
-      "connector": "morth_annual_report_pdf",
-      "version": "0.2.1",
-      "status": "manual_ingest",
-      "metric_category": "official_measured",
-      "source": {
-        "publisher": "Ministry of Road Transport and Highways (MoRTH)",
-        "title": "MoRTH annual report PDF tables (selected annexes)",
-        "url": "https://morth.nic.in/annual-report",
-        "retrieved_at": "2026-03-10T11:35:30.611163+00:00",
-        "license_terms": "Open publication on morth.gov.in; verify page-level reuse permissions in the PDF footer or Gazette notice",
-        "official_flag": true
-      },
-      "citations": {
-        "permanent_identifier": "annual report year + section/table identifier",
-        "anchor": "annual_report_appendix_2_3_5",
-        "note": "Parsed official MoRTH annual report appendices (2, 3, 5)."
-      },
-      "manifest": {
-        "raw_files": [
-          {
-            "path": "data/raw/manual/morth_annual_report_pdf.pdf",
-            "sha256": "59f3693bddda349aef2e87c4c344bca7d7028167e6e12d840468e8bc67624251",
-            "size_bytes": 19474671
-          }
-        ],
-        "output_files": [
-          {
-            "path": "data/processed/morth_annual_report_pdf.parquet",
-            "sha256": "64e4369d98062f0dd97ca078553aa1a534c8e60e894d813c4efab4ff611c2627"
-          }
-        ],
-        "row_count": 151,
-        "columns": [
-          "state",
-          "metric_name",
-          "metric_value",
-          "unit",
-          "citation_anchor",
-          "document_section",
-          "year",
-          "source_id",
-          "source_type",
-          "metric_category",
-          "dataset_source",
-          "retrieved_at"
-        ]
-      },
-      "retrieved_at": "2026-03-10T11:35:30.611163+00:00",
-      "completeness_score": 0.917,
-      "recency_score": 0.98,
-      "provenance_score": 0.833,
-      "consistency_score": 0.98,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/morth_annual_report_pdf.parquet"
-    },
-    {
       "source_id": "nhai_press_release_index",
       "connector": "nhai_publication_index",
       "version": "0.1.0",
@@ -1711,6 +1653,64 @@
       "overall_confidence_badge": "High",
       "overall_confidence_reason": [],
       "output_table_path": "data/processed/viirs_nightlights_proxy.parquet"
+    },
+    {
+      "source_id": "morth_annual_report_pdf",
+      "connector": "morth_annual_report_pdf",
+      "version": "0.2.1",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "Ministry of Road Transport and Highways (MoRTH)",
+        "title": "MoRTH annual report PDF tables (selected annexes)",
+        "url": "https://morth.nic.in/annual-report",
+        "retrieved_at": "2026-03-10T11:55:30.250047+00:00",
+        "license_terms": "Open publication on morth.gov.in; verify page-level reuse permissions in the PDF footer or Gazette notice",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "annual report year + section/table identifier",
+        "anchor": "annual_report_appendix_2_3_5",
+        "note": "Parsed official MoRTH annual report appendices (2, 3, 5)."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/morth_annual_report_pdf.pdf",
+            "sha256": "59f3693bddda349aef2e87c4c344bca7d7028167e6e12d840468e8bc67624251",
+            "size_bytes": 19474671
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/morth_annual_report_pdf.parquet",
+            "sha256": "80d766d6abd39b9ff7050440703fcbf05f61a1ceb99f29800d08cb33fca62fc2"
+          }
+        ],
+        "row_count": 151,
+        "columns": [
+          "state",
+          "metric_name",
+          "metric_value",
+          "unit",
+          "citation_anchor",
+          "document_section",
+          "year",
+          "source_id",
+          "source_type",
+          "metric_category",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-03-10T11:55:30.250047+00:00",
+      "completeness_score": 0.917,
+      "recency_score": 0.98,
+      "provenance_score": 0.833,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/morth_annual_report_pdf.parquet"
     }
   ]
 }
