@@ -11,7 +11,7 @@
     "url": "https://www.data.gov.in/resource/district-wise-details-national-highway-nh-projects-implemented-national-highways-authority",
     "retrieval_method": "direct download",
     "access_type": "HTML",
-    "retrieved_at": "2026-02-16T05:48:15.145001+00:00",
+    "retrieved_at": "2026-03-10T11:35:30.264362+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
@@ -23,7 +23,7 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_nhai_district_projects_implemented/data_gov_in_nhai_district_projects_implemented/raw_20260216_054815.csv",
+        "path": "data/raw/data_gov_in_nhai_district_projects_implemented/data_gov_in_nhai_district_projects_implemented/raw_20260310_113530.csv",
         "sha256": "ee05f385294942893905414df7dbd2cb609b2564a9ec6ee2be960b59ada5662d",
         "size_bytes": 4564
       }
@@ -32,7 +32,7 @@
       {
         "path": "data/processed/data_gov_in_nhai_district_projects_implemented.parquet",
         "format": "parquet",
-        "sha256": "6e071881a7b84041c69712f19ab44115967b5fc85efbef81f38292e845c65e04"
+        "sha256": "89e3a8ca488754c3c8f0c99e24cce135f2ad5a4122f37ae49ae79dd55a314e7f"
       }
     ],
     "row_count": 40,
@@ -49,7 +49,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-16T05:48:15.145001+00:00",
+  "retrieved_at": "2026-03-10T11:35:30.264362+00:00",
   "completeness_score": 1.0,
   "recency_score": 1.0,
   "provenance_score": 0.85,

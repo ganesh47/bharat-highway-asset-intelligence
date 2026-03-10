@@ -1,53 +1,54 @@
 {
   "source_id": "morth_annual_report_pdf",
   "connector": "morth_annual_report_pdf",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "status": "manual_ingest",
   "metric_category": "official_measured",
   "source": {
     "publisher": "Ministry of Road Transport and Highways (MoRTH)",
     "title": "MoRTH annual report PDF tables (selected annexes)",
     "url": "https://morth.nic.in/annual-report",
-    "retrieved_at": "2026-02-16T05:48:15.429819+00:00",
+    "retrieved_at": "2026-03-10T11:35:30.611163+00:00",
     "license_terms": "Open publication on morth.gov.in; verify page-level reuse permissions in the PDF footer or Gazette notice",
     "official_flag": true
   },
   "citations": {
     "permanent_identifier": "annual report year + section/table identifier",
-    "anchor": "manual_annual_report_csv_page_reference",
-    "note": "Official annual-report table extracts imported from approved CSV snapshot."
+    "anchor": "annual_report_appendix_2_3_5",
+    "note": "Parsed official MoRTH annual report appendices (2, 3, 5)."
   },
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/morth_annual_report_pdf.csv",
-        "sha256": "dd0af8fb87d4637b990122dd6d76a00b9f183eb472e48b2b2ddd86418a0f7e03",
-        "size_bytes": 361
+        "path": "data/raw/manual/morth_annual_report_pdf.pdf",
+        "sha256": "59f3693bddda349aef2e87c4c344bca7d7028167e6e12d840468e8bc67624251",
+        "size_bytes": 19474671
       }
     ],
     "output_files": [
       {
         "path": "data/processed/morth_annual_report_pdf.parquet",
-        "sha256": "7388da6bd5196bf1028510ccfce4ea4c5aa70b2cef00ece19533b7e46f4f703c"
+        "sha256": "64e4369d98062f0dd97ca078553aa1a534c8e60e894d813c4efab4ff611c2627"
       }
     ],
-    "row_count": 6,
+    "row_count": 151,
     "columns": [
       "state",
-      "year",
       "metric_name",
       "metric_value",
       "unit",
+      "citation_anchor",
       "document_section",
-      "source_type",
+      "year",
       "source_id",
+      "source_type",
       "metric_category",
       "dataset_source",
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-16T05:48:15.429819+00:00",
-  "completeness_score": 0.909,
+  "retrieved_at": "2026-03-10T11:35:30.611163+00:00",
+  "completeness_score": 0.917,
   "recency_score": 0.98,
   "provenance_score": 0.833,
   "consistency_score": 0.98,

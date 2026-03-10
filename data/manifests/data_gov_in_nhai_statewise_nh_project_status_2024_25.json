@@ -11,7 +11,7 @@
     "url": "https://www.data.gov.in/resource/state-wise-details-national-highway-nh-projects-under-construction-completed-approved-yet",
     "retrieval_method": "direct download",
     "access_type": "HTML",
-    "retrieved_at": "2026-02-16T05:48:14.747164+00:00",
+    "retrieved_at": "2026-03-10T11:35:29.751937+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
@@ -23,7 +23,7 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_nhai_statewise_nh_project_status_2024_25/data_gov_in_nhai_statewise_nh_project_status_2024_25/raw_20260216_054814.csv",
+        "path": "data/raw/data_gov_in_nhai_statewise_nh_project_status_2024_25/data_gov_in_nhai_statewise_nh_project_status_2024_25/raw_20260310_113529.csv",
         "sha256": "bb70bd6d0b4df4a41d71bfe6213702ed6ae4524edd29171ef17c9709ed37f643",
         "size_bytes": 814
       }
@@ -32,7 +32,7 @@
       {
         "path": "data/processed/data_gov_in_nhai_statewise_nh_project_status_2024_25.parquet",
         "format": "parquet",
-        "sha256": "c08da1ddb3d67b9c511db17cc9185adab233b15643b9cefaaf3790980b6db993"
+        "sha256": "64ea24146f7b1b52a953168f8a7390c6e9f2797dcaa2f0a28bd2cda7c8cba420"
       }
     ],
     "row_count": 5,
@@ -55,7 +55,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-16T05:48:14.747164+00:00",
+  "retrieved_at": "2026-03-10T11:35:29.751937+00:00",
   "completeness_score": 1.0,
   "recency_score": 1.0,
   "provenance_score": 0.85,

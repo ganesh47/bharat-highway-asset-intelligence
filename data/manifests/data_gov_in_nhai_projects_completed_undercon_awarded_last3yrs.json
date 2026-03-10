@@ -11,7 +11,7 @@
     "url": "https://www.data.gov.in/resource/project-wise-details-national-highway-projects-completedunder-constructionawarded-during",
     "retrieval_method": "direct download",
     "access_type": "HTML",
-    "retrieved_at": "2026-02-16T05:48:14.687494+00:00",
+    "retrieved_at": "2026-03-10T11:35:29.665831+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
@@ -23,7 +23,7 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs/raw_20260216_054814.csv",
+        "path": "data/raw/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs/raw_20260310_113529.csv",
         "sha256": "b165b8a2ecd46c2cd677f0f0364e8e27eab674222f312c0ad7f2cafc55b29df2",
         "size_bytes": 38969
       }
@@ -32,7 +32,7 @@
       {
         "path": "data/processed/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs.parquet",
         "format": "parquet",
-        "sha256": "6d4889a8b996f6e33ef6ccc978782c23063f4502b79e8f1338ed3de8afc889a7"
+        "sha256": "46d2b7a6655c3d2f87c53355ae43efc441b8c09350f08a3f122a0eae63492edc"
       }
     ],
     "row_count": 218,
@@ -50,7 +50,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-16T05:48:14.687494+00:00",
+  "retrieved_at": "2026-03-10T11:35:29.665831+00:00",
   "completeness_score": 1.0,
   "recency_score": 1.0,
   "provenance_score": 1.0,

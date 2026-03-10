@@ -8,7 +8,7 @@
     "publisher": "Reserve Bank of India / Ministry of Statistics and Programme Implementation",
     "title": "Macro indicators relevant to highway finance and inflation adjustments",
     "url": "https://www.rbi.org.in/Scripts/{}",
-    "retrieved_at": "2026-02-16T05:48:18.517734+00:00",
+    "retrieved_at": "2026-03-10T11:35:50.344006+00:00",
     "license_terms": "Official statistical products; confirm redistribution terms in portal.",
     "official_flag": true
   },
@@ -28,7 +28,7 @@
     "output_files": [
       {
         "path": "data/processed/rbi_mospi_macro_indicators.parquet",
-        "sha256": "1a5ee98007ffc88b26fb2e8d6847caac0b28a5355c2de7701f88b74535c529e2"
+        "sha256": "6986b41676d439d2a2152f21c8286625b0edc574c52ce91f508643fb4ac18bbe"
       }
     ],
     "row_count": 6,
@@ -45,7 +45,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-16T05:48:18.517860+00:00",
+  "retrieved_at": "2026-03-10T11:35:50.344148+00:00",
   "completeness_score": 0.98,
   "recency_score": 0.98,
   "provenance_score": 0.98,

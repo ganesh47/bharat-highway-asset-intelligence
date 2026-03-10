@@ -11,7 +11,7 @@
     "url": "https://www.data.gov.in/resource/state-ut-wise-total-number-road-accidents-india-2003-2016",
     "retrieval_method": "direct download",
     "access_type": "HTML",
-    "retrieved_at": "2026-02-16T05:48:15.291751+00:00",
+    "retrieved_at": "2026-03-10T11:35:30.467520+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
@@ -23,7 +23,7 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_road_accidents_india_2003_2016/data_gov_in_road_accidents_india_2003_2016/raw_20260216_054815.csv",
+        "path": "data/raw/data_gov_in_road_accidents_india_2003_2016/data_gov_in_road_accidents_india_2003_2016/raw_20260310_113530.csv",
         "sha256": "28fc7e0aae4d7829740dc9b402dc7366a1e2c8cd537e683c7378a3039f1d7dbe",
         "size_bytes": 3072
       }
@@ -32,7 +32,7 @@
       {
         "path": "data/processed/data_gov_in_road_accidents_india_2003_2016.parquet",
         "format": "parquet",
-        "sha256": "91bdb2640b682fa1985ee0d0bf67adb3af6d44c9ad7ba1c5ee514111bc57b022"
+        "sha256": "e330e9a103739a821aa4e277517d04be3e31a7731f96aa7865c2e419440c29d2"
       }
     ],
     "row_count": 37,
@@ -59,7 +59,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-16T05:48:15.291751+00:00",
+  "retrieved_at": "2026-03-10T11:35:30.467520+00:00",
   "completeness_score": 0.984,
   "recency_score": 1.0,
   "provenance_score": 0.85,

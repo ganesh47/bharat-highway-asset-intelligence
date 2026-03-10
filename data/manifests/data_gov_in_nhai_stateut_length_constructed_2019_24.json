@@ -11,7 +11,7 @@
     "url": "https://www.data.gov.in/resource/stateut-wise-details-national-highway-length-constructed-national-highway-authority-india",
     "retrieval_method": "direct download",
     "access_type": "HTML",
-    "retrieved_at": "2026-02-16T05:48:15.073143+00:00",
+    "retrieved_at": "2026-03-10T11:35:30.176126+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
@@ -23,7 +23,7 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_nhai_stateut_length_constructed_2019_24/data_gov_in_nhai_stateut_length_constructed_2019_24/raw_20260216_054815.csv",
+        "path": "data/raw/data_gov_in_nhai_stateut_length_constructed_2019_24/data_gov_in_nhai_stateut_length_constructed_2019_24/raw_20260310_113530.csv",
         "sha256": "86e2b9633f873b70d01ce36e04060cba1fa8c641b03d4559e953455916aa49e7",
         "size_bytes": 1291
       }
@@ -32,7 +32,7 @@
       {
         "path": "data/processed/data_gov_in_nhai_stateut_length_constructed_2019_24.parquet",
         "format": "parquet",
-        "sha256": "1c9cab910eff7adb5b5c9c7f58e70c1113c74981d1ac4f1a2a5b1628b29c7130"
+        "sha256": "0c8f26a1548189b565cde69fe2ab7184c2f7bbc2d7dd0012bafa0698ce16b4f1"
       }
     ],
     "row_count": 24,
@@ -51,7 +51,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-16T05:48:15.073143+00:00",
+  "retrieved_at": "2026-03-10T11:35:30.176126+00:00",
   "completeness_score": 1.0,
   "recency_score": 1.0,
   "provenance_score": 0.85,

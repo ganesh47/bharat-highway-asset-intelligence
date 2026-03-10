@@ -451,6 +451,45 @@ function clamp(v, min, max) {
   return Math.max(min, Math.min(max, v));
 }
 
+function ensureRange(min, max) {
+  if (!Number.isFinite(min) || !Number.isFinite(max)) {
+    return { min: 0, max: 1 };
+  }
+  if (min === max) {
+    const pad = Math.abs(max) || 1;
+    return { min: min - pad, max: max + pad };
+  }
+  return { min, max };
+}
+
+function axisTicks(min, max, count = 5) {
+  if (count <= 1) {
+    return [min];
+  }
+  const span = max - min;
+  if (!Number.isFinite(span) || span === 0) {
+    return [min];
+  }
+  const step = span / (count - 1);
+  return Array.from({ length: count }, (_, index) => min + step * index);
+}
+
+function formatTick(value, asYear = false) {
+  const v = num(value, null);
+  if (v === null || !Number.isFinite(v)) {
+    return safeLabel(value);
+  }
+  if (asYear && Number.isInteger(v)) {
+    return String(v);
+  }
+  if (Number.isInteger(v)) {
+    return v.toLocaleString('en-IN');
+  }
+  return new Intl.NumberFormat('en-IN', {
+    maximumFractionDigits: 2,
+  }).format(v);
+}
+
 function safeLabel(v) {
   return String(v || 'Unknown');
 }
@@ -523,32 +562,47 @@ function ChartTooltip({ tooltip }) {
   return React.createElement('div', { className: 'tooltip', style }, tooltip.text.split('\n').map((line) => React.createElement('div', { key: line }, line)));
 }
 
-function LineChart({ title, description, series, xTick, tooltipKey, confidence, onHover, chartScale = 1 }) {
-  const points = (series || []).filter((item) => num(item.y, null) !== null);
+function LineChart({
+  title,
+  description,
+  series,
+  xTick,
+  tooltipKey,
+  confidence,
+  onHover,
+  chartScale = 1,
+  xAxisLabel = 'X',
+  yAxisLabel = 'Value',
+}) {
+  const points = (series || []).filter((item) => Number.isFinite(num(item.x)) && Number.isFinite(num(item.y)));
   if (!points.length) {
     return React.createElement('div', { className: 'card insight-chart' }, React.createElement('div', { className: 'chart-title' }, title), React.createElement('div', { className: 'chart-meta' }, description || 'No records available.'));
   }
 
   const xValues = points.map((item) => num(item.x));
   const yValues = points.map((item) => num(item.y));
-  const xMin = Math.min(...xValues);
-  const xMax = Math.max(...xValues);
-  const yMin = Math.min(...yValues);
-  const yMax = Math.max(...yValues);
+  const xRange = ensureRange(Math.min(...xValues), Math.max(...xValues));
+  const yRange = ensureRange(Math.min(...yValues), Math.max(...yValues));
+  const xMin = xRange.min;
+  const xMax = xRange.max;
+  const yMin = yRange.min;
+  const yMax = yRange.max;
   const width = 980;
   const height = Math.round(270 * chartScale);
   const pad = { top: 16, right: 16, bottom: 26, left: 42 };
   const plotW = width - pad.left - pad.right;
   const plotH = height - pad.top - pad.bottom;
 
-  const xScale = (v) => pad.left + ((num(v) - xMin) / (xMax - xMin || 1)) * plotW;
-  const yScale = (v) => pad.top + (1 - (num(v) - yMin) / (yMax - yMin || 1)) * plotH;
+  const xScale = (v) => pad.left + ((num(v) - xMin) / (xMax - xMin)) * plotW;
+  const yScale = (v) => pad.top + (1 - (num(v) - yMin) / (yMax - yMin)) * plotH;
 
   const d = points
     .map((point, index) => `${index === 0 ? 'M' : 'L'} ${xScale(point.x)} ${yScale(point.y)}`)
     .join(' ');
 
   const labels = points.filter((_, index) => index % Math.max(1, Math.floor(points.length / 6)) === 0);
+  const xAxisTicks = axisTicks(xMin, xMax, 6);
+  const yAxisTicks = axisTicks(yMin, yMax, 5);
 
   return React.createElement('div', { className: 'card insight-chart' },
     React.createElement(
@@ -567,6 +621,42 @@ function LineChart({ title, description, series, xTick, tooltipKey, confidence, 
         { viewBox: `0 0 ${width} ${Math.round(270 * chartScale)}`, width: '100%', height: `${height}px`, style: { height: `${height}px`, width: '100%' } },
         React.createElement('line', { x1: pad.left, y1: pad.top + plotH, x2: width - pad.right, y2: pad.top + plotH, className: 'axis-line' }),
         React.createElement('line', { x1: pad.left, y1: pad.top, x2: pad.left, y2: pad.top + plotH, className: 'axis-line' }),
+        xAxisTicks.map((tick) =>
+          React.createElement('g', { key: `x-axis-${tick}` }, [
+            React.createElement('line', {
+              x1: xScale(tick),
+              y1: pad.top + plotH,
+              x2: xScale(tick),
+              y2: pad.top + plotH + 5,
+              stroke: '#3b5068',
+              strokeWidth: 1,
+            }),
+            React.createElement('text', {
+              x: xScale(tick),
+              y: pad.top + plotH + 16,
+              textAnchor: 'middle',
+              className: 'axis-label',
+            }, formatTick(tick))
+          ])
+        ),
+        yAxisTicks.map((tick) =>
+          React.createElement('g', { key: `y-axis-${tick}` }, [
+            React.createElement('line', {
+              x1: pad.left - 5,
+              y1: yScale(tick),
+              x2: pad.left,
+              y2: yScale(tick),
+              stroke: '#3b5068',
+              strokeWidth: 1,
+            }),
+            React.createElement('text', {
+              x: pad.left - 8,
+              y: yScale(tick) + 3,
+              textAnchor: 'end',
+              className: 'axis-label',
+            }, formatTick(tick, true))
+          ])
+        ),
         labels.map((point) =>
           React.createElement('text', {
             key: `x-${point.x}`,
@@ -600,15 +690,36 @@ function LineChart({ title, description, series, xTick, tooltipKey, confidence, 
             onMouseLeave: () => onHover({ visible: false }),
           })
         ),
-        React.createElement('path', { d, className: 'line-path', stroke: '#2f5f99', fill: 'none', strokeWidth: 2.4 })
+        React.createElement('path', { d, className: 'line-path', stroke: '#2f5f99', fill: 'none', strokeWidth: 2.4 }),
+        React.createElement('text', { x: width / 2, y: height - 2, textAnchor: 'middle', className: 'axis-title' }, xAxisLabel),
+        React.createElement(
+          'g',
+          { transform: `translate(12, ${height / 2}) rotate(-90)` },
+          React.createElement('text', { textAnchor: 'middle', className: 'axis-title' }, yAxisLabel)
+        )
       )
     ),
     React.createElement('div', { className: 'insight-note' }, confidence.reasons.slice(0, 2).map((r) => r).join(' '))
   );
 }
 
-function MultiLineChart({ title, description, layers, xTick, confidence, onHover, tooltipTextLabel, chartScale = 1 }) {
-  const allSeries = layers.flatMap((layer) => layer.points || []);
+function MultiLineChart({
+  title,
+  description,
+  layers,
+  xTick,
+  confidence,
+  onHover,
+  tooltipTextLabel,
+  chartScale = 1,
+  xAxisLabel = 'X',
+  yAxisLabel = 'Value',
+}) {
+  const normalizedLayers = layers.map((layer) => ({
+    ...layer,
+    points: (layer.points || []).filter((point) => Number.isFinite(num(point.x)) && Number.isFinite(num(point.y))).sort((a, b) => num(a.x) - num(b.x)),
+  }));
+  const allSeries = normalizedLayers.flatMap((layer) => layer.points || []);
   if (!allSeries.length) {
     return React.createElement('div', { className: 'card insight-chart' }, React.createElement('div', { className: 'chart-title' }, title), React.createElement('div', { className: 'chart-meta' }, description || 'No records available.'));
   }
@@ -621,14 +732,22 @@ function MultiLineChart({ title, description, layers, xTick, confidence, onHover
     min: Math.min(...allSeries.map((item) => num(item.y))),
     max: Math.max(...allSeries.map((item) => num(item.y))),
   };
+  const xRange = ensureRange(xExtent.min, xExtent.max);
+  const yRange = ensureRange(yExtent.min, yExtent.max);
+  const xMin = xRange.min;
+  const xMax = xRange.max;
+  const yMin = yRange.min;
+  const yMax = yRange.max;
+  const xAxisTicks = axisTicks(xMin, xMax, 6);
+  const yAxisTicks = axisTicks(yMin, yMax, 5);
 
   const width = 980;
   const height = Math.round(290 * chartScale);
   const pad = { top: 16, right: 16, bottom: 26, left: 42 };
   const plotW = width - pad.left - pad.right;
   const plotH = height - pad.top - pad.bottom;
-  const xScale = (value) => pad.left + ((num(value) - xExtent.min) / (xExtent.max - xExtent.min || 1)) * plotW;
-  const yScale = (value) => pad.top + (1 - (num(value) - yExtent.min) / (yExtent.max - yExtent.min || 1)) * plotH;
+  const xScale = (value) => pad.left + ((num(value) - xMin) / (xMax - xMin)) * plotW;
+  const yScale = (value) => pad.top + (1 - (num(value) - yMin) / (yMax - yMin)) * plotH;
   const palette = ['#1b4d91', '#0a8f52', '#b07a00', '#a0182d', '#5f4eeb', '#5f8a4e'];
 
   return React.createElement('div', { className: 'card insight-chart' },
@@ -640,11 +759,11 @@ function MultiLineChart({ title, description, layers, xTick, confidence, onHover
     React.createElement(
       'div',
       { className: 'insight-legend' },
-      ...layers.map((layer, idx) =>
+      ...normalizedLayers.map((layer, idx) =>
         React.createElement('span', { key: layer.key, className: 'insight-pill', style: { borderColor: palette[idx % palette.length], color: '#1f3650' } }, layer.name)
       )
     ),
-    React.createElement(
+  React.createElement(
       'div',
       { className: 'chart-svg-wrap' },
       React.createElement(
@@ -652,10 +771,44 @@ function MultiLineChart({ title, description, layers, xTick, confidence, onHover
         { viewBox: `0 0 ${width} ${Math.round(290 * chartScale)}`, width: '100%', height: `${height}px`, style: { height: `${height}px`, width: '100%' } },
         React.createElement('line', { x1: pad.left, y1: pad.top + plotH, x2: width - pad.right, y2: pad.top + plotH, className: 'axis-line' }),
         React.createElement('line', { x1: pad.left, y1: pad.top, x2: pad.left, y2: pad.top + plotH, className: 'axis-line' }),
-        layers.map((layer, layerIndex) => {
-          const points = (layer.points || [])
-            .filter((point) => Number.isFinite(num(point.x)) && Number.isFinite(num(point.y)))
-            .sort((a, b) => num(a.x) - num(b.x));
+        xAxisTicks.map((tick) =>
+          React.createElement('g', { key: `x-axis-${tick}` }, [
+            React.createElement('line', {
+              x1: xScale(tick),
+              y1: pad.top + plotH,
+              x2: xScale(tick),
+              y2: pad.top + plotH + 5,
+              stroke: '#3b5068',
+              strokeWidth: 1,
+            }),
+            React.createElement('text', {
+              x: xScale(tick),
+              y: pad.top + plotH + 16,
+              textAnchor: 'middle',
+              className: 'axis-label',
+            }, formatTick(tick, true))
+          ])
+        ),
+        yAxisTicks.map((tick) =>
+          React.createElement('g', { key: `y-axis-${tick}` }, [
+            React.createElement('line', {
+              x1: pad.left - 5,
+              y1: yScale(tick),
+              x2: pad.left,
+              y2: yScale(tick),
+              stroke: '#3b5068',
+              strokeWidth: 1,
+            }),
+            React.createElement('text', {
+              x: pad.left - 8,
+              y: yScale(tick) + 3,
+              textAnchor: 'end',
+              className: 'axis-label',
+            }, formatTick(tick))
+          ])
+        ),
+        normalizedLayers.map((layer, layerIndex) => {
+          const points = layer.points || [];
           if (!points.length) {
             return null;
           }
@@ -697,7 +850,13 @@ function MultiLineChart({ title, description, layers, xTick, confidence, onHover
               })
             )
           );
-        })
+        }),
+        React.createElement('text', { x: width / 2, y: height - 2, textAnchor: 'middle', className: 'axis-title' }, xAxisLabel),
+        React.createElement(
+          'g',
+          { transform: `translate(12, ${height / 2}) rotate(-90)` },
+          React.createElement('text', { textAnchor: 'middle', className: 'axis-title' }, yAxisLabel)
+        )
       )
     ),
     React.createElement('div', { className: 'insight-note' }, `Why this badge?: ${tooltipTextLabel || confidence.reasons?.[0] || 'Use source provenance, recency, and consistency checks.'}`)
@@ -758,7 +917,7 @@ function StackedStateStatus({ title, rows, confidence, onHover }) {
       completed: num(row.completed_length, 0),
       approved: num(row.approved_length, 0),
     }))
-    .filter((row) => row.under + row.completed + row.approved > 0);
+    .filter((row) => row.state && row.state !== 'Unknown');
 
   const max = Math.max(...cleaned.map((row) => row.under + row.completed + row.approved), 1);
   const ordered = cleaned.sort((a, b) => b.under + b.completed + b.approved - (a.under + a.completed + a.approved));
@@ -824,7 +983,20 @@ function StackedStateStatus({ title, rows, confidence, onHover }) {
   );
 }
 
-function ScatterChart({ title, rows, confidence, onHover, chartScale = 1, xLabel = 'X', yLabel = 'Y', pointLabel = 'value' }) {
+function ScatterChart({
+  title,
+  rows,
+  confidence,
+  onHover,
+  chartScale = 1,
+  xLabel = 'X',
+  yLabel = 'Y',
+  pointLabel = 'value',
+  xAxisLabel = '',
+  yAxisLabel = '',
+}) {
+  const resolvedXAxisLabel = xAxisLabel || xLabel;
+  const resolvedYAxisLabel = yAxisLabel || yLabel;
   const points = (rows || [])
     .filter((r) => Number.isFinite(num(r.x)) && Number.isFinite(num(r.y)))
     .sort((a, b) => num(a.x) - num(b.x));
@@ -838,14 +1010,22 @@ function ScatterChart({ title, rows, confidence, onHover, chartScale = 1, xLabel
   const plotW = width - pad.left - pad.right;
   const plotH = height - pad.top - pad.bottom;
 
-  const xMin = Math.min(...points.map((p) => num(p.x)));
-  const xMax = Math.max(...points.map((p) => num(p.x)));
-  const yMin = Math.min(...points.map((p) => num(p.y)));
-  const yMax = Math.max(...points.map((p) => num(p.y)));
+  const xMinRaw = points.map((point) => num(point.x));
+  const xMaxRaw = points.map((point) => num(point.x));
+  const yMinRaw = points.map((point) => num(point.y));
+  const yMaxRaw = points.map((point) => num(point.y));
+  const xRange = ensureRange(Math.min(...xMinRaw), Math.max(...xMaxRaw));
+  const yRange = ensureRange(Math.min(...yMinRaw), Math.max(...yMaxRaw));
+  const xMin = xRange.min;
+  const xMax = xRange.max;
+  const yMin = yRange.min;
+  const yMax = yRange.max;
+  const xAxisTicks = axisTicks(xMin, xMax, 6);
+  const yAxisTicks = axisTicks(yMin, yMax, 5);
   const rMin = Math.min(...points.map((p) => num(p.radius) || 3));
   const rMax = Math.max(...points.map((p) => num(p.radius) || 3));
-  const xScale = (x) => pad.left + ((num(x) - xMin) / (xMax - xMin || 1)) * plotW;
-  const yScale = (y) => pad.top + (1 - (num(y) - yMin) / (yMax - yMin || 1)) * plotH;
+  const xScale = (x) => pad.left + ((num(x) - xMin) / (xMax - xMin)) * plotW;
+  const yScale = (y) => pad.top + (1 - (num(y) - yMin) / (yMax - yMin)) * plotH;
   const radiusScale = (v) => clamp(((num(v) - rMin) / (rMax - rMin || 1)) * 7 + 3, 3, 12);
 
   return React.createElement('div', { className: 'card insight-chart' },
@@ -863,6 +1043,42 @@ function ScatterChart({ title, rows, confidence, onHover, chartScale = 1, xLabel
       },
         React.createElement('line', { x1: pad.left, y1: pad.top + plotH, x2: width - pad.right, y2: pad.top + plotH, className: 'axis-line' }),
         React.createElement('line', { x1: pad.left, y1: pad.top, x2: pad.left, y2: pad.top + plotH, className: 'axis-line' }),
+        xAxisTicks.map((tick) =>
+          React.createElement('g', { key: `x-axis-${tick}` }, [
+            React.createElement('line', {
+              x1: xScale(tick),
+              y1: pad.top + plotH,
+              x2: xScale(tick),
+              y2: pad.top + plotH + 5,
+              stroke: '#3b5068',
+              strokeWidth: 1,
+            }),
+            React.createElement('text', {
+              x: xScale(tick),
+              y: pad.top + plotH + 16,
+              textAnchor: 'middle',
+              className: 'axis-label',
+            }, formatTick(tick))
+          ])
+        ),
+        yAxisTicks.map((tick) =>
+          React.createElement('g', { key: `y-axis-${tick}` }, [
+            React.createElement('line', {
+              x1: pad.left - 5,
+              y1: yScale(tick),
+              x2: pad.left,
+              y2: yScale(tick),
+              stroke: '#3b5068',
+              strokeWidth: 1,
+            }),
+            React.createElement('text', {
+              x: pad.left - 8,
+              y: yScale(tick) + 3,
+              textAnchor: 'end',
+              className: 'axis-label',
+            }, formatTick(tick))
+          ])
+        ),
         points.map((point, idx) => React.createElement('circle', {
           key: `${point.state}-${idx}`,
           className: 'point',
@@ -883,7 +1099,13 @@ function ScatterChart({ title, rows, confidence, onHover, chartScale = 1, xLabel
             text: tooltipText([safeLabel(point.state), `${xLabel}: ${fmtNum(point.x)}`, `${yLabel}: ${fmtNum(point.y)}`, `${pointLabel}: ${safeLabel(point.modelConfidence)}`]),
           }),
           onMouseLeave: () => onHover({ visible: false }),
-        }))
+        })),
+        React.createElement('text', { x: width / 2, y: height - 2, textAnchor: 'middle', className: 'axis-title' }, resolvedXAxisLabel),
+        React.createElement(
+          'g',
+          { transform: `translate(12, ${height / 2}) rotate(-90)` },
+          React.createElement('text', { textAnchor: 'middle', className: 'axis-title' }, resolvedYAxisLabel)
+        )
       )
     )
   );
@@ -1032,6 +1254,11 @@ function toTopStates(analyticsRows, selectedState) {
   return (analyticsRows || []).filter((row) => normalizeState(row.state) === normalizeState(selectedState));
 }
 
+function isAggregateStateLabel(value) {
+  const key = normalizeState(value);
+  return key === 'total' || key === 'india' || key === 'all india' || key.startsWith('all ') || key === 'all';
+}
+
 async function loadAnalyticCatalog(conn, catalog) {
   const fetchById = async (sourceId, queryFactory) => {
     const manifest = catalog[sourceId];
@@ -1051,25 +1278,43 @@ async function loadAnalyticCatalog(conn, catalog) {
     WHERE "financial_year" IS NOT NULL AND "length_of_nh_constructed_in_km" IS NOT NULL
   `);
 
-  const finance = await fetchById('data_gov_in_nhai_project_finance_api', (alias) => `
-    SELECT
-      "year-wise" AS year_label,
-      CAST("allocation/target_-_total" AS DOUBLE) AS allocation_total,
-      CAST("expenditure/release_of_funds/actuals_-_total" AS DOUBLE) AS expenditure_total
+  const rawFinanceRows = await fetchById('data_gov_in_nhai_project_finance_api', (alias) => `
+    SELECT *
     FROM read_parquet('${alias}')
-    WHERE "year-wise" IS NOT NULL
-    ORDER BY "year-wise"
   `);
+  const finance = rawFinanceRows
+    .filter((row) => row)
+    .map((row) => ({
+      year_label: row['year-wise'] || row.year_wise || row.year || row.year_label,
+      allocation_total:
+        row['allocation/target_-_total']
+        || row.allocation_target___total
+        || row.allocation_target___budgetary
+        || 0,
+      expenditure_total:
+        row['expenditure/release_of_funds/actuals_-_total']
+        || row.expenditure_release_of_funds_actuals___total
+        || row.expenditure_release_of_funds_actuals___budgetary
+        || 0,
+    }));
 
-  const statePortfolio = await fetchById('data_gov_in_nhai_state_projects_api', (alias) => `
-    SELECT
-      "state" AS state,
-      CAST("number_of_nh_projects" AS BIGINT) AS projects,
-      CAST("length_in_km" AS DOUBLE) AS length_km,
-      CAST("capital_outlay__rs_in_cr_for_the_years_2020_to_2024" AS DOUBLE) AS capital_outlay
+  const rawStatePortfolioRows = await fetchById('data_gov_in_nhai_state_projects_api', (alias) => `
+    SELECT *
     FROM read_parquet('${alias}')
-    WHERE "state" IS NOT NULL
   `);
+  const statePortfolio = rawStatePortfolioRows
+    .filter((row) => row)
+    .map((row) => ({
+      state: row.state,
+      projects: num(row.number_of_nh_projects || row['number_of_nh_projects'] || 0),
+      length_km: num(row.length_in_km || row.length__in_km_ || 0),
+      capital_outlay: num(
+        row['capital_outlay__rs_in_cr_for_the_years_2020_to_2024']
+        || row['capital_outlay___rs_in_cr__for_the_years_2020_to_2024']
+        || 0
+      ),
+    }))
+    .filter((row) => row.state && !isAggregateStateLabel(normalizeState(row.state)));
 
   const stateStatus = await fetchById('data_gov_in_nhai_statewise_nh_project_status_2024_25', (alias) => `
     SELECT
@@ -1079,6 +1324,7 @@ async function loadAnalyticCatalog(conn, catalog) {
       CAST("details_of_projects_approved_but_yet_to_be_commenced_-_length_kilometer" AS DOUBLE) AS approved_length
     FROM read_parquet('${alias}')
     WHERE "state-wise" IS NOT NULL
+      AND lower(trim("state-wise")) NOT IN ('total', 'india', 'all india')
   `);
 
   const accidents = await fetchById('ncrb_road_accidents_state_year', (alias) => `
@@ -1088,8 +1334,24 @@ async function loadAnalyticCatalog(conn, catalog) {
       CAST("total_injured" AS DOUBLE) AS total_injured,
       CAST("fatal_crashes" AS DOUBLE) AS fatal_crashes,
       CAST("year" AS INTEGER) AS year
-    FROM read_parquet('${alias}')
+      FROM read_parquet('${alias}')
     WHERE "state" IS NOT NULL AND "year" IS NOT NULL
+  `);
+
+  const legacyRoadAccidents = await fetchById('data_gov_in_road_accidents_nhs_2003_2016', (alias) => `
+    SELECT
+      "states/uts" AS state,
+      *
+    FROM read_parquet('${alias}')
+    WHERE "states/uts" IS NOT NULL
+  `);
+
+  const legacyRoadFatalAccidents = await fetchById('data_gov_in_road_fatal_accidents_2003_2016', (alias) => `
+    SELECT
+      "states/uts" AS state,
+      *
+    FROM read_parquet('${alias}')
+    WHERE "states/uts" IS NOT NULL
   `);
 
   const maintenance = await fetchById('quality_maintenance_indicators', (alias) => `
@@ -1214,6 +1476,67 @@ async function loadAnalyticCatalog(conn, catalog) {
     }))
     .filter((row) => row.state);
 
+  const accidentTrendRows = accidents
+    .map((row) => ({
+      state: row.state,
+      year: num(row.year),
+      safety_risk: num(row.fatal_crashes) || num(row.total_killed),
+      source: 'ncrb_road_accidents_state_year',
+    }))
+    .filter((row) => row.state && Number.isFinite(row.year) && Number.isFinite(row.safety_risk));
+
+  legacyRoadFatalAccidents.forEach((row) => {
+    const state = row.state || row['states/uts'] || row.state_name;
+    if (!state) {
+      return;
+    }
+    const normalizedState = safeLabel(state);
+    Object.entries(row).forEach(([key, value]) => {
+      if (!/^\d{4}$/.test(String(key).trim())) {
+        return;
+      }
+      const year = Number(key);
+      const safetyRisk = num(value);
+      if (!Number.isFinite(year) || !Number.isFinite(safetyRisk)) {
+        return;
+      }
+      accidentTrendRows.push({
+        state: normalizedState,
+        year,
+        safety_risk: safetyRisk,
+        source: 'data_gov_in_road_fatal_accidents_2003_2016',
+      });
+    });
+  });
+
+  legacyRoadAccidents.forEach((row) => {
+    const state = row.state || row['states/uts'] || row.state_name;
+    if (!state) {
+      return;
+    }
+    const normalizedState = safeLabel(state);
+    Object.entries(row).forEach(([key, value]) => {
+      if (!/^\d{4}$/.test(String(key).trim())) {
+        return;
+      }
+      const year = Number(key);
+      const safetyRisk = num(value);
+      if (!Number.isFinite(year) || !Number.isFinite(safetyRisk)) {
+        return;
+      }
+      const trendKey = `${normalizeState(state)}::${year}`;
+      if (accidentTrendRows.some((item) => `${normalizeState(item.state)}::${num(item.year)}` === trendKey)) {
+        return;
+      }
+      accidentTrendRows.push({
+        state: normalizedState,
+        year,
+        safety_risk: safetyRisk,
+        source: 'data_gov_in_road_accidents_nhs_2003_2016',
+      });
+    });
+  });
+
   const proxyByState = {};
   maintenance.forEach((row) => {
     const state = row.state;
@@ -1298,6 +1621,28 @@ async function loadAnalyticCatalog(conn, catalog) {
     .map((row) => ({ state: row.state, value: num(row.metric_value), source: 'morth_annual_report_pdf' }))
     .filter((row) => Number.isFinite(row.value));
 
+  const portfolioRowsByState = new Map();
+  portfolioRows.forEach((row) => {
+    const key = normalizeState(row.state);
+    if (key && !isAggregateStateLabel(key) && Number.isFinite(row.length)) {
+      portfolioRowsByState.set(key, row);
+    }
+  });
+  morthAppendix2LengthRows.forEach((row) => {
+    const key = normalizeState(row.state);
+    if (!key || Number.isNaN(row.value) || isAggregateStateLabel(key) || portfolioRowsByState.has(key)) {
+      return;
+    }
+    portfolioRowsByState.set(key, {
+      state: row.state,
+      projects: null,
+      length: row.value,
+      capital: null,
+      source: 'morth_annual_report_pdf',
+    });
+  });
+  const mergedPortfolioRows = Array.from(portfolioRowsByState.values());
+
   const morthCrifRows = morthAppendix
     .filter((row) => row.metric_name && row.metric_name.startsWith('appendix3_crif'))
     .map((row) => ({
@@ -1336,7 +1681,7 @@ async function loadAnalyticCatalog(conn, catalog) {
   return {
     growthRows,
     financeRows,
-    portfolioRows,
+    portfolioRows: mergedPortfolioRows,
     stateStatusRows,
     accidentRows,
     proxyByState,
@@ -1351,6 +1696,7 @@ async function loadAnalyticCatalog(conn, catalog) {
     morthPermitByState,
     morthNHLengthByState,
     accidentLatestYear,
+    accidentTrendRows,
   };
 }
 
@@ -1441,17 +1787,41 @@ function App() {
   const filteredStateRows = useMemo(() => {
     if (!analytics) return null;
     const state = selectedState || 'All';
+
     return {
       modelStateRisk: toTopStates(analytics.modelStateRisk, state),
       modelByStateSummary: toTopStates(analytics.modelByStateSummary, state),
       accidentRows: toTopStates(analytics.accidentRows, state),
-      portfolioRows: toTopStates(analytics.portfolioRows, state),
+      accidentTrendRows: toTopStates(analytics.accidentTrendRows, state),
+      portfolioRows: toTopStates(analytics.portfolioRows || [], state),
       stateStatusRows: toTopStates(analytics.stateStatusRows, state),
       morthAppendix2CountRows: toTopStates(analytics.morthAppendix2CountRows, state),
       morthAppendix2LengthRows: toTopStates(analytics.morthAppendix2LengthRows, state),
       morthPermitRows: toTopStates(analytics.morthPermitRows, state),
     };
   }, [analytics, selectedState]);
+
+  const activeStateList = (analytics?.portfolioRows || [])
+    .concat(analytics?.stateStatusRows || [])
+    .concat(analytics?.accidentRows || [])
+    .concat(analytics?.modelStateRisk || [])
+    .concat(analytics?.modelByStateSummary || [])
+    .concat(analytics?.morthAppendix2CountRows || [])
+    .concat(analytics?.morthAppendix2LengthRows || [])
+    .concat(analytics?.morthPermitRows || [])
+    .filter((row) => row?.state && !isAggregateStateLabel(row.state))
+    .map((row) => row.state)
+    .filter((value, index, array) => array.indexOf(value) === index)
+    .sort();
+
+  useEffect(() => {
+    if (selectedState === 'All') {
+      return;
+    }
+    if (!activeStateList.includes(selectedState)) {
+      setSelectedState('All');
+    }
+  }, [selectedState, activeStateList]);
 
   if (loading) {
     return React.createElement(
@@ -1485,16 +1855,60 @@ function App() {
     label: row.label,
   }));
 
-  const portfolioBars = (analytics?.portfolioRows || [])
+  const portfolioBars = (filteredStateRows?.portfolioRows || analytics?.portfolioRows || [])
     .map((row) => ({ label: row.state, value: row.length }))
     .filter((item) => item.value > 0);
-  const statusBars = filteredStateRows?.stateStatusRows || [];
-  const activeStateList = analytics?.stateList || [];
+  const statusSeedRows = (filteredStateRows?.portfolioRows || analytics?.portfolioRows || [])
+    .concat(filteredStateRows?.morthAppendix2LengthRows || analytics?.morthAppendix2LengthRows || [])
+    .concat(filteredStateRows?.accidentRows || analytics?.accidentRows || []);
+  const statusStateSeed = new Map();
+  statusSeedRows.forEach((row) => {
+    const key = normalizeState(row.state);
+    if (key && !statusStateSeed.has(key)) {
+      statusStateSeed.set(key, safeLabel(row.state));
+    }
+  });
+  const statusLookup = new Map(
+    (filteredStateRows?.stateStatusRows || analytics?.stateStatusRows || [])
+      .filter((row) => row.state)
+      .map((row) => [normalizeState(row.state), row])
+  );
+  const statusBars = Array.from(statusStateSeed.entries())
+    .map(([key, state]) => statusLookup.get(key) || {
+      state,
+      under_construction_length: 0,
+      completed_length: 0,
+      approved_length: 0,
+    })
+    .map((row) => ({
+      state: row.state,
+      under_construction_length: num(row.under_construction_length),
+      completed_length: num(row.completed_length),
+      approved_length: num(row.approved_length),
+    }))
+    .sort((a, b) => {
+      const aTotal = a.under_construction_length + a.completed_length + a.approved_length;
+      const bTotal = b.under_construction_length + b.completed_length + b.approved_length;
+      return bTotal - aTotal;
+    });
 
-  const safetyChartRows = ((analytics?.accidentRows || []).map((acc) => {
+  const filteredModelSummaryRows = filteredStateRows?.modelByStateSummary || analytics?.modelByStateSummary || [];
+  const filteredModelRiskRows = filteredStateRows?.modelStateRisk || analytics?.modelStateRisk || [];
+  const filteredAccidentTrendRows = filteredStateRows?.accidentTrendRows || analytics?.accidentTrendRows || [];
+  const modelRiskLookup = new Map();
+  filteredModelRiskRows.forEach((row) => {
+    modelRiskLookup.set(`${normalizeState(row.state)}::${num(row.year)}`, row);
+  });
+  const mergedModelRiskRows = [
+    ...filteredModelRiskRows,
+    ...filteredAccidentTrendRows
+      .filter((row) => !modelRiskLookup.has(`${normalizeState(row.state)}::${num(row.year)}`)),
+  ];
+
+  const safetyChartRows = ((filteredStateRows?.accidentRows || analytics?.accidentRows || []).map((acc) => {
     const key = normalizeState(acc.state);
     const proxy = analytics.proxyByState[key] || {};
-    const modelRows = (analytics.modelByStateSummary || []).filter((row) => normalizeState(row.state) === key);
+    const modelRows = filteredModelSummaryRows.filter((row) => normalizeState(row.state) === key);
     const model = modelRows[0] || {};
     const qualityProxy = num(proxy.roughness_index);
     const risk = num(proxy.roughness_index) ? num(proxy.roughness_index) : null;
@@ -1512,9 +1926,9 @@ function App() {
     };
   })).filter((row) => Number.isFinite(row.x) && Number.isFinite(row.y));
 
-  const modelSeriesByState = filteredStateRows?.modelStateRisk || [];
-  const modelLinesByState = activeStateList.length
-    ? activeStateList.map((state) => {
+  const modelSeriesByState = mergedModelRiskRows;
+  const modelLinesByState = modelSeriesByState.length
+    ? [...new Set(modelSeriesByState.map((item) => item.state))].map((state) => {
       const rows = modelSeriesByState
         .filter((item) => item.state === state)
         .map((item) => ({ x: item.year, y: item.safety_risk, label: `${item.state} ${item.year}` }));
@@ -1552,7 +1966,7 @@ function App() {
     },
   ].filter((series) => series.points.length > 0);
 
-  const modelCostRows = (analytics?.modelByStateSummary || []).map((row) => ({
+  const modelCostRows = (filteredModelSummaryRows || []).map((row) => ({
     label: row.state,
     x: num(row.avg_land_acquisition_cost_cr) || 0,
     y: num(row.avg_maintenance_cost_cr) || 0,
@@ -1691,6 +2105,8 @@ function App() {
         xTick: (value) => safeLabel(value),
         confidence: growthConfidence,
         onHover: setTooltip,
+        xAxisLabel: 'Year',
+        yAxisLabel: 'Length (km)',
         chartScale: activeChartScale,
       }),
       React.createElement(ChartTooltip, { tooltip }),
@@ -1704,6 +2120,8 @@ function App() {
         confidence: confidenceCatalog.finance,
         onHover: setTooltip,
         tooltipTextLabel: 'Yearly budget metric',
+        xAxisLabel: 'Year',
+        yAxisLabel: 'Amount (₹ crore)',
         chartScale: activeChartScale,
       }),
       React.createElement(ChartTooltip, { tooltip }),
@@ -1726,6 +2144,8 @@ function App() {
         confidence: morthReportConfidence,
         onHover: setTooltip,
         tooltipTextLabel: 'CRIF year metric',
+        xAxisLabel: 'Year',
+        yAxisLabel: 'Amount (₹ crore)',
         chartScale: activeChartScale,
       }),
       React.createElement(ChartTooltip, { tooltip }),
@@ -1755,6 +2175,8 @@ function App() {
         xLabel: 'NH length (km)',
         yLabel: 'Permit fee (₹ in actuals)',
         pointLabel: 'NH count',
+        xAxisLabel: 'NH length (km)',
+        yAxisLabel: 'Permit fee (₹ in actuals)',
         chartScale: activeChartScale,
       }),
       React.createElement(ChartTooltip, { tooltip }),
@@ -1771,6 +2193,8 @@ function App() {
         xLabel: 'Incident intensity',
         yLabel: 'Safety risk score',
         pointLabel: 'Model confidence',
+        xAxisLabel: 'Incident intensity',
+        yAxisLabel: 'Safety risk score',
         chartScale: activeChartScale,
       }),
       React.createElement(MultiLineChart, {
@@ -1780,6 +2204,8 @@ function App() {
         confidence: modelConfidence,
         onHover: setTooltip,
         tooltipTextLabel: 'State safety trend',
+        xAxisLabel: 'Year',
+        yAxisLabel: 'Safety risk score',
         chartScale: activeChartScale,
       }),
       React.createElement(MultiLineChart, {
@@ -1789,6 +2215,8 @@ function App() {
         confidence: confidenceCatalog.macro,
         onHover: setTooltip,
         tooltipTextLabel: 'Macro metric',
+        xAxisLabel: 'Year',
+        yAxisLabel: 'Index value',
         chartScale: activeChartScale,
       }),
       React.createElement(ScatterChart, {
@@ -1796,6 +2224,11 @@ function App() {
         rows: modelCostRows,
         confidence: modelConfidence,
         onHover: setTooltip,
+        xLabel: 'Land acquisition cost (₹ crore)',
+        yLabel: 'Maintenance cost (₹ crore)',
+        pointLabel: 'Sanctioned cost proxy (₹ crore)',
+        xAxisLabel: 'Land acquisition cost (₹ crore)',
+        yAxisLabel: 'Maintenance cost (₹ crore)',
         chartScale: activeChartScale,
       })
     ),

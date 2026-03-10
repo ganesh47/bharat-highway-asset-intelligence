@@ -2,7 +2,7 @@
   "source_id": "data_gov_in_nhai_project_finance_api",
   "connector": "data_gov_in_ogd",
   "version": "0.2.0",
-  "status": "ok",
+  "status": "automated",
   "metric_category": "official_measured",
   "source": {
     "publisher": "National Highways Authority of India (NHAI)",
@@ -11,41 +11,41 @@
     "url": "https://www.data.gov.in/resource/year-wise-details-funds-allocatedraised-and-expenditure-incurred-development-and",
     "retrieval_method": "API call",
     "access_type": "API",
-    "retrieved_at": "2026-02-16T05:48:14.158612+00:00",
+    "retrieved_at": "2026-03-10T11:35:28.655086+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
   "citations": {
     "permanent_identifier": "uuid c898c59e-1f0c-4c09-b195-7d3ac1cd19d4",
-    "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_267_AU_1550_D.i.csv",
+    "anchor": "api:data_gov_in_nhai_project_finance_api:c898c59e-1f0c-4c09-b195-7d3ac1cd19d4",
     "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
   },
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_nhai_project_finance_api/data_gov_in_nhai_project_finance_api/raw_20260216_054814.csv",
-        "sha256": "e1a77ef48a0620dfe81d081523db45da60e6f6c41654276294db593278836bb0",
-        "size_bytes": 648
+        "path": "data/raw/data_gov_in_nhai_project_finance_api/data_gov_in_nhai_project_finance_api/raw_20260310_113529.json",
+        "sha256": "53c1dc4148c9eed950ba9763808ad4537bddcc530b3c28aaabd6ecc33e6debf1",
+        "size_bytes": 2368
       }
     ],
     "output_files": [
       {
         "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
         "format": "parquet",
-        "sha256": "ce0460f0094aedc65d4f461ab9291bb3a2f9c32e031724f1f33c7156dbb93c32"
+        "sha256": "51bc6b9dcdc0fec979d9b12311cf58013d5ac2860f7e9f977498ebafece308b3"
       }
     ],
     "row_count": 6,
     "columns": [
-      "year-wise",
-      "allocation/target_-_budgetary",
-      "allocation/target_-_iebr_target",
-      "allocation/target_-_others",
-      "allocation/target_-_total",
-      "expenditure/release_of_funds/actuals_-_budgetary",
-      "expenditure/release_of_funds/actuals_-_iebr_actual",
-      "expenditure/release_of_funds/actuals_-_others",
-      "expenditure/release_of_funds/actuals_-_total",
+      "year_wise",
+      "allocation_target___budgetary",
+      "allocation_target___iebr_target",
+      "allocation_target___others",
+      "allocation_target___total",
+      "expenditure_release_of_funds_actuals___budgetary",
+      "expenditure_release_of_funds_actuals___iebr_actual",
+      "expenditure_release_of_funds_actuals___others",
+      "expenditure_release_of_funds_actuals___total",
       "source_type",
       "source_id",
       "metric_category",
@@ -53,7 +53,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-16T05:48:14.158612+00:00",
+  "retrieved_at": "2026-03-10T11:35:28.655086+00:00",
   "completeness_score": 0.976,
   "recency_score": 1.0,
   "provenance_score": 1.0,

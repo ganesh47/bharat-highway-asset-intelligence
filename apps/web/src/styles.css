@@ -221,6 +221,20 @@ header .subhead {
   opacity: 0.4;
 }
 
+.axis-label {
+  fill: #27435f;
+  font-size: 0.7rem;
+  dominant-baseline: hanging;
+  pointer-events: none;
+}
+
+.axis-title {
+  fill: #1f3650;
+  font-size: 0.82rem;
+  font-weight: 600;
+  pointer-events: none;
+}
+
 .bar {
   transition: opacity 120ms linear;
 }

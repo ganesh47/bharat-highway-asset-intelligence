@@ -11,7 +11,7 @@
     "url": "https://www.data.gov.in/resource/state-ut-wise-total-number-road-accidents-national-highways-2003-2016",
     "retrieval_method": "direct download",
     "access_type": "HTML",
-    "retrieved_at": "2026-02-16T05:48:15.223638+00:00",
+    "retrieved_at": "2026-03-10T11:35:30.371668+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
@@ -23,7 +23,7 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_road_accidents_nhs_2003_2016/data_gov_in_road_accidents_nhs_2003_2016/raw_20260216_054815.csv",
+        "path": "data/raw/data_gov_in_road_accidents_nhs_2003_2016/data_gov_in_road_accidents_nhs_2003_2016/raw_20260310_113530.csv",
         "sha256": "1b0d94766936dead48921847eff916ca967de9d72576f6f427541a842415709a",
         "size_bytes": 2840
       }
@@ -32,7 +32,7 @@
       {
         "path": "data/processed/data_gov_in_road_accidents_nhs_2003_2016.parquet",
         "format": "parquet",
-        "sha256": "7ce7c5391b8850a2df18971d558bbf8ecd37df83e7fb0ab698103a3d418637d5"
+        "sha256": "e4f0c0ea519c692724eae7c4d0ae3674b247e6a3bfb0b3ca6e7c5379ec4e10a6"
       }
     ],
     "row_count": 37,
@@ -59,7 +59,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-16T05:48:15.223638+00:00",
+  "retrieved_at": "2026-03-10T11:35:30.371668+00:00",
   "completeness_score": 0.985,
   "recency_score": 1.0,
   "provenance_score": 0.85,

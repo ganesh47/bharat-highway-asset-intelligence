@@ -2,7 +2,7 @@
   "source_id": "data_gov_in_nhai_state_projects_api",
   "connector": "data_gov_in_ogd",
   "version": "0.2.0",
-  "status": "ok",
+  "status": "automated",
   "metric_category": "official_measured",
   "source": {
     "publisher": "National Highways Authority of India (NHAI)",
@@ -11,37 +11,37 @@
     "url": "https://www.data.gov.in/resource/state-wise-number-nh-and-road-projects-relating-are-included-national-infrastructure",
     "retrieval_method": "API call",
     "access_type": "API",
-    "retrieved_at": "2026-02-16T05:48:14.231921+00:00",
+    "retrieved_at": "2026-03-10T11:35:29.129375+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
   "citations": {
     "permanent_identifier": "uuid b358bfbb-1eee-4e3f-9ebd-956cae5040a7",
-    "anchor": "resource_file:https://data.gov.in/sites/default/files/dataurl08122021/RS_Session_253_AU2230.C.csv",
+    "anchor": "api:data_gov_in_nhai_state_projects_api:b358bfbb-1eee-4e3f-9ebd-956cae5040a7",
     "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
   },
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_nhai_state_projects_api/data_gov_in_nhai_state_projects_api/raw_20260216_054814.csv",
-        "sha256": "65b482de972b3afab75ae44b362d10b932dfa1e2e901db752c5d86d7245fdd07",
-        "size_bytes": 245
+        "path": "data/raw/data_gov_in_nhai_state_projects_api/data_gov_in_nhai_state_projects_api/raw_20260310_113529.json",
+        "sha256": "e99655baef5687b5eb90c36d3e450fcc2687f4f29681927c44441b8a9e7c37f9",
+        "size_bytes": 735
       }
     ],
     "output_files": [
       {
         "path": "data/processed/data_gov_in_nhai_state_projects_api.parquet",
         "format": "parquet",
-        "sha256": "45bbf6a5192a226648aec3772f2c6ad3ba8b6b2d25b6b49ecc9aeb1c9ae1ced9"
+        "sha256": "0988099d9cbcbe17e83e72b5c5cfb5bb1e82ac518591f0a187646ce51e30c621"
       }
     ],
     "row_count": 5,
     "columns": [
-      "sl._no.",
+      "_sl__no_",
       "state",
       "number_of_nh_projects",
-      "length_in_km",
-      "capital_outlay__rs_in_cr_for_the_years_2020_to_2024",
+      "length__in_km_",
+      "capital_outlay___rs_in_cr__for_the_years_2020_to_2024",
       "source_type",
       "source_id",
       "metric_category",
@@ -49,7 +49,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-02-16T05:48:14.231921+00:00",
+  "retrieved_at": "2026-03-10T11:35:29.129375+00:00",
   "completeness_score": 1.0,
   "recency_score": 1.0,
   "provenance_score": 0.85,

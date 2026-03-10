@@ -501,9 +501,6 @@ class DataGovInConnector:
                         raw_paths.append(parsed_path)
                     status = "ok"
                     anchors.append(candidate)
-                    # Stop at first usable official payload; additional mirrors are optional and
-                    # often duplicated / unstable.
-                    break
 
                 if not df_frames:
                     raise RuntimeError("No downloadable official table/file link was discoverable from resource page metadata.")
