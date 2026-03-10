@@ -185,7 +185,8 @@ header .subhead {
   transform: translateZ(0);
 }
 
-.chart-svg-wrap svg {
+.chart-svg-wrap svg,
+.chart-svg-wrap canvas {
   width: 100%;
   height: 290px;
   display: block;
@@ -195,7 +196,15 @@ header .subhead {
   height: 220px;
 }
 
+.chart-grid[data-size='compact'] .chart-svg-wrap canvas {
+  height: 220px;
+}
+
 .chart-grid[data-size='normal'] .chart-svg-wrap svg {
+  height: 290px;
+}
+
+.chart-grid[data-size='normal'] .chart-svg-wrap canvas {
   height: 290px;
 }
 
@@ -203,7 +212,15 @@ header .subhead {
   height: 380px;
 }
 
+.chart-grid[data-size='large'] .chart-svg-wrap canvas {
+  height: 380px;
+}
+
 .chart-grid[data-size='xlarge'] .chart-svg-wrap svg {
+  height: 620px;
+}
+
+.chart-grid[data-size='xlarge'] .chart-svg-wrap canvas {
   height: 620px;
 }
 
@@ -213,6 +230,14 @@ header .subhead {
   }
 
   .chart-grid[data-size='xlarge'] .chart-svg-wrap svg {
+    height: 720px;
+  }
+
+  .chart-grid[data-size='large'] .chart-svg-wrap canvas {
+    height: 430px;
+  }
+
+  .chart-grid[data-size='xlarge'] .chart-svg-wrap canvas {
     height: 720px;
   }
 }

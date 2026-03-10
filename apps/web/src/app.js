@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'https://esm.sh/react@18.2.0';
+import React, { useEffect, useMemo, useRef, useState } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import { inferOntologyCoverage } from './ontology.js';
 
@@ -546,6 +546,26 @@ function toYearNumeric(value) {
   return match ? Number(match[1]) : NaN;
 }
 
+function normalizeMetricName(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/_+/g, '_')
+    .replace(/^_|_$/g, '');
+}
+
+function pickByMetric(rows, predicate) {
+  return (rows || [])
+    .filter((row) => predicate(normalizeMetricName(row.metric_name)))
+    .map((row) => ({
+      state: row.state,
+      year: row.year,
+      metric_name: normalizeMetricName(row.metric_name),
+      metric_value: num(row.metric_value),
+      source: row.source || 'morth_annual_report_pdf',
+    }));
+}
+
 function sourceTypeTag(item) {
   const category = String(item?.metric_category || item?.source_type || item?.source?.source_type || '').toLowerCase();
   if (item?.source?.official_flag === false || category.includes('proxy')) {
@@ -656,7 +676,176 @@ function LineChart({
   xAxisLabel = 'X',
   yAxisLabel = 'Value',
 }) {
-  const points = (series || []).filter((item) => Number.isFinite(num(item.x)) && Number.isFinite(num(item.y)));
+  const points = (series || [])
+    .filter((item) => Number.isFinite(num(item.x)) && Number.isFinite(num(item.y)))
+    .sort((a, b) => num(a.x) - num(b.x));
+  const width = 980;
+  const height = Math.round(270 * chartScale);
+  const pad = { top: 16, right: 16, bottom: 26, left: 42 };
+  const xValues = points.map((item) => num(item.x));
+  const yValues = points.map((item) => num(item.y));
+  const xRange = ensureRange(
+    points.length ? Math.min(...xValues) : 0,
+    points.length ? Math.max(...xValues) : 1
+  );
+  const yRange = ensureRange(
+    points.length ? Math.min(...yValues) : 0,
+    points.length ? Math.max(...yValues) : 1
+  );
+  const xMin = xRange.min;
+  const xMax = xRange.max;
+  const yMin = yRange.min;
+  const yMax = yRange.max;
+  const xAxisTicks = axisTicks(xMin, xMax, 6);
+  const yAxisTicks = axisTicks(yMin, yMax, 5);
+  const labels = points.filter((_, index) => index % Math.max(1, Math.floor(points.length / 6)) === 0);
+  const chartRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = chartRef.current;
+    if (!canvas || !points.length) {
+      return;
+    }
+
+    const rect = canvas.getBoundingClientRect();
+    if (!rect.width || !rect.height) {
+      return;
+    }
+
+    const dpr = window.devicePixelRatio || 1;
+    const logicalWidth = width;
+    const logicalHeight = height;
+    const scaleX = rect.width / logicalWidth;
+    const scaleY = rect.height / logicalHeight;
+    const plotW = width - pad.left - pad.right;
+    const plotH = height - pad.top - pad.bottom;
+
+    const xScale = (v) => pad.left + ((num(v) - xMin) / (xMax - xMin)) * plotW;
+    const yScale = (v) => pad.top + (1 - (num(v) - yMin) / (yMax - yMin)) * plotH;
+
+    canvas.width = Math.floor(rect.width * dpr);
+    canvas.height = Math.floor(rect.height * dpr);
+    canvas.style.width = `${rect.width}px`;
+    canvas.style.height = `${rect.height}px`;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      return;
+    }
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, rect.width, rect.height);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+    ctx.fillRect(0, 0, rect.width, rect.height);
+    ctx.strokeStyle = '#d8e4ff';
+    ctx.lineWidth = 1;
+
+    ctx.beginPath();
+    ctx.moveTo(pad.left * scaleX, (pad.top + plotH) * scaleY);
+    ctx.lineTo((width - pad.right) * scaleX, (pad.top + plotH) * scaleY);
+    ctx.moveTo(pad.left * scaleX, pad.top * scaleY);
+    ctx.lineTo(pad.left * scaleX, (pad.top + plotH) * scaleY);
+    ctx.stroke();
+
+    xAxisTicks.forEach((tick) => {
+      const x = xScale(tick) * scaleX;
+      const baseline = (pad.top + plotH) * scaleY;
+      ctx.beginPath();
+      ctx.moveTo(x, baseline);
+      ctx.lineTo(x, baseline + 5);
+      ctx.strokeStyle = '#3b5068';
+      ctx.stroke();
+      ctx.fillStyle = '#3b5068';
+      ctx.font = '11px Trebuchet MS, Segoe UI, Arial, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(formatTick(tick), x, baseline + 17);
+    });
+    yAxisTicks.forEach((tick) => {
+      const y = yScale(tick) * scaleY;
+      ctx.beginPath();
+      ctx.moveTo((pad.left - 5) * scaleX, y);
+      ctx.lineTo(pad.left * scaleX, y);
+      ctx.strokeStyle = '#3b5068';
+      ctx.stroke();
+      ctx.fillStyle = '#3b5068';
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(formatTick(tick, true), (pad.left - 8) * scaleX, y + 3 * scaleY);
+    });
+
+    labels.forEach((point) => {
+      const x = xScale(point.x) * scaleX;
+      const y = (pad.top + plotH + 14) * scaleY;
+      ctx.fillStyle = '#3b5068';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'alphabetic';
+      ctx.font = '10px Trebuchet MS, Segoe UI, Arial, sans-serif';
+      ctx.fillText(xTick ? xTick(point.x) : safeLabel(point.x), x, y);
+    });
+
+    if (points.length > 1) {
+      ctx.beginPath();
+      points.forEach((point, index) => {
+        const x = xScale(point.x) * scaleX;
+        const y = yScale(point.y) * scaleY;
+        if (index === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      });
+      ctx.strokeStyle = '#2f5f99';
+      ctx.lineWidth = 2.3;
+      ctx.stroke();
+    }
+
+    points.forEach((point) => {
+      const x = xScale(point.x) * scaleX;
+      const y = yScale(point.y) * scaleY;
+      ctx.beginPath();
+      ctx.arc(x, y, 3, 0, Math.PI * 2);
+      ctx.fillStyle = '#2f5f99';
+      ctx.fill();
+    });
+
+    ctx.fillStyle = '#1f3650';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    ctx.font = '12px Trebuchet MS, Segoe UI, Arial, sans-serif';
+    ctx.fillText(xAxisLabel, width * 0.5 * scaleX, rect.height - 2);
+    ctx.save();
+    ctx.translate(12, height * 0.5 * scaleY);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillText(yAxisLabel, 0, 0);
+    ctx.restore();
+  }, [points, xMin, xMax, yMin, yMax, width, height, pad.left, pad.right, pad.top, pad.bottom, xTick, xAxisTicks, yAxisTicks, labels]);
+
+  const nearestPoint = (event) => {
+    if (!points.length || !chartRef.current) return null;
+    const rect = chartRef.current.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const scaleX = rect.width / width;
+    const scaleY = rect.height / height;
+    const plotW = width - pad.left - pad.right;
+    const plotH = height - pad.top - pad.bottom;
+    const xScaleToPixel = (value) => (pad.left + ((num(value) - xMin) / (xMax - xMin)) * plotW) * scaleX;
+    const yScaleToPixel = (value) => (pad.top + (1 - (num(value) - yMin) / (yMax - yMin)) * plotH) * scaleY;
+    let best = null;
+    let bestDist = 999999;
+    points.forEach((point) => {
+      const px = xScaleToPixel(point.x);
+      const py = yScaleToPixel(point.y);
+      const d = (px - x) ** 2 + (py - y) ** 2;
+      if (d < bestDist) {
+        bestDist = d;
+        best = point;
+      }
+    });
+    return bestDist <= 1000 ? best : null;
+  };
+
   if (!points.length) {
     return React.createElement(
       'div',
@@ -665,31 +854,6 @@ function LineChart({
       React.createElement('div', { className: 'chart-meta' }, chartMetaText(description || 'No records available.', asOfDate))
     );
   }
-
-  const xValues = points.map((item) => num(item.x));
-  const yValues = points.map((item) => num(item.y));
-  const xRange = ensureRange(Math.min(...xValues), Math.max(...xValues));
-  const yRange = ensureRange(Math.min(...yValues), Math.max(...yValues));
-  const xMin = xRange.min;
-  const xMax = xRange.max;
-  const yMin = yRange.min;
-  const yMax = yRange.max;
-  const width = 980;
-  const height = Math.round(270 * chartScale);
-  const pad = { top: 16, right: 16, bottom: 26, left: 42 };
-  const plotW = width - pad.left - pad.right;
-  const plotH = height - pad.top - pad.bottom;
-
-  const xScale = (v) => pad.left + ((num(v) - xMin) / (xMax - xMin)) * plotW;
-  const yScale = (v) => pad.top + (1 - (num(v) - yMin) / (yMax - yMin)) * plotH;
-
-  const d = points
-    .map((point, index) => `${index === 0 ? 'M' : 'L'} ${xScale(point.x)} ${yScale(point.y)}`)
-    .join(' ');
-
-  const labels = points.filter((_, index) => index % Math.max(1, Math.floor(points.length / 6)) === 0);
-  const xAxisTicks = axisTicks(xMin, xMax, 6);
-  const yAxisTicks = axisTicks(yMin, yMax, 5);
 
   return React.createElement('div', { className: 'card insight-chart' },
     React.createElement(
@@ -703,88 +867,27 @@ function LineChart({
       React.createElement('span', { className: 'insight-pill' }, `Points: ${points.length}`),
       React.createElement('span', { className: 'insight-pill' }, `Source trust: ${confidence.badge || 'Low'}`)),
     React.createElement('div', { className: 'chart-svg-wrap' },
-      React.createElement(
-        'svg',
-        { viewBox: `0 0 ${width} ${Math.round(270 * chartScale)}`, width: '100%', height: `${height}px`, style: { height: `${height}px`, width: '100%' } },
-        React.createElement('line', { x1: pad.left, y1: pad.top + plotH, x2: width - pad.right, y2: pad.top + plotH, className: 'axis-line' }),
-        React.createElement('line', { x1: pad.left, y1: pad.top, x2: pad.left, y2: pad.top + plotH, className: 'axis-line' }),
-        xAxisTicks.map((tick) =>
-          React.createElement('g', { key: `x-axis-${tick}` }, [
-            React.createElement('line', {
-              x1: xScale(tick),
-              y1: pad.top + plotH,
-              x2: xScale(tick),
-              y2: pad.top + plotH + 5,
-              stroke: '#3b5068',
-              strokeWidth: 1,
-            }),
-            React.createElement('text', {
-              x: xScale(tick),
-              y: pad.top + plotH + 16,
-              textAnchor: 'middle',
-              className: 'axis-label',
-            }, formatTick(tick))
-          ])
-        ),
-        yAxisTicks.map((tick) =>
-          React.createElement('g', { key: `y-axis-${tick}` }, [
-            React.createElement('line', {
-              x1: pad.left - 5,
-              y1: yScale(tick),
-              x2: pad.left,
-              y2: yScale(tick),
-              stroke: '#3b5068',
-              strokeWidth: 1,
-            }),
-            React.createElement('text', {
-              x: pad.left - 8,
-              y: yScale(tick) + 3,
-              textAnchor: 'end',
-              className: 'axis-label',
-            }, formatTick(tick, true))
-          ])
-        ),
-        labels.map((point) =>
-          React.createElement('text', {
-            key: `x-${point.x}`,
-            x: xScale(point.x),
-            y: pad.top + plotH + 14,
-            fontSize: 10,
-            textAnchor: 'middle',
-            fill: '#3b5068',
-          }, xTick ? xTick(point.x) : safeLabel(point.x))
-        ),
-        points.map((point, i) =>
-          React.createElement('circle', {
-            key: `${i}-${point.x}`,
-            className: 'point',
-            cx: xScale(point.x),
-            cy: yScale(point.y),
-            r: 3,
-            fill: '#2f5f99',
-            onMouseEnter: (event) => onHover(tooltipPayload(event, tooltipText([
-              tooltipKey || 'value',
-              `${safeLabel(point.label)}`,
-              `x: ${safeLabel(point.x)}`,
-              `y: ${fmtNum(point.y, { compact: false })}`,
-            ]))),
-            onMouseMove: (event) => onHover(tooltipPayload(event, tooltipText([
-              tooltipKey || 'value',
-              `${safeLabel(point.label)}`,
-              `x: ${safeLabel(point.x)}`,
-              `y: ${fmtNum(point.y, { compact: false })}`,
-            ]))),
-            onMouseLeave: () => onHover({ visible: false }),
-          })
-        ),
-        React.createElement('path', { d, className: 'line-path', stroke: '#2f5f99', fill: 'none', strokeWidth: 2.4 }),
-        React.createElement('text', { x: width / 2, y: height - 2, textAnchor: 'middle', className: 'axis-title' }, xAxisLabel),
-        React.createElement(
-          'g',
-          { transform: `translate(12, ${height / 2}) rotate(-90)` },
-          React.createElement('text', { textAnchor: 'middle', className: 'axis-title' }, yAxisLabel)
-        )
-      )
+      React.createElement('canvas', {
+        ref: chartRef,
+        className: 'chart-canvas',
+        width,
+        height,
+        style: { width: '100%', height: `${height}px`, display: 'block' },
+        onMouseMove: (event) => {
+          const point = nearestPoint(event);
+          if (!point) {
+            onHover({ visible: false });
+            return;
+          }
+          onHover(tooltipPayload(event, tooltipText([
+            tooltipKey || 'value',
+            `${safeLabel(point.label)}`,
+            `x: ${safeLabel(point.x)}`,
+            `y: ${fmtNum(point.y, { compact: false })}`,
+          ])));
+        },
+        onMouseLeave: () => onHover({ visible: false }),
+      })
     ),
     React.createElement('div', { className: 'insight-note' }, confidence.reasons.slice(0, 2).map((r) => r).join(' '))
   );
@@ -839,9 +942,153 @@ function MultiLineChart({
   const pad = { top: 16, right: 16, bottom: 26, left: 42 };
   const plotW = width - pad.left - pad.right;
   const plotH = height - pad.top - pad.bottom;
-  const xScale = (value) => pad.left + ((num(value) - xMin) / (xMax - xMin)) * plotW;
-  const yScale = (value) => pad.top + (1 - (num(value) - yMin) / (yMax - yMin)) * plotH;
   const palette = ['#1b4d91', '#0a8f52', '#b07a00', '#a0182d', '#5f4eeb', '#5f8a4e'];
+  const chartRef = useRef(null);
+
+  const flattenedLayers = normalizedLayers.flatMap((layer, layerIndex) => (layer.points || []).map((point) => ({
+    layerIndex,
+    layerName: layer.name,
+    ...point,
+    label: point.label || `${point.x}`,
+  })));
+  useEffect(() => {
+    const canvas = chartRef.current;
+    if (!canvas || !allSeries.length) {
+      return;
+    }
+
+    const rect = canvas.getBoundingClientRect();
+    if (!rect.width || !rect.height) {
+      return;
+    }
+
+    const xScale = (value) => pad.left + ((num(value) - xMin) / (xMax - xMin)) * plotW;
+    const yScale = (value) => pad.top + (1 - (num(value) - yMin) / (yMax - yMin)) * plotH;
+    const dpr = window.devicePixelRatio || 1;
+    const logicalWidth = width;
+    const logicalHeight = height;
+    const scaleX = rect.width / logicalWidth;
+    const scaleY = rect.height / logicalHeight;
+
+    canvas.width = Math.floor(rect.width * dpr);
+    canvas.height = Math.floor(rect.height * dpr);
+    canvas.style.width = `${rect.width}px`;
+    canvas.style.height = `${rect.height}px`;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      return;
+    }
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, rect.width, rect.height);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
+    ctx.fillRect(0, 0, rect.width, rect.height);
+    ctx.strokeStyle = '#d8e4ff';
+    ctx.lineWidth = 1;
+
+    ctx.beginPath();
+    ctx.moveTo(pad.left * scaleX, (pad.top + plotH) * scaleY);
+    ctx.lineTo((width - pad.right) * scaleX, (pad.top + plotH) * scaleY);
+    ctx.moveTo(pad.left * scaleX, pad.top * scaleY);
+    ctx.lineTo(pad.left * scaleX, (pad.top + plotH) * scaleY);
+    ctx.stroke();
+
+    xAxisTicks.forEach((tick) => {
+      const x = xScale(tick) * scaleX;
+      const baseline = (pad.top + plotH) * scaleY;
+      ctx.beginPath();
+      ctx.moveTo(x, baseline);
+      ctx.lineTo(x, baseline + 5);
+      ctx.strokeStyle = '#3b5068';
+      ctx.stroke();
+      ctx.fillStyle = '#3b5068';
+      ctx.font = '11px Trebuchet MS, Segoe UI, Arial, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(formatTick(tick, true), x, baseline + 17);
+    });
+
+    yAxisTicks.forEach((tick) => {
+      const y = yScale(tick) * scaleY;
+      ctx.beginPath();
+      ctx.moveTo((pad.left - 5) * scaleX, y);
+      ctx.lineTo(pad.left * scaleX, y);
+      ctx.strokeStyle = '#3b5068';
+      ctx.stroke();
+      ctx.fillStyle = '#3b5068';
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(formatTick(tick), (pad.left - 8) * scaleX, y + 3);
+    });
+
+    normalizedLayers.forEach((layer, layerIndex) => {
+      const points = layer.points || [];
+      if (!points.length) {
+        return;
+      }
+      ctx.beginPath();
+      points.forEach((point, index) => {
+        const x = xScale(point.x) * scaleX;
+        const y = yScale(point.y) * scaleY;
+        if (index === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      });
+      ctx.strokeStyle = palette[layerIndex % palette.length];
+      ctx.lineWidth = 2.3;
+      ctx.stroke();
+      points.forEach((point) => {
+        const x = xScale(point.x) * scaleX;
+        const y = yScale(point.y) * scaleY;
+        ctx.beginPath();
+        ctx.arc(x, y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = palette[layerIndex % palette.length];
+        ctx.fill();
+      });
+    });
+
+    ctx.fillStyle = '#1f3650';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    ctx.font = '12px Trebuchet MS, Segoe UI, Arial, sans-serif';
+    ctx.fillText(xAxisLabel, width * 0.5 * scaleX, rect.height - 2);
+    ctx.save();
+    ctx.translate(12, height * 0.5 * scaleY);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillText(yAxisLabel, 0, 0);
+    ctx.restore();
+  }, [allSeries, flattenedLayers, xMin, xMax, yMin, yMax, width, height, pad.left, pad.right, pad.top, pad.bottom, xAxisTicks, yAxisTicks, xAxisLabel, yAxisLabel]);
+
+  const nearestPoint = (event) => {
+    if (!flattenedLayers.length || !chartRef.current) {
+      return null;
+    }
+    const rect = chartRef.current.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const scaleX = rect.width / width;
+    const scaleY = rect.height / height;
+    const plotW = width - pad.left - pad.right;
+    const plotH = height - pad.top - pad.bottom;
+    const xScaleToPixel = (value) => (pad.left + ((num(value) - xMin) / (xMax - xMin)) * plotW) * scaleX;
+    const yScaleToPixel = (value) => (pad.top + (1 - (num(value) - yMin) / (yMax - yMin)) * plotH) * scaleY;
+
+    let best = null;
+    let bestDist = 999999;
+    flattenedLayers.forEach((point) => {
+      const px = xScaleToPixel(point.x);
+      const py = yScaleToPixel(point.y);
+      const d = (px - x) ** 2 + (py - y) ** 2;
+      if (d < bestDist) {
+        bestDist = d;
+        best = point;
+      }
+    });
+    return bestDist <= 1200 ? best : null;
+  };
 
   return React.createElement('div', { className: 'card insight-chart' },
     React.createElement('div', { className: 'source-line' },
@@ -856,101 +1103,31 @@ function MultiLineChart({
         React.createElement('span', { key: layer.key, className: 'insight-pill', style: { borderColor: palette[idx % palette.length], color: '#1f3650' } }, layer.name)
       )
     ),
-  React.createElement(
+    React.createElement(
       'div',
       { className: 'chart-svg-wrap' },
-      React.createElement(
-        'svg',
-        { viewBox: `0 0 ${width} ${Math.round(290 * chartScale)}`, width: '100%', height: `${height}px`, style: { height: `${height}px`, width: '100%' } },
-        React.createElement('line', { x1: pad.left, y1: pad.top + plotH, x2: width - pad.right, y2: pad.top + plotH, className: 'axis-line' }),
-        React.createElement('line', { x1: pad.left, y1: pad.top, x2: pad.left, y2: pad.top + plotH, className: 'axis-line' }),
-        xAxisTicks.map((tick) =>
-          React.createElement('g', { key: `x-axis-${tick}` }, [
-            React.createElement('line', {
-              x1: xScale(tick),
-              y1: pad.top + plotH,
-              x2: xScale(tick),
-              y2: pad.top + plotH + 5,
-              stroke: '#3b5068',
-              strokeWidth: 1,
-            }),
-            React.createElement('text', {
-              x: xScale(tick),
-              y: pad.top + plotH + 16,
-              textAnchor: 'middle',
-              className: 'axis-label',
-            }, formatTick(tick, true))
-          ])
-        ),
-        yAxisTicks.map((tick) =>
-          React.createElement('g', { key: `y-axis-${tick}` }, [
-            React.createElement('line', {
-              x1: pad.left - 5,
-              y1: yScale(tick),
-              x2: pad.left,
-              y2: yScale(tick),
-              stroke: '#3b5068',
-              strokeWidth: 1,
-            }),
-            React.createElement('text', {
-              x: pad.left - 8,
-              y: yScale(tick) + 3,
-              textAnchor: 'end',
-              className: 'axis-label',
-            }, formatTick(tick))
-          ])
-        ),
-        normalizedLayers.map((layer, layerIndex) => {
-          const points = layer.points || [];
-          if (!points.length) {
-            return null;
+      React.createElement('canvas', {
+        ref: chartRef,
+        className: 'chart-canvas',
+        width,
+        height,
+        style: { width: '100%', height: `${height}px`, display: 'block' },
+        onMouseMove: (event) => {
+          const point = nearestPoint(event);
+          if (!point) {
+            onHover({ visible: false });
+            return;
           }
-          const d = points
-            .map((point, idx) => `${idx === 0 ? 'M' : 'L'} ${xScale(point.x)} ${yScale(point.y)}`)
-            .join(' ');
-
-          return React.createElement(
-            React.Fragment,
-            { key: layer.key },
-            React.createElement('path', {
-              d,
-              stroke: palette[layerIndex % palette.length],
-              className: 'line-path',
-              fill: 'none',
-              strokeWidth: 2.3,
-            }),
-            points.map((point, i) =>
-              React.createElement('circle', {
-                key: `${layer.key}-${i}`,
-                className: 'line-point',
-                cx: xScale(point.x),
-                cy: yScale(point.y),
-                r: 3,
-                fill: palette[layerIndex % palette.length],
-                onMouseEnter: (event) => onHover(tooltipPayload(event, tooltipText([
-                  tooltipTextLabel || layer.name,
-                  `${safeLabel(point.label)}`,
-                  `x: ${safeLabel(point.x)}`,
-                  `y: ${fmtNum(point.y, { compact: false })}`,
-                ]))),
-                onMouseMove: (event) => onHover(tooltipPayload(event, tooltipText([
-                  tooltipTextLabel || layer.name,
-                  `${safeLabel(point.label)}`,
-                  `x: ${safeLabel(point.x)}`,
-                  `y: ${fmtNum(point.y, { compact: false })}`,
-                ]))),
-                onMouseLeave: () => onHover({ visible: false }),
-              })
-            )
-          );
-        }),
-        React.createElement('text', { x: width / 2, y: height - 2, textAnchor: 'middle', className: 'axis-title' }, xAxisLabel),
-        React.createElement(
-          'g',
-          { transform: `translate(12, ${height / 2}) rotate(-90)` },
-          React.createElement('text', { textAnchor: 'middle', className: 'axis-title' }, yAxisLabel)
-        )
-      )
+          const layer = normalizedLayers[point.layerIndex] || {};
+          onHover(tooltipPayload(event, tooltipText([
+            tooltipTextLabel || layer.name || 'Series',
+            `${safeLabel(point.label)}`,
+            `x: ${safeLabel(point.x)}`,
+            `y: ${fmtNum(point.y, { compact: false })}`,
+          ])));
+        },
+        onMouseLeave: () => onHover({ visible: false }),
+      })
     ),
     React.createElement('div', { className: 'insight-note' }, `Why this badge?: ${tooltipTextLabel || confidence.reasons?.[0] || 'Use source provenance, recency, and consistency checks.'}`)
   );
@@ -1109,9 +1286,128 @@ function ScatterChart({
   const yAxisTicks = axisTicks(yMin, yMax, 5);
   const rMin = Math.min(...points.map((p) => num(p.radius) || 3));
   const rMax = Math.max(...points.map((p) => num(p.radius) || 3));
-  const xScale = (x) => pad.left + ((num(x) - xMin) / (xMax - xMin)) * plotW;
-  const yScale = (y) => pad.top + (1 - (num(y) - yMin) / (yMax - yMin)) * plotH;
   const radiusScale = (v) => clamp(((num(v) - rMin) / (rMax - rMin || 1)) * 7 + 3, 3, 12);
+  const chartRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = chartRef.current;
+    if (!canvas || !points.length) {
+      return;
+    }
+
+    const rect = canvas.getBoundingClientRect();
+    if (!rect.width || !rect.height) {
+      return;
+    }
+
+    const xScale = (x) => pad.left + ((num(x) - xMin) / (xMax - xMin)) * plotW;
+    const yScale = (y) => pad.top + (1 - (num(y) - yMin) / (yMax - yMin)) * plotH;
+    const dpr = window.devicePixelRatio || 1;
+    const logicalWidth = width;
+    const logicalHeight = height;
+    const scaleX = rect.width / logicalWidth;
+    const scaleY = rect.height / logicalHeight;
+
+    canvas.width = Math.floor(rect.width * dpr);
+    canvas.height = Math.floor(rect.height * dpr);
+    canvas.style.width = `${rect.width}px`;
+    canvas.style.height = `${rect.height}px`;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      return;
+    }
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, rect.width, rect.height);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.97)';
+    ctx.fillRect(0, 0, rect.width, rect.height);
+    ctx.strokeStyle = '#d8e4ff';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(pad.left * scaleX, (pad.top + plotH) * scaleY);
+    ctx.lineTo((width - pad.right) * scaleX, (pad.top + plotH) * scaleY);
+    ctx.moveTo(pad.left * scaleX, pad.top * scaleY);
+    ctx.lineTo(pad.left * scaleX, (pad.top + plotH) * scaleY);
+    ctx.stroke();
+
+    xAxisTicks.forEach((tick) => {
+      const x = xScale(tick) * scaleX;
+      const baseline = (pad.top + plotH) * scaleY;
+      ctx.beginPath();
+      ctx.moveTo(x, baseline);
+      ctx.lineTo(x, baseline + 5);
+      ctx.strokeStyle = '#3b5068';
+      ctx.stroke();
+      ctx.fillStyle = '#3b5068';
+      ctx.font = '11px Trebuchet MS, Segoe UI, Arial, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(formatTick(tick), x, baseline + 17);
+    });
+
+    yAxisTicks.forEach((tick) => {
+      const y = yScale(tick) * scaleY;
+      ctx.beginPath();
+      ctx.moveTo((pad.left - 5) * scaleX, y);
+      ctx.lineTo(pad.left * scaleX, y);
+      ctx.strokeStyle = '#3b5068';
+      ctx.stroke();
+      ctx.fillStyle = '#3b5068';
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(formatTick(tick), (pad.left - 8) * scaleX, y + 3);
+    });
+
+    points.forEach((point) => {
+      const x = xScale(point.x) * scaleX;
+      const y = yScale(point.y) * scaleY;
+      const radius = radiusScale(point.radius || 1);
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fillStyle = point.radius ? '#a0182d' : '#2f5f99';
+      ctx.fill();
+    });
+
+    ctx.fillStyle = '#1f3650';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    ctx.font = '12px Trebuchet MS, Segoe UI, Arial, sans-serif';
+    ctx.fillText(resolvedXAxisLabel, width * 0.5 * scaleX, rect.height - 2);
+    ctx.save();
+    ctx.translate(12, height * 0.5 * scaleY);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillText(resolvedYAxisLabel, 0, 0);
+    ctx.restore();
+  }, [points, xMin, xMax, yMin, yMax, width, height, pad.left, pad.right, pad.top, pad.bottom, xAxisTicks, yAxisTicks, resolvedXAxisLabel, resolvedYAxisLabel, rMin, rMax]);
+
+  const nearestPoint = (event) => {
+    if (!points.length || !chartRef.current) {
+      return null;
+    }
+    const rect = chartRef.current.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const scaleX = rect.width / width;
+    const scaleY = rect.height / height;
+    const plotW = width - pad.left - pad.right;
+    const plotH = height - pad.top - pad.bottom;
+    const xScaleToPixel = (value) => (pad.left + ((num(value) - xMin) / (xMax - xMin)) * plotW) * scaleX;
+    const yScaleToPixel = (value) => (pad.top + (1 - (num(value) - yMin) / (yMax - yMin)) * plotH) * scaleY;
+
+    let best = null;
+    let bestDist = 999999;
+    points.forEach((point) => {
+      const px = xScaleToPixel(point.x);
+      const py = yScaleToPixel(point.y);
+      const d = (px - x) ** 2 + (py - y) ** 2;
+      if (d < bestDist) {
+        bestDist = d;
+        best = point;
+      }
+    });
+    return bestDist <= 1100 ? best : null;
+  };
 
   return React.createElement('div', { className: 'card insight-chart' },
     React.createElement('div', { className: 'source-line' },
@@ -1120,78 +1416,27 @@ function ScatterChart({
     ),
     React.createElement('div', { className: 'chart-meta' }, chartMetaText(`X=${xLabel}; Y=${yLabel}`, asOfDate)),
     React.createElement('div', { className: 'chart-svg-wrap' },
-      React.createElement('svg', {
-        viewBox: `0 0 ${width} ${Math.round(300 * chartScale)}`,
-        width: '100%',
-        height: `${height}px`,
-        style: { height: `${height}px`, width: '100%' },
-      },
-        React.createElement('line', { x1: pad.left, y1: pad.top + plotH, x2: width - pad.right, y2: pad.top + plotH, className: 'axis-line' }),
-        React.createElement('line', { x1: pad.left, y1: pad.top, x2: pad.left, y2: pad.top + plotH, className: 'axis-line' }),
-        xAxisTicks.map((tick) =>
-          React.createElement('g', { key: `x-axis-${tick}` }, [
-            React.createElement('line', {
-              x1: xScale(tick),
-              y1: pad.top + plotH,
-              x2: xScale(tick),
-              y2: pad.top + plotH + 5,
-              stroke: '#3b5068',
-              strokeWidth: 1,
-            }),
-            React.createElement('text', {
-              x: xScale(tick),
-              y: pad.top + plotH + 16,
-              textAnchor: 'middle',
-              className: 'axis-label',
-            }, formatTick(tick))
-          ])
-        ),
-        yAxisTicks.map((tick) =>
-          React.createElement('g', { key: `y-axis-${tick}` }, [
-            React.createElement('line', {
-              x1: pad.left - 5,
-              y1: yScale(tick),
-              x2: pad.left,
-              y2: yScale(tick),
-              stroke: '#3b5068',
-              strokeWidth: 1,
-            }),
-            React.createElement('text', {
-              x: pad.left - 8,
-              y: yScale(tick) + 3,
-              textAnchor: 'end',
-              className: 'axis-label',
-            }, formatTick(tick))
-          ])
-        ),
-        points.map((point, idx) => React.createElement('circle', {
-          key: `${point.state}-${idx}`,
-          className: 'point',
-          cx: xScale(point.x),
-          cy: yScale(point.y),
-          r: radiusScale(point.radius || 1),
-          fill: point.radius ? '#a0182d' : '#2f5f99',
-          onMouseEnter: (event) => onHover(tooltipPayload(event, tooltipText([
+      React.createElement('canvas', {
+        ref: chartRef,
+        className: 'chart-canvas',
+        width,
+        height,
+        style: { width: '100%', height: `${height}px`, display: 'block' },
+        onMouseMove: (event) => {
+          const point = nearestPoint(event);
+          if (!point) {
+            onHover({ visible: false });
+            return;
+          }
+          onHover(tooltipPayload(event, tooltipText([
             safeLabel(point.state),
             `${xLabel}: ${fmtNum(point.x)}`,
             `${yLabel}: ${fmtNum(point.y)}`,
             `${pointLabel}: ${safeLabel(point.modelConfidence)}`,
-          ]))),
-          onMouseMove: (event) => onHover(tooltipPayload(event, tooltipText([
-            safeLabel(point.state),
-            `${xLabel}: ${fmtNum(point.x)}`,
-            `${yLabel}: ${fmtNum(point.y)}`,
-            `${pointLabel}: ${safeLabel(point.modelConfidence)}`,
-          ]))),
-          onMouseLeave: () => onHover({ visible: false }),
-        })),
-        React.createElement('text', { x: width / 2, y: height - 2, textAnchor: 'middle', className: 'axis-title' }, resolvedXAxisLabel),
-        React.createElement(
-          'g',
-          { transform: `translate(12, ${height / 2}) rotate(-90)` },
-          React.createElement('text', { textAnchor: 'middle', className: 'axis-title' }, resolvedYAxisLabel)
-        )
-      )
+          ])));
+        },
+        onMouseLeave: () => onHover({ visible: false }),
+      })
     )
   );
 }
@@ -1500,41 +1745,23 @@ async function loadAnalyticCatalog(conn, catalog) {
   const morthSourcePath = catalog?.morth_annual_report_pdf?.output_table_path || 'data/processed/morth_annual_report_pdf.parquet';
   let morthAppendix = [];
   try {
-    morthAppendix = await queryParquetRows(conn, morthSourcePath, (alias) => `
+    const morthRows = await queryParquetRows(conn, morthSourcePath, (alias) => `
       SELECT
         CAST("state" AS VARCHAR) AS state,
         CAST("year" AS VARCHAR) AS year,
         CAST("metric_name" AS VARCHAR) AS metric_name,
-        CAST("metric_value" AS DOUBLE) AS metric_value
+        CAST("metric_value" AS VARCHAR) AS metric_value
       FROM read_parquet('${alias}')
-      WHERE "metric_name" IN (
-        'appendix2_statewise_nh_count',
-        'appendix2_statewise_nh_length_km',
-        'appendix3_crif_allocation',
-        'appendix3_crif_release',
-        'appendix5_statewise_national_permit_fee'
-      )
     `);
+    morthAppendix = pickByMetric(morthRows, (metricName) => [
+      'appendix2_statewise_nh_count',
+      'appendix2_statewise_nh_length_km',
+      'appendix3_crif_allocation',
+      'appendix3_crif_release',
+      'appendix5_statewise_national_permit_fee',
+    ].includes(metricName));
   } catch {
-    try {
-      morthAppendix = await queryParquetRows(conn, morthSourcePath, (alias) => `
-        SELECT
-          "state" AS state,
-          CAST("year" AS VARCHAR) AS year,
-          "metric_name" AS metric_name,
-          "metric_value" AS metric_value
-        FROM read_parquet('${alias}')
-        WHERE "metric_name" IN (
-          'appendix2_statewise_nh_count',
-          'appendix2_statewise_nh_length_km',
-          'appendix3_crif_allocation',
-          'appendix3_crif_release',
-          'appendix5_statewise_national_permit_fee'
-        )
-      `);
-    } catch {
-      morthAppendix = [];
-    }
+    morthAppendix = [];
   }
 
   const growthRows = growth
