@@ -181,6 +181,8 @@ header .subhead {
 
 .chart-svg-wrap {
   position: relative;
+  contain: layout paint;
+  transform: translateZ(0);
 }
 
 .chart-svg-wrap svg {

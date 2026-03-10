@@ -588,13 +588,52 @@ function tooltipText(lines) {
   return lines.filter(Boolean).join('\n');
 }
 
+function tooltipPayload(event, text) {
+  const source = event?.currentTarget || event?.target;
+  const anchorSource = source?.closest
+    ? source.closest('.chart-svg-wrap, .bars, .bar-row, .insight-chart')
+    : null;
+  const anchorRect = anchorSource && typeof anchorSource.getBoundingClientRect === 'function'
+    ? anchorSource.getBoundingClientRect()
+    : null;
+  return {
+    visible: true,
+    x: Number.isFinite(Number(event?.clientX)) ? Number(event.clientX) : 0,
+    y: Number.isFinite(Number(event?.clientY)) ? Number(event.clientY) : 0,
+    text: String(text || ''),
+    anchorRect: anchorRect ? {
+      left: anchorRect.left,
+      right: anchorRect.right,
+      top: anchorRect.top,
+      bottom: anchorRect.bottom,
+    } : null,
+  };
+}
+
 function ChartTooltip({ tooltip }) {
   if (!tooltip?.visible) return null;
   const tooltipTextContent = String(tooltip.text || '');
   const lineCount = Math.max(1, tooltipTextContent.split('\n').length);
+  const anchorRect = tooltip.anchorRect || null;
+  const tooltipWidth = Math.min(360, Math.max(160, Math.round(tooltipTextContent.length * 6.2) + 28));
+  const tooltipHeight = Math.max(44, lineCount * 18 + 14);
+  const viewportWidth = Number(window.innerWidth) || 1024;
+  const viewportHeight = Number(window.innerHeight) || 768;
+  const baseX = Number.isFinite(Number(tooltip.x)) ? Number(tooltip.x) : 0;
+  const baseY = Number.isFinite(Number(tooltip.y)) ? Number(tooltip.y) : 0;
+  const rawLeft = clamp(baseX + 10, 12, Math.max(12, viewportWidth - tooltipWidth - 12));
+  const rawTop = clamp(baseY + 10, 12, Math.max(12, viewportHeight - tooltipHeight - 12));
+  const left = anchorRect
+    ? clamp(rawLeft, anchorRect.left + 8, Math.max(anchorRect.left + 8, anchorRect.right - tooltipWidth - 8))
+    : rawLeft;
+  const preferBelow = anchorRect?.bottom ? baseY + 12 <= anchorRect.bottom - tooltipHeight - 8 : true;
+  const topRaw = preferBelow ? baseY + 12 : baseY - tooltipHeight - 8;
+  const top = anchorRect
+    ? clamp(topRaw, anchorRect.top + 8, Math.max(anchorRect.top + 8, anchorRect.bottom - tooltipHeight - 8))
+    : clamp(topRaw, 12, Math.max(12, viewportHeight - tooltipHeight - 12));
   const style = {
-    left: `${clamp(tooltip.x + 10, 12, Math.max(12, (window.innerWidth || 1024) - Math.max(220, tooltipTextContent.length * 5.2) - 12))}px`,
-    top: `${clamp(tooltip.y + 10, 12, Math.max(12, (window.innerHeight || 768) - (lineCount * 18 + 16) - 12))}px`,
+    left: `${left}px`,
+    top: `${top}px`,
     position: 'fixed',
   };
   return React.createElement(
@@ -723,18 +762,18 @@ function LineChart({
             cy: yScale(point.y),
             r: 3,
             fill: '#2f5f99',
-            onMouseEnter: (event) => onHover({
-              visible: true,
-              x: event.clientX,
-              y: event.clientY,
-              text: tooltipText([tooltipKey || 'value', `${safeLabel(point.label)}`, `x: ${safeLabel(point.x)}`, `y: ${fmtNum(point.y, { compact: false })}`]),
-            }),
-            onMouseMove: (event) => onHover({
-              visible: true,
-              x: event.clientX,
-              y: event.clientY,
-              text: tooltipText([tooltipKey || 'value', `${safeLabel(point.label)}`, `x: ${safeLabel(point.x)}`, `y: ${fmtNum(point.y, { compact: false })}`]),
-            }),
+            onMouseEnter: (event) => onHover(tooltipPayload(event, tooltipText([
+              tooltipKey || 'value',
+              `${safeLabel(point.label)}`,
+              `x: ${safeLabel(point.x)}`,
+              `y: ${fmtNum(point.y, { compact: false })}`,
+            ]))),
+            onMouseMove: (event) => onHover(tooltipPayload(event, tooltipText([
+              tooltipKey || 'value',
+              `${safeLabel(point.label)}`,
+              `x: ${safeLabel(point.x)}`,
+              `y: ${fmtNum(point.y, { compact: false })}`,
+            ]))),
             onMouseLeave: () => onHover({ visible: false }),
           })
         ),
@@ -888,18 +927,18 @@ function MultiLineChart({
                 cy: yScale(point.y),
                 r: 3,
                 fill: palette[layerIndex % palette.length],
-                onMouseEnter: (event) => onHover({
-                  visible: true,
-                  x: event.clientX,
-                  y: event.clientY,
-                  text: tooltipText([tooltipTextLabel || layer.name, `${safeLabel(point.label)}`, `x: ${safeLabel(point.x)}`, `y: ${fmtNum(point.y, { compact: false })}`]),
-                }),
-                onMouseMove: (event) => onHover({
-                  visible: true,
-                  x: event.clientX,
-                  y: event.clientY,
-                  text: tooltipText([tooltipTextLabel || layer.name, `${safeLabel(point.label)}`, `x: ${safeLabel(point.x)}`, `y: ${fmtNum(point.y, { compact: false })}`]),
-                }),
+                onMouseEnter: (event) => onHover(tooltipPayload(event, tooltipText([
+                  tooltipTextLabel || layer.name,
+                  `${safeLabel(point.label)}`,
+                  `x: ${safeLabel(point.x)}`,
+                  `y: ${fmtNum(point.y, { compact: false })}`,
+                ]))),
+                onMouseMove: (event) => onHover(tooltipPayload(event, tooltipText([
+                  tooltipTextLabel || layer.name,
+                  `${safeLabel(point.label)}`,
+                  `x: ${safeLabel(point.x)}`,
+                  `y: ${fmtNum(point.y, { compact: false })}`,
+                ]))),
                 onMouseLeave: () => onHover({ visible: false }),
               })
             )
@@ -940,18 +979,14 @@ function HorizontalBars({ title, rows, xLabel, yLabel, confidence, onHover, tool
               className: 'bar-fill',
               style: { width: `${clamp(width, 5, 100)}%` },
               title: `${safeLabel(row.label)}: ${fmtNum(row.value)}`,
-              onMouseEnter: (event) => onHover({
-                visible: true,
-                x: event.clientX,
-                y: event.clientY,
-                text: tooltipText([safeLabel(row.label), `${safeLabel(xLabel || 'Metric')}: ${fmtNum(row.value)}`]),
-              }),
-              onMouseMove: (event) => onHover({
-                visible: true,
-                x: event.clientX,
-                y: event.clientY,
-                text: tooltipText([safeLabel(row.label), `${safeLabel(xLabel || 'Metric')}: ${fmtNum(row.value)}`]),
-              }),
+              onMouseEnter: (event) => onHover(tooltipPayload(event, tooltipText([
+                safeLabel(row.label),
+                `${safeLabel(xLabel || 'Metric')}: ${fmtNum(row.value)}`,
+              ]))),
+              onMouseMove: (event) => onHover(tooltipPayload(event, tooltipText([
+                safeLabel(row.label),
+                `${safeLabel(xLabel || 'Metric')}: ${fmtNum(row.value)}`,
+              ]))),
               onMouseLeave: () => onHover({ visible: false }),
             })
           ),
@@ -1002,30 +1037,20 @@ function StackedStateStatus({ title, rows, confidence, onHover, asOfDate }) {
               React.createElement('div', {
                 className: 'bar-fill',
                 style: { width: `${clamp(segment.value, 0, 100)}%`, background: segment.color },
-                onMouseEnter: (event) => onHover({
-                  visible: true,
-                  x: event.clientX,
-                  y: event.clientY,
-                  text: tooltipText([
-                    row.state,
-                    `Under construction: ${fmtNum(row.under)}`,
-                    `Completed: ${fmtNum(row.completed)}`,
-                    `Approved: ${fmtNum(row.approved)}`,
-                    `Total: ${fmtNum(row.under + row.completed + row.approved)}`,
-                  ]),
-                }),
-                onMouseMove: (event) => onHover({
-                  visible: true,
-                  x: event.clientX,
-                  y: event.clientY,
-                  text: tooltipText([
-                    row.state,
-                    `Under construction: ${fmtNum(row.under)}`,
-                    `Completed: ${fmtNum(row.completed)}`,
-                    `Approved: ${fmtNum(row.approved)}`,
-                    `Total: ${fmtNum(row.under + row.completed + row.approved)}`,
-                  ]),
-                }),
+                onMouseEnter: (event) => onHover(tooltipPayload(event, tooltipText([
+                  row.state,
+                  `Under construction: ${fmtNum(row.under)}`,
+                  `Completed: ${fmtNum(row.completed)}`,
+                  `Approved: ${fmtNum(row.approved)}`,
+                  `Total: ${fmtNum(row.under + row.completed + row.approved)}`,
+                ]))),
+                onMouseMove: (event) => onHover(tooltipPayload(event, tooltipText([
+                  row.state,
+                  `Under construction: ${fmtNum(row.under)}`,
+                  `Completed: ${fmtNum(row.completed)}`,
+                  `Approved: ${fmtNum(row.approved)}`,
+                  `Total: ${fmtNum(row.under + row.completed + row.approved)}`,
+                ]))),
                 onMouseLeave: () => onHover({ visible: false }),
               })
             )
@@ -1146,18 +1171,18 @@ function ScatterChart({
           cy: yScale(point.y),
           r: radiusScale(point.radius || 1),
           fill: point.radius ? '#a0182d' : '#2f5f99',
-          onMouseEnter: (event) => onHover({
-            visible: true,
-            x: event.clientX,
-            y: event.clientY,
-            text: tooltipText([safeLabel(point.state), `${xLabel}: ${fmtNum(point.x)}`, `${yLabel}: ${fmtNum(point.y)}`, `${pointLabel}: ${safeLabel(point.modelConfidence)}`]),
-          }),
-          onMouseMove: (event) => onHover({
-            visible: true,
-            x: event.clientX,
-            y: event.clientY,
-            text: tooltipText([safeLabel(point.state), `${xLabel}: ${fmtNum(point.x)}`, `${yLabel}: ${fmtNum(point.y)}`, `${pointLabel}: ${safeLabel(point.modelConfidence)}`]),
-          }),
+          onMouseEnter: (event) => onHover(tooltipPayload(event, tooltipText([
+            safeLabel(point.state),
+            `${xLabel}: ${fmtNum(point.x)}`,
+            `${yLabel}: ${fmtNum(point.y)}`,
+            `${pointLabel}: ${safeLabel(point.modelConfidence)}`,
+          ]))),
+          onMouseMove: (event) => onHover(tooltipPayload(event, tooltipText([
+            safeLabel(point.state),
+            `${xLabel}: ${fmtNum(point.x)}`,
+            `${yLabel}: ${fmtNum(point.y)}`,
+            `${pointLabel}: ${safeLabel(point.modelConfidence)}`,
+          ]))),
           onMouseLeave: () => onHover({ visible: false }),
         })),
         React.createElement('text', { x: width / 2, y: height - 2, textAnchor: 'middle', className: 'axis-title' }, resolvedXAxisLabel),
@@ -1936,6 +1961,18 @@ function App() {
     }
   }, [selectedState, activeStateList]);
 
+  const chartDates = useMemo(() => ({
+    growth: latestDateFromCatalog(catalog, ['data_gov_in_nhai_yearwise_nh_constructed_2014_15']),
+    finance: latestDateFromCatalog(catalog, ['data_gov_in_nhai_project_finance_api']),
+    portfolio: latestDateFromCatalog(catalog, ['data_gov_in_nhai_state_projects_api', 'data_gov_in_nhai_stateut_length_constructed_2019_24', 'morth_annual_report_pdf']),
+    morthAppendix: latestDateFromCatalog(catalog, ['morth_annual_report_pdf']),
+    status: latestDateFromCatalog(catalog, ['data_gov_in_nhai_statewise_nh_project_status_2024_25']),
+    safety: latestDateFromCatalog(catalog, ['ncrb_road_accidents_state_year', 'quality_maintenance_indicators', 'highway_project_risk_and_access_panel']),
+    modelRisk: latestDateFromCatalog(catalog, ['highway_project_risk_and_access_panel', 'ncrb_road_accidents_state_year']),
+    macro: latestDateFromCatalog(catalog, ['rbi_mospi_macro_indicators']),
+    projectEconomics: latestDateFromCatalog(catalog, ['highway_project_risk_and_access_panel']),
+  }), [catalog]);
+
   if (loading) {
     return React.createElement(
       'div',
@@ -1950,17 +1987,6 @@ function App() {
 
   const methodologyUrl = candidateAssetPaths('methodology.html')[0] || 'methodology.html';
   const confidenceByAll = confidenceFromSources(Object.values(catalog));
-  const chartDates = useMemo(() => ({
-    growth: latestDateFromCatalog(catalog, ['data_gov_in_nhai_yearwise_nh_constructed_2014_15']),
-    finance: latestDateFromCatalog(catalog, ['data_gov_in_nhai_project_finance_api']),
-    portfolio: latestDateFromCatalog(catalog, ['data_gov_in_nhai_state_projects_api', 'data_gov_in_nhai_stateut_length_constructed_2019_24', 'morth_annual_report_pdf']),
-    morthAppendix: latestDateFromCatalog(catalog, ['morth_annual_report_pdf']),
-    status: latestDateFromCatalog(catalog, ['data_gov_in_nhai_statewise_nh_project_status_2024_25']),
-    safety: latestDateFromCatalog(catalog, ['ncrb_road_accidents_state_year', 'quality_maintenance_indicators', 'highway_project_risk_and_access_panel']),
-    modelRisk: latestDateFromCatalog(catalog, ['highway_project_risk_and_access_panel', 'ncrb_road_accidents_state_year']),
-    macro: latestDateFromCatalog(catalog, ['rbi_mospi_macro_indicators']),
-    projectEconomics: latestDateFromCatalog(catalog, ['highway_project_risk_and_access_panel']),
-  }), [catalog]);
 
   const financeChartData = (analytics?.financeRows || []);
   const growthLineData = (analytics?.growthRows || []).map((row) => ({
