@@ -827,116 +827,134 @@ function LineChart({
       return;
     }
 
-    const rect = canvas.getBoundingClientRect();
-    if (!rect.width || !rect.height) {
+    const host = canvas.parentElement;
+    if (!host) {
       return;
     }
+    const redraw = () => {
+      const rect = canvas.getBoundingClientRect();
+      if (!rect.width || !rect.height) {
+        return;
+      }
 
-    const dpr = window.devicePixelRatio || 1;
-    const logicalWidth = width;
-    const logicalHeight = height;
-    const scaleX = rect.width / logicalWidth;
-    const scaleY = rect.height / logicalHeight;
-    const plotW = width - pad.left - pad.right;
-    const plotH = height - pad.top - pad.bottom;
+      const dpr = window.devicePixelRatio || 1;
+      const logicalWidth = width;
+      const logicalHeight = height;
+      const scaleX = rect.width / logicalWidth;
+      const scaleY = rect.height / logicalHeight;
+      const plotW = width - pad.left - pad.right;
+      const plotH = height - pad.top - pad.bottom;
 
-    const xScale = (v) => pad.left + ((num(v) - xMin) / (xMax - xMin)) * plotW;
-    const yScale = (v) => pad.top + (1 - (num(v) - yMin) / (yMax - yMin)) * plotH;
+      const xScale = (v) => pad.left + ((num(v) - xMin) / (xMax - xMin)) * plotW;
+      const yScale = (v) => pad.top + (1 - (num(v) - yMin) / (yMax - yMin)) * plotH;
 
-    canvas.width = Math.floor(rect.width * dpr);
-    canvas.height = Math.floor(rect.height * dpr);
-    const ctx = canvas.getContext('2d');
-    if (!ctx) {
-      return;
-    }
+      canvas.width = Math.floor(rect.width * dpr);
+      canvas.height = Math.floor(rect.height * dpr);
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        return;
+      }
 
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, rect.width, rect.height);
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-    ctx.fillRect(0, 0, rect.width, rect.height);
-    ctx.strokeStyle = '#d8e4ff';
-    ctx.lineWidth = 1;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, rect.width, rect.height);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+      ctx.fillRect(0, 0, rect.width, rect.height);
+      ctx.strokeStyle = '#d8e4ff';
+      ctx.lineWidth = 1;
 
-    ctx.beginPath();
-    ctx.moveTo(pad.left * scaleX, (pad.top + plotH) * scaleY);
-    ctx.lineTo((width - pad.right) * scaleX, (pad.top + plotH) * scaleY);
-    ctx.moveTo(pad.left * scaleX, pad.top * scaleY);
-    ctx.lineTo(pad.left * scaleX, (pad.top + plotH) * scaleY);
-    ctx.stroke();
-
-    xAxisTicks.forEach((tick) => {
-      const x = xScale(tick) * scaleX;
-      const baseline = (pad.top + plotH) * scaleY;
       ctx.beginPath();
-      ctx.moveTo(x, baseline);
-      ctx.lineTo(x, baseline + 5);
-      ctx.strokeStyle = '#3b5068';
+      ctx.moveTo(pad.left * scaleX, (pad.top + plotH) * scaleY);
+      ctx.lineTo((width - pad.right) * scaleX, (pad.top + plotH) * scaleY);
+      ctx.moveTo(pad.left * scaleX, pad.top * scaleY);
+      ctx.lineTo(pad.left * scaleX, (pad.top + plotH) * scaleY);
       ctx.stroke();
-      ctx.fillStyle = '#3b5068';
-      ctx.font = '11px Trebuchet MS, Segoe UI, Arial, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText(formatTick(tick), x, baseline + 17);
-    });
-    yAxisTicks.forEach((tick) => {
-      const y = yScale(tick) * scaleY;
-      ctx.beginPath();
-      ctx.moveTo((pad.left - 5) * scaleX, y);
-      ctx.lineTo(pad.left * scaleX, y);
-      ctx.strokeStyle = '#3b5068';
-      ctx.stroke();
-      ctx.fillStyle = '#3b5068';
-      ctx.textAlign = 'right';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(formatTick(tick, true), (pad.left - 8) * scaleX, y + 3 * scaleY);
-    });
 
-    labels.forEach((point) => {
-      const x = xScale(point.x) * scaleX;
-      const y = (pad.top + plotH + 14) * scaleY;
-      ctx.fillStyle = '#3b5068';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'alphabetic';
-      ctx.font = '10px Trebuchet MS, Segoe UI, Arial, sans-serif';
-      ctx.fillText(xTick ? xTick(point.x) : safeLabel(point.x), x, y);
-    });
+      xAxisTicks.forEach((tick) => {
+        const x = xScale(tick) * scaleX;
+        const baseline = (pad.top + plotH) * scaleY;
+        ctx.beginPath();
+        ctx.moveTo(x, baseline);
+        ctx.lineTo(x, baseline + 5);
+        ctx.strokeStyle = '#3b5068';
+        ctx.stroke();
+        ctx.fillStyle = '#3b5068';
+        ctx.font = '11px Trebuchet MS, Segoe UI, Arial, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(formatTick(tick), x, baseline + 17);
+      });
+      yAxisTicks.forEach((tick) => {
+        const y = yScale(tick) * scaleY;
+        ctx.beginPath();
+        ctx.moveTo((pad.left - 5) * scaleX, y);
+        ctx.lineTo(pad.left * scaleX, y);
+        ctx.strokeStyle = '#3b5068';
+        ctx.stroke();
+        ctx.fillStyle = '#3b5068';
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(formatTick(tick, true), (pad.left - 8) * scaleX, y + 3 * scaleY);
+      });
 
-    if (points.length > 1) {
-      ctx.beginPath();
-      points.forEach((point, index) => {
+      labels.forEach((point) => {
+        const x = xScale(point.x) * scaleX;
+        const y = (pad.top + plotH + 14) * scaleY;
+        ctx.fillStyle = '#3b5068';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'alphabetic';
+        ctx.font = '10px Trebuchet MS, Segoe UI, Arial, sans-serif';
+        ctx.fillText(xTick ? xTick(point.x) : safeLabel(point.x), x, y);
+      });
+
+      if (points.length > 1) {
+        ctx.beginPath();
+        points.forEach((point, index) => {
+          const x = xScale(point.x) * scaleX;
+          const y = yScale(point.y) * scaleY;
+          if (index === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
+        });
+        ctx.strokeStyle = '#2f5f99';
+        ctx.lineWidth = 2.3;
+        ctx.stroke();
+      }
+
+      points.forEach((point) => {
         const x = xScale(point.x) * scaleX;
         const y = yScale(point.y) * scaleY;
-        if (index === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
-        }
+        ctx.beginPath();
+        ctx.arc(x, y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = '#2f5f99';
+        ctx.fill();
       });
-      ctx.strokeStyle = '#2f5f99';
-      ctx.lineWidth = 2.3;
-      ctx.stroke();
+
+      ctx.fillStyle = '#1f3650';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'bottom';
+      ctx.font = '12px Trebuchet MS, Segoe UI, Arial, sans-serif';
+      ctx.fillText(xAxisLabel, width * 0.5 * scaleX, rect.height - 2);
+      ctx.save();
+      ctx.translate(12, height * 0.5 * scaleY);
+      ctx.rotate(-Math.PI / 2);
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillText(yAxisLabel, 0, 0);
+      ctx.restore();
+    };
+
+    redraw();
+    if (typeof ResizeObserver === 'undefined') {
+      return;
     }
-
-    points.forEach((point) => {
-      const x = xScale(point.x) * scaleX;
-      const y = yScale(point.y) * scaleY;
-      ctx.beginPath();
-      ctx.arc(x, y, 3, 0, Math.PI * 2);
-      ctx.fillStyle = '#2f5f99';
-      ctx.fill();
+    const resizeObserver = new ResizeObserver(() => {
+      redraw();
     });
-
-    ctx.fillStyle = '#1f3650';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'bottom';
-    ctx.font = '12px Trebuchet MS, Segoe UI, Arial, sans-serif';
-    ctx.fillText(xAxisLabel, width * 0.5 * scaleX, rect.height - 2);
-    ctx.save();
-    ctx.translate(12, height * 0.5 * scaleY);
-    ctx.rotate(-Math.PI / 2);
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'top';
-    ctx.fillText(yAxisLabel, 0, 0);
-    ctx.restore();
+    resizeObserver.observe(host);
+    return () => {
+      resizeObserver.disconnect();
+    };
   }, [points, xMin, xMax, yMin, yMax, width, height, pad.left, pad.right, pad.top, pad.bottom, xTick, xAxisTicks, yAxisTicks, labels]);
 
   const nearestPoint = (event) => {
@@ -1060,6 +1078,7 @@ function MultiLineChart({
   const plotH = height - pad.top - pad.bottom;
   const palette = ['#1b4d91', '#0a8f52', '#b07a00', '#a0182d', '#5f4eeb', '#5f8a4e'];
   const chartRef = useRef(null);
+  const [multiResizeTick, setMultiResizeTick] = useState(0);
 
   const flattenedLayers = normalizedLayers.flatMap((layer, layerIndex) => (layer.points || []).map((point) => ({
     layerIndex,
@@ -1174,7 +1193,28 @@ function MultiLineChart({
     ctx.textBaseline = 'top';
     ctx.fillText(yAxisLabel, 0, 0);
     ctx.restore();
-  }, [allSeries, flattenedLayers, xMin, xMax, yMin, yMax, width, height, pad.left, pad.right, pad.top, pad.bottom, xAxisTicks, yAxisTicks, xAxisLabel, yAxisLabel]);
+  }, [allSeries, flattenedLayers, xMin, xMax, yMin, yMax, width, height, pad.left, pad.right, pad.top, pad.bottom, xAxisTicks, yAxisTicks, xAxisLabel, yAxisLabel, multiResizeTick]);
+
+  useEffect(() => {
+    const canvas = chartRef.current;
+    if (!canvas || !allSeries.length) {
+      return;
+    }
+
+    const host = canvas.parentElement;
+    if (!host || typeof ResizeObserver === 'undefined') {
+      return;
+    }
+
+    const resizeObserver = new ResizeObserver(() => {
+      setMultiResizeTick((value) => value + 1);
+    });
+    resizeObserver.observe(host);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [allSeries.length]);
 
   const nearestPoint = (event) => {
     if (!flattenedLayers.length || !chartRef.current) {
@@ -1400,6 +1440,7 @@ function ScatterChart({
   const rMax = Math.max(...points.map((p) => num(p.radius) || 3));
   const radiusScale = (v) => clamp(((num(v) - rMin) / (rMax - rMin || 1)) * 7 + 3, 3, 12);
   const chartRef = useRef(null);
+  const [scatterResizeTick, setScatterResizeTick] = useState(0);
 
   useEffect(() => {
     const canvas = chartRef.current;
@@ -1489,7 +1530,28 @@ function ScatterChart({
     ctx.textBaseline = 'top';
     ctx.fillText(resolvedYAxisLabel, 0, 0);
     ctx.restore();
-  }, [points, xMin, xMax, yMin, yMax, width, height, pad.left, pad.right, pad.top, pad.bottom, xAxisTicks, yAxisTicks, resolvedXAxisLabel, resolvedYAxisLabel, rMin, rMax]);
+  }, [points, xMin, xMax, yMin, yMax, width, height, pad.left, pad.right, pad.top, pad.bottom, xAxisTicks, yAxisTicks, resolvedXAxisLabel, resolvedYAxisLabel, rMin, rMax, scatterResizeTick]);
+
+  useEffect(() => {
+    const canvas = chartRef.current;
+    if (!canvas || !points.length) {
+      return;
+    }
+
+    const host = canvas.parentElement;
+    if (!host || typeof ResizeObserver === 'undefined') {
+      return;
+    }
+
+    const resizeObserver = new ResizeObserver(() => {
+      setScatterResizeTick((value) => value + 1);
+    });
+    resizeObserver.observe(host);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [points.length]);
 
   const nearestPoint = (event) => {
     if (!points.length || !chartRef.current) {
