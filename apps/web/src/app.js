@@ -462,6 +462,126 @@ function formatDateOnly(value) {
   return parsed.toISOString().slice(0, 10);
 }
 
+function parseDateValue(value) {
+  if (value == null) {
+    return '';
+  }
+  if (value instanceof Date) {
+    return Number.isFinite(value.getTime()) ? formatDateOnly(value) : '';
+  }
+
+  const text = String(value).trim().replace(/,/g, '');
+  if (!text) {
+    return '';
+  }
+
+  const fullMatch = text.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (fullMatch) {
+    return `${fullMatch[1]}-${fullMatch[2].padStart(2, '0')}-${fullMatch[3].padStart(2, '0')}`;
+  }
+
+  const monthMatch = text.match(/^(\d{4})-(\d{2})$/);
+  if (monthMatch) {
+    const year = Number(monthMatch[1]);
+    const part = Number(monthMatch[2]);
+    if (Number.isFinite(year) && Number.isFinite(part)) {
+      if (part >= 1 && part <= 12) {
+        return `${year.toString()}-${monthMatch[2].padStart(2, '0')}-01`;
+      }
+      return `${(year + 1).toString()}-03-31`;
+    }
+  }
+
+  if (/^\d{4}$/.test(text)) {
+    return `${text}-12-31`;
+  }
+
+  const parsed = new Date(text);
+  if (!Number.isNaN(parsed.getTime())) {
+    return formatDateOnly(parsed);
+  }
+
+  const firstYearMatch = text.match(/(\d{4})/);
+  if (firstYearMatch) {
+    return `${firstYearMatch[1]}-12-31`;
+  }
+
+  const num = Number(text);
+  if (Number.isFinite(num) && Number.isInteger(num) && num > 1000 && num < 3000) {
+    return `${Math.trunc(num)}-12-31`;
+  }
+  return '';
+}
+
+function extractDateCandidatesFromRow(row) {
+  if (!row || typeof row !== 'object') {
+    return [];
+  }
+  const dateValueHints = [
+    'date',
+    'time',
+    'timestamp',
+    'created_at',
+    'updated_at',
+    'retrieved_at',
+    'as_of',
+    'asof',
+    'as-of',
+    'snapshot_date',
+    'source_as_of',
+    'release_date',
+    'publication_date',
+    'effective_date',
+    'financial_year',
+    'observation_year',
+    'year_label',
+    'period',
+    'year',
+    'label',
+  ];
+  const candidatePattern = /(date|time|timestamp|year|period|month|snapshot|as[_-]of|effective|publication|release|quarter|fy|observ|time)/i;
+
+  const dates = [];
+  dateValueHints.forEach((key) => {
+    const value = row[key];
+    const parsed = parseDateValue(value);
+    if (parsed) {
+      dates.push(parsed);
+    }
+  });
+
+  Object.entries(row).forEach(([key, value]) => {
+    if (candidatePattern.test(key) || key === 'period' || key === 'label' || key === 'source') {
+      const parsed = parseDateValue(value);
+      if (parsed) {
+        dates.push(parsed);
+      }
+    }
+  });
+  return dates;
+}
+
+function latestDateFromRows(rows = [], catalog = {}, sourceIds = []) {
+  const dates = [];
+
+  (rows || []).forEach((row) => {
+    extractDateCandidatesFromRow(row).forEach((date) => dates.push(date));
+  });
+
+  if (!dates.length) {
+    return latestDateFromCatalog(catalog, sourceIds);
+  }
+
+  const normalized = dates
+    .map((entry) => ({ value: entry, epoch: Date.parse(entry) }))
+    .filter((entry) => Number.isFinite(entry.epoch));
+  if (!normalized.length) {
+    return latestDateFromCatalog(catalog, sourceIds);
+  }
+  normalized.sort((a, b) => a.epoch - b.epoch);
+  return normalized.at(-1).value;
+}
+
 function latestDateFromCatalog(catalog, sourceIds = []) {
   const dates = (sourceIds || [])
     .map((sourceId) => catalog?.[sourceId])
@@ -2189,16 +2309,16 @@ function App() {
   }, [selectedState, activeStateList]);
 
   const chartDates = useMemo(() => ({
-    growth: latestDateFromCatalog(catalog, ['data_gov_in_nhai_yearwise_nh_constructed_2014_15']),
-    finance: latestDateFromCatalog(catalog, ['data_gov_in_nhai_project_finance_api']),
-    portfolio: latestDateFromCatalog(catalog, ['data_gov_in_nhai_state_projects_api', 'data_gov_in_nhai_stateut_length_constructed_2019_24', 'morth_annual_report_pdf']),
-    morthAppendix: latestDateFromCatalog(catalog, ['morth_annual_report_pdf']),
-    status: latestDateFromCatalog(catalog, ['data_gov_in_nhai_statewise_nh_project_status_2024_25']),
-    safety: latestDateFromCatalog(catalog, ['ncrb_road_accidents_state_year', 'quality_maintenance_indicators', 'highway_project_risk_and_access_panel']),
-    modelRisk: latestDateFromCatalog(catalog, ['highway_project_risk_and_access_panel', 'ncrb_road_accidents_state_year']),
-    macro: latestDateFromCatalog(catalog, ['rbi_mospi_macro_indicators']),
-    projectEconomics: latestDateFromCatalog(catalog, ['highway_project_risk_and_access_panel']),
-  }), [catalog]);
+    growth: latestDateFromRows(analytics?.growthRows, catalog, ['data_gov_in_nhai_yearwise_nh_constructed_2014_15']),
+    finance: latestDateFromRows(analytics?.financeRows, catalog, ['data_gov_in_nhai_project_finance_api']),
+    portfolio: latestDateFromRows(analytics?.portfolioRows, catalog, ['data_gov_in_nhai_state_projects_api', 'data_gov_in_nhai_stateut_length_constructed_2019_24', 'morth_annual_report_pdf']),
+    morthAppendix: latestDateFromRows(analytics?.morthCrifRows || analytics?.morthAppendix2CountRows || [], catalog, ['morth_annual_report_pdf']),
+    status: latestDateFromRows(analytics?.stateStatusRows, catalog, ['data_gov_in_nhai_statewise_nh_project_status_2024_25']),
+    safety: latestDateFromRows(analytics?.accidentTrendRows || [], catalog, ['ncrb_road_accidents_state_year', 'quality_maintenance_indicators', 'highway_project_risk_and_access_panel']),
+    modelRisk: latestDateFromRows(analytics?.modelStateRisk || [], catalog, ['highway_project_risk_and_access_panel', 'ncrb_road_accidents_state_year']),
+    macro: latestDateFromRows((analytics?.macroSeries?.cpi || []).concat(analytics?.macroSeries?.capex || []).concat(analytics?.macroSeries?.fuel || []), catalog, ['rbi_mospi_macro_indicators']),
+    projectEconomics: latestDateFromRows(analytics?.modelByStateSummary || [], catalog, ['highway_project_risk_and_access_panel']),
+  }), [analytics, catalog]);
 
   if (loading) {
     return React.createElement(
