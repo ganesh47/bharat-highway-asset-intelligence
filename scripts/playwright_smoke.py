@@ -7,6 +7,83 @@ import asyncio
 from typing import Union
 
 
+REQUIRED_CHARTS = [
+    {
+        "title": "Budget vs Expenditure (All Source Years)",
+        "axes": True,
+        "data_selector": ".line-path",
+        "min_points": 1,
+        "empty_markers": ["No records available."],
+    },
+    {
+        "title": "State Portfolio: Total NH Length vs State",
+        "data_selector": ".bar-row",
+        "min_points": 1,
+        "empty_markers": ["No records available."],
+    },
+    {
+        "title": "MoRTH Appendix 3: CRIF Allocation vs Release",
+        "axes": True,
+        "data_selector": ".line-path",
+        "min_points": 1,
+        "empty_markers": ["No records available."],
+    },
+    {
+        "title": "MoRTH Appendix 2: NH Count by State",
+        "data_selector": ".bar-row",
+        "min_points": 1,
+        "empty_markers": ["No records available."],
+    },
+    {
+        "title": "MoRTH Appendix 2: NH Length (km) by State",
+        "data_selector": ".bar-row",
+        "min_points": 1,
+        "empty_markers": ["No records available."],
+    },
+    {
+        "title": "MoRTH Appendix 5: State Permit Fee vs NH Length",
+        "axes": True,
+        "data_selector": ".point",
+        "min_points": 1,
+        "empty_markers": ["No scatter points."],
+    },
+    {
+        "title": "State Project Mix (2024-25 official status snapshot)",
+        "data_selector": ".bar-row",
+        "min_points": 1,
+        "empty_markers": ["No records available."],
+    },
+    {
+        "title_prefix": "Safety Context: Fatality Intensity × Safety Risk Signals",
+        "axes": True,
+        "data_selector": ".point",
+        "min_points": 1,
+        "empty_markers": ["No scatter points."],
+    },
+    {
+        "title": "Model Risk Trajectory by State (proxy-informed)",
+        "axes": True,
+        "data_selector": ".line-path",
+        "min_points": 1,
+        "empty_markers": ["No records available."],
+    },
+    {
+        "title": "GDP & Infrastructure Context",
+        "axes": True,
+        "data_selector": ".line-path",
+        "min_points": 1,
+        "empty_markers": ["No records available."],
+    },
+    {
+        "title": "Project Economics: Land Acquisition vs Maintenance (Model Panel)",
+        "axes": True,
+        "data_selector": ".point",
+        "min_points": 1,
+        "empty_markers": ["No scatter points."],
+    },
+]
+
+
 async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
     try:
         from playwright.async_api import async_playwright
@@ -41,6 +118,7 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
         try:
             await page.goto(url, wait_until="networkidle", timeout=120000)
             await page.wait_for_timeout(3000)
+
             header = (await page.locator("h1").first.text_content()) or ""
             if "Bharat Highway Evidence Console" not in header:
                 print("Unexpected header text:", header.strip())
@@ -68,6 +146,50 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
                 print("Summary cards not found.")
                 await browser.close()
                 return 1
+
+            for chart in REQUIRED_CHARTS:
+                title_selector = chart.get("title")
+                if chart.get("title_prefix"):
+                    title_selector = chart["title_prefix"]
+
+                card = page.locator(".insight-chart").filter(
+                    has=page.locator(".chart-title", has_text=title_selector)
+                )
+                count = await card.count()
+                if count == 0:
+                    print(f"Missing chart by selector: {title_selector}")
+                    await browser.close()
+                    return 1
+                if count != 1:
+                    print(f"Chart appears multiple times ({count}) for selector: {title_selector}")
+                    await browser.close()
+                    return 1
+
+                chart_card = card.first
+                meta_text = [
+                    text or ''
+                    for text in await chart_card.locator('.chart-meta').all_inner_texts()
+                ]
+                if any(marker in ' '.join(meta_text) for marker in chart.get('empty_markers', [])):
+                    print(f"Chart has empty-data marker for: {title_selector}")
+                    await browser.close()
+                    return 1
+
+                marker_count = await chart_card.locator(chart['data_selector']).count()
+                if marker_count < chart['min_points']:
+                    print(f"Chart has insufficient rendered points ({marker_count}) for: {title_selector}")
+                    await browser.close()
+                    return 1
+
+                if chart.get('axes'):
+                    axis_titles = [
+                        value or ''
+                        for value in await chart_card.locator('.axis-title').evaluate_all('(els) => els.map((el) => el.textContent || "")')
+                    ]
+                    if len([label.strip() for label in axis_titles if str(label).strip()]) < 2:
+                        print(f"Chart is missing axis labels: {title_selector}")
+                        await browser.close()
+                        return 1
 
             if generate_screenshot:
                 await page.screenshot(path="buildcheck/last-smoke.png", full_page=True)

@@ -87,6 +87,8 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
     permissions:
       pages: write
       id-token: write
@@ -94,3 +96,39 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          preview: false
+
+  cd_smoke:
+    name: Playwright CD smoke check
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Install Playwright browser runtime
+        run: |
+          python -m playwright install chromium
+
+      - name: Verify deployed dashboard charts
+        env:
+          PAGE_URL: ${{ needs.deploy.outputs.page_url }}
+        run: |
+          if [ -z "${PAGE_URL}" ]; then
+            echo "Missing PAGE_URL from deploy step" >&2
+            exit 1
+          fi
+          python scripts/playwright_smoke.py --url "${PAGE_URL%/}/apps/web/"

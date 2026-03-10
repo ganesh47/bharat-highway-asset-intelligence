@@ -1302,6 +1302,17 @@ async function loadAnalyticCatalog(conn, catalog) {
     SELECT *
     FROM read_parquet('${alias}')
   `);
+  const rawStateUTRows = await fetchById('data_gov_in_nhai_stateut_length_constructed_2019_24', (alias) => `
+    SELECT
+      CAST("state/ut" AS VARCHAR) AS state,
+      COALESCE(CAST("length_constructed_km._2019-20" AS DOUBLE), 0)
+      + COALESCE(CAST("length_constructed_km._2020-21" AS DOUBLE), 0)
+      + COALESCE(CAST("length_constructed_km._2021-22" AS DOUBLE), 0)
+      + COALESCE(CAST("length_constructed_km._2022-23" AS DOUBLE), 0)
+      + COALESCE(CAST("length_constructed_km._2023-24" AS DOUBLE), 0) AS length_km
+    FROM read_parquet('${alias}')
+    WHERE "state/ut" IS NOT NULL
+  `);
   const statePortfolio = rawStatePortfolioRows
     .filter((row) => row)
     .map((row) => ({
@@ -1401,21 +1412,45 @@ async function loadAnalyticCatalog(conn, catalog) {
       AND metric_value IS NOT NULL
   `);
 
-  const morthAppendix = await fetchById('morth_annual_report_pdf', (alias) => `
-    SELECT
-      CAST("state" AS VARCHAR) AS state,
-      CAST("year" AS VARCHAR) AS year,
-      CAST("metric_name" AS VARCHAR) AS metric_name,
-      CAST("metric_value" AS DOUBLE) AS metric_value
-    FROM read_parquet('${alias}')
-    WHERE "metric_name" IN (
-      'appendix2_statewise_nh_count',
-      'appendix2_statewise_nh_length_km',
-      'appendix3_crif_allocation',
-      'appendix3_crif_release',
-      'appendix5_statewise_national_permit_fee'
-    )
-  `);
+  const morthSourcePath = catalog?.morth_annual_report_pdf?.output_table_path || 'data/processed/morth_annual_report_pdf.parquet';
+  let morthAppendix = [];
+  try {
+    morthAppendix = await queryParquetRows(conn, morthSourcePath, (alias) => `
+      SELECT
+        CAST("state" AS VARCHAR) AS state,
+        CAST("year" AS VARCHAR) AS year,
+        CAST("metric_name" AS VARCHAR) AS metric_name,
+        CAST("metric_value" AS DOUBLE) AS metric_value
+      FROM read_parquet('${alias}')
+      WHERE "metric_name" IN (
+        'appendix2_statewise_nh_count',
+        'appendix2_statewise_nh_length_km',
+        'appendix3_crif_allocation',
+        'appendix3_crif_release',
+        'appendix5_statewise_national_permit_fee'
+      )
+    `);
+  } catch {
+    try {
+      morthAppendix = await queryParquetRows(conn, morthSourcePath, (alias) => `
+        SELECT
+          "state" AS state,
+          CAST("year" AS VARCHAR) AS year,
+          "metric_name" AS metric_name,
+          "metric_value" AS metric_value
+        FROM read_parquet('${alias}')
+        WHERE "metric_name" IN (
+          'appendix2_statewise_nh_count',
+          'appendix2_statewise_nh_length_km',
+          'appendix3_crif_allocation',
+          'appendix3_crif_release',
+          'appendix5_statewise_national_permit_fee'
+        )
+      `);
+    } catch {
+      morthAppendix = [];
+    }
+  }
 
   const growthRows = growth
     .map((row) => ({
@@ -1446,6 +1481,16 @@ async function loadAnalyticCatalog(conn, catalog) {
       source: 'data_gov_in_nhai_state_projects_api',
     }))
     .filter((row) => row.state);
+  const stateUTRows = rawStateUTRows
+    .filter((row) => row)
+    .map((row) => ({
+      state: row.state,
+      projects: null,
+      length: num(row.length_km),
+      capital: null,
+      source: 'data_gov_in_nhai_stateut_length_constructed_2019_24',
+    }))
+    .filter((row) => row.state && Number.isFinite(row.length));
 
   const stateStatusRows = stateStatus
     .map((row) => ({
@@ -1641,6 +1686,13 @@ async function loadAnalyticCatalog(conn, catalog) {
       source: 'morth_annual_report_pdf',
     });
   });
+  stateUTRows.forEach((row) => {
+    const key = normalizeState(row.state);
+    if (!key || Number.isNaN(row.length) || isAggregateStateLabel(key) || portfolioRowsByState.has(key)) {
+      return;
+    }
+    portfolioRowsByState.set(key, row);
+  });
   const mergedPortfolioRows = Array.from(portfolioRowsByState.values());
 
   const morthCrifRows = morthAppendix
@@ -1671,6 +1723,7 @@ async function loadAnalyticCatalog(conn, catalog) {
 
   const stateList = new Set();
   portfolioRows.forEach((row) => stateList.add(row.state));
+  stateUTRows.forEach((row) => stateList.add(row.state));
   stateStatusRows.forEach((row) => stateList.add(row.state));
   accidentRows.forEach((row) => stateList.add(row.state));
   modelStateRisk.forEach((row) => stateList.add(row.state));
@@ -2007,7 +2060,9 @@ function App() {
     })
     .filter((row) => Number.isFinite(row.x) && Number.isFinite(row.y));
 
-  const portfolioConfidence = confidenceFromSources(Object.values(catalog).filter((item) => ['data_gov_in_nhai_state_projects_api', 'data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026', 'data_gov_in_nhai_projects_api'].includes(item.source_id)));
+  const portfolioConfidence = confidenceFromSources(
+    Object.values(catalog).filter((item) => ['data_gov_in_nhai_state_projects_api', 'data_gov_in_nhai_stateut_length_constructed_2019_24', 'data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026', 'data_gov_in_nhai_projects_api'].includes(item.source_id))
+  );
   const stateStatusConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'data_gov_in_nhai_statewise_nh_project_status_2024_25'));
   const growthConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'data_gov_in_nhai_yearwise_nh_constructed_2014_15'));
   const modelConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'highway_project_risk_and_access_panel'));
