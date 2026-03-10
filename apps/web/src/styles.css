@@ -258,6 +258,7 @@ header .subhead {
   position: absolute;
   pointer-events: none;
   z-index: 20;
+  max-width: 320px;
   border: 1px solid var(--line);
   background: #fff;
   color: var(--ink);

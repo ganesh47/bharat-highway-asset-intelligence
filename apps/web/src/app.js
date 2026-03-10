@@ -451,6 +451,41 @@ function clamp(v, min, max) {
   return Math.max(min, Math.min(max, v));
 }
 
+function formatDateOnly(value) {
+  if (!value) {
+    return '';
+  }
+  const parsed = new Date(String(value).trim());
+  if (Number.isNaN(parsed.getTime())) {
+    return '';
+  }
+  return parsed.toISOString().slice(0, 10);
+}
+
+function latestDateFromCatalog(catalog, sourceIds = []) {
+  const dates = (sourceIds || [])
+    .map((sourceId) => catalog?.[sourceId])
+    .filter(Boolean)
+    .map((entry) => formatDateOnly(entry.retrieved_at) || formatDateOnly(entry.source?.retrieved_at))
+    .filter(Boolean);
+
+  if (!dates.length) {
+    return '';
+  }
+  return dates.sort().slice(-1)[0];
+}
+
+function chartMetaText(description, asOfDate) {
+  const base = description || '';
+  if (!asOfDate) {
+    return base || '';
+  }
+  if (!base) {
+    return `As of ${asOfDate}`;
+  }
+  return `${base} · As of ${asOfDate}`;
+}
+
 function ensureRange(min, max) {
   if (!Number.isFinite(min) || !Number.isFinite(max)) {
     return { min: 0, max: 1 };
@@ -555,11 +590,18 @@ function tooltipText(lines) {
 
 function ChartTooltip({ tooltip }) {
   if (!tooltip?.visible) return null;
+  const tooltipTextContent = String(tooltip.text || '');
+  const lineCount = Math.max(1, tooltipTextContent.split('\n').length);
   const style = {
-    left: `${tooltip.x + 10}px`,
-    top: `${tooltip.y + 10}px`,
+    left: `${clamp(tooltip.x + 10, 12, Math.max(12, (window.innerWidth || 1024) - Math.max(220, tooltipTextContent.length * 5.2) - 12))}px`,
+    top: `${clamp(tooltip.y + 10, 12, Math.max(12, (window.innerHeight || 768) - (lineCount * 18 + 16) - 12))}px`,
+    position: 'fixed',
   };
-  return React.createElement('div', { className: 'tooltip', style }, tooltip.text.split('\n').map((line) => React.createElement('div', { key: line }, line)));
+  return React.createElement(
+    'div',
+    { className: 'tooltip', style },
+    ...tooltipTextContent.split('\n').map((line, index) => React.createElement('div', { key: `${index}-${line}` }, line))
+  );
 }
 
 function LineChart({
@@ -570,13 +612,19 @@ function LineChart({
   tooltipKey,
   confidence,
   onHover,
+  asOfDate,
   chartScale = 1,
   xAxisLabel = 'X',
   yAxisLabel = 'Value',
 }) {
   const points = (series || []).filter((item) => Number.isFinite(num(item.x)) && Number.isFinite(num(item.y)));
   if (!points.length) {
-    return React.createElement('div', { className: 'card insight-chart' }, React.createElement('div', { className: 'chart-title' }, title), React.createElement('div', { className: 'chart-meta' }, description || 'No records available.'));
+    return React.createElement(
+      'div',
+      { className: 'card insight-chart' },
+      React.createElement('div', { className: 'chart-title' }, title),
+      React.createElement('div', { className: 'chart-meta' }, chartMetaText(description || 'No records available.', asOfDate))
+    );
   }
 
   const xValues = points.map((item) => num(item.x));
@@ -611,7 +659,7 @@ function LineChart({
       React.createElement('div', { className: 'chart-title' }, title),
       React.createElement('span', { className: `badge ${String(confidence.badge || 'low').toLowerCase()}` }, `${confidence.badge || 'Low'} confidence`)
     ),
-    React.createElement('div', { className: 'chart-meta' }, description || ''),
+    React.createElement('div', { className: 'chart-meta' }, chartMetaText(description || '', asOfDate)),
     React.createElement('div', { className: 'insight-legend' },
       React.createElement('span', { className: 'insight-pill' }, `Points: ${points.length}`),
       React.createElement('span', { className: 'insight-pill' }, `Source trust: ${confidence.badge || 'Low'}`)),
@@ -710,6 +758,7 @@ function MultiLineChart({
   xTick,
   confidence,
   onHover,
+  asOfDate,
   tooltipTextLabel,
   chartScale = 1,
   xAxisLabel = 'X',
@@ -721,7 +770,12 @@ function MultiLineChart({
   }));
   const allSeries = normalizedLayers.flatMap((layer) => layer.points || []);
   if (!allSeries.length) {
-    return React.createElement('div', { className: 'card insight-chart' }, React.createElement('div', { className: 'chart-title' }, title), React.createElement('div', { className: 'chart-meta' }, description || 'No records available.'));
+    return React.createElement(
+      'div',
+      { className: 'card insight-chart' },
+      React.createElement('div', { className: 'chart-title' }, title),
+      React.createElement('div', { className: 'chart-meta' }, chartMetaText(description || 'No records available.', asOfDate))
+    );
   }
 
   const xExtent = {
@@ -755,7 +809,7 @@ function MultiLineChart({
       React.createElement('div', { className: 'chart-title' }, title),
       React.createElement('span', { className: `badge ${String(confidence.badge || 'low').toLowerCase()}` }, `${confidence.badge || 'Low'} confidence`)
     ),
-    React.createElement('div', { className: 'chart-meta' }, description || ''),
+    React.createElement('div', { className: 'chart-meta' }, chartMetaText(description || '', asOfDate)),
     React.createElement(
       'div',
       { className: 'insight-legend' },
@@ -863,7 +917,7 @@ function MultiLineChart({
   );
 }
 
-function HorizontalBars({ title, rows, xLabel, yLabel, confidence, onHover, tooltipLines }) {
+function HorizontalBars({ title, rows, xLabel, yLabel, confidence, onHover, tooltipLines, asOfDate }) {
   const series = (rows || [])
     .filter((item) => num(item.value, null) !== null)
     .sort((a, b) => num(b.value) - num(a.value));
@@ -875,7 +929,7 @@ function HorizontalBars({ title, rows, xLabel, yLabel, confidence, onHover, tool
       React.createElement('div', { className: 'chart-title' }, title),
       React.createElement('span', { className: `badge ${String(confidence.badge || 'low').toLowerCase()}` }, `${confidence.badge || 'Low'} confidence`)
     ),
-    React.createElement('div', { className: 'chart-meta' }, `${xLabel || ''} by ${yLabel || 'category'}`),
+    React.createElement('div', { className: 'chart-meta' }, chartMetaText(`${xLabel || ''} by ${yLabel || 'category'}`, asOfDate)),
     React.createElement('div', { className: 'bars' },
       ...top.map((row) => {
         const width = Math.round((num(row.value) / max) * 100);
@@ -909,7 +963,7 @@ function HorizontalBars({ title, rows, xLabel, yLabel, confidence, onHover, tool
   );
   }
 
-function StackedStateStatus({ title, rows, confidence, onHover }) {
+function StackedStateStatus({ title, rows, confidence, onHover, asOfDate }) {
   const cleaned = (rows || [])
     .map((row) => ({
       state: safeLabel(row.state),
@@ -926,7 +980,7 @@ function StackedStateStatus({ title, rows, confidence, onHover }) {
     React.createElement('div', { className: 'source-line' },
       React.createElement('div', { className: 'chart-title' }, title),
       React.createElement('span', { className: `badge ${String(confidence.badge || 'low').toLowerCase()}` }, `${confidence.badge || 'Low'} confidence`)),
-    React.createElement('div', { className: 'chart-meta' }, 'Segmented by reported NH work-stage length (km)'),
+    React.createElement('div', { className: 'chart-meta' }, asOfDate ? `As of ${asOfDate} · Segmented by reported NH work-stage length (km)` : 'Segmented by reported NH work-stage length (km)'),
     React.createElement('div', { className: 'bars' },
       ...ordered.map((row) => {
         const underPct = (row.under / max) * 100;
@@ -988,6 +1042,7 @@ function ScatterChart({
   rows,
   confidence,
   onHover,
+  asOfDate,
   chartScale = 1,
   xLabel = 'X',
   yLabel = 'Y',
@@ -1001,7 +1056,12 @@ function ScatterChart({
     .filter((r) => Number.isFinite(num(r.x)) && Number.isFinite(num(r.y)))
     .sort((a, b) => num(a.x) - num(b.x));
   if (!points.length) {
-    return React.createElement('div', { className: 'card insight-chart' }, React.createElement('div', { className: 'chart-title' }, title), React.createElement('div', { className: 'chart-meta' }, 'No scatter points.'));
+    return React.createElement(
+      'div',
+      { className: 'card insight-chart' },
+      React.createElement('div', { className: 'chart-title' }, title),
+      React.createElement('div', { className: 'chart-meta' }, chartMetaText('No scatter points.', asOfDate))
+    );
   }
 
   const width = 980;
@@ -1033,7 +1093,7 @@ function ScatterChart({
       React.createElement('div', { className: 'chart-title' }, title),
       React.createElement('span', { className: `badge ${String(confidence.badge || 'low').toLowerCase()}` }, `${confidence.badge || 'Low'} confidence`)
     ),
-    React.createElement('div', { className: 'chart-meta' }, `X=${xLabel}; Y=${yLabel}`),
+    React.createElement('div', { className: 'chart-meta' }, chartMetaText(`X=${xLabel}; Y=${yLabel}`, asOfDate)),
     React.createElement('div', { className: 'chart-svg-wrap' },
       React.createElement('svg', {
         viewBox: `0 0 ${width} ${Math.round(300 * chartScale)}`,
@@ -1890,6 +1950,17 @@ function App() {
 
   const methodologyUrl = candidateAssetPaths('methodology.html')[0] || 'methodology.html';
   const confidenceByAll = confidenceFromSources(Object.values(catalog));
+  const chartDates = useMemo(() => ({
+    growth: latestDateFromCatalog(catalog, ['data_gov_in_nhai_yearwise_nh_constructed_2014_15']),
+    finance: latestDateFromCatalog(catalog, ['data_gov_in_nhai_project_finance_api']),
+    portfolio: latestDateFromCatalog(catalog, ['data_gov_in_nhai_state_projects_api', 'data_gov_in_nhai_stateut_length_constructed_2019_24', 'morth_annual_report_pdf']),
+    morthAppendix: latestDateFromCatalog(catalog, ['morth_annual_report_pdf']),
+    status: latestDateFromCatalog(catalog, ['data_gov_in_nhai_statewise_nh_project_status_2024_25']),
+    safety: latestDateFromCatalog(catalog, ['ncrb_road_accidents_state_year', 'quality_maintenance_indicators', 'highway_project_risk_and_access_panel']),
+    modelRisk: latestDateFromCatalog(catalog, ['highway_project_risk_and_access_panel', 'ncrb_road_accidents_state_year']),
+    macro: latestDateFromCatalog(catalog, ['rbi_mospi_macro_indicators']),
+    projectEconomics: latestDateFromCatalog(catalog, ['highway_project_risk_and_access_panel']),
+  }), [catalog]);
 
   const financeChartData = (analytics?.financeRows || []);
   const growthLineData = (analytics?.growthRows || []).map((row) => ({
@@ -1910,7 +1981,7 @@ function App() {
 
   const portfolioBars = (filteredStateRows?.portfolioRows || analytics?.portfolioRows || [])
     .map((row) => ({ label: row.state, value: row.length }))
-    .filter((item) => item.value > 0);
+    .filter((item) => Number.isFinite(num(item.value)));
   const statusSeedRows = (filteredStateRows?.portfolioRows || analytics?.portfolioRows || [])
     .concat(filteredStateRows?.morthAppendix2LengthRows || analytics?.morthAppendix2LengthRows || [])
     .concat(filteredStateRows?.accidentRows || analytics?.accidentRows || []);
@@ -2038,12 +2109,12 @@ function App() {
 
   const morthStateCountBars = (filteredStateRows?.morthAppendix2CountRows || analytics?.morthAppendix2CountRows || [])
     .map((row) => ({ label: row.state, value: row.value, source: 'morth_annual_report_pdf' }))
-    .filter((row) => row.value > 0)
+    .filter((row) => Number.isFinite(num(row.value)))
     .sort((a, b) => b.value - a.value);
 
   const morthStateLengthBars = (filteredStateRows?.morthAppendix2LengthRows || analytics?.morthAppendix2LengthRows || [])
     .map((row) => ({ label: row.state, value: row.value, source: 'morth_annual_report_pdf' }))
-    .filter((row) => row.value > 0)
+    .filter((row) => Number.isFinite(num(row.value)))
     .sort((a, b) => b.value - a.value);
 
   const morthPermitVsLength = (filteredStateRows?.morthPermitRows || analytics?.morthPermitRows || [])
@@ -2160,6 +2231,7 @@ function App() {
         xTick: (value) => safeLabel(value),
         confidence: growthConfidence,
         onHover: setTooltip,
+        asOfDate: chartDates.growth,
         xAxisLabel: 'Year',
         yAxisLabel: 'Length (km)',
         chartScale: activeChartScale,
@@ -2174,6 +2246,7 @@ function App() {
         ],
         confidence: confidenceCatalog.finance,
         onHover: setTooltip,
+        asOfDate: chartDates.finance,
         tooltipTextLabel: 'Yearly budget metric',
         xAxisLabel: 'Year',
         yAxisLabel: 'Amount (₹ crore)',
@@ -2185,6 +2258,7 @@ function App() {
         rows: portfolioBars,
         confidence: portfolioConfidence,
         onHover: setTooltip,
+        asOfDate: chartDates.portfolio,
         xLabel: 'Length (km)',
         yLabel: 'State',
       }),
@@ -2198,6 +2272,7 @@ function App() {
         ],
         confidence: morthReportConfidence,
         onHover: setTooltip,
+        asOfDate: chartDates.morthAppendix,
         tooltipTextLabel: 'CRIF year metric',
         xAxisLabel: 'Year',
         yAxisLabel: 'Amount (₹ crore)',
@@ -2209,6 +2284,7 @@ function App() {
         rows: morthStateCountBars,
         confidence: morthReportConfidence,
         onHover: setTooltip,
+        asOfDate: chartDates.morthAppendix,
         xLabel: 'Number of NHs',
         yLabel: 'State',
       }),
@@ -2218,6 +2294,7 @@ function App() {
         rows: morthStateLengthBars,
         confidence: morthReportConfidence,
         onHover: setTooltip,
+        asOfDate: chartDates.morthAppendix,
         xLabel: 'Length (km)',
         yLabel: 'State',
       }),
@@ -2227,6 +2304,7 @@ function App() {
         rows: morthPermitVsLength,
         confidence: morthReportConfidence,
         onHover: setTooltip,
+        asOfDate: chartDates.morthAppendix,
         xLabel: 'NH length (km)',
         yLabel: 'Permit fee (₹ in actuals)',
         pointLabel: 'NH count',
@@ -2239,12 +2317,14 @@ function App() {
         title: 'State Project Mix (2024-25 official status snapshot)',
         rows: statusBars,
         confidence: stateStatusConfidence,
+        asOfDate: chartDates.status,
       }),
       React.createElement(ScatterChart, {
         title: `Safety Context: Fatality Intensity × Safety Risk Signals (${analytics?.accidentLatestYear || 'latest'})`,
         rows: safetyChartRows,
         confidence: confidenceCatalog.safety,
         onHover: setTooltip,
+        asOfDate: chartDates.safety,
         xLabel: 'Incident intensity',
         yLabel: 'Safety risk score',
         pointLabel: 'Model confidence',
@@ -2258,6 +2338,7 @@ function App() {
         layers: modelLinesByState,
         confidence: modelConfidence,
         onHover: setTooltip,
+        asOfDate: chartDates.modelRisk,
         tooltipTextLabel: 'State safety trend',
         xAxisLabel: 'Year',
         yAxisLabel: 'Safety risk score',
@@ -2269,6 +2350,7 @@ function App() {
         layers: macroLines,
         confidence: confidenceCatalog.macro,
         onHover: setTooltip,
+        asOfDate: chartDates.macro,
         tooltipTextLabel: 'Macro metric',
         xAxisLabel: 'Year',
         yAxisLabel: 'Index value',
@@ -2279,6 +2361,7 @@ function App() {
         rows: modelCostRows,
         confidence: modelConfidence,
         onHover: setTooltip,
+        asOfDate: chartDates.projectEconomics,
         xLabel: 'Land acquisition cost (₹ crore)',
         yLabel: 'Maintenance cost (₹ crore)',
         pointLabel: 'Sanctioned cost proxy (₹ crore)',
