@@ -872,7 +872,7 @@ function LineChart({
         className: 'chart-canvas',
         width,
         height,
-        style: { width: '100%', height: `${height}px`, display: 'block' },
+        style: { width: '100%', height: '100%', display: 'block' },
         onMouseMove: (event) => {
           const point = nearestPoint(event);
           if (!point) {
@@ -1111,7 +1111,7 @@ function MultiLineChart({
         className: 'chart-canvas',
         width,
         height,
-        style: { width: '100%', height: `${height}px`, display: 'block' },
+        style: { width: '100%', height: '100%', display: 'block' },
         onMouseMove: (event) => {
           const point = nearestPoint(event);
           if (!point) {
@@ -1421,7 +1421,7 @@ function ScatterChart({
         className: 'chart-canvas',
         width,
         height,
-        style: { width: '100%', height: `${height}px`, display: 'block' },
+        style: { width: '100%', height: '100%', display: 'block' },
         onMouseMove: (event) => {
           const point = nearestPoint(event);
           if (!point) {
