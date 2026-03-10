@@ -845,8 +845,6 @@ function LineChart({
 
     canvas.width = Math.floor(rect.width * dpr);
     canvas.height = Math.floor(rect.height * dpr);
-    canvas.style.width = `${rect.width}px`;
-    canvas.style.height = `${rect.height}px`;
     const ctx = canvas.getContext('2d');
     if (!ctx) {
       return;
@@ -990,8 +988,6 @@ function LineChart({
       React.createElement('canvas', {
         ref: chartRef,
         className: 'chart-canvas',
-        width,
-        height,
         style: { width: '100%', height: '100%', display: 'block' },
         onMouseMove: (event) => {
           const point = nearestPoint(event);
@@ -1092,8 +1088,6 @@ function MultiLineChart({
 
     canvas.width = Math.floor(rect.width * dpr);
     canvas.height = Math.floor(rect.height * dpr);
-    canvas.style.width = `${rect.width}px`;
-    canvas.style.height = `${rect.height}px`;
     const ctx = canvas.getContext('2d');
     if (!ctx) {
       return;
@@ -1229,8 +1223,6 @@ function MultiLineChart({
       React.createElement('canvas', {
         ref: chartRef,
         className: 'chart-canvas',
-        width,
-        height,
         style: { width: '100%', height: '100%', display: 'block' },
         onMouseMove: (event) => {
           const point = nearestPoint(event);
@@ -1430,8 +1422,6 @@ function ScatterChart({
 
     canvas.width = Math.floor(rect.width * dpr);
     canvas.height = Math.floor(rect.height * dpr);
-    canvas.style.width = `${rect.width}px`;
-    canvas.style.height = `${rect.height}px`;
     const ctx = canvas.getContext('2d');
     if (!ctx) {
       return;
@@ -1539,8 +1529,6 @@ function ScatterChart({
       React.createElement('canvas', {
         ref: chartRef,
         className: 'chart-canvas',
-        width,
-        height,
         style: { width: '100%', height: '100%', display: 'block' },
         onMouseMove: (event) => {
           const point = nearestPoint(event);
