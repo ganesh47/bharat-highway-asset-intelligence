@@ -38,3 +38,21 @@ For all future work in this repository, the following workflow is required:
 ## Source-of-truth note
 
 If this file appears to conflict with higher-priority instructions, follow higher-priority instructions first.
+
+## Data quality and lineage guardrails (mandatory)
+
+1. Start each substantial task with an explicit baseline context pass:
+   - Document the current data source inventory (active pipelines, catalogs, schema versions, and source URLs/IDs).
+   - Snapshot current website state that is affected by the planned work (routes, chart components, modes, and visual defaults).
+   - Capture this as part of the task notes before edits.
+2. Preserve and enhance, never replace quality signals:
+   - Do not remove existing constraints/validation checks for completeness, schema compatibility, or visualization integrity.
+   - Any replacement must keep or improve validation coverage and must be justified in the task notes.
+3. Enforce ontology and lineage visibility:
+   - Keep ontology mappings active and updated for any dataset changes.
+   - Ensure lineage citations are recorded for data fetched, transformed, and displayed, including source identifiers, collection timestamp, and transformation path.
+   - Verify lineage-tracking hooks/reporting remain operational after changes.
+4. Quality gate before completion:
+   - Confirm no chart/data panel loses labels, units, date context, or accessibility cues compared with pre-change baseline.
+   - Confirm no source references are introduced without citation/tracking metadata.
+   - Include evidence (diff summary + checks run) that the above were maintained or improved.
