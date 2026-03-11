@@ -1,5 +1,5 @@
 version: 1
-last_updated: '2026-02-15'
+last_updated: '2026-03-11'
 sources:
   - source_id: data_gov_in_nhai_projects_api
     official_flag: true
@@ -396,6 +396,59 @@ sources:
     url: https://morth.nic.in/annual-report
     permanent_identifier_hint: "annual report year + section/table identifier"
     notes: "Use manual approval and local archival copy path under data/raw/manual for reproducibility."
+
+  - source_id: nhai_audited_results_pdf
+    official_flag: true
+    publisher_org: National Highways Authority of India (NHAI)
+    domain: nhai.gov.in
+    dataset_title: NHAI audited financial results (SEBI format), across all available years
+    theme: finance
+    access_type: PDF
+    auth: none
+    update_frequency: annual
+    geographic_granularity: nation
+    temporal_coverage: 2015-16 to 2026-27
+    license_terms: "Official publication on NHAI website; reuse subject to official publication terms."
+    retrieval_method: manual
+    reliability_grade: B
+    reliability_justification: Official fiscal statements published by NHAI with stable naming pattern and periodic annual release.
+    known_limitations: "Historical years may be renamed by archive migration or unavailable online."
+    allow_auto_fetch: true
+    url: https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf
+    annual_document_url_prefix: https://nhai.gov.in/nhai/sites/default/files/mix_file
+    annual_filename_template: Audited_Results_{year}(SEBI_Format).pdf
+    start_year: 2018
+    end_year: 2026
+    resource_file_urls:
+      - https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf
+    permanent_identifier_hint: "NHAI audited results annual PDFs from NHAI mix_file archive"
+    notes: "Auto-discover audited-result PDFs from NHAI archive naming pattern; include manual overrides via data/raw/manual when needed."
+
+  - source_id: nhai_annual_report_documents
+    official_flag: true
+    publisher_org: National Highways Authority of India (NHAI)
+    domain: nhai.gov.in
+    dataset_title: NHAI annual reports and related annual PDF publication documents
+    theme: finance
+    access_type: PDF
+    auth: none
+    update_frequency: annual
+    geographic_granularity: nation
+    temporal_coverage: 2015-16 to 2026-27
+    license_terms: "Official publication on NHAI website; reuse subject to official publication terms."
+    retrieval_method: API call
+    reliability_grade: B
+    reliability_justification: NHAI newsroom/API endpoints plus official annual report links provide traceable citations for annual PDFs.
+    known_limitations: "Portal endpoints may return partial response payloads; URL discovery can vary by quarter."
+    allow_auto_fetch: true
+    url: https://nhai.gov.in/en/press-release
+    resource_page_url: https://nhai.gov.in/en/annual-report
+    discovery_endpoints:
+      - https://nhai.gov.in/nhai/api/policycirculars
+      - https://nhai.gov.in/nhai/api/press-release
+      - https://nhai.gov.in/nhai/api/projects
+    permanent_identifier_hint: "NHAI annual report index and policy/circular feeds"
+    notes: "Discovers annual report related PDF documents and keeps them as official document records."
 
   - source_id: nhai_press_release_index
     official_flag: true

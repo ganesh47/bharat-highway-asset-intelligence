@@ -9,6 +9,11 @@ This directory is for approved manual source drops (official artifacts only).
   - `morh_contractor_disclosures.csv`
   - `morh_arbitration_claims.csv`
   - `morh_procurement_awards.csv`
+  - `nhai_audited_results_pdf.csv`
+  - `nhai_audited_results_pdf.json`
+  - `nhai_audited_results_pdf.pdf`
+  - `nhai_annual_report_documents.csv`
+  - `nhai_annual_report_documents.pdf`
   - `ncrb_toll_fastag_claims.csv`
   - `parliament_qa_highway_queries.csv`
   - `quality_maintenance_indicators.csv`
