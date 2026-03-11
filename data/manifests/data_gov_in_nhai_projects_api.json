@@ -11,7 +11,7 @@
     "url": "https://www.data.gov.in/resource/project-wise-details-projects-construction-progress-length-national-highways-nhs-state",
     "retrieval_method": "direct download",
     "access_type": "HTML",
-    "retrieved_at": "2026-03-10T11:35:28.535885+00:00",
+    "retrieved_at": "2026-03-11T05:17:07.260825+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
@@ -23,7 +23,7 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_nhai_projects_api/data_gov_in_nhai_projects_api/raw_20260310_113528.csv",
+        "path": "data/raw/data_gov_in_nhai_projects_api/data_gov_in_nhai_projects_api/raw_20260311_051707.csv",
         "sha256": "8e350748bca06b4aa2a0d84b1ead500e5408cd59f50c01375c91de467c6b681a",
         "size_bytes": 5441
       }
@@ -32,7 +32,7 @@
       {
         "path": "data/processed/data_gov_in_nhai_projects_api.parquet",
         "format": "parquet",
-        "sha256": "6a04270ac3e65c1b7ad1a2af498ea13a36864cf96fbae9b93572712edf123b2b"
+        "sha256": "ddf16c0ce3032e96a9429546969c566a55976e0fbcb54d62535e283824e34100"
       }
     ],
     "row_count": 42,
@@ -49,7 +49,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-03-10T11:35:28.535885+00:00",
+  "retrieved_at": "2026-03-11T05:17:07.260825+00:00",
   "completeness_score": 1.0,
   "recency_score": 1.0,
   "provenance_score": 1.0,

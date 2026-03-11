@@ -11,7 +11,7 @@
     "url": "https://www.data.gov.in/resource/year-wise-details-funds-allocatedraised-and-expenditure-incurred-development-and",
     "retrieval_method": "API call",
     "access_type": "API",
-    "retrieved_at": "2026-03-10T11:35:28.655086+00:00",
+    "retrieved_at": "2026-03-11T05:17:07.362507+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
@@ -23,7 +23,7 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_nhai_project_finance_api/data_gov_in_nhai_project_finance_api/raw_20260310_113529.json",
+        "path": "data/raw/data_gov_in_nhai_project_finance_api/data_gov_in_nhai_project_finance_api/raw_20260311_051707.json",
         "sha256": "53c1dc4148c9eed950ba9763808ad4537bddcc530b3c28aaabd6ecc33e6debf1",
         "size_bytes": 2368
       }
@@ -32,7 +32,7 @@
       {
         "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
         "format": "parquet",
-        "sha256": "51bc6b9dcdc0fec979d9b12311cf58013d5ac2860f7e9f977498ebafece308b3"
+        "sha256": "46ad0339a990c24b804e1f256fa17fe0ee646adbbf298558d4b67e5a53b4d43a"
       }
     ],
     "row_count": 6,
@@ -53,7 +53,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-03-10T11:35:28.655086+00:00",
+  "retrieved_at": "2026-03-11T05:17:07.362507+00:00",
   "completeness_score": 0.976,
   "recency_score": 1.0,
   "provenance_score": 1.0,

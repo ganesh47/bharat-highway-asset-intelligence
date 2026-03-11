@@ -11,7 +11,7 @@
     "url": "https://jk.data.gov.in/resource/project-wise-details-ongoing-national-highways-authority-india-nhai-projects-himachal",
     "retrieval_method": "direct download",
     "access_type": "HTML",
-    "retrieved_at": "2026-03-10T11:35:29.910028+00:00",
+    "retrieved_at": "2026-03-11T05:17:08.552508+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
@@ -23,7 +23,7 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_nhai_himachal_nhai_projects_ongoing/data_gov_in_nhai_himachal_nhai_projects_ongoing/raw_20260310_113529.csv",
+        "path": "data/raw/data_gov_in_nhai_himachal_nhai_projects_ongoing/data_gov_in_nhai_himachal_nhai_projects_ongoing/raw_20260311_051708.csv",
         "sha256": "5b3d253aef7274d1a0e59b6c8f46fc687607adbadd931216bb77201944b52625",
         "size_bytes": 3465
       }
@@ -32,7 +32,7 @@
       {
         "path": "data/processed/data_gov_in_nhai_himachal_nhai_projects_ongoing.parquet",
         "format": "parquet",
-        "sha256": "f819afdef641bedf09c45df6e49da49983f75f489833e4f805145e97ad6a043e"
+        "sha256": "c25a1515e3b611cca73ab2bb814726ce422887bfdddb0146c5dfdaf4ad5b4e20"
       }
     ],
     "row_count": 15,
@@ -50,7 +50,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-03-10T11:35:29.910028+00:00",
+  "retrieved_at": "2026-03-11T05:17:08.552508+00:00",
   "completeness_score": 1.0,
   "recency_score": 1.0,
   "provenance_score": 0.85,

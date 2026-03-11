@@ -8,7 +8,7 @@
     "publisher": "OpenStreetMap Foundation / Academic proxy sources",
     "title": "Corridor geometry and ancillary maintenance proxy indicators",
     "url": "https://overpass-api.de/api/interpreter",
-    "retrieved_at": "2026-03-10T11:35:50.377567+00:00",
+    "retrieved_at": "2026-03-11T05:17:35.836220+00:00",
     "license_terms": "OpenStreetMap ODbL terms; geometry/proxy use with attribution and separation from official metrics.",
     "official_flag": false
   },
@@ -28,7 +28,7 @@
     "output_files": [
       {
         "path": "data/processed/quality_maintenance_indicators.parquet",
-        "sha256": "321d022001612b970b02e2acb1b503b81d5f1cd1af0bfb69251bb53cb6c195a1"
+        "sha256": "e8701a34bfccc3acacb0c2d9f1bf4ac4dad22924bb0b47771c04af60a89558f0"
       }
     ],
     "row_count": 6,
@@ -45,7 +45,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-03-10T11:35:50.377567+00:00",
+  "retrieved_at": "2026-03-11T05:17:35.836220+00:00",
   "completeness_score": 0.98,
   "recency_score": 0.98,
   "provenance_score": 0.588,

@@ -1,0 +1,59 @@
+{
+  "source_id": "nhai_annual_report_documents",
+  "connector": "nhai_annual_documents",
+  "version": "0.1.1",
+  "status": "stubs_disabled",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI)",
+    "title": "NHAI annual reports and related annual PDF publication documents",
+    "url": "https://nhai.gov.in/en/press-release",
+    "retrieved_at": "2026-03-11T05:17:29.606966+00:00",
+    "license_terms": "Official publication on NHAI website; reuse subject to official publication terms.",
+    "official_flag": true,
+    "domain": "nhai.gov.in"
+  },
+  "citations": {
+    "permanent_identifier": "NHAI annual report index and policy/circular feeds",
+    "anchor": "no_discoverable_documents",
+    "note": "No downloadable official PDFs discovered."
+  },
+  "manifest": {
+    "raw_files": [],
+    "output_files": [
+      {
+        "path": "data/processed/nhai_annual_report_documents.parquet",
+        "format": "parquet",
+        "sha256": "9ed49fdc5226bd6d1ce7a4514e8e97357471e4dcc9172ef20263e689224b5fa0"
+      }
+    ],
+    "row_count": 1,
+    "columns": [
+      "source_id",
+      "source_type",
+      "metric_category",
+      "dataset_source",
+      "metric_name",
+      "metric_value",
+      "unit",
+      "status_note",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-03-11T05:17:29.606966+00:00",
+  "skip_reason": "no_discoverable_documents",
+  "completeness_score": 0.3,
+  "recency_score": 0.3,
+  "provenance_score": 0.255,
+  "consistency_score": 0.3,
+  "overall_confidence_badge": "Low",
+  "overall_confidence_reason": [
+    "Low provenance confidence (source reliability category)",
+    "Missingness is high; check source completeness",
+    "Recency is stale against claimed update frequency",
+    "Schema/range checks showed potential consistency issues",
+    "Use for trend and risk ranking, not precise governance decisions",
+    "Ingestion is disabled under manual approval gate."
+  ],
+  "output_table_path": "data/processed/nhai_annual_report_documents.parquet"
+}

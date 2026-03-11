@@ -11,7 +11,7 @@
     "url": "https://www.data.gov.in/resource/state-ut-wise-total-number-fatal-road-accidents-2003-2016",
     "retrieval_method": "direct download",
     "access_type": "HTML",
-    "retrieved_at": "2026-03-10T11:35:30.543004+00:00",
+    "retrieved_at": "2026-03-11T05:17:09.276082+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
@@ -23,7 +23,7 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_road_fatal_accidents_2003_2016/data_gov_in_road_fatal_accidents_2003_2016/raw_20260310_113530.csv",
+        "path": "data/raw/data_gov_in_road_fatal_accidents_2003_2016/data_gov_in_road_fatal_accidents_2003_2016/raw_20260311_051709.csv",
         "sha256": "353dec5e33b5fe2307784262f5ce9ae5b849e791c0dc9955a68663b633595a14",
         "size_bytes": 2797
       }
@@ -32,7 +32,7 @@
       {
         "path": "data/processed/data_gov_in_road_fatal_accidents_2003_2016.parquet",
         "format": "parquet",
-        "sha256": "9c00a01f05772f5c3e88f432cc4ec4164018c0b2dfce18b95ae99da635f68229"
+        "sha256": "2b4f2ae2c466a2cba5842a6c4a2e7e2717d3021542268f6c59d18fb91dfa0d8f"
       }
     ],
     "row_count": 37,
@@ -59,7 +59,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-03-10T11:35:30.543004+00:00",
+  "retrieved_at": "2026-03-11T05:17:09.276082+00:00",
   "completeness_score": 0.984,
   "recency_score": 1.0,
   "provenance_score": 0.85,

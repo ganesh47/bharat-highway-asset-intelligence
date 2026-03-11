@@ -11,7 +11,7 @@
     "url": "https://www.data.gov.in/resource/year-wise-national-highway-nhs-constructed-national-highways-authority-india-nhai-2014-15",
     "retrieval_method": "direct download",
     "access_type": "HTML",
-    "retrieved_at": "2026-03-10T11:35:30.073813+00:00",
+    "retrieved_at": "2026-03-11T05:17:08.746726+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
@@ -23,7 +23,7 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_nhai_yearwise_nh_constructed_2014_15/data_gov_in_nhai_yearwise_nh_constructed_2014_15/raw_20260310_113530.csv",
+        "path": "data/raw/data_gov_in_nhai_yearwise_nh_constructed_2014_15/data_gov_in_nhai_yearwise_nh_constructed_2014_15/raw_20260311_051708.csv",
         "sha256": "86d92b784b303d1772d9d012b0f0964924c22ba896ad8d5848f4ff298bd1d8bd",
         "size_bytes": 185
       }
@@ -32,7 +32,7 @@
       {
         "path": "data/processed/data_gov_in_nhai_yearwise_nh_constructed_2014_15.parquet",
         "format": "parquet",
-        "sha256": "78b66c72fdc2cf351f1a32e8747d161edaf9c7555d9b30ade91b0ff3d31864ed"
+        "sha256": "fb564d736c8e3a48209ce35a6c332fada7abbefba492f997def4a082adc89083"
       }
     ],
     "row_count": 8,
@@ -46,7 +46,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-03-10T11:35:30.073813+00:00",
+  "retrieved_at": "2026-03-11T05:17:08.746726+00:00",
   "completeness_score": 1.0,
   "recency_score": 1.0,
   "provenance_score": 0.85,

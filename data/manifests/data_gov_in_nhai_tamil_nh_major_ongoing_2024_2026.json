@@ -11,7 +11,7 @@
     "url": "https://www.data.gov.in/resource/project-wise-details-major-ongoing-works-projects-state-tamil-nadu-under-national-highway",
     "retrieval_method": "direct download",
     "access_type": "HTML",
-    "retrieved_at": "2026-03-10T11:35:29.835749+00:00",
+    "retrieved_at": "2026-03-11T05:17:08.468662+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
@@ -23,7 +23,7 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026/raw_20260310_113529.csv",
+        "path": "data/raw/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026/raw_20260311_051708.csv",
         "sha256": "2b2e98b196e10d006292707a584fa49f0fdc82035d6a0f4c00f3cf2d44d9f65c",
         "size_bytes": 13265
       }
@@ -32,7 +32,7 @@
       {
         "path": "data/processed/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026.parquet",
         "format": "parquet",
-        "sha256": "dc2d2a4b9a95183f3b6fab91785ca670c4f9122fc2c7ba46a40f64281bfc4b6c"
+        "sha256": "7ec4ecf7f06a8bc6b5ffb1ecf0ff9cd3e32e3947dab035eb640eb2ff5513eebc"
       }
     ],
     "row_count": 55,
@@ -52,7 +52,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-03-10T11:35:29.835749+00:00",
+  "retrieved_at": "2026-03-11T05:17:08.468662+00:00",
   "completeness_score": 0.992,
   "recency_score": 1.0,
   "provenance_score": 0.85,

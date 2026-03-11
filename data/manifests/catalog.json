@@ -1,62 +1,6 @@
 {
-  "generated_at": "2026-03-10T11:55:46.894905+00:00",
+  "generated_at": "2026-03-11T05:17:39.328253+00:00",
   "datasets": [
-    {
-      "source_id": "correlation_matrix",
-      "connector": "correlation_scoring",
-      "version": "0.1.0",
-      "status": "generated",
-      "output_table_path": "data/processed/correlation_matrix.parquet",
-      "metric_category": "model_output",
-      "source": {
-        "publisher": "Bharat Highway internal correlation engine",
-        "title": "Model-derived pairwise correlation matrix (state/year join)",
-        "retrieved_at": "2026-03-10T11:34:45.748644+00:00",
-        "official_flag": false,
-        "license_terms": "Model output for analysis only. Not an official policy statement."
-      },
-      "citations": {
-        "permanent_identifier": "correlation_matrix_v1",
-        "anchor": "derived_pairwise_pearson_state_year",
-        "note": "Derived from available numeric metrics across official measured and approved proxy inputs."
-      },
-      "manifest": {
-        "raw_files": [],
-        "output_files": [
-          {
-            "path": "data/processed/correlation_matrix.parquet",
-            "format": "parquet",
-            "sha256": "f7b2645a6066f5559ea648365adecfc5f16d455590dc3c90f63c054286ce7a6b"
-          }
-        ],
-        "row_count": 190,
-        "columns": [
-          "metric_a",
-          "metric_b",
-          "source_a",
-          "source_b",
-          "correlation",
-          "overlap_records",
-          "year_min",
-          "year_max",
-          "created_at",
-          "method"
-        ]
-      },
-      "retrieved_at": "2026-03-10T11:34:45.748833+00:00",
-      "completeness_score": 0.5,
-      "recency_score": 0.5,
-      "provenance_score": 0.3,
-      "consistency_score": 0.5,
-      "overall_confidence_badge": "Low",
-      "overall_confidence_reason": [
-        "Low provenance confidence (source reliability category)",
-        "Missingness is high; check source completeness",
-        "Recency is stale against claimed update frequency",
-        "Schema/range checks showed potential consistency issues",
-        "Use for trend and risk ranking, not precise governance decisions"
-      ]
-    },
     {
       "source_id": "data_gov_in_nhai_projects_api",
       "connector": "data_gov_in_ogd",
@@ -70,7 +14,7 @@
         "url": "https://www.data.gov.in/resource/project-wise-details-projects-construction-progress-length-national-highways-nhs-state",
         "retrieval_method": "direct download",
         "access_type": "HTML",
-        "retrieved_at": "2026-03-10T11:35:28.535885+00:00",
+        "retrieved_at": "2026-03-11T05:17:07.260825+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
         "official_flag": true
       },
@@ -82,7 +26,7 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/data_gov_in_nhai_projects_api/data_gov_in_nhai_projects_api/raw_20260310_113528.csv",
+            "path": "data/raw/data_gov_in_nhai_projects_api/data_gov_in_nhai_projects_api/raw_20260311_051707.csv",
             "sha256": "8e350748bca06b4aa2a0d84b1ead500e5408cd59f50c01375c91de467c6b681a",
             "size_bytes": 5441
           }
@@ -91,7 +35,7 @@
           {
             "path": "data/processed/data_gov_in_nhai_projects_api.parquet",
             "format": "parquet",
-            "sha256": "6a04270ac3e65c1b7ad1a2af498ea13a36864cf96fbae9b93572712edf123b2b"
+            "sha256": "ddf16c0ce3032e96a9429546969c566a55976e0fbcb54d62535e283824e34100"
           }
         ],
         "row_count": 42,
@@ -108,7 +52,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:28.535885+00:00",
+      "retrieved_at": "2026-03-11T05:17:07.260825+00:00",
       "completeness_score": 1.0,
       "recency_score": 1.0,
       "provenance_score": 1.0,
@@ -130,7 +74,7 @@
         "url": "https://www.data.gov.in/resource/year-wise-details-funds-allocatedraised-and-expenditure-incurred-development-and",
         "retrieval_method": "API call",
         "access_type": "API",
-        "retrieved_at": "2026-03-10T11:35:28.655086+00:00",
+        "retrieved_at": "2026-03-11T05:17:07.362507+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
         "official_flag": true
       },
@@ -142,7 +86,7 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/data_gov_in_nhai_project_finance_api/data_gov_in_nhai_project_finance_api/raw_20260310_113529.json",
+            "path": "data/raw/data_gov_in_nhai_project_finance_api/data_gov_in_nhai_project_finance_api/raw_20260311_051707.json",
             "sha256": "53c1dc4148c9eed950ba9763808ad4537bddcc530b3c28aaabd6ecc33e6debf1",
             "size_bytes": 2368
           }
@@ -151,7 +95,7 @@
           {
             "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
             "format": "parquet",
-            "sha256": "51bc6b9dcdc0fec979d9b12311cf58013d5ac2860f7e9f977498ebafece308b3"
+            "sha256": "46ad0339a990c24b804e1f256fa17fe0ee646adbbf298558d4b67e5a53b4d43a"
           }
         ],
         "row_count": 6,
@@ -172,7 +116,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:28.655086+00:00",
+      "retrieved_at": "2026-03-11T05:17:07.362507+00:00",
       "completeness_score": 0.976,
       "recency_score": 1.0,
       "provenance_score": 1.0,
@@ -194,7 +138,7 @@
         "url": "https://www.data.gov.in/resource/state-wise-number-nh-and-road-projects-relating-are-included-national-infrastructure",
         "retrieval_method": "API call",
         "access_type": "API",
-        "retrieved_at": "2026-03-10T11:35:29.129375+00:00",
+        "retrieved_at": "2026-03-11T05:17:07.740637+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
         "official_flag": true
       },
@@ -206,7 +150,7 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/data_gov_in_nhai_state_projects_api/data_gov_in_nhai_state_projects_api/raw_20260310_113529.json",
+            "path": "data/raw/data_gov_in_nhai_state_projects_api/data_gov_in_nhai_state_projects_api/raw_20260311_051708.json",
             "sha256": "e99655baef5687b5eb90c36d3e450fcc2687f4f29681927c44441b8a9e7c37f9",
             "size_bytes": 735
           }
@@ -215,7 +159,7 @@
           {
             "path": "data/processed/data_gov_in_nhai_state_projects_api.parquet",
             "format": "parquet",
-            "sha256": "0988099d9cbcbe17e83e72b5c5cfb5bb1e82ac518591f0a187646ce51e30c621"
+            "sha256": "c3e69a1855eb4ec9d1b25c65e5c3a3a3de10ba86dd7e6f42d8ed9b2e63f46ab4"
           }
         ],
         "row_count": 5,
@@ -232,7 +176,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:29.129375+00:00",
+      "retrieved_at": "2026-03-11T05:17:07.740637+00:00",
       "completeness_score": 1.0,
       "recency_score": 1.0,
       "provenance_score": 0.85,
@@ -254,7 +198,7 @@
         "url": "https://www.data.gov.in/resource/district-wise-details-project-target-length-national-highways-during-2023-24",
         "retrieval_method": "direct download",
         "access_type": "HTML",
-        "retrieved_at": "2026-03-10T11:35:29.532046+00:00",
+        "retrieved_at": "2026-03-11T05:17:08.158375+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
         "official_flag": true
       },
@@ -266,7 +210,7 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/data_gov_in_nhai_projects_district_target_2023/data_gov_in_nhai_projects_district_target_2023/raw_20260310_113529.csv",
+            "path": "data/raw/data_gov_in_nhai_projects_district_target_2023/data_gov_in_nhai_projects_district_target_2023/raw_20260311_051708.csv",
             "sha256": "2793579e2f510ea5c6ad77a6d73b8a2efb41f14020bc9c88216acd694bf49f3a",
             "size_bytes": 5633
           }
@@ -275,7 +219,7 @@
           {
             "path": "data/processed/data_gov_in_nhai_projects_district_target_2023.parquet",
             "format": "parquet",
-            "sha256": "09613ec23f9c48f298132e8d2a5615f11f8dfa460155e84b5680121145145787"
+            "sha256": "9f84949782f9d94f3b480fac7e40f912281f4f4d6e105df3fa369c0369941e84"
           }
         ],
         "row_count": 47,
@@ -293,7 +237,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:29.532046+00:00",
+      "retrieved_at": "2026-03-11T05:17:08.158375+00:00",
       "completeness_score": 0.969,
       "recency_score": 1.0,
       "provenance_score": 0.85,
@@ -315,7 +259,7 @@
         "url": "https://www.data.gov.in/resource/project-wise-details-national-highway-projects-completedunder-constructionawarded-during",
         "retrieval_method": "direct download",
         "access_type": "HTML",
-        "retrieved_at": "2026-03-10T11:35:29.665831+00:00",
+        "retrieved_at": "2026-03-11T05:17:08.258352+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
         "official_flag": true
       },
@@ -327,7 +271,7 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs/raw_20260310_113529.csv",
+            "path": "data/raw/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs/raw_20260311_051708.csv",
             "sha256": "b165b8a2ecd46c2cd677f0f0364e8e27eab674222f312c0ad7f2cafc55b29df2",
             "size_bytes": 38969
           }
@@ -336,7 +280,7 @@
           {
             "path": "data/processed/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs.parquet",
             "format": "parquet",
-            "sha256": "46d2b7a6655c3d2f87c53355ae43efc441b8c09350f08a3f122a0eae63492edc"
+            "sha256": "efb5eb69400dacb28c19aa29f44e18b93d97ad643c1ea349a1c4272b14a25702"
           }
         ],
         "row_count": 218,
@@ -354,7 +298,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:29.665831+00:00",
+      "retrieved_at": "2026-03-11T05:17:08.258352+00:00",
       "completeness_score": 1.0,
       "recency_score": 1.0,
       "provenance_score": 1.0,
@@ -376,7 +320,7 @@
         "url": "https://www.data.gov.in/resource/state-wise-details-national-highway-nh-projects-under-construction-completed-approved-yet",
         "retrieval_method": "direct download",
         "access_type": "HTML",
-        "retrieved_at": "2026-03-10T11:35:29.751937+00:00",
+        "retrieved_at": "2026-03-11T05:17:08.365251+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
         "official_flag": true
       },
@@ -388,7 +332,7 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/data_gov_in_nhai_statewise_nh_project_status_2024_25/data_gov_in_nhai_statewise_nh_project_status_2024_25/raw_20260310_113529.csv",
+            "path": "data/raw/data_gov_in_nhai_statewise_nh_project_status_2024_25/data_gov_in_nhai_statewise_nh_project_status_2024_25/raw_20260311_051708.csv",
             "sha256": "bb70bd6d0b4df4a41d71bfe6213702ed6ae4524edd29171ef17c9709ed37f643",
             "size_bytes": 814
           }
@@ -397,7 +341,7 @@
           {
             "path": "data/processed/data_gov_in_nhai_statewise_nh_project_status_2024_25.parquet",
             "format": "parquet",
-            "sha256": "64ea24146f7b1b52a953168f8a7390c6e9f2797dcaa2f0a28bd2cda7c8cba420"
+            "sha256": "0eaecd63e52cac5e8eda4e7eb9fe0d4f7e3bd8f751dbec05d519c4bbe87a0057"
           }
         ],
         "row_count": 5,
@@ -420,7 +364,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:29.751937+00:00",
+      "retrieved_at": "2026-03-11T05:17:08.365251+00:00",
       "completeness_score": 1.0,
       "recency_score": 1.0,
       "provenance_score": 0.85,
@@ -442,7 +386,7 @@
         "url": "https://www.data.gov.in/resource/project-wise-details-major-ongoing-works-projects-state-tamil-nadu-under-national-highway",
         "retrieval_method": "direct download",
         "access_type": "HTML",
-        "retrieved_at": "2026-03-10T11:35:29.835749+00:00",
+        "retrieved_at": "2026-03-11T05:17:08.468662+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
         "official_flag": true
       },
@@ -454,7 +398,7 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026/raw_20260310_113529.csv",
+            "path": "data/raw/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026/raw_20260311_051708.csv",
             "sha256": "2b2e98b196e10d006292707a584fa49f0fdc82035d6a0f4c00f3cf2d44d9f65c",
             "size_bytes": 13265
           }
@@ -463,7 +407,7 @@
           {
             "path": "data/processed/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026.parquet",
             "format": "parquet",
-            "sha256": "dc2d2a4b9a95183f3b6fab91785ca670c4f9122fc2c7ba46a40f64281bfc4b6c"
+            "sha256": "7ec4ecf7f06a8bc6b5ffb1ecf0ff9cd3e32e3947dab035eb640eb2ff5513eebc"
           }
         ],
         "row_count": 55,
@@ -483,7 +427,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:29.835749+00:00",
+      "retrieved_at": "2026-03-11T05:17:08.468662+00:00",
       "completeness_score": 0.992,
       "recency_score": 1.0,
       "provenance_score": 0.85,
@@ -505,7 +449,7 @@
         "url": "https://jk.data.gov.in/resource/project-wise-details-ongoing-national-highways-authority-india-nhai-projects-himachal",
         "retrieval_method": "direct download",
         "access_type": "HTML",
-        "retrieved_at": "2026-03-10T11:35:29.910028+00:00",
+        "retrieved_at": "2026-03-11T05:17:08.552508+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
         "official_flag": true
       },
@@ -517,7 +461,7 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/data_gov_in_nhai_himachal_nhai_projects_ongoing/data_gov_in_nhai_himachal_nhai_projects_ongoing/raw_20260310_113529.csv",
+            "path": "data/raw/data_gov_in_nhai_himachal_nhai_projects_ongoing/data_gov_in_nhai_himachal_nhai_projects_ongoing/raw_20260311_051708.csv",
             "sha256": "5b3d253aef7274d1a0e59b6c8f46fc687607adbadd931216bb77201944b52625",
             "size_bytes": 3465
           }
@@ -526,7 +470,7 @@
           {
             "path": "data/processed/data_gov_in_nhai_himachal_nhai_projects_ongoing.parquet",
             "format": "parquet",
-            "sha256": "f819afdef641bedf09c45df6e49da49983f75f489833e4f805145e97ad6a043e"
+            "sha256": "c25a1515e3b611cca73ab2bb814726ce422887bfdddb0146c5dfdaf4ad5b4e20"
           }
         ],
         "row_count": 15,
@@ -544,7 +488,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:29.910028+00:00",
+      "retrieved_at": "2026-03-11T05:17:08.552508+00:00",
       "completeness_score": 1.0,
       "recency_score": 1.0,
       "provenance_score": 0.85,
@@ -566,7 +510,7 @@
         "url": "https://www.data.gov.in/resource/project-wise-details-42-national-highway-projects-are-under-implementation-punjab-reply",
         "retrieval_method": "direct download",
         "access_type": "HTML",
-        "retrieved_at": "2026-03-10T11:35:29.999899+00:00",
+        "retrieved_at": "2026-03-11T05:17:08.648750+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
         "official_flag": true
       },
@@ -578,7 +522,7 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/data_gov_in_nhai_punjab_42_projects_implementation/data_gov_in_nhai_punjab_42_projects_implementation/raw_20260310_113530.csv",
+            "path": "data/raw/data_gov_in_nhai_punjab_42_projects_implementation/data_gov_in_nhai_punjab_42_projects_implementation/raw_20260311_051708.csv",
             "sha256": "c6dab4f352ddaf735d72ee630ad75a587b2214fdf997af5969724ef6846917a2",
             "size_bytes": 5399
           }
@@ -587,7 +531,7 @@
           {
             "path": "data/processed/data_gov_in_nhai_punjab_42_projects_implementation.parquet",
             "format": "parquet",
-            "sha256": "4f42c27573800b0c0a215279b97385514acc7aeb3d0b4ab6138c673d0b1bd6ac"
+            "sha256": "b220a52ecb5471a2c379efc93108a8ba8669951319a9562bbcdd2d6d2ebadcb8"
           }
         ],
         "row_count": 43,
@@ -603,7 +547,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:29.999899+00:00",
+      "retrieved_at": "2026-03-11T05:17:08.648750+00:00",
       "completeness_score": 0.997,
       "recency_score": 1.0,
       "provenance_score": 0.85,
@@ -625,7 +569,7 @@
         "url": "https://www.data.gov.in/resource/year-wise-national-highway-nhs-constructed-national-highways-authority-india-nhai-2014-15",
         "retrieval_method": "direct download",
         "access_type": "HTML",
-        "retrieved_at": "2026-03-10T11:35:30.073813+00:00",
+        "retrieved_at": "2026-03-11T05:17:08.746726+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
         "official_flag": true
       },
@@ -637,7 +581,7 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/data_gov_in_nhai_yearwise_nh_constructed_2014_15/data_gov_in_nhai_yearwise_nh_constructed_2014_15/raw_20260310_113530.csv",
+            "path": "data/raw/data_gov_in_nhai_yearwise_nh_constructed_2014_15/data_gov_in_nhai_yearwise_nh_constructed_2014_15/raw_20260311_051708.csv",
             "sha256": "86d92b784b303d1772d9d012b0f0964924c22ba896ad8d5848f4ff298bd1d8bd",
             "size_bytes": 185
           }
@@ -646,7 +590,7 @@
           {
             "path": "data/processed/data_gov_in_nhai_yearwise_nh_constructed_2014_15.parquet",
             "format": "parquet",
-            "sha256": "78b66c72fdc2cf351f1a32e8747d161edaf9c7555d9b30ade91b0ff3d31864ed"
+            "sha256": "fb564d736c8e3a48209ce35a6c332fada7abbefba492f997def4a082adc89083"
           }
         ],
         "row_count": 8,
@@ -660,7 +604,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:30.073813+00:00",
+      "retrieved_at": "2026-03-11T05:17:08.746726+00:00",
       "completeness_score": 1.0,
       "recency_score": 1.0,
       "provenance_score": 0.85,
@@ -682,7 +626,7 @@
         "url": "https://www.data.gov.in/resource/stateut-wise-details-national-highway-length-constructed-national-highway-authority-india",
         "retrieval_method": "direct download",
         "access_type": "HTML",
-        "retrieved_at": "2026-03-10T11:35:30.176126+00:00",
+        "retrieved_at": "2026-03-11T05:17:08.857426+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
         "official_flag": true
       },
@@ -694,7 +638,7 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/data_gov_in_nhai_stateut_length_constructed_2019_24/data_gov_in_nhai_stateut_length_constructed_2019_24/raw_20260310_113530.csv",
+            "path": "data/raw/data_gov_in_nhai_stateut_length_constructed_2019_24/data_gov_in_nhai_stateut_length_constructed_2019_24/raw_20260311_051708.csv",
             "sha256": "86e2b9633f873b70d01ce36e04060cba1fa8c641b03d4559e953455916aa49e7",
             "size_bytes": 1291
           }
@@ -703,7 +647,7 @@
           {
             "path": "data/processed/data_gov_in_nhai_stateut_length_constructed_2019_24.parquet",
             "format": "parquet",
-            "sha256": "0c8f26a1548189b565cde69fe2ab7184c2f7bbc2d7dd0012bafa0698ce16b4f1"
+            "sha256": "708e19b978581d748a0ecd077579db14768487cf4de2b7ac13ed5e0392290d3f"
           }
         ],
         "row_count": 24,
@@ -722,7 +666,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:30.176126+00:00",
+      "retrieved_at": "2026-03-11T05:17:08.857426+00:00",
       "completeness_score": 1.0,
       "recency_score": 1.0,
       "provenance_score": 0.85,
@@ -744,7 +688,7 @@
         "url": "https://www.data.gov.in/resource/district-wise-details-national-highway-nh-projects-implemented-national-highways-authority",
         "retrieval_method": "direct download",
         "access_type": "HTML",
-        "retrieved_at": "2026-03-10T11:35:30.264362+00:00",
+        "retrieved_at": "2026-03-11T05:17:08.972748+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
         "official_flag": true
       },
@@ -756,7 +700,7 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/data_gov_in_nhai_district_projects_implemented/data_gov_in_nhai_district_projects_implemented/raw_20260310_113530.csv",
+            "path": "data/raw/data_gov_in_nhai_district_projects_implemented/data_gov_in_nhai_district_projects_implemented/raw_20260311_051709.csv",
             "sha256": "ee05f385294942893905414df7dbd2cb609b2564a9ec6ee2be960b59ada5662d",
             "size_bytes": 4564
           }
@@ -765,7 +709,7 @@
           {
             "path": "data/processed/data_gov_in_nhai_district_projects_implemented.parquet",
             "format": "parquet",
-            "sha256": "89e3a8ca488754c3c8f0c99e24cce135f2ad5a4122f37ae49ae79dd55a314e7f"
+            "sha256": "fae78907ff86ad667f34a77588b8146813995050f61ab5d77fe50694f9b55d45"
           }
         ],
         "row_count": 40,
@@ -782,7 +726,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:30.264362+00:00",
+      "retrieved_at": "2026-03-11T05:17:08.972748+00:00",
       "completeness_score": 1.0,
       "recency_score": 1.0,
       "provenance_score": 0.85,
@@ -804,7 +748,7 @@
         "url": "https://www.data.gov.in/resource/state-ut-wise-total-number-road-accidents-national-highways-2003-2016",
         "retrieval_method": "direct download",
         "access_type": "HTML",
-        "retrieved_at": "2026-03-10T11:35:30.371668+00:00",
+        "retrieved_at": "2026-03-11T05:17:09.074208+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
         "official_flag": true
       },
@@ -816,7 +760,7 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/data_gov_in_road_accidents_nhs_2003_2016/data_gov_in_road_accidents_nhs_2003_2016/raw_20260310_113530.csv",
+            "path": "data/raw/data_gov_in_road_accidents_nhs_2003_2016/data_gov_in_road_accidents_nhs_2003_2016/raw_20260311_051709.csv",
             "sha256": "1b0d94766936dead48921847eff916ca967de9d72576f6f427541a842415709a",
             "size_bytes": 2840
           }
@@ -825,7 +769,7 @@
           {
             "path": "data/processed/data_gov_in_road_accidents_nhs_2003_2016.parquet",
             "format": "parquet",
-            "sha256": "e4f0c0ea519c692724eae7c4d0ae3674b247e6a3bfb0b3ca6e7c5379ec4e10a6"
+            "sha256": "266c46afeb368b36b854c6039c489e5256b3189f768fc162d1ca938674c9bca5"
           }
         ],
         "row_count": 37,
@@ -852,7 +796,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:30.371668+00:00",
+      "retrieved_at": "2026-03-11T05:17:09.074208+00:00",
       "completeness_score": 0.985,
       "recency_score": 1.0,
       "provenance_score": 0.85,
@@ -874,7 +818,7 @@
         "url": "https://www.data.gov.in/resource/state-ut-wise-total-number-road-accidents-india-2003-2016",
         "retrieval_method": "direct download",
         "access_type": "HTML",
-        "retrieved_at": "2026-03-10T11:35:30.467520+00:00",
+        "retrieved_at": "2026-03-11T05:17:09.174692+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
         "official_flag": true
       },
@@ -886,7 +830,7 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/data_gov_in_road_accidents_india_2003_2016/data_gov_in_road_accidents_india_2003_2016/raw_20260310_113530.csv",
+            "path": "data/raw/data_gov_in_road_accidents_india_2003_2016/data_gov_in_road_accidents_india_2003_2016/raw_20260311_051709.csv",
             "sha256": "28fc7e0aae4d7829740dc9b402dc7366a1e2c8cd537e683c7378a3039f1d7dbe",
             "size_bytes": 3072
           }
@@ -895,7 +839,7 @@
           {
             "path": "data/processed/data_gov_in_road_accidents_india_2003_2016.parquet",
             "format": "parquet",
-            "sha256": "e330e9a103739a821aa4e277517d04be3e31a7731f96aa7865c2e419440c29d2"
+            "sha256": "275cb0cae81e72ade1bd94a0b66edab4a3e3ed82be43078e7dc1f1b5cfaa014f"
           }
         ],
         "row_count": 37,
@@ -922,7 +866,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:30.467520+00:00",
+      "retrieved_at": "2026-03-11T05:17:09.174692+00:00",
       "completeness_score": 0.984,
       "recency_score": 1.0,
       "provenance_score": 0.85,
@@ -944,7 +888,7 @@
         "url": "https://www.data.gov.in/resource/state-ut-wise-total-number-fatal-road-accidents-2003-2016",
         "retrieval_method": "direct download",
         "access_type": "HTML",
-        "retrieved_at": "2026-03-10T11:35:30.543004+00:00",
+        "retrieved_at": "2026-03-11T05:17:09.276082+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
         "official_flag": true
       },
@@ -956,7 +900,7 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/data_gov_in_road_fatal_accidents_2003_2016/data_gov_in_road_fatal_accidents_2003_2016/raw_20260310_113530.csv",
+            "path": "data/raw/data_gov_in_road_fatal_accidents_2003_2016/data_gov_in_road_fatal_accidents_2003_2016/raw_20260311_051709.csv",
             "sha256": "353dec5e33b5fe2307784262f5ce9ae5b849e791c0dc9955a68663b633595a14",
             "size_bytes": 2797
           }
@@ -965,7 +909,7 @@
           {
             "path": "data/processed/data_gov_in_road_fatal_accidents_2003_2016.parquet",
             "format": "parquet",
-            "sha256": "9c00a01f05772f5c3e88f432cc4ec4164018c0b2dfce18b95ae99da635f68229"
+            "sha256": "2b4f2ae2c466a2cba5842a6c4a2e7e2717d3021542268f6c59d18fb91dfa0d8f"
           }
         ],
         "row_count": 37,
@@ -992,7 +936,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:30.543004+00:00",
+      "retrieved_at": "2026-03-11T05:17:09.276082+00:00",
       "completeness_score": 0.984,
       "recency_score": 1.0,
       "provenance_score": 0.85,
@@ -1000,6 +944,185 @@
       "overall_confidence_badge": "High",
       "overall_confidence_reason": [],
       "output_table_path": "data/processed/data_gov_in_road_fatal_accidents_2003_2016.parquet"
+    },
+    {
+      "source_id": "morth_annual_report_pdf",
+      "connector": "morth_annual_report_pdf",
+      "version": "0.2.1",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "Ministry of Road Transport and Highways (MoRTH)",
+        "title": "MoRTH annual report PDF tables (selected annexes)",
+        "url": "https://morth.nic.in/annual-report",
+        "retrieved_at": "2026-03-11T05:17:09.401496+00:00",
+        "license_terms": "Open publication on morth.gov.in; verify page-level reuse permissions in the PDF footer or Gazette notice",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "annual report year + section/table identifier",
+        "anchor": "annual_report_appendix_2_3_5",
+        "note": "Parsed official MoRTH annual report appendices (2, 3, 5)."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/morth_annual_report_pdf.pdf",
+            "sha256": "59f3693bddda349aef2e87c4c344bca7d7028167e6e12d840468e8bc67624251",
+            "size_bytes": 19474671
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/morth_annual_report_pdf.parquet",
+            "sha256": "2cd547cb728f7a550be7a6c1cb2919bfb3b026ebc1a1e494d235fd04bdad95c7"
+          }
+        ],
+        "row_count": 151,
+        "columns": [
+          "state",
+          "metric_name",
+          "metric_value",
+          "unit",
+          "citation_anchor",
+          "document_section",
+          "year",
+          "source_id",
+          "source_type",
+          "metric_category",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-03-11T05:17:09.401496+00:00",
+      "completeness_score": 0.917,
+      "recency_score": 0.98,
+      "provenance_score": 0.833,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/morth_annual_report_pdf.parquet"
+    },
+    {
+      "source_id": "nhai_audited_results_pdf",
+      "connector": "nhai_annual_documents",
+      "version": "0.1.1",
+      "status": "automated",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "National Highways Authority of India (NHAI)",
+        "title": "NHAI audited financial results (SEBI format), across all available years",
+        "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
+        "retrieved_at": "2026-03-11T05:17:25.897257+00:00",
+        "license_terms": "Official publication on NHAI website; reuse subject to official publication terms.",
+        "official_flag": true,
+        "domain": "nhai.gov.in"
+      },
+      "citations": {
+        "permanent_identifier": "NHAI audited results annual PDFs from NHAI mix_file archive",
+        "anchor": "discovery:https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
+        "note": "Official NHAI document discovery and ingestion succeeded."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/nhai_audited_results_pdf/nhai_audited_results_pdf/raw_20260311_051729.pdf",
+            "sha256": "3e782fa352efdebc326e8b3f2f539690dd8784120e865855998b04b05548f9ad",
+            "size_bytes": 1733398
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/nhai_audited_results_pdf.parquet",
+            "format": "parquet",
+            "sha256": "da4e3c0a175b2c7ba285d7d5c8981891b0ea87861d2ab7dad407ea4e265fbd7e"
+          }
+        ],
+        "row_count": 1,
+        "columns": [
+          "source_id",
+          "source_type",
+          "metric_category",
+          "dataset_source",
+          "metric_name",
+          "metric_value",
+          "unit",
+          "document_title",
+          "source_document_url",
+          "financial_year",
+          "as_of_timestamp",
+          "publication_date",
+          "document_checksum",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-03-11T05:17:25.897257+00:00",
+      "completeness_score": 0.857,
+      "recency_score": 1.0,
+      "provenance_score": 0.85,
+      "consistency_score": 1.0,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/nhai_audited_results_pdf.parquet"
+    },
+    {
+      "source_id": "nhai_annual_report_documents",
+      "connector": "nhai_annual_documents",
+      "version": "0.1.1",
+      "status": "stubs_disabled",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "National Highways Authority of India (NHAI)",
+        "title": "NHAI annual reports and related annual PDF publication documents",
+        "url": "https://nhai.gov.in/en/press-release",
+        "retrieved_at": "2026-03-11T05:17:29.606966+00:00",
+        "license_terms": "Official publication on NHAI website; reuse subject to official publication terms.",
+        "official_flag": true,
+        "domain": "nhai.gov.in"
+      },
+      "citations": {
+        "permanent_identifier": "NHAI annual report index and policy/circular feeds",
+        "anchor": "no_discoverable_documents",
+        "note": "No downloadable official PDFs discovered."
+      },
+      "manifest": {
+        "raw_files": [],
+        "output_files": [
+          {
+            "path": "data/processed/nhai_annual_report_documents.parquet",
+            "format": "parquet",
+            "sha256": "9ed49fdc5226bd6d1ce7a4514e8e97357471e4dcc9172ef20263e689224b5fa0"
+          }
+        ],
+        "row_count": 1,
+        "columns": [
+          "source_id",
+          "source_type",
+          "metric_category",
+          "dataset_source",
+          "metric_name",
+          "metric_value",
+          "unit",
+          "status_note",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-03-11T05:17:29.606966+00:00",
+      "skip_reason": "no_discoverable_documents",
+      "completeness_score": 0.3,
+      "recency_score": 0.3,
+      "provenance_score": 0.255,
+      "consistency_score": 0.3,
+      "overall_confidence_badge": "Low",
+      "overall_confidence_reason": [
+        "Low provenance confidence (source reliability category)",
+        "Missingness is high; check source completeness",
+        "Recency is stale against claimed update frequency",
+        "Schema/range checks showed potential consistency issues",
+        "Use for trend and risk ranking, not precise governance decisions",
+        "Ingestion is disabled under manual approval gate."
+      ],
+      "output_table_path": "data/processed/nhai_annual_report_documents.parquet"
     },
     {
       "source_id": "nhai_press_release_index",
@@ -1010,7 +1133,7 @@
       "source": {
         "publisher": "National Highways Authority of India (NHAI)",
         "title": "NHAI publications and press release index",
-        "retrieved_at": "2026-03-10T11:35:47.306209+00:00",
+        "retrieved_at": "2026-03-11T05:17:32.818267+00:00",
         "license_terms": "Official publication metadata reuse as per NHAI terms of use.",
         "official_flag": true
       },
@@ -1024,7 +1147,7 @@
         "output_files": [
           {
             "path": "data/processed/nhai_press_release_index.parquet",
-            "sha256": "230fb80c477e58d97518a4e979500683fb7f441c41ce9299b83e3aa1cbe908e9"
+            "sha256": "69d23b91008e49d74ea483be75b4b6f840ebcdb0737ae1cedb1cde22000e9157"
           }
         ],
         "row_count": 1,
@@ -1041,7 +1164,7 @@
           "metric_category"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:47.306277+00:00",
+      "retrieved_at": "2026-03-11T05:17:32.818626+00:00",
       "completeness_score": 0.62,
       "recency_score": 0.62,
       "provenance_score": 0.527,
@@ -1063,7 +1186,7 @@
       "source": {
         "publisher": "National Crime Records Bureau (NCRB)",
         "title": "Road accident state and year summary tables",
-        "retrieved_at": "2026-03-10T11:35:47.310763+00:00",
+        "retrieved_at": "2026-03-11T05:17:32.830539+00:00",
         "license_terms": "NCRB publication terms. Use only published tables and cite report/table numbers.",
         "official_flag": true
       },
@@ -1082,7 +1205,7 @@
         "output_files": [
           {
             "path": "data/processed/ncrb_road_accidents_state_year.parquet",
-            "sha256": "c683d1606398318a46e642879deb8253cb3bd83dc7ee8c8c82057aa7e14353b1"
+            "sha256": "2a38f93d77363ca9ef3d14f92ef95017f3155f6e34630981e9162f0ff29704c2"
           }
         ],
         "row_count": 3,
@@ -1098,7 +1221,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:47.310848+00:00",
+      "retrieved_at": "2026-03-11T05:17:32.830647+00:00",
       "completeness_score": 0.98,
       "recency_score": 0.98,
       "provenance_score": 0.98,
@@ -1117,7 +1240,7 @@
         "publisher": "Bharat Highway Intelligence Risk Lab",
         "title": "Highway project decision support panel (model synthesis)",
         "url": "",
-        "retrieved_at": "2026-03-10T11:35:47.312863+00:00",
+        "retrieved_at": "2026-03-11T05:17:32.833320+00:00",
         "license_terms": "Model output for internal decision support only. Not an official measurement. Include uncertainty and confidence notes before policy use.",
         "official_flag": false
       },
@@ -1130,17 +1253,17 @@
         "raw_files": [
           {
             "path": "data/processed/data_gov_in_nhai_projects_api.parquet",
-            "sha256": "6a04270ac3e65c1b7ad1a2af498ea13a36864cf96fbae9b93572712edf123b2b",
+            "sha256": "ddf16c0ce3032e96a9429546969c566a55976e0fbcb54d62535e283824e34100",
             "size_bytes": 10998
           },
           {
             "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
-            "sha256": "51bc6b9dcdc0fec979d9b12311cf58013d5ac2860f7e9f977498ebafece308b3",
+            "sha256": "46ad0339a990c24b804e1f256fa17fe0ee646adbbf298558d4b67e5a53b4d43a",
             "size_bytes": 11249
           },
           {
             "path": "data/processed/ncrb_road_accidents_state_year.parquet",
-            "sha256": "c683d1606398318a46e642879deb8253cb3bd83dc7ee8c8c82057aa7e14353b1",
+            "sha256": "2a38f93d77363ca9ef3d14f92ef95017f3155f6e34630981e9162f0ff29704c2",
             "size_bytes": 6125
           }
         ],
@@ -1148,7 +1271,7 @@
           {
             "path": "data/processed/highway_project_risk_and_access_panel.parquet",
             "format": "parquet",
-            "sha256": "0e47f72da669dd9e12827cfbd4f9708da5b9d7a693013cdbb2eaeccbaa805dfd"
+            "sha256": "537fed9c7dc77bec902e992b09e09ae5f98d2c3e38159e0535688655638a6208"
           }
         ],
         "row_count": 219996,
@@ -1184,7 +1307,7 @@
           "model_notes"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:47.312863+00:00",
+      "retrieved_at": "2026-03-11T05:17:32.833320+00:00",
       "note": "Model outputs must be treated as estimates and scenario inputs, never as certified official facts.",
       "completeness_score": 0.5,
       "recency_score": 0.5,
@@ -1210,7 +1333,7 @@
         "publisher": "Ministry of Statistics and Programme Implementation / Parliament Secretariat",
         "title": "Parliamentary Questions and written replies on highways",
         "url": "https://sansad.in/",
-        "retrieved_at": "2026-03-10T11:35:50.331369+00:00",
+        "retrieved_at": "2026-03-11T05:17:35.798756+00:00",
         "license_terms": "Official parliament documentation; cite Q&A number and session/session year in methodology.",
         "official_flag": true
       },
@@ -1230,7 +1353,7 @@
         "output_files": [
           {
             "path": "data/processed/parliament_qa_highway_queries.parquet",
-            "sha256": "ee01959cda2b32817ca51c0ff57a1e9c1189a35b170e9fa3a03782893a0c4d97"
+            "sha256": "cb5002d2d98f005e31a66945162b3317cec7d1f70e79d5b3686dab99d7e0a938"
           }
         ],
         "row_count": 3,
@@ -1248,7 +1371,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:50.331369+00:00",
+      "retrieved_at": "2026-03-11T05:17:35.798756+00:00",
       "completeness_score": 0.98,
       "recency_score": 0.98,
       "provenance_score": 0.833,
@@ -1267,7 +1390,7 @@
         "publisher": "Reserve Bank of India / Ministry of Statistics and Programme Implementation",
         "title": "Macro indicators relevant to highway finance and inflation adjustments",
         "url": "https://www.rbi.org.in/Scripts/{}",
-        "retrieved_at": "2026-03-10T11:35:50.344006+00:00",
+        "retrieved_at": "2026-03-11T05:17:35.808015+00:00",
         "license_terms": "Official statistical products; confirm redistribution terms in portal.",
         "official_flag": true
       },
@@ -1287,7 +1410,7 @@
         "output_files": [
           {
             "path": "data/processed/rbi_mospi_macro_indicators.parquet",
-            "sha256": "6986b41676d439d2a2152f21c8286625b0edc574c52ce91f508643fb4ac18bbe"
+            "sha256": "612d5e6d0b739fdb58ba8f84741806a767824bbce937f9692ad6f71d3415ea3f"
           }
         ],
         "row_count": 6,
@@ -1304,7 +1427,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:50.344148+00:00",
+      "retrieved_at": "2026-03-11T05:17:35.808204+00:00",
       "completeness_score": 0.98,
       "recency_score": 0.98,
       "provenance_score": 0.98,
@@ -1323,7 +1446,7 @@
         "publisher": "Ministry of Road Transport and Highways (MoRTH)",
         "title": "Procurement and award notices for highway works",
         "url": "https://eprocure.gov.in",
-        "retrieved_at": "2026-03-10T11:35:50.348861+00:00",
+        "retrieved_at": "2026-03-11T05:17:35.811480+00:00",
         "license_terms": "EProcurement portal terms and bidder-facing reuse restrictions.",
         "official_flag": true
       },
@@ -1343,7 +1466,7 @@
         "output_files": [
           {
             "path": "data/processed/morh_procurement_awards.parquet",
-            "sha256": "84e688a1317956e043879c34a63ee89737b186f616b1a8441d454399f904b42b"
+            "sha256": "f7785046699b0633a7de679d48a9445be69ab1baf2780bf02b797c8e0cc2d140"
           }
         ],
         "row_count": 6,
@@ -1361,7 +1484,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:50.348861+00:00",
+      "retrieved_at": "2026-03-11T05:17:35.811480+00:00",
       "completeness_score": 0.909,
       "recency_score": 0.98,
       "provenance_score": 0.833,
@@ -1380,7 +1503,7 @@
         "publisher": "National Highways Authority of India (NHAI) / Ministry of Road Transport and Highways (MoRTH)",
         "title": "Contractor qualification, performance, and award disclosures",
         "url": "https://www.nhai.gov.in/en/contractor-disclosures",
-        "retrieved_at": "2026-03-10T11:35:50.357600+00:00",
+        "retrieved_at": "2026-03-11T05:17:35.817631+00:00",
         "license_terms": "Use official releases and disclosures only; verify reuse permissions in associated notices.",
         "official_flag": true
       },
@@ -1400,7 +1523,7 @@
         "output_files": [
           {
             "path": "data/processed/morh_contractor_disclosures.parquet",
-            "sha256": "dd70e9317a57aa32e756738902db64e42282c44938109e5b3b352904520aed75"
+            "sha256": "4c4da604d82d99bf2473f75acc6594cbcde94c31ff0b173a07b54cb1d6fe70f6"
           }
         ],
         "row_count": 2,
@@ -1419,7 +1542,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:50.357600+00:00",
+      "retrieved_at": "2026-03-11T05:17:35.817631+00:00",
       "completeness_score": 0.98,
       "recency_score": 0.98,
       "provenance_score": 0.833,
@@ -1438,7 +1561,7 @@
         "publisher": "Ministry of Road Transport and Highways (MoRTH)",
         "title": "Arbitration and claim settlements associated with highway projects",
         "url": "https://morth.nic.in/arbitration-and-claims",
-        "retrieved_at": "2026-03-10T11:35:50.365338+00:00",
+        "retrieved_at": "2026-03-11T05:17:35.823747+00:00",
         "license_terms": "Use only official releases, tribunal disclosures, and ministry-level replies.",
         "official_flag": true
       },
@@ -1458,7 +1581,7 @@
         "output_files": [
           {
             "path": "data/processed/morh_arbitration_claims.parquet",
-            "sha256": "e82ef50f41faccc10f4f957cd855c9313c6c7b65c59a1d87462be7153a9b8c49"
+            "sha256": "d68c2bd2b02fcb881c5462410ef3fdc34bf7cfc35f2d14e800baa67d66a6fdf6"
           }
         ],
         "row_count": 2,
@@ -1477,7 +1600,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:50.365338+00:00",
+      "retrieved_at": "2026-03-11T05:17:35.823747+00:00",
       "completeness_score": 0.98,
       "recency_score": 0.98,
       "provenance_score": 0.833,
@@ -1496,7 +1619,7 @@
         "publisher": "Ministry of Road Transport and Highways (MoRTH)",
         "title": "Toll and FASTag collection quality signal snapshots",
         "url": "https://fto.gov.in/api/toll-fastag",
-        "retrieved_at": "2026-03-10T11:35:50.371917+00:00",
+        "retrieved_at": "2026-03-11T05:17:35.830438+00:00",
         "license_terms": "Portal specific API terms. Verify if telemetry fields are aggregated only.",
         "official_flag": true
       },
@@ -1516,7 +1639,7 @@
         "output_files": [
           {
             "path": "data/processed/ncrb_toll_fastag_claims.parquet",
-            "sha256": "da3d15523fdf73ffd5e422dc1a473c774e67fcc8447db997da65422ac381a718"
+            "sha256": "ced5179e1b0d278ef56fd0c2e66e39a176c9868f1963a7512ccf61791a1b255e"
           }
         ],
         "row_count": 6,
@@ -1533,7 +1656,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:50.371917+00:00",
+      "retrieved_at": "2026-03-11T05:17:35.830438+00:00",
       "completeness_score": 0.98,
       "recency_score": 0.98,
       "provenance_score": 0.6859999999999999,
@@ -1552,7 +1675,7 @@
         "publisher": "OpenStreetMap Foundation / Academic proxy sources",
         "title": "Corridor geometry and ancillary maintenance proxy indicators",
         "url": "https://overpass-api.de/api/interpreter",
-        "retrieved_at": "2026-03-10T11:35:50.377567+00:00",
+        "retrieved_at": "2026-03-11T05:17:35.836220+00:00",
         "license_terms": "OpenStreetMap ODbL terms; geometry/proxy use with attribution and separation from official metrics.",
         "official_flag": false
       },
@@ -1572,7 +1695,7 @@
         "output_files": [
           {
             "path": "data/processed/quality_maintenance_indicators.parquet",
-            "sha256": "321d022001612b970b02e2acb1b503b81d5f1cd1af0bfb69251bb53cb6c195a1"
+            "sha256": "e8701a34bfccc3acacb0c2d9f1bf4ac4dad22924bb0b47771c04af60a89558f0"
           }
         ],
         "row_count": 6,
@@ -1589,7 +1712,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:50.377567+00:00",
+      "retrieved_at": "2026-03-11T05:17:35.836220+00:00",
       "completeness_score": 0.98,
       "recency_score": 0.98,
       "provenance_score": 0.588,
@@ -1608,7 +1731,7 @@
         "publisher": "NASA Earthdata / NOAA",
         "title": "VIIRS nightlights proxy activity index around national highways",
         "url": "https://earthdata.nasa.gov/",
-        "retrieved_at": "2026-03-10T11:35:50.383261+00:00",
+        "retrieved_at": "2026-03-11T05:17:35.842099+00:00",
         "license_terms": "Use NASA VIIRS proxy dataset under official redistribution terms; separate from measured infrastructure condition metrics.",
         "official_flag": false
       },
@@ -1628,7 +1751,7 @@
         "output_files": [
           {
             "path": "data/processed/viirs_nightlights_proxy.parquet",
-            "sha256": "0c96e0aabdaaaf700749eeea2c10859c43f32eb4e88921f9f1dfeecec26318d1"
+            "sha256": "86c710f6a5871689b57b7607184e5b539deedbb68370d5c8b3d45230c7174955"
           }
         ],
         "row_count": 3,
@@ -1645,7 +1768,7 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-10T11:35:50.383261+00:00",
+      "retrieved_at": "2026-03-11T05:17:35.842099+00:00",
       "completeness_score": 0.98,
       "recency_score": 0.98,
       "provenance_score": 0.588,
@@ -1655,62 +1778,60 @@
       "output_table_path": "data/processed/viirs_nightlights_proxy.parquet"
     },
     {
-      "source_id": "morth_annual_report_pdf",
-      "connector": "morth_annual_report_pdf",
-      "version": "0.2.1",
-      "status": "manual_ingest",
-      "metric_category": "official_measured",
+      "source_id": "correlation_matrix",
+      "connector": "correlation_scoring",
+      "version": "0.1.0",
+      "status": "generated",
+      "output_table_path": "data/processed/correlation_matrix.parquet",
+      "metric_category": "model_output",
       "source": {
-        "publisher": "Ministry of Road Transport and Highways (MoRTH)",
-        "title": "MoRTH annual report PDF tables (selected annexes)",
-        "url": "https://morth.nic.in/annual-report",
-        "retrieved_at": "2026-03-10T11:55:30.250047+00:00",
-        "license_terms": "Open publication on morth.gov.in; verify page-level reuse permissions in the PDF footer or Gazette notice",
-        "official_flag": true
+        "publisher": "Bharat Highway internal correlation engine",
+        "title": "Model-derived pairwise correlation matrix (state/year join)",
+        "retrieved_at": "2026-03-11T05:17:39.327105+00:00",
+        "official_flag": false,
+        "license_terms": "Model output for analysis only. Not an official policy statement."
       },
       "citations": {
-        "permanent_identifier": "annual report year + section/table identifier",
-        "anchor": "annual_report_appendix_2_3_5",
-        "note": "Parsed official MoRTH annual report appendices (2, 3, 5)."
+        "permanent_identifier": "correlation_matrix_v1",
+        "anchor": "derived_pairwise_pearson_state_year",
+        "note": "Derived from available numeric metrics across official measured and approved proxy inputs."
       },
       "manifest": {
-        "raw_files": [
-          {
-            "path": "data/raw/manual/morth_annual_report_pdf.pdf",
-            "sha256": "59f3693bddda349aef2e87c4c344bca7d7028167e6e12d840468e8bc67624251",
-            "size_bytes": 19474671
-          }
-        ],
+        "raw_files": [],
         "output_files": [
           {
-            "path": "data/processed/morth_annual_report_pdf.parquet",
-            "sha256": "80d766d6abd39b9ff7050440703fcbf05f61a1ceb99f29800d08cb33fca62fc2"
+            "path": "data/processed/correlation_matrix.parquet",
+            "format": "parquet",
+            "sha256": "63491d14e18f16342bfe41dd9727b50d341eb0574b109e9cea39d8b259cb37e4"
           }
         ],
-        "row_count": 151,
+        "row_count": 190,
         "columns": [
-          "state",
-          "metric_name",
-          "metric_value",
-          "unit",
-          "citation_anchor",
-          "document_section",
-          "year",
-          "source_id",
-          "source_type",
-          "metric_category",
-          "dataset_source",
-          "retrieved_at"
+          "metric_a",
+          "metric_b",
+          "source_a",
+          "source_b",
+          "correlation",
+          "overlap_records",
+          "year_min",
+          "year_max",
+          "created_at",
+          "method"
         ]
       },
-      "retrieved_at": "2026-03-10T11:55:30.250047+00:00",
-      "completeness_score": 0.917,
-      "recency_score": 0.98,
-      "provenance_score": 0.833,
-      "consistency_score": 0.98,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/morth_annual_report_pdf.parquet"
+      "retrieved_at": "2026-03-11T05:17:39.327338+00:00",
+      "completeness_score": 0.5,
+      "recency_score": 0.5,
+      "provenance_score": 0.3,
+      "consistency_score": 0.5,
+      "overall_confidence_badge": "Low",
+      "overall_confidence_reason": [
+        "Low provenance confidence (source reliability category)",
+        "Missingness is high; check source completeness",
+        "Recency is stale against claimed update frequency",
+        "Schema/range checks showed potential consistency issues",
+        "Use for trend and risk ranking, not precise governance decisions"
+      ]
     }
   ]
 }

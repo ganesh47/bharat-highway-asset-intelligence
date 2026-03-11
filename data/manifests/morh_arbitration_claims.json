@@ -8,7 +8,7 @@
     "publisher": "Ministry of Road Transport and Highways (MoRTH)",
     "title": "Arbitration and claim settlements associated with highway projects",
     "url": "https://morth.nic.in/arbitration-and-claims",
-    "retrieved_at": "2026-03-10T11:35:50.365338+00:00",
+    "retrieved_at": "2026-03-11T05:17:35.823747+00:00",
     "license_terms": "Use only official releases, tribunal disclosures, and ministry-level replies.",
     "official_flag": true
   },
@@ -28,7 +28,7 @@
     "output_files": [
       {
         "path": "data/processed/morh_arbitration_claims.parquet",
-        "sha256": "e82ef50f41faccc10f4f957cd855c9313c6c7b65c59a1d87462be7153a9b8c49"
+        "sha256": "d68c2bd2b02fcb881c5462410ef3fdc34bf7cfc35f2d14e800baa67d66a6fdf6"
       }
     ],
     "row_count": 2,
@@ -47,7 +47,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-03-10T11:35:50.365338+00:00",
+  "retrieved_at": "2026-03-11T05:17:35.823747+00:00",
   "completeness_score": 0.98,
   "recency_score": 0.98,
   "provenance_score": 0.833,

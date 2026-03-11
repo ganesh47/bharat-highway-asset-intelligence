@@ -11,7 +11,7 @@
     "url": "https://www.data.gov.in/resource/project-wise-details-42-national-highway-projects-are-under-implementation-punjab-reply",
     "retrieval_method": "direct download",
     "access_type": "HTML",
-    "retrieved_at": "2026-03-10T11:35:29.999899+00:00",
+    "retrieved_at": "2026-03-11T05:17:08.648750+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
@@ -23,7 +23,7 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_nhai_punjab_42_projects_implementation/data_gov_in_nhai_punjab_42_projects_implementation/raw_20260310_113530.csv",
+        "path": "data/raw/data_gov_in_nhai_punjab_42_projects_implementation/data_gov_in_nhai_punjab_42_projects_implementation/raw_20260311_051708.csv",
         "sha256": "c6dab4f352ddaf735d72ee630ad75a587b2214fdf997af5969724ef6846917a2",
         "size_bytes": 5399
       }
@@ -32,7 +32,7 @@
       {
         "path": "data/processed/data_gov_in_nhai_punjab_42_projects_implementation.parquet",
         "format": "parquet",
-        "sha256": "4f42c27573800b0c0a215279b97385514acc7aeb3d0b4ab6138c673d0b1bd6ac"
+        "sha256": "b220a52ecb5471a2c379efc93108a8ba8669951319a9562bbcdd2d6d2ebadcb8"
       }
     ],
     "row_count": 43,
@@ -48,7 +48,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-03-10T11:35:29.999899+00:00",
+  "retrieved_at": "2026-03-11T05:17:08.648750+00:00",
   "completeness_score": 0.997,
   "recency_score": 1.0,
   "provenance_score": 0.85,

@@ -7,7 +7,7 @@
   "source": {
     "publisher": "National Highways Authority of India (NHAI)",
     "title": "NHAI publications and press release index",
-    "retrieved_at": "2026-03-10T11:35:47.306209+00:00",
+    "retrieved_at": "2026-03-11T05:17:32.818267+00:00",
     "license_terms": "Official publication metadata reuse as per NHAI terms of use.",
     "official_flag": true
   },
@@ -21,7 +21,7 @@
     "output_files": [
       {
         "path": "data/processed/nhai_press_release_index.parquet",
-        "sha256": "230fb80c477e58d97518a4e979500683fb7f441c41ce9299b83e3aa1cbe908e9"
+        "sha256": "69d23b91008e49d74ea483be75b4b6f840ebcdb0737ae1cedb1cde22000e9157"
       }
     ],
     "row_count": 1,
@@ -38,7 +38,7 @@
       "metric_category"
     ]
   },
-  "retrieved_at": "2026-03-10T11:35:47.306277+00:00",
+  "retrieved_at": "2026-03-11T05:17:32.818626+00:00",
   "completeness_score": 0.62,
   "recency_score": 0.62,
   "provenance_score": 0.527,
