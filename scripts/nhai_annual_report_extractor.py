@@ -1346,7 +1346,9 @@ def main() -> None:
         for doc_index, (_, source_row) in enumerate(annual_rows.iterrows())
         if str(source_row.get("source_document_url", "")).strip()
     ]
-    effective_workers = max(1, min(int(args.max_workers or 1), len(payloads) or 1, os.cpu_count() or 1))
+    requested_workers = max(1, int(args.max_workers or 1))
+    cpu_headroom_workers = max(1, (os.cpu_count() or 1) - 1)
+    effective_workers = max(1, min(requested_workers, len(payloads) or 1, cpu_headroom_workers, 4))
     manifest["parallel_workers"] = effective_workers
 
     results: list[dict[str, Any]] = []
