@@ -8,7 +8,7 @@
     "publisher": "National Highways Authority of India (NHAI)",
     "title": "NHAI audited financial results (SEBI format), across all available years",
     "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
-    "retrieved_at": "2026-03-13T04:41:09.527626+00:00",
+    "retrieved_at": "2026-03-13T05:41:22.226908+00:00",
     "license_terms": "Official publication on NHAI website; reuse subject to official publication terms.",
     "official_flag": true,
     "domain": "nhai.gov.in"
@@ -21,7 +21,7 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/nhai_audited_results_pdf/nhai_audited_results_pdf/raw_20260313_044112.pdf",
+        "path": "data/raw/nhai_audited_results_pdf/nhai_audited_results_pdf/raw_20260313_054125.pdf",
         "sha256": "3e782fa352efdebc326e8b3f2f539690dd8784120e865855998b04b05548f9ad",
         "size_bytes": 1733398
       }
@@ -30,7 +30,7 @@
       {
         "path": "data/processed/nhai_audited_results_pdf.parquet",
         "format": "parquet",
-        "sha256": "9692a1e2f981f3a2c77cf3f448946982ff1acb2fdcb2ca85421c7af9bd1a9012"
+        "sha256": "5a74f0d2956045b320d9df267303f87caa225d6e8693c27ea888c242a271f0db"
       }
     ],
     "row_count": 1,
@@ -51,7 +51,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-03-13T04:41:09.527626+00:00",
+  "retrieved_at": "2026-03-13T05:41:22.226908+00:00",
   "completeness_score": 0.857,
   "recency_score": 1.0,
   "provenance_score": 0.85,

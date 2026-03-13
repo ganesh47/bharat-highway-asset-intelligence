@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-03-13T04:39:00.227661+00:00",
-  "total_rows": 9180,
-  "canonical_rows": 9180,
+  "generated_at": "2026-03-13T05:39:17.234193+00:00",
+  "total_rows": 7935,
+  "canonical_rows": 7935,
   "parser_environment": {
     "camelot": false,
     "pdfplumber": true,
@@ -12,24 +12,24 @@
   },
   "method_mix": {
     "table": {
-      "count": 7022,
-      "share": 0.7649237472766884
+      "count": 5659,
+      "share": 0.7131695022054191
     },
     "text": {
-      "count": 2149,
-      "share": 0.2340958605664488
+      "count": 2267,
+      "share": 0.2856962822936358
     },
     "failed": {
       "count": 8,
-      "share": 0.0008714596949891067
+      "share": 0.0010081915563957152
     },
     "error": {
       "count": 1,
-      "share": 0.00010893246187363834
+      "share": 0.0001260239445494644
     }
   },
   "quality": {
-    "avg_confidence": 0.9208148148148148,
+    "avg_confidence": 0.909296786389414,
     "min_confidence": 0.0,
     "max_confidence": 1.0,
     "low_confidence_rows": 9,
@@ -37,9 +37,9 @@
   },
   "yearly_counts": {
     "1989": 246,
-    "1996": 130,
+    "1996": 128,
     "1997": 127,
-    "1998": 305,
+    "1998": 279,
     "1999": 1,
     "2000": 1,
     "2001": 1,
@@ -48,22 +48,21 @@
     "2004": 1,
     "2005": 1,
     "2006": 1,
-    "2007": 338,
+    "2007": 336,
     "2008": 1,
     "2010": 1,
     "2011": 46,
-    "2012": 449,
+    "2012": 439,
     "2013": 370,
     "2014": 430,
-    "2015": 368,
-    "2016": 516,
+    "2015": 365,
     "2017": 381,
-    "2018": 750,
-    "2019": 1161,
-    "2020": 482,
-    "2021": 978,
-    "2022": 1108,
-    "2023": 985
+    "2018": 743,
+    "2019": 1001,
+    "2020": 95,
+    "2021": 967,
+    "2022": 1005,
+    "2023": 967
   },
   "schema": {
     "reference_shape": [
@@ -156,7 +155,7 @@
       {
         "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1996.parquet",
         "status": "read",
-        "rows": 130,
+        "rows": 128,
         "schema": [
           "citations",
           "col_no",
@@ -244,7 +243,7 @@
       {
         "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1998.parquet",
         "status": "read",
-        "rows": 305,
+        "rows": 279,
         "schema": [
           "citations",
           "col_no",
@@ -640,7 +639,7 @@
       {
         "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2007.parquet",
         "status": "read",
-        "rows": 338,
+        "rows": 336,
         "schema": [
           "citations",
           "col_no",
@@ -860,7 +859,7 @@
       {
         "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2012.parquet",
         "status": "read",
-        "rows": 449,
+        "rows": 439,
         "schema": [
           "citations",
           "col_no",
@@ -992,7 +991,7 @@
       {
         "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2015.parquet",
         "status": "read",
-        "rows": 368,
+        "rows": 365,
         "schema": [
           "citations",
           "col_no",
@@ -1124,7 +1123,7 @@
       {
         "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2018.parquet",
         "status": "read",
-        "rows": 750,
+        "rows": 743,
         "schema": [
           "citations",
           "col_no",
@@ -1168,7 +1167,7 @@
       {
         "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2019.parquet",
         "status": "read",
-        "rows": 1161,
+        "rows": 1001,
         "schema": [
           "citations",
           "col_no",
@@ -1212,7 +1211,7 @@
       {
         "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2020.parquet",
         "status": "read",
-        "rows": 482,
+        "rows": 95,
         "schema": [
           "citations",
           "col_no",
@@ -1256,7 +1255,7 @@
       {
         "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2021.parquet",
         "status": "read",
-        "rows": 978,
+        "rows": 967,
         "schema": [
           "citations",
           "col_no",
@@ -1300,7 +1299,7 @@
       {
         "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2022.parquet",
         "status": "read",
-        "rows": 1108,
+        "rows": 1005,
         "schema": [
           "citations",
           "col_no",
@@ -1344,7 +1343,7 @@
       {
         "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2023.parquet",
         "status": "read",
-        "rows": 985,
+        "rows": 967,
         "schema": [
           "citations",
           "col_no",
@@ -1432,14 +1431,14 @@
     ]
   },
   "parser_usage": {
-    "pdfplumber": 7022,
-    "text": 2149,
+    "pdfplumber": 5659,
+    "text": 2267,
     "none": 8,
     "network": 1
   },
   "quality_flags": {
-    "high": 6962,
-    "medium": 2209,
+    "high": 5654,
+    "medium": 2272,
     "failed": 9
   },
   "summary": {
@@ -1577,7 +1576,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1996.parquet",
           "status": "read",
-          "rows": 130,
+          "rows": 128,
           "schema": [
             "citations",
             "col_no",
@@ -1665,7 +1664,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1998.parquet",
           "status": "read",
-          "rows": 305,
+          "rows": 279,
           "schema": [
             "citations",
             "col_no",
@@ -2061,7 +2060,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2007.parquet",
           "status": "read",
-          "rows": 338,
+          "rows": 336,
           "schema": [
             "citations",
             "col_no",
@@ -2281,7 +2280,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2012.parquet",
           "status": "read",
-          "rows": 449,
+          "rows": 439,
           "schema": [
             "citations",
             "col_no",
@@ -2413,7 +2412,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2015.parquet",
           "status": "read",
-          "rows": 368,
+          "rows": 365,
           "schema": [
             "citations",
             "col_no",
@@ -2545,7 +2544,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2018.parquet",
           "status": "read",
-          "rows": 750,
+          "rows": 743,
           "schema": [
             "citations",
             "col_no",
@@ -2589,7 +2588,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2019.parquet",
           "status": "read",
-          "rows": 1161,
+          "rows": 1001,
           "schema": [
             "citations",
             "col_no",
@@ -2633,7 +2632,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2020.parquet",
           "status": "read",
-          "rows": 482,
+          "rows": 95,
           "schema": [
             "citations",
             "col_no",
@@ -2677,7 +2676,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2021.parquet",
           "status": "read",
-          "rows": 978,
+          "rows": 967,
           "schema": [
             "citations",
             "col_no",
@@ -2721,7 +2720,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2022.parquet",
           "status": "read",
-          "rows": 1108,
+          "rows": 1005,
           "schema": [
             "citations",
             "col_no",
@@ -2765,7 +2764,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2023.parquet",
           "status": "read",
-          "rows": 985,
+          "rows": 967,
           "schema": [
             "citations",
             "col_no",
@@ -2855,39 +2854,35 @@
   },
   "yearly_dataset_summary": {
     "2023": {
-      "rows": 985,
+      "rows": 967,
       "status": "processed"
     },
     "2022": {
-      "rows": 1108,
+      "rows": 1005,
       "status": "processed"
     },
     "2021": {
-      "rows": 978,
+      "rows": 967,
       "status": "processed"
     },
     "2020": {
-      "rows": 482,
+      "rows": 95,
       "status": "processed"
     },
     "2019": {
-      "rows": 1161,
+      "rows": 1001,
       "status": "processed"
     },
     "2018": {
-      "rows": 750,
+      "rows": 743,
       "status": "processed"
     },
     "2017": {
       "rows": 381,
       "status": "processed"
     },
-    "2016": {
-      "rows": 516,
-      "status": "processed"
-    },
     "2015": {
-      "rows": 368,
+      "rows": 365,
       "status": "processed"
     },
     "2014": {
@@ -2899,7 +2894,7 @@
       "status": "processed"
     },
     "2012": {
-      "rows": 449,
+      "rows": 439,
       "status": "processed"
     },
     "2011": {
@@ -2915,7 +2910,7 @@
       "status": "processed"
     },
     "2007": {
-      "rows": 338,
+      "rows": 336,
       "status": "processed"
     },
     "2006": {
@@ -2951,7 +2946,7 @@
       "status": "processed"
     },
     "1998": {
-      "rows": 305,
+      "rows": 279,
       "status": "processed"
     },
     "1997": {
@@ -2959,7 +2954,7 @@
       "status": "processed"
     },
     "1996": {
-      "rows": 130,
+      "rows": 128,
       "status": "processed"
     },
     "1989": {

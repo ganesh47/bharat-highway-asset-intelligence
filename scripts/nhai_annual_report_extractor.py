@@ -503,6 +503,27 @@ def _extract_with_tabula(pdf_path: Path, page_no: int) -> list[list[str]]:
         return []
 
 
+def _page_has_table_signal(page_text: str) -> bool:
+    if not page_text:
+        return False
+    lines = [line.strip() for line in page_text.splitlines() if line.strip()]
+    if len(lines) < 3:
+        return False
+
+    scored_lines = 0
+    for line in lines[:80]:
+        numeric_hits = len(NUMERIC_RE.findall(line))
+        if numeric_hits >= 2:
+            scored_lines += 1
+            continue
+        if MULTI_SPACE_RE.search(line) and len(line.split()) >= 3:
+            scored_lines += 1
+            continue
+        if "|" in line and len([part for part in line.split("|") if part.strip()]) >= 3:
+            scored_lines += 1
+    return scored_lines >= 3
+
+
 def _table_row_to_extracted(
     page_no: int,
     table_id: str,
@@ -820,34 +841,38 @@ def _extract_rows_for_pdf(url: str, source_row: pd.Series, output_root: Path) ->
             parsed_by_table = False
             table_rows: list[dict[str, Any]] = []
             table_id = f"p{page_no:04d}"
+            should_try_table = _page_has_table_signal(page_text)
 
-            parsers_attempted.append("camelot" if HAS_CAMELOT else "camelot_unavailable")
-            table_data = _extract_with_camelot(pdf_path, page_no)
-            if table_data:
-                parser_metrics["camelot"] += 1
-                first_success_parser = "camelot"
-                for local_row_no, row in enumerate(table_data, start=1):
-                    table_rows.extend(
-                        _table_row_to_extracted(
-                            page_no=page_no,
-                            table_id=table_id,
-                            row=row,
-                            row_no=row_no + local_row_no,
-                            source_meta=base_meta,
-                            checksum=checksum,
-                            parser_name="camelot",
-                            extraction_method="table",
-                            year=parsed_year,
-                            citations={**citations, "parser": "camelot"},
-                            ocr_attempted=False,
-                            used_parser=True,
+            if should_try_table:
+                parsers_attempted.append("camelot" if HAS_CAMELOT else "camelot_unavailable")
+                table_data = _extract_with_camelot(pdf_path, page_no)
+                if table_data:
+                    parser_metrics["camelot"] += 1
+                    first_success_parser = "camelot"
+                    for local_row_no, row in enumerate(table_data, start=1):
+                        table_rows.extend(
+                            _table_row_to_extracted(
+                                page_no=page_no,
+                                table_id=table_id,
+                                row=row,
+                                row_no=row_no + local_row_no,
+                                source_meta=base_meta,
+                                checksum=checksum,
+                                parser_name="camelot",
+                                extraction_method="table",
+                                year=parsed_year,
+                                citations={**citations, "parser": "camelot"},
+                                ocr_attempted=False,
+                                used_parser=True,
+                            )
                         )
-                    )
-                parsed_by_table = True
+                    parsed_by_table = True
+            else:
+                parsers_attempted.append("table_signal_not_detected")
 
             if not parsed_by_table:
                 parsers_attempted.append("pdfplumber" if HAS_PDFPLUMBER else "pdfplumber_unavailable")
-                table_data = _extract_with_pdfplumber(pdf_path, page_no)
+                table_data = _extract_with_pdfplumber(pdf_path, page_no) if should_try_table else []
                 if table_data:
                     parser_metrics["pdfplumber"] += 1
                     first_success_parser = "pdfplumber"
@@ -872,7 +897,7 @@ def _extract_rows_for_pdf(url: str, source_row: pd.Series, output_root: Path) ->
 
             if not parsed_by_table:
                 parsers_attempted.append("tabula" if HAS_TABULA else "tabula_unavailable")
-                table_data = _extract_with_tabula(pdf_path, page_no)
+                table_data = _extract_with_tabula(pdf_path, page_no) if should_try_table else []
                 if table_data:
                     parser_metrics["tabula"] += 1
                     first_success_parser = "tabula"
