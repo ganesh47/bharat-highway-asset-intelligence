@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-03-13T05:39:17.234193+00:00",
-  "total_rows": 7935,
-  "canonical_rows": 7935,
+  "generated_at": "2026-03-13T12:18:48.699688+00:00",
+  "total_rows": 8452,
+  "canonical_rows": 8452,
   "parser_environment": {
     "camelot": false,
     "pdfplumber": true,
@@ -12,24 +12,24 @@
   },
   "method_mix": {
     "table": {
-      "count": 5659,
-      "share": 0.7131695022054191
+      "count": 6159,
+      "share": 0.7287032654992901
     },
     "text": {
-      "count": 2267,
-      "share": 0.2856962822936358
+      "count": 2284,
+      "share": 0.2702318977756744
     },
     "failed": {
       "count": 8,
-      "share": 0.0010081915563957152
+      "share": 0.000946521533364884
     },
     "error": {
       "count": 1,
-      "share": 0.0001260239445494644
+      "share": 0.0001183151916706105
     }
   },
   "quality": {
-    "avg_confidence": 0.909296786389414,
+    "avg_confidence": 0.9128939895882632,
     "min_confidence": 0.0,
     "max_confidence": 1.0,
     "low_confidence_rows": 9,
@@ -56,6 +56,7 @@
     "2013": 370,
     "2014": 430,
     "2015": 365,
+    "2016": 517,
     "2017": 381,
     "2018": 743,
     "2019": 1001,
@@ -1035,7 +1036,7 @@
       {
         "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2016.parquet",
         "status": "read",
-        "rows": 516,
+        "rows": 517,
         "schema": [
           "citations",
           "col_no",
@@ -1431,14 +1432,14 @@
     ]
   },
   "parser_usage": {
-    "pdfplumber": 5659,
-    "text": 2267,
+    "pdfplumber": 6159,
+    "text": 2284,
     "none": 8,
     "network": 1
   },
   "quality_flags": {
-    "high": 5654,
-    "medium": 2272,
+    "high": 6121,
+    "medium": 2322,
     "failed": 9
   },
   "summary": {
@@ -2456,7 +2457,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2016.parquet",
           "status": "read",
-          "rows": 516,
+          "rows": 517,
           "schema": [
             "citations",
             "col_no",
@@ -2879,6 +2880,10 @@
     },
     "2017": {
       "rows": 381,
+      "status": "processed"
+    },
+    "2016": {
+      "rows": 517,
       "status": "processed"
     },
     "2015": {

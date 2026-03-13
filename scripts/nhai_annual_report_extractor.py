@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -1058,6 +1060,92 @@ def _filter_annual_rows(df: pd.DataFrame) -> pd.DataFrame:
     return df.loc[mask].copy()
 
 
+def _source_payload(source_row: pd.Series, doc_index: int) -> dict[str, Any]:
+    payload = source_row.to_dict()
+    payload["doc_index"] = doc_index
+    return payload
+
+
+def _error_result(payload: dict[str, Any], error_text: str) -> dict[str, Any]:
+    now = datetime.now(timezone.utc).isoformat()
+    url = str(payload.get("source_document_url", "")).strip()
+    parsed_year = _normalize_year(payload.get("financial_year", payload.get("document_title")))
+    return {
+        "doc_index": int(payload.get("doc_index", 0)),
+        "year": parsed_year,
+        "source_document_url": url,
+        "source_document_title": str(payload.get("document_title", "")),
+        "rows": [
+            {
+                "source_document_url": url,
+                "source_document_title": str(payload.get("document_title", "")),
+                "source_document_sha256": "",
+                "source_id": str(payload.get("source_id", "nhai_annual_report_documents")),
+                "source_type": str(payload.get("source_type", "official_measured")),
+                "dataset_source": str(payload.get("dataset_source", payload.get("dataset_title", "NHAI annual report"))),
+                "dataset_created_at": now,
+                "lineage_dataset_created_at": now,
+                "lineage_output_file": "",
+                "lineage_document_url": url,
+                "lineage_document_title": str(payload.get("document_title", "")),
+                "lineage_source_id": str(payload.get("source_id", "nhai_annual_report_documents")),
+                "lineage_source_type": str(payload.get("source_type", "official_measured")),
+                "lineage_report_year": parsed_year,
+                "lineage_pdf_checksum": "",
+                "page_no": 0,
+                "table_id": "worker_error",
+                "row_no": 0,
+                "col_no": 0,
+                "row_index": 0,
+                "record_type": "extraction_error",
+                "metric_category": "official_measured",
+                "metric_name": "document_extraction_failed",
+                "metric_value_numeric": 0.0,
+                "metric_value_text": error_text,
+                "metric_unit": "binary",
+                "extraction_method": "error",
+                "parser_name": "worker",
+                "parser_metadata": _json_text(
+                    {
+                        "error": "worker_failed",
+                        "parser_environment": _parser_environment(),
+                        "parsers_attempted": [],
+                        "attempt_count": 0,
+                        "first_success_parser": "none",
+                        "parser_failure_reason": error_text,
+                    }
+                ),
+                "extraction_confidence": 0.0,
+                "ocr_attempted": False,
+                "quality_flag": "failed",
+                "raw_line": error_text,
+                "pdf_checksum": "",
+                "citations": json.dumps({"document_url": url}, ensure_ascii=False),
+                "report_year": parsed_year,
+                "report_year_start": _year_start(parsed_year),
+            }
+        ],
+        "error": error_text,
+    }
+
+
+def _extract_one_document(payload: dict[str, Any], output_root: str) -> dict[str, Any]:
+    url = str(payload.get("source_document_url", "")).strip()
+    parsed_year = _normalize_year(payload.get("financial_year", payload.get("document_title")))
+    try:
+        rows = _extract_rows_for_pdf(url, payload, Path(output_root))
+    except Exception as exc:
+        return _error_result(payload, f"worker_exception:{exc}")
+    return {
+        "doc_index": int(payload.get("doc_index", 0)),
+        "year": parsed_year,
+        "source_document_url": url,
+        "source_document_title": str(payload.get("document_title", "")),
+        "rows": rows,
+        "error": None,
+    }
+
+
 def build_canonical(yearly_root: Path, canonical_path: Path) -> tuple[pd.DataFrame, dict[str, Any]]:
     yearly_files = sorted((yearly_root / "yearly").glob("nhai_annual_report_*.parquet"))
     if not yearly_files:
@@ -1219,6 +1307,7 @@ def main() -> None:
     parser.add_argument("--output-root", default="data/processed/nhai_annual_report_tables")
     parser.add_argument("--canonical-output", default="data/processed/nhai_annual_report_tables_canonical.parquet")
     parser.add_argument("--quality-report-output", default="data/processed/nhai_annual_report_tables/quality_report.json")
+    parser.add_argument("--max-workers", type=int, default=1)
     args = parser.parse_args()
 
     source_path = Path(args.source_parquet)
@@ -1243,20 +1332,40 @@ def main() -> None:
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "rows_input": int(len(annual_rows)),
         "parser_environment": _parser_environment(),
+        "parallel_workers": 1,
+        "parallel_order_strategy": "doc_index",
+        "parallel_errors": [],
         "yearly_datasets": {},
         "parser_metrics": {},
         "canonical": {},
         "quality_report": str(quality_path),
     }
 
-    all_frames: list[pd.DataFrame] = []
-    for _, source_row in annual_rows.iterrows():
-        url = str(source_row.get("source_document_url", "")).strip()
-        if not url:
-            continue
+    payloads = [
+        _source_payload(source_row, doc_index)
+        for doc_index, (_, source_row) in enumerate(annual_rows.iterrows())
+        if str(source_row.get("source_document_url", "")).strip()
+    ]
+    effective_workers = max(1, min(int(args.max_workers or 1), len(payloads) or 1, os.cpu_count() or 1))
+    manifest["parallel_workers"] = effective_workers
 
-        year = _normalize_year(source_row.get("financial_year", source_row.get("document_title")))
-        rows = _extract_rows_for_pdf(url, source_row, output_root)
+    results: list[dict[str, Any]] = []
+    if effective_workers == 1:
+        for payload in payloads:
+            results.append(_extract_one_document(payload, str(output_root)))
+    else:
+        with concurrent.futures.ProcessPoolExecutor(max_workers=effective_workers) as executor:
+            futures = [executor.submit(_extract_one_document, payload, str(output_root)) for payload in payloads]
+            for future in concurrent.futures.as_completed(futures):
+                results.append(future.result())
+
+    results.sort(key=lambda item: (int(item.get("doc_index", 0)), str(item.get("year", "")), str(item.get("source_document_url", ""))))
+
+    all_frames: list[pd.DataFrame] = []
+    for result in results:
+        year = str(result.get("year", "unknown"))
+        url = str(result.get("source_document_url", "")).strip()
+        rows = list(result.get("rows", []))
         row_df = pd.DataFrame(rows)
         row_df = _coerce_frame(row_df)
         row_df["metric_category"] = row_df["metric_category"].fillna("official_measured")
@@ -1269,7 +1378,7 @@ def main() -> None:
 
         manifest["yearly_datasets"][year] = {
             "source_document_url": url,
-            "source_document_title": str(source_row.get("document_title", "")),
+            "source_document_title": str(result.get("source_document_title", "")),
             "output_path": str(out_path),
             "rows": int(len(row_df)),
             "schema": [str(c) for c in row_df.columns],
@@ -1277,6 +1386,15 @@ def main() -> None:
             "method_mix": row_df["extraction_method"].value_counts(dropna=False).to_dict(),
             "quality": int((pd.to_numeric(row_df["extraction_confidence"], errors="coerce").fillna(0) < 0.45).sum()),
         }
+        if result.get("error"):
+            manifest["parallel_errors"].append(
+                {
+                    "doc_index": int(result.get("doc_index", 0)),
+                    "year": year,
+                    "source_document_url": url,
+                    "error": str(result.get("error")),
+                }
+            )
         all_frames.append(row_df)
 
     # canonicalization across yearly files (schema compatibility)

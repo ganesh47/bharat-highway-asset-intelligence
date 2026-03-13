@@ -44,7 +44,7 @@ jobs:
 
       - name: Extract NHAI annual report OCR artifacts
         run: |
-          python scripts/nhai_annual_report_extractor.py
+          python scripts/nhai_annual_report_extractor.py --max-workers 2
 
       - name: Refresh NHAI confidence from extraction quality
         run: |

@@ -1,7 +1,7 @@
 {
   "source_parquet": "data/processed/nhai_annual_report_documents.parquet",
-  "generated_at": "2026-03-13T05:39:17.247953+00:00",
-  "rows_input": 27,
+  "generated_at": "2026-03-13T12:18:48.711109+00:00",
+  "rows_input": 28,
   "parser_environment": {
     "camelot": false,
     "pdfplumber": true,
@@ -10,6 +10,9 @@
     "pdftotext": true,
     "pdftoppm": true
   },
+  "parallel_workers": 2,
+  "parallel_order_strategy": "doc_index",
+  "parallel_errors": [],
   "yearly_datasets": {
     "2023": {
       "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2025-09/NHAI-Annual_Report_2023-24_English.pdf",
@@ -364,6 +367,57 @@
       "first_records": 0,
       "method_mix": {
         "text": 381
+      },
+      "quality": 0
+    },
+    "2016": {
+      "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2019-02/FinalNHAIAnnualReport1617English.pdf",
+      "source_document_title": "NHAI Annual Report of 2016-2017",
+      "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2016.parquet",
+      "rows": 517,
+      "schema": [
+        "report_year",
+        "report_year_start",
+        "source_document_url",
+        "source_document_title",
+        "source_document_sha256",
+        "source_id",
+        "source_type",
+        "dataset_source",
+        "dataset_created_at",
+        "lineage_dataset_created_at",
+        "lineage_output_file",
+        "lineage_document_url",
+        "lineage_document_title",
+        "lineage_source_id",
+        "lineage_source_type",
+        "lineage_report_year",
+        "lineage_pdf_checksum",
+        "page_no",
+        "table_id",
+        "row_no",
+        "col_no",
+        "row_index",
+        "record_type",
+        "metric_category",
+        "metric_name",
+        "metric_value_numeric",
+        "metric_value_text",
+        "metric_unit",
+        "extraction_method",
+        "parser_name",
+        "parser_metadata",
+        "extraction_confidence",
+        "ocr_attempted",
+        "quality_flag",
+        "raw_line",
+        "pdf_checksum",
+        "citations"
+      ],
+      "first_records": 500,
+      "method_mix": {
+        "table": 500,
+        "text": 17
       },
       "quality": 0
     },
@@ -2394,7 +2448,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2016.parquet",
           "status": "read",
-          "rows": 516,
+          "rows": 517,
           "schema": [
             "citations",
             "col_no",
@@ -2792,11 +2846,11 @@
   },
   "quality_report": "data/processed/nhai_annual_report_tables/quality_report.json",
   "quality": {
-    "avg_confidence": 0.909296786389414,
+    "avg_confidence": 0.9128939895882632,
     "min_confidence": 0.0,
     "max_confidence": 1.0,
     "low_confidence_rows": 9,
     "low_confidence_threshold": 0.45
   },
-  "rows_merged": 8454
+  "rows_merged": 8455
 }
