@@ -2,32 +2,143 @@
   "source_id": "nhai_annual_report_documents",
   "connector": "nhai_annual_documents",
   "version": "0.1.1",
-  "status": "stubs_disabled",
+  "status": "automated",
   "metric_category": "official_measured",
   "source": {
     "publisher": "National Highways Authority of India (NHAI)",
     "title": "NHAI annual reports and related annual PDF publication documents",
     "url": "https://nhai.gov.in/en/press-release",
-    "retrieved_at": "2026-03-11T05:17:29.606966+00:00",
+    "retrieved_at": "2026-03-13T03:41:34.199624+00:00",
     "license_terms": "Official publication on NHAI website; reuse subject to official publication terms.",
     "official_flag": true,
     "domain": "nhai.gov.in"
   },
   "citations": {
     "permanent_identifier": "NHAI annual report index and policy/circular feeds",
-    "anchor": "no_discoverable_documents",
-    "note": "No downloadable official PDFs discovered."
+    "anchor": "discovery:https://nhai.gov.in/nhai/sites/default/files/2025-09/NHAI-Annual_Report_2023-24_English.pdf",
+    "note": "Official NHAI document discovery and ingestion succeeded."
   },
   "manifest": {
-    "raw_files": [],
+    "raw_files": [
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034205.pdf",
+        "sha256": "75eb02573bb4b7927c88b495432e820baa7e6f603f78e3b09afd3d6395a429e1",
+        "size_bytes": 4902080
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034208.pdf",
+        "sha256": "f4b1ffed318abe534ae0e80eb7fa73054582640c43ba96efa1eb304324da6142",
+        "size_bytes": 7701522
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034209.pdf",
+        "sha256": "c5b3eab0eddbc4ef6884b3fefbe6eba2ec2349a37641715677f69f99c097e5f1",
+        "size_bytes": 8813655
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034213.pdf",
+        "sha256": "28c9d48c2c5f32ad7d04ce4ce6ef7de831fdff2fe31eacab553207c94718a3d9",
+        "size_bytes": 3258963
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034214.pdf",
+        "sha256": "63893f7a1e15b679907228a8110065509c3a95b3e3293aeb3618fa7fca04b8c0",
+        "size_bytes": 3548635
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034215.pdf",
+        "sha256": "0adfb358c751c7315b964fe464206c1df88bbf6b2df81c60a96a20cfaaeefad1",
+        "size_bytes": 5390390
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034216.pdf",
+        "sha256": "4522a449d83ea2ea9c78c084b708796cbdd59a5b7b1c5764510714d96fb76817",
+        "size_bytes": 4046884
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034217.pdf",
+        "sha256": "f6197a636fa693770e11cad74c3d10987c4cce8d981c811593bb1040d777c930",
+        "size_bytes": 1864993
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034218.pdf",
+        "sha256": "87136cb4feb8f05d13f6b43c0ae4f6a1dfd23f281e6fc8424ff1608c5c304700",
+        "size_bytes": 1480206
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034227.pdf",
+        "sha256": "95f9ffb2dffd95500bf7b1e75b94c7cc25a176ad92c9ec1bfccd16ea3a2b10c6",
+        "size_bytes": 127281791
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034258.pdf",
+        "sha256": "10ae66d3638a7e8baa402a05d2891c0ffa080c816f961ef45637a5819fa4bf0d",
+        "size_bytes": 431085437
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034300.pdf",
+        "sha256": "5682a6a2621b1095c403bd4d7527c645f3f4da01917ca35bf2a35b8d8c1ff514",
+        "size_bytes": 6237481
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034304.pdf",
+        "sha256": "b573c890b4e9fd2c882e417b978568202b8afb43a2359d92aeff74b2a35e8bcc",
+        "size_bytes": 66679781
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034305.pdf",
+        "sha256": "f02c8ad106a0bdde937556544e58ce13a86ff003e65b48c0a477c8735f61a0f0",
+        "size_bytes": 4206920
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034308.pdf",
+        "sha256": "23ffb2186e02de02417f4b0e9884d1be0a8565ba2b399844b9814d981503fb5f",
+        "size_bytes": 43960903
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034309.pdf",
+        "sha256": "ccdcb092926cf10ebbcc729a6ec6b715c90550304a43059e0163496789722fb3",
+        "size_bytes": 15587343
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034311.pdf",
+        "sha256": "6573a84bf31bf42e64f7c1df8f056f4ebffaaa9a545b3959b57e793826fef997",
+        "size_bytes": 5003251
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034317.pdf",
+        "sha256": "9ad55501c39ecf1b7cb33d84234962e19364a101088c4653d0b39d314134535a",
+        "size_bytes": 13430589
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034318.pdf",
+        "sha256": "98718e29859372f740d85c2c0a55b844183fe1439434922678632b53d4a8dc8d",
+        "size_bytes": 7736504
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034319.pdf",
+        "sha256": "5544f54ae9cf4f3e92031f0df3b99ba167da57ca83d49542c894233d4184fa5e",
+        "size_bytes": 2295533
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034320.pdf",
+        "sha256": "7271c28affe7fff26b151dacdff4848604b843d154c9c730688a9ff954efe8fd",
+        "size_bytes": 524544
+      },
+      {
+        "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_034321.pdf",
+        "sha256": "5a0a8ffd9e5a46fe17f2878f517c8bac9dd75a0e074fc8016c12d53e72d5719c",
+        "size_bytes": 2749323
+      }
+    ],
     "output_files": [
       {
         "path": "data/processed/nhai_annual_report_documents.parquet",
         "format": "parquet",
-        "sha256": "9ed49fdc5226bd6d1ce7a4514e8e97357471e4dcc9172ef20263e689224b5fa0"
+        "sha256": "0f891f2556b93cebaced44dcd98dc713d129562a8ba78f5171819d8e27297cfc"
       }
     ],
-    "row_count": 1,
+    "row_count": 29,
     "columns": [
       "source_id",
       "source_type",
@@ -36,24 +147,21 @@
       "metric_name",
       "metric_value",
       "unit",
-      "status_note",
+      "document_title",
+      "source_document_url",
+      "financial_year",
+      "as_of_timestamp",
+      "publication_date",
+      "document_checksum",
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-03-11T05:17:29.606966+00:00",
-  "skip_reason": "no_discoverable_documents",
-  "completeness_score": 0.3,
-  "recency_score": 0.3,
-  "provenance_score": 0.255,
-  "consistency_score": 0.3,
-  "overall_confidence_badge": "Low",
-  "overall_confidence_reason": [
-    "Low provenance confidence (source reliability category)",
-    "Missingness is high; check source completeness",
-    "Recency is stale against claimed update frequency",
-    "Schema/range checks showed potential consistency issues",
-    "Use for trend and risk ranking, not precise governance decisions",
-    "Ingestion is disabled under manual approval gate."
-  ],
+  "retrieved_at": "2026-03-13T03:41:34.199624+00:00",
+  "completeness_score": 0.953,
+  "recency_score": 1.0,
+  "provenance_score": 0.85,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
   "output_table_path": "data/processed/nhai_annual_report_documents.parquet"
 }

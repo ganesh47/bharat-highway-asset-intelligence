@@ -5,7 +5,7 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
-from urllib.parse import urljoin
+from urllib.parse import parse_qs, urlencode, urljoin, urlsplit, urlunsplit
 
 import pandas as pd
 import requests
@@ -17,6 +17,25 @@ from pipelines.quality import evaluate
 
 
 PDF_EXTENSION_EXTENTIONS = {".pdf", ".PDF"}
+ALLOWED_HOST_SUFFIX = "nhai.gov.in"
+TRACKING_QUERY_KEYS = {"fbclid", "gclid", "mc_cid", "mc_eid", "ref", "source"}
+PDF_MAGIC = b"%PDF-"
+ANNUAL_REPORT_TERMS = (
+    "annual report",
+    "annual-report",
+    "annual_report",
+    "annualreport",
+    "annual reports",
+)
+ANNUAL_NEGATIVE_TERMS = (
+    "press release",
+    "press-release",
+    "notice",
+    "circular",
+    "tender",
+    "rfp",
+    "corrigendum",
+)
 DATE_PATTERNS = (
     ("%Y-%m-%d", r"\b(20\d{2}-\d{1,2}-\d{1,2})\b"),
     ("%d-%m-%Y", r"\b((?:0[1-9]|[12]\d|3[01])[-/](?:0[1-9]|1[0-2])[-/]20\d{2})\b"),
@@ -40,7 +59,7 @@ class NHAIAnnualDocumentsConnector:
         },
     )
 
-    PDF_LINK_RE = re.compile(r"https?://[^\"'\\s]+\\.pdf(?:\\?[^\\s'\"]*)?", flags=re.IGNORECASE)
+    PDF_LINK_RE = re.compile(r"https?://[^\"'\s]+\.pdf(?:\?[^\s'\"]*)?", flags=re.IGNORECASE)
     FINANCIAL_YEAR_RE = re.compile(r"\b(20\d{2})[-/](\d{2})\b")
     YEAR_RE = re.compile(r"\b((?:19|20)\d{2})\b")
     AUDITED_FN_RE = re.compile(r"Audited[_\\-\\s]*Results[_\\-\\s]*(\\d{4}[-/]\\d{2})", flags=re.IGNORECASE)
@@ -67,7 +86,87 @@ class NHAIAnnualDocumentsConnector:
         value = url.strip()
         if value.startswith("//"):
             return "https:" + value
-        return value
+        split = urlsplit(value)
+        if not split.scheme or not split.netloc:
+            return value
+        query_items = []
+        for key, values in sorted(parse_qs(split.query, keep_blank_values=True).items()):
+            key_l = key.lower()
+            if key_l.startswith("utm_") or key_l in TRACKING_QUERY_KEYS:
+                continue
+            for item in values:
+                query_items.append((key, item))
+        path = re.sub(r"/{2,}", "/", split.path or "/").rstrip("/")
+        path = path or "/"
+        return urlunsplit(
+            (
+                split.scheme.lower(),
+                split.netloc.lower(),
+                path,
+                urlencode(query_items, doseq=True),
+                "",
+            )
+        )
+
+    @staticmethod
+    def _is_allowed_document_url(url: str) -> bool:
+        split = urlsplit(url)
+        host = (split.hostname or "").lower()
+        return split.scheme in {"http", "https"} and (host == ALLOWED_HOST_SUFFIX or host.endswith(f".{ALLOWED_HOST_SUFFIX}"))
+
+    @staticmethod
+    def _looks_like_pdf_payload(content_type: str, sample: bytes, url: str) -> bool:
+        ctype = (content_type or "").lower()
+        if sample.startswith(PDF_MAGIC):
+            return True
+        if "application/pdf" not in ctype:
+            return False
+        if sample.lstrip().startswith((b"<html", b"<!doctype html", b"<?xml")):
+            return False
+        return url.lower().endswith(".pdf")
+
+    def _annual_report_score(self, title: str, document_url: str, pdf_text: str | None = None, source_hint: Any = None) -> float:
+        blob_parts = [self._safe_text(title).lower(), self._normalize_url(document_url).lower(), self._safe_text(source_hint).lower()]
+        if pdf_text:
+            blob_parts.append(self._safe_text(pdf_text)[:2000].lower())
+        blob = " ".join(part for part in blob_parts if part)
+
+        score = 0.0
+        if any(term in blob for term in ANNUAL_REPORT_TERMS):
+            score += 0.45
+        elif "annual" in blob and "report" in blob:
+            score += 0.3
+
+        if "annual-reports" in blob or "annual_report" in blob or "annual-report" in blob:
+            score += 0.2
+
+        if self.FINANCIAL_YEAR_RE.search(blob) or re.search(r"\b(19|20)\d{2}\s*-\s*(?:19|20)?\d{2}\b", blob):
+            score += 0.2
+        elif self.YEAR_RE.search(blob):
+            score += 0.1
+
+        if pdf_text and any(marker in blob for marker in ("annual report of", "chairman", "management discussion", "performance overview")):
+            score += 0.15
+
+        if any(term in blob for term in ANNUAL_NEGATIVE_TERMS):
+            score -= 0.35
+        if "green cover index" in blob:
+            score -= 0.25
+
+        return max(0.0, min(score, 1.0))
+
+    def _dedupe_paths(self, paths: list[Path]) -> list[Path]:
+        unique: list[Path] = []
+        seen: set[tuple[str, str]] = set()
+        for path in paths:
+            if not path or not path.exists():
+                continue
+            key = (str(path), sha256_for_file(path))
+            if key in seen:
+                continue
+            seen.add(key)
+            unique.append(path)
+        return unique
 
     def _manual_files(self, source_id: str, raw_root: Path) -> List[Path]:
         manual_dir = raw_root / "manual"
@@ -234,8 +333,18 @@ class NHAIAnnualDocumentsConnector:
         pages = int(source.get("discovery_pages", 4))
         page_size = int(source.get("discovery_page_size", 200))
 
+        split = urlsplit(endpoint)
+        query_params = {key: value[0] for key, value in parse_qs(split.query).items()}
+        if split.scheme and split.netloc:
+            endpoint = urlunsplit((split.scheme, split.netloc, split.path, "", ""))
+
         endpoint_l = endpoint.lower()
-        payload_mode = "press" if "press" in endpoint_l else "policy"
+        if "press" in endpoint_l:
+            payload_mode = "press"
+        elif "commontype" in endpoint_l:
+            payload_mode = "commontype"
+        else:
+            payload_mode = "policy"
 
         for page in range(pages):
             if payload_mode == "press":
@@ -246,8 +355,17 @@ class NHAIAnnualDocumentsConnector:
                     "itemsPerPage": page_size,
                     "totalrecord": page_size,
                 }
+            elif payload_mode == "commontype":
+                payload = {
+                    "language": "en",
+                    "index": page,
+                    "itemsPerPage": page_size,
+                    "totalrecord": page_size,
+                }
             else:
                 payload = {"language": "en", "page": page, "limit": page_size}
+
+            payload.update(query_params)
 
             try:
                 response = requests.post(
@@ -268,7 +386,7 @@ class NHAIAnnualDocumentsConnector:
                 break
 
             records: list[Any] = []
-            for key in ("data", "records", "rows", "result"):
+            for key in ("data", "records", "rows", "result", "list", "detail"):
                 value = payload_json.get(key) if isinstance(payload_json, dict) else None
                 if isinstance(value, list):
                     records = value
@@ -282,14 +400,19 @@ class NHAIAnnualDocumentsConnector:
                 if not any(term.lower() in blob.lower() for term in terms):
                     continue
                 for doc_url in self._collect_urls(item, base_url=endpoint):
-                    if ".pdf" not in doc_url.lower():
+                    normalized_url = self._normalize_url(doc_url)
+                    if ".pdf" not in normalized_url.lower():
                         continue
-                    if not self._probe_pdf_url(doc_url):
+                    if not self._is_allowed_document_url(normalized_url):
+                        continue
+                    if self._annual_report_score(title, normalized_url, source_hint=item) < 0.4:
+                        continue
+                    if not self._probe_pdf_url(normalized_url):
                         continue
                     candidates.append(
                         {
                             "title": title or source.get("dataset_title", ""),
-                            "document_url": doc_url,
+                            "document_url": normalized_url,
                             "source_hint": {"endpoint": endpoint, "mode": payload_mode},
                         }
                     )
@@ -305,7 +428,7 @@ class NHAIAnnualDocumentsConnector:
 
         for hint in self._safe_url_list(source.get("resource_file_urls")):
             url = self._normalize_url(hint)
-            if not url.lower().endswith(".pdf"):
+            if not url.lower().endswith(".pdf") or not self._is_allowed_document_url(url):
                 continue
             if url not in seen_urls:
                 candidates.append({"title": source.get("dataset_title", ""), "document_url": url, "source_hint": "inventory_hint"})
@@ -329,10 +452,10 @@ class NHAIAnnualDocumentsConnector:
                 "Audited_Results_{year}(SEBI_Format).pdf",
             )
             filename = filename.format(year=year_value)
-            url = f"{base.rstrip('/')}/{filename}"
+            url = self._normalize_url(f"{base.rstrip('/')}/{filename}")
             if url in seen_urls:
                 continue
-            if self._probe_pdf_url(url):
+            if self._is_allowed_document_url(url) and self._probe_pdf_url(url):
                 candidates.append(
                     {
                         "title": f"{source.get('dataset_title', 'NHAI audited results')} {year_value}",
@@ -350,11 +473,11 @@ class NHAIAnnualDocumentsConnector:
 
         for hint in self._safe_url_list(source.get("resource_file_urls")):
             url = self._normalize_url(hint)
-            if url and url.lower().endswith(".pdf"):
+            if url and url.lower().endswith(".pdf") and self._is_allowed_document_url(url):
                 key = url.lower()
                 if key not in seen_urls:
                     seen_urls.add(key)
-                    if self._probe_pdf_url(url):
+                    if self._annual_report_score(source.get("dataset_title", ""), url, source_hint="inventory_hint") >= 0.4 and self._probe_pdf_url(url):
                         discovered.append({"title": source.get("dataset_title", ""), "document_url": url, "source_hint": "inventory_hint"})
 
         endpoints = source.get(
@@ -380,45 +503,63 @@ class NHAIAnnualDocumentsConnector:
                 response = requests.get(page, timeout=25, headers={"user-agent": "BHAI-research-scan/0.3"})
                 if response.ok:
                     for link in self._collect_urls(response.text):
-                        if not link.lower().endswith(".pdf"):
+                        normalized_link = self._normalize_url(link)
+                        if not normalized_link.lower().endswith(".pdf"):
                             continue
-                        key = link.lower()
+                        if not self._is_allowed_document_url(normalized_link):
+                            continue
+                        if self._annual_report_score(source.get("dataset_title", ""), normalized_link, source_hint=page) < 0.4:
+                            continue
+                        key = normalized_link.lower()
                         if key in seen_urls:
                             continue
-                        if self._probe_pdf_url(link):
+                        if self._probe_pdf_url(normalized_link):
                             seen_urls.add(key)
-                            discovered.append({"title": source.get("dataset_title", ""), "document_url": link, "source_hint": page})
+                            discovered.append({"title": source.get("dataset_title", ""), "document_url": normalized_link, "source_hint": page})
             except Exception:
                 pass
 
         return discovered
 
     def _probe_pdf_url(self, url: str) -> bool:
+        normalized_url = self._normalize_url(url)
+        if not self._is_allowed_document_url(normalized_url):
+            return False
         try:
-            response = requests.head(url, timeout=20, headers={"user-agent": "BHAI-research-scan/0.3"}, allow_redirects=True)
+            response = requests.head(normalized_url, timeout=20, headers={"user-agent": "BHAI-research-scan/0.3"}, allow_redirects=True)
             if response.status_code >= 400:
                 return False
-            ctype = (response.headers.get("Content-Type") or "").lower()
-            if "application/pdf" in ctype:
-                return True
-            if "text/html" in ctype:
+            final_url = self._normalize_url(response.url or normalized_url)
+            if not self._is_allowed_document_url(final_url):
                 return False
-            return True
+            head_type = (response.headers.get("Content-Type") or "").lower()
+            if head_type and "application/pdf" not in head_type and "text/html" in head_type:
+                return False
         except Exception:
-            try:
-                response = requests.get(
-                    url,
-                    timeout=25,
-                    stream=True,
-                    headers={"user-agent": "BHAI-research-scan/0.3"},
-                    allow_redirects=True,
-                )
-                if response.status_code >= 400:
-                    return False
-                ctype = (response.headers.get("Content-Type") or "").lower()
-                return "application/pdf" in ctype or ("text/html" not in ctype)
-            except Exception:
+            final_url = normalized_url
+        try:
+            response = requests.get(
+                final_url,
+                timeout=25,
+                stream=True,
+                headers={"user-agent": "BHAI-research-scan/0.3", "Range": "bytes=0-2047"},
+                allow_redirects=True,
+            )
+            if response.status_code >= 400:
                 return False
+            resolved_url = self._normalize_url(response.url or final_url)
+            if not self._is_allowed_document_url(resolved_url):
+                return False
+            sample = b""
+            for chunk in response.iter_content(chunk_size=2048):
+                if chunk:
+                    sample += chunk
+                if len(sample) >= 2048:
+                    break
+            ctype = response.headers.get("Content-Type") or ""
+            return self._looks_like_pdf_payload(ctype, sample[:2048], resolved_url)
+        except Exception:
+            return False
 
     @staticmethod
     def _pdf_metadata(path: Path) -> tuple[str | None, str | None]:
@@ -453,18 +594,22 @@ class NHAIAnnualDocumentsConnector:
         now: str,
     ) -> tuple[dict[str, Any] | None, Path | None]:
         document_url = self._normalize_url(candidate.get("document_url", ""))
-        if not document_url:
+        if not document_url or not self._is_allowed_document_url(document_url):
             return None, None
 
         try:
-            response = requests.get(document_url, timeout=60, headers={"user-agent": "BHAI-research-scan/0.3"})
+            response = requests.get(document_url, timeout=60, headers={"user-agent": "BHAI-research-scan/0.3"}, allow_redirects=True)
         except Exception:
             return None, None
         if not response.ok:
             return None, None
 
-        ctype = (response.headers.get("Content-Type") or "").lower()
-        if "pdf" not in ctype and not document_url.lower().endswith(".pdf"):
+        resolved_url = self._normalize_url(response.url or document_url)
+        if not self._is_allowed_document_url(resolved_url):
+            return None, None
+
+        ctype = response.headers.get("Content-Type") or ""
+        if not self._looks_like_pdf_payload(ctype, response.content[:2048], resolved_url):
             return None, None
 
         raw_pdf = self._write_raw_response(raw_root / source_id, source_id, response.content, ".pdf")
@@ -476,15 +621,20 @@ class NHAIAnnualDocumentsConnector:
         title = self._safe_text(candidate.get("title", "")) or raw_pdf.name
         doc_year = (
             self._guess_financial_year(title)
-            or self._guess_financial_year(document_url)
+            or self._guess_financial_year(resolved_url)
             or self._guess_financial_year(pdf_text)
         )
+        if source_id == "nhai_annual_report_documents":
+            report_score = self._annual_report_score(title, resolved_url, pdf_text, candidate.get("source_hint"))
+            if report_score < 0.4:
+                raw_pdf.unlink(missing_ok=True)
+                return None, None
         metric_name = (
             "nhai_audited_results_document"
             if source_id == "nhai_audited_results_pdf"
             else "nhai_annual_report_document"
         )
-        checksum = hashlib.sha256((response.content[:4096] if response.content else b"")).hexdigest()
+        checksum = hashlib.sha256((response.content if response.content else b"")).hexdigest()
 
         return (
             {
@@ -496,7 +646,7 @@ class NHAIAnnualDocumentsConnector:
                 "metric_value": 1.0,
                 "unit": "binary",
                 "document_title": title,
-                "source_document_url": document_url,
+                "source_document_url": resolved_url,
                 "financial_year": doc_year,
                 "as_of_timestamp": as_of,
                 "publication_date": publication_date,
@@ -541,7 +691,7 @@ class NHAIAnnualDocumentsConnector:
             "manifest": {
                 "raw_files": [
                     {"path": str(path), "sha256": sha256_for_file(path), "size_bytes": path.stat().st_size}
-                    for path in raw_files
+                    for path in self._dedupe_paths(raw_files)
                     if path and path.exists()
                 ],
                 "output_files": [
@@ -598,10 +748,18 @@ class NHAIAnnualDocumentsConnector:
             candidate_rows = self._discover_annual_report_candidates(source, now)
 
         rows_payload: list[dict[str, Any]] = []
+        seen_documents: set[tuple[str, str]] = set()
         for candidate in candidate_rows:
             row, raw_file = self._row_from_candidate(source_id, source, candidate, raw_root, now)
             if row is None:
                 continue
+            dedupe_key = (
+                str(row.get("document_checksum") or ""),
+                str(row.get("source_document_url") or ""),
+            )
+            if dedupe_key in seen_documents:
+                continue
+            seen_documents.add(dedupe_key)
             rows_payload.append(row)
             if raw_file is not None:
                 raw_files.append(raw_file)

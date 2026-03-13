@@ -447,6 +447,7 @@ sources:
       - https://nhai.gov.in/nhai/api/policycirculars
       - https://nhai.gov.in/nhai/api/press-release
       - https://nhai.gov.in/nhai/api/projects
+      - https://nhai.gov.in/nhai/api/commontype?tid=annual-reports&vid=common_type
     permanent_identifier_hint: "NHAI annual report index and policy/circular feeds"
     notes: "Discovers annual report related PDF documents and keeps them as official document records."
 
