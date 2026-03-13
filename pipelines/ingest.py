@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+from datetime import datetime
 from pathlib import Path
 from typing import Dict
 import pandas as pd
@@ -10,12 +11,57 @@ from pipelines.connectors import CONNECTORS
 from pipelines.common import ensure_dirs, write_catalog, write_json, read_json
 from pipelines.quality import evaluate
 
+NHAI_EXTRACTION_QUALITY_SOURCE_IDS = {"nhai_annual_report_documents"}
+
 
 def find_connector_for_source(source_id: str):
     for connector in CONNECTORS:
         if source_id in connector.spec.source_ids:
             return connector
     return None
+
+
+def _load_nhai_extraction_quality(processed_root: Path, output_table_path: str | None) -> dict | None:
+    quality_path = processed_root / "nhai_annual_report_tables" / "quality_report.json"
+    manifest_path = processed_root / "nhai_annual_report_tables" / "extraction_manifest.json"
+    if not quality_path.exists() or not manifest_path.exists():
+        return None
+
+    quality_payload = read_json(quality_path)
+    manifest_payload = read_json(manifest_path)
+    if not isinstance(quality_payload, dict) or not isinstance(manifest_payload, dict):
+        return None
+
+    source_parquet = str(manifest_payload.get("source_parquet", "")).strip()
+    expected_path = str(output_table_path or "").strip()
+    if source_parquet and expected_path and source_parquet != expected_path:
+        return None
+
+    generated_at = str(quality_payload.get("generated_at", "")).strip()
+    if generated_at:
+        try:
+            datetime.fromisoformat(generated_at.replace("Z", "+00:00"))
+        except Exception:
+            return None
+
+    quality = quality_payload.get("quality")
+    method_mix = quality_payload.get("method_mix")
+    parser_environment = quality_payload.get("parser_environment")
+    if not isinstance(quality, dict) or not isinstance(method_mix, dict):
+        return None
+    if parser_environment is not None and not isinstance(parser_environment, dict):
+        parser_environment = {}
+
+    return {
+        "generated_at": generated_at,
+        "quality": quality,
+        "method_mix": method_mix,
+        "parser_environment": parser_environment or {},
+        "source_parquet": source_parquet or expected_path,
+        "quality_report_path": str(quality_path),
+        "extraction_manifest_path": str(manifest_path),
+        "rows_merged": manifest_payload.get("rows_merged"),
+    }
 
 
 def run_ingestion(
@@ -69,7 +115,19 @@ def run_ingestion(
         score_ctx = source | manifest_entry.get("source", {})
         if manifest_entry.get("status"):
             score_ctx["status"] = manifest_entry.get("status")
+        score_ctx["source_id"] = source_id
         score_ctx["update_frequency"] = source.get("update_frequency")
+        if source_id in NHAI_EXTRACTION_QUALITY_SOURCE_IDS:
+            extraction_quality = _load_nhai_extraction_quality(processed_root, manifest_entry.get("output_table_path"))
+            if extraction_quality:
+                score_ctx["extraction_quality"] = extraction_quality
+                manifest_entry["extraction_quality"] = extraction_quality
+                manifest_entry["extraction_quality_reference"] = {
+                    "quality_report_path": extraction_quality.get("quality_report_path"),
+                    "extraction_manifest_path": extraction_quality.get("extraction_manifest_path"),
+                    "generated_at": extraction_quality.get("generated_at"),
+                    "source_parquet": extraction_quality.get("source_parquet"),
+                }
         manifest_entry.update(evaluate(score_df, score_ctx))
         write_json(manifest_entry, manifest_root / f"{source_id}.json")
         catalog_entries = [

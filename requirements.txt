@@ -6,4 +6,5 @@ pydantic>=2.8
 pyarrow>=14
 duckdb>=1.1
 pypdf>=4.3
+pdfplumber>=0.11.4
 playwright>=1.46

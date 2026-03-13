@@ -5,6 +5,8 @@ from typing import Dict, Any
 
 import pandas as pd
 
+EXTRACTION_QUALITY_SOURCE_IDS = {"nhai_annual_report_documents"}
+
 FREQ_TO_DAYS = {
     "daily": 1,
     "monthly": 31,
@@ -105,14 +107,107 @@ def consistency_score(df: pd.DataFrame, numeric_nonnegative: list[str] | None = 
     return round(min(score, 1.0), 3)
 
 
+def _extract_extraction_quality(item: Dict[str, Any]) -> dict[str, Any]:
+    source_id = str(item.get("source_id", "")).strip()
+    if source_id not in EXTRACTION_QUALITY_SOURCE_IDS:
+        return {}
+    payload = item.get("extraction_quality")
+    if not isinstance(payload, dict):
+        return {}
+    quality = payload.get("quality")
+    method_mix = payload.get("method_mix")
+    parser_environment = payload.get("parser_environment")
+    if not isinstance(quality, dict) or not isinstance(method_mix, dict):
+        return {}
+    if parser_environment is not None and not isinstance(parser_environment, dict):
+        parser_environment = {}
+    return {
+        "quality": quality,
+        "method_mix": method_mix,
+        "parser_environment": parser_environment or {},
+    }
+
+
+def _method_count(method_mix: dict[str, Any], name: str) -> int:
+    raw = method_mix.get(name, 0)
+    if isinstance(raw, dict):
+        raw = raw.get("count", 0)
+    try:
+        return int(raw)
+    except Exception:
+        return 0
+
+
+def _extraction_confidence_factor(summary: dict[str, Any]) -> tuple[float, list[str]]:
+    if not summary:
+        return 1.0, []
+
+    quality = summary.get("quality") if isinstance(summary.get("quality"), dict) else {}
+    method_mix = summary.get("method_mix") if isinstance(summary.get("method_mix"), dict) else {}
+    parser_environment = (
+        summary.get("parser_environment") if isinstance(summary.get("parser_environment"), dict) else {}
+    )
+
+    try:
+        avg_conf = float(quality.get("avg_confidence", 1.0))
+    except Exception:
+        avg_conf = 1.0
+    try:
+        low_conf_rows = float(quality.get("low_confidence_rows", 0))
+    except Exception:
+        low_conf_rows = 0.0
+    total_rows = 0.0
+    for value in method_mix.values():
+        if isinstance(value, dict):
+            value = value.get("count", 0)
+        try:
+            total_rows += float(value)
+        except Exception:
+            continue
+
+    low_conf_share = (low_conf_rows / total_rows) if total_rows > 0 else 0.0
+    failed_rows = _method_count(method_mix, "failed") + _method_count(method_mix, "error")
+    failed_share = (failed_rows / total_rows) if total_rows > 0 else 0.0
+    text_rows = _method_count(method_mix, "text")
+    text_share = (text_rows / total_rows) if total_rows > 0 else 0.0
+    parser_support = any(bool(parser_environment.get(name)) for name in ("pdfplumber", "camelot", "tabula", "tesseract"))
+
+    score = max(0.0, min(avg_conf, 1.0))
+    reasons: list[str] = []
+
+    if low_conf_share > 0.15:
+        score -= min(0.25, (low_conf_share - 0.15) * 0.6)
+        reasons.append("Extraction quality has a meaningful share of low-confidence rows")
+    if failed_share > 0.02:
+        score -= min(0.2, failed_share * 2.0)
+        reasons.append("Extractor recorded failed/error rows")
+    if text_share > 0.95 and not parser_support:
+        score -= 0.08
+        reasons.append("Extraction is dominated by text-only fallback without structured parser/OCR support")
+    if avg_conf < 0.7:
+        reasons.append("Average extraction confidence is below the preferred threshold")
+
+    return round(max(0.0, min(score, 1.0)), 3), reasons
+
+
 def confidence_badge(scores: Dict[str, float]) -> tuple[str, list[str]]:
     reasons = []
-    overall = (
-        0.35 * scores.get("completeness", 0)
-        + 0.25 * scores.get("recency", 0)
-        + 0.2 * scores.get("provenance", 0)
-        + 0.2 * scores.get("consistency", 0)
-    )
+    has_extraction = "extraction" in scores
+    if has_extraction:
+        overall = (
+            0.30 * scores.get("completeness", 0)
+            + 0.20 * scores.get("recency", 0)
+            + 0.18 * scores.get("provenance", 0)
+            + 0.17 * scores.get("consistency", 0)
+            + 0.15 * scores.get("extraction", 0)
+        )
+    else:
+        overall = (
+            0.35 * scores.get("completeness", 0)
+            + 0.25 * scores.get("recency", 0)
+            + 0.2 * scores.get("provenance", 0)
+            + 0.2 * scores.get("consistency", 0)
+        )
 
     if scores.get("provenance", 0) < 0.45:
         reasons.append("Low provenance confidence (source reliability category)")
@@ -122,6 +217,8 @@ def confidence_badge(scores: Dict[str, float]) -> tuple[str, list[str]]:
         reasons.append("Recency is stale against claimed update frequency")
     if scores.get("consistency", 0) < 0.7:
         reasons.append("Schema/range checks showed potential consistency issues")
+    if has_extraction and scores.get("extraction", 1.0) < 0.65:
+        reasons.append("Extraction confidence is lower than discovery confidence; verify OCR/parser quality")
 
     if overall >= 0.85:
         return "High", reasons
@@ -135,6 +232,8 @@ def evaluate(df, item: Dict[str, Any]) -> Dict[str, Any]:
     r = recency_score(item.get("retrieved_at"), item.get("update_frequency"))
     p = provenance_score(item)
     cs = consistency_score(df)
+    extraction_summary = _extract_extraction_quality(item)
+    extraction_score, extraction_reasons = _extraction_confidence_factor(extraction_summary)
     status_factor = _status_factor(item)
     status = str(item.get("status", "")).lower()
 
@@ -151,13 +250,16 @@ def evaluate(df, item: Dict[str, Any]) -> Dict[str, Any]:
             "recency": r,
             "provenance": p,
             "consistency": cs,
+            **({"extraction": extraction_score} if extraction_summary else {}),
         }
     )
 
     if reason_from_status:
         reasons = reasons + [reason_from_status]
+    if extraction_reasons:
+        reasons = reasons + [reason for reason in extraction_reasons if reason not in reasons]
 
-    return {
+    output = {
         "completeness_score": c,
         "recency_score": r,
         "provenance_score": p,
@@ -165,3 +267,6 @@ def evaluate(df, item: Dict[str, Any]) -> Dict[str, Any]:
         "overall_confidence_badge": badge,
         "overall_confidence_reason": reasons,
     }
+    if extraction_summary:
+        output["extraction_quality_score"] = extraction_score
+    return output

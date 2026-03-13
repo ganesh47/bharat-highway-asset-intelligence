@@ -1,10 +1,10 @@
 {
   "source_parquet": "data/processed/nhai_annual_report_documents.parquet",
-  "generated_at": "2026-03-13T03:47:59.785382+00:00",
+  "generated_at": "2026-03-13T04:39:00.241032+00:00",
   "rows_input": 28,
   "parser_environment": {
     "camelot": false,
-    "pdfplumber": false,
+    "pdfplumber": true,
     "tabula": false,
     "tesseract": false,
     "pdftotext": true,
@@ -15,7 +15,7 @@
       "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2025-09/NHAI-Annual_Report_2023-24_English.pdf",
       "source_document_title": "NHAI Annual Report of 2023-2024",
       "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2023.parquet",
-      "rows": 463,
+      "rows": 985,
       "schema": [
         "report_year",
         "report_year_start",
@@ -55,9 +55,10 @@
         "pdf_checksum",
         "citations"
       ],
-      "first_records": 0,
+      "first_records": 793,
       "method_mix": {
-        "text": 463
+        "table": 793,
+        "text": 192
       },
       "quality": 0
     },
@@ -65,7 +66,7 @@
       "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2024-08/NHAI-Annual_Report_2022-23-English-30-05-24.pdf",
       "source_document_title": "NHAI Annual Report of 2022-2023",
       "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2022.parquet",
-      "rows": 441,
+      "rows": 1108,
       "schema": [
         "report_year",
         "report_year_start",
@@ -105,9 +106,10 @@
         "pdf_checksum",
         "citations"
       ],
-      "first_records": 0,
+      "first_records": 930,
       "method_mix": {
-        "text": 441
+        "table": 930,
+        "text": 178
       },
       "quality": 0
     },
@@ -115,7 +117,7 @@
       "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2023-08/NHAI-AnnualReport2021-22-22-03-23-English_0.pdf",
       "source_document_title": "NHAI Annual Report of 2021-2022",
       "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2021.parquet",
-      "rows": 483,
+      "rows": 978,
       "schema": [
         "report_year",
         "report_year_start",
@@ -155,9 +157,10 @@
         "pdf_checksum",
         "citations"
       ],
-      "first_records": 0,
+      "first_records": 815,
       "method_mix": {
-        "text": 483
+        "table": 815,
+        "text": 163
       },
       "quality": 0
     },
@@ -165,7 +168,7 @@
       "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2023-02/Annual%20Report%202020-21%20%28English%29.pdf",
       "source_document_title": "NHAI Annual Report of 2020-2021",
       "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2020.parquet",
-      "rows": 93,
+      "rows": 482,
       "schema": [
         "report_year",
         "report_year_start",
@@ -205,9 +208,10 @@
         "pdf_checksum",
         "citations"
       ],
-      "first_records": 0,
+      "first_records": 452,
       "method_mix": {
-        "text": 93
+        "table": 452,
+        "text": 30
       },
       "quality": 0
     },
@@ -215,7 +219,7 @@
       "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2022-02/NHAI%20AR%202019-20%20%2826-06-2021%29%20Final%20%282%20Colour%29.pdf",
       "source_document_title": "NHAI Annual Report of 2019-2020",
       "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2019.parquet",
-      "rows": 334,
+      "rows": 1161,
       "schema": [
         "report_year",
         "report_year_start",
@@ -255,9 +259,10 @@
         "pdf_checksum",
         "citations"
       ],
-      "first_records": 0,
+      "first_records": 1049,
       "method_mix": {
-        "text": 334
+        "table": 1049,
+        "text": 112
       },
       "quality": 0
     },
@@ -265,7 +270,7 @@
       "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2020-11/NHAI_AR_18_19_ENG_for_web.pdf",
       "source_document_title": "NHAI Annual Report of 2018-2019",
       "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2018.parquet",
-      "rows": 122,
+      "rows": 750,
       "schema": [
         "report_year",
         "report_year_start",
@@ -305,9 +310,10 @@
         "pdf_checksum",
         "citations"
       ],
-      "first_records": 0,
+      "first_records": 705,
       "method_mix": {
-        "text": 122
+        "table": 705,
+        "text": 45
       },
       "quality": 0
     },
@@ -365,7 +371,7 @@
       "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2019-02/FinalNHAIAnnualReport1617English.pdf",
       "source_document_title": "NHAI Annual Report of 2016-2017",
       "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2016.parquet",
-      "rows": 355,
+      "rows": 516,
       "schema": [
         "report_year",
         "report_year_start",
@@ -405,9 +411,10 @@
         "pdf_checksum",
         "citations"
       ],
-      "first_records": 0,
+      "first_records": 505,
       "method_mix": {
-        "text": 355
+        "table": 505,
+        "text": 11
       },
       "quality": 0
     },
@@ -415,7 +422,7 @@
       "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2019-03/AnnualReport201516.pdf",
       "source_document_title": "NHAI Annual Report of 2015-2016",
       "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2015.parquet",
-      "rows": 257,
+      "rows": 368,
       "schema": [
         "report_year",
         "report_year_start",
@@ -455,9 +462,10 @@
         "pdf_checksum",
         "citations"
       ],
-      "first_records": 0,
+      "first_records": 296,
       "method_mix": {
-        "text": 257
+        "table": 296,
+        "text": 72
       },
       "quality": 0
     },
@@ -465,7 +473,7 @@
       "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2019-03/NHAI_ENGLISH_final_annual_Report_14_15.pdf",
       "source_document_title": "NHAI Annual Report of 2014-2015",
       "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2014.parquet",
-      "rows": 303,
+      "rows": 430,
       "schema": [
         "report_year",
         "report_year_start",
@@ -505,9 +513,10 @@
         "pdf_checksum",
         "citations"
       ],
-      "first_records": 0,
+      "first_records": 288,
       "method_mix": {
-        "text": 303
+        "table": 288,
+        "text": 142
       },
       "quality": 0
     },
@@ -515,7 +524,7 @@
       "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2019-03/NHAI_AR_ENG_2013_14.pdf",
       "source_document_title": "NHAI Annual Report of 2013-2014",
       "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2013.parquet",
-      "rows": 303,
+      "rows": 370,
       "schema": [
         "report_year",
         "report_year_start",
@@ -555,9 +564,10 @@
         "pdf_checksum",
         "citations"
       ],
-      "first_records": 0,
+      "first_records": 211,
       "method_mix": {
-        "text": 303
+        "table": 211,
+        "text": 159
       },
       "quality": 0
     },
@@ -565,7 +575,7 @@
       "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2019-03/NHAI_Annual_Report_2012_13_Eng.pdf",
       "source_document_title": "NHAI Annual Report of 2012-2013",
       "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2012.parquet",
-      "rows": 484,
+      "rows": 449,
       "schema": [
         "report_year",
         "report_year_start",
@@ -605,9 +615,10 @@
         "pdf_checksum",
         "citations"
       ],
-      "first_records": 0,
+      "first_records": 371,
       "method_mix": {
-        "text": 484
+        "table": 371,
+        "text": 78
       },
       "quality": 0
     },
@@ -615,7 +626,7 @@
       "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2019-03/Annual_Report_English_2011_12.pdf",
       "source_document_title": "NHAI Annual Report of 2011-2012",
       "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2011.parquet",
-      "rows": 15,
+      "rows": 46,
       "schema": [
         "report_year",
         "report_year_start",
@@ -655,9 +666,10 @@
         "pdf_checksum",
         "citations"
       ],
-      "first_records": 0,
+      "first_records": 42,
       "method_mix": {
-        "text": 15
+        "table": 42,
+        "text": 4
       },
       "quality": 0
     },
@@ -765,7 +777,7 @@
       "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2019-03/Annual_Report_2007_08_Eng.pdf",
       "source_document_title": "NHAI Annual Report of 2007-2008",
       "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2007.parquet",
-      "rows": 685,
+      "rows": 338,
       "schema": [
         "report_year",
         "report_year_start",
@@ -805,9 +817,10 @@
         "pdf_checksum",
         "citations"
       ],
-      "first_records": 0,
+      "first_records": 294,
       "method_mix": {
-        "text": 685
+        "table": 294,
+        "text": 44
       },
       "quality": 0
     },
@@ -1215,7 +1228,7 @@
       "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2019-09/report98-99%20English.pdf",
       "source_document_title": "NHAI Annual Report of 1998-1999",
       "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1998.parquet",
-      "rows": 172,
+      "rows": 305,
       "schema": [
         "report_year",
         "report_year_start",
@@ -1255,9 +1268,10 @@
         "pdf_checksum",
         "citations"
       ],
-      "first_records": 0,
+      "first_records": 212,
       "method_mix": {
-        "text": 172
+        "table": 212,
+        "text": 93
       },
       "quality": 0
     },
@@ -1265,56 +1279,6 @@
       "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2019-03/report97_98_English.pdf",
       "source_document_title": "NHAI Annual Report of 1997-1998",
       "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1997.parquet",
-      "rows": 119,
-      "schema": [
-        "report_year",
-        "report_year_start",
-        "source_document_url",
-        "source_document_title",
-        "source_document_sha256",
-        "source_id",
-        "source_type",
-        "dataset_source",
-        "dataset_created_at",
-        "lineage_dataset_created_at",
-        "lineage_output_file",
-        "lineage_document_url",
-        "lineage_document_title",
-        "lineage_source_id",
-        "lineage_source_type",
-        "lineage_report_year",
-        "lineage_pdf_checksum",
-        "page_no",
-        "table_id",
-        "row_no",
-        "col_no",
-        "row_index",
-        "record_type",
-        "metric_category",
-        "metric_name",
-        "metric_value_numeric",
-        "metric_value_text",
-        "metric_unit",
-        "extraction_method",
-        "parser_name",
-        "parser_metadata",
-        "extraction_confidence",
-        "ocr_attempted",
-        "quality_flag",
-        "raw_line",
-        "pdf_checksum",
-        "citations"
-      ],
-      "first_records": 0,
-      "method_mix": {
-        "text": 119
-      },
-      "quality": 0
-    },
-    "1996": {
-      "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2019-03/report96_97_English.pdf",
-      "source_document_title": "NHAI Annual Report of 1996-1997",
-      "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1996.parquet",
       "rows": 127,
       "schema": [
         "report_year",
@@ -1355,17 +1319,18 @@
         "pdf_checksum",
         "citations"
       ],
-      "first_records": 0,
+      "first_records": 19,
       "method_mix": {
-        "text": 127
+        "text": 108,
+        "table": 19
       },
       "quality": 0
     },
-    "1989": {
-      "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2019-03/report89_95_English.pdf",
-      "source_document_title": "NHAI Annual Report of 1989-90 TO 1995-96",
-      "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1989.parquet",
-      "rows": 231,
+    "1996": {
+      "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2019-03/report96_97_English.pdf",
+      "source_document_title": "NHAI Annual Report of 1996-1997",
+      "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1996.parquet",
+      "rows": 130,
       "schema": [
         "report_year",
         "report_year_start",
@@ -1405,9 +1370,61 @@
         "pdf_checksum",
         "citations"
       ],
-      "first_records": 0,
+      "first_records": 5,
       "method_mix": {
-        "text": 231
+        "text": 125,
+        "table": 5
+      },
+      "quality": 0
+    },
+    "1989": {
+      "source_document_url": "https://nhai.gov.in/nhai/sites/default/files/2019-03/report89_95_English.pdf",
+      "source_document_title": "NHAI Annual Report of 1989-90 TO 1995-96",
+      "output_path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1989.parquet",
+      "rows": 246,
+      "schema": [
+        "report_year",
+        "report_year_start",
+        "source_document_url",
+        "source_document_title",
+        "source_document_sha256",
+        "source_id",
+        "source_type",
+        "dataset_source",
+        "dataset_created_at",
+        "lineage_dataset_created_at",
+        "lineage_output_file",
+        "lineage_document_url",
+        "lineage_document_title",
+        "lineage_source_id",
+        "lineage_source_type",
+        "lineage_report_year",
+        "lineage_pdf_checksum",
+        "page_no",
+        "table_id",
+        "row_no",
+        "col_no",
+        "row_index",
+        "record_type",
+        "metric_category",
+        "metric_name",
+        "metric_value_numeric",
+        "metric_value_text",
+        "metric_unit",
+        "extraction_method",
+        "parser_name",
+        "parser_metadata",
+        "extraction_confidence",
+        "ocr_attempted",
+        "quality_flag",
+        "raw_line",
+        "pdf_checksum",
+        "citations"
+      ],
+      "first_records": 35,
+      "method_mix": {
+        "text": 211,
+        "table": 35
       },
       "quality": 0
     }
@@ -1504,7 +1521,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1989.parquet",
           "status": "read",
-          "rows": 231,
+          "rows": 246,
           "schema": [
             "citations",
             "col_no",
@@ -1548,7 +1565,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1996.parquet",
           "status": "read",
-          "rows": 127,
+          "rows": 130,
           "schema": [
             "citations",
             "col_no",
@@ -1592,7 +1609,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1997.parquet",
           "status": "read",
-          "rows": 119,
+          "rows": 127,
           "schema": [
             "citations",
             "col_no",
@@ -1636,7 +1653,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1998.parquet",
           "status": "read",
-          "rows": 172,
+          "rows": 305,
           "schema": [
             "citations",
             "col_no",
@@ -2032,7 +2049,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2007.parquet",
           "status": "read",
-          "rows": 685,
+          "rows": 338,
           "schema": [
             "citations",
             "col_no",
@@ -2208,7 +2225,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2011.parquet",
           "status": "read",
-          "rows": 15,
+          "rows": 46,
           "schema": [
             "citations",
             "col_no",
@@ -2252,7 +2269,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2012.parquet",
           "status": "read",
-          "rows": 484,
+          "rows": 449,
           "schema": [
             "citations",
             "col_no",
@@ -2296,7 +2313,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2013.parquet",
           "status": "read",
-          "rows": 303,
+          "rows": 370,
           "schema": [
             "citations",
             "col_no",
@@ -2340,7 +2357,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2014.parquet",
           "status": "read",
-          "rows": 303,
+          "rows": 430,
           "schema": [
             "citations",
             "col_no",
@@ -2384,7 +2401,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2015.parquet",
           "status": "read",
-          "rows": 257,
+          "rows": 368,
           "schema": [
             "citations",
             "col_no",
@@ -2428,7 +2445,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2016.parquet",
           "status": "read",
-          "rows": 355,
+          "rows": 516,
           "schema": [
             "citations",
             "col_no",
@@ -2516,7 +2533,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2018.parquet",
           "status": "read",
-          "rows": 122,
+          "rows": 750,
           "schema": [
             "citations",
             "col_no",
@@ -2560,7 +2577,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2019.parquet",
           "status": "read",
-          "rows": 334,
+          "rows": 1161,
           "schema": [
             "citations",
             "col_no",
@@ -2604,7 +2621,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2020.parquet",
           "status": "read",
-          "rows": 93,
+          "rows": 482,
           "schema": [
             "citations",
             "col_no",
@@ -2648,7 +2665,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2021.parquet",
           "status": "read",
-          "rows": 483,
+          "rows": 978,
           "schema": [
             "citations",
             "col_no",
@@ -2692,7 +2709,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2022.parquet",
           "status": "read",
-          "rows": 441,
+          "rows": 1108,
           "schema": [
             "citations",
             "col_no",
@@ -2736,7 +2753,7 @@
         {
           "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2023.parquet",
           "status": "read",
-          "rows": 463,
+          "rows": 985,
           "schema": [
             "citations",
             "col_no",
@@ -2826,11 +2843,11 @@
   },
   "quality_report": "data/processed/nhai_annual_report_tables/quality_report.json",
   "quality": {
-    "avg_confidence": 0.7117552993677946,
+    "avg_confidence": 0.9208148148148148,
     "min_confidence": 0.0,
-    "max_confidence": 0.72,
+    "max_confidence": 1.0,
     "low_confidence_rows": 9,
     "low_confidence_threshold": 0.45
   },
-  "rows_merged": 5381
+  "rows_merged": 9183
 }
