@@ -1,8 +1,9 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches: [main]
+  workflow_run:
+    workflows: ["Bharat Highway Research Pipeline"]
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -16,9 +17,17 @@ concurrency:
 
 jobs:
   build:
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout triggered revision
+        if: github.event_name == 'workflow_run'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Checkout current revision
+        if: github.event_name != 'workflow_run'
         uses: actions/checkout@v4
 
       - name: Setup Python
@@ -26,39 +35,10 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install OCR system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends poppler-utils tesseract-ocr tesseract-ocr-eng
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
-
-      - name: Run research scan
-        run: |
-          python -m research.scan --inventory research/source_inventory.yaml --out research/source_inventory.json
-
-      - name: Run gap report
-        run: |
-          python -m research.gap_report --inventory research/source_inventory.yaml --out research/gaps.md
-
-      - name: Run official-first ingestion
-        run: |
-          python -m pipelines.ingest --inventory research/source_inventory.yaml
-
-      - name: Extract NHAI annual report OCR artifacts
-        run: |
-          python scripts/nhai_annual_report_extractor.py
-
-      - name: Refresh NHAI confidence from extraction quality
-        run: |
-          python -m pipelines.ingest --inventory research/source_inventory.yaml --source nhai_annual_report_documents --source nhai_audited_results_pdf
-
-      - name: Build correlation artifact
-        run: |
-          python -m pipelines.correlation
 
       - name: Validate generated artifacts
         run: |
