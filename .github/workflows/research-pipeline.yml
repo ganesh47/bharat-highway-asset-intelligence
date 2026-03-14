@@ -226,7 +226,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: bhai-base-workspace
-          path: .
+          path: data
 
       - name: Download merged OCR artifacts
         uses: actions/download-artifact@v8
@@ -271,7 +271,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: bhai-refreshed-workspace
-          path: .
+          path: data
 
       - name: Build correlation artifacts
         run: |
@@ -312,13 +312,13 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: bhai-inventory-reports
-          path: .
+          path: research
 
       - name: Download correlated workspace
         uses: actions/download-artifact@v8
         with:
           name: bhai-correlated-workspace
-          path: .
+          path: data
 
       - name: Validate generated artifacts
         run: |
