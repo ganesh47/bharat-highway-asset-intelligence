@@ -232,7 +232,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: bhai-nhai-merged-ocr
-          path: .
+          path: data/processed
 
       - name: Refresh NHAI confidence from merged OCR quality
         run: |

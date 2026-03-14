@@ -938,10 +938,13 @@ def _extract_rows_for_pdf(url: str, source_row: pd.Series, output_root: Path) ->
             ocr_used = False
             usable_text = page_text
             parsers_attempted.append("text")
-            if not page_text.strip() or len(re.findall(r"\w", page_text)) < 50:
+            weak_text_page = not page_text.strip() or (
+                len(re.findall(r"\w", page_text)) < 50 and not should_try_table
+            )
+            if weak_text_page:
                 parsers_attempted.append("ocr" if parser_env.get("tesseract", False) else "ocr_unavailable")
                 ocr_text = _ocr_page(pdf_path, page_no)
-                if ocr_text.strip():
+                if ocr_text.strip() and len(ocr_text) > max(len(page_text), 240):
                     usable_text = ocr_text
                     ocr_used = True
                     parser_metrics["ocr"] += 1
@@ -949,7 +952,7 @@ def _extract_rows_for_pdf(url: str, source_row: pd.Series, output_root: Path) ->
                 else:
                     parser_metrics["text"] += 1
                     first_success_parser = "text"
-                    parser_failure_reason = "ocr_not_usable"
+                    parser_failure_reason = "ocr_not_usable" if not ocr_text.strip() else "ocr_not_better"
             else:
                 parser_metrics["text"] += 1
                 first_success_parser = "text"
