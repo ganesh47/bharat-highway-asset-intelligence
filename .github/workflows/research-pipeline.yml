@@ -11,18 +11,22 @@ concurrency:
   group: research-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  PYTHON_VERSION: '3.11'
+  NHAI_OCR_SHARD_COUNT: '3'
+
 jobs:
   inventory_reports:
     runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
+          python-version: ${{ env.PYTHON_VERSION }}
           cache: pip
 
       - name: Install dependencies
@@ -39,24 +43,25 @@ jobs:
           python -m research.gap_report --inventory research/source_inventory.yaml --out research/gaps.md
 
       - name: Upload inventory reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: bhai-inventory-reports
+          if-no-files-found: error
           path: |
             research/source_inventory.json
             research/gaps.md
 
-  build_data:
+  ingest_base:
     runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
+          python-version: ${{ env.PYTHON_VERSION }}
           cache: pip
 
       - name: Install OCR system dependencies
@@ -73,41 +78,229 @@ jobs:
         run: |
           python -m pipelines.ingest --inventory research/source_inventory.yaml
 
-      - name: Extract NHAI annual report OCR artifacts
-        run: |
-          python scripts/nhai_annual_report_extractor.py --max-workers 1
-
-      - name: Refresh NHAI confidence from extraction quality
-        run: |
-          python -m pipelines.ingest --inventory research/source_inventory.yaml --source nhai_annual_report_documents --source nhai_audited_results_pdf
-
-      - name: Build correlation artifacts
-        run: |
-          python -m pipelines.correlation
-
-      - name: Upload data workspace
-        uses: actions/upload-artifact@v4
+      - name: Upload base workspace
+        uses: actions/upload-artifact@v7
         with:
-          name: bhai-data-workspace
+          name: bhai-base-workspace
+          if-no-files-found: error
           path: |
             data/manifests/
             data/processed/
             data/raw/manual/
 
-  finalize_research:
+      - name: Upload NHAI source parquet
+        uses: actions/upload-artifact@v7
+        with:
+          name: bhai-nhai-source-parquet
+          if-no-files-found: error
+          path: |
+            data/processed/nhai_annual_report_documents.parquet
+
+  extract_nhai_shard:
+    needs: ingest_base
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        shard_index: [0, 1, 2]
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - name: Install OCR system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends poppler-utils tesseract-ocr tesseract-ocr-eng
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Download NHAI source parquet
+        uses: actions/download-artifact@v8
+        with:
+          name: bhai-nhai-source-parquet
+          path: .
+
+      - name: Extract NHAI OCR shard
+        run: |
+          python scripts/nhai_annual_report_extractor.py \
+            --source-parquet data/processed/nhai_annual_report_documents.parquet \
+            --output-root data/processed/nhai_annual_report_tables \
+            --canonical-output data/processed/nhai_annual_report_tables_canonical.parquet \
+            --quality-report-output data/processed/nhai_annual_report_tables/quality_report.json \
+            --total-shards ${{ env.NHAI_OCR_SHARD_COUNT }} \
+            --shard-index ${{ matrix.shard_index }} \
+            --max-workers 1
+
+      - name: Upload OCR shard artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: nhai-ocr-shard-${{ matrix.shard_index }}-of-${{ env.NHAI_OCR_SHARD_COUNT }}
+          if-no-files-found: error
+          path: |
+            data/processed/nhai_annual_report_tables/shards/shard-${{ matrix.shard_index }}-of-${{ env.NHAI_OCR_SHARD_COUNT }}/
+
+  merge_nhai_ocr:
     needs:
-      - inventory_reports
-      - build_data
+      - ingest_base
+      - extract_nhai_shard
     runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Download NHAI source parquet
+        uses: actions/download-artifact@v8
+        with:
+          name: bhai-nhai-source-parquet
+          path: .
+
+      - name: Download OCR shards
+        uses: actions/download-artifact@v8
+        with:
+          pattern: nhai-ocr-shard-*
+          path: tmp/nhai_ocr_shards
+          merge-multiple: false
+
+      - name: Merge OCR shards deterministically
+        run: |
+          python scripts/nhai_annual_report_merge.py \
+            --source-parquet data/processed/nhai_annual_report_documents.parquet \
+            --shards-root tmp/nhai_ocr_shards \
+            --output-root data/processed/nhai_annual_report_tables \
+            --canonical-output data/processed/nhai_annual_report_tables_canonical.parquet \
+            --quality-report-output data/processed/nhai_annual_report_tables/quality_report.json
+
+      - name: Upload merged OCR artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: bhai-nhai-merged-ocr
+          if-no-files-found: error
+          path: |
+            data/processed/nhai_annual_report_tables/
+            data/processed/nhai_annual_report_tables_canonical.parquet
+
+  refresh_nhai_confidence:
+    needs:
+      - ingest_base
+      - merge_nhai_ocr
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Download base workspace
+        uses: actions/download-artifact@v8
+        with:
+          name: bhai-base-workspace
+          path: .
+
+      - name: Download merged OCR artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: bhai-nhai-merged-ocr
+          path: .
+
+      - name: Refresh NHAI confidence from merged OCR quality
+        run: |
+          python -m pipelines.ingest --inventory research/source_inventory.yaml --source nhai_annual_report_documents --source nhai_audited_results_pdf
+
+      - name: Upload refreshed workspace
+        uses: actions/upload-artifact@v7
+        with:
+          name: bhai-refreshed-workspace
+          if-no-files-found: error
+          path: |
+            data/manifests/
+            data/processed/
+            data/raw/manual/
+
+  build_correlation:
+    needs: refresh_nhai_confidence
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Download refreshed workspace
+        uses: actions/download-artifact@v8
+        with:
+          name: bhai-refreshed-workspace
+          path: .
+
+      - name: Build correlation artifacts
+        run: |
+          python -m pipelines.correlation
+
+      - name: Upload correlated workspace
+        uses: actions/upload-artifact@v7
+        with:
+          name: bhai-correlated-workspace
+          if-no-files-found: error
+          path: |
+            data/manifests/
+            data/processed/
+            data/raw/manual/
+
+  validate_research:
+    needs:
+      - inventory_reports
+      - build_correlation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
           cache: pip
 
       - name: Install dependencies
@@ -116,15 +309,15 @@ jobs:
           python -m pip install -r requirements.txt
 
       - name: Download inventory reports
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: bhai-inventory-reports
           path: .
 
-      - name: Download data workspace
-        uses: actions/download-artifact@v4
+      - name: Download correlated workspace
+        uses: actions/download-artifact@v8
         with:
-          name: bhai-data-workspace
+          name: bhai-correlated-workspace
           path: .
 
       - name: Validate generated artifacts
@@ -132,9 +325,10 @@ jobs:
           python scripts/validate_artifacts.py --inventory research/source_inventory.yaml --catalog data/manifests/catalog.json --manifests data/manifests
 
       - name: Upload research artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: bhai-research-artifacts
+          if-no-files-found: error
           path: |
             research/source_inventory.json
             research/gaps.md
@@ -142,7 +336,7 @@ jobs:
             data/processed/
 
       - name: Upload logs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: bhai-source-log
           path: |

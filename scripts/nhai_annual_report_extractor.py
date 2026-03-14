@@ -1060,6 +1060,55 @@ def _filter_annual_rows(df: pd.DataFrame) -> pd.DataFrame:
     return df.loc[mask].copy()
 
 
+def _stable_document_key(row: pd.Series | dict[str, Any]) -> str:
+    get = row.get if isinstance(row, dict) else row.get
+    year = _normalize_year(get("financial_year", get("report_year", get("document_title", ""))))
+    url = str(get("source_document_url", "") or "").strip()
+    title = MULTI_SPACE_RE.sub(" ", str(get("document_title", get("source_document_title", "")) or "").strip())
+    return f"{year}|{url}|{title}"
+
+
+def _sort_source_rows(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return df.copy()
+    out = df.copy()
+    out["__document_key"] = out.apply(_stable_document_key, axis=1)
+    sort_cols = [col for col in ["financial_year", "source_document_url", "document_title", "__document_key"] if col in out.columns]
+    out = out.sort_values(sort_cols, kind="mergesort", na_position="last").reset_index(drop=True)
+    return out
+
+
+def _select_shard_rows(df: pd.DataFrame, total_shards: int, shard_index: int) -> tuple[pd.DataFrame, list[str]]:
+    ordered = _sort_source_rows(df)
+    if total_shards <= 1:
+        document_keys = ordered["__document_key"].tolist() if "__document_key" in ordered.columns else []
+        return ordered.drop(columns=["__document_key"], errors="ignore"), document_keys
+
+    mask = [(idx % total_shards) == shard_index for idx in range(len(ordered))]
+    selected = ordered.loc[mask].copy().reset_index(drop=True)
+    document_keys = selected["__document_key"].tolist() if "__document_key" in selected.columns else []
+    selected = selected.drop(columns=["__document_key"], errors="ignore")
+    return selected, document_keys
+
+
+def _resolve_run_paths(output_root: Path, canonical_path: Path, quality_path: Path, total_shards: int, shard_index: int) -> tuple[Path, Path, Path]:
+    if total_shards <= 1:
+        return output_root, canonical_path, quality_path
+    shard_root = output_root / "shards" / f"shard-{shard_index}-of-{total_shards}"
+    shard_canonical = shard_root / "canonical.parquet"
+    shard_quality = shard_root / "quality_report.json"
+    return shard_root, shard_canonical, shard_quality
+
+
+def _sort_output_frame(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return df
+    sort_cols = [col for col in ["report_year_start", "report_year", "source_document_url", "page_no", "table_id", "row_no", "col_no", "row_index", "metric_name", "metric_value_text"] if col in df.columns]
+    if not sort_cols:
+        return df.reset_index(drop=True)
+    return df.sort_values(sort_cols, kind="mergesort", na_position="last").reset_index(drop=True)
+
+
 def _source_payload(source_row: pd.Series, doc_index: int) -> dict[str, Any]:
     payload = source_row.to_dict()
     payload["doc_index"] = doc_index
@@ -1308,15 +1357,29 @@ def main() -> None:
     parser.add_argument("--canonical-output", default="data/processed/nhai_annual_report_tables_canonical.parquet")
     parser.add_argument("--quality-report-output", default="data/processed/nhai_annual_report_tables/quality_report.json")
     parser.add_argument("--max-workers", type=int, default=1)
+    parser.add_argument("--total-shards", type=int, default=1)
+    parser.add_argument("--shard-index", type=int, default=0)
     args = parser.parse_args()
 
     source_path = Path(args.source_parquet)
     output_root = Path(args.output_root)
     canonical_path = Path(args.canonical_output)
     quality_path = Path(args.quality_report_output)
+    if args.total_shards < 1:
+        raise SystemExit("--total-shards must be >= 1")
+    if args.shard_index < 0 or args.shard_index >= args.total_shards:
+        raise SystemExit("--shard-index must be within [0, total_shards)")
 
-    yearly_root = output_root / "yearly"
-    _safe_path(canonical_path)
+    run_output_root, run_canonical_path, run_quality_path = _resolve_run_paths(
+        output_root,
+        canonical_path,
+        quality_path,
+        int(args.total_shards),
+        int(args.shard_index),
+    )
+
+    yearly_root = run_output_root / "yearly"
+    _safe_path(run_canonical_path)
     _safe_path(yearly_root)
 
     source_df = pd.read_parquet(source_path)
@@ -1325,7 +1388,9 @@ def main() -> None:
         print("No annual report rows found in source parquet.")
         return
 
+    source_rows_total = int(len(annual_rows.drop_duplicates(subset=["source_document_url", "financial_year", "document_title"])))
     annual_rows = annual_rows.drop_duplicates(subset=["source_document_url", "financial_year", "document_title"]).copy()
+    annual_rows, shard_document_keys = _select_shard_rows(annual_rows, int(args.total_shards), int(args.shard_index))
 
     manifest: dict[str, Any] = {
         "source_parquet": str(source_path),
@@ -1338,7 +1403,15 @@ def main() -> None:
         "yearly_datasets": {},
         "parser_metrics": {},
         "canonical": {},
-        "quality_report": str(quality_path),
+        "quality_report": str(run_quality_path),
+        "shard": {
+            "total_shards": int(args.total_shards),
+            "shard_index": int(args.shard_index),
+            "source_rows_total": source_rows_total,
+            "selected_rows": int(len(annual_rows)),
+            "output_root": str(run_output_root),
+            "document_keys": shard_document_keys,
+        },
     }
 
     payloads = [
@@ -1354,16 +1427,17 @@ def main() -> None:
     results: list[dict[str, Any]] = []
     if effective_workers == 1:
         for payload in payloads:
-            results.append(_extract_one_document(payload, str(output_root)))
+            results.append(_extract_one_document(payload, str(run_output_root)))
     else:
         with concurrent.futures.ProcessPoolExecutor(max_workers=effective_workers) as executor:
-            futures = [executor.submit(_extract_one_document, payload, str(output_root)) for payload in payloads]
+            futures = [executor.submit(_extract_one_document, payload, str(run_output_root)) for payload in payloads]
             for future in concurrent.futures.as_completed(futures):
                 results.append(future.result())
 
     results.sort(key=lambda item: (int(item.get("doc_index", 0)), str(item.get("year", "")), str(item.get("source_document_url", ""))))
 
-    all_frames: list[pd.DataFrame] = []
+    yearly_frames: dict[str, list[pd.DataFrame]] = defaultdict(list)
+    yearly_sources: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for result in results:
         year = str(result.get("year", "unknown"))
         url = str(result.get("source_document_url", "")).strip()
@@ -1373,21 +1447,15 @@ def main() -> None:
         row_df["metric_category"] = row_df["metric_category"].fillna("official_measured")
         if row_df["row_index"].isna().all():
             row_df["row_index"] = range(len(row_df))
-
-        out_path = yearly_root / f"nhai_annual_report_{year}.parquet"
-        row_df["lineage_output_file"] = str(out_path)
-        row_df.to_parquet(out_path, index=False)
-
-        manifest["yearly_datasets"][year] = {
-            "source_document_url": url,
-            "source_document_title": str(result.get("source_document_title", "")),
-            "output_path": str(out_path),
-            "rows": int(len(row_df)),
-            "schema": [str(c) for c in row_df.columns],
-            "first_records": int((row_df["record_type"] == "table_row").sum()),
-            "method_mix": row_df["extraction_method"].value_counts(dropna=False).to_dict(),
-            "quality": int((pd.to_numeric(row_df["extraction_confidence"], errors="coerce").fillna(0) < 0.45).sum()),
-        }
+        yearly_frames[year].append(row_df)
+        yearly_sources[year].append(
+            {
+                "doc_index": int(result.get("doc_index", 0)),
+                "source_document_url": url,
+                "source_document_title": str(result.get("source_document_title", "")),
+                "error": str(result.get("error")) if result.get("error") else None,
+            }
+        )
         if result.get("error"):
             manifest["parallel_errors"].append(
                 {
@@ -1397,10 +1465,37 @@ def main() -> None:
                     "error": str(result.get("error")),
                 }
             )
+    all_frames: list[pd.DataFrame] = []
+    for year in sorted(yearly_frames.keys(), key=_coerce_year):
+        row_df = pd.concat(yearly_frames[year], ignore_index=True) if yearly_frames[year] else pd.DataFrame(columns=CANONICAL_COLUMNS)
+        row_df = _coerce_frame(row_df)
+        row_df = _sort_output_frame(row_df)
+        row_df["row_index"] = range(len(row_df))
+        out_path = yearly_root / f"nhai_annual_report_{year}.parquet"
+        row_df["lineage_output_file"] = str(out_path)
+        row_df.to_parquet(out_path, index=False)
+        source_entries = sorted(
+            yearly_sources[year],
+            key=lambda item: (int(item.get("doc_index", 0)), str(item.get("source_document_url", ""))),
+        )
+        manifest["yearly_datasets"][year] = {
+            "source_document_url": source_entries[0]["source_document_url"] if len(source_entries) == 1 else "",
+            "source_document_title": source_entries[0]["source_document_title"] if len(source_entries) == 1 else "",
+            "source_documents": source_entries,
+            "document_count": len(source_entries),
+            "output_path": str(out_path),
+            "rows": int(len(row_df)),
+            "schema": [str(c) for c in row_df.columns],
+            "first_records": int((row_df["record_type"] == "table_row").sum()),
+            "method_mix": row_df["extraction_method"].value_counts(dropna=False).to_dict(),
+            "quality": int((pd.to_numeric(row_df["extraction_confidence"], errors="coerce").fillna(0) < 0.45).sum()),
+            "shard_index": int(args.shard_index),
+            "total_shards": int(args.total_shards),
+        }
         all_frames.append(row_df)
 
     # canonicalization across yearly files (schema compatibility)
-    canonical_df, canonical_summary = build_canonical(output_root, canonical_path)
+    canonical_df, canonical_summary = build_canonical(run_output_root, run_canonical_path)
     if not canonical_df.empty:
         canonical_df = canonical_df.copy()
         for col in CANONICAL_COLUMNS:
@@ -1409,19 +1504,20 @@ def main() -> None:
         canonical_df = canonical_df[CANONICAL_COLUMNS]
 
     all_df = pd.concat(all_frames, ignore_index=True) if all_frames else pd.DataFrame(columns=CANONICAL_COLUMNS)
-    quality = build_quality_report(all_df, canonical_summary, manifest["yearly_datasets"], quality_path, manifest["parser_environment"])
+    all_df = _sort_output_frame(_coerce_frame(all_df))
+    quality = build_quality_report(all_df, canonical_summary, manifest["yearly_datasets"], run_quality_path, manifest["parser_environment"])
 
     manifest["canonical"] = canonical_summary
     manifest["quality"] = quality["quality"]
     manifest["rows_merged"] = int(len(canonical_df)) if not canonical_df.empty else 0
     manifest["generated_at"] = datetime.now(timezone.utc).isoformat()
 
-    _write_json(output_root / "extraction_manifest.json", manifest)
+    _write_json(run_output_root / "extraction_manifest.json", manifest)
 
     print(f"Yearly datasets written to: {yearly_root}")
-    print(f"Canonical dataset: {canonical_path} ({0 if canonical_df.empty else len(canonical_df)} rows)")
-    print(f"Quality report: {quality_path}")
-    print(f"Manifest: {output_root / 'extraction_manifest.json'}")
+    print(f"Canonical dataset: {run_canonical_path} ({0 if canonical_df.empty else len(canonical_df)} rows)")
+    print(f"Quality report: {run_quality_path}")
+    print(f"Manifest: {run_output_root / 'extraction_manifest.json'}")
 
 
 if __name__ == "__main__":
