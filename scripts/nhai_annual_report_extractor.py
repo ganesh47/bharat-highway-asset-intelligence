@@ -1380,7 +1380,7 @@ def main() -> None:
 
     yearly_root = run_output_root / "yearly"
     _safe_path(run_canonical_path)
-    _safe_path(yearly_root)
+    yearly_root.mkdir(parents=True, exist_ok=True)
 
     source_df = pd.read_parquet(source_path)
     annual_rows = _filter_annual_rows(source_df)
