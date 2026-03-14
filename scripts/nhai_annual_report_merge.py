@@ -17,7 +17,50 @@ def _load_json(path: Path) -> dict[str, Any]:
 
 
 def _shard_manifest_paths(shards_root: Path) -> list[Path]:
-    return sorted(shards_root.glob("shard-*-of-*/extraction_manifest.json"))
+    return sorted(shards_root.rglob("extraction_manifest.json"))
+
+
+def _resolve_shard_output_path(manifest_path: Path, recorded_output_path: str) -> Path:
+    recorded = Path(recorded_output_path)
+    if recorded.exists():
+        return recorded
+
+    manifest_dir = manifest_path.parent
+    candidates: list[Path] = [
+        manifest_dir / recorded.name,
+        manifest_dir / "yearly" / recorded.name,
+    ]
+
+    shard_part_index = next((idx for idx, part in enumerate(recorded.parts) if part.startswith("shard-")), None)
+    if shard_part_index is not None:
+        remainder = recorded.parts[shard_part_index + 1 :]
+        if remainder:
+            candidates.append(manifest_dir / Path(*remainder))
+
+    yearly_index = next((idx for idx, part in enumerate(recorded.parts) if part == "yearly"), None)
+    if yearly_index is not None:
+        candidates.append(manifest_dir / Path(*recorded.parts[yearly_index:]))
+
+    seen: set[Path] = set()
+    for candidate in candidates:
+        if candidate in seen:
+            continue
+        seen.add(candidate)
+        if candidate.exists():
+            return candidate
+
+    recursive_matches = sorted(manifest_dir.rglob(recorded.name))
+    if len(recursive_matches) == 1:
+        return recursive_matches[0]
+    if recursive_matches:
+        yearly_matches = [path for path in recursive_matches if "yearly" in path.parts]
+        if len(yearly_matches) == 1:
+            return yearly_matches[0]
+        return yearly_matches[0] if yearly_matches else recursive_matches[0]
+
+    raise SystemExit(
+        f"Unable to resolve shard output file for manifest {manifest_path}: {recorded_output_path}"
+    )
 
 
 def _expected_shard_documents(source_parquet: Path, total_shards: int) -> dict[int, set[str]]:
@@ -110,8 +153,9 @@ def _merge_yearly_datasets(manifests: list[dict[str, Any]], output_root: Path) -
 
     for manifest in manifests:
         shard_index = int(manifest.get("shard", {}).get("shard_index", -1))
+        manifest_path = Path(str(manifest["__manifest_path"]))
         for year, payload in manifest.get("yearly_datasets", {}).items():
-            output_path = Path(payload["output_path"])
+            output_path = _resolve_shard_output_path(manifest_path, str(payload["output_path"]))
             df = extractor._coerce_frame(pd.read_parquet(output_path), default_file=output_path)
             by_year[year].append(df)
             source_documents = payload.get("source_documents") or []
@@ -175,7 +219,7 @@ def main() -> None:
     quality_output = Path(args.quality_report_output)
 
     manifest_paths = _shard_manifest_paths(shards_root)
-    manifests = [_load_json(path) for path in manifest_paths]
+    manifests = [{**_load_json(path), "__manifest_path": str(path)} for path in manifest_paths]
     validation = _validate_shard_manifests(manifests, source_parquet, allow_incomplete=args.allow_incomplete)
 
     yearly_manifest, all_frames = _merge_yearly_datasets(manifests, output_root)
