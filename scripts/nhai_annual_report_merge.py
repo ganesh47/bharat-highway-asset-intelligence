@@ -146,7 +146,7 @@ def _sort_source_documents(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def _merge_yearly_datasets(manifests: list[dict[str, Any]], output_root: Path) -> tuple[dict[str, Any], list[pd.DataFrame]]:
     yearly_root = output_root / "yearly"
-    extractor._safe_path(yearly_root)
+    yearly_root.mkdir(parents=True, exist_ok=True)
 
     by_year: dict[str, list[pd.DataFrame]] = defaultdict(list)
     by_year_sources: dict[str, list[dict[str, Any]]] = defaultdict(list)
