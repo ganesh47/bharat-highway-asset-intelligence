@@ -70,9 +70,11 @@ REQUIRED_CHARTS = [
         "empty_markers": ["No records available."],
     },
     {
-        "title": "MoRTH Appendix 2: NH Count by State",
+        "title": "MoRTH Appendix 2: Number of NH Designations by State/UT",
         "data_selector": ".bar-row",
         "min_points": 1,
+        "meta_markers": ["As of 2024-12-31"],
+        "note_markers": ["non-additive across states", "same NH can appear in multiple State/UT rows"],
         "empty_markers": ["No records available."],
     },
     {
@@ -227,6 +229,22 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
                         pass
                     else:
                         print(f"Chart has insufficient rendered points ({marker_count}) for: {title_selector}")
+                        await browser.close()
+                        return 1
+
+                for marker in chart.get("meta_markers", []):
+                    if not any(marker in text for text in meta_text):
+                        print(f"Chart is missing meta marker '{marker}' for: {title_selector}")
+                        await browser.close()
+                        return 1
+
+                note_text = [
+                    text or ''
+                    for text in await chart_card.locator('.insight-note').all_inner_texts()
+                ]
+                for marker in chart.get("note_markers", []):
+                    if not any(marker in text for text in note_text):
+                        print(f"Chart is missing note marker '{marker}' for: {title_selector}")
                         await browser.close()
                         return 1
 

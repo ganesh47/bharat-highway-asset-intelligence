@@ -2786,13 +2786,14 @@ function App() {
       }),
       React.createElement(ChartTooltip, { tooltip }),
       React.createElement(HorizontalBars, {
-        title: 'MoRTH Appendix 2: NH Count by State',
+        title: 'MoRTH Appendix 2: Number of NH Designations by State/UT',
         rows: morthStateCountBars,
         confidence: morthReportConfidence,
         onHover: setTooltip,
         asOfDate: chartDates.morthAppendix,
-        xLabel: 'Number of NHs',
-        yLabel: 'State',
+        xLabel: 'Number of NH designations',
+        yLabel: 'State / UT',
+        tooltipLines: 'State/UT-wise count of NH designations present in each geography. Important: values are non-additive across states because the same NH can appear in multiple State/UT rows.',
       }),
       React.createElement(ChartTooltip, { tooltip }),
       React.createElement(HorizontalBars, {
