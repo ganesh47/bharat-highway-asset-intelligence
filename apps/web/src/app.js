@@ -1274,7 +1274,11 @@ function MultiLineChart({
       'div',
       { className: 'insight-legend' },
       ...normalizedLayers.map((layer, idx) =>
-        React.createElement('span', { key: layer.key, className: 'insight-pill', style: { borderColor: palette[idx % palette.length], color: '#1f3650' } }, layer.name)
+        React.createElement(LegendPill, {
+          key: layer.key,
+          label: layer.name,
+          swatchColor: palette[idx % palette.length],
+        })
       )
     ),
     React.createElement(
@@ -1424,12 +1428,21 @@ function ScatterChart({
   pointLabel = 'value',
   xAxisLabel = '',
   yAxisLabel = '',
+  pointEntityLabel = 'Record',
+  radiusLabel = '',
 }) {
   const resolvedXAxisLabel = xAxisLabel || xLabel;
   const resolvedYAxisLabel = yAxisLabel || yLabel;
   const points = (rows || [])
     .filter((r) => Number.isFinite(num(r.x)) && Number.isFinite(num(r.y)))
     .sort((a, b) => num(a.x) - num(b.x));
+  const hasScaledRadius = points.some((point) => Number.isFinite(num(point.radius, null)));
+  const legendItems = [
+    { key: 'entity', label: `Each point: ${pointEntityLabel}`, swatchColor: '#2f5f99' },
+    ...(hasScaledRadius && radiusLabel
+      ? [{ key: 'radius', label: `Bubble size: ${radiusLabel}`, swatchColor: '#a0182d' }]
+      : []),
+  ];
   if (!points.length) {
     return React.createElement(
       'div',
@@ -1620,6 +1633,15 @@ function ScatterChart({
       React.createElement('span', { className: `badge ${String(confidence.badge || 'low').toLowerCase()}` }, `${confidence.badge || 'Low'} confidence`)
     ),
     React.createElement('div', { className: 'chart-meta' }, chartMetaText(`X=${xLabel}; Y=${yLabel}`, asOfDate)),
+    React.createElement(
+      'div',
+      { className: 'insight-legend' },
+      ...legendItems.map((item) => React.createElement(LegendPill, {
+        key: item.key,
+        label: item.label,
+        swatchColor: item.swatchColor,
+      }))
+    ),
     React.createElement('div', { className: 'chart-svg-wrap', style: { height: `${height}px` } },
       React.createElement('canvas', {
         ref: chartRef,
@@ -1652,6 +1674,24 @@ function MethodologyBadge({ label, href }) {
     className: 'insight-pill',
     title: 'Why this badge? Data confidence and methodology.',
   }, `${label} · Why this badge?`);
+}
+
+function LegendPill({ label, swatchColor }) {
+  return React.createElement(
+    'span',
+    { className: 'insight-pill' },
+    swatchColor
+      ? React.createElement('span', {
+        className: 'insight-pill-swatch',
+        'aria-hidden': 'true',
+        style: {
+          background: swatchColor,
+          borderColor: swatchColor,
+        },
+      })
+      : null,
+    React.createElement('span', { className: 'insight-pill-label' }, label)
+  );
 }
 
 function MetricCard({ item, rowCount, sourceFilter }) {
@@ -2776,6 +2816,8 @@ function App() {
         pointLabel: 'NH count',
         xAxisLabel: 'NH length (km)',
         yAxisLabel: 'Permit fee (₹ in actuals)',
+        pointEntityLabel: 'State',
+        radiusLabel: 'NH count',
         chartScale: activeChartScale,
         chartHeight: activeChartHeight,
       }),
@@ -2797,6 +2839,8 @@ function App() {
         pointLabel: 'Model confidence',
         xAxisLabel: 'Incident intensity',
         yAxisLabel: 'Safety risk score',
+        pointEntityLabel: 'State',
+        radiusLabel: 'Average road length proxy (km)',
         chartScale: activeChartScale,
         chartHeight: activeChartHeight,
       }),
@@ -2837,6 +2881,8 @@ function App() {
         pointLabel: 'Sanctioned cost proxy (₹ crore)',
         xAxisLabel: 'Land acquisition cost (₹ crore)',
         yAxisLabel: 'Maintenance cost (₹ crore)',
+        pointEntityLabel: 'State',
+        radiusLabel: 'Sanctioned cost proxy (₹ crore)',
         chartScale: activeChartScale,
         chartHeight: activeChartHeight,
       })

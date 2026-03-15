@@ -52,6 +52,7 @@ REQUIRED_CHARTS = [
         "axes": True,
         "data_selector": ".line-path",
         "min_points": 1,
+        "legend_labels": ["Allocation total", "Expenditure total"],
         "empty_markers": ["No records available."],
     },
     {
@@ -65,6 +66,7 @@ REQUIRED_CHARTS = [
         "axes": True,
         "data_selector": ".line-path",
         "min_points": 1,
+        "legend_labels": ["Allocation", "Release"],
         "empty_markers": ["No records available."],
     },
     {
@@ -84,6 +86,7 @@ REQUIRED_CHARTS = [
         "axes": True,
         "data_selector": ".point",
         "min_points": 1,
+        "legend_labels": ["Each point: State", "Bubble size: NH count"],
         "empty_markers": ["No scatter points."],
     },
     {
@@ -97,6 +100,7 @@ REQUIRED_CHARTS = [
         "axes": True,
         "data_selector": ".point",
         "min_points": 1,
+        "legend_labels": ["Each point: State", "Bubble size: Average road length proxy (km)"],
         "empty_markers": ["No scatter points."],
     },
     {
@@ -104,6 +108,7 @@ REQUIRED_CHARTS = [
         "axes": True,
         "data_selector": ".line-path",
         "min_points": 1,
+        "legend_min_pills": 2,
         "empty_markers": ["No records available."],
     },
     {
@@ -111,6 +116,7 @@ REQUIRED_CHARTS = [
         "axes": True,
         "data_selector": ".line-path",
         "min_points": 1,
+        "legend_labels": ["CPI Index", "Highway CapEx growth", "Fuel Price Index"],
         "empty_markers": ["No records available."],
     },
     {
@@ -118,6 +124,7 @@ REQUIRED_CHARTS = [
         "axes": True,
         "data_selector": ".point",
         "min_points": 1,
+        "legend_labels": ["Each point: State", "Bubble size: Sanctioned cost proxy (₹ crore)"],
         "empty_markers": ["No scatter points."],
     },
 ]
@@ -231,6 +238,28 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
                     if len([label.strip() for label in axis_titles if str(label).strip()]) < 2:
                         if not await _chart_has_canvas_content(chart_card):
                             print(f"Chart is missing axis labels: {title_selector}")
+                            await browser.close()
+                            return 1
+
+                legend_labels = chart.get("legend_labels", [])
+                legend_min_pills = chart.get("legend_min_pills", 0)
+                if legend_labels or legend_min_pills:
+                    legend = chart_card.locator(".insight-legend")
+                    if await legend.count() != 1:
+                        print(f"Chart is missing legend container: {title_selector}")
+                        await browser.close()
+                        return 1
+                    pill_texts = [
+                        (text or "").strip()
+                        for text in await legend.locator(".insight-pill").all_inner_texts()
+                    ]
+                    if len([text for text in pill_texts if text]) < legend_min_pills:
+                        print(f"Chart legend has too few items for: {title_selector}")
+                        await browser.close()
+                        return 1
+                    for label in legend_labels:
+                        if not any(label in text for text in pill_texts):
+                            print(f"Chart legend is missing label '{label}' for: {title_selector}")
                             await browser.close()
                             return 1
 

@@ -182,9 +182,26 @@ header .subhead {
 .insight-pill {
   border: 1px solid var(--line);
   border-radius: 999px;
-  padding: 3px 8px;
+  padding: 4px 10px;
   font-size: 0.74rem;
   background: #f6faff;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  line-height: 1.2;
+}
+
+.insight-pill-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  flex: 0 0 auto;
+  box-shadow: 0 0 0 1px rgba(19, 37, 59, 0.08);
+}
+
+.insight-pill-label {
+  display: inline-block;
 }
 
 .insight-note {
