@@ -35,6 +35,7 @@ class DataGovInConnector:
             "data_gov_in_nhai_projects_district_target_2023",
             "data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs",
             "data_gov_in_nhai_statewise_nh_project_status_2024_25",
+            "data_gov_in_nhai_stateut_project_delay_status_2024",
             "data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026",
             "data_gov_in_nhai_himachal_nhai_projects_ongoing",
             "data_gov_in_nhai_punjab_42_projects_implementation",

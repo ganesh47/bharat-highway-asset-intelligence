@@ -6,12 +6,12 @@
   "metric_category": "official_measured",
   "source": {
     "publisher": "National Highways Authority of India (NHAI)",
-    "title": "State/UT-wise status of NH projects (ongoing, completed, approved), as on March 2024",
+    "title": "Northeast subset NH project status (ongoing, completed, approved), as on March 2024",
     "domain": "data.gov.in",
     "url": "https://www.data.gov.in/resource/state-wise-details-national-highway-nh-projects-under-construction-completed-approved-yet",
     "retrieval_method": "direct download",
     "access_type": "HTML",
-    "retrieved_at": "2026-03-11T05:17:08.365251+00:00",
+    "retrieved_at": "2026-03-15T08:36:20.724922+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
@@ -23,7 +23,7 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_nhai_statewise_nh_project_status_2024_25/data_gov_in_nhai_statewise_nh_project_status_2024_25/raw_20260311_051708.csv",
+        "path": "data/raw/data_gov_in_nhai_statewise_nh_project_status_2024_25/data_gov_in_nhai_statewise_nh_project_status_2024_25/raw_20260315_083621.csv",
         "sha256": "bb70bd6d0b4df4a41d71bfe6213702ed6ae4524edd29171ef17c9709ed37f643",
         "size_bytes": 814
       }
@@ -32,7 +32,7 @@
       {
         "path": "data/processed/data_gov_in_nhai_statewise_nh_project_status_2024_25.parquet",
         "format": "parquet",
-        "sha256": "0eaecd63e52cac5e8eda4e7eb9fe0d4f7e3bd8f751dbec05d519c4bbe87a0057"
+        "sha256": "eb07c162aec98ec2d52c50b6373c1e02e4dee5b302d82995da02d4c94791ce6c"
       }
     ],
     "row_count": 5,
@@ -55,7 +55,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-03-11T05:17:08.365251+00:00",
+  "retrieved_at": "2026-03-15T08:36:20.724922+00:00",
   "completeness_score": 1.0,
   "recency_score": 1.0,
   "provenance_score": 0.85,

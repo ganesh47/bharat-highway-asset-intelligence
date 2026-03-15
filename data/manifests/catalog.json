@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-15T06:50:19.367509+00:00",
+  "generated_at": "2026-03-15T08:36:21.590865+00:00",
   "datasets": [
     {
       "source_id": "data_gov_in_nhai_projects_api",
@@ -306,72 +306,6 @@
       "overall_confidence_badge": "High",
       "overall_confidence_reason": [],
       "output_table_path": "data/processed/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs.parquet"
-    },
-    {
-      "source_id": "data_gov_in_nhai_statewise_nh_project_status_2024_25",
-      "connector": "data_gov_in_ogd",
-      "version": "0.2.0",
-      "status": "ok",
-      "metric_category": "official_measured",
-      "source": {
-        "publisher": "National Highways Authority of India (NHAI)",
-        "title": "State/UT-wise status of NH projects (ongoing, completed, approved), as on March 2024",
-        "domain": "data.gov.in",
-        "url": "https://www.data.gov.in/resource/state-wise-details-national-highway-nh-projects-under-construction-completed-approved-yet",
-        "retrieval_method": "direct download",
-        "access_type": "HTML",
-        "retrieved_at": "2026-03-11T05:17:08.365251+00:00",
-        "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
-        "official_flag": true
-      },
-      "citations": {
-        "permanent_identifier": "nid=603577044 (resource page) / file RS_Session_266_AU_210_A_to_B_i.csv",
-        "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_266_AU_210_A_to_B_i.csv",
-        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
-      },
-      "manifest": {
-        "raw_files": [
-          {
-            "path": "data/raw/data_gov_in_nhai_statewise_nh_project_status_2024_25/data_gov_in_nhai_statewise_nh_project_status_2024_25/raw_20260311_051708.csv",
-            "sha256": "bb70bd6d0b4df4a41d71bfe6213702ed6ae4524edd29171ef17c9709ed37f643",
-            "size_bytes": 814
-          }
-        ],
-        "output_files": [
-          {
-            "path": "data/processed/data_gov_in_nhai_statewise_nh_project_status_2024_25.parquet",
-            "format": "parquet",
-            "sha256": "0eaecd63e52cac5e8eda4e7eb9fe0d4f7e3bd8f751dbec05d519c4bbe87a0057"
-          }
-        ],
-        "row_count": 5,
-        "columns": [
-          "sl._no.",
-          "state-wise",
-          "details_of_under_construction_projects_-_number",
-          "details_of_under_construction_projects_-_length_kilometer",
-          "details_of_under_construction_projects_-_cost_rs_in_crore",
-          "details_of_projects_completed_during_2024-25_-_number",
-          "details_of_projects_completed_during_2024-25_-_length_kilometer",
-          "details_of_projects_completed_during_2024-25_-_cost_rs_in_crore",
-          "details_of_projects_approved_but_yet_to_be_commenced_-_number",
-          "details_of_projects_approved_but_yet_to_be_commenced_-_length_kilometer",
-          "details_of_projects_approved_but_yet_to_be_commenced_-_cost_rs_in_crore",
-          "source_type",
-          "source_id",
-          "metric_category",
-          "dataset_source",
-          "retrieved_at"
-        ]
-      },
-      "retrieved_at": "2026-03-11T05:17:08.365251+00:00",
-      "completeness_score": 1.0,
-      "recency_score": 1.0,
-      "provenance_score": 0.85,
-      "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/data_gov_in_nhai_statewise_nh_project_status_2024_25.parquet"
     },
     {
       "source_id": "data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026",
@@ -2028,6 +1962,131 @@
       "overall_confidence_badge": "High",
       "overall_confidence_reason": [],
       "output_table_path": "data/processed/morth_annual_report_pdf.parquet"
+    },
+    {
+      "source_id": "data_gov_in_nhai_statewise_nh_project_status_2024_25",
+      "connector": "data_gov_in_ogd",
+      "version": "0.2.0",
+      "status": "ok",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "National Highways Authority of India (NHAI)",
+        "title": "Northeast subset NH project status (ongoing, completed, approved), as on March 2024",
+        "domain": "data.gov.in",
+        "url": "https://www.data.gov.in/resource/state-wise-details-national-highway-nh-projects-under-construction-completed-approved-yet",
+        "retrieval_method": "direct download",
+        "access_type": "HTML",
+        "retrieved_at": "2026-03-15T08:36:20.724922+00:00",
+        "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "nid=603577044 (resource page) / file RS_Session_266_AU_210_A_to_B_i.csv",
+        "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_266_AU_210_A_to_B_i.csv",
+        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/data_gov_in_nhai_statewise_nh_project_status_2024_25/data_gov_in_nhai_statewise_nh_project_status_2024_25/raw_20260315_083621.csv",
+            "sha256": "bb70bd6d0b4df4a41d71bfe6213702ed6ae4524edd29171ef17c9709ed37f643",
+            "size_bytes": 814
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/data_gov_in_nhai_statewise_nh_project_status_2024_25.parquet",
+            "format": "parquet",
+            "sha256": "eb07c162aec98ec2d52c50b6373c1e02e4dee5b302d82995da02d4c94791ce6c"
+          }
+        ],
+        "row_count": 5,
+        "columns": [
+          "sl._no.",
+          "state-wise",
+          "details_of_under_construction_projects_-_number",
+          "details_of_under_construction_projects_-_length_kilometer",
+          "details_of_under_construction_projects_-_cost_rs_in_crore",
+          "details_of_projects_completed_during_2024-25_-_number",
+          "details_of_projects_completed_during_2024-25_-_length_kilometer",
+          "details_of_projects_completed_during_2024-25_-_cost_rs_in_crore",
+          "details_of_projects_approved_but_yet_to_be_commenced_-_number",
+          "details_of_projects_approved_but_yet_to_be_commenced_-_length_kilometer",
+          "details_of_projects_approved_but_yet_to_be_commenced_-_cost_rs_in_crore",
+          "source_type",
+          "source_id",
+          "metric_category",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-03-15T08:36:20.724922+00:00",
+      "completeness_score": 1.0,
+      "recency_score": 1.0,
+      "provenance_score": 0.85,
+      "consistency_score": 1.0,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/data_gov_in_nhai_statewise_nh_project_status_2024_25.parquet"
+    },
+    {
+      "source_id": "data_gov_in_nhai_stateut_project_delay_status_2024",
+      "connector": "data_gov_in_ogd",
+      "version": "0.2.0",
+      "status": "ok",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "National Highways Authority of India (NHAI)",
+        "title": "State/UT-wise NH projects and delayed NH projects, as on March 2024",
+        "domain": "data.gov.in",
+        "url": "https://tn.data.gov.in/resource/stateut-wise-number-national-highway-projects-and-number-national-highway-delayed-projects",
+        "retrieval_method": "direct download",
+        "access_type": "HTML",
+        "retrieved_at": "2026-03-15T08:36:21.210347+00:00",
+        "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "nid=603636893 (resource page) / file RS_Session_266_AU_1845_A_to_C.csv",
+        "anchor": "resource_file:https://data.gov.in/sites/default/files/RS_Session_266_AU_1845_A_to_C.csv",
+        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/data_gov_in_nhai_stateut_project_delay_status_2024/data_gov_in_nhai_stateut_project_delay_status_2024/raw_20260315_083621.csv",
+            "sha256": "7d9e767b9adec4214ae7f526c6b3f15717f121655d65b75566e7aafbc7922332",
+            "size_bytes": 718
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/data_gov_in_nhai_stateut_project_delay_status_2024.parquet",
+            "format": "parquet",
+            "sha256": "6e1ee687a60676c72afa286d7ca219e8c24de3a13beaa7c534cf6fe680279092"
+          }
+        ],
+        "row_count": 33,
+        "columns": [
+          "sl._no.",
+          "state/ut",
+          "number_of_projects",
+          "number_of_delayed_projects",
+          "source_type",
+          "source_id",
+          "metric_category",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-03-15T08:36:21.210347+00:00",
+      "completeness_score": 1.0,
+      "recency_score": 1.0,
+      "provenance_score": 1.0,
+      "consistency_score": 1.0,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/data_gov_in_nhai_stateut_project_delay_status_2024.parquet"
     }
   ]
 }

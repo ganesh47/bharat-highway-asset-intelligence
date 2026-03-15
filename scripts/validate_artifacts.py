@@ -76,6 +76,33 @@ def _validate_entry(entry: Dict, manifest_root: Path, errors: List[str], warning
         output_size = output_path.stat().st_size
         if output_size <= 0:
             warnings.append(f"Source {source_id} output parquet is empty ({output_path})")
+        if source_id == "data_gov_in_nhai_stateut_project_delay_status_2024":
+            try:
+                df = pd.read_parquet(output_path)
+                state_col = "state/ut"
+                project_col = "number_of_projects"
+                delayed_col = "number_of_delayed_projects"
+                required_cols = {state_col, project_col, delayed_col}
+                missing_cols = required_cols - set(df.columns)
+                if missing_cols:
+                    errors.append(f"Source {source_id} missing required columns: {sorted(missing_cols)}")
+                else:
+                    states = df[state_col].astype(str).str.strip()
+                    core = df.loc[~states.str.lower().isin({"total", "india", "all india"})].copy()
+                    if len(core) < 30:
+                        errors.append(f"Source {source_id} has insufficient state/UT coverage: {len(core)} rows")
+                    projects = pd.to_numeric(core[project_col], errors="coerce")
+                    delayed = pd.to_numeric(core[delayed_col], errors="coerce")
+                    if projects.isna().any() or delayed.isna().any():
+                        errors.append(f"Source {source_id} contains non-numeric project counts")
+                    if (projects < 0).any() or (delayed < 0).any():
+                        errors.append(f"Source {source_id} contains negative project counts")
+                    if (delayed > projects).any():
+                        errors.append(f"Source {source_id} has delayed project counts above total projects")
+                    if not states.str.lower().eq("total").any():
+                        warnings.append(f"Source {source_id} is missing a Total row")
+            except Exception as exc:
+                errors.append(f"Source {source_id} state/UT delay validation could not be executed: {exc}")
         if source_id == "morth_annual_report_pdf":
             try:
                 df = pd.read_parquet(output_path)

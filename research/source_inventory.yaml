@@ -140,7 +140,7 @@ sources:
     official_flag: true
     publisher_org: National Highways Authority of India (NHAI)
     domain: data.gov.in
-    dataset_title: State/UT-wise status of NH projects (ongoing, completed, approved), as on March 2024
+    dataset_title: Northeast subset NH project status (ongoing, completed, approved), as on March 2024
     theme: projects
     access_type: HTML
     auth: none
@@ -150,8 +150,8 @@ sources:
     license_terms: "Open Government Data License - India (OGL), subject to data.gov.in terms"
     retrieval_method: direct download
     reliability_grade: B
-    reliability_justification: "Official dataset on state/UT project status from Ministry responses; useful for cross-state staging analysis."
-    known_limitations: "Snapshot framing is tied to session-specific QA response; disaggregated progress may be coarse."
+    reliability_justification: "Official dataset on NH project status from a ministry response, but the attached table only covers a Northeast subset."
+    known_limitations: "This file is not all-India. It contains Arunachal Pradesh, Nagaland, Manipur, Tripura, and a Total row only."
     resource_page_url: https://www.data.gov.in/resource/state-wise-details-national-highway-nh-projects-under-construction-completed-approved-yet
     allow_auto_fetch: true
     url: https://www.data.gov.in/resource/state-wise-details-national-highway-nh-projects-under-construction-completed-approved-yet
@@ -159,6 +159,32 @@ sources:
     permanent_identifier_hint: nid=603577044 (resource page) / file RS_Session_266_AU_210_A_to_B_i.csv
     resource_file_urls:
       - https://www.data.gov.in/sites/default/files/RS_Session_266_AU_210_A_to_B_i.csv
+    notes: "Do not use this source for all-India state comparisons. The official file only contains a four-state Northeast subset plus Total."
+
+  - source_id: data_gov_in_nhai_stateut_project_delay_status_2024
+    official_flag: true
+    publisher_org: National Highways Authority of India (NHAI)
+    domain: data.gov.in
+    dataset_title: State/UT-wise NH projects and delayed NH projects, as on March 2024
+    theme: projects
+    access_type: HTML
+    auth: none
+    update_frequency: annual
+    geographic_granularity: state
+    temporal_coverage: 2024
+    license_terms: "Open Government Data License - India (OGL), subject to data.gov.in terms"
+    retrieval_method: direct download
+    reliability_grade: A
+    reliability_justification: "Official state/UT summary published through data.gov.in with a direct CSV file and national scope."
+    known_limitations: "Total row is included in the source file, and geographies with zero listed projects may be omitted from the annexure."
+    resource_page_url: https://tn.data.gov.in/resource/stateut-wise-number-national-highway-projects-and-number-national-highway-delayed-projects
+    allow_auto_fetch: true
+    url: https://tn.data.gov.in/resource/stateut-wise-number-national-highway-projects-and-number-national-highway-delayed-projects
+    resource_nid: 603636893
+    permanent_identifier_hint: nid=603636893 (resource page) / file RS_Session_266_AU_1845_A_to_C.csv
+    resource_file_urls:
+      - https://data.gov.in/sites/default/files/RS_Session_266_AU_1845_A_to_C.csv
+    notes: "Use this source for all-India state/UT project-status comparisons. It reports total NH projects and delayed NH projects as on March 2024."
 
   - source_id: data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026
     official_flag: true

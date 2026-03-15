@@ -1,0 +1,59 @@
+{
+  "source_id": "data_gov_in_nhai_stateut_project_delay_status_2024",
+  "connector": "data_gov_in_ogd",
+  "version": "0.2.0",
+  "status": "ok",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI)",
+    "title": "State/UT-wise NH projects and delayed NH projects, as on March 2024",
+    "domain": "data.gov.in",
+    "url": "https://tn.data.gov.in/resource/stateut-wise-number-national-highway-projects-and-number-national-highway-delayed-projects",
+    "retrieval_method": "direct download",
+    "access_type": "HTML",
+    "retrieved_at": "2026-03-15T08:36:21.210347+00:00",
+    "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "nid=603636893 (resource page) / file RS_Session_266_AU_1845_A_to_C.csv",
+    "anchor": "resource_file:https://data.gov.in/sites/default/files/RS_Session_266_AU_1845_A_to_C.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/data_gov_in_nhai_stateut_project_delay_status_2024/data_gov_in_nhai_stateut_project_delay_status_2024/raw_20260315_083621.csv",
+        "sha256": "7d9e767b9adec4214ae7f526c6b3f15717f121655d65b75566e7aafbc7922332",
+        "size_bytes": 718
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/data_gov_in_nhai_stateut_project_delay_status_2024.parquet",
+        "format": "parquet",
+        "sha256": "6e1ee687a60676c72afa286d7ca219e8c24de3a13beaa7c534cf6fe680279092"
+      }
+    ],
+    "row_count": 33,
+    "columns": [
+      "sl._no.",
+      "state/ut",
+      "number_of_projects",
+      "number_of_delayed_projects",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-03-15T08:36:21.210347+00:00",
+  "completeness_score": 1.0,
+  "recency_score": 1.0,
+  "provenance_score": 1.0,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/data_gov_in_nhai_stateut_project_delay_status_2024.parquet"
+}
