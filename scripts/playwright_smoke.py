@@ -92,9 +92,11 @@ REQUIRED_CHARTS = [
         "empty_markers": ["No scatter points."],
     },
     {
-        "title": "State Project Mix (2024-25 official status snapshot)",
+        "title": "State Project Mix (active vs delayed NH projects, official March 2024 snapshot)",
         "data_selector": ".bar-row",
         "min_points": 1,
+        "meta_markers": ["As of March 2024"],
+        "note_markers": ["Active without listed delay", "Delayed projects", "Total row is excluded"],
         "empty_markers": ["No records available."],
     },
     {

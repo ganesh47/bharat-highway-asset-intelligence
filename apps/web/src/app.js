@@ -1351,34 +1351,51 @@ function HorizontalBars({ title, rows, xLabel, yLabel, confidence, onHover, tool
   );
   }
 
-function StackedStateStatus({ title, rows, confidence, onHover, asOfDate }) {
+function StackedStateStatus({
+  title,
+  rows,
+  confidence,
+  onHover,
+  asOfDate,
+  segmentDefinitions,
+  metaText,
+  noteText,
+}) {
+  const segments = segmentDefinitions?.length
+    ? segmentDefinitions
+    : [
+        { key: 'under_construction_length', label: 'Under construction', color: '#2f5f99' },
+        { key: 'completed_length', label: 'Completed', color: '#0a8f52' },
+        { key: 'approved_length', label: 'Approved but not commenced', color: '#b07a00' },
+      ];
   const cleaned = (rows || [])
     .map((row) => ({
       state: safeLabel(row.state),
-      under: num(row.under_construction_length, 0),
-      completed: num(row.completed_length, 0),
-      approved: num(row.approved_length, 0),
+      segments: segments.map((segment) => ({
+        ...segment,
+        value: Math.max(0, num(row[segment.key], 0)),
+      })),
     }))
-    .filter((row) => row.state && row.state !== 'Unknown');
+    .map((row) => ({
+      ...row,
+      total: row.segments.reduce((acc, segment) => acc + segment.value, 0),
+    }))
+    .filter((row) => row.state && row.state !== 'Unknown' && row.total > 0);
 
-  const max = Math.max(...cleaned.map((row) => row.under + row.completed + row.approved), 1);
-  const ordered = cleaned.sort((a, b) => b.under + b.completed + b.approved - (a.under + a.completed + a.approved));
+  const max = Math.max(...cleaned.map((row) => row.total), 1);
+  const ordered = cleaned.sort((a, b) => b.total - a.total);
 
   return React.createElement('div', { className: 'card insight-chart' },
     React.createElement('div', { className: 'source-line' },
       React.createElement('div', { className: 'chart-title' }, title),
       React.createElement('span', { className: `badge ${String(confidence.badge || 'low').toLowerCase()}` }, `${confidence.badge || 'Low'} confidence`)),
-    React.createElement('div', { className: 'chart-meta' }, asOfDate ? `As of ${asOfDate} · Segmented by reported NH work-stage length (km)` : 'Segmented by reported NH work-stage length (km)'),
+    React.createElement('div', { className: 'chart-meta' }, chartMetaText(metaText || 'Segmented by reported NH work-stage length (km)', asOfDate)),
     React.createElement('div', { className: 'bars' },
       ...ordered.map((row) => {
-        const underPct = (row.under / max) * 100;
-        const completedPct = (row.completed / max) * 100;
-        const approvedPct = (row.approved / max) * 100;
-        const barSegments = [
-          { color: '#2f5f99', value: underPct },
-          { color: '#0a8f52', value: completedPct },
-          { color: '#b07a00', value: approvedPct },
-        ];
+        const barSegments = row.segments.map((segment) => ({
+          ...segment,
+          width: (segment.value / max) * 100,
+        }));
         return React.createElement(
           'div',
           { key: row.state, className: 'bar-row', style: { alignItems: 'start' } },
@@ -1389,29 +1406,25 @@ function StackedStateStatus({ title, rows, confidence, onHover, asOfDate }) {
             ...barSegments.map((segment) =>
               React.createElement('div', {
                 className: 'bar-fill',
-                style: { width: `${clamp(segment.value, 0, 100)}%`, background: segment.color },
+                style: { width: `${clamp(segment.width, 0, 100)}%`, background: segment.color },
                 onMouseEnter: (event) => onHover(tooltipPayload(event, tooltipText([
                   row.state,
-                  `Under construction: ${fmtNum(row.under)}`,
-                  `Completed: ${fmtNum(row.completed)}`,
-                  `Approved: ${fmtNum(row.approved)}`,
-                  `Total: ${fmtNum(row.under + row.completed + row.approved)}`,
+                  ...row.segments.map((item) => `${item.label}: ${fmtNum(item.value)}`),
+                  `Total: ${fmtNum(row.total)}`,
                 ]))),
                 onMouseMove: (event) => onHover(tooltipPayload(event, tooltipText([
                   row.state,
-                  `Under construction: ${fmtNum(row.under)}`,
-                  `Completed: ${fmtNum(row.completed)}`,
-                  `Approved: ${fmtNum(row.approved)}`,
-                  `Total: ${fmtNum(row.under + row.completed + row.approved)}`,
+                  ...row.segments.map((item) => `${item.label}: ${fmtNum(item.value)}`),
+                  `Total: ${fmtNum(row.total)}`,
                 ]))),
                 onMouseLeave: () => onHover({ visible: false }),
               })
             )
           ),
-          React.createElement('div', { className: 'bar-value' }, fmtNum(row.under + row.completed + row.approved))
+          React.createElement('div', { className: 'bar-value' }, fmtNum(row.total))
         );
       })),
-    React.createElement('div', { className: 'insight-note' }, 'Blue=Under construction, Green=Completed, Amber=Approved but not commenced')
+    React.createElement('div', { className: 'insight-note' }, noteText || 'Blue=Under construction, Green=Completed, Amber=Approved but not commenced')
   );
 }
 
@@ -1900,15 +1913,14 @@ async function loadAnalyticCatalog(conn, catalog) {
     }))
     .filter((row) => row.state && !isAggregateStateLabel(normalizeState(row.state)));
 
-  const stateStatus = await fetchById('data_gov_in_nhai_statewise_nh_project_status_2024_25', (alias) => `
+  const stateProjectDelays = await fetchById('data_gov_in_nhai_stateut_project_delay_status_2024', (alias) => `
     SELECT
-      "state-wise" AS state,
-      CAST("details_of_under_construction_projects_-_length_kilometer" AS DOUBLE) AS under_construction_length,
-      CAST("details_of_projects_completed_during_2024-25_-_length_kilometer" AS DOUBLE) AS completed_length,
-      CAST("details_of_projects_approved_but_yet_to_be_commenced_-_length_kilometer" AS DOUBLE) AS approved_length
+      "state/ut" AS state,
+      CAST("number_of_projects" AS DOUBLE) AS total_projects,
+      CAST("number_of_delayed_projects" AS DOUBLE) AS delayed_projects
     FROM read_parquet('${alias}')
-    WHERE "state-wise" IS NOT NULL
-      AND lower(trim("state-wise")) NOT IN ('total', 'india', 'all india')
+    WHERE "state/ut" IS NOT NULL
+      AND lower(trim("state/ut")) NOT IN ('total', 'india', 'all india')
   `);
 
   const accidents = await fetchById('ncrb_road_accidents_state_year', (alias) => `
@@ -2047,15 +2059,15 @@ async function loadAnalyticCatalog(conn, catalog) {
     }))
     .filter((row) => row.state && Number.isFinite(row.length));
 
-  const stateStatusRows = stateStatus
+  const stateStatusRows = stateProjectDelays
     .map((row) => ({
       state: row.state,
-      under_construction_length: num(row.under_construction_length),
-      completed_length: num(row.completed_length),
-      approved_length: num(row.approved_length),
-      source: 'data_gov_in_nhai_statewise_nh_project_status_2024_25',
+      active_projects: Math.max(0, num(row.total_projects) - num(row.delayed_projects)),
+      delayed_projects: num(row.delayed_projects),
+      total_projects: num(row.total_projects),
+      source: 'data_gov_in_nhai_stateut_project_delay_status_2024',
     }))
-    .filter((row) => row.state);
+    .filter((row) => row.state && Number.isFinite(row.total_projects));
 
   const accidentLatestYear = accidents.reduce((acc, row) => {
     const year = num(row.year);
@@ -2443,7 +2455,7 @@ function App() {
     finance: latestDateFromRows(analytics?.financeRows, catalog, ['data_gov_in_nhai_project_finance_api']),
     portfolio: latestDateFromRows(analytics?.portfolioRows, catalog, ['data_gov_in_nhai_state_projects_api', 'data_gov_in_nhai_stateut_length_constructed_2019_24', 'morth_annual_report_pdf']),
     morthAppendix: latestDateFromRows(analytics?.morthCrifRows || analytics?.morthAppendix2CountRows || [], catalog, ['morth_annual_report_pdf']),
-    status: latestDateFromRows(analytics?.stateStatusRows, catalog, ['data_gov_in_nhai_statewise_nh_project_status_2024_25']),
+    status: latestDateFromRows(analytics?.stateStatusRows, catalog, ['data_gov_in_nhai_stateut_project_delay_status_2024']),
     safety: latestDateFromRows(analytics?.accidentTrendRows || [], catalog, ['ncrb_road_accidents_state_year', 'quality_maintenance_indicators', 'highway_project_risk_and_access_panel']),
     modelRisk: latestDateFromRows(analytics?.modelStateRisk || [], catalog, ['highway_project_risk_and_access_panel', 'ncrb_road_accidents_state_year']),
     macro: latestDateFromRows((analytics?.macroSeries?.cpi || []).concat(analytics?.macroSeries?.capex || []).concat(analytics?.macroSeries?.fuel || []), catalog, ['rbi_mospi_macro_indicators']),
@@ -2503,19 +2515,17 @@ function App() {
   const statusBars = Array.from(statusStateSeed.entries())
     .map(([key, state]) => statusLookup.get(key) || {
       state,
-      under_construction_length: 0,
-      completed_length: 0,
-      approved_length: 0,
+      active_projects: 0,
+      delayed_projects: 0,
     })
     .map((row) => ({
       state: row.state,
-      under_construction_length: num(row.under_construction_length),
-      completed_length: num(row.completed_length),
-      approved_length: num(row.approved_length),
+      active_projects: num(row.active_projects),
+      delayed_projects: num(row.delayed_projects),
     }))
     .sort((a, b) => {
-      const aTotal = a.under_construction_length + a.completed_length + a.approved_length;
-      const bTotal = b.under_construction_length + b.completed_length + b.approved_length;
+      const aTotal = a.active_projects + a.delayed_projects;
+      const bTotal = b.active_projects + b.delayed_projects;
       return bTotal - aTotal;
     });
 
@@ -2637,7 +2647,7 @@ function App() {
   const portfolioConfidence = confidenceFromSources(
     Object.values(catalog).filter((item) => ['data_gov_in_nhai_state_projects_api', 'data_gov_in_nhai_stateut_length_constructed_2019_24', 'data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026', 'data_gov_in_nhai_projects_api'].includes(item.source_id))
   );
-  const stateStatusConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'data_gov_in_nhai_statewise_nh_project_status_2024_25'));
+  const stateStatusConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'data_gov_in_nhai_stateut_project_delay_status_2024'));
   const growthConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'data_gov_in_nhai_yearwise_nh_constructed_2014_15'));
   const modelConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'highway_project_risk_and_access_panel'));
   const morthReportConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'morth_annual_report_pdf'));
@@ -2824,10 +2834,16 @@ function App() {
       }),
       React.createElement(ChartTooltip, { tooltip }),
       React.createElement(StackedStateStatus, {
-        title: 'State Project Mix (2024-25 official status snapshot)',
+        title: 'State Project Mix (active vs delayed NH projects, official March 2024 snapshot)',
         rows: statusBars,
         confidence: stateStatusConfidence,
-        asOfDate: chartDates.status,
+        asOfDate: 'March 2024',
+        segmentDefinitions: [
+          { key: 'active_projects', label: 'Active without listed delay', color: '#2f5f99' },
+          { key: 'delayed_projects', label: 'Delayed projects', color: '#b07a00' },
+        ],
+        metaText: 'State/UT-wise NH project counts. Delayed projects are a subset of all listed projects.',
+        noteText: 'Blue=Active without listed delay, Amber=Delayed projects. The Total row is excluded, and some zero-project geographies may be omitted from the official annexure.',
       }),
       React.createElement(ScatterChart, {
         title: `Safety Context: Fatality Intensity × Safety Risk Signals (${analytics?.accidentLatestYear || 'latest'})`,
