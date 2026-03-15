@@ -380,7 +380,7 @@ sources:
     official_flag: true
     publisher_org: Ministry of Road Transport and Highways (MoRTH)
     domain: morth.nic.in
-    dataset_title: MoRTH annual report PDF tables (selected annexes)
+    dataset_title: MoRTH Annual Report 2024-25 curated appendix snapshot (Appendix 2/3/5)
     theme: finance
     access_type: PDF
     auth: none
@@ -391,11 +391,11 @@ sources:
     retrieval_method: manual
     reliability_grade: B
     reliability_justification: Official statutory reporting, but data must be parsed from PDF tables with occasional extraction noise.
-    known_limitations: "Table extraction from scanned or merged PDFs may miss footnotes and row merges."
+    known_limitations: "Appendix 2 requires curated review because PDF extraction can swap NH count and length columns; validate against parliamentary annexures before publish."
     allow_auto_fetch: false
     url: https://morth.nic.in/annual-report
     permanent_identifier_hint: "annual report year + section/table identifier"
-    notes: "Use manual approval and local archival copy path under data/raw/manual for reproducibility."
+    notes: "Use approved manual CSV snapshot under data/raw/manual as the authoritative Appendix 2/3/5 extract, with Lok Sabha annexure cross-checks for Appendix 2 reproducibility."
 
   - source_id: nhai_audited_results_pdf
     official_flag: true

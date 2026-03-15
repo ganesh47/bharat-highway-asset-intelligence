@@ -5,8 +5,16 @@ import argparse
 import json
 from pathlib import Path
 from typing import Dict, List
+import sys
 
 import hashlib
+import pandas as pd
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from pipelines.morth_appendix_validation import compare_appendix2_to_reference, validate_appendix2_snapshot
 
 
 def _read_json(path: Path) -> Dict:
@@ -68,6 +76,22 @@ def _validate_entry(entry: Dict, manifest_root: Path, errors: List[str], warning
         output_size = output_path.stat().st_size
         if output_size <= 0:
             warnings.append(f"Source {source_id} output parquet is empty ({output_path})")
+        if source_id == "morth_annual_report_pdf":
+            try:
+                df = pd.read_parquet(output_path)
+                appendix_result = validate_appendix2_snapshot(df)
+                for item in appendix_result.errors:
+                    errors.append(f"Source {source_id} appendix2 validation: {item}")
+                for item in appendix_result.warnings:
+                    warnings.append(f"Source {source_id} appendix2 validation: {item}")
+                reference_path = Path("data/raw/manual/morth_annual_report_pdf_validation_2025.csv")
+                reference_result = compare_appendix2_to_reference(df, reference_path)
+                for item in reference_result.get("errors", []):
+                    errors.append(f"Source {source_id} parliamentary cross-check: {item}")
+                for item in reference_result.get("warnings", []):
+                    warnings.append(f"Source {source_id} parliamentary cross-check: {item}")
+            except Exception as exc:
+                errors.append(f"Source {source_id} appendix2 validation could not be executed: {exc}")
     else:
         errors.append(f"Source {source_id} missing output parquet: {entry.get('output_table_path')}")
 

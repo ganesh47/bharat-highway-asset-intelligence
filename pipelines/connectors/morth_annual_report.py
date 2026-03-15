@@ -10,6 +10,7 @@ from pypdf import PdfReader
 
 from .base import ConnectorResult, ConnectorSpec
 from pipelines.common import ensure_dirs, sha256_for_file, write_json, write_parquet
+from pipelines.morth_appendix_validation import compare_appendix2_to_reference, validate_appendix2_snapshot
 from pipelines.quality import evaluate
 
 
@@ -69,6 +70,7 @@ class MoRTHAnnualReportConnector:
     APPENDIX2_STATE_RENAMES = {
         "Orissa": "Odisha",
     }
+    VALIDATION_REFERENCE = "morth_annual_report_pdf_validation_2025.csv"
 
     def _norm(self, text: str) -> str:
         return " ".join(text.strip().split())
@@ -392,7 +394,7 @@ class MoRTHAnnualReportConnector:
             "metric_category": "official_measured",
             "source": {
                 "publisher": source.get("publisher_org"),
-                "title": source.get("dataset_title"),
+                "title": "MoRTH Annual Report 2024-25 curated appendix snapshot (Appendix 2/3/5)",
                 "url": source.get("url"),
                 "retrieved_at": now,
                 "license_terms": source.get("license_terms"),
@@ -400,20 +402,39 @@ class MoRTHAnnualReportConnector:
             },
             "citations": {
                 "permanent_identifier": source.get("permanent_identifier_hint"),
-                "anchor": "manual_annual_report_csv_page_reference",
-                "note": "Official annual-report table extracts imported from approved CSV snapshot.",
+                "anchor": "appendix-2-page-123_to_126",
+                "note": "Curated official annual-report Appendix 2/3/5 CSV snapshot validated against parliamentary NH count/length reference.",
             },
             "manifest": {
-                "raw_files": [
-                    {
-                        "path": str(manual_csv),
-                        "sha256": sha256_for_file(manual_csv),
-                        "size_bytes": manual_csv.stat().st_size,
-                    }
-                ],
+                "raw_files": [],
             },
             "retrieved_at": now,
         }
+        manifest["manifest"]["raw_files"].append(
+            {
+                "path": str(manual_csv),
+                "sha256": sha256_for_file(manual_csv),
+                "size_bytes": manual_csv.stat().st_size,
+            }
+        )
+        manual_pdf = raw_root / "manual" / f"{source_id}.pdf"
+        if manual_pdf.exists():
+            manifest["manifest"]["raw_files"].append(
+                {
+                    "path": str(manual_pdf),
+                    "sha256": sha256_for_file(manual_pdf),
+                    "size_bytes": manual_pdf.stat().st_size,
+                }
+            )
+        validation_csv = raw_root / "manual" / self.VALIDATION_REFERENCE
+        if validation_csv.exists():
+            manifest["manifest"]["raw_files"].append(
+                {
+                    "path": str(validation_csv),
+                    "sha256": sha256_for_file(validation_csv),
+                    "size_bytes": validation_csv.stat().st_size,
+                }
+            )
         return df, manifest, "ok"
 
     def run(self, source: Dict[str, Any], raw_root: Path, processed_root: Path, manifest_root: Path) -> ConnectorResult:
@@ -426,6 +447,59 @@ class MoRTHAnnualReportConnector:
         manual_pdf = raw_root / "manual" / f"{source_id}.pdf"
         manual_csv = raw_root / "manual" / f"{source_id}.csv"
         notes: list[str] = []
+
+        if manual_csv.exists():
+            fallback_df, fallback_manifest, reason = self._from_manual_csv(source_id, now, source, raw_root)
+            if reason != "manual_csv_parse_failed" and not fallback_df.empty:
+                validation_result = validate_appendix2_snapshot(fallback_df)
+                validation_reference_path = raw_root / "manual" / self.VALIDATION_REFERENCE
+                validation_report = compare_appendix2_to_reference(fallback_df, validation_reference_path)
+                validation_report["appendix2_snapshot"] = validation_result.summary
+                validation_report["appendix2_errors"] = validation_result.errors
+                validation_report["appendix2_warnings"] = validation_result.warnings
+                if validation_result.errors or validation_report["errors"]:
+                    combined = validation_result.errors + validation_report["errors"]
+                    raise ValueError("MoRTH Appendix 2 validation failed: " + "; ".join(combined))
+
+                write_parquet(fallback_df, output_path)
+                validation_output_path = processed_root / f"{source_id}_validation.json"
+                write_json(validation_report, validation_output_path)
+                fallback_manifest["status"] = "manual_ingest"
+                fallback_manifest["source_as_of_date"] = "2024-12-31"
+                fallback_manifest["validation_sources"] = [
+                    {
+                        "label": "Lok Sabha Starred Question 381 Annexure-I",
+                        "url": "https://sansad.in/getFile/loksabhaquestions/annex/184/AS381_nRxDMM.pdf?source=pqals",
+                        "source_as_of_date": "2025-06-30",
+                        "anchor": "annexure-i-state-wise-details-of-nhs",
+                    },
+                    {
+                        "label": "Lok Sabha Unstarred Question 143 Annexure",
+                        "url": "https://sansad.in/getFile/loksabhaquestions/annex/182/AS143_l2jcaR.pdf?source=pqals",
+                        "source_as_of_date": "2024-08-01",
+                        "anchor": "annexure-state-wise-details-of-nhs",
+                    },
+                ]
+                fallback_manifest["validation_report_path"] = str(validation_output_path)
+                fallback_manifest["manifest"]["output_files"] = [
+                    {
+                        "path": str(output_path),
+                        "sha256": sha256_for_file(output_path),
+                    },
+                    {
+                        "path": str(validation_output_path),
+                        "sha256": sha256_for_file(validation_output_path),
+                    },
+                ]
+                fallback_manifest["manifest"]["row_count"] = int(len(fallback_df))
+                fallback_manifest["manifest"]["columns"] = list(fallback_df.columns)
+                fallback_manifest.update(evaluate(fallback_df, source | fallback_manifest["source"]))
+                write_json(fallback_manifest, manifest_path)
+                return ConnectorResult(
+                    source_id=source_id,
+                    output_table_path=output_path,
+                    manifest=fallback_manifest,
+                )
 
         if manual_pdf.exists():
             parsed_rows, parse_notes = self._parse_pdf(manual_pdf)
@@ -481,30 +555,6 @@ class MoRTHAnnualReportConnector:
                 manifest["manifest"]["output_files"][0]["sha256"] = sha256_for_file(output_path)
                 write_json(manifest, manifest_path)
                 return ConnectorResult(source_id=source_id, output_table_path=output_path, manifest=manifest)
-
-            if manual_csv.exists():
-                fallback_df, fallback_manifest, reason = self._from_manual_csv(source_id, now, source, raw_root)
-                if reason != "manual_csv_parse_failed" and not fallback_df.empty:
-                    write_parquet(fallback_df, output_path)
-                    fallback_manifest["status"] = "manual_ingest_with_pdf_parse_fallback"
-                    fallback_manifest["citations"]["note"] = (
-                        "PDF parsing failed; fallback to approved manual CSV snapshot."
-                    )
-                    fallback_manifest["manifest"]["output_files"] = [
-                        {
-                            "path": str(output_path),
-                            "sha256": sha256_for_file(output_path),
-                        }
-                    ]
-                    fallback_manifest["manifest"]["row_count"] = int(len(fallback_df))
-                    fallback_manifest["manifest"]["columns"] = list(fallback_df.columns)
-                    fallback_manifest.update(evaluate(fallback_df, source | fallback_manifest["source"]))
-                    write_json(fallback_manifest, manifest_path)
-                    return ConnectorResult(
-                        source_id=source_id,
-                        output_table_path=output_path,
-                        manifest=fallback_manifest,
-                    )
 
             df = pd.DataFrame(
                 [

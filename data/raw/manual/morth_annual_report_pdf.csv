@@ -1,152 +1,156 @@
-state,year,metric_name,metric_value,unit,document_section,citation_anchor
-Andhra Pradesh,,appendix2_statewise_nh_count,55.0,count,appendix_2,appendix-2-page-123
-Arunachal Pradesh,,appendix2_statewise_nh_count,14.0,count,appendix_2,appendix-2-page-123
-Assam,,appendix2_statewise_nh_count,38.0,count,appendix_2,appendix-2-page-123
-Bihar,,appendix2_statewise_nh_count,56.0,count,appendix_2,appendix-2-page-123
-Chandigarh,,appendix2_statewise_nh_count,1.0,count,appendix_2,appendix-2-page-123
-Chhattisgarh,,appendix2_statewise_nh_count,20.0,count,appendix_2,appendix-2-page-123
-Daman & Diu,,appendix2_statewise_nh_count,25.0,count,appendix_2,appendix-2-page-123
-Delhi,,appendix2_statewise_nh_count,12.0,count,appendix_2,appendix-2-page-123
-Goa,,appendix2_statewise_nh_count,6.0,count,appendix_2,appendix-2-page-123
-Gujarat,,appendix2_statewise_nh_count,45.0,count,appendix_2,appendix-2-page-123
-Haryana,,appendix2_statewise_nh_count,39.0,count,appendix_2,appendix-2-page-123
-Himachal Pradesh,,appendix2_statewise_nh_count,19.0,count,appendix_2,appendix-2-page-123
-Jammu and Kashmir,,appendix2_statewise_nh_count,11.0,count,appendix_2,appendix-2-page-123
-Jharkhand,,appendix2_statewise_nh_count,32.0,count,appendix_2,appendix-2-page-123
-Karnataka,,appendix2_statewise_nh_count,49.0,count,appendix_2,appendix-2-page-123
-Kerala,,appendix2_statewise_nh_count,12.0,count,appendix_2,appendix-2-page-123
-Ladakh,,appendix2_statewise_nh_count,3.0,count,appendix_2,appendix-2-page-123
-Madhya Pradesh,,appendix2_statewise_nh_count,9160.0,count,appendix_2,appendix-2-page-123
-Maharashtra,,appendix2_statewise_nh_count,102.0,count,appendix_2,appendix-2-page-123
-Manipur,,appendix2_statewise_nh_count,11.0,count,appendix_2,appendix-2-page-123
-Meghalaya,,appendix2_statewise_nh_count,5.0,count,appendix_2,appendix-2-page-123
-Mizoram,,appendix2_statewise_nh_count,9.0,count,appendix_2,appendix-2-page-123
-Nagaland,,appendix2_statewise_nh_count,12.0,count,appendix_2,appendix-2-page-123
-Odisha,,appendix2_statewise_nh_count,32.0,count,appendix_2,appendix-2-page-123
-Puducherry,,appendix2_statewise_nh_count,2.0,count,appendix_2,appendix-2-page-123
-Punjab,,appendix2_statewise_nh_count,38.0,count,appendix_2,appendix-2-page-123
-Rajasthan,,appendix2_statewise_nh_count,25.0,count,appendix_2,appendix-2-page-123
-Sikkim,,appendix2_statewise_nh_count,8.0,count,appendix_2,appendix-2-page-123
-Tamil Nadu,,appendix2_statewise_nh_count,50.0,count,appendix_2,appendix-2-page-123
-Telangana,,appendix2_statewise_nh_count,30.0,count,appendix_2,appendix-2-page-123
-Tripura,,appendix2_statewise_nh_count,6.0,count,appendix_2,appendix-2-page-123
-Uttar Pradesh,,appendix2_statewise_nh_count,90.0,count,appendix_2,appendix-2-page-123
-Uttarakhand,,appendix2_statewise_nh_count,26.0,count,appendix_2,appendix-2-page-123
-West Bengal,,appendix2_statewise_nh_count,2.0,count,appendix_2,appendix-2-page-123
-Andhra Pradesh,,appendix2_statewise_nh_length_km,8683.0,km,appendix_2,appendix-2-page-123
-Arunachal Pradesh,,appendix2_statewise_nh_length_km,4367.0,km,appendix_2,appendix-2-page-123
-Assam,,appendix2_statewise_nh_length_km,4077.0,km,appendix_2,appendix-2-page-123
-Bihar,,appendix2_statewise_nh_length_km,6132.0,km,appendix_2,appendix-2-page-123
-Chandigarh,,appendix2_statewise_nh_length_km,15.0,km,appendix_2,appendix-2-page-123
-Chhattisgarh,,appendix2_statewise_nh_length_km,3620.0,km,appendix_2,appendix-2-page-123
-Daman & Diu,,appendix2_statewise_nh_length_km,125.0,km,appendix_2,appendix-2-page-123
-Delhi,,appendix2_statewise_nh_length_km,157.0,km,appendix_2,appendix-2-page-123
-Goa,,appendix2_statewise_nh_length_km,299.0,km,appendix_2,appendix-2-page-123
-Gujarat,,appendix2_statewise_nh_length_km,8111.0,km,appendix_2,appendix-2-page-123
-Haryana,,appendix2_statewise_nh_length_km,3347.0,km,appendix_2,appendix-2-page-123
-Himachal Pradesh,,appendix2_statewise_nh_length_km,2607.0,km,appendix_2,appendix-2-page-123
-Jammu and Kashmir,,appendix2_statewise_nh_length_km,1935.0,km,appendix_2,appendix-2-page-123
-Jharkhand,,appendix2_statewise_nh_length_km,3633.0,km,appendix_2,appendix-2-page-123
-Karnataka,,appendix2_statewise_nh_length_km,8191.0,km,appendix_2,appendix-2-page-123
-Kerala,,appendix2_statewise_nh_length_km,1858.0,km,appendix_2,appendix-2-page-123
-Ladakh,,appendix2_statewise_nh_length_km,806.0,km,appendix_2,appendix-2-page-123
-Madhya Pradesh,,appendix2_statewise_nh_length_km,122.0,km,appendix_2,appendix-2-page-123
-Maharashtra,,appendix2_statewise_nh_length_km,18462.0,km,appendix_2,appendix-2-page-123
-Manipur,,appendix2_statewise_nh_length_km,1840.0,km,appendix_2,appendix-2-page-123
-Meghalaya,,appendix2_statewise_nh_length_km,1156.0,km,appendix_2,appendix-2-page-123
-Mizoram,,appendix2_statewise_nh_length_km,1499.0,km,appendix_2,appendix-2-page-123
-Nagaland,,appendix2_statewise_nh_length_km,1670.0,km,appendix_2,appendix-2-page-123
-Odisha,,appendix2_statewise_nh_length_km,5897.0,km,appendix_2,appendix-2-page-123
-Puducherry,,appendix2_statewise_nh_length_km,64.0,km,appendix_2,appendix-2-page-123
-Punjab,,appendix2_statewise_nh_length_km,4264.0,km,appendix_2,appendix-2-page-123
-Rajasthan,,appendix2_statewise_nh_length_km,123.0,km,appendix_2,appendix-2-page-123
-Sikkim,,appendix2_statewise_nh_length_km,709.0,km,appendix_2,appendix-2-page-123
-Tamil Nadu,,appendix2_statewise_nh_length_km,7000.0,km,appendix_2,appendix-2-page-123
-Telangana,,appendix2_statewise_nh_length_km,4926.0,km,appendix_2,appendix-2-page-123
-Tripura,,appendix2_statewise_nh_length_km,889.0,km,appendix_2,appendix-2-page-123
-Uttar Pradesh,,appendix2_statewise_nh_length_km,12123.0,km,appendix_2,appendix-2-page-123
-Uttarakhand,,appendix2_statewise_nh_length_km,3664.0,km,appendix_2,appendix-2-page-123
-West Bengal,,appendix2_statewise_nh_length_km,37.0,km,appendix_2,appendix-2-page-123
-,2000-01,appendix3_crif_allocation,985.0,crore_inr,appendix_3,appendix-3-page-127
-,2001-02,appendix3_crif_allocation,962.03,crore_inr,appendix_3,appendix-3-page-127
-,2002-03,appendix3_crif_allocation,980.0,crore_inr,appendix_3,appendix-3-page-127
-,2003-04,appendix3_crif_allocation,910.76,crore_inr,appendix_3,appendix-3-page-127
-,2004-05,appendix3_crif_allocation,868.0,crore_inr,appendix_3,appendix-3-page-127
-,2005-06,appendix3_crif_allocation,1535.36,crore_inr,appendix_3,appendix-3-page-127
-,2006-07,appendix3_crif_allocation,1535.46,crore_inr,appendix_3,appendix-3-page-127
-,2007-08,appendix3_crif_allocation,1565.32,crore_inr,appendix_3,appendix-3-page-127
-,2008-09,appendix3_crif_allocation,1271.64,crore_inr,appendix_3,appendix-3-page-127
-,2009-10,appendix3_crif_allocation,1786.56,crore_inr,appendix_3,appendix-3-page-127
-,2010-11,appendix3_crif_allocation,2714.87,crore_inr,appendix_3,appendix-3-page-127
-,2011-12,appendix3_crif_allocation,2288.65,crore_inr,appendix_3,appendix-3-page-127
-,2012-13,appendix3_crif_allocation,2359.91,crore_inr,appendix_3,appendix-3-page-127
-,2013-14,appendix3_crif_allocation,2359.91,crore_inr,appendix_3,appendix-3-page-127
-,2014-15,appendix3_crif_allocation,2642.63,crore_inr,appendix_3,appendix-3-page-127
-,2015-16,appendix3_crif_allocation,2852.64,crore_inr,appendix_3,appendix-3-page-127
-,2016-17,appendix3_crif_allocation,7175.0,crore_inr,appendix_3,appendix-3-page-127
-,2017-18,appendix3_crif_allocation,6744.07,crore_inr,appendix_3,appendix-3-page-127
-,2018-19,appendix3_crif_allocation,6998.93,crore_inr,appendix_3,appendix-3-page-127
-,2019-20,appendix3_crif_allocation,7421.58,crore_inr,appendix_3,appendix-3-page-127
-,2020-21,appendix3_crif_allocation,6820.0,crore_inr,appendix_3,appendix-3-page-127
-,2021-22,appendix3_crif_allocation,6945.22,crore_inr,appendix_3,appendix-3-page-127
-,2022-23,appendix3_crif_allocation,7974.31,crore_inr,appendix_3,appendix-3-page-127
-,2023-24,appendix3_crif_allocation,8835.8,crore_inr,appendix_3,appendix-3-page-127
-,2024-25,appendix3_crif_allocation,9030.0,crore_inr,appendix_3,appendix-3-page-127
-,2000-01,appendix3_crif_release,332.01,crore_inr,appendix_3,appendix-3-page-127
-,2001-02,appendix3_crif_release,300.0,crore_inr,appendix_3,appendix-3-page-127
-,2002-03,appendix3_crif_release,950.28,crore_inr,appendix_3,appendix-3-page-127
-,2003-04,appendix3_crif_release,778.94,crore_inr,appendix_3,appendix-3-page-127
-,2004-05,appendix3_crif_release,607.4,crore_inr,appendix_3,appendix-3-page-127
-,2005-06,appendix3_crif_release,1299.27,crore_inr,appendix_3,appendix-3-page-127
-,2006-07,appendix3_crif_release,1426.29,crore_inr,appendix_3,appendix-3-page-127
-,2007-08,appendix3_crif_release,1322.19,crore_inr,appendix_3,appendix-3-page-127
-,2008-09,appendix3_crif_release,2122.0,crore_inr,appendix_3,appendix-3-page-127
-,2009-10,appendix3_crif_release,1344.98,crore_inr,appendix_3,appendix-3-page-127
-,2010-11,appendix3_crif_release,2460.29,crore_inr,appendix_3,appendix-3-page-127
-,2011-12,appendix3_crif_release,1927.39,crore_inr,appendix_3,appendix-3-page-127
-,2012-13,appendix3_crif_release,2350.37,crore_inr,appendix_3,appendix-3-page-127
-,2013-14,appendix3_crif_release,2226.6,crore_inr,appendix_3,appendix-3-page-127
-,2014-15,appendix3_crif_release,2094.78,crore_inr,appendix_3,appendix-3-page-127
-,2015-16,appendix3_crif_release,2369.47,crore_inr,appendix_3,appendix-3-page-127
-,2016-17,appendix3_crif_release,5069.82,crore_inr,appendix_3,appendix-3-page-127
-,2017-18,appendix3_crif_release,6367.11,crore_inr,appendix_3,appendix-3-page-127
-,2018-19,appendix3_crif_release,6784.5,crore_inr,appendix_3,appendix-3-page-127
-,2019-20,appendix3_crif_release,6868.66,crore_inr,appendix_3,appendix-3-page-127
-,2020-21,appendix3_crif_release,6613.3,crore_inr,appendix_3,appendix-3-page-127
-,2021-22,appendix3_crif_release,6926.58,crore_inr,appendix_3,appendix-3-page-127
-,2022-23,appendix3_crif_release,7551.98,crore_inr,appendix_3,appendix-3-page-127
-,2023-24,appendix3_crif_release,8646.23,crore_inr,appendix_3,appendix-3-page-127
-,2024-25,appendix3_crif_release,5845.34,crore_inr,appendix_3,appendix-3-page-127
-Andhra Pradesh,,appendix5_statewise_national_permit_fee,696828096.0,inr,appendix_5,appendix-5-page-129
-Arunachal Pradesh,,appendix5_statewise_national_permit_fee,1209771.0,inr,appendix_5,appendix-5-page-129
-Assam,,appendix5_statewise_national_permit_fee,269778933.0,inr,appendix_5,appendix-5-page-129
-Bihar,,appendix5_statewise_national_permit_fee,878293746.0,inr,appendix_5,appendix-5-page-129
-Chandigarh,,appendix5_statewise_national_permit_fee,245583513.0,inr,appendix_5,appendix-5-page-129
-Chhattisgarh,,appendix5_statewise_national_permit_fee,344784735.0,inr,appendix_5,appendix-5-page-129
-Dadra & Nagar Haveli & Daman & Diu,,appendix5_statewise_national_permit_fee,177836337.0,inr,appendix_5,appendix-5-page-129
-Delhi,,appendix5_statewise_national_permit_fee,806917257.0,inr,appendix_5,appendix-5-page-129
-Goa,,appendix5_statewise_national_permit_fee,123396642.0,inr,appendix_5,appendix-5-page-129
-Gujarat,,appendix5_statewise_national_permit_fee,1218239397.0,inr,appendix_5,appendix-5-page-129
-Haryana,,appendix5_statewise_national_permit_fee,958138632.0,inr,appendix_5,appendix-5-page-129
-Himachal Pradesh,,appendix5_statewise_national_permit_fee,358092216.0,inr,appendix_5,appendix-5-page-129
-Jammu & Kashmir,,appendix5_statewise_national_permit_fee,102830535.0,inr,appendix_5,appendix-5-page-129
-Jharkhand,,appendix5_statewise_national_permit_fee,803287944.0,inr,appendix_5,appendix-5-page-129
-Karnataka,,appendix5_statewise_national_permit_fee,1556975277.0,inr,appendix_5,appendix-5-page-129
-Kerala,,appendix5_statewise_national_permit_fee,483908400.0,inr,appendix_5,appendix-5-page-129
-Madhya Pradesh,,appendix5_statewise_national_permit_fee,1899340470.0,inr,appendix_5,appendix-5-page-129
-Maharashtra,,appendix5_statewise_national_permit_fee,1979185356.0,inr,appendix_5,appendix-5-page-129
-Manipur,,appendix5_statewise_national_permit_fee,2419542.0,inr,appendix_5,appendix-5-page-129
-Meghalaya,,appendix5_statewise_national_permit_fee,21775878.0,inr,appendix_5,appendix-5-page-129
-Mizoram,,appendix5_statewise_national_permit_fee,3629313.0,inr,appendix_5,appendix-5-page-129
-Nagaland,,appendix5_statewise_national_permit_fee,16936794.0,inr,appendix_5,appendix-5-page-129
-Odisha,,appendix5_statewise_national_permit_fee,577060767.0,inr,appendix_5,appendix-5-page-129
-Puducherry,,appendix5_statewise_national_permit_fee,185094963.0,inr,appendix_5,appendix-5-page-129
-Punjab,,appendix5_statewise_national_permit_fee,670213134.0,inr,appendix_5,appendix-5-page-129
-Rajasthan,,appendix5_statewise_national_permit_fee,1472291307.0,inr,appendix_5,appendix-5-page-129
-Sikkim,,appendix5_statewise_national_permit_fee,1209771.0,inr,appendix_5,appendix-5-page-129
-Tamil Nadu,,appendix5_statewise_national_permit_fee,679891302.0,inr,appendix_5,appendix-5-page-129
-Telangana,,appendix5_statewise_national_permit_fee,250422597.0,inr,appendix_5,appendix-5-page-129
-Tripura,,appendix5_statewise_national_permit_fee,12097710.0,inr,appendix_5,appendix-5-page-129
-Uttar Pradesh,,appendix5_statewise_national_permit_fee,1974346272.0,inr,appendix_5,appendix-5-page-129
-Uttarakhand,,appendix5_statewise_national_permit_fee,483908400.0,inr,appendix_5,appendix-5-page-129
-West Bengal,,appendix5_statewise_national_permit_fee,705296493.0,inr,appendix_5,appendix-5-page-129
+state,year,metric_name,metric_value,unit,document_section,citation_anchor,source_as_of_date
+Andhra Pradesh,2024-25,appendix2_statewise_nh_count,55.0,count,appendix_2,appendix-2-page-123,2024-12-31
+Andhra Pradesh,2024-25,appendix2_statewise_nh_length_km,8683.0,km,appendix_2,appendix-2-page-123,2024-12-31
+Arunachal Pradesh,2024-25,appendix2_statewise_nh_count,14.0,count,appendix_2,appendix-2-page-123,2024-12-31
+Arunachal Pradesh,2024-25,appendix2_statewise_nh_length_km,4367.0,km,appendix_2,appendix-2-page-123,2024-12-31
+Assam,2024-25,appendix2_statewise_nh_count,38.0,count,appendix_2,appendix-2-page-123,2024-12-31
+Assam,2024-25,appendix2_statewise_nh_length_km,4077.0,km,appendix_2,appendix-2-page-123,2024-12-31
+Bihar,2024-25,appendix2_statewise_nh_count,56.0,count,appendix_2,appendix-2-page-123,2024-12-31
+Bihar,2024-25,appendix2_statewise_nh_length_km,6132.0,km,appendix_2,appendix-2-page-123,2024-12-31
+Chandigarh,2024-25,appendix2_statewise_nh_count,1.0,count,appendix_2,appendix-2-page-123,2024-12-31
+Chandigarh,2024-25,appendix2_statewise_nh_length_km,15.0,km,appendix_2,appendix-2-page-123,2024-12-31
+Chhattisgarh,2024-25,appendix2_statewise_nh_count,20.0,count,appendix_2,appendix-2-page-123,2024-12-31
+Chhattisgarh,2024-25,appendix2_statewise_nh_length_km,3620.0,km,appendix_2,appendix-2-page-123,2024-12-31
+Delhi,2024-25,appendix2_statewise_nh_count,12.0,count,appendix_2,appendix-2-page-123,2024-12-31
+Delhi,2024-25,appendix2_statewise_nh_length_km,157.0,km,appendix_2,appendix-2-page-123,2024-12-31
+Goa,2024-25,appendix2_statewise_nh_count,6.0,count,appendix_2,appendix-2-page-123,2024-12-31
+Goa,2024-25,appendix2_statewise_nh_length_km,299.0,km,appendix_2,appendix-2-page-123,2024-12-31
+Gujarat,2024-25,appendix2_statewise_nh_count,45.0,count,appendix_2,appendix-2-page-124,2024-12-31
+Gujarat,2024-25,appendix2_statewise_nh_length_km,8111.0,km,appendix_2,appendix-2-page-124,2024-12-31
+Haryana,2024-25,appendix2_statewise_nh_count,39.0,count,appendix_2,appendix-2-page-124,2024-12-31
+Haryana,2024-25,appendix2_statewise_nh_length_km,3347.0,km,appendix_2,appendix-2-page-124,2024-12-31
+Himachal Pradesh,2024-25,appendix2_statewise_nh_count,19.0,count,appendix_2,appendix-2-page-124,2024-12-31
+Himachal Pradesh,2024-25,appendix2_statewise_nh_length_km,2607.0,km,appendix_2,appendix-2-page-124,2024-12-31
+Jammu and Kashmir,2024-25,appendix2_statewise_nh_count,11.0,count,appendix_2,appendix-2-page-124,2024-12-31
+Jammu and Kashmir,2024-25,appendix2_statewise_nh_length_km,1935.0,km,appendix_2,appendix-2-page-124,2024-12-31
+Jharkhand,2024-25,appendix2_statewise_nh_count,32.0,count,appendix_2,appendix-2-page-124,2024-12-31
+Jharkhand,2024-25,appendix2_statewise_nh_length_km,3633.0,km,appendix_2,appendix-2-page-124,2024-12-31
+Karnataka,2024-25,appendix2_statewise_nh_count,49.0,count,appendix_2,appendix-2-page-124,2024-12-31
+Karnataka,2024-25,appendix2_statewise_nh_length_km,8191.0,km,appendix_2,appendix-2-page-124,2024-12-31
+Kerala,2024-25,appendix2_statewise_nh_count,12.0,count,appendix_2,appendix-2-page-124,2024-12-31
+Kerala,2024-25,appendix2_statewise_nh_length_km,1858.0,km,appendix_2,appendix-2-page-124,2024-12-31
+Ladakh,2024-25,appendix2_statewise_nh_count,3.0,count,appendix_2,appendix-2-page-124,2024-12-31
+Ladakh,2024-25,appendix2_statewise_nh_length_km,806.0,km,appendix_2,appendix-2-page-124,2024-12-31
+Madhya Pradesh,2024-25,appendix2_statewise_nh_count,47.0,count,appendix_2,appendix-2-page-124,2024-12-31
+Madhya Pradesh,2024-25,appendix2_statewise_nh_length_km,9160.0,km,appendix_2,appendix-2-page-124,2024-12-31
+Maharashtra,2024-25,appendix2_statewise_nh_count,102.0,count,appendix_2,appendix-2-page-125,2024-12-31
+Maharashtra,2024-25,appendix2_statewise_nh_length_km,18462.0,km,appendix_2,appendix-2-page-125,2024-12-31
+Manipur,2024-25,appendix2_statewise_nh_count,11.0,count,appendix_2,appendix-2-page-125,2024-12-31
+Manipur,2024-25,appendix2_statewise_nh_length_km,1840.0,km,appendix_2,appendix-2-page-125,2024-12-31
+Meghalaya,2024-25,appendix2_statewise_nh_count,5.0,count,appendix_2,appendix-2-page-125,2024-12-31
+Meghalaya,2024-25,appendix2_statewise_nh_length_km,1156.0,km,appendix_2,appendix-2-page-125,2024-12-31
+Mizoram,2024-25,appendix2_statewise_nh_count,9.0,count,appendix_2,appendix-2-page-125,2024-12-31
+Mizoram,2024-25,appendix2_statewise_nh_length_km,1499.0,km,appendix_2,appendix-2-page-125,2024-12-31
+Nagaland,2024-25,appendix2_statewise_nh_count,12.0,count,appendix_2,appendix-2-page-125,2024-12-31
+Nagaland,2024-25,appendix2_statewise_nh_length_km,1670.0,km,appendix_2,appendix-2-page-125,2024-12-31
+Odisha,2024-25,appendix2_statewise_nh_count,32.0,count,appendix_2,appendix-2-page-125,2024-12-31
+Odisha,2024-25,appendix2_statewise_nh_length_km,5897.0,km,appendix_2,appendix-2-page-125,2024-12-31
+Puducherry,2024-25,appendix2_statewise_nh_count,2.0,count,appendix_2,appendix-2-page-125,2024-12-31
+Puducherry,2024-25,appendix2_statewise_nh_length_km,64.0,km,appendix_2,appendix-2-page-125,2024-12-31
+Punjab,2024-25,appendix2_statewise_nh_count,38.0,count,appendix_2,appendix-2-page-125,2024-12-31
+Punjab,2024-25,appendix2_statewise_nh_length_km,4264.0,km,appendix_2,appendix-2-page-125,2024-12-31
+Rajasthan,2024-25,appendix2_statewise_nh_count,53.0,count,appendix_2,appendix-2-page-125,2024-12-31
+Rajasthan,2024-25,appendix2_statewise_nh_length_km,10733.0,km,appendix_2,appendix-2-page-125,2024-12-31
+Sikkim,2024-25,appendix2_statewise_nh_count,8.0,count,appendix_2,appendix-2-page-126,2024-12-31
+Sikkim,2024-25,appendix2_statewise_nh_length_km,709.0,km,appendix_2,appendix-2-page-126,2024-12-31
+Tamil Nadu,2024-25,appendix2_statewise_nh_count,50.0,count,appendix_2,appendix-2-page-126,2024-12-31
+Tamil Nadu,2024-25,appendix2_statewise_nh_length_km,7000.0,km,appendix_2,appendix-2-page-126,2024-12-31
+Telangana,2024-25,appendix2_statewise_nh_count,30.0,count,appendix_2,appendix-2-page-126,2024-12-31
+Telangana,2024-25,appendix2_statewise_nh_length_km,4926.0,km,appendix_2,appendix-2-page-126,2024-12-31
+Tripura,2024-25,appendix2_statewise_nh_count,6.0,count,appendix_2,appendix-2-page-126,2024-12-31
+Tripura,2024-25,appendix2_statewise_nh_length_km,889.0,km,appendix_2,appendix-2-page-126,2024-12-31
+Uttar Pradesh,2024-25,appendix2_statewise_nh_count,90.0,count,appendix_2,appendix-2-page-126,2024-12-31
+Uttar Pradesh,2024-25,appendix2_statewise_nh_length_km,12123.0,km,appendix_2,appendix-2-page-126,2024-12-31
+Uttarakhand,2024-25,appendix2_statewise_nh_count,26.0,count,appendix_2,appendix-2-page-126,2024-12-31
+Uttarakhand,2024-25,appendix2_statewise_nh_length_km,3664.0,km,appendix_2,appendix-2-page-126,2024-12-31
+West Bengal,2024-25,appendix2_statewise_nh_count,35.0,count,appendix_2,appendix-2-page-126,2024-12-31
+West Bengal,2024-25,appendix2_statewise_nh_length_km,3910.0,km,appendix_2,appendix-2-page-126,2024-12-31
+Andaman & Nicobar Islands,2024-25,appendix2_statewise_nh_count,1.0,count,appendix_2,appendix-2-page-126,2024-12-31
+Andaman & Nicobar Islands,2024-25,appendix2_statewise_nh_length_km,331.0,km,appendix_2,appendix-2-page-126,2024-12-31
+Dadra & Nagar Haveli,2024-25,appendix2_statewise_nh_count,2.0,count,appendix_2,appendix-2-page-126,2024-12-31
+Dadra & Nagar Haveli,2024-25,appendix2_statewise_nh_length_km,37.0,km,appendix_2,appendix-2-page-126,2024-12-31
+Daman & Diu,2024-25,appendix2_statewise_nh_count,2.0,count,appendix_2,appendix-2-page-126,2024-12-31
+Daman & Diu,2024-25,appendix2_statewise_nh_length_km,22.0,km,appendix_2,appendix-2-page-126,2024-12-31
+,2000-01,appendix3_crif_allocation,985.0,crore_inr,appendix_3,appendix-3-page-127,
+,2001-02,appendix3_crif_allocation,962.03,crore_inr,appendix_3,appendix-3-page-127,
+,2002-03,appendix3_crif_allocation,980.0,crore_inr,appendix_3,appendix-3-page-127,
+,2003-04,appendix3_crif_allocation,910.76,crore_inr,appendix_3,appendix-3-page-127,
+,2004-05,appendix3_crif_allocation,868.0,crore_inr,appendix_3,appendix-3-page-127,
+,2005-06,appendix3_crif_allocation,1535.36,crore_inr,appendix_3,appendix-3-page-127,
+,2006-07,appendix3_crif_allocation,1535.46,crore_inr,appendix_3,appendix-3-page-127,
+,2007-08,appendix3_crif_allocation,1565.32,crore_inr,appendix_3,appendix-3-page-127,
+,2008-09,appendix3_crif_allocation,1271.64,crore_inr,appendix_3,appendix-3-page-127,
+,2009-10,appendix3_crif_allocation,1786.56,crore_inr,appendix_3,appendix-3-page-127,
+,2010-11,appendix3_crif_allocation,2714.87,crore_inr,appendix_3,appendix-3-page-127,
+,2011-12,appendix3_crif_allocation,2288.65,crore_inr,appendix_3,appendix-3-page-127,
+,2012-13,appendix3_crif_allocation,2359.91,crore_inr,appendix_3,appendix-3-page-127,
+,2013-14,appendix3_crif_allocation,2359.91,crore_inr,appendix_3,appendix-3-page-127,
+,2014-15,appendix3_crif_allocation,2642.63,crore_inr,appendix_3,appendix-3-page-127,
+,2015-16,appendix3_crif_allocation,2852.64,crore_inr,appendix_3,appendix-3-page-127,
+,2016-17,appendix3_crif_allocation,7175.0,crore_inr,appendix_3,appendix-3-page-127,
+,2017-18,appendix3_crif_allocation,6744.07,crore_inr,appendix_3,appendix-3-page-127,
+,2018-19,appendix3_crif_allocation,6998.93,crore_inr,appendix_3,appendix-3-page-127,
+,2019-20,appendix3_crif_allocation,7421.58,crore_inr,appendix_3,appendix-3-page-127,
+,2020-21,appendix3_crif_allocation,6820.0,crore_inr,appendix_3,appendix-3-page-127,
+,2021-22,appendix3_crif_allocation,6945.22,crore_inr,appendix_3,appendix-3-page-127,
+,2022-23,appendix3_crif_allocation,7974.31,crore_inr,appendix_3,appendix-3-page-127,
+,2023-24,appendix3_crif_allocation,8835.8,crore_inr,appendix_3,appendix-3-page-127,
+,2024-25,appendix3_crif_allocation,9030.0,crore_inr,appendix_3,appendix-3-page-127,
+,2000-01,appendix3_crif_release,332.01,crore_inr,appendix_3,appendix-3-page-127,
+,2001-02,appendix3_crif_release,300.0,crore_inr,appendix_3,appendix-3-page-127,
+,2002-03,appendix3_crif_release,950.28,crore_inr,appendix_3,appendix-3-page-127,
+,2003-04,appendix3_crif_release,778.94,crore_inr,appendix_3,appendix-3-page-127,
+,2004-05,appendix3_crif_release,607.4,crore_inr,appendix_3,appendix-3-page-127,
+,2005-06,appendix3_crif_release,1299.27,crore_inr,appendix_3,appendix-3-page-127,
+,2006-07,appendix3_crif_release,1426.29,crore_inr,appendix_3,appendix-3-page-127,
+,2007-08,appendix3_crif_release,1322.19,crore_inr,appendix_3,appendix-3-page-127,
+,2008-09,appendix3_crif_release,2122.0,crore_inr,appendix_3,appendix-3-page-127,
+,2009-10,appendix3_crif_release,1344.98,crore_inr,appendix_3,appendix-3-page-127,
+,2010-11,appendix3_crif_release,2460.29,crore_inr,appendix_3,appendix-3-page-127,
+,2011-12,appendix3_crif_release,1927.39,crore_inr,appendix_3,appendix-3-page-127,
+,2012-13,appendix3_crif_release,2350.37,crore_inr,appendix_3,appendix-3-page-127,
+,2013-14,appendix3_crif_release,2226.6,crore_inr,appendix_3,appendix-3-page-127,
+,2014-15,appendix3_crif_release,2094.78,crore_inr,appendix_3,appendix-3-page-127,
+,2015-16,appendix3_crif_release,2369.47,crore_inr,appendix_3,appendix-3-page-127,
+,2016-17,appendix3_crif_release,5069.82,crore_inr,appendix_3,appendix-3-page-127,
+,2017-18,appendix3_crif_release,6367.11,crore_inr,appendix_3,appendix-3-page-127,
+,2018-19,appendix3_crif_release,6784.5,crore_inr,appendix_3,appendix-3-page-127,
+,2019-20,appendix3_crif_release,6868.66,crore_inr,appendix_3,appendix-3-page-127,
+,2020-21,appendix3_crif_release,6613.3,crore_inr,appendix_3,appendix-3-page-127,
+,2021-22,appendix3_crif_release,6926.58,crore_inr,appendix_3,appendix-3-page-127,
+,2022-23,appendix3_crif_release,7551.98,crore_inr,appendix_3,appendix-3-page-127,
+,2023-24,appendix3_crif_release,8646.23,crore_inr,appendix_3,appendix-3-page-127,
+,2024-25,appendix3_crif_release,5845.34,crore_inr,appendix_3,appendix-3-page-127,
+Andhra Pradesh,,appendix5_statewise_national_permit_fee,696828096.0,inr,appendix_5,appendix-5-page-129,
+Arunachal Pradesh,,appendix5_statewise_national_permit_fee,1209771.0,inr,appendix_5,appendix-5-page-129,
+Assam,,appendix5_statewise_national_permit_fee,269778933.0,inr,appendix_5,appendix-5-page-129,
+Bihar,,appendix5_statewise_national_permit_fee,878293746.0,inr,appendix_5,appendix-5-page-129,
+Chandigarh,,appendix5_statewise_national_permit_fee,245583513.0,inr,appendix_5,appendix-5-page-129,
+Chhattisgarh,,appendix5_statewise_national_permit_fee,344784735.0,inr,appendix_5,appendix-5-page-129,
+Dadra & Nagar Haveli & Daman & Diu,,appendix5_statewise_national_permit_fee,177836337.0,inr,appendix_5,appendix-5-page-129,
+Delhi,,appendix5_statewise_national_permit_fee,806917257.0,inr,appendix_5,appendix-5-page-129,
+Goa,,appendix5_statewise_national_permit_fee,123396642.0,inr,appendix_5,appendix-5-page-129,
+Gujarat,,appendix5_statewise_national_permit_fee,1218239397.0,inr,appendix_5,appendix-5-page-129,
+Haryana,,appendix5_statewise_national_permit_fee,958138632.0,inr,appendix_5,appendix-5-page-129,
+Himachal Pradesh,,appendix5_statewise_national_permit_fee,358092216.0,inr,appendix_5,appendix-5-page-129,
+Jammu & Kashmir,,appendix5_statewise_national_permit_fee,102830535.0,inr,appendix_5,appendix-5-page-129,
+Jharkhand,,appendix5_statewise_national_permit_fee,803287944.0,inr,appendix_5,appendix-5-page-129,
+Karnataka,,appendix5_statewise_national_permit_fee,1556975277.0,inr,appendix_5,appendix-5-page-129,
+Kerala,,appendix5_statewise_national_permit_fee,483908400.0,inr,appendix_5,appendix-5-page-129,
+Madhya Pradesh,,appendix5_statewise_national_permit_fee,1899340470.0,inr,appendix_5,appendix-5-page-129,
+Maharashtra,,appendix5_statewise_national_permit_fee,1979185356.0,inr,appendix_5,appendix-5-page-129,
+Manipur,,appendix5_statewise_national_permit_fee,2419542.0,inr,appendix_5,appendix-5-page-129,
+Meghalaya,,appendix5_statewise_national_permit_fee,21775878.0,inr,appendix_5,appendix-5-page-129,
+Mizoram,,appendix5_statewise_national_permit_fee,3629313.0,inr,appendix_5,appendix-5-page-129,
+Nagaland,,appendix5_statewise_national_permit_fee,16936794.0,inr,appendix_5,appendix-5-page-129,
+Odisha,,appendix5_statewise_national_permit_fee,577060767.0,inr,appendix_5,appendix-5-page-129,
+Puducherry,,appendix5_statewise_national_permit_fee,185094963.0,inr,appendix_5,appendix-5-page-129,
+Punjab,,appendix5_statewise_national_permit_fee,670213134.0,inr,appendix_5,appendix-5-page-129,
+Rajasthan,,appendix5_statewise_national_permit_fee,1472291307.0,inr,appendix_5,appendix-5-page-129,
+Sikkim,,appendix5_statewise_national_permit_fee,1209771.0,inr,appendix_5,appendix-5-page-129,
+Tamil Nadu,,appendix5_statewise_national_permit_fee,679891302.0,inr,appendix_5,appendix-5-page-129,
+Telangana,,appendix5_statewise_national_permit_fee,250422597.0,inr,appendix_5,appendix-5-page-129,
+Tripura,,appendix5_statewise_national_permit_fee,12097710.0,inr,appendix_5,appendix-5-page-129,
+Uttar Pradesh,,appendix5_statewise_national_permit_fee,1974346272.0,inr,appendix_5,appendix-5-page-129,
+Uttarakhand,,appendix5_statewise_national_permit_fee,483908400.0,inr,appendix_5,appendix-5-page-129,
+West Bengal,,appendix5_statewise_national_permit_fee,705296493.0,inr,appendix_5,appendix-5-page-129,
