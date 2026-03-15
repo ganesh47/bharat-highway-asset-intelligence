@@ -96,6 +96,7 @@ REQUIRED_CHARTS = [
         "data_selector": ".bar-row",
         "min_points": 1,
         "meta_markers": ["As of March 2024"],
+        "legend_labels": ["Active without listed delay", "Delayed projects"],
         "note_markers": ["Active without listed delay", "Delayed projects", "Total row is excluded"],
         "empty_markers": ["No records available."],
     },

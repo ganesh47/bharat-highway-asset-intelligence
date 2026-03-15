@@ -1368,6 +1368,11 @@ function StackedStateStatus({
         { key: 'completed_length', label: 'Completed', color: '#0a8f52' },
         { key: 'approved_length', label: 'Approved but not commenced', color: '#b07a00' },
       ];
+  const legendItems = segments.map((segment) => ({
+    key: segment.key,
+    label: segment.label,
+    swatchColor: segment.color,
+  }));
   const cleaned = (rows || [])
     .map((row) => ({
       state: safeLabel(row.state),
@@ -1390,6 +1395,16 @@ function StackedStateStatus({
       React.createElement('div', { className: 'chart-title' }, title),
       React.createElement('span', { className: `badge ${String(confidence.badge || 'low').toLowerCase()}` }, `${confidence.badge || 'Low'} confidence`)),
     React.createElement('div', { className: 'chart-meta' }, chartMetaText(metaText || 'Segmented by reported NH work-stage length (km)', asOfDate)),
+    React.createElement(
+      'div',
+      { className: 'insight-legend chart-legend' },
+      ...legendItems.map((item) => React.createElement(
+        'span',
+        { key: item.key, className: 'insight-pill legend-pill' },
+        React.createElement('span', { className: 'legend-swatch', style: { background: item.swatchColor } }),
+        item.label
+      ))
+    ),
     React.createElement('div', { className: 'bars' },
       ...ordered.map((row) => {
         const barSegments = row.segments.map((segment) => ({
