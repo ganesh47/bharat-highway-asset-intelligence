@@ -14,6 +14,7 @@ concurrency:
 env:
   PYTHON_VERSION: '3.11'
   NHAI_OCR_SHARD_COUNT: '3'
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
 jobs:
   changes:
