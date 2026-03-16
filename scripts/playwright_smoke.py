@@ -105,7 +105,12 @@ REQUIRED_CHARTS = [
         "data_selector": ".bar-row",
         "min_points": 1,
         "meta_markers": ["Fatalities: 2022 | NH length denominator: 2024-12-31"],
-        "note_markers": ["normalized by the validated MoRTH Appendix 2 NH-length snapshot", "burden indicator"],
+        "note_markers": [
+            "normalized by each State/UT's validated MoRTH Appendix 2 NH-length snapshot",
+            "Higher bars mean more recorded NH deaths relative to network length",
+            "not more deaths across all roads",
+            "use this as burden context rather than a same-year rate card",
+        ],
         "empty_markers": ["No records available."],
     },
     {
