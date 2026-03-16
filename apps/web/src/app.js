@@ -1351,6 +1351,112 @@ function HorizontalBars({ title, rows, xLabel, yLabel, confidence, onHover, tool
   );
   }
 
+function RankedDotPlot({
+  title,
+  rows,
+  confidence,
+  onHover,
+  asOfDate,
+  metaText = '',
+  noteText = '',
+  xLabel = 'Value',
+  yLabel = 'State / UT',
+}) {
+  const normalizedRows = (rows || [])
+    .filter((row) => Number.isFinite(num(row.x)))
+    .map((row) => {
+      const backlogShare = num(row.y);
+      let band = 'Low rectification backlog';
+      let color = '#0a8f52';
+      if (backlogShare >= 66.67) {
+        band = 'High rectification backlog';
+        color = '#a0182d';
+      } else if (backlogShare >= 33.34) {
+        band = 'Medium rectification backlog';
+        color = '#b07a00';
+      }
+      return {
+        ...row,
+        state: safeLabel(row.state),
+        x: num(row.x),
+        y: backlogShare,
+        radius: Math.max(0, num(row.radius)),
+        band,
+        color,
+      };
+    })
+    .sort((a, b) => b.x - a.x);
+
+  if (!normalizedRows.length) {
+    return React.createElement(
+      'div',
+      { className: 'card insight-chart' },
+      React.createElement('div', { className: 'chart-title' }, title),
+      React.createElement('div', { className: 'chart-meta' }, chartMetaText(metaText || 'No ranked-dot data available.', asOfDate))
+    );
+  }
+
+  const maxX = Math.max(...normalizedRows.map((row) => row.x), 1);
+  const maxRadius = Math.max(...normalizedRows.map((row) => row.radius), 1);
+  const sizeScale = (radius) => clamp((radius / maxRadius) * 16 + 8, 8, 24);
+  const legendItems = [
+    { key: 'high', label: 'High rectification backlog', swatchColor: '#a0182d' },
+    { key: 'medium', label: 'Medium rectification backlog', swatchColor: '#b07a00' },
+    { key: 'low', label: 'Low rectification backlog', swatchColor: '#0a8f52' },
+  ];
+
+  return React.createElement('div', { className: 'card insight-chart' },
+    React.createElement('div', { className: 'source-line' },
+      React.createElement('div', { className: 'chart-title' }, title),
+      React.createElement('span', { className: `badge ${String(confidence.badge || 'low').toLowerCase()}` }, `${confidence.badge || 'Low'} confidence`)
+    ),
+    React.createElement('div', { className: 'chart-meta' }, chartMetaText(metaText || `${xLabel} ranked by ${yLabel}`, asOfDate)),
+    React.createElement(
+      'div',
+      { className: 'insight-legend' },
+      ...legendItems.map((item) => React.createElement(LegendPill, {
+        key: item.key,
+        label: item.label,
+        swatchColor: item.swatchColor,
+      }))
+    ),
+    React.createElement('div', { className: 'dotplot-axis-label' }, xLabel),
+    React.createElement('div', { className: 'dotplot-rows' },
+      ...normalizedRows.map((row) => {
+        const left = clamp((row.x / maxX) * 100, 3, 100);
+        const size = sizeScale(row.radius);
+        const tooltip = tooltipText([
+          row.state,
+          `${xLabel}: ${fmtNum(row.x, { compact: false })}`,
+          `Unrectified black-spot share: ${fmtNum(row.y, { compact: false })}%`,
+          `Black-spot fatalities: ${fmtNum(row.radius, { compact: false })}`,
+          `Backlog band: ${row.band}`,
+        ]);
+        return React.createElement('div', { key: row.state, className: 'dotplot-row' },
+          React.createElement('div', { className: 'dotplot-label', title: row.state }, row.state),
+          React.createElement('div', { className: 'dotplot-track' },
+            React.createElement('div', {
+              className: 'dotplot-point point',
+              title: tooltip,
+              style: {
+                left: `${left}%`,
+                width: `${size}px`,
+                height: `${size}px`,
+                background: row.color,
+              },
+              onMouseEnter: (event) => onHover(tooltipPayload(event, tooltip)),
+              onMouseMove: (event) => onHover(tooltipPayload(event, tooltip)),
+              onMouseLeave: () => onHover({ visible: false }),
+            })
+          ),
+          React.createElement('div', { className: 'dotplot-value' }, fmtNum(row.x, { compact: false })),
+        );
+      })
+    ),
+    React.createElement('div', { className: 'insight-note' }, noteText || '')
+  );
+}
+
 function StackedStateStatus({
   title,
   rows,
@@ -2954,23 +3060,16 @@ function App() {
         tooltipLines: 'Official NH fatalities from data.gov.in are normalized by the validated MoRTH Appendix 2 NH-length snapshot. This is a burden indicator, not an all-roads safety ranking.',
       }),
       React.createElement(ChartTooltip, { tooltip }),
-      React.createElement(ScatterChart, {
+      React.createElement(RankedDotPlot, {
         title: 'NH Black Spot Burden × Rectification Context',
         rows: nhBlackspotScatterRows,
         confidence: confidenceCatalog.safety,
         onHover: setTooltip,
         asOfDate: 'Black spot accident data: 2018-2020 | Reply dated 2023-12-21',
-        metaText: 'Official structural NH safety context using identified black spots, rectification status, and the validated NH-length denominator.',
-        noteText: 'Each point is a State/UT with identified NH black spots. X = black spots per 1,000 km of NH. Y = share of identified black spots not yet rectified. Bubble size = fatalities at those black spots. This is structural context, not a same-year incident snapshot.',
+        metaText: 'Ranked official structural NH safety context using black spots per 1,000 km of NH. Dot color shows rectification backlog band; dot size shows fatalities at those black spots.',
+        noteText: 'Rows are ranked by black spots per 1,000 km of NH. Red = high rectification backlog, amber = medium backlog, green = lower backlog. Dot size = black-spot fatalities. This is structural context, not a same-year incident snapshot.',
         xLabel: 'Black spots per 1,000 km of NH',
-        yLabel: 'Unrectified black-spot share (%)',
-        pointLabel: 'Black-spot context',
-        xAxisLabel: 'Black spots per 1,000 km of NH',
-        yAxisLabel: 'Unrectified black-spot share (%)',
-        pointEntityLabel: 'State / UT',
-        radiusLabel: 'Black-spot fatalities',
-        chartScale: activeChartScale,
-        chartHeight: activeChartHeight,
+        yLabel: 'State / UT',
       }),
       React.createElement(MultiLineChart, {
         title: 'Model Risk Trajectory by State (proxy-informed)',

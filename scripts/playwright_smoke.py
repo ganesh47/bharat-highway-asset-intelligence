@@ -110,13 +110,12 @@ REQUIRED_CHARTS = [
     },
     {
         "title": "NH Black Spot Burden × Rectification Context",
-        "axes": True,
-        "data_selector": ".point",
+        "data_selector": ".dotplot-point",
         "min_points": 1,
-        "legend_labels": ["Each point: State / UT", "Bubble size: Black-spot fatalities"],
+        "legend_labels": ["High rectification backlog", "Medium rectification backlog", "Low rectification backlog"],
         "meta_markers": ["Black spot accident data: 2018-2020 | Reply dated 2023-12-21"],
-        "note_markers": ["identified NH black spots", "not a same-year incident snapshot"],
-        "empty_markers": ["No scatter points."],
+        "note_markers": ["ranked by black spots per 1,000 km of NH", "not a same-year incident snapshot"],
+        "empty_markers": ["No ranked-dot data available."],
     },
     {
         "title": "Model Risk Trajectory by State (proxy-informed)",
