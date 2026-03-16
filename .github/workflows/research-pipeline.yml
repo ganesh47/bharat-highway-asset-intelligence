@@ -110,6 +110,7 @@ jobs:
           cache: pip
 
       - name: Install OCR system dependencies
+        if: needs.changes.outputs.run_nhai_ocr == 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends poppler-utils tesseract-ocr tesseract-ocr-eng
@@ -134,6 +135,7 @@ jobs:
             data/raw/manual/
 
       - name: Upload NHAI source parquet
+        if: needs.changes.outputs.run_nhai_ocr == 'true'
         uses: actions/upload-artifact@v7
         with:
           name: bhai-nhai-source-parquet
