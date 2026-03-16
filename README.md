@@ -96,6 +96,7 @@ Workflow: `.github/workflows/github-pages.yml`
 On each push to `main`, the workflow:
 - runs scan + gap report
 - runs ingestion and correlation generation
+- runs the NHAI OCR shard/merge/confidence-refresh path only when OCR-relevant pipeline, source, manifest, or workflow files change
 - packages `apps/web` with `data/manifests` and `data/processed`
 - publishes to GitHub Pages.
 
