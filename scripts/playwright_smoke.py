@@ -184,7 +184,24 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
             await page.goto(url, wait_until="networkidle", timeout=120000)
             await page.wait_for_timeout(3000)
 
-            header = (await page.locator("h1").first.text_content()) or ""
+            await page.wait_for_function(
+                """() => {
+                    const header = document.querySelector('h1');
+                    const metricCards = document.querySelectorAll('.metric-card').length;
+                    return Boolean(
+                        (header && (header.textContent || '').trim()) || metricCards >= 3
+                    );
+                }""",
+                timeout=120000,
+            )
+
+            header_locator = page.locator("h1").first
+            if await header_locator.count() == 0:
+                print("Dashboard header not found after page shell became available.")
+                await browser.close()
+                return 1
+
+            header = (await header_locator.text_content()) or ""
             if "Bharat Highway Evidence Console" not in header:
                 print("Unexpected header text:", header.strip())
                 await browser.close()
