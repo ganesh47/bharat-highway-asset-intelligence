@@ -519,6 +519,30 @@ sources:
     permanent_identifier_hint: "year and report table page numbers"
     notes: "Set download paths manually in data/raw/manual and run through parser with explicit approval."
 
+  - source_id: data_gov_in_nh_fatalities_injuries_state_year
+    official_flag: true
+    publisher_org: Ministry of Road Transport and Highways (MoRTH) / data.gov.in
+    domain: data.gov.in
+    dataset_title: State-wise details of road accidents, fatalities and injuries on National Highways including National Expressways
+    theme: safety
+    access_type: CSV
+    auth: none
+    update_frequency: annual
+    geographic_granularity: state_ut
+    temporal_coverage: 2020-2022
+    license_terms: "Open Government Data License - India (OGL), subject to data.gov.in terms"
+    retrieval_method: direct download
+    reliability_grade: A
+    reliability_justification: Official state/UT-level NH safety dataset published on India OGD platform and suitable for reproducible burden analysis.
+    known_limitations: "Current official machine-readable release is limited to 2020-2022 and does not itself provide an NH-length denominator."
+    allow_auto_fetch: true
+    url: https://www.data.gov.in/resource/state-wise-details-road-accidents-fatalities-and-injuries-national-highways-including
+    resource_page_url: https://www.data.gov.in/resource/state-wise-details-road-accidents-fatalities-and-injuries-national-highways-including
+    resource_file_urls:
+      - https://data.gov.in/sites/default/files/RS_Session_262_AS_120_A_to_D_iv.csv
+    permanent_identifier_hint: "RS_Session_262_AS_120_A_to_D_iv"
+    notes: "Use curated tidy CSV under data/raw/manual as the authoritative state-year artifact when present; preserve original official CSV URL in row-level lineage."
+
   - source_id: highway_project_risk_and_access_panel
     official_flag: false
     publisher_org: Bharat Highway Intelligence Risk Lab
@@ -563,6 +587,27 @@ sources:
     url: https://sansad.in/
     permanent_identifier_hint: "question number + session year"
     notes: "Keep this as an official curated artifact under data/raw/manual with human approval."
+
+  - source_id: parliament_qa_nh_blackspots_state
+    official_flag: true
+    publisher_org: Ministry of Road Transport and Highways / Parliament Secretariat
+    domain: sansad.in
+    dataset_title: State-wise details of accidents, fatalities, and rectification status on identified black spots on National Highways
+    theme: safety
+    access_type: CSV
+    auth: none
+    update_frequency: ad_hoc
+    geographic_granularity: state_ut
+    temporal_coverage: 2018-2020
+    license_terms: "Official Parliament Q&A documentation; cite question number, session, annexure, and answer date."
+    retrieval_method: manual
+    reliability_grade: A
+    reliability_justification: Official parliamentary annexure with state-wise NH black-spot burden and rectification status.
+    known_limitations: "Figures reflect identified black spots based on accident data for calendar years 2018 to 2020 and should be treated as structural context, not a same-year incident snapshot."
+    allow_auto_fetch: false
+    url: https://sansad.in/getFile/loksabhaquestions/annex/1714/AU3188.pdf?source=pqals
+    permanent_identifier_hint: "Lok Sabha UQ 3188 answered 2023-12-21 annexure"
+    notes: "Keep this source as an approved manual CSV snapshot under data/raw/manual for reproducibility and explicit state-level validation."
 
   - source_id: rbi_mospi_macro_indicators
     official_flag: true

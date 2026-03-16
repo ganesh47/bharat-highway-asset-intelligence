@@ -119,6 +119,54 @@ def _validate_entry(entry: Dict, manifest_root: Path, errors: List[str], warning
                     warnings.append(f"Source {source_id} parliamentary cross-check: {item}")
             except Exception as exc:
                 errors.append(f"Source {source_id} appendix2 validation could not be executed: {exc}")
+        if source_id == "data_gov_in_nh_fatalities_injuries_state_year":
+            try:
+                df = pd.read_parquet(output_path)
+                required_cols = {"states/ut", "fatalities_-_2020", "fatalities_-_2021", "fatalities_-_2022", "injuries_-_2020", "injuries_-_2021", "injuries_-_2022"}
+                missing_cols = required_cols - set(df.columns)
+                if missing_cols:
+                    errors.append(f"Source {source_id} missing required columns: {sorted(missing_cols)}")
+                else:
+                    core = df.loc[~df["states/ut"].astype(str).str.strip().str.lower().isin({"total", "india", "all india"})].copy()
+                    if core["states/ut"].nunique() < 35:
+                        errors.append(f"Source {source_id} has insufficient state/UT coverage: {core['states/ut'].nunique()} unique states")
+                    for col in ["fatalities_-_2020", "fatalities_-_2021", "fatalities_-_2022", "injuries_-_2020", "injuries_-_2021", "injuries_-_2022"]:
+                        vals = pd.to_numeric(core[col], errors="coerce")
+                        if vals.isna().all():
+                            errors.append(f"Source {source_id} contains no usable numeric values in {col}")
+                        elif vals.isna().any():
+                            warnings.append(f"Source {source_id} contains partial missing values in {col}")
+                        if (vals < 0).any():
+                            errors.append(f"Source {source_id} contains negative values in {col}")
+                    if core.duplicated(subset=["states/ut"]).any():
+                        errors.append(f"Source {source_id} contains duplicate state rows")
+            except Exception as exc:
+                errors.append(f"Source {source_id} NH fatalities/injuries validation could not be executed: {exc}")
+        if source_id == "parliament_qa_nh_blackspots_state":
+            try:
+                df = pd.read_parquet(output_path)
+                required_cols = {"state", "nh_blackspots", "nh_blackspot_accidents", "nh_blackspot_fatalities", "rectified_blackspots", "source_as_of_date"}
+                missing_cols = required_cols - set(df.columns)
+                if missing_cols:
+                    errors.append(f"Source {source_id} missing required columns: {sorted(missing_cols)}")
+                else:
+                    core = df.loc[~df["state"].astype(str).str.strip().str.lower().isin({"total", "india", "all india"})].copy()
+                    if len(core) < 30:
+                        warnings.append(f"Source {source_id} limited state/UT coverage: {len(core)} rows")
+                    for col in ["nh_blackspots", "nh_blackspot_accidents", "nh_blackspot_fatalities", "rectified_blackspots"]:
+                        vals = pd.to_numeric(core[col], errors="coerce")
+                        if vals.isna().any():
+                            errors.append(f"Source {source_id} contains non-numeric values in {col}")
+                        if (vals < 0).any():
+                            errors.append(f"Source {source_id} contains negative values in {col}")
+                    blackspots = pd.to_numeric(core["nh_blackspots"], errors="coerce")
+                    rectified = pd.to_numeric(core["rectified_blackspots"], errors="coerce")
+                    if (rectified > blackspots).any():
+                        errors.append(f"Source {source_id} has rectified black spots above total black spots")
+                    if core.duplicated(subset=["state"]).any():
+                        errors.append(f"Source {source_id} contains duplicate state rows")
+            except Exception as exc:
+                errors.append(f"Source {source_id} NH blackspots validation could not be executed: {exc}")
     else:
         errors.append(f"Source {source_id} missing output parquet: {entry.get('output_table_path')}")
 

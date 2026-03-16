@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-15T08:36:21.590865+00:00",
+  "generated_at": "2026-03-16T08:52:20.496504+00:00",
   "datasets": [
     {
       "source_id": "data_gov_in_nhai_projects_api",
@@ -1875,95 +1875,6 @@
       "output_table_path": "data/processed/nhai_audited_results_pdf.parquet"
     },
     {
-      "source_id": "morth_annual_report_pdf",
-      "connector": "morth_annual_report_pdf",
-      "version": "0.2.1",
-      "status": "manual_ingest",
-      "metric_category": "official_measured",
-      "source": {
-        "publisher": "Ministry of Road Transport and Highways (MoRTH)",
-        "title": "MoRTH Annual Report 2024-25 curated appendix snapshot (Appendix 2/3/5)",
-        "url": "https://morth.nic.in/annual-report",
-        "retrieved_at": "2026-03-15T06:50:19.308818+00:00",
-        "license_terms": "Open publication on morth.gov.in; verify page-level reuse permissions in the PDF footer or Gazette notice",
-        "official_flag": true
-      },
-      "citations": {
-        "permanent_identifier": "annual report year + section/table identifier",
-        "anchor": "appendix-2-page-123_to_126",
-        "note": "Curated official annual-report Appendix 2/3/5 CSV snapshot validated against parliamentary NH count/length reference."
-      },
-      "manifest": {
-        "raw_files": [
-          {
-            "path": "data/raw/manual/morth_annual_report_pdf.csv",
-            "sha256": "57fea310633ccc5dc5668ff04b570d37671099483e6152be7e02ddb8a0298b03",
-            "size_bytes": 15048
-          },
-          {
-            "path": "data/raw/manual/morth_annual_report_pdf.pdf",
-            "sha256": "59f3693bddda349aef2e87c4c344bca7d7028167e6e12d840468e8bc67624251",
-            "size_bytes": 19474671
-          },
-          {
-            "path": "data/raw/manual/morth_annual_report_pdf_validation_2025.csv",
-            "sha256": "2a1e098378c759de38f7891c1d9f877b09b7517fee78b55d97b1f065f5b95d18",
-            "size_bytes": 5386
-          }
-        ],
-        "output_files": [
-          {
-            "path": "data/processed/morth_annual_report_pdf.parquet",
-            "sha256": "580e10c9a96639b49c61e62810f5f10deb0794498fe6ae52077b5c26821aa3aa"
-          },
-          {
-            "path": "data/processed/morth_annual_report_pdf_validation.json",
-            "sha256": "af85226ba77450d34d81f585b3b11c1e92d876f1fd7c29481897235288bb811c"
-          }
-        ],
-        "row_count": 155,
-        "columns": [
-          "state",
-          "year",
-          "metric_name",
-          "metric_value",
-          "unit",
-          "document_section",
-          "citation_anchor",
-          "source_as_of_date",
-          "source_type",
-          "source_id",
-          "metric_category",
-          "dataset_source",
-          "retrieved_at"
-        ]
-      },
-      "retrieved_at": "2026-03-15T06:50:19.308818+00:00",
-      "source_as_of_date": "2024-12-31",
-      "validation_sources": [
-        {
-          "label": "Lok Sabha Starred Question 381 Annexure-I",
-          "url": "https://sansad.in/getFile/loksabhaquestions/annex/184/AS381_nRxDMM.pdf?source=pqals",
-          "source_as_of_date": "2025-06-30",
-          "anchor": "annexure-i-state-wise-details-of-nhs"
-        },
-        {
-          "label": "Lok Sabha Unstarred Question 143 Annexure",
-          "url": "https://sansad.in/getFile/loksabhaquestions/annex/182/AS143_l2jcaR.pdf?source=pqals",
-          "source_as_of_date": "2024-08-01",
-          "anchor": "annexure-state-wise-details-of-nhs"
-        }
-      ],
-      "validation_report_path": "data/processed/morth_annual_report_pdf_validation.json",
-      "completeness_score": 0.918,
-      "recency_score": 0.98,
-      "provenance_score": 0.833,
-      "consistency_score": 0.98,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/morth_annual_report_pdf.parquet"
-    },
-    {
       "source_id": "data_gov_in_nhai_statewise_nh_project_status_2024_25",
       "connector": "data_gov_in_ogd",
       "version": "0.2.0",
@@ -2087,6 +1998,219 @@
       "overall_confidence_badge": "High",
       "overall_confidence_reason": [],
       "output_table_path": "data/processed/data_gov_in_nhai_stateut_project_delay_status_2024.parquet"
+    },
+    {
+      "source_id": "data_gov_in_nh_fatalities_injuries_state_year",
+      "connector": "data_gov_in_ogd",
+      "version": "0.2.0",
+      "status": "ok",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "Ministry of Road Transport and Highways (MoRTH) / data.gov.in",
+        "title": "State-wise details of road accidents, fatalities and injuries on National Highways including National Expressways",
+        "domain": "data.gov.in",
+        "url": "https://www.data.gov.in/resource/state-wise-details-road-accidents-fatalities-and-injuries-national-highways-including",
+        "retrieval_method": "direct download",
+        "access_type": "CSV",
+        "retrieved_at": "2026-03-16T08:52:19.992556+00:00",
+        "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "RS_Session_262_AS_120_A_to_D_iv",
+        "anchor": "resource_file:https://data.gov.in/sites/default/files/RS_Session_262_AS_120_A_to_D_iv.csv",
+        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/data_gov_in_nh_fatalities_injuries_state_year/data_gov_in_nh_fatalities_injuries_state_year/raw_20260316_085220.csv",
+            "sha256": "3ff1632932133bb8a2d7b796d65f8ef7b0d81703242acd1599edba760797290e",
+            "size_bytes": 1634
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/data_gov_in_nh_fatalities_injuries_state_year.parquet",
+            "format": "parquet",
+            "sha256": "0a8af39094f72e7050fd36cc765f0aa859e974e9e56f46bf6922bbcda9078a1c"
+          }
+        ],
+        "row_count": 37,
+        "columns": [
+          "sl._no",
+          "states/ut",
+          "fatalities_-_2020",
+          "fatalities_-_2021",
+          "fatalities_-_2022",
+          "injuries_-_2020",
+          "injuries_-_2021",
+          "injuries_-_2022",
+          "source_type",
+          "source_id",
+          "metric_category",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-03-16T08:52:19.992556+00:00",
+      "completeness_score": 0.996,
+      "recency_score": 1.0,
+      "provenance_score": 1.0,
+      "consistency_score": 1.0,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/data_gov_in_nh_fatalities_injuries_state_year.parquet"
+    },
+    {
+      "source_id": "parliament_qa_nh_blackspots_state",
+      "connector": "parliament_qa_highway_queries_manual_csv",
+      "version": "0.1.0",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "Ministry of Road Transport and Highways / Parliament Secretariat",
+        "title": "State-wise details of accidents, fatalities, and rectification status on identified black spots on National Highways",
+        "url": "https://sansad.in/getFile/loksabhaquestions/annex/1714/AU3188.pdf?source=pqals",
+        "retrieved_at": "2026-03-16T08:52:20.431774+00:00",
+        "license_terms": "Official Parliament Q&A documentation; cite question number, session, annexure, and answer date.",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "Lok Sabha UQ 3188 answered 2023-12-21 annexure",
+        "anchor": "official_q_and_a_session_index",
+        "note": "Parliament Q&A snapshot CSV imported through approved manual artifact."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/parliament_qa_nh_blackspots_state.csv",
+            "sha256": "0b3fb6fe668bc06915136610928f1e6df2777eb04b26c175174187fbd955c7fe",
+            "size_bytes": 8726
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/parliament_qa_nh_blackspots_state.parquet",
+            "sha256": "252753bb20c50b195075b97a9374c89065f81f9b89aa553ff68ddfaa61bdb502"
+          }
+        ],
+        "row_count": 32,
+        "columns": [
+          "state",
+          "nh_blackspots",
+          "nh_blackspot_accidents",
+          "nh_blackspot_fatalities",
+          "rectified_blackspots",
+          "source_as_of_date",
+          "citation_anchor",
+          "document_section",
+          "source_url",
+          "reference_period",
+          "source_type",
+          "source_id",
+          "metric_category",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-03-16T08:52:20.431774+00:00",
+      "completeness_score": 0.98,
+      "recency_score": 0.98,
+      "provenance_score": 0.98,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/parliament_qa_nh_blackspots_state.parquet"
+    },
+    {
+      "source_id": "morth_annual_report_pdf",
+      "connector": "morth_annual_report_pdf",
+      "version": "0.2.1",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "Ministry of Road Transport and Highways (MoRTH)",
+        "title": "MoRTH Annual Report 2024-25 curated appendix snapshot (Appendix 2/3/5)",
+        "url": "https://morth.nic.in/annual-report",
+        "retrieved_at": "2026-03-16T08:52:20.439277+00:00",
+        "license_terms": "Open publication on morth.gov.in; verify page-level reuse permissions in the PDF footer or Gazette notice",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "annual report year + section/table identifier",
+        "anchor": "appendix-2-page-123_to_126",
+        "note": "Curated official annual-report Appendix 2/3/5 CSV snapshot validated against parliamentary NH count/length reference."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/morth_annual_report_pdf.csv",
+            "sha256": "57fea310633ccc5dc5668ff04b570d37671099483e6152be7e02ddb8a0298b03",
+            "size_bytes": 15048
+          },
+          {
+            "path": "data/raw/manual/morth_annual_report_pdf.pdf",
+            "sha256": "59f3693bddda349aef2e87c4c344bca7d7028167e6e12d840468e8bc67624251",
+            "size_bytes": 19474671
+          },
+          {
+            "path": "data/raw/manual/morth_annual_report_pdf_validation_2025.csv",
+            "sha256": "2a1e098378c759de38f7891c1d9f877b09b7517fee78b55d97b1f065f5b95d18",
+            "size_bytes": 5386
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/morth_annual_report_pdf.parquet",
+            "sha256": "715380efec9222b63d924a0a69e60a1b6c80b47820a161e9491591a0b9a397c0"
+          },
+          {
+            "path": "data/processed/morth_annual_report_pdf_validation.json",
+            "sha256": "af85226ba77450d34d81f585b3b11c1e92d876f1fd7c29481897235288bb811c"
+          }
+        ],
+        "row_count": 155,
+        "columns": [
+          "state",
+          "year",
+          "metric_name",
+          "metric_value",
+          "unit",
+          "document_section",
+          "citation_anchor",
+          "source_as_of_date",
+          "source_type",
+          "source_id",
+          "metric_category",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-03-16T08:52:20.439277+00:00",
+      "source_as_of_date": "2024-12-31",
+      "validation_sources": [
+        {
+          "label": "Lok Sabha Starred Question 381 Annexure-I",
+          "url": "https://sansad.in/getFile/loksabhaquestions/annex/184/AS381_nRxDMM.pdf?source=pqals",
+          "source_as_of_date": "2025-06-30",
+          "anchor": "annexure-i-state-wise-details-of-nhs"
+        },
+        {
+          "label": "Lok Sabha Unstarred Question 143 Annexure",
+          "url": "https://sansad.in/getFile/loksabhaquestions/annex/182/AS143_l2jcaR.pdf?source=pqals",
+          "source_as_of_date": "2024-08-01",
+          "anchor": "annexure-state-wise-details-of-nhs"
+        }
+      ],
+      "validation_report_path": "data/processed/morth_annual_report_pdf_validation.json",
+      "completeness_score": 0.918,
+      "recency_score": 0.98,
+      "provenance_score": 0.833,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/morth_annual_report_pdf.parquet"
     }
   ]
 }

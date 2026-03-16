@@ -1449,6 +1449,8 @@ function ScatterChart({
   confidence,
   onHover,
   asOfDate,
+  metaText = '',
+  noteText = '',
   chartScale = 1,
   chartHeight,
   xLabel = 'X',
@@ -1476,7 +1478,7 @@ function ScatterChart({
       'div',
       { className: 'card insight-chart' },
       React.createElement('div', { className: 'chart-title' }, title),
-      React.createElement('div', { className: 'chart-meta' }, chartMetaText('No scatter points.', asOfDate))
+      React.createElement('div', { className: 'chart-meta' }, chartMetaText(metaText || 'No scatter points.', asOfDate))
     );
   }
 
@@ -1660,7 +1662,7 @@ function ScatterChart({
       React.createElement('div', { className: 'chart-title' }, title),
       React.createElement('span', { className: `badge ${String(confidence.badge || 'low').toLowerCase()}` }, `${confidence.badge || 'Low'} confidence`)
     ),
-    React.createElement('div', { className: 'chart-meta' }, chartMetaText(`X=${xLabel}; Y=${yLabel}`, asOfDate)),
+    React.createElement('div', { className: 'chart-meta' }, chartMetaText(metaText || `X=${xLabel}; Y=${yLabel}`, asOfDate)),
     React.createElement(
       'div',
       { className: 'insight-legend' },
@@ -1690,7 +1692,8 @@ function ScatterChart({
         },
         onMouseLeave: () => onHover({ visible: false }),
       })
-    )
+    ),
+    React.createElement('div', { className: 'insight-note' }, noteText || `Why this badge?: ${confidence.reasons?.[0] || 'Use source provenance, recency, and consistency checks.'}`)
   );
 }
 
@@ -1938,15 +1941,47 @@ async function loadAnalyticCatalog(conn, catalog) {
       AND lower(trim("state/ut")) NOT IN ('total', 'india', 'all india')
   `);
 
-  const accidents = await fetchById('ncrb_road_accidents_state_year', (alias) => `
+  const accidents = await fetchById('data_gov_in_nh_fatalities_injuries_state_year', (alias) => `
+    SELECT
+      "states/ut" AS state,
+      CAST("fatalities_-_2020" AS DOUBLE) AS total_killed,
+      CAST("injuries_-_2020" AS DOUBLE) AS total_injured,
+      NULL::DOUBLE AS fatal_crashes,
+      2020 AS year
+    FROM read_parquet('${alias}')
+    WHERE "states/ut" IS NOT NULL
+    UNION ALL
+    SELECT
+      "states/ut" AS state,
+      CAST("fatalities_-_2021" AS DOUBLE) AS total_killed,
+      CAST("injuries_-_2021" AS DOUBLE) AS total_injured,
+      NULL::DOUBLE AS fatal_crashes,
+      2021 AS year
+    FROM read_parquet('${alias}')
+    WHERE "states/ut" IS NOT NULL
+    UNION ALL
+    SELECT
+      "states/ut" AS state,
+      CAST("fatalities_-_2022" AS DOUBLE) AS total_killed,
+      CAST("injuries_-_2022" AS DOUBLE) AS total_injured,
+      NULL::DOUBLE AS fatal_crashes,
+      2022 AS year
+    FROM read_parquet('${alias}')
+    WHERE "states/ut" IS NOT NULL
+  `);
+
+  const nhBlackspots = await fetchById('parliament_qa_nh_blackspots_state', (alias) => `
     SELECT
       "state" AS state,
-      CAST("total_killed" AS DOUBLE) AS total_killed,
-      CAST("total_injured" AS DOUBLE) AS total_injured,
-      CAST("fatal_crashes" AS DOUBLE) AS fatal_crashes,
-      CAST("year" AS INTEGER) AS year
-      FROM read_parquet('${alias}')
-    WHERE "state" IS NOT NULL AND "year" IS NOT NULL
+      CAST("nh_blackspots" AS DOUBLE) AS nh_blackspots,
+      CAST("nh_blackspot_accidents" AS DOUBLE) AS nh_blackspot_accidents,
+      CAST("nh_blackspot_fatalities" AS DOUBLE) AS nh_blackspot_fatalities,
+      CAST("rectified_blackspots" AS DOUBLE) AS rectified_blackspots,
+      CAST("source_as_of_date" AS VARCHAR) AS source_as_of_date,
+      CAST("reference_period" AS VARCHAR) AS reference_period
+    FROM read_parquet('${alias}')
+    WHERE "state" IS NOT NULL
+      AND lower(trim("state")) NOT IN ('total', 'india', 'all india')
   `);
 
   const legacyRoadAccidents = await fetchById('data_gov_in_road_accidents_nhs_2003_2016', (alias) => `
@@ -2303,11 +2338,54 @@ async function loadAnalyticCatalog(conn, catalog) {
     morthNHLengthByState[normalizeState(row.state)] = num(row.value);
   });
 
+  const nhFatalityBurdenRows = accidentRows
+    .map((row) => {
+      const key = normalizeState(row.state);
+      const nhLengthKm = num(morthNHLengthByState[key]);
+      if (!Number.isFinite(nhLengthKm) || nhLengthKm <= 0 || !Number.isFinite(num(row.total_killed))) {
+        return null;
+      }
+      return {
+        state: row.state,
+        year: accidentLatestYear,
+        nh_fatalities: num(row.total_killed),
+        nh_injuries: num(row.total_injured),
+        nh_length_km: nhLengthKm,
+        nh_fatalities_per_100km: (num(row.total_killed) / nhLengthKm) * 100,
+        source: 'data_gov_in_nh_fatalities_injuries_state_year',
+      };
+    })
+    .filter(Boolean);
+
+  const nhBlackspotContextRows = nhBlackspots
+    .map((row) => {
+      const key = normalizeState(row.state);
+      const nhLengthKm = num(morthNHLengthByState[key]);
+      const blackspots = num(row.nh_blackspots);
+      const rectified = num(row.rectified_blackspots);
+      if (!Number.isFinite(nhLengthKm) || nhLengthKm <= 0 || !Number.isFinite(blackspots) || blackspots <= 0) {
+        return null;
+      }
+      return {
+        state: row.state,
+        nh_blackspots: blackspots,
+        rectified_blackspots: rectified,
+        nh_blackspot_fatalities: num(row.nh_blackspot_fatalities),
+        nh_blackspot_accidents: num(row.nh_blackspot_accidents),
+        nh_length_km: nhLengthKm,
+        nh_blackspots_per_1000km: (blackspots / nhLengthKm) * 1000,
+        nh_unrectified_blackspot_share_pct: ((Math.max(0, blackspots - rectified)) / blackspots) * 100,
+        source: 'parliament_qa_nh_blackspots_state',
+      };
+    })
+    .filter(Boolean);
+
   const stateList = new Set();
   portfolioRows.forEach((row) => stateList.add(row.state));
   stateUTRows.forEach((row) => stateList.add(row.state));
   stateStatusRows.forEach((row) => stateList.add(row.state));
   accidentRows.forEach((row) => stateList.add(row.state));
+  nhBlackspots.forEach((row) => stateList.add(row.state));
   modelStateRisk.forEach((row) => stateList.add(row.state));
   modelByStateSummary.forEach((row) => stateList.add(row.state));
   morthAppendix2CountRows.forEach((row) => stateList.add(row.state));
@@ -2330,6 +2408,8 @@ async function loadAnalyticCatalog(conn, catalog) {
     morthPermitRows,
     morthPermitByState,
     morthNHLengthByState,
+    nhFatalityBurdenRows,
+    nhBlackspotContextRows,
     accidentLatestYear,
     accidentTrendRows,
   };
@@ -2419,7 +2499,7 @@ function App() {
       finance: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('project_finance_api'))),
       portfolio: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('state_projects_api'))),
       status: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('statewise_nh_project_status'))),
-      safety: confidenceFromSources(entries.filter((item) => ['ncrb_road_accidents_state_year', 'quality_maintenance_indicators', 'highway_project_risk_and_access_panel'].includes(item.source_id))),
+      safety: confidenceFromSources(entries.filter((item) => ['data_gov_in_nh_fatalities_injuries_state_year', 'parliament_qa_nh_blackspots_state', 'morth_annual_report_pdf'].includes(item.source_id))),
       morthReport: confidenceFromSources(entries.filter((item) => item.source_id === 'morth_annual_report_pdf')),
       model: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('highway_project_risk_and_access_panel') || item.source_type === 'model_output')),
       macro: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('rbi_mospi_macro_indicators') || String(item.source_id).includes('ncrb_road_accidents_state_year') || String(item.source_id).includes('quality_maintenance_indicators'))),
@@ -2437,6 +2517,8 @@ function App() {
       accidentTrendRows: toTopStates(analytics.accidentTrendRows, state),
       portfolioRows: toTopStates(analytics.portfolioRows || [], state),
       stateStatusRows: toTopStates(analytics.stateStatusRows, state),
+      nhFatalityBurdenRows: toTopStates(analytics.nhFatalityBurdenRows || [], state),
+      nhBlackspotContextRows: toTopStates(analytics.nhBlackspotContextRows || [], state),
       morthAppendix2CountRows: toTopStates(analytics.morthAppendix2CountRows, state),
       morthAppendix2LengthRows: toTopStates(analytics.morthAppendix2LengthRows, state),
       morthPermitRows: toTopStates(analytics.morthPermitRows, state),
@@ -2446,6 +2528,8 @@ function App() {
   const activeStateList = (analytics?.portfolioRows || [])
     .concat(analytics?.stateStatusRows || [])
     .concat(analytics?.accidentRows || [])
+    .concat(analytics?.nhFatalityBurdenRows || [])
+    .concat(analytics?.nhBlackspotContextRows || [])
     .concat(analytics?.modelStateRisk || [])
     .concat(analytics?.modelByStateSummary || [])
     .concat(analytics?.morthAppendix2CountRows || [])
@@ -2557,26 +2641,25 @@ function App() {
       .filter((row) => !modelRiskLookup.has(`${normalizeState(row.state)}::${num(row.year)}`)),
   ];
 
-  const safetyChartRows = ((filteredStateRows?.accidentRows || analytics?.accidentRows || []).map((acc) => {
-    const key = normalizeState(acc.state);
-    const proxy = analytics.proxyByState[key] || {};
-    const modelRows = filteredModelSummaryRows.filter((row) => normalizeState(row.state) === key);
-    const model = modelRows[0] || {};
-    const qualityProxy = num(proxy.roughness_index);
-    const risk = num(proxy.roughness_index) ? num(proxy.roughness_index) : null;
-    const incident = num(acc.total_killed) || 0;
-    const riskScore = num(model.avg_maintenance_cost_cr) ? num(model.avg_maintenance_cost_cr) : 0;
-    const cityAccess = num(model.avg_road_length_km);
-    const riskLabel = Number.isFinite(risk) ? risk.toFixed(1) : 'n/a';
-    const modelConfidence = riskScore > 0 ? `${riskLabel} proxy` : 'official+model blend';
-    return {
-      state: acc.state,
-      x: incident > 0 ? incident : qualityProxy || 0.1,
-      y: riskScore ? riskScore * 0.01 : num(acc.total_killed),
-      radius: cityAccess ? cityAccess / 10 : 4,
-      modelConfidence,
-    };
-  })).filter((row) => Number.isFinite(row.x) && Number.isFinite(row.y));
+  const nhFatalityBurdenBars = (filteredStateRows?.nhFatalityBurdenRows || analytics?.nhFatalityBurdenRows || [])
+    .map((row) => ({
+      label: row.state,
+      value: num(row.nh_fatalities_per_100km),
+      totalFatalities: num(row.nh_fatalities),
+      totalInjuries: num(row.nh_injuries),
+    }))
+    .filter((row) => Number.isFinite(row.value))
+    .sort((a, b) => b.value - a.value);
+
+  const nhBlackspotScatterRows = (filteredStateRows?.nhBlackspotContextRows || analytics?.nhBlackspotContextRows || [])
+    .map((row) => ({
+      state: row.state,
+      x: num(row.nh_blackspots_per_1000km),
+      y: num(row.nh_unrectified_blackspot_share_pct),
+      radius: num(row.nh_blackspot_fatalities),
+      modelConfidence: `Rectified ${fmtNum(row.rectified_blackspots)}/${fmtNum(row.nh_blackspots)} • Fatalities ${fmtNum(row.nh_blackspot_fatalities)}`,
+    }))
+    .filter((row) => Number.isFinite(row.x) && Number.isFinite(row.y));
 
   const modelSeriesByState = mergedModelRiskRows;
   const modelLinesByState = modelSeriesByState.length
@@ -2860,19 +2943,32 @@ function App() {
         metaText: 'State/UT-wise NH project counts. Delayed projects are a subset of all listed projects.',
         noteText: 'Blue=Active without listed delay, Amber=Delayed projects. The Total row is excluded, and some zero-project geographies may be omitted from the official annexure.',
       }),
-      React.createElement(ScatterChart, {
-        title: `Safety Context: Fatality Intensity × Safety Risk Signals (${analytics?.accidentLatestYear || 'latest'})`,
-        rows: safetyChartRows,
+      React.createElement(HorizontalBars, {
+        title: 'NH Fatality Burden by State/UT (official NH fatalities, 2022)',
+        rows: nhFatalityBurdenBars,
         confidence: confidenceCatalog.safety,
         onHover: setTooltip,
-        asOfDate: chartDates.safety,
-        xLabel: 'Incident intensity',
-        yLabel: 'Safety risk score',
-        pointLabel: 'Model confidence',
-        xAxisLabel: 'Incident intensity',
-        yAxisLabel: 'Safety risk score',
-        pointEntityLabel: 'State',
-        radiusLabel: 'Average road length proxy (km)',
+        asOfDate: 'Fatalities: 2022 | NH length denominator: 2024-12-31',
+        xLabel: 'NH fatalities per 100 km',
+        yLabel: 'State / UT',
+        tooltipLines: 'Official NH fatalities from data.gov.in are normalized by the validated MoRTH Appendix 2 NH-length snapshot. This is a burden indicator, not an all-roads safety ranking.',
+      }),
+      React.createElement(ChartTooltip, { tooltip }),
+      React.createElement(ScatterChart, {
+        title: 'NH Black Spot Burden × Rectification Context',
+        rows: nhBlackspotScatterRows,
+        confidence: confidenceCatalog.safety,
+        onHover: setTooltip,
+        asOfDate: 'Black spot accident data: 2018-2020 | Reply dated 2023-12-21',
+        metaText: 'Official structural NH safety context using identified black spots, rectification status, and the validated NH-length denominator.',
+        noteText: 'Each point is a State/UT with identified NH black spots. X = black spots per 1,000 km of NH. Y = share of identified black spots not yet rectified. Bubble size = fatalities at those black spots. This is structural context, not a same-year incident snapshot.',
+        xLabel: 'Black spots per 1,000 km of NH',
+        yLabel: 'Unrectified black-spot share (%)',
+        pointLabel: 'Black-spot context',
+        xAxisLabel: 'Black spots per 1,000 km of NH',
+        yAxisLabel: 'Unrectified black-spot share (%)',
+        pointEntityLabel: 'State / UT',
+        radiusLabel: 'Black-spot fatalities',
         chartScale: activeChartScale,
         chartHeight: activeChartHeight,
       }),

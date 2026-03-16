@@ -8,7 +8,7 @@
     "publisher": "Ministry of Road Transport and Highways (MoRTH)",
     "title": "MoRTH Annual Report 2024-25 curated appendix snapshot (Appendix 2/3/5)",
     "url": "https://morth.nic.in/annual-report",
-    "retrieved_at": "2026-03-15T06:50:19.308818+00:00",
+    "retrieved_at": "2026-03-16T08:52:20.439277+00:00",
     "license_terms": "Open publication on morth.gov.in; verify page-level reuse permissions in the PDF footer or Gazette notice",
     "official_flag": true
   },
@@ -38,7 +38,7 @@
     "output_files": [
       {
         "path": "data/processed/morth_annual_report_pdf.parquet",
-        "sha256": "580e10c9a96639b49c61e62810f5f10deb0794498fe6ae52077b5c26821aa3aa"
+        "sha256": "715380efec9222b63d924a0a69e60a1b6c80b47820a161e9491591a0b9a397c0"
       },
       {
         "path": "data/processed/morth_annual_report_pdf_validation.json",
@@ -62,7 +62,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-03-15T06:50:19.308818+00:00",
+  "retrieved_at": "2026-03-16T08:52:20.439277+00:00",
   "source_as_of_date": "2024-12-31",
   "validation_sources": [
     {

@@ -1,0 +1,61 @@
+{
+  "source_id": "parliament_qa_nh_blackspots_state",
+  "connector": "parliament_qa_highway_queries_manual_csv",
+  "version": "0.1.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "Ministry of Road Transport and Highways / Parliament Secretariat",
+    "title": "State-wise details of accidents, fatalities, and rectification status on identified black spots on National Highways",
+    "url": "https://sansad.in/getFile/loksabhaquestions/annex/1714/AU3188.pdf?source=pqals",
+    "retrieved_at": "2026-03-16T08:52:20.431774+00:00",
+    "license_terms": "Official Parliament Q&A documentation; cite question number, session, annexure, and answer date.",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "Lok Sabha UQ 3188 answered 2023-12-21 annexure",
+    "anchor": "official_q_and_a_session_index",
+    "note": "Parliament Q&A snapshot CSV imported through approved manual artifact."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/parliament_qa_nh_blackspots_state.csv",
+        "sha256": "0b3fb6fe668bc06915136610928f1e6df2777eb04b26c175174187fbd955c7fe",
+        "size_bytes": 8726
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/parliament_qa_nh_blackspots_state.parquet",
+        "sha256": "252753bb20c50b195075b97a9374c89065f81f9b89aa553ff68ddfaa61bdb502"
+      }
+    ],
+    "row_count": 32,
+    "columns": [
+      "state",
+      "nh_blackspots",
+      "nh_blackspot_accidents",
+      "nh_blackspot_fatalities",
+      "rectified_blackspots",
+      "source_as_of_date",
+      "citation_anchor",
+      "document_section",
+      "source_url",
+      "reference_period",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-03-16T08:52:20.431774+00:00",
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/parliament_qa_nh_blackspots_state.parquet"
+}

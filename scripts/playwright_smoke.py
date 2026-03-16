@@ -101,11 +101,21 @@ REQUIRED_CHARTS = [
         "empty_markers": ["No records available."],
     },
     {
-        "title_prefix": "Safety Context: Fatality Intensity × Safety Risk Signals",
+        "title": "NH Fatality Burden by State/UT (official NH fatalities, 2022)",
+        "data_selector": ".bar-row",
+        "min_points": 1,
+        "meta_markers": ["Fatalities: 2022 | NH length denominator: 2024-12-31"],
+        "note_markers": ["normalized by the validated MoRTH Appendix 2 NH-length snapshot", "burden indicator"],
+        "empty_markers": ["No records available."],
+    },
+    {
+        "title": "NH Black Spot Burden × Rectification Context",
         "axes": True,
         "data_selector": ".point",
         "min_points": 1,
-        "legend_labels": ["Each point: State", "Bubble size: Average road length proxy (km)"],
+        "legend_labels": ["Each point: State / UT", "Bubble size: Black-spot fatalities"],
+        "meta_markers": ["Black spot accident data: 2018-2020 | Reply dated 2023-12-21"],
+        "note_markers": ["identified NH black spots", "not a same-year incident snapshot"],
         "empty_markers": ["No scatter points."],
     },
     {
