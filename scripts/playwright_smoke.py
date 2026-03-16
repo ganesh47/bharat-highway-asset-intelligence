@@ -53,7 +53,7 @@ REQUIRED_CHARTS = [
         "data_selector": ".line-path",
         "min_points": 1,
         "legend_labels": ["Full-year official totals", "Current-year progress (provisional)"],
-        "note_markers": ["NHAI-only construction series", "Do not compare provisional YTD progress directly with full-year totals"],
+        "meta_markers": ["NHAI-only construction series", "Do not compare provisional YTD progress directly with full-year totals"],
         "empty_markers": ["No records available."],
     },
     {
