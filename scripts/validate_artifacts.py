@@ -135,7 +135,10 @@ def _validate_entry(entry: Dict, manifest_root: Path, errors: List[str], warning
                         if vals.isna().all():
                             errors.append(f"Source {source_id} contains no usable numeric values in {col}")
                         elif vals.isna().any():
-                            warnings.append(f"Source {source_id} contains partial missing values in {col}")
+                            missing_states = set(core.loc[vals.isna(), "states/ut"].astype(str).str.strip())
+                            allowed_missing_states = {"Ladakh"} if col.endswith("_2020") else set()
+                            if missing_states - allowed_missing_states:
+                                warnings.append(f"Source {source_id} contains partial missing values in {col}")
                         if (vals < 0).any():
                             errors.append(f"Source {source_id} contains negative values in {col}")
                     if core.duplicated(subset=["states/ut"]).any():
