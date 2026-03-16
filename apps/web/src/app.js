@@ -3057,7 +3057,7 @@ function App() {
         asOfDate: 'Fatalities: 2022 | NH length denominator: 2024-12-31',
         xLabel: 'NH fatalities per 100 km',
         yLabel: 'State / UT',
-        tooltipLines: 'Official 2022 national-highway fatalities from data.gov.in are normalized by each State/UT\\'s validated MoRTH Appendix 2 NH-length snapshot. Higher bars mean more recorded NH deaths relative to network length, not more deaths across all roads. The denominator is a later validated NH-length snapshot as of 2024-12-31, so use this as burden context rather than a same-year rate card.',
+        tooltipLines: 'Official 2022 national-highway fatalities from data.gov.in are normalized by each State/UT\'s validated MoRTH Appendix 2 NH-length snapshot. Higher bars mean more recorded NH deaths relative to network length, not more deaths across all roads. The denominator is a later validated NH-length snapshot as of 2024-12-31, so use this as burden context rather than a same-year rate card.',
       }),
       React.createElement(ChartTooltip, { tooltip }),
       React.createElement(RankedDotPlot, {
