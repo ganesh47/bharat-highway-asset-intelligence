@@ -16,6 +16,50 @@ env:
   NHAI_OCR_SHARD_COUNT: '3'
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      run_nhai_ocr: ${{ steps.detect.outputs.run_nhai_ocr }}
+      run_reason: ${{ steps.detect.outputs.run_reason }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 2
+
+      - name: Detect OCR-affecting changes
+        id: detect
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ "${{ github.event_name }}" != "push" ]; then
+            echo "run_nhai_ocr=true" >> "$GITHUB_OUTPUT"
+            echo "run_reason=non-push trigger runs full OCR path" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          BEFORE_SHA="${{ github.event.before }}"
+          AFTER_SHA="${{ github.sha }}"
+
+          if [ -z "$BEFORE_SHA" ] || [ "$BEFORE_SHA" = "0000000000000000000000000000000000000000" ]; then
+            echo "run_nhai_ocr=true" >> "$GITHUB_OUTPUT"
+            echo "run_reason=missing push base SHA" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          changed_files="$(git diff --name-only "$BEFORE_SHA" "$AFTER_SHA" || true)"
+          printf '%s\n' "$changed_files"
+
+          if printf '%s\n' "$changed_files" | rg -q '^(\\.github/workflows/research-pipeline\\.yml|\\.github/workflows/github-pages\\.yml|requirements\\.txt|research/source_inventory\\.yaml|pipelines/(ingest|quality)\\.py|pipelines/connectors/nhai_annual_documents\\.py|scripts/nhai_annual_report_(extractor|merge)\\.py|data/raw/manual/nhai_|data/manifests/nhai_|data/processed/nhai_)'; then
+            echo "run_nhai_ocr=true" >> "$GITHUB_OUTPUT"
+            echo "run_reason=OCR-relevant files changed" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_nhai_ocr=false" >> "$GITHUB_OUTPUT"
+            echo "run_reason=no OCR-relevant file changes detected" >> "$GITHUB_OUTPUT"
+          fi
+
   inventory_reports:
     runs-on: ubuntu-latest
     permissions:
@@ -52,6 +96,7 @@ jobs:
             research/gaps.md
 
   ingest_base:
+    needs: changes
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -97,7 +142,10 @@ jobs:
             data/processed/nhai_annual_report_documents.parquet
 
   extract_nhai_shard:
-    needs: ingest_base
+    if: needs.changes.outputs.run_nhai_ocr == 'true'
+    needs:
+      - changes
+      - ingest_base
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -150,7 +198,9 @@ jobs:
             data/processed/nhai_annual_report_tables/shards/shard-${{ matrix.shard_index }}-of-${{ env.NHAI_OCR_SHARD_COUNT }}/
 
   merge_nhai_ocr:
+    if: needs.changes.outputs.run_nhai_ocr == 'true'
     needs:
+      - changes
       - ingest_base
       - extract_nhai_shard
     runs-on: ubuntu-latest
@@ -202,7 +252,9 @@ jobs:
             data/processed/nhai_annual_report_tables_canonical.parquet
 
   refresh_nhai_confidence:
+    if: needs.changes.outputs.run_nhai_ocr == 'true'
     needs:
+      - changes
       - ingest_base
       - merge_nhai_ocr
     runs-on: ubuntu-latest
@@ -249,7 +301,11 @@ jobs:
             data/raw/manual/
 
   build_correlation:
-    needs: refresh_nhai_confidence
+    if: always() && needs.ingest_base.result == 'success' && (needs.refresh_nhai_confidence.result == 'success' || needs.refresh_nhai_confidence.result == 'skipped')
+    needs:
+      - changes
+      - ingest_base
+      - refresh_nhai_confidence
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -268,9 +324,17 @@ jobs:
           python -m pip install -r requirements.txt
 
       - name: Download refreshed workspace
+        if: needs.changes.outputs.run_nhai_ocr == 'true'
         uses: actions/download-artifact@v8
         with:
           name: bhai-refreshed-workspace
+          path: data
+
+      - name: Download base workspace
+        if: needs.changes.outputs.run_nhai_ocr != 'true'
+        uses: actions/download-artifact@v8
+        with:
+          name: bhai-base-workspace
           path: data
 
       - name: Build correlation artifacts
@@ -289,6 +353,7 @@ jobs:
 
   validate_research:
     needs:
+      - changes
       - inventory_reports
       - build_correlation
     runs-on: ubuntu-latest
