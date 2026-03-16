@@ -354,6 +354,7 @@ jobs:
             data/raw/manual/
 
   validate_research:
+    if: always() && needs.inventory_reports.result == 'success' && needs.build_correlation.result == 'success'
     needs:
       - changes
       - inventory_reports
