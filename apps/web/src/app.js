@@ -1980,12 +1980,15 @@ async function loadAnalyticCatalog(conn, catalog) {
     }
   };
 
-  const growth = await fetchById('data_gov_in_nhai_yearwise_nh_constructed_2014_15', (alias) => `
+  const growth = await fetchById('nhai_constructed_length_series_official', (alias) => `
     SELECT
-      "financial_year" AS period,
-      CAST("length_of_nh_constructed_in_km" AS DOUBLE) AS km_constructed
+      CAST("period" AS VARCHAR) AS period,
+      CAST("km_constructed" AS DOUBLE) AS km_constructed,
+      CAST("series_status" AS VARCHAR) AS series_status,
+      CAST("series_scope" AS VARCHAR) AS series_scope,
+      CAST("source_as_of_date" AS VARCHAR) AS source_as_of_date
     FROM read_parquet('${alias}')
-    WHERE "financial_year" IS NOT NULL AND "length_of_nh_constructed_in_km" IS NOT NULL
+    WHERE "period" IS NOT NULL AND "km_constructed" IS NOT NULL
   `);
 
   const rawFinanceRows = await fetchById('data_gov_in_nhai_project_finance_api', (alias) => `
@@ -2180,7 +2183,10 @@ async function loadAnalyticCatalog(conn, catalog) {
       x: toYearNumeric(row.period),
       y: num(row.km_constructed),
       label: row.period,
-      source: 'data_gov_in_nhai_yearwise_nh_constructed_2014_15',
+      source: 'nhai_constructed_length_series_official',
+      seriesStatus: row.series_status || 'final',
+      seriesScope: row.series_scope || 'NHAI-only',
+      source_as_of_date: row.source_as_of_date || '',
     }))
     .filter((row) => Number.isFinite(row.x) && Number.isFinite(row.y))
     .sort((a, b) => a.x - b.x);
@@ -2601,7 +2607,7 @@ function App() {
   const confidenceCatalog = useMemo(() => {
     const entries = Object.values(catalog || {});
     return {
-      growth: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('yearwise_nh_constructed_2014_15') || String(item.source_id).includes('nhi_yearwise'))),
+      growth: confidenceFromSources(entries.filter((item) => item.source_id === 'nhai_constructed_length_series_official')),
       finance: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('project_finance_api'))),
       portfolio: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('state_projects_api'))),
       status: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('statewise_nh_project_status'))),
@@ -2656,7 +2662,7 @@ function App() {
   }, [selectedState, activeStateList]);
 
   const chartDates = useMemo(() => ({
-    growth: latestDateFromRows(analytics?.growthRows, catalog, ['data_gov_in_nhai_yearwise_nh_constructed_2014_15']),
+    growth: latestDateFromRows(analytics?.growthRows, catalog, ['nhai_constructed_length_series_official']),
     finance: latestDateFromRows(analytics?.financeRows, catalog, ['data_gov_in_nhai_project_finance_api']),
     portfolio: latestDateFromRows(analytics?.portfolioRows, catalog, ['data_gov_in_nhai_state_projects_api', 'data_gov_in_nhai_stateut_length_constructed_2019_24', 'morth_annual_report_pdf']),
     morthAppendix: latestDateFromRows(analytics?.morthCrifRows || analytics?.morthAppendix2CountRows || [], catalog, ['morth_annual_report_pdf']),
@@ -2687,7 +2693,10 @@ function App() {
     x: row.x,
     y: row.y,
     label: row.label,
+    seriesStatus: row.seriesStatus,
   }));
+  const growthFinalLineData = growthLineData.filter((row) => String(row.seriesStatus).toLowerCase() !== 'provisional');
+  const growthProvisionalLineData = growthLineData.filter((row) => String(row.seriesStatus).toLowerCase() === 'provisional');
   const allocationSeries = financeChartData.map((row) => ({
     x: row.x,
     y: row.allocation,
@@ -2852,7 +2861,7 @@ function App() {
     Object.values(catalog).filter((item) => ['data_gov_in_nhai_state_projects_api', 'data_gov_in_nhai_stateut_length_constructed_2019_24', 'data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026', 'data_gov_in_nhai_projects_api'].includes(item.source_id))
   );
   const stateStatusConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'data_gov_in_nhai_stateut_project_delay_status_2024'));
-  const growthConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'data_gov_in_nhai_yearwise_nh_constructed_2014_15'));
+  const growthConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'nhai_constructed_length_series_official'));
   const modelConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'highway_project_risk_and_access_panel'));
   const morthReportConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'morth_annual_report_pdf'));
 
@@ -2941,15 +2950,19 @@ function App() {
     React.createElement(
       'section',
       { className: 'chart-grid', 'data-size': chartScale },
-      React.createElement(LineChart, {
-        title: 'Growth Story: NH Constructed Length by Year',
-        description: 'Official time series from MoRTH/NHAI annual construct tables. This is a direct infrastructure growth indicator.',
-        series: growthLineData,
+      React.createElement(MultiLineChart, {
+        title: 'Growth Story: NHAI Constructed Length by Year',
+        description: 'Official NHAI-only construction series. Full-year totals run through FY 2024-25; current-year progress is shown separately when only provisional YTD evidence exists. Do not compare provisional YTD progress directly with full-year totals.',
+        layers: [
+          { key: 'final', name: 'Full-year official totals', points: growthFinalLineData },
+          { key: 'provisional', name: 'Current-year progress (provisional)', points: growthProvisionalLineData },
+        ],
         xTick: (value) => safeLabel(value),
         confidence: growthConfidence,
         onHover: setTooltip,
         asOfDate: chartDates.growth,
-        xAxisLabel: 'Year',
+        tooltipTextLabel: 'Construction length',
+        xAxisLabel: 'Financial year',
         yAxisLabel: 'Length (km)',
         chartScale: activeChartScale,
         chartHeight: activeChartHeight,

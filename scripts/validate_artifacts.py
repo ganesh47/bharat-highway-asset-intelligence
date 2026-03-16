@@ -170,6 +170,37 @@ def _validate_entry(entry: Dict, manifest_root: Path, errors: List[str], warning
                         errors.append(f"Source {source_id} contains duplicate state rows")
             except Exception as exc:
                 errors.append(f"Source {source_id} NH blackspots validation could not be executed: {exc}")
+        if source_id == "nhai_constructed_length_series_official":
+            try:
+                df = pd.read_parquet(output_path)
+                required_cols = {"period", "km_constructed", "series_scope", "series_status", "source_url", "citation_anchor", "document_section", "source_as_of_date"}
+                missing_cols = required_cols - set(df.columns)
+                if missing_cols:
+                    errors.append(f"Source {source_id} missing required columns: {sorted(missing_cols)}")
+                else:
+                    if df.duplicated(subset=["period"]).any():
+                        errors.append(f"Source {source_id} contains duplicate period rows")
+                    periods = df["period"].astype(str).str.strip()
+                    if periods.nunique() < 10:
+                        errors.append(f"Source {source_id} has insufficient year coverage: {periods.nunique()} periods")
+                    vals = pd.to_numeric(df["km_constructed"], errors="coerce")
+                    if vals.isna().any():
+                        errors.append(f"Source {source_id} contains non-numeric km_constructed values")
+                    if (vals < 0).any():
+                        errors.append(f"Source {source_id} contains negative km_constructed values")
+                    statuses = set(df["series_status"].astype(str).str.strip().str.lower())
+                    if not statuses <= {"final", "provisional"}:
+                        errors.append(f"Source {source_id} contains unsupported series_status values: {sorted(statuses)}")
+                    scopes = set(df["series_scope"].astype(str).str.strip())
+                    if scopes != {"NHAI-only"}:
+                        errors.append(f"Source {source_id} must remain NHAI-only scoped, found: {sorted(scopes)}")
+                    if not df["source_url"].astype(str).str.startswith("http").all():
+                        errors.append(f"Source {source_id} contains non-URL source_url values")
+                    provisional = df.loc[df["series_status"].astype(str).str.lower() == "provisional"]
+                    if len(provisional) > 1:
+                        warnings.append(f"Source {source_id} contains multiple provisional points")
+            except Exception as exc:
+                errors.append(f"Source {source_id} construction-series validation could not be executed: {exc}")
     else:
         errors.append(f"Source {source_id} missing output parquet: {entry.get('output_table_path')}")
 

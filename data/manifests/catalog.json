@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-16T08:52:20.496504+00:00",
+  "generated_at": "2026-03-16T15:08:34.247778+00:00",
   "datasets": [
     {
       "source_id": "data_gov_in_nhai_projects_api",
@@ -2211,6 +2211,68 @@
       "overall_confidence_badge": "High",
       "overall_confidence_reason": [],
       "output_table_path": "data/processed/morth_annual_report_pdf.parquet"
+    },
+    {
+      "source_id": "nhai_constructed_length_series_official",
+      "connector": "parliament_qa_highway_queries_manual_csv",
+      "version": "0.1.0",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "National Highways Authority of India (NHAI) / Parliament Secretariat",
+        "title": "Curated year-wise NHAI constructed NH length series",
+        "url": "https://nhai.gov.in/nhai/sites/default/files/2025-09/NHAI-Annual_Report_2023-24_English.pdf",
+        "retrieved_at": "2026-03-16T15:08:34.216622+00:00",
+        "license_terms": "Official public documents; cite annual report section, press release date, and parliamentary question/answer date.",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "NHAI Annual Report 2023-24 section 8.1 + NHAI press release 2025-04-02 + Rajya Sabha UQ 2037 answered 2025-12-17",
+        "anchor": "official_q_and_a_session_index",
+        "note": "Parliament Q&A snapshot CSV imported through approved manual artifact."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/nhai_constructed_length_series_official.csv",
+            "sha256": "8e7983d0792ac6362f36ba1bbeed918708de7e51262b11b372b10f861a3adb97",
+            "size_bytes": 4225
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/nhai_constructed_length_series_official.parquet",
+            "sha256": "f9ee1ec4f1bb087c4f962969a7d1d573cb1dac1834f57eb6332afc2b0203794d"
+          }
+        ],
+        "row_count": 12,
+        "columns": [
+          "period",
+          "km_constructed",
+          "unit",
+          "metric_name",
+          "series_scope",
+          "series_status",
+          "source_url",
+          "citation_anchor",
+          "document_section",
+          "source_as_of_date",
+          "source_note",
+          "source_type",
+          "source_id",
+          "metric_category",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-03-16T15:08:34.216622+00:00",
+      "completeness_score": 0.98,
+      "recency_score": 0.98,
+      "provenance_score": 0.98,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/nhai_constructed_length_series_official.parquet"
     }
   ]
 }

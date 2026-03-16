@@ -48,6 +48,15 @@ async def _chart_has_canvas_content(chart_card) -> bool:
 
 REQUIRED_CHARTS = [
     {
+        "title": "Growth Story: NHAI Constructed Length by Year",
+        "axes": True,
+        "data_selector": ".line-path",
+        "min_points": 1,
+        "legend_labels": ["Full-year official totals", "Current-year progress (provisional)"],
+        "note_markers": ["NHAI-only construction series", "Do not compare provisional YTD progress directly with full-year totals"],
+        "empty_markers": ["No records available."],
+    },
+    {
         "title": "Budget vs Expenditure (All Source Years)",
         "axes": True,
         "data_selector": ".line-path",

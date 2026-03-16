@@ -432,7 +432,7 @@ class ParliamentQAConnector:
     spec = ConnectorSpec(
         name="parliament_qa_highway_queries_manual_csv",
         version="0.1.0",
-        source_ids=["parliament_qa_highway_queries", "parliament_qa_nh_blackspots_state"],
+        source_ids=["parliament_qa_highway_queries", "parliament_qa_nh_blackspots_state", "nhai_constructed_length_series_official"],
         inputs=["source_inventory.source_item"],
         outputs=["parquet"],
         citation_mapping={

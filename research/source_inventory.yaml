@@ -306,6 +306,27 @@ sources:
     resource_file_urls:
       - https://www.data.gov.in/sites/default/files/RS_Session_263_AU_583_A_to_B.csv
 
+  - source_id: nhai_constructed_length_series_official
+    official_flag: true
+    publisher_org: National Highways Authority of India (NHAI) / Parliament Secretariat
+    domain: nhai.gov.in
+    dataset_title: Curated year-wise NHAI constructed NH length series
+    theme: projects
+    access_type: CSV
+    auth: none
+    update_frequency: ad_hoc
+    geographic_granularity: nation
+    temporal_coverage: 2014-15 to 2025-26 YTD
+    license_terms: "Official public documents; cite annual report section, press release date, and parliamentary question/answer date."
+    retrieval_method: manual
+    reliability_grade: A
+    reliability_justification: "Curated from official NHAI annual report, official NHAI press release, and official Rajya Sabha answer with row-level citation fields preserved."
+    known_limitations: "2025-26 value is provisional current-year progress only through October 2025 and must not be compared directly with full-year totals."
+    allow_auto_fetch: false
+    url: https://nhai.gov.in/nhai/sites/default/files/2025-09/NHAI-Annual_Report_2023-24_English.pdf
+    permanent_identifier_hint: "NHAI Annual Report 2023-24 section 8.1 + NHAI press release 2025-04-02 + Rajya Sabha UQ 2037 answered 2025-12-17"
+    notes: "Keep this as an approved manual CSV snapshot under data/raw/manual with row-level source_url, citation_anchor, source_as_of_date, and series_status fields."
+
   - source_id: data_gov_in_nhai_district_projects_implemented
     official_flag: true
     publisher_org: National Highways Authority of India (NHAI)
