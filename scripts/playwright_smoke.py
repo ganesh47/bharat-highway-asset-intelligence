@@ -180,20 +180,37 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
 
         page.on("response", lambda response: asyncio.create_task(on_response(response)))
 
-        try:
-            await page.goto(url, wait_until="networkidle", timeout=120000)
-            await page.wait_for_timeout(3000)
+        async def wait_for_dashboard_shell() -> None:
+            last_exc = None
+            for attempt in range(1, 4):
+                try:
+                    await page.goto(url, wait_until="domcontentloaded", timeout=120000)
+                    await page.wait_for_load_state("networkidle", timeout=120000)
+                    await page.wait_for_timeout(3000)
+                    await page.wait_for_function(
+                        """() => {
+                            const header = document.querySelector('h1');
+                            const metricCards = document.querySelectorAll('.metric-card').length;
+                            return Boolean(
+                                (header && (header.textContent || '').trim()) || metricCards >= 3
+                            );
+                        }""",
+                        timeout=120000,
+                    )
+                    return
+                except Exception as exc:  # pragma: no cover - environment dependent
+                    last_exc = exc
+                    if attempt == 3:
+                        raise
+                    print(
+                        f"Dashboard shell not ready on attempt {attempt}/3 at {url}: {exc}. Retrying..."
+                    )
+                    await page.wait_for_timeout(attempt * 15000)
+            if last_exc:
+                raise last_exc
 
-            await page.wait_for_function(
-                """() => {
-                    const header = document.querySelector('h1');
-                    const metricCards = document.querySelectorAll('.metric-card').length;
-                    return Boolean(
-                        (header && (header.textContent || '').trim()) || metricCards >= 3
-                    );
-                }""",
-                timeout=120000,
-            )
+        try:
+            await wait_for_dashboard_shell()
 
             header_locator = page.locator("h1").first
             if await header_locator.count() == 0:
