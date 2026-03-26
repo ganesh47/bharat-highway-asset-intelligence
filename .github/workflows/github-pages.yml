@@ -8,8 +8,6 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: github-pages
@@ -17,14 +15,11 @@ concurrency:
 
 env:
   PYTHON_VERSION: '3.11'
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
 jobs:
   build:
     if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
     steps:
       - name: Checkout triggered revision
         if: github.event_name == 'workflow_run'
@@ -72,47 +67,66 @@ jobs:
           curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-browser-coi.pthread.worker.js https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser-coi.pthread.worker.js
           cp -r /tmp/gh-pages/duckdb/* /tmp/gh-pages/apps/web/duckdb/
           cp -r /tmp/gh-pages/data/manifests/catalog.json /tmp/gh-pages/data/
+          touch /tmp/gh-pages/.nojekyll
+          touch /tmp/gh-pages/apps/web/.nojekyll
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
-        env:
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
-        env:
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      - name: Upload packaged site artifact
+        uses: actions/upload-artifact@v7
         with:
+          name: gh-pages-site
+          if-no-files-found: error
           path: /tmp/gh-pages
 
   deploy:
     needs: build
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
     outputs:
-      page_url: ${{ steps.deployment.outputs.page_url }}
+      page_url: ${{ steps.page_meta.outputs.page_url }}
     permissions:
-      pages: write
-      id-token: write
+      contents: read
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4.0.5
-        env:
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+      - name: Download packaged site artifact
+        uses: actions/download-artifact@v8
         with:
-          preview: false
+          name: gh-pages-site
+          path: /tmp/gh-pages
+
+      - name: Configure Pages source to gh-pages branch
+        env:
+          GH_TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
+        run: |
+          gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            "repos/${GITHUB_REPOSITORY}/pages" \
+            -f source[branch]=gh-pages \
+            -f source[path]=/
+
+      - name: Publish built site to gh-pages branch
+        env:
+          PAGES_DEPLOY_TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
+        run: |
+          set -euo pipefail
+          cd /tmp/gh-pages
+          git init -b gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Deploy ${GITHUB_SHA}"
+          git remote add origin "https://x-access-token:${PAGES_DEPLOY_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push --force origin HEAD:gh-pages
+
+      - name: Read Pages URL
+        id: page_meta
+        env:
+          GH_TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
+        run: |
+          echo "page_url=$(gh api repos/${GITHUB_REPOSITORY}/pages --jq .html_url)" >> "$GITHUB_OUTPUT"
 
   cd_smoke:
     name: Playwright CD smoke check
     needs: deploy
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
     permissions:
       contents: read
     steps:
