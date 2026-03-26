@@ -3,8 +3,11 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+from pathlib import Path
 
 from typing import Union
+
+import pandas as pd
 
 
 async def _canvas_non_transparent_pixels(canvas_locator) -> int:
@@ -44,6 +47,28 @@ async def _chart_has_canvas_content(chart_card) -> bool:
         if await _canvas_non_transparent_pixels(canvas_locator) > 0:
             return True
     return False
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def _normalize_state_key(value: str) -> str:
+    import re
+
+    return re.sub(r"[^a-z0-9]+", "", str(value).strip().lower())
+
+
+def _synthetic_model_panel_ready() -> bool:
+    model_path = ROOT / "data/processed/highway_project_risk_and_access_panel.parquet"
+    if not model_path.exists():
+        return False
+    try:
+        model_df = pd.read_parquet(model_path, columns=["state_assigned", "safety_risk_score"])
+        states = model_df["state_assigned"].dropna().astype(str).map(_normalize_state_key)
+        score_vals = pd.to_numeric(model_df["safety_risk_score"], errors="coerce").dropna()
+        return states.nunique() >= 10 and score_vals.nunique() > 1
+    except Exception:
+        return False
 
 
 REQUIRED_CHARTS = [
@@ -140,14 +165,6 @@ REQUIRED_CHARTS = [
         "empty_markers": ["No records available."],
     },
     {
-        "title": "Synthetic Risk Scenario Panel (hidden pending better coverage)",
-        "data_selector": ".chart-title",
-        "min_points": 1,
-        "meta_markers": ["too sparse or degenerate"],
-        "note_markers": ["covers at least 10 states", "distinct safety scores"],
-        "empty_markers": ["No records available."],
-    },
-    {
         "title": "Economic Scale vs NH Extent by State/UT",
         "axes": True,
         "data_selector": ".point",
@@ -173,6 +190,31 @@ REQUIRED_CHARTS = [
         "empty_markers": ["No scatter points."],
     },
 ]
+
+if _synthetic_model_panel_ready():
+    REQUIRED_CHARTS.insert(
+        11,
+        {
+            "title": "Synthetic Risk Scenario Score by State (exploratory)",
+            "axes": True,
+            "data_selector": ".line-path",
+            "min_points": 1,
+            "meta_markers": [],
+            "empty_markers": ["No records available."],
+        },
+    )
+else:
+    REQUIRED_CHARTS.insert(
+        11,
+        {
+            "title": "Synthetic Risk Scenario Panel (hidden pending better coverage)",
+            "data_selector": ".chart-title",
+            "min_points": 1,
+            "meta_markers": ["too sparse or degenerate"],
+            "note_markers": ["covers at least 10 states", "distinct safety scores"],
+            "empty_markers": ["No records available."],
+        },
+    )
 
 
 async def run_smoke(url: str, generate_screenshot: bool = True) -> int:

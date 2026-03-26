@@ -89,22 +89,43 @@ python3 -m http.server 4173 --directory .
 
 ### GitHub Pages (static deployment)
 
-This repository now supports static deployment on `github.io` with no backend. The page uses static files + DuckDB-WASM and reads generated parquet files from `/data/...` under the deployed site.
+This repository uses branch-based GitHub Pages publishing, not GitHub's Pages workflow-artifact actions. The site is static: `apps/web` + DuckDB-WASM + generated parquet/manifests copied into the published bundle.
 
 Workflow: `.github/workflows/github-pages.yml`
+
+Required repository Pages mode:
+- deploy mode / API `build_type`: `legacy`
+- source branch: `gh-pages`
+- source path: `/`
+
+Required secret:
+- `PAGES_DEPLOY_TOKEN`
+  - used only by the deploy workflow to verify Pages configuration, read the published URL, and push the packaged site to `gh-pages`
+
+Why branch deploy is used:
+- the repository previously hit upstream Node runtime warnings in GitHub-maintained Pages actions
+- the current deploy path avoids those actions and publishes directly to `gh-pages`
 
 On each push to `main`, the workflow:
 - runs scan + gap report
 - runs ingestion and correlation generation
 - runs the NHAI OCR shard/merge/confidence-refresh path only when OCR-relevant pipeline, source, manifest, or workflow files change
 - packages `apps/web` with `data/manifests` and `data/processed`
-- publishes to GitHub Pages.
+- force-pushes the packaged site to `gh-pages`
+- runs Playwright smoke against the final published Pages URL, with retries to absorb GitHub Pages propagation lag
 
 Manual run:
 
-1. In repository settings, enable **Pages** and set source to **GitHub Actions**.
-2. Push to `main` (or use `workflow_dispatch`).
-3. Access at `https://<org-or-user>.github.io/<repo>/`.
+1. In repository settings, ensure **Pages** is configured to deploy from a branch:
+   - branch: `gh-pages`
+   - folder: `/ (root)`
+2. Confirm repo Pages API state is still:
+   - `build_type = legacy`
+   - `source.branch = gh-pages`
+   - `source.path = /`
+3. Ensure repo secret `PAGES_DEPLOY_TOKEN` is configured.
+4. Push to `main` or run `workflow_dispatch` from `main`.
+5. Access at `https://<org-or-user>.github.io/<repo>/`.
 
 ## Output artifacts
 

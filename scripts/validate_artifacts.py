@@ -338,6 +338,48 @@ def _validate_dashboard_semantics(errors: List[str], warnings: List[str]) -> Non
             warnings.append(f"Cross-source economic overlap validation could not be executed: {exc}")
 
 
+def _validate_deploy_docs_and_workflow(errors: List[str], warnings: List[str]) -> None:
+    workflow_path = ROOT / ".github/workflows/github-pages.yml"
+    readme_path = ROOT / "README.md"
+    if not workflow_path.exists():
+        errors.append("GitHub Pages workflow is missing")
+        return
+    workflow_text = workflow_path.read_text(encoding="utf-8")
+    required_workflow_markers = [
+        "REQUIRED_PAGES_BUILD_TYPE: 'legacy'",
+        "REQUIRED_PAGES_BRANCH: 'gh-pages'",
+        "REQUIRED_PAGES_PATH: '/'",
+        "Missing PAGES_DEPLOY_TOKEN secret.",
+        "Publish built site to gh-pages branch",
+        "gh api repos/${GITHUB_REPOSITORY}/pages --jq .build_type",
+    ]
+    for marker in required_workflow_markers:
+        if marker not in workflow_text:
+            errors.append(f"Pages workflow is missing required marker: {marker}")
+
+    if not readme_path.exists():
+        warnings.append("README.md is missing; deploy assumptions are undocumented")
+        return
+    readme_text = readme_path.read_text(encoding="utf-8")
+    forbidden_readme_markers = [
+        "set source to **GitHub Actions**",
+    ]
+    for marker in forbidden_readme_markers:
+        if marker in readme_text:
+            errors.append(f"README contains outdated Pages guidance: {marker}")
+
+    required_readme_markers = [
+        "build_type`: `legacy`",
+        "source branch: `gh-pages`",
+        "source path: `/`",
+        "`PAGES_DEPLOY_TOKEN`",
+        "deploy from a branch",
+    ]
+    for marker in required_readme_markers:
+        if marker not in readme_text:
+            errors.append(f"README is missing required Pages documentation marker: {marker}")
+
+
 def run(inventory_path: str, catalog_path: str, manifests_dir: str, fail_on_warning: bool = False) -> int:
     errors: List[str] = []
     warnings: List[str] = []
@@ -371,6 +413,7 @@ def run(inventory_path: str, catalog_path: str, manifests_dir: str, fail_on_warn
             warnings.append(f"Catalog has non-inventory source: {sid}")
 
     _validate_dashboard_semantics(errors, warnings)
+    _validate_deploy_docs_and_workflow(errors, warnings)
 
     return print_result(errors, warnings, fail_on_warning)
 

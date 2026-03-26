@@ -1,5 +1,10 @@
 name: Deploy to GitHub Pages
 
+# Branch-based Pages deployment on purpose:
+# - repo Pages mode must stay legacy / gh-pages / /
+# - deploy uses PAGES_DEPLOY_TOKEN and pushes the packaged static site to gh-pages
+# - this avoids GitHub-maintained Pages JS actions that previously emitted upstream Node runtime warnings
+
 on:
   workflow_run:
     workflows: ["Bharat Highway Research Pipeline"]
@@ -177,6 +182,8 @@ jobs:
             echo "Missing PAGE_URL from deploy step" >&2
             exit 1
           fi
+          # GitHub Pages can briefly serve the prior site revision after a successful branch push.
+          # Retry the full smoke check with backoff rather than weakening chart assertions.
           target_url="${PAGE_URL%/}/apps/web/"
           for attempt in 1 2 3; do
             if python scripts/playwright_smoke.py --url "${target_url}"; then
