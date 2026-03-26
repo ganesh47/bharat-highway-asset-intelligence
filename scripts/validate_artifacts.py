@@ -201,6 +201,43 @@ def _validate_entry(entry: Dict, manifest_root: Path, errors: List[str], warning
                         warnings.append(f"Source {source_id} contains multiple provisional points")
             except Exception as exc:
                 errors.append(f"Source {source_id} construction-series validation could not be executed: {exc}")
+        if source_id == "data_gov_in_gsdp_stateut_current_prices_2017_23":
+            try:
+                df = pd.read_parquet(output_path)
+                year_cols = [
+                    "gross_state_domestic_product_gsdpat_current_prices_-_2017-18",
+                    "gross_state_domestic_product_gsdpat_current_prices_-_2018-19",
+                    "gross_state_domestic_product_gsdpat_current_prices_-_2019-20",
+                    "gross_state_domestic_product_gsdpat_current_prices_-_2020-21",
+                    "gross_state_domestic_product_gsdpat_current_prices_-_2021-22",
+                    "gross_state_domestic_product_gsdpat_current_prices_-_2022-23",
+                ]
+                required_cols = {"state/ut", *year_cols}
+                missing_cols = required_cols - set(df.columns)
+                if missing_cols:
+                    errors.append(f"Source {source_id} missing required columns: {sorted(missing_cols)}")
+                else:
+                    states = df["state/ut"].astype(str).str.strip()
+                    core = df.loc[~states.str.lower().isin({"total", "india", "all india"})].copy()
+                    if core["state/ut"].nunique() < 30:
+                        errors.append(f"Source {source_id} has insufficient state/UT coverage: {core['state/ut'].nunique()} unique states")
+                    if core.duplicated(subset=["state/ut"]).any():
+                        errors.append(f"Source {source_id} contains duplicate state rows")
+                    latest_values_present = 0
+                    for _, row in core.iterrows():
+                        row_has_value = False
+                        for col in year_cols:
+                            value = pd.to_numeric(str(row[col]).replace(",", ""), errors="coerce")
+                            if pd.notna(value):
+                                if value < 0:
+                                    errors.append(f"Source {source_id} contains negative GSDP values in {col}")
+                                row_has_value = True
+                        if row_has_value:
+                            latest_values_present += 1
+                    if latest_values_present < len(core):
+                        errors.append(f"Source {source_id} has rows without any usable current-price GSDP value")
+            except Exception as exc:
+                errors.append(f"Source {source_id} GSDP validation could not be executed: {exc}")
     else:
         errors.append(f"Source {source_id} missing output parquet: {entry.get('output_table_path')}")
 

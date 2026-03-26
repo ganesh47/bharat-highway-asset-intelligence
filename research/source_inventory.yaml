@@ -651,6 +651,28 @@ sources:
     permanent_identifier_hint: "official indicator code + release month"
     notes: "Endpoint examples vary by product page; leave disabled until an open, documented endpoint is provided."
 
+  - source_id: data_gov_in_gsdp_stateut_current_prices_2017_23
+    official_flag: true
+    publisher_org: Rajya Sabha / Directorate of Economics & Statistics of respective State Governments / data.gov.in
+    domain: data.gov.in
+    dataset_title: State/UT-wise Gross State Domestic Product (GSDP) and Percentage Growth of GSDP at Current as well as Constant (2011-12) from 2017-18 to 2022-23
+    theme: macro
+    access_type: CSV
+    auth: none
+    update_frequency: annual
+    geographic_granularity: state_ut
+    temporal_coverage: 2017-18 to 2022-23
+    license_terms: "Open Government Data License - India (OGL), subject to data.gov.in terms"
+    retrieval_method: direct download
+    reliability_grade: A
+    reliability_justification: Official state/UT economic output snapshot published through the OGD platform and sourced from State Directorates of Economics & Statistics via Rajya Sabha answer data.
+    known_limitations: "Lakshadweep and merged Dadra and Nagar Haveli and Daman and Diu coverage may be missing; Jammu & Kashmir rows may reflect erstwhile combined treatment in older years."
+    allow_auto_fetch: true
+    url: https://www.data.gov.in/resource/stateut-wise-gross-state-domestic-product-gsdp-and-percentage-growth-gsdp-current-well
+    resource_page_url: https://www.data.gov.in/resource/stateut-wise-gross-state-domestic-product-gsdp-and-percentage-growth-gsdp-current-well
+    permanent_identifier_hint: "Rajya Sabha Session 259 UQ 2238 answer dataset"
+    notes: "Use current-price GSDP as the authoritative state economic-scale series for economic context panels."
+
   - source_id: morh_procurement_awards
     official_flag: true
     publisher_org: Ministry of Road Transport and Highways (MoRTH)

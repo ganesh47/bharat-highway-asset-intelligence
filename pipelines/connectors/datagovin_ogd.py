@@ -46,6 +46,7 @@ class DataGovInConnector:
             "data_gov_in_road_accidents_india_2003_2016",
             "data_gov_in_road_fatal_accidents_2003_2016",
             "data_gov_in_nh_fatalities_injuries_state_year",
+            "data_gov_in_gsdp_stateut_current_prices_2017_23",
         ],
         inputs=["source_inventory.source_item"],
         outputs=["parquet"],

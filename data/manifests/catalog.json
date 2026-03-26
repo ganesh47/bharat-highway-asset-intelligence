@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-16T15:08:34.247778+00:00",
+  "generated_at": "2026-03-26T15:43:51.277657+00:00",
   "datasets": [
     {
       "source_id": "data_gov_in_nhai_projects_api",
@@ -2273,6 +2273,87 @@
       "overall_confidence_badge": "High",
       "overall_confidence_reason": [],
       "output_table_path": "data/processed/nhai_constructed_length_series_official.parquet"
+    },
+    {
+      "source_id": "data_gov_in_gsdp_stateut_current_prices_2017_23",
+      "connector": "data_gov_in_ogd",
+      "version": "0.2.0",
+      "status": "ok",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "Rajya Sabha / Directorate of Economics & Statistics of respective State Governments / data.gov.in",
+        "title": "State/UT-wise Gross State Domestic Product (GSDP) and Percentage Growth of GSDP at Current as well as Constant (2011-12) from 2017-18 to 2022-23",
+        "domain": "data.gov.in",
+        "url": "https://www.data.gov.in/resource/stateut-wise-gross-state-domestic-product-gsdp-and-percentage-growth-gsdp-current-well",
+        "retrieval_method": "direct download",
+        "access_type": "CSV",
+        "retrieved_at": "2026-03-26T15:42:20.001770+00:00",
+        "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+        "official_flag": true
+      },
+      "citations": {
+        "permanent_identifier": "Rajya Sabha Session 259 UQ 2238 answer dataset",
+        "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_259_AU_2238_1.csv",
+        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/data_gov_in_gsdp_stateut_current_prices_2017_23/data_gov_in_gsdp_stateut_current_prices_2017_23/raw_20260326_154220.csv",
+            "sha256": "b794188e6e91180e272fac04a249a02f44c3cc5b0e9895165ae45528bc7513e2",
+            "size_bytes": 6353
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/data_gov_in_gsdp_stateut_current_prices_2017_23.parquet",
+            "format": "parquet",
+            "sha256": "bca3d786d3b52ac40fba997c88da730eb3037db8edd6533cddba66effd614112"
+          }
+        ],
+        "row_count": 34,
+        "columns": [
+          "sl._no.",
+          "state/ut",
+          "gross_state_domestic_product_gsdpat_current_prices_-_2017-18",
+          "gross_state_domestic_product_gsdpat_current_prices_-_2018-19",
+          "gross_state_domestic_product_gsdpat_current_prices_-_2019-20",
+          "gross_state_domestic_product_gsdpat_current_prices_-_2020-21",
+          "gross_state_domestic_product_gsdpat_current_prices_-_2021-22",
+          "gross_state_domestic_product_gsdpat_current_prices_-_2022-23",
+          "percentage_growth_over_previous_year_at_current_prices_-_2017-18",
+          "percentage_growth_over_previous_year_at_current_prices_-_2018-19",
+          "percentage_growth_over_previous_year_at_current_prices_-_2019-20",
+          "percentage_growth_over_previous_year_at_current_prices_-_2020-21",
+          "percentage_growth_over_previous_year_at_current_prices_-_2021-22",
+          "percentage_growth_over_previous_year_at_current_prices_-_2022-23",
+          "gross_state_domestic_product_gsdpat_constant_prices_-_2017-18",
+          "gross_state_domestic_product_gsdpat_constant_prices_-_2018-19",
+          "gross_state_domestic_product_gsdpat_constant_prices_-_2019-20",
+          "gross_state_domestic_product_gsdpat_constant_prices_-_2020-21",
+          "gross_state_domestic_product_gsdpat_constant_prices_-_2021-22",
+          "gross_state_domestic_product_gsdpat_constant_prices_-_2022-23",
+          "percentage_growth_over_previous_year_at_constant_prices_-_2017-18",
+          "percentage_growth_over_previous_year_at_constant_prices_-_2018-19",
+          "percentage_growth_over_previous_year_at_constant_prices_-_2019-20",
+          "percentage_growth_over_previous_year_at_constant_prices_-_2020-21",
+          "percentage_growth_over_previous_year_at_constant_prices_-_2021-22",
+          "percentage_growth_over_previous_year_at_constant_prices_-_2022-23",
+          "source_type",
+          "source_id",
+          "metric_category",
+          "dataset_source",
+          "retrieved_at"
+        ]
+      },
+      "retrieved_at": "2026-03-26T15:42:20.001770+00:00",
+      "completeness_score": 0.907,
+      "recency_score": 1.0,
+      "provenance_score": 1.0,
+      "consistency_score": 1.0,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "output_table_path": "data/processed/data_gov_in_gsdp_stateut_current_prices_2017_23.parquet"
     }
   ]
 }
