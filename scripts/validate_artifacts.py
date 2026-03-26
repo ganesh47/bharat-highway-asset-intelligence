@@ -123,26 +123,37 @@ def _validate_entry(entry: Dict, manifest_root: Path, errors: List[str], warning
         if source_id == "data_gov_in_nh_fatalities_injuries_state_year":
             try:
                 df = pd.read_parquet(output_path)
-                required_cols = {"states/ut", "fatalities_-_2020", "fatalities_-_2021", "fatalities_-_2022", "injuries_-_2020", "injuries_-_2021", "injuries_-_2022"}
-                missing_cols = required_cols - set(df.columns)
+                aliases = {
+                    "state": ["states/ut", "state/ut", "state", "states_ut"],
+                    "fatalities_2020": ["fatalities_-_2020", "fatalities_2020", "fatalities2020"],
+                    "fatalities_2021": ["fatalities_-_2021", "fatalities_2021", "fatalities2021"],
+                    "fatalities_2022": ["fatalities_-_2022", "fatalities_2022", "fatalities2022"],
+                    "injuries_2020": ["injuries_-_2020", "injuries_2020", "injuries2020"],
+                    "injuries_2021": ["injuries_-_2021", "injuries_2021", "injuries2021"],
+                    "injuries_2022": ["injuries_-_2022", "injuries_2022", "injuries2022"],
+                }
+                resolved = _resolve_column_aliases(list(df.columns), aliases)
+                missing_cols = [logical_name for logical_name in aliases if logical_name not in resolved]
                 if missing_cols:
-                    errors.append(f"Source {source_id} missing required columns: {sorted(missing_cols)}")
+                    errors.append(f"Source {source_id} missing required logical columns: {sorted(missing_cols)}")
                 else:
-                    core = df.loc[~df["states/ut"].astype(str).str.strip().str.lower().isin({"total", "india", "all india"})].copy()
-                    if core["states/ut"].nunique() < 35:
-                        errors.append(f"Source {source_id} has insufficient state/UT coverage: {core['states/ut'].nunique()} unique states")
-                    for col in ["fatalities_-_2020", "fatalities_-_2021", "fatalities_-_2022", "injuries_-_2020", "injuries_-_2021", "injuries_-_2022"]:
+                    state_col = resolved["state"]
+                    core = df.loc[~df[state_col].astype(str).str.strip().str.lower().isin({"total", "india", "all india"})].copy()
+                    if core[state_col].nunique() < 35:
+                        errors.append(f"Source {source_id} has insufficient state/UT coverage: {core[state_col].nunique()} unique states")
+                    for logical_name in ["fatalities_2020", "fatalities_2021", "fatalities_2022", "injuries_2020", "injuries_2021", "injuries_2022"]:
+                        col = resolved[logical_name]
                         vals = pd.to_numeric(core[col], errors="coerce")
                         if vals.isna().all():
                             errors.append(f"Source {source_id} contains no usable numeric values in {col}")
                         elif vals.isna().any():
-                            missing_states = set(core.loc[vals.isna(), "states/ut"].astype(str).str.strip())
-                            allowed_missing_states = {"Ladakh"} if col.endswith("_2020") else set()
+                            missing_states = set(core.loc[vals.isna(), state_col].astype(str).str.strip())
+                            allowed_missing_states = {"Ladakh"} if logical_name.endswith("2020") else set()
                             if missing_states - allowed_missing_states:
                                 warnings.append(f"Source {source_id} contains partial missing values in {col}")
                         if (vals < 0).any():
                             errors.append(f"Source {source_id} contains negative values in {col}")
-                    if core.duplicated(subset=["states/ut"]).any():
+                    if core.duplicated(subset=[state_col]).any():
                         errors.append(f"Source {source_id} contains duplicate state rows")
             except Exception as exc:
                 errors.append(f"Source {source_id} NH fatalities/injuries validation could not be executed: {exc}")
@@ -260,6 +271,18 @@ def _validate_entry(entry: Dict, manifest_root: Path, errors: List[str], warning
 
 def _normalize_state_key(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "", str(value).strip().lower())
+
+
+def _resolve_column_aliases(columns: List[str], aliases: Dict[str, List[str]]) -> Dict[str, str]:
+    normalized = {_normalize_state_key(col): col for col in columns}
+    resolved: Dict[str, str] = {}
+    for logical_name, candidates in aliases.items():
+        for candidate in candidates:
+            match = normalized.get(_normalize_state_key(candidate))
+            if match:
+                resolved[logical_name] = match
+                break
+    return resolved
 
 
 def _validate_dashboard_semantics(errors: List[str], warnings: List[str]) -> None:
