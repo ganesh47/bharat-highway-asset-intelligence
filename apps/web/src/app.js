@@ -2079,6 +2079,19 @@ async function loadAnalyticCatalog(conn, catalog) {
     WHERE "states/ut" IS NOT NULL
   `);
 
+  const gsdp = await fetchById('data_gov_in_gsdp_stateut_current_prices_2017_23', (alias) => `
+    SELECT
+      CAST("state/ut" AS VARCHAR) AS state,
+      CAST("gross_state_domestic_product_gsdpat_current_prices_-_2017-18" AS DOUBLE) AS gsdp_2017_18,
+      CAST("gross_state_domestic_product_gsdpat_current_prices_-_2018-19" AS DOUBLE) AS gsdp_2018_19,
+      CAST("gross_state_domestic_product_gsdpat_current_prices_-_2019-20" AS DOUBLE) AS gsdp_2019_20,
+      CAST("gross_state_domestic_product_gsdpat_current_prices_-_2020-21" AS DOUBLE) AS gsdp_2020_21,
+      CAST("gross_state_domestic_product_gsdpat_current_prices_-_2021-22" AS DOUBLE) AS gsdp_2021_22,
+      CAST("gross_state_domestic_product_gsdpat_current_prices_-_2022-23" AS DOUBLE) AS gsdp_2022_23
+    FROM read_parquet('${alias}')
+    WHERE "state/ut" IS NOT NULL
+  `);
+
   const nhBlackspots = await fetchById('parliament_qa_nh_blackspots_state', (alias) => `
     SELECT
       "state" AS state,
@@ -2255,9 +2268,43 @@ async function loadAnalyticCatalog(conn, catalog) {
       state: row.state,
       year: num(row.year),
       safety_risk: num(row.fatal_crashes) || num(row.total_killed),
-      source: 'ncrb_road_accidents_state_year',
+        source: 'ncrb_road_accidents_state_year',
     }))
     .filter((row) => row.state && Number.isFinite(row.year) && Number.isFinite(row.safety_risk));
+
+  const officialSafetyTrendRows = accidents
+    .map((row) => ({
+      state: safeLabel(row.state),
+      year: num(row.year),
+      nh_fatalities: num(row.total_killed),
+      nh_injuries: num(row.total_injured),
+      source: 'data_gov_in_nh_fatalities_injuries_state_year',
+    }))
+    .filter((row) => row.state && Number.isFinite(row.year) && Number.isFinite(row.nh_fatalities));
+
+  const gsdpRows = gsdp
+    .map((row) => {
+      const state = safeLabel(row.state);
+      const series = [
+        ['2017-18', num(row.gsdp_2017_18)],
+        ['2018-19', num(row.gsdp_2018_19)],
+        ['2019-20', num(row.gsdp_2019_20)],
+        ['2020-21', num(row.gsdp_2020_21)],
+        ['2021-22', num(row.gsdp_2021_22)],
+        ['2022-23', num(row.gsdp_2022_23)],
+      ].filter(([, value]) => Number.isFinite(value) && value > 0);
+      if (!state || !series.length || isAggregateStateLabel(normalizeState(state))) {
+        return null;
+      }
+      const [gsdp_year, gsdp_current_price] = series[series.length - 1];
+      return {
+        state,
+        gsdp_year,
+        gsdp_current_price,
+        source: 'data_gov_in_gsdp_stateut_current_prices_2017_23',
+      };
+    })
+    .filter(Boolean);
 
   legacyRoadFatalAccidents.forEach((row) => {
     const state = row.state || row['states/uts'] || row.state_name;
@@ -2498,6 +2545,8 @@ async function loadAnalyticCatalog(conn, catalog) {
   stateStatusRows.forEach((row) => stateList.add(row.state));
   accidentRows.forEach((row) => stateList.add(row.state));
   nhBlackspots.forEach((row) => stateList.add(row.state));
+  gsdpRows.forEach((row) => stateList.add(row.state));
+  officialSafetyTrendRows.forEach((row) => stateList.add(row.state));
   modelStateRisk.forEach((row) => stateList.add(row.state));
   modelByStateSummary.forEach((row) => stateList.add(row.state));
   morthAppendix2CountRows.forEach((row) => stateList.add(row.state));
@@ -2524,6 +2573,8 @@ async function loadAnalyticCatalog(conn, catalog) {
     nhBlackspotContextRows,
     accidentLatestYear,
     accidentTrendRows,
+    officialSafetyTrendRows,
+    gsdpRows,
   };
 }
 
@@ -2612,6 +2663,7 @@ function App() {
       portfolio: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('state_projects_api'))),
       status: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('statewise_nh_project_status'))),
       safety: confidenceFromSources(entries.filter((item) => ['data_gov_in_nh_fatalities_injuries_state_year', 'parliament_qa_nh_blackspots_state', 'morth_annual_report_pdf'].includes(item.source_id))),
+      economic: confidenceFromSources(entries.filter((item) => ['data_gov_in_gsdp_stateut_current_prices_2017_23', 'morth_annual_report_pdf', 'data_gov_in_nhai_stateut_project_delay_status_2024'].includes(item.source_id))),
       morthReport: confidenceFromSources(entries.filter((item) => item.source_id === 'morth_annual_report_pdf')),
       model: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('highway_project_risk_and_access_panel') || item.source_type === 'model_output')),
       macro: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('rbi_mospi_macro_indicators') || String(item.source_id).includes('ncrb_road_accidents_state_year') || String(item.source_id).includes('quality_maintenance_indicators'))),
@@ -2627,8 +2679,10 @@ function App() {
       modelByStateSummary: toTopStates(analytics.modelByStateSummary, state),
       accidentRows: toTopStates(analytics.accidentRows, state),
       accidentTrendRows: toTopStates(analytics.accidentTrendRows, state),
+      officialSafetyTrendRows: toTopStates(analytics.officialSafetyTrendRows || [], state),
       portfolioRows: toTopStates(analytics.portfolioRows || [], state),
       stateStatusRows: toTopStates(analytics.stateStatusRows, state),
+      gsdpRows: toTopStates(analytics.gsdpRows || [], state),
       nhFatalityBurdenRows: toTopStates(analytics.nhFatalityBurdenRows || [], state),
       nhBlackspotContextRows: toTopStates(analytics.nhBlackspotContextRows || [], state),
       morthAppendix2CountRows: toTopStates(analytics.morthAppendix2CountRows, state),
@@ -2640,6 +2694,8 @@ function App() {
   const activeStateList = (analytics?.portfolioRows || [])
     .concat(analytics?.stateStatusRows || [])
     .concat(analytics?.accidentRows || [])
+    .concat(analytics?.officialSafetyTrendRows || [])
+    .concat(analytics?.gsdpRows || [])
     .concat(analytics?.nhFatalityBurdenRows || [])
     .concat(analytics?.nhBlackspotContextRows || [])
     .concat(analytics?.modelStateRisk || [])
@@ -2669,6 +2725,7 @@ function App() {
     status: latestDateFromRows(analytics?.stateStatusRows, catalog, ['data_gov_in_nhai_stateut_project_delay_status_2024']),
     safety: latestDateFromRows(analytics?.accidentTrendRows || [], catalog, ['ncrb_road_accidents_state_year', 'quality_maintenance_indicators', 'highway_project_risk_and_access_panel']),
     modelRisk: latestDateFromRows(analytics?.modelStateRisk || [], catalog, ['highway_project_risk_and_access_panel', 'ncrb_road_accidents_state_year']),
+    economic: latestDateFromRows(analytics?.gsdpRows || [], catalog, ['data_gov_in_gsdp_stateut_current_prices_2017_23', 'morth_annual_report_pdf', 'data_gov_in_nhai_stateut_project_delay_status_2024']),
     macro: latestDateFromRows((analytics?.macroSeries?.cpi || []).concat(analytics?.macroSeries?.capex || []).concat(analytics?.macroSeries?.fuel || []), catalog, ['rbi_mospi_macro_indicators']),
     projectEconomics: latestDateFromRows(analytics?.modelByStateSummary || [], catalog, ['highway_project_risk_and_access_panel']),
   }), [analytics, catalog]);
@@ -2776,6 +2833,35 @@ function App() {
     }))
     .filter((row) => Number.isFinite(row.x) && Number.isFinite(row.y));
 
+  const safetyTrendSeedRows = filteredStateRows?.officialSafetyTrendRows || analytics?.officialSafetyTrendRows || [];
+  const latestSafetyByState = new Map();
+  safetyTrendSeedRows.forEach((row) => {
+    const key = normalizeState(row.state);
+    const existing = latestSafetyByState.get(key);
+    if (!existing || num(row.year) > num(existing.year)) {
+      latestSafetyByState.set(key, row);
+    }
+  });
+  const officialSafetyFocusStates = selectedState === 'All'
+    ? Array.from(latestSafetyByState.values())
+      .sort((a, b) => num(b.nh_fatalities) - num(a.nh_fatalities))
+      .slice(0, 8)
+      .map((row) => row.state)
+    : [selectedState];
+  const officialSafetyLines = officialSafetyFocusStates
+    .map((state) => {
+      const points = safetyTrendSeedRows
+        .filter((row) => row.state === state)
+        .sort((a, b) => num(a.year) - num(b.year))
+        .map((row) => ({
+          x: num(row.year),
+          y: num(row.nh_fatalities),
+          label: `${row.state} ${row.year}`,
+        }));
+      return { key: state, name: state, points };
+    })
+    .filter((series) => series.points.length > 0);
+
   const modelSeriesByState = mergedModelRiskRows;
   const modelLinesByState = modelSeriesByState.length
     ? [...new Set(modelSeriesByState.map((item) => item.state))].map((state) => {
@@ -2785,6 +2871,60 @@ function App() {
       return { key: state, name: state, points: rows };
     }).filter((series) => series.points.length > 0)
     : [];
+
+  const economicContextRows = (() => {
+    const gsdpLookup = new Map(
+      (filteredStateRows?.gsdpRows || analytics?.gsdpRows || [])
+        .filter((row) => row?.state)
+        .map((row) => [normalizeState(row.state), row])
+    );
+    const delayLookup = new Map(
+      (filteredStateRows?.stateStatusRows || analytics?.stateStatusRows || [])
+        .filter((row) => row?.state)
+        .map((row) => [normalizeState(row.state), row])
+    );
+    return Array.from(gsdpLookup.entries())
+      .map(([key, row]) => {
+        const nhLengthKm = num((analytics?.morthNHLengthByState || {})[key]);
+        const delay = delayLookup.get(key);
+        if (!Number.isFinite(row.gsdp_current_price) || !Number.isFinite(nhLengthKm) || nhLengthKm <= 0) {
+          return null;
+        }
+        return {
+          state: row.state,
+          x: num(row.gsdp_current_price),
+          y: nhLengthKm,
+          radius: Math.max(1, num(delay?.delayed_projects)),
+          modelConfidence: `Latest GSDP year: ${row.gsdp_year} • Delayed NH projects: ${fmtNum(delay?.delayed_projects || 0)}`,
+          gsdp_year: row.gsdp_year,
+          delayed_projects: num(delay?.delayed_projects),
+        };
+      })
+      .filter(Boolean);
+  })();
+
+  const delayBurdenRows = (() => {
+    const gsdpLookup = new Map(
+      (filteredStateRows?.gsdpRows || analytics?.gsdpRows || [])
+        .filter((row) => row?.state)
+        .map((row) => [normalizeState(row.state), row])
+    );
+    return (filteredStateRows?.stateStatusRows || analytics?.stateStatusRows || [])
+      .map((row) => {
+        const gsdpRow = gsdpLookup.get(normalizeState(row.state));
+        const gsdpValue = num(gsdpRow?.gsdp_current_price);
+        const delayed = num(row.delayed_projects);
+        if (!Number.isFinite(gsdpValue) || gsdpValue <= 0 || !Number.isFinite(delayed)) {
+          return null;
+        }
+        return {
+          label: row.state,
+          value: (delayed / gsdpValue) * 100000,
+        };
+      })
+      .filter(Boolean)
+      .sort((a, b) => b.value - a.value);
+  })();
 
   const macroLines = [
     {
@@ -3085,30 +3225,56 @@ function App() {
         yLabel: 'State / UT',
       }),
       React.createElement(MultiLineChart, {
-        title: 'Model Risk Trajectory by State (proxy-informed)',
-        description: 'Model-only signal for scenario planning. Officially measured crash/finance metrics should stay dominant for policy decisions.',
-        layers: modelLinesByState,
-        confidence: modelConfidence,
+        title: 'NH Fatality Trend by State/UT (official, 2020-2022)',
+        description: 'Official NH fatalities from data.gov.in. When all states are shown, the chart focuses on the top eight states by latest available NH fatalities so the trend remains legible; use the state filter for a single-state read.',
+        layers: officialSafetyLines,
+        confidence: confidenceCatalog.safety,
         onHover: setTooltip,
-        asOfDate: chartDates.modelRisk,
-        tooltipTextLabel: 'State safety trend',
+        asOfDate: 'Official NH fatalities: 2020-2022',
+        tooltipTextLabel: 'NH fatalities',
         xAxisLabel: 'Year',
-        yAxisLabel: 'Safety risk score',
+        yAxisLabel: 'NH fatalities',
         chartScale: activeChartScale,
         chartHeight: activeChartHeight,
       }),
       React.createElement(MultiLineChart, {
-        title: 'GDP & Infrastructure Context',
-        description: 'Macro backdrop (official national indicators) and highway-related investment context.',
-        layers: macroLines,
-        confidence: confidenceCatalog.macro,
+        title: 'Synthetic Risk Scenario Score by State (exploratory)',
+        description: 'Synthetic model output for scenario planning only. It blends modeled and proxy-derived inputs and should not be interpreted as an official risk ranking.',
+        layers: modelLinesByState,
+        confidence: modelConfidence,
         onHover: setTooltip,
-        asOfDate: chartDates.macro,
-        tooltipTextLabel: 'Macro metric',
+        asOfDate: chartDates.modelRisk,
+        tooltipTextLabel: 'Synthetic risk score',
         xAxisLabel: 'Year',
-        yAxisLabel: 'Index value',
+        yAxisLabel: 'Synthetic risk score',
         chartScale: activeChartScale,
         chartHeight: activeChartHeight,
+      }),
+      React.createElement(ScatterChart, {
+        title: 'Economic Scale vs NH Extent by State/UT',
+        rows: economicContextRows,
+        confidence: confidenceCatalog.economic,
+        onHover: setTooltip,
+        asOfDate: 'Latest available GSDP by state: 2017-18 to 2022-23 | NH length: 2024-12-31 | Delayed projects: March 2024',
+        xLabel: 'Latest available GSDP at current prices (₹ crore)',
+        yLabel: 'NH length (km)',
+        pointLabel: 'Delayed NH projects',
+        xAxisLabel: 'Latest available GSDP at current prices (₹ crore)',
+        yAxisLabel: 'NH length (km)',
+        pointEntityLabel: 'State / UT',
+        radiusLabel: 'Delayed NH projects',
+        chartScale: activeChartScale,
+        chartHeight: activeChartHeight,
+      }),
+      React.createElement(HorizontalBars, {
+        title: 'Delay Burden Relative to Economic Scale',
+        rows: delayBurdenRows,
+        confidence: confidenceCatalog.economic,
+        onHover: setTooltip,
+        asOfDate: chartDates.economic,
+        xLabel: 'Delayed NH projects per ₹1 lakh crore GSDP',
+        yLabel: 'State / UT',
+        tooltipLines: 'Latest available current-price GSDP year varies by state because the 2022-23 official table is incomplete. Use this as context for relative delivery burden, not as a causal measure.',
       }),
       React.createElement(ScatterChart, {
         title: 'Project Economics: Land Acquisition vs Maintenance (Model Panel)',
