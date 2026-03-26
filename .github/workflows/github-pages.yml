@@ -91,17 +91,6 @@ jobs:
           name: gh-pages-site
           path: /tmp/gh-pages
 
-      - name: Configure Pages source to gh-pages branch
-        env:
-          GH_TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
-        run: |
-          gh api \
-            --method PUT \
-            -H "Accept: application/vnd.github+json" \
-            "repos/${GITHUB_REPOSITORY}/pages" \
-            -f source[branch]=gh-pages \
-            -f source[path]=/
-
       - name: Publish built site to gh-pages branch
         env:
           PAGES_DEPLOY_TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
