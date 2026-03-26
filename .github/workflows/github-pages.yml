@@ -177,4 +177,16 @@ jobs:
             echo "Missing PAGE_URL from deploy step" >&2
             exit 1
           fi
-          python scripts/playwright_smoke.py --url "${PAGE_URL%/}/apps/web/"
+          target_url="${PAGE_URL%/}/apps/web/"
+          for attempt in 1 2 3; do
+            if python scripts/playwright_smoke.py --url "${target_url}"; then
+              exit 0
+            fi
+            if [ "${attempt}" -eq 3 ]; then
+              echo "Playwright CD smoke failed after ${attempt} attempts for ${target_url}" >&2
+              exit 1
+            fi
+            sleep_seconds=$((attempt * 20))
+            echo "Playwright CD smoke retry ${attempt}/3 failed for ${target_url}; waiting ${sleep_seconds}s before retry..."
+            sleep "${sleep_seconds}"
+          done
