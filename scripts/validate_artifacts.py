@@ -80,14 +80,22 @@ def _validate_entry(entry: Dict, manifest_root: Path, errors: List[str], warning
         if source_id == "data_gov_in_nhai_stateut_project_delay_status_2024":
             try:
                 df = pd.read_parquet(output_path)
-                state_col = "state/ut"
-                project_col = "number_of_projects"
-                delayed_col = "number_of_delayed_projects"
-                required_cols = {state_col, project_col, delayed_col}
-                missing_cols = required_cols - set(df.columns)
+                aliases = {
+                    "state": ["state/ut", "state_ut", "state", "states/ut"],
+                    "projects": ["number_of_projects", "projects", "total_projects"],
+                    "delayed": ["number_of_delayed_projects", "delayed_projects", "projects_delayed"],
+                }
+                resolved = _resolve_column_aliases(list(df.columns), aliases)
+                resolved.setdefault("state", _resolve_column_by_tokens(list(df.columns), ["state"]))
+                resolved.setdefault("projects", _resolve_column_by_tokens(list(df.columns), ["project"]))
+                resolved.setdefault("delayed", _resolve_column_by_tokens(list(df.columns), ["delay", "project"]))
+                missing_cols = [logical_name for logical_name in aliases if not resolved.get(logical_name)]
                 if missing_cols:
-                    errors.append(f"Source {source_id} missing required columns: {sorted(missing_cols)}")
+                    errors.append(f"Source {source_id} missing required logical columns: {sorted(missing_cols)}")
                 else:
+                    state_col = resolved["state"]
+                    project_col = resolved["projects"]
+                    delayed_col = resolved["delayed"]
                     states = df[state_col].astype(str).str.strip()
                     core = df.loc[~states.str.lower().isin({"total", "india", "all india"})].copy()
                     if len(core) < 30:
@@ -133,6 +141,13 @@ def _validate_entry(entry: Dict, manifest_root: Path, errors: List[str], warning
                     "injuries_2022": ["injuries_-_2022", "injuries_2022", "injuries2022"],
                 }
                 resolved = _resolve_column_aliases(list(df.columns), aliases)
+                resolved.setdefault("state", _resolve_column_by_tokens(list(df.columns), ["state"]))
+                resolved.setdefault("fatalities_2020", _resolve_column_by_tokens(list(df.columns), ["fatal", "2020"]))
+                resolved.setdefault("fatalities_2021", _resolve_column_by_tokens(list(df.columns), ["fatal", "2021"]))
+                resolved.setdefault("fatalities_2022", _resolve_column_by_tokens(list(df.columns), ["fatal", "2022"]))
+                resolved.setdefault("injuries_2020", _resolve_column_by_tokens(list(df.columns), ["injur", "2020"]))
+                resolved.setdefault("injuries_2021", _resolve_column_by_tokens(list(df.columns), ["injur", "2021"]))
+                resolved.setdefault("injuries_2022", _resolve_column_by_tokens(list(df.columns), ["injur", "2022"]))
                 missing_cols = [logical_name for logical_name in aliases if logical_name not in resolved]
                 if missing_cols:
                     errors.append(f"Source {source_id} missing required logical columns: {sorted(missing_cols)}")
@@ -285,6 +300,14 @@ def _resolve_column_aliases(columns: List[str], aliases: Dict[str, List[str]]) -
     return resolved
 
 
+def _resolve_column_by_tokens(columns: List[str], required_tokens: List[str]) -> str | None:
+    normalized_pairs = [(_normalize_state_key(col), col) for col in columns]
+    for normalized, original in normalized_pairs:
+        if all(token in normalized for token in required_tokens):
+            return original
+    return None
+
+
 def _validate_dashboard_semantics(errors: List[str], warnings: List[str]) -> None:
     app_path = ROOT / "apps/web/src/app.js"
     if not app_path.exists():
@@ -333,17 +356,22 @@ def _validate_dashboard_semantics(errors: List[str], warnings: List[str]) -> Non
     morth_path = ROOT / "data/processed/morth_annual_report_pdf.parquet"
     if gsdp_path.exists() and delay_path.exists() and morth_path.exists():
         try:
-            gsdp_df = pd.read_parquet(gsdp_path, columns=["state/ut"])
-            delay_df = pd.read_parquet(delay_path, columns=["state/ut"])
+            gsdp_df = pd.read_parquet(gsdp_path)
+            delay_df = pd.read_parquet(delay_path)
             morth_df = pd.read_parquet(morth_path, columns=["state", "metric_name"])
+            gsdp_state_col = _resolve_column_aliases(list(gsdp_df.columns), {"state": ["state/ut", "state_ut", "state", "states/ut"]}).get("state")
+            delay_state_col = _resolve_column_aliases(list(delay_df.columns), {"state": ["state/ut", "state_ut", "state", "states/ut"]}).get("state")
+            if not gsdp_state_col or not delay_state_col:
+                warnings.append("Cross-source economic overlap validation could not resolve state columns")
+                return
             gsdp_states = {
                 _normalize_state_key(value)
-                for value in gsdp_df["state/ut"].dropna().astype(str)
+                for value in gsdp_df[gsdp_state_col].dropna().astype(str)
                 if _normalize_state_key(value) not in {"total", "india", "allindia"}
             }
             delay_states = {
                 _normalize_state_key(value)
-                for value in delay_df["state/ut"].dropna().astype(str)
+                for value in delay_df[delay_state_col].dropna().astype(str)
                 if _normalize_state_key(value) not in {"total", "india", "allindia"}
             }
             morth_states = {
