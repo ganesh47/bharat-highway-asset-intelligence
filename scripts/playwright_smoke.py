@@ -235,8 +235,35 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
             if last_exc:
                 raise last_exc
 
+        async def wait_for_expected_chart_titles() -> None:
+            expected_titles = [
+                "NH Fatality Trend by State/UT (official, 2020-2022)",
+                "Economic Scale vs NH Extent by State/UT",
+            ]
+            last_seen = ""
+            for attempt in range(1, 6):
+                visible_titles = [
+                    text.strip()
+                    for text in await page.locator(".chart-title").all_inner_texts()
+                    if (text or "").strip()
+                ]
+                if all(title in visible_titles for title in expected_titles):
+                    return
+                last_seen = " | ".join(visible_titles[:8])
+                print(
+                    f"Expected deployed chart titles not visible on attempt {attempt}/5 at {url}. "
+                    f"Seen: {last_seen or 'none'}. Retrying..."
+                )
+                await page.wait_for_timeout(attempt * 10000)
+                await page.goto(url, wait_until="domcontentloaded", timeout=120000)
+                await page.wait_for_load_state("networkidle", timeout=120000)
+            raise RuntimeError(
+                f"Expected deployed chart titles did not appear after retries. Last seen titles: {last_seen or 'none'}"
+            )
+
         try:
             await wait_for_dashboard_shell()
+            await wait_for_expected_chart_titles()
 
             header_locator = page.locator("h1").first
             if await header_locator.count() == 0:
