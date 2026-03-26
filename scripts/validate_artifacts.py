@@ -9,6 +9,7 @@ import sys
 
 import hashlib
 import pandas as pd
+import re
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -257,6 +258,86 @@ def _validate_entry(entry: Dict, manifest_root: Path, errors: List[str], warning
                     errors.append(f"Source {source_id} manifest sha mismatch: {path}")
 
 
+def _normalize_state_key(value: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "", str(value).strip().lower())
+
+
+def _validate_dashboard_semantics(errors: List[str], warnings: List[str]) -> None:
+    app_path = ROOT / "apps/web/src/app.js"
+    if not app_path.exists():
+        errors.append("Dashboard app.js is missing")
+        return
+    app_text = app_path.read_text(encoding="utf-8")
+    forbidden_titles = [
+        "GDP & Infrastructure Context",
+        "Model Risk Trajectory by State (proxy-informed)",
+    ]
+    for title in forbidden_titles:
+        if title in app_text:
+            errors.append(f"Dashboard contains forbidden legacy title: {title}")
+
+    required_titles = [
+        "NH Fatality Trend by State/UT (official, 2020-2022)",
+        "Economic Scale vs NH Extent by State/UT",
+        "Delay Burden Relative to Economic Scale",
+    ]
+    for title in required_titles:
+        if title not in app_text:
+            errors.append(f"Dashboard is missing required title: {title}")
+
+    required_markers = [
+        "Latest available current-price GSDP year varies by state",
+        "Official NH fatalities: 2020-2022",
+    ]
+    for marker in required_markers:
+        if marker not in app_text:
+            errors.append(f"Dashboard is missing required semantic marker: {marker}")
+
+    model_path = ROOT / "data/processed/highway_project_risk_and_access_panel.parquet"
+    if model_path.exists():
+        try:
+            model_df = pd.read_parquet(model_path, columns=["state_assigned", "safety_risk_score"])
+            states = model_df["state_assigned"].dropna().astype(str).map(_normalize_state_key)
+            score_vals = pd.to_numeric(model_df["safety_risk_score"], errors="coerce").dropna()
+            if states.nunique() < 10 or score_vals.nunique() <= 1:
+                if "Synthetic Risk Scenario Panel (hidden pending better coverage)" not in app_text:
+                    errors.append("Synthetic model panel must be hidden when model coverage is sparse or scores are degenerate")
+        except Exception as exc:
+            warnings.append(f"Could not evaluate synthetic model panel readiness against app semantics: {exc}")
+
+    gsdp_path = ROOT / "data/processed/data_gov_in_gsdp_stateut_current_prices_2017_23.parquet"
+    delay_path = ROOT / "data/processed/data_gov_in_nhai_stateut_project_delay_status_2024.parquet"
+    morth_path = ROOT / "data/processed/morth_annual_report_pdf.parquet"
+    if gsdp_path.exists() and delay_path.exists() and morth_path.exists():
+        try:
+            gsdp_df = pd.read_parquet(gsdp_path, columns=["state/ut"])
+            delay_df = pd.read_parquet(delay_path, columns=["state/ut"])
+            morth_df = pd.read_parquet(morth_path, columns=["state", "metric_name"])
+            gsdp_states = {
+                _normalize_state_key(value)
+                for value in gsdp_df["state/ut"].dropna().astype(str)
+                if _normalize_state_key(value) not in {"total", "india", "allindia"}
+            }
+            delay_states = {
+                _normalize_state_key(value)
+                for value in delay_df["state/ut"].dropna().astype(str)
+                if _normalize_state_key(value) not in {"total", "india", "allindia"}
+            }
+            morth_states = {
+                _normalize_state_key(value)
+                for value in morth_df.loc[morth_df["metric_name"] == "appendix2_statewise_nh_length_km", "state"].dropna().astype(str)
+                if _normalize_state_key(value) not in {"total", "india", "allindia"}
+            }
+            gsdp_delay_overlap = len(gsdp_states & delay_states) / max(1, min(len(gsdp_states), len(delay_states)))
+            gsdp_morth_overlap = len(gsdp_states & morth_states) / max(1, min(len(gsdp_states), len(morth_states)))
+            if gsdp_delay_overlap < 0.85:
+                errors.append(f"GSDP vs delayed-project state overlap too low: {gsdp_delay_overlap:.2f}")
+            if gsdp_morth_overlap < 0.85:
+                errors.append(f"GSDP vs NH-length state overlap too low: {gsdp_morth_overlap:.2f}")
+        except Exception as exc:
+            warnings.append(f"Cross-source economic overlap validation could not be executed: {exc}")
+
+
 def run(inventory_path: str, catalog_path: str, manifests_dir: str, fail_on_warning: bool = False) -> int:
     errors: List[str] = []
     warnings: List[str] = []
@@ -288,6 +369,8 @@ def run(inventory_path: str, catalog_path: str, manifests_dir: str, fail_on_warn
     for sid in sorted(catalog_ids - inventory_ids):
         if sid != "correlation_matrix":
             warnings.append(f"Catalog has non-inventory source: {sid}")
+
+    _validate_dashboard_semantics(errors, warnings)
 
     return print_result(errors, warnings, fail_on_warning)
 

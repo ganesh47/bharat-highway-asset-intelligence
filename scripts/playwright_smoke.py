@@ -140,11 +140,11 @@ REQUIRED_CHARTS = [
         "empty_markers": ["No records available."],
     },
     {
-        "title": "Synthetic Risk Scenario Score by State (exploratory)",
-        "axes": True,
-        "data_selector": ".line-path",
+        "title": "Synthetic Risk Scenario Panel (hidden pending better coverage)",
+        "data_selector": ".chart-title",
         "min_points": 1,
-        "meta_markers": ["scenario planning only", "not be interpreted as an official risk ranking"],
+        "meta_markers": ["too sparse or degenerate"],
+        "note_markers": ["covers at least 10 states", "distinct safety scores"],
         "empty_markers": ["No records available."],
     },
     {

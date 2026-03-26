@@ -15,12 +15,23 @@ concurrency:
 
 env:
   PYTHON_VERSION: '3.11'
+  REQUIRED_PAGES_BUILD_TYPE: 'legacy'
+  REQUIRED_PAGES_BRANCH: 'gh-pages'
+  REQUIRED_PAGES_PATH: '/'
 
 jobs:
   build:
     if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     steps:
+      - name: Restrict manual deploys to main
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          if [ "${GITHUB_REF}" != "refs/heads/main" ]; then
+            echo "Manual deploys must run from main. Got ${GITHUB_REF}." >&2
+            exit 1
+          fi
+
       - name: Checkout triggered revision
         if: github.event_name == 'workflow_run'
         uses: actions/checkout@v6
@@ -90,6 +101,27 @@ jobs:
         with:
           name: gh-pages-site
           path: /tmp/gh-pages
+
+      - name: Verify deploy secret is configured
+        env:
+          PAGES_DEPLOY_TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
+        run: |
+          if [ -z "${PAGES_DEPLOY_TOKEN}" ]; then
+            echo "Missing PAGES_DEPLOY_TOKEN secret." >&2
+            exit 1
+          fi
+
+      - name: Verify Pages publish mode
+        env:
+          GH_TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
+        run: |
+          BUILD_TYPE="$(gh api repos/${GITHUB_REPOSITORY}/pages --jq .build_type)"
+          BRANCH="$(gh api repos/${GITHUB_REPOSITORY}/pages --jq .source.branch)"
+          PATH_VALUE="$(gh api repos/${GITHUB_REPOSITORY}/pages --jq .source.path)"
+          if [ "${BUILD_TYPE}" != "${REQUIRED_PAGES_BUILD_TYPE}" ] || [ "${BRANCH}" != "${REQUIRED_PAGES_BRANCH}" ] || [ "${PATH_VALUE}" != "${REQUIRED_PAGES_PATH}" ]; then
+            echo "Pages must publish from ${REQUIRED_PAGES_BUILD_TYPE}:${REQUIRED_PAGES_BRANCH}${REQUIRED_PAGES_PATH}. Got ${BUILD_TYPE}:${BRANCH}${PATH_VALUE}." >&2
+            exit 1
+          fi
 
       - name: Publish built site to gh-pages branch
         env:

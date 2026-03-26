@@ -2871,6 +2871,11 @@ function App() {
       return { key: state, name: state, points: rows };
     }).filter((series) => series.points.length > 0)
     : [];
+  const modelCoverageStates = new Set((analytics?.modelStateRisk || []).map((row) => normalizeState(row.state)).filter(Boolean));
+  const modelScoreValues = (analytics?.modelStateRisk || [])
+    .map((row) => num(row.safety_risk))
+    .filter((value) => Number.isFinite(value));
+  const modelPanelReady = modelCoverageStates.size >= 10 && new Set(modelScoreValues).size > 1;
 
   const economicContextRows = (() => {
     const gsdpLookup = new Map(
@@ -3237,19 +3242,31 @@ function App() {
         chartScale: activeChartScale,
         chartHeight: activeChartHeight,
       }),
-      React.createElement(MultiLineChart, {
-        title: 'Synthetic Risk Scenario Score by State (exploratory)',
-        description: 'Synthetic model output for scenario planning only. It blends modeled and proxy-derived inputs and should not be interpreted as an official risk ranking.',
-        layers: modelLinesByState,
-        confidence: modelConfidence,
-        onHover: setTooltip,
-        asOfDate: chartDates.modelRisk,
-        tooltipTextLabel: 'Synthetic risk score',
-        xAxisLabel: 'Year',
-        yAxisLabel: 'Synthetic risk score',
-        chartScale: activeChartScale,
-        chartHeight: activeChartHeight,
-      }),
+      modelPanelReady
+        ? React.createElement(MultiLineChart, {
+          title: 'Synthetic Risk Scenario Score by State (exploratory)',
+          description: 'Synthetic model output for scenario planning only. It blends modeled and proxy-derived inputs and should not be interpreted as an official risk ranking.',
+          layers: modelLinesByState,
+          confidence: modelConfidence,
+          onHover: setTooltip,
+          asOfDate: chartDates.modelRisk,
+          tooltipTextLabel: 'Synthetic risk score',
+          xAxisLabel: 'Year',
+          yAxisLabel: 'Synthetic risk score',
+          chartScale: activeChartScale,
+          chartHeight: activeChartHeight,
+        })
+        : React.createElement('div', { className: 'card insight-chart' },
+          React.createElement('div', { className: 'source-line' },
+            React.createElement('div', { className: 'chart-title' }, 'Synthetic Risk Scenario Panel (hidden pending better coverage)'),
+            React.createElement('span', { className: `badge ${String(modelConfidence.badge || 'low').toLowerCase()}` }, `${modelConfidence.badge || 'Low'} confidence`)
+          ),
+          React.createElement('div', { className: 'chart-meta' }, chartMetaText(
+            'Exploratory model source is currently too sparse or degenerate for a defensible comparative state chart.',
+            chartDates.modelRisk
+          )),
+          React.createElement('div', { className: 'insight-note' }, `Hidden from the primary dashboard until the synthetic source covers at least 10 states with non-constant scores. Current artifact: ${modelCoverageStates.size} states, ${new Set(modelScoreValues).size} distinct safety scores.`)
+        ),
       React.createElement(ScatterChart, {
         title: 'Economic Scale vs NH Extent by State/UT',
         rows: economicContextRows,
