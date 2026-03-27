@@ -1,0 +1,48 @@
+{
+  "baseline_version": "1.0.0",
+  "branch": "main",
+  "governance_mode": "ruleset-first",
+  "required_status_checks": [
+    "CI Quality",
+    "Security Supply Chain",
+    "Deploy to GitHub Pages",
+    "DevSecOps Observability and Evidence"
+  ],
+  "workspace_required_checks": {
+    "ws-governance-core": [
+      "Workflow YAML syntax checks",
+      "Python package sanity checks",
+      "Artifact validation"
+    ],
+    "ws-ci-quality": [
+      "Workflow YAML syntax checks",
+      "Python package sanity checks",
+      "Artifact validation"
+    ],
+    "ws-security-supplychain": [
+      "Dependency security review",
+      "Secrets scan",
+      "CodeQL analysis"
+    ],
+    "ws-cd-provenance": [
+      "Build",
+      "Deploy",
+      "Playwright CD smoke check"
+    ],
+    "ws-observability-evidence": [
+      "Evidence publication"
+    ]
+  },
+  "restricted_path_prefixes": [
+    "/.github/",
+    "/scripts/",
+    "/pipelines/",
+    "/data/"
+  ],
+  "slo_policy": {
+    "freshness_days": 1,
+    "required_checks_completeness": 1.0,
+    "critical_vuln_response_hours": 24,
+    "evidence_retention_days": 365
+  }
+}

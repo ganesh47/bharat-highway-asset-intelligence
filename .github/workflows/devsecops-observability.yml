@@ -1,0 +1,54 @@
+name: DevSecOps Observability and Evidence
+
+on:
+  workflow_run:
+    workflows:
+      - "Deploy to GitHub Pages"
+      - "CI Quality"
+      - "Security Supply Chain"
+    types:
+      - completed
+  schedule:
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: devsecops-evidence-${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  publish_evidence:
+    name: Evidence publication
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install script dependencies
+        run: |
+          python -m pip install --upgrade pip
+
+      - name: Produce DevSecOps evidence snapshot
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/devsecops_evidence.py \
+            --output-dir evidence \
+            --workflows "CI Quality,Security Supply Chain,Deploy to GitHub Pages" \
+            --required-checks "CI Quality,Security Supply Chain,Deploy to GitHub Pages" \
+            --branch "main"
+
+      - name: Upload evidence artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: devsecops-evidence
+          path: evidence
+          retention-days: 120

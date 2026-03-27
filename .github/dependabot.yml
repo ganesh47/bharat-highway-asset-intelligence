@@ -1,0 +1,34 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: weekly
+      time: "06:00"
+      timezone: "Asia/Calcutta"
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - security
+    commit-message:
+      prefix: chore
+      include: scope
+    groups:
+      python-dependencies:
+        patterns:
+          - "*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: weekly
+      time: "06:30"
+      timezone: "Asia/Calcutta"
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - github-actions
+      - security
+    commit-message:
+      prefix: chore
+      include: scope

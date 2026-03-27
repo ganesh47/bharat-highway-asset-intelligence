@@ -1,0 +1,22 @@
+name: Security Supply Chain
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * 1"
+
+concurrency:
+  group: security-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  security_supply_chain:
+    name: Security Supply Chain
+    uses: ./.github/workflows/reusable-security-scans.yml
+    secrets: inherit
+    with:
+      dependency_review_fail_on: high

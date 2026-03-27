@@ -1,0 +1,20 @@
+name: CI Quality
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ci-quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci_quality:
+    name: CI Quality
+    uses: ./.github/workflows/reusable-ci-quality.yml
+    with:
+      python_version: '3.11'
+      fail_on_warnings: true

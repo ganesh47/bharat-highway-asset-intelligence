@@ -1,0 +1,20 @@
+# Temporary placeholders; replace placeholders with real team/user handles before enabling required reviews.
+
+# Platform governance
+* @OWNER_PLACEHOLDER
+
+# Governance controls and automation
+/.github/workflows/ @OWNER_PLACEHOLDER
+/.github/dependabot.yml @OWNER_PLACEHOLDER
+/docs/governance/ @OWNER_PLACEHOLDER
+/docs/devsecops-workspaces/ @OWNER_PLACEHOLDER
+
+# Pipeline source control and evidence
+/pipelines/ @OWNER_PLACEHOLDER
+/scripts/devsecops_evidence.py @OWNER_PLACEHOLDER
+/scripts/validate_artifacts.py @OWNER_PLACEHOLDER
+/.github/workflows/reusable-ci-quality.yml @OWNER_PLACEHOLDER
+/.github/workflows/reusable-security-scans.yml @OWNER_PLACEHOLDER
+/.github/workflows/ci-quality.yml @OWNER_PLACEHOLDER
+/.github/workflows/security-supplychain.yml @OWNER_PLACEHOLDER
+/.github/workflows/devsecops-observability.yml @OWNER_PLACEHOLDER

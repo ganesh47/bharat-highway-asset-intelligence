@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 # Branch-based Pages deployment on purpose:
 # - repo Pages mode must stay legacy / gh-pages / /
 # - deploy uses PAGES_DEPLOY_TOKEN and pushes the packaged static site to gh-pages
-# - this avoids GitHub-maintained Pages JS actions that previously emitted upstream Node runtime warnings
+# - this avoids GitHub-maintained Pages actions that previously emitted upstream Node runtime warnings
 
 on:
   workflow_run:
@@ -28,6 +28,11 @@ jobs:
   build:
     if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
+    outputs:
+      bundle_sha256: ${{ steps.bundle_manifest.outputs.bundle_sha256 }}
+      bundle_file_count: ${{ steps.bundle_manifest.outputs.bundle_file_count }}
+    permissions:
+      contents: read
     steps:
       - name: Restrict manual deploys to main
         if: github.event_name == 'workflow_dispatch'
@@ -82,9 +87,50 @@ jobs:
           curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-browser-mvp.worker.js https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser-mvp.worker.js
           curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-browser-coi.pthread.worker.js https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser-coi.pthread.worker.js
           cp -r /tmp/gh-pages/duckdb/* /tmp/gh-pages/apps/web/duckdb/
-          cp -r /tmp/gh-pages/data/manifests/catalog.json /tmp/gh-pages/data/
           touch /tmp/gh-pages/.nojekyll
           touch /tmp/gh-pages/apps/web/.nojekyll
+
+      - name: Generate reproducible bundle manifest
+        id: bundle_manifest
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          import hashlib
+          import json
+          import pathlib
+          from datetime import datetime, timezone
+
+          root = pathlib.Path('/tmp/gh-pages')
+          files = []
+          digest = hashlib.sha256()
+          for path in sorted(root.rglob('*')):
+              if path.is_dir():
+                  continue
+              rel = path.relative_to(root).as_posix()
+              if rel.startswith('.git/'):
+                  continue
+              data = path.read_bytes()
+              h = hashlib.sha256(data).hexdigest()
+              digest.update(h.encode('utf-8'))
+              files.append({'path': rel, 'sha256': h, 'bytes': len(data)})
+
+          manifest = {
+              'generated_at': datetime.now(timezone.utc).isoformat(),
+              'workflow': 'github-pages.yml',
+              'git_sha': '${{ github.sha }}',
+              'file_count': len(files),
+              'bundle_sha256': digest.hexdigest(),
+              'files': files,
+          }
+
+          manifest_path = root / 'bundle-manifest.json'
+          manifest_path.write_text(json.dumps(manifest, indent=2), encoding='utf-8')
+          PY
+          bundle_sha256="$(jq -r '.bundle_sha256' /tmp/gh-pages/bundle-manifest.json)"
+          bundle_file_count="$(jq -r '.file_count' /tmp/gh-pages/bundle-manifest.json)"
+          echo "bundle_sha256=${bundle_sha256}" >> "$GITHUB_OUTPUT"
+          echo "bundle_file_count=${bundle_file_count}" >> "$GITHUB_OUTPUT"
 
       - name: Upload packaged site artifact
         uses: actions/upload-artifact@v7
@@ -98,8 +144,12 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       page_url: ${{ steps.page_meta.outputs.page_url }}
+      bundle_sha256: ${{ steps.bundle_meta.outputs.bundle_sha256 }}
+      bundle_file_count: ${{ steps.bundle_meta.outputs.bundle_file_count }}
     permissions:
       contents: read
+    environment:
+      name: production
     steps:
       - name: Download packaged site artifact
         uses: actions/download-artifact@v8
@@ -128,6 +178,21 @@ jobs:
             exit 1
           fi
 
+      - name: Read bundle manifest
+        id: bundle_meta
+        run: |
+          set -euo pipefail
+          manifest_path=/tmp/gh-pages/bundle-manifest.json
+          if [ ! -f "${manifest_path}" ]; then
+            echo "bundle_sha256=missing" >> "$GITHUB_OUTPUT"
+            echo "bundle_file_count=0" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          bundle_sha256="$(jq -r '.bundle_sha256 // "missing"' "${manifest_path}")"
+          bundle_file_count="$(jq -r '.file_count // 0' "${manifest_path}")"
+          echo "bundle_sha256=${bundle_sha256}" >> "$GITHUB_OUTPUT"
+          echo "bundle_file_count=${bundle_file_count}" >> "$GITHUB_OUTPUT"
+
       - name: Publish built site to gh-pages branch
         env:
           PAGES_DEPLOY_TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
@@ -151,10 +216,14 @@ jobs:
 
   cd_smoke:
     name: Playwright CD smoke check
-    needs: deploy
+    needs:
+      - deploy
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    env:
+      DEPLOY_PAGE_URL: ${{ needs.deploy.outputs.page_url }}
+      DEPLOY_BUNDLE_SHA256: ${{ needs.deploy.outputs.bundle_sha256 }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -173,6 +242,11 @@ jobs:
       - name: Install Playwright browser runtime
         run: |
           python -m playwright install chromium
+
+      - name: Log deployment provenance
+        run: |
+          echo "Deploy URL: ${DEPLOY_PAGE_URL}"
+          echo "Bundle SHA: ${DEPLOY_BUNDLE_SHA256}"
 
       - name: Verify deployed dashboard charts
         env:
