@@ -5,6 +5,7 @@ on:
 permissions:
   contents: read
   security-events: write
+  actions: read
 
 jobs:
   secret_scan:
