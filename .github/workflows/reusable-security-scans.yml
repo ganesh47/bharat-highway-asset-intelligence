@@ -7,6 +7,10 @@ on:
         required: false
         type: string
         default: high
+permissions:
+  contents: read
+  security-events: write
+  pull-requests: read
 
 jobs:
   secret_scan:
