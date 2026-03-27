@@ -12,16 +12,32 @@ on:
 permissions:
   contents: read
   security-events: write
-  pull-requests: read
 
 concurrency:
   group: security-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  dependency_review:
+    name: Dependency security review
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      security-events: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Dependency security review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: high
+          fail-on-scopes: runtime
+          comment-summary-in-pr: true
+
   security_supply_chain:
     name: Security Supply Chain
     uses: ./.github/workflows/reusable-security-scans.yml
     secrets: inherit
-    with:
-      dependency_review_fail_on: high
