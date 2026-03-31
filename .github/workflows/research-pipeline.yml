@@ -281,13 +281,13 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: bhai-base-workspace
-          path: data
+          path: .
 
       - name: Download merged OCR artifacts
         uses: actions/download-artifact@v8
         with:
           name: bhai-nhai-merged-ocr
-          path: data/processed
+          path: .
 
       - name: Refresh NHAI confidence from merged OCR quality
         run: |
@@ -331,14 +331,14 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: bhai-refreshed-workspace
-          path: data
+          path: .
 
       - name: Download base workspace
         if: needs.changes.outputs.run_nhai_ocr != 'true'
         uses: actions/download-artifact@v8
         with:
           name: bhai-base-workspace
-          path: data
+          path: .
 
       - name: Build correlation artifacts
         run: |
@@ -381,13 +381,13 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: bhai-inventory-reports
-          path: research
+          path: .
 
       - name: Download correlated workspace
         uses: actions/download-artifact@v8
         with:
           name: bhai-correlated-workspace
-          path: data
+          path: .
 
       - name: Validate generated artifacts
         run: |
