@@ -14,6 +14,7 @@ from pypdf import PdfReader
 from .base import ConnectorResult, ConnectorSpec
 from pipelines.common import ensure_dirs, sha256_for_file, write_json, write_parquet
 from pipelines.quality import evaluate
+from pipelines.url_safety import is_public_http_url, sanitize_public_http_url
 
 
 PDF_EXTENSION_EXTENTIONS = {".pdf", ".PDF"}
@@ -110,9 +111,7 @@ class NHAIAnnualDocumentsConnector:
 
     @staticmethod
     def _is_allowed_document_url(url: str) -> bool:
-        split = urlsplit(url)
-        host = (split.hostname or "").lower()
-        return split.scheme in {"http", "https"} and (host == ALLOWED_HOST_SUFFIX or host.endswith(f".{ALLOWED_HOST_SUFFIX}"))
+        return is_public_http_url(url, allowed_host_suffixes={ALLOWED_HOST_SUFFIX})
 
     @staticmethod
     def _looks_like_pdf_payload(content_type: str, sample: bytes, url: str) -> bool:
@@ -337,6 +336,9 @@ class NHAIAnnualDocumentsConnector:
         query_params = {key: value[0] for key, value in parse_qs(split.query).items()}
         if split.scheme and split.netloc:
             endpoint = urlunsplit((split.scheme, split.netloc, split.path, "", ""))
+        endpoint = sanitize_public_http_url(endpoint, allowed_host_suffixes={ALLOWED_HOST_SUFFIX}) or ""
+        if not endpoint:
+            return candidates
 
         endpoint_l = endpoint.lower()
         if "press" in endpoint_l:
@@ -374,6 +376,8 @@ class NHAIAnnualDocumentsConnector:
                     timeout=45,
                     headers={"user-agent": "BHAI-research-scan/0.3"},
                 )
+                if not sanitize_public_http_url(response.url or endpoint, allowed_host_suffixes={ALLOWED_HOST_SUFFIX}):
+                    break
             except Exception:
                 break
 
@@ -498,9 +502,11 @@ class NHAIAnnualDocumentsConnector:
                     discovered.append(item)
 
         page = source.get("resource_page_url") or source.get("url")
-        if page:
+        if page and self._is_allowed_document_url(page):
             try:
                 response = requests.get(page, timeout=25, headers={"user-agent": "BHAI-research-scan/0.3"})
+                if not sanitize_public_http_url(response.url or page, allowed_host_suffixes={ALLOWED_HOST_SUFFIX}):
+                    return discovered
                 if response.ok:
                     for link in self._collect_urls(response.text):
                         normalized_link = self._normalize_url(link)

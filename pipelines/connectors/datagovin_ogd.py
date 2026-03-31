@@ -12,9 +12,11 @@ import requests
 from .base import ConnectorResult, ConnectorSpec
 from pipelines.common import ensure_dirs, sha256_for_file, write_json, write_parquet
 from pipelines.quality import evaluate
+from pipelines.url_safety import collect_allowed_hosts_from_source, sanitize_public_http_url
 
 
 API_RECORD_KEYS = ("records", "data", "result")
+DATA_GOV_ALLOWED_HOST_SUFFIXES = {"data.gov.in"}
 
 
 SOURCE_FILE_KEYS = [
@@ -82,6 +84,10 @@ class DataGovInConnector:
         return decoded.replace("\\u002F", "/")
 
     def _extract_file_candidates(self, html: str) -> list[str]:
+        def is_data_gov_host(candidate: str) -> bool:
+            host = (urlparse(candidate).hostname or "").lower()
+            return host == "www.data.gov.in" or host == "data.gov.in"
+
         values: list[str] = []
         for key in SOURCE_FILE_KEYS:
             # Try both raw and escaped JSON-string-like payload shapes.
@@ -103,7 +109,7 @@ class DataGovInConnector:
             if value.startswith("http://") or value.startswith("https://"):
                 candidates.append(value)
                 # Prefer mirror host variants for data.gov.in endpoints that intermittently require it.
-                if "https://www.data.gov.in/" in value:
+                if is_data_gov_host(value) and (urlparse(value).hostname or "").lower() == "www.data.gov.in":
                     candidates.append(value.replace("https://www.data.gov.in", "https://data.gov.in"))
             elif value.startswith("/"):
                 candidates.append(f"https://www.data.gov.in{value}")
@@ -117,7 +123,7 @@ class DataGovInConnector:
 
             if "/system/files/" in value and "/sites/default/files/" not in value:
                 candidates.append(f"https://www.data.gov.in{value.replace('/system/files/', '/sites/default/files/')}")
-            if "https://www.data.gov.in/" in value and "/files/ogdpv2dms/" in value:
+            if is_data_gov_host(value) and "/files/ogdpv2dms/" in urlparse(value).path:
                 candidates.append(value.replace("https://www.data.gov.in/files/", "https://data.gov.in/sites/default/files/"))
             if "/ogdpv2dms/" in value and ".csv" in value.lower():
                 filename = value.rsplit("/", 1)[-1]
@@ -168,8 +174,28 @@ class DataGovInConnector:
                 out.append(item)
         return out
 
-    def _read_file_candidate(self, url: str, raw_root: Path, source_id: str) -> tuple[pd.DataFrame | None, Path | None]:
-        response = requests.get(url, timeout=45, headers={"user-agent": "BHAI-research-scan/0.2"})
+    def _read_file_candidate(
+        self,
+        url: str,
+        raw_root: Path,
+        source_id: str,
+        allowed_hosts: set[str],
+    ) -> tuple[pd.DataFrame | None, Path | None]:
+        safe_url = sanitize_public_http_url(
+            url,
+            allowed_hosts=allowed_hosts,
+            allowed_host_suffixes=DATA_GOV_ALLOWED_HOST_SUFFIXES,
+        )
+        if not safe_url:
+            return None, None
+        response = requests.get(safe_url, timeout=45, headers={"user-agent": "BHAI-research-scan/0.2"})
+        final_url = sanitize_public_http_url(
+            response.url or safe_url,
+            allowed_hosts=allowed_hosts,
+            allowed_host_suffixes=DATA_GOV_ALLOWED_HOST_SUFFIXES,
+        )
+        if not final_url:
+            return None, None
         if not response.ok:
             return None, None
 
@@ -186,7 +212,7 @@ class DataGovInConnector:
                 # Fallback to text parsing for semi-CSV content mislabeled as JSON.
                 pass
 
-        guessed_ext = Path(urlparse(url).path).suffix.lower()
+        guessed_ext = Path(urlparse(final_url).path).suffix.lower()
         if guessed_ext in {".json"}:
             path_extension = ".json"
         elif guessed_ext in {".xlsx", ".xls"}:
@@ -245,7 +271,19 @@ class DataGovInConnector:
         raise ValueError("Unexpected API payload shape.")
 
     @staticmethod
-    def _fetch_api_pages(api_url: str, base_params: Dict[str, Any], headers: Dict[str, str]) -> pd.DataFrame:
+    def _fetch_api_pages(
+        api_url: str,
+        base_params: Dict[str, Any],
+        headers: Dict[str, str],
+        allowed_hosts: set[str],
+    ) -> pd.DataFrame:
+        safe_api_url = sanitize_public_http_url(
+            api_url,
+            allowed_hosts=allowed_hosts,
+            allowed_host_suffixes=DATA_GOV_ALLOWED_HOST_SUFFIXES,
+        )
+        if not safe_api_url:
+            raise ValueError("Unsafe API URL.")
         limit = int(base_params.get("limit", 5000))
         offset = 0
         pages: list[pd.DataFrame] = []
@@ -253,7 +291,13 @@ class DataGovInConnector:
         while len(pages) < 200:
             query = dict(base_params)
             query["offset"] = offset
-            response = requests.get(api_url, params=query, timeout=60, headers=headers)
+            response = requests.get(safe_api_url, params=query, timeout=60, headers=headers)
+            if not sanitize_public_http_url(
+                response.url or safe_api_url,
+                allowed_hosts=allowed_hosts,
+                allowed_host_suffixes=DATA_GOV_ALLOWED_HOST_SUFFIXES,
+            ):
+                raise ValueError("Unsafe API redirect URL.")
             response.raise_for_status()
 
             payload = response.json()
@@ -378,6 +422,7 @@ class DataGovInConnector:
         source_id = source["source_id"]
         output_path = processed_root / f"{source_id}.parquet"
         manifest_path = manifest_root / f"{source_id}.json"
+        allowed_hosts = collect_allowed_hosts_from_source(source)
 
         now = datetime.now(timezone.utc).isoformat()
         ensure_dirs(raw_root.as_posix(), processed_root.as_posix(), manifest_root.as_posix())
@@ -440,7 +485,7 @@ class DataGovInConnector:
             }
             raw_path: Path | None = None
             try:
-                api_df = self._fetch_api_pages(api_url, params, self._api_headers(source))
+                api_df = self._fetch_api_pages(api_url, params, self._api_headers(source), allowed_hosts)
                 if not api_df.empty:
                     raw_path = self._write_raw_response(raw_root / source_id, source_id, api_df.to_json(orient="records"), ".json")
                 if not api_df.empty:
@@ -463,15 +508,29 @@ class DataGovInConnector:
                 if explicit_files:
                     candidates = self._collect_resource_file_urls(source, page_html)
                 else:
+                    safe_resource_url = sanitize_public_http_url(
+                        resource_url or "",
+                        allowed_hosts=allowed_hosts,
+                        allowed_host_suffixes=DATA_GOV_ALLOWED_HOST_SUFFIXES,
+                    ) if resource_url else None
                     page_resp = requests.get(
-                        resource_url,
+                        safe_resource_url,
                         timeout=(8, 30),
                         headers={"user-agent": "BHAI-research-scan/0.2"},
-                    ) if resource_url else None
+                    ) if safe_resource_url else None
                     if page_resp is not None:
-                        page_html = page_resp.text if page_resp.status_code < 400 else ""
-                        if page_resp.status_code >= 400:
-                            page_status_issue = f"resource_page_http_{page_resp.status_code}"
+                        if not sanitize_public_http_url(
+                            page_resp.url or safe_resource_url or "",
+                            allowed_hosts=allowed_hosts,
+                            allowed_host_suffixes=DATA_GOV_ALLOWED_HOST_SUFFIXES,
+                        ):
+                            page_status_issue = "resource_page_unsafe_redirect"
+                            page_resp = None
+                            page_html = ""
+                        else:
+                            page_html = page_resp.text if page_resp.status_code < 400 else ""
+                            if page_resp.status_code >= 400:
+                                page_status_issue = f"resource_page_http_{page_resp.status_code}"
                     candidates = self._collect_resource_file_urls(source, page_html)
                 if not candidates:
                     candidates = self._extract_file_candidates(page_html)
@@ -486,7 +545,7 @@ class DataGovInConnector:
                     seen_candidate_paths.add(candidate_path)
 
                     try:
-                        parsed_df, parsed_path = self._read_file_candidate(candidate, raw_root, source_id)
+                        parsed_df, parsed_path = self._read_file_candidate(candidate, raw_root, source_id, allowed_hosts)
                     except Exception as exc:
                         parse_failures.append(f"{candidate}|{exc.__class__.__name__}")
                         continue

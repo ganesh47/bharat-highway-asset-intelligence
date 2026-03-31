@@ -17,6 +17,7 @@ from typing import Any, Dict, Iterable, List, Tuple
 import pandas as pd
 import requests
 from pypdf import PdfReader
+from pipelines.url_safety import sanitize_public_http_url
 
 
 try:  # optional
@@ -57,6 +58,7 @@ NOISE_LINE_RE = re.compile(
 MAX_PDF_BYTES = 150 * 1024 * 1024
 MAX_PDF_PAGES = 250
 DOWNLOAD_CHUNK_BYTES = 1024 * 1024
+ALLOWED_DOWNLOAD_HOST_SUFFIXES = {"nhai.gov.in"}
 
 CANONICAL_COLUMNS = [
     "report_year",
@@ -346,8 +348,13 @@ def _dedupe_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def _download_pdf(url: str) -> tuple[bytes | None, str | None]:
+    safe_url = sanitize_public_http_url(url, allowed_host_suffixes=ALLOWED_DOWNLOAD_HOST_SUFFIXES)
+    if not safe_url:
+        return None, "download_blocked:unsafe_url"
     try:
-        response = requests.get(url, timeout=120, headers={"user-agent": "BHAI-multiagent-extractor/0.2"}, stream=True)
+        response = requests.get(safe_url, timeout=120, headers={"user-agent": "BHAI-multiagent-extractor/0.2"}, stream=True)
+        if not sanitize_public_http_url(response.url or safe_url, allowed_host_suffixes=ALLOWED_DOWNLOAD_HOST_SUFFIXES):
+            return None, "download_blocked:unsafe_redirect_url"
         response.raise_for_status()
     except Exception as exc:
         return None, f"download_failed:{exc}"

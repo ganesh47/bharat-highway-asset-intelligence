@@ -11,6 +11,7 @@ from .base import ConnectorResult, ConnectorSpec
 from pipelines.common import ensure_dirs, sha256_for_file, write_json, write_parquet
 from pipelines.quality import evaluate
 from pipelines.connectors.stub_connectors import _read_manual_csv
+from pipelines.url_safety import collect_allowed_hosts_from_source, sanitize_public_http_url
 
 
 class RBIMOSPIMacroConnector:
@@ -148,9 +149,31 @@ class RBIMOSPIMacroConnector:
                 skip_reason="disabled",
             )
 
+        allowed_hosts = collect_allowed_hosts_from_source(source)
         endpoint = source.get("url", "")
+        safe_endpoint = sanitize_public_http_url(endpoint, allowed_hosts=allowed_hosts)
+        if not safe_endpoint:
+            return ConnectorResult(
+                source_id=source_id,
+                output_table_path=output_path,
+                manifest={
+                    "source_id": source_id,
+                    "status": "skipped",
+                    "skip_reason": "invalid_or_unsafe_endpoint",
+                    "metric_category": "official_measured",
+                    "source": {
+                        "publisher": source.get("publisher_org"),
+                        "official_flag": source.get("official_flag", True),
+                    },
+                    "notes": "Endpoint rejected because it is not an allowed public official host.",
+                },
+                skipped=True,
+                skip_reason="invalid_endpoint",
+            )
         try:
-            resp = requests.get(endpoint, timeout=45)
+            resp = requests.get(safe_endpoint, timeout=45)
+            if not sanitize_public_http_url(resp.url or safe_endpoint, allowed_hosts=allowed_hosts):
+                raise ValueError("unsafe_redirect_url")
             resp.raise_for_status()
             raw_path = raw_root / source_id / f"raw_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.csv"
             raw_path.parent.mkdir(parents=True, exist_ok=True)
@@ -192,7 +215,7 @@ class RBIMOSPIMacroConnector:
             "source": {
                 "publisher": source.get("publisher_org"),
                 "title": source.get("dataset_title"),
-                "url": endpoint,
+                "url": safe_endpoint,
                 "retrieved_at": datetime.now(timezone.utc).isoformat(),
                 "license_terms": source.get("license_terms"),
                 "official_flag": source.get("official_flag", True),

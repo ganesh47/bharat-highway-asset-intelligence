@@ -13,6 +13,7 @@ import urllib.robotparser
 import requests
 
 from .loader import load_inventory, write_machine_inventory
+from pipelines.url_safety import collect_allowed_hosts_from_source, sanitize_public_http_url
 
 
 DEFAULT_HEADERS = {
@@ -52,7 +53,10 @@ def _safe_url_list(item: Dict[str, Any]) -> list[str]:
     return []
 
 
-def _robots_allowed(url: str) -> Dict[str, Any]:
+def _robots_allowed(url: str, allowed_hosts: set[str]) -> Dict[str, Any]:
+    safe_url = sanitize_public_http_url(url, allowed_hosts=allowed_hosts)
+    if not safe_url:
+        return {"allowed": False, "reason": "unsafe_url", "crawl_delay": None}
     parsed = urlparse(url)
     if not parsed.scheme or not parsed.netloc:
         return {"allowed": False, "reason": "invalid_url", "crawl_delay": None}
@@ -77,7 +81,7 @@ def _robots_allowed(url: str) -> Dict[str, Any]:
             "crawl_delay": None,
         }
     delay = parser.crawl_delay("")
-    allowed = parser.can_fetch("*", url)
+    allowed = parser.can_fetch("*", safe_url)
     return {
         "allowed": bool(allowed),
         "crawl_delay": delay,
@@ -85,7 +89,7 @@ def _robots_allowed(url: str) -> Dict[str, Any]:
     }
 
 
-def _http_probe(url: str, timeout: int = 20) -> Dict[str, Any]:
+def _http_probe(url: str, allowed_hosts: set[str], timeout: int = 20) -> Dict[str, Any]:
     status: Dict[str, Any] = {
         "status_ok": False,
         "http_status": None,
@@ -94,9 +98,16 @@ def _http_probe(url: str, timeout: int = 20) -> Dict[str, Any]:
         "last_modified": None,
         "error": None,
     }
+    safe_url = sanitize_public_http_url(url, allowed_hosts=allowed_hosts)
+    if not safe_url:
+        status["error"] = "unsafe_url"
+        return status
 
     try:
-        resp = requests.get(url, headers=DEFAULT_HEADERS, timeout=timeout, allow_redirects=True)
+        resp = requests.get(safe_url, headers=DEFAULT_HEADERS, timeout=timeout, allow_redirects=True)
+        if not sanitize_public_http_url(resp.url or safe_url, allowed_hosts=allowed_hosts):
+            status["error"] = "unsafe_redirect_url"
+            return status
         status["http_status"] = resp.status_code
         status["content_type"] = resp.headers.get("Content-Type")
         status["etag"] = resp.headers.get("ETag")
@@ -124,10 +135,14 @@ def _scan_item(item: Dict[str, Any]) -> Dict[str, Any]:
         }
     )
 
+    allowed_hosts = collect_allowed_hosts_from_source(item)
     url = _safe_url(item)
     if not url:
         result["status_ok"] = False
         result["scan_error"] = "missing_or_unresolved_url"
+        return result
+    if not sanitize_public_http_url(url, allowed_hosts=allowed_hosts):
+        result["scan_error"] = "invalid_or_unsafe_url"
         return result
 
     if item.get("auth") in {"captcha", "restricted"}:
@@ -147,27 +162,31 @@ def _scan_item(item: Dict[str, Any]) -> Dict[str, Any]:
         return result
 
     for candidate in candidates:
-        robots = _robots_allowed(candidate)
+        safe_candidate = sanitize_public_http_url(candidate, allowed_hosts=allowed_hosts)
+        if not safe_candidate:
+            result["scan_error"] = "invalid_or_unsafe_url"
+            continue
+        robots = _robots_allowed(safe_candidate, allowed_hosts)
         if not robots.get("allowed"):
             reason = robots.get("reason")
             if reason and reason.startswith("robots_fetch"):
                 # best-effort probe for transient robots failures; keep strict on explicit disallow.
-                result.update(_http_probe(candidate))
+                result.update(_http_probe(safe_candidate, allowed_hosts))
                 result["crawl_delay_seconds"] = robots.get("crawl_delay")
                 result["scan_error"] = reason
                 if result.get("last_modified"):
                     result["last-modified"] = result["last_modified"]
                 if result.get("status_ok"):
-                    result["scanned_url"] = candidate
+                    result["scanned_url"] = safe_candidate
                     return result
                 continue
 
             continue
 
-        probe = _http_probe(candidate)
+        probe = _http_probe(safe_candidate, allowed_hosts)
         result.update(probe)
         result["crawl_delay_seconds"] = robots.get("crawl_delay")
-        result["scanned_url"] = candidate
+        result["scanned_url"] = safe_candidate
         if result.get("last_modified"):
             result["last-modified"] = result["last_modified"]
 
