@@ -1,0 +1,64 @@
+{
+  "source_id": "data_gov_in_nhai_project_finance_api",
+  "connector": "data_gov_in_ogd",
+  "version": "0.2.0",
+  "status": "automated",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI)",
+    "title": "National Highways project finance and budget allocation data",
+    "domain": "data.gov.in",
+    "url": "https://www.data.gov.in/resource/year-wise-details-funds-allocatedraised-and-expenditure-incurred-development-and",
+    "retrieval_method": "API call",
+    "access_type": "API",
+    "retrieved_at": "2026-03-11T05:17:07.362507+00:00",
+    "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "uuid c898c59e-1f0c-4c09-b195-7d3ac1cd19d4",
+    "anchor": "api:data_gov_in_nhai_project_finance_api:c898c59e-1f0c-4c09-b195-7d3ac1cd19d4",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/data_gov_in_nhai_project_finance_api/data_gov_in_nhai_project_finance_api/raw_20260311_051707.json",
+        "sha256": "53c1dc4148c9eed950ba9763808ad4537bddcc530b3c28aaabd6ecc33e6debf1",
+        "size_bytes": 2368
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
+        "format": "parquet",
+        "sha256": "46ad0339a990c24b804e1f256fa17fe0ee646adbbf298558d4b67e5a53b4d43a"
+      }
+    ],
+    "row_count": 6,
+    "columns": [
+      "year_wise",
+      "allocation_target___budgetary",
+      "allocation_target___iebr_target",
+      "allocation_target___others",
+      "allocation_target___total",
+      "expenditure_release_of_funds_actuals___budgetary",
+      "expenditure_release_of_funds_actuals___iebr_actual",
+      "expenditure_release_of_funds_actuals___others",
+      "expenditure_release_of_funds_actuals___total",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-03-11T05:17:07.362507+00:00",
+  "completeness_score": 0.976,
+  "recency_score": 1.0,
+  "provenance_score": 1.0,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/data_gov_in_nhai_project_finance_api.parquet"
+}

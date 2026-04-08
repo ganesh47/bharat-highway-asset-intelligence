@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+  <body style="font-family:Georgia, serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; line-height:1.6;">
+    <h1>Confidence Methodology</h1>
+    <p>The UI assigns confidence to every metric from four orthogonal scores:</p>
+    <ol>
+      <li><strong>Completeness</strong> – missingness in the canonical dataset after parsing.</li>
+      <li><strong>Recency</strong> – freshness compared with declared <code>update_frequency</code>.</li>
+      <li><strong>Provenance</strong> – official status and reliability grade A/B/C.</li>
+      <li><strong>Consistency</strong> – simple schema and range checks for known numeric fields.</li>
+    </ol>
+    <p>Final badges are High / Med / Low from weighted aggregation and mapped to limitations shown in tooltips.</p>
+    <p>Signals are classified as:</p>
+    <ul>
+      <li><strong>Official measured</strong> - direct official publications/API/parsing outputs.</li>
+      <li><strong>Proxy-derived</strong> - non-official context or geometry signals used for analysis context only.</li>
+      <li><strong>Model outputs</strong> - predictive/risk outputs (if/when added), never treated as fact.</li>
+    </ul>
+    <p>Model outputs are explicitly separated from official measured values and should be read as risk signals only.</p>
+    <p>The optional <code>correlation_matrix</code> artifact is a model output computed from source metrics joined on available state/year keys and is not treated as an official measurement.</p>
+  </body>
+</html>

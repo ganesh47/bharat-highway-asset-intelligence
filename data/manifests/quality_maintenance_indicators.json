@@ -1,0 +1,56 @@
+{
+  "source_id": "quality_maintenance_indicators",
+  "connector": "quality_maintenance_proxy",
+  "version": "0.1.0",
+  "status": "manual_ingest",
+  "metric_category": "proxy_derived",
+  "source": {
+    "publisher": "OpenStreetMap Foundation / Academic proxy sources",
+    "title": "Corridor geometry and ancillary maintenance proxy indicators",
+    "url": "https://overpass-api.de/api/interpreter",
+    "retrieved_at": "2026-03-11T05:17:35.836220+00:00",
+    "license_terms": "OpenStreetMap ODbL terms; geometry/proxy use with attribution and separation from official metrics.",
+    "official_flag": false
+  },
+  "citations": {
+    "permanent_identifier": "Overpass query id or source timestamp",
+    "anchor": "openstreetmap_context_only",
+    "note": "This is proxy geometry/context only, not an official quality measurement."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/quality_maintenance_indicators.csv",
+        "sha256": "8750e5e5ae1953290e0c8234d5ffc757730e592d454c87527f2ebacc89889381",
+        "size_bytes": 332
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/quality_maintenance_indicators.parquet",
+        "sha256": "e8701a34bfccc3acacb0c2d9f1bf4ac4dad22924bb0b47771c04af60a89558f0"
+      }
+    ],
+    "row_count": 6,
+    "columns": [
+      "state",
+      "year",
+      "metric_name",
+      "metric_value",
+      "unit",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-03-11T05:17:35.836220+00:00",
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.588,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/quality_maintenance_indicators.parquet"
+}

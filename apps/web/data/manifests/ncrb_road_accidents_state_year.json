@@ -1,0 +1,53 @@
+{
+  "source_id": "ncrb_road_accidents_state_year",
+  "connector": "ncrb_accidents_pdf",
+  "version": "0.1.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Crime Records Bureau (NCRB)",
+    "title": "Road accident state and year summary tables",
+    "retrieved_at": "2026-03-11T05:17:32.830539+00:00",
+    "license_terms": "NCRB publication terms. Use only published tables and cite report/table numbers.",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "year and report table page numbers",
+    "anchor": "official_pdf_tables_or_manual_csv"
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/ncrb_road_accidents_state_year.csv",
+        "sha256": "792aa08c6207fb6671fc4233409cab8295ed36bbed6f9c1e16b67caafcf14265",
+        "size_bytes": 171
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/ncrb_road_accidents_state_year.parquet",
+        "sha256": "2a38f93d77363ca9ef3d14f92ef95017f3155f6e34630981e9162f0ff29704c2"
+      }
+    ],
+    "row_count": 3,
+    "columns": [
+      "state",
+      "year",
+      "total_accidents",
+      "fatal_crashes",
+      "total_killed",
+      "total_injured",
+      "source_type",
+      "source_id",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-03-11T05:17:32.830647+00:00",
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/ncrb_road_accidents_state_year.parquet"
+}

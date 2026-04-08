@@ -1,0 +1,56 @@
+{
+  "source_id": "rbi_mospi_macro_indicators",
+  "connector": "rbi_mospi_macro_pull",
+  "version": "0.1.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "Reserve Bank of India / Ministry of Statistics and Programme Implementation",
+    "title": "Macro indicators relevant to highway finance and inflation adjustments",
+    "url": "https://www.rbi.org.in/Scripts/{}",
+    "retrieved_at": "2026-03-11T05:17:35.808015+00:00",
+    "license_terms": "Official statistical products; confirm redistribution terms in portal.",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "official indicator code + release month",
+    "anchor": "official_manual_macro_snapshot",
+    "note": "Macro indicators imported through approved manual artifact."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/rbi_mospi_macro_indicators.csv",
+        "sha256": "737ef25c6e750282cc540aeeddaad2cb66f6f0349ed4d061a416624121df56e1",
+        "size_bytes": 280
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/rbi_mospi_macro_indicators.parquet",
+        "sha256": "612d5e6d0b739fdb58ba8f84741806a767824bbce937f9692ad6f71d3415ea3f"
+      }
+    ],
+    "row_count": 6,
+    "columns": [
+      "state",
+      "year",
+      "metric_name",
+      "metric_value",
+      "unit",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-03-11T05:17:35.808204+00:00",
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/rbi_mospi_macro_indicators.parquet"
+}

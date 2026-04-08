@@ -1,0 +1,62 @@
+{
+  "source_id": "nhai_audited_results_pdf",
+  "connector": "nhai_annual_documents",
+  "version": "0.1.1",
+  "status": "automated",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI)",
+    "title": "NHAI audited financial results (SEBI format), across all available years",
+    "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
+    "retrieved_at": "2026-03-13T12:20:39.401433+00:00",
+    "license_terms": "Official publication on NHAI website; reuse subject to official publication terms.",
+    "official_flag": true,
+    "domain": "nhai.gov.in"
+  },
+  "citations": {
+    "permanent_identifier": "NHAI audited results annual PDFs from NHAI mix_file archive",
+    "anchor": "discovery:https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
+    "note": "Official NHAI document discovery and ingestion succeeded."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/nhai_audited_results_pdf/nhai_audited_results_pdf/raw_20260313_122042.pdf",
+        "sha256": "3e782fa352efdebc326e8b3f2f539690dd8784120e865855998b04b05548f9ad",
+        "size_bytes": 1733398
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/nhai_audited_results_pdf.parquet",
+        "format": "parquet",
+        "sha256": "b4d492927e84375a77b613c6bb40515c59e51d06983c93c9590957f86459171b"
+      }
+    ],
+    "row_count": 1,
+    "columns": [
+      "source_id",
+      "source_type",
+      "metric_category",
+      "dataset_source",
+      "metric_name",
+      "metric_value",
+      "unit",
+      "document_title",
+      "source_document_url",
+      "financial_year",
+      "as_of_timestamp",
+      "publication_date",
+      "document_checksum",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-03-13T12:20:39.401433+00:00",
+  "completeness_score": 0.857,
+  "recency_score": 1.0,
+  "provenance_score": 0.85,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/nhai_audited_results_pdf.parquet"
+}

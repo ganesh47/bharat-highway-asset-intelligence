@@ -1,0 +1,1199 @@
+{
+  "generated_at": "2026-04-08T18:45:34.184575+00:00",
+  "workflow": "github-pages.yml",
+  "git_sha": "f873a84bf8d327c3b739eb4c055546a48b237685",
+  "file_count": 238,
+  "bundle_sha256": "85376bcbe0e58ef542c48ec077e7b777108f760af04cb59d627f130a30476307",
+  "files": [
+    {
+      "path": ".nojekyll",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "apps/web/.nojekyll",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "apps/web/data/manifests/catalog.json",
+      "sha256": "45bf0d184001f05d34804d48fffe4643ad296867b5e522988d4dbe72e0f70f82",
+      "bytes": 96126
+    },
+    {
+      "path": "apps/web/data/manifests/correlation_matrix.json",
+      "sha256": "092367a10dc20f48405a86f76db3ef4f44e41ae0e17a37814153df0c69ee909c",
+      "bytes": 1834
+    },
+    {
+      "path": "apps/web/data/manifests/data_gov_in_gsdp_stateut_current_prices_2017_23.json",
+      "sha256": "622d0d2ec0dad86d68f5db7e80ddef2403fa4506424c8f3c0784e7d06f997c51",
+      "bytes": 4054
+    },
+    {
+      "path": "apps/web/data/manifests/data_gov_in_nh_fatalities_injuries_state_year.json",
+      "sha256": "0d5a357f96d1c118d5461b08acfef1e15153ae616644b7fc108ce5859342461f",
+      "bytes": 2380
+    },
+    {
+      "path": "apps/web/data/manifests/data_gov_in_nhai_district_projects_implemented.json",
+      "sha256": "e01208ec6eb8ab1d80c6cd227a1024be0d364867597a37538409005948bbbb13",
+      "bytes": 2277
+    },
+    {
+      "path": "apps/web/data/manifests/data_gov_in_nhai_himachal_nhai_projects_ongoing.json",
+      "sha256": "8e56c56c46b2bb8db5c198a9c3ac08df1292f9cadbb2cfabfe326db3d582d6b8",
+      "bytes": 2378
+    },
+    {
+      "path": "apps/web/data/manifests/data_gov_in_nhai_project_finance_api.json",
+      "sha256": "73a7e2b06f20c530255320b82c1c7e15672ea0c5fd6c10b32f9e7377e5f38c60",
+      "bytes": 2463
+    },
+    {
+      "path": "apps/web/data/manifests/data_gov_in_nhai_projects_api.json",
+      "sha256": "e7662aa93bc14f1ed69a620f494fbe84c1113a69c7d607325c164a8ecaa76a01",
+      "bytes": 2165
+    },
+    {
+      "path": "apps/web/data/manifests/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs.json",
+      "sha256": "167426cccdf0d9fd388614be27dec821bf07f830a4dc440528aef796ffad974e",
+      "bytes": 2373
+    },
+    {
+      "path": "apps/web/data/manifests/data_gov_in_nhai_projects_district_target_2023.json",
+      "sha256": "30ab28459d8bfc870f613287a41e26b5b1bb22201adfc2095ca2c40f4468103e",
+      "bytes": 2364
+    },
+    {
+      "path": "apps/web/data/manifests/data_gov_in_nhai_punjab_42_projects_implementation.json",
+      "sha256": "cf60bd143c131c2a40a76f5116886f14a2f6a7f256856b18ee56227d45382d52",
+      "bytes": 2303
+    },
+    {
+      "path": "apps/web/data/manifests/data_gov_in_nhai_state_projects_api.json",
+      "sha256": "c71baec0f405c6a08bcb539790a3d9f0d9286c5cd421fe760da225e0442bde7f",
+      "bytes": 2204
+    },
+    {
+      "path": "apps/web/data/manifests/data_gov_in_nhai_stateut_length_constructed_2019_24.json",
+      "sha256": "86078097b5e53e7d5e110cab7abf4614a3f511cf7af2787c1d6bf01cb45215f5",
+      "bytes": 2427
+    },
+    {
+      "path": "apps/web/data/manifests/data_gov_in_nhai_stateut_project_delay_status_2024.json",
+      "sha256": "6a72157b4a92d86dd4f413e527b126b0083a6ce33fb8a8c08bf7a73f54130afd",
+      "bytes": 2288
+    },
+    {
+      "path": "apps/web/data/manifests/data_gov_in_nhai_statewise_nh_project_status_2024_25.json",
+      "sha256": "d0c525baa6f1f195e0ffc3ac71487f1b8144a67398f32c657a257fa82360f3f8",
+      "bytes": 2891
+    },
+    {
+      "path": "apps/web/data/manifests/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026.json",
+      "sha256": "5bb6f2e73c0d0c3cb1d4b694a96ea3b06fed27bbef5a970b6be68bd19474a55d",
+      "bytes": 2393
+    },
+    {
+      "path": "apps/web/data/manifests/data_gov_in_nhai_yearwise_nh_constructed_2014_15.json",
+      "sha256": "6292b540ac602c2ae78fc9af4ecde27a795d6867148bb4080fbf1f4e1f15f196",
+      "bytes": 2220
+    },
+    {
+      "path": "apps/web/data/manifests/data_gov_in_road_accidents_india_2003_2016.json",
+      "sha256": "af89e190ca65eb3f6fbd4d7a1532674370ee27aaead5fdbbc9a221e7674b866f",
+      "bytes": 2378
+    },
+    {
+      "path": "apps/web/data/manifests/data_gov_in_road_accidents_nhs_2003_2016.json",
+      "sha256": "5915ece7d215fc12c34e584cf18f50ff27e26c27c144c402c1c59fd95ff2ea6d",
+      "bytes": 2364
+    },
+    {
+      "path": "apps/web/data/manifests/data_gov_in_road_fatal_accidents_2003_2016.json",
+      "sha256": "09b8ed83001fdd6dcb90c46dd824ab37776ff74b2dcacfeb05fac386df35326e",
+      "bytes": 2350
+    },
+    {
+      "path": "apps/web/data/manifests/highway_project_risk_and_access_panel.json",
+      "sha256": "2501e9422fd7b84358be9fdf6da5af060efa5529994cdde02b20a4086368fcf8",
+      "bytes": 3303
+    },
+    {
+      "path": "apps/web/data/manifests/morh_arbitration_claims.json",
+      "sha256": "46b934e0e62d324a63032ebf8266a9cc28e0a35fad8304609fd3c6096844c1ce",
+      "bytes": 1886
+    },
+    {
+      "path": "apps/web/data/manifests/morh_contractor_disclosures.json",
+      "sha256": "bcc3e3f73bafb49ff2ba6001f47c03163bdd0b6d16a978ead4da487340cb5e07",
+      "bytes": 1963
+    },
+    {
+      "path": "apps/web/data/manifests/morh_procurement_awards.json",
+      "sha256": "8f230bc03a8ea6eb77e3e63b708ced17ded2ca5ebc5491fe9df82f152429a77e",
+      "bytes": 1768
+    },
+    {
+      "path": "apps/web/data/manifests/morth_annual_report_pdf.json",
+      "sha256": "c905c803571bdb107f8ca137326e79ca0809ee8b599ad30c001382293b2e7658",
+      "bytes": 3229
+    },
+    {
+      "path": "apps/web/data/manifests/ncrb_road_accidents_state_year.json",
+      "sha256": "1df643be915a58349d1c93aad3eaa93a212c9cc76af678b9e49bad9930438f31",
+      "bytes": 1635
+    },
+    {
+      "path": "apps/web/data/manifests/ncrb_toll_fastag_claims.json",
+      "sha256": "684ab5cd88208488f30278e49c594ea4fd7ede51e585ab2afe47a9bba9dac7f5",
+      "bytes": 1791
+    },
+    {
+      "path": "apps/web/data/manifests/nhai_annual_report_documents.json",
+      "sha256": "cebdc4e135a7cfb01d82a782bdeb0914a00f8908a5f59da05261792677bf4dff",
+      "bytes": 9230
+    },
+    {
+      "path": "apps/web/data/manifests/nhai_audited_results_pdf.json",
+      "sha256": "af694308f177a52011f8277f0bc6b86a3dc806593779289a367c1d3c1f331ca4",
+      "bytes": 2164
+    },
+    {
+      "path": "apps/web/data/manifests/nhai_constructed_length_series_official.json",
+      "sha256": "be7de820069314ffcb36b2fbce15288065d4008990c543c6f85ef778e8dc978e",
+      "bytes": 2202
+    },
+    {
+      "path": "apps/web/data/manifests/nhai_press_release_index.json",
+      "sha256": "851b942d3405c98cfb0590a4f250cd10ab7d310250467bc83f7721680ccf326b",
+      "bytes": 1700
+    },
+    {
+      "path": "apps/web/data/manifests/parliament_qa_highway_queries.json",
+      "sha256": "8a4434b5550abc03e0eef09cbd2c5239ef465970911a202020feae79121e1561",
+      "bytes": 1893
+    },
+    {
+      "path": "apps/web/data/manifests/parliament_qa_nh_blackspots_state.json",
+      "sha256": "f9f91d6e47977f7fdc804d8fa81bfa2ffec7c236b340953c5a0c16820cecf1ec",
+      "bytes": 2160
+    },
+    {
+      "path": "apps/web/data/manifests/quality_maintenance_indicators.json",
+      "sha256": "0d57c04eaed41f344ff5805913193c24b6f226104715c09e612978d41eb99ae4",
+      "bytes": 1841
+    },
+    {
+      "path": "apps/web/data/manifests/rbi_mospi_macro_indicators.json",
+      "sha256": "867997c6a588425d2f477f43870d976eb10848d7ab65bce87b70be7a4d3bf494",
+      "bytes": 1815
+    },
+    {
+      "path": "apps/web/data/manifests/viirs_nightlights_proxy.json",
+      "sha256": "efbfa6b35b5119eea8f25c53d62eb10570df31370d2d57e71911a30756f135df",
+      "bytes": 1878
+    },
+    {
+      "path": "apps/web/data/processed/correlation_matrix.parquet",
+      "sha256": "63491d14e18f16342bfe41dd9727b50d341eb0574b109e9cea39d8b259cb37e4",
+      "bytes": 10734
+    },
+    {
+      "path": "apps/web/data/processed/data_gov_in_gsdp_stateut_current_prices_2017_23.parquet",
+      "sha256": "bca3d786d3b52ac40fba997c88da730eb3037db8edd6533cddba66effd614112",
+      "bytes": 34456
+    },
+    {
+      "path": "apps/web/data/processed/data_gov_in_nh_fatalities_injuries_state_year.parquet",
+      "sha256": "0a8af39094f72e7050fd36cc765f0aa859e974e9e56f46bf6922bbcda9078a1c",
+      "bytes": 11028
+    },
+    {
+      "path": "apps/web/data/processed/data_gov_in_nhai_district_projects_implemented.parquet",
+      "sha256": "fae78907ff86ad667f34a77588b8146813995050f61ab5d77fe50694f9b55d45",
+      "bytes": 10444
+    },
+    {
+      "path": "apps/web/data/processed/data_gov_in_nhai_himachal_nhai_projects_ongoing.parquet",
+      "sha256": "c25a1515e3b611cca73ab2bb814726ce422887bfdddb0146c5dfdaf4ad5b4e20",
+      "bytes": 10868
+    },
+    {
+      "path": "apps/web/data/processed/data_gov_in_nhai_project_finance_api.parquet",
+      "sha256": "46ad0339a990c24b804e1f256fa17fe0ee646adbbf298558d4b67e5a53b4d43a",
+      "bytes": 11249
+    },
+    {
+      "path": "apps/web/data/processed/data_gov_in_nhai_projects_api.parquet",
+      "sha256": "ddf16c0ce3032e96a9429546969c566a55976e0fbcb54d62535e283824e34100",
+      "bytes": 10998
+    },
+    {
+      "path": "apps/web/data/processed/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs.parquet",
+      "sha256": "efb5eb69400dacb28c19aa29f44e18b93d97ad643c1ea349a1c4272b14a25702",
+      "bytes": 27200
+    },
+    {
+      "path": "apps/web/data/processed/data_gov_in_nhai_projects_district_target_2023.parquet",
+      "sha256": "9f84949782f9d94f3b480fac7e40f912281f4f4d6e105df3fa369c0369941e84",
+      "bytes": 11712
+    },
+    {
+      "path": "apps/web/data/processed/data_gov_in_nhai_punjab_42_projects_implementation.parquet",
+      "sha256": "b220a52ecb5471a2c379efc93108a8ba8669951319a9562bbcdd2d6d2ebadcb8",
+      "bytes": 10403
+    },
+    {
+      "path": "apps/web/data/processed/data_gov_in_nhai_state_projects_api.parquet",
+      "sha256": "c3e69a1855eb4ec9d1b25c65e5c3a3a3de10ba86dd7e6f42d8ed9b2e63f46ab4",
+      "bytes": 7423
+    },
+    {
+      "path": "apps/web/data/processed/data_gov_in_nhai_stateut_length_constructed_2019_24.parquet",
+      "sha256": "708e19b978581d748a0ecd077579db14768487cf4de2b7ac13ed5e0392290d3f",
+      "bytes": 10159
+    },
+    {
+      "path": "apps/web/data/processed/data_gov_in_nhai_stateut_project_delay_status_2024.parquet",
+      "sha256": "6e1ee687a60676c72afa286d7ca219e8c24de3a13beaa7c534cf6fe680279092",
+      "bytes": 7343
+    },
+    {
+      "path": "apps/web/data/processed/data_gov_in_nhai_statewise_nh_project_status_2024_25.parquet",
+      "sha256": "eb07c162aec98ec2d52c50b6373c1e02e4dee5b302d82995da02d4c94791ce6c",
+      "bytes": 14383
+    },
+    {
+      "path": "apps/web/data/processed/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026.parquet",
+      "sha256": "7ec4ecf7f06a8bc6b5ffb1ecf0ff9cd3e32e3947dab035eb640eb2ff5513eebc",
+      "bytes": 16903
+    },
+    {
+      "path": "apps/web/data/processed/data_gov_in_nhai_yearwise_nh_constructed_2014_15.parquet",
+      "sha256": "fb564d736c8e3a48209ce35a6c332fada7abbefba492f997def4a082adc89083",
+      "bytes": 5474
+    },
+    {
+      "path": "apps/web/data/processed/data_gov_in_road_accidents_india_2003_2016.parquet",
+      "sha256": "275cb0cae81e72ade1bd94a0b66edab4a3e3ed82be43078e7dc1f1b5cfaa014f",
+      "bytes": 15687
+    },
+    {
+      "path": "apps/web/data/processed/data_gov_in_road_accidents_nhs_2003_2016.parquet",
+      "sha256": "266c46afeb368b36b854c6039c489e5256b3189f768fc162d1ca938674c9bca5",
+      "bytes": 15416
+    },
+    {
+      "path": "apps/web/data/processed/data_gov_in_road_fatal_accidents_2003_2016.parquet",
+      "sha256": "2b4f2ae2c466a2cba5842a6c4a2e7e2717d3021542268f6c59d18fb91dfa0d8f",
+      "bytes": 15519
+    },
+    {
+      "path": "apps/web/data/processed/highway_project_risk_and_access_panel.parquet",
+      "sha256": "537fed9c7dc77bec902e992b09e09ae5f98d2c3e38159e0535688655638a6208",
+      "bytes": 5591029
+    },
+    {
+      "path": "apps/web/data/processed/morh_arbitration_claims.parquet",
+      "sha256": "d68c2bd2b02fcb881c5462410ef3fdc34bf7cfc35f2d14e800baa67d66a6fdf6",
+      "bytes": 8016
+    },
+    {
+      "path": "apps/web/data/processed/morh_contractor_disclosures.parquet",
+      "sha256": "4c4da604d82d99bf2473f75acc6594cbcde94c31ff0b173a07b54cb1d6fe70f6",
+      "bytes": 8171
+    },
+    {
+      "path": "apps/web/data/processed/morh_procurement_awards.parquet",
+      "sha256": "f7785046699b0633a7de679d48a9445be69ab1baf2780bf02b797c8e0cc2d140",
+      "bytes": 7219
+    },
+    {
+      "path": "apps/web/data/processed/morth_annual_report_pdf.parquet",
+      "sha256": "715380efec9222b63d924a0a69e60a1b6c80b47820a161e9491591a0b9a397c0",
+      "bytes": 10669
+    },
+    {
+      "path": "apps/web/data/processed/morth_annual_report_pdf_validation.json",
+      "sha256": "af85226ba77450d34d81f585b3b11c1e92d876f1fd7c29481897235288bb811c",
+      "bytes": 888
+    },
+    {
+      "path": "apps/web/data/processed/ncrb_road_accidents_state_year.parquet",
+      "sha256": "2a38f93d77363ca9ef3d14f92ef95017f3155f6e34630981e9162f0ff29704c2",
+      "bytes": 6125
+    },
+    {
+      "path": "apps/web/data/processed/ncrb_toll_fastag_claims.parquet",
+      "sha256": "ced5179e1b0d278ef56fd0c2e66e39a176c9868f1963a7512ccf61791a1b255e",
+      "bytes": 6838
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_documents.parquet",
+      "sha256": "231ee13efc7922304cb6dd196c46606657f6ac0f0421a249ebc37cbedef47bc5",
+      "bytes": 13202
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/extraction_manifest.json",
+      "sha256": "2b90efed8134a15e36554648f24ab2e59d2730d44eb4149da8ee6c68ea4c0066",
+      "bytes": 84316
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/quality_report.json",
+      "sha256": "e9103b59394eac979e8fd8206dff2ce398307a3c706fce32bcaac30e324db485",
+      "bytes": 89333
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1989.parquet",
+      "sha256": "f6eb8ce9c8c481160836556a5d7df7af9e334b785cb84624a1de9ad8bfcd6c10",
+      "bytes": 50124
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1996.parquet",
+      "sha256": "8ef45189ee027554adc809d06e8b7dc9b3543a39b24946b6165dddbe5985cc94",
+      "bytes": 38805
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1997.parquet",
+      "sha256": "e5c79165130003d9d620538112bea5bc86267cfc3d2c9893ef3db62ea0b75513",
+      "bytes": 40609
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1998.parquet",
+      "sha256": "d0db2c5b8c911ff853211491401d608663940ec4cc4e54f652a92fb3b6b6b079",
+      "bytes": 68888
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1999.parquet",
+      "sha256": "4c7c6bb1bd708fe2a79d2ad6f3a63cec6319aeb2baf123ff15f7a2443cf89fa2",
+      "bytes": 27001
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2000.parquet",
+      "sha256": "43b40a9fa6937a49b7552cd5f4d895242ece9bb36363a659b921add74f23ecfc",
+      "bytes": 27016
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2001.parquet",
+      "sha256": "b4f0e69a7aec6b2b97bebe74ff18d8ad572c3fd3974ed7bf6b260e1cb590a8a4",
+      "bytes": 26971
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2002.parquet",
+      "sha256": "01b19bdf28822fa0601c3a596edcb012de8c55932ec4f90f4f51aa335c14f3c8",
+      "bytes": 26971
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2003.parquet",
+      "sha256": "62bfc42743ee12d01517f13a992f3ca088a384e58655b94f31e2f77c733c7194",
+      "bytes": 27648
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2004.parquet",
+      "sha256": "18fb7c6d31faa8927dc24dac0c12045687d7f2f50e7ec0e9e82183340301dbb3",
+      "bytes": 26971
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2005.parquet",
+      "sha256": "1b435d93acc43018e3f8881c942b81dfd02ad828869757bb7c01ab528333a841",
+      "bytes": 26971
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2006.parquet",
+      "sha256": "dc153f21b820dd90966349be1775e20e985de69feb4f2515e9bddbb8db077a59",
+      "bytes": 26961
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2007.parquet",
+      "sha256": "bc675e26a4a0f46ef3608a67242060870b79ee12e02bd5256ca00b0727c7c7c1",
+      "bytes": 64856
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2008.parquet",
+      "sha256": "e1cca7ef5625c0357377e4e85320714b670f5989193ffe09a48eaa8773c354bc",
+      "bytes": 27203
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2009.parquet",
+      "sha256": "40ff81db8b6cb85f0daf1d923d7c5a4ae7bd5831175d41900f140768f246a888",
+      "bytes": 15940
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2010.parquet",
+      "sha256": "dc7eda2532abfbe4aaab9556a431fa175b2968d1c82b88c07558228a4fbf8881",
+      "bytes": 26284
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2011.parquet",
+      "sha256": "be9d496d05d325f28b44b6e1032f287e30791d4a380c8a299387fd3f8ae97119",
+      "bytes": 46476
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2012.parquet",
+      "sha256": "9af2fcf4bae268d86fb96abfe1c08b33c5e9700a7f80312afcf9832e762c9534",
+      "bytes": 141557
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2013.parquet",
+      "sha256": "ecbbd08e5d52385c56c7f23049729762bdde839427b5d3b9cfdb4809a33585ec",
+      "bytes": 81010
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2014.parquet",
+      "sha256": "03a47720578f7aa31af01306e2685f11c7282838f3a1307c693f803eb5bf9ff3",
+      "bytes": 84618
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2015.parquet",
+      "sha256": "cddd25bb62b0823a0973782bb2572c1b994cd0e58f4648b71f7f82f6eb5afee0",
+      "bytes": 116327
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2016.parquet",
+      "sha256": "a291e087adca81bdfe09f13b87b6a256747640ba92c0ef3b815f7fee49ce8675",
+      "bytes": 133465
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2017.parquet",
+      "sha256": "f5f0b124cc032d4c410d9e24ffe879952be94829771773feed82333a6aad3212",
+      "bytes": 52634
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2018.parquet",
+      "sha256": "a10807c4c4bde33f87a68a2c93a409332afcfc81652ae69ee1c599b00d38b27d",
+      "bytes": 319328
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2019.parquet",
+      "sha256": "7b14aa0e59f8b480890989f17c5777c25684894c5a97a25d8d1c895513a3f96f",
+      "bytes": 162475
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2020.parquet",
+      "sha256": "dd33c40e0eadedb1a76f45fec327a8ea68b3f25ba0e93c188d13caff8a61f9e4",
+      "bytes": 42379
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2021.parquet",
+      "sha256": "2651801b0bddf823df06eeecd3870a751f30aa188dcd9bd6aaf1e80f59e2a7de",
+      "bytes": 193122
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2022.parquet",
+      "sha256": "51173c99d5b4430411e95d48bdb22202582c9aa81ef989b898211691b0968d9d",
+      "bytes": 168317
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2023.parquet",
+      "sha256": "cef6be8eb2b104fb096ac2640fb82a27867903248a40e37a96f32e7eb58b6d80",
+      "bytes": 180929
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2025-26.parquet",
+      "sha256": "73420ffa204b24aee49b8f1557f5abb9c92d98b1ad83e59e96bbe25a4c4097ca",
+      "bytes": 26663
+    },
+    {
+      "path": "apps/web/data/processed/nhai_annual_report_tables_canonical.parquet",
+      "sha256": "3779f5964bfaf026602013e724a2dc9f5171b07bbf950208d03987142740b6d3",
+      "bytes": 1371832
+    },
+    {
+      "path": "apps/web/data/processed/nhai_audited_results_pdf.parquet",
+      "sha256": "b4d492927e84375a77b613c6bb40515c59e51d06983c93c9590957f86459171b",
+      "bytes": 10181
+    },
+    {
+      "path": "apps/web/data/processed/nhai_constructed_length_series_official.parquet",
+      "sha256": "f9ee1ec4f1bb087c4f962969a7d1d573cb1dac1834f57eb6332afc2b0203794d",
+      "bytes": 12161
+    },
+    {
+      "path": "apps/web/data/processed/nhai_press_release_index.parquet",
+      "sha256": "69d23b91008e49d74ea483be75b4b6f840ebcdb0737ae1cedb1cde22000e9157",
+      "bytes": 7027
+    },
+    {
+      "path": "apps/web/data/processed/parliament_qa_highway_queries.parquet",
+      "sha256": "cb5002d2d98f005e31a66945162b3317cec7d1f70e79d5b3686dab99d7e0a938",
+      "bytes": 7665
+    },
+    {
+      "path": "apps/web/data/processed/parliament_qa_nh_blackspots_state.parquet",
+      "sha256": "252753bb20c50b195075b97a9374c89065f81f9b89aa553ff68ddfaa61bdb502",
+      "bytes": 12294
+    },
+    {
+      "path": "apps/web/data/processed/quality_maintenance_indicators.parquet",
+      "sha256": "e8701a34bfccc3acacb0c2d9f1bf4ac4dad22924bb0b47771c04af60a89558f0",
+      "bytes": 6816
+    },
+    {
+      "path": "apps/web/data/processed/rbi_mospi_macro_indicators.parquet",
+      "sha256": "612d5e6d0b739fdb58ba8f84741806a767824bbce937f9692ad6f71d3415ea3f",
+      "bytes": 6827
+    },
+    {
+      "path": "apps/web/data/processed/viirs_nightlights_proxy.parquet",
+      "sha256": "86c710f6a5871689b57b7607184e5b539deedbb68370d5c8b3d45230c7174955",
+      "bytes": 7026
+    },
+    {
+      "path": "apps/web/duckdb/apache-arrow.mjs",
+      "sha256": "b1150fa48493cb98f04bfc6fde200648a7fed398e89914be733494ef0e1c39ce",
+      "bytes": 5108
+    },
+    {
+      "path": "apps/web/duckdb/duckdb-browser-coi.pthread.worker.js",
+      "sha256": "ab8b55bbbfde2bdabdd1d26700f131fe97d5c7da79c65c43a3f7d3b0e28a9d2a",
+      "bytes": 656471
+    },
+    {
+      "path": "apps/web/duckdb/duckdb-browser-eh.worker.js",
+      "sha256": "260b4773d2d78e5ab1106bc163ffd5b0b6eaeddedacf23190e9cafc9cc010d3d",
+      "bytes": 760530
+    },
+    {
+      "path": "apps/web/duckdb/duckdb-browser-mvp.worker.js",
+      "sha256": "f798d151c3db03d3f277f884acb882c7a324d5249ef540bdebb82d3cdafbbc37",
+      "bytes": 820866
+    },
+    {
+      "path": "apps/web/duckdb/duckdb-browser.mjs",
+      "sha256": "7a4e02ce0f97e4f173bddb97f359ff15b02e0a2cb096130dd938bbfd2700b808",
+      "bytes": 29927
+    },
+    {
+      "path": "apps/web/duckdb/duckdb-eh.wasm",
+      "sha256": "00d45e5e074b7f7e17e45daabacb0fb67248eac8bd638a72cd1b42dad23788e4",
+      "bytes": 35659694
+    },
+    {
+      "path": "apps/web/duckdb/duckdb-mvp.wasm",
+      "sha256": "79c530032e746177e0406f3f1c4fa9f69fd7437e17a18587b1f8ab38dc5132ea",
+      "bytes": 40621595
+    },
+    {
+      "path": "apps/web/index.html",
+      "sha256": "1a08339bae58b55ea084e7938990cfd801f4537e4add4b18e2cbdb208810dd5d",
+      "bytes": 519
+    },
+    {
+      "path": "apps/web/methodology.html",
+      "sha256": "53f48c3304bd134fa52b665ded9ee1d9e53ba801f7e99819d410d44c29210cae",
+      "bytes": 1524
+    },
+    {
+      "path": "apps/web/src/app.js",
+      "sha256": "d73c996ab8aac46fc8699c9f2c33559d82ecccc1ba2a3b2b4bfa94f916f7053f",
+      "bytes": 127045
+    },
+    {
+      "path": "apps/web/src/ontology.js",
+      "sha256": "bd2b35f12feb8e17fd738604f3e98f955ca58116d06126dbe3dbc58caf83b567",
+      "bytes": 3800
+    },
+    {
+      "path": "apps/web/src/styles.css",
+      "sha256": "98d99f07bcbedb88773584819b52b64f6d595bc5016a1fdd53bbbd8d8b24d83a",
+      "bytes": 8694
+    },
+    {
+      "path": "apps/web/test_import.html",
+      "sha256": "2b4fa53d55f43604a6fe603a888a93f043d4c36977756ebd89d97117379bd4ef",
+      "bytes": 318
+    },
+    {
+      "path": "data/manifests/catalog.json",
+      "sha256": "45bf0d184001f05d34804d48fffe4643ad296867b5e522988d4dbe72e0f70f82",
+      "bytes": 96126
+    },
+    {
+      "path": "data/manifests/correlation_matrix.json",
+      "sha256": "092367a10dc20f48405a86f76db3ef4f44e41ae0e17a37814153df0c69ee909c",
+      "bytes": 1834
+    },
+    {
+      "path": "data/manifests/data_gov_in_gsdp_stateut_current_prices_2017_23.json",
+      "sha256": "622d0d2ec0dad86d68f5db7e80ddef2403fa4506424c8f3c0784e7d06f997c51",
+      "bytes": 4054
+    },
+    {
+      "path": "data/manifests/data_gov_in_nh_fatalities_injuries_state_year.json",
+      "sha256": "0d5a357f96d1c118d5461b08acfef1e15153ae616644b7fc108ce5859342461f",
+      "bytes": 2380
+    },
+    {
+      "path": "data/manifests/data_gov_in_nhai_district_projects_implemented.json",
+      "sha256": "e01208ec6eb8ab1d80c6cd227a1024be0d364867597a37538409005948bbbb13",
+      "bytes": 2277
+    },
+    {
+      "path": "data/manifests/data_gov_in_nhai_himachal_nhai_projects_ongoing.json",
+      "sha256": "8e56c56c46b2bb8db5c198a9c3ac08df1292f9cadbb2cfabfe326db3d582d6b8",
+      "bytes": 2378
+    },
+    {
+      "path": "data/manifests/data_gov_in_nhai_project_finance_api.json",
+      "sha256": "73a7e2b06f20c530255320b82c1c7e15672ea0c5fd6c10b32f9e7377e5f38c60",
+      "bytes": 2463
+    },
+    {
+      "path": "data/manifests/data_gov_in_nhai_projects_api.json",
+      "sha256": "e7662aa93bc14f1ed69a620f494fbe84c1113a69c7d607325c164a8ecaa76a01",
+      "bytes": 2165
+    },
+    {
+      "path": "data/manifests/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs.json",
+      "sha256": "167426cccdf0d9fd388614be27dec821bf07f830a4dc440528aef796ffad974e",
+      "bytes": 2373
+    },
+    {
+      "path": "data/manifests/data_gov_in_nhai_projects_district_target_2023.json",
+      "sha256": "30ab28459d8bfc870f613287a41e26b5b1bb22201adfc2095ca2c40f4468103e",
+      "bytes": 2364
+    },
+    {
+      "path": "data/manifests/data_gov_in_nhai_punjab_42_projects_implementation.json",
+      "sha256": "cf60bd143c131c2a40a76f5116886f14a2f6a7f256856b18ee56227d45382d52",
+      "bytes": 2303
+    },
+    {
+      "path": "data/manifests/data_gov_in_nhai_state_projects_api.json",
+      "sha256": "c71baec0f405c6a08bcb539790a3d9f0d9286c5cd421fe760da225e0442bde7f",
+      "bytes": 2204
+    },
+    {
+      "path": "data/manifests/data_gov_in_nhai_stateut_length_constructed_2019_24.json",
+      "sha256": "86078097b5e53e7d5e110cab7abf4614a3f511cf7af2787c1d6bf01cb45215f5",
+      "bytes": 2427
+    },
+    {
+      "path": "data/manifests/data_gov_in_nhai_stateut_project_delay_status_2024.json",
+      "sha256": "6a72157b4a92d86dd4f413e527b126b0083a6ce33fb8a8c08bf7a73f54130afd",
+      "bytes": 2288
+    },
+    {
+      "path": "data/manifests/data_gov_in_nhai_statewise_nh_project_status_2024_25.json",
+      "sha256": "d0c525baa6f1f195e0ffc3ac71487f1b8144a67398f32c657a257fa82360f3f8",
+      "bytes": 2891
+    },
+    {
+      "path": "data/manifests/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026.json",
+      "sha256": "5bb6f2e73c0d0c3cb1d4b694a96ea3b06fed27bbef5a970b6be68bd19474a55d",
+      "bytes": 2393
+    },
+    {
+      "path": "data/manifests/data_gov_in_nhai_yearwise_nh_constructed_2014_15.json",
+      "sha256": "6292b540ac602c2ae78fc9af4ecde27a795d6867148bb4080fbf1f4e1f15f196",
+      "bytes": 2220
+    },
+    {
+      "path": "data/manifests/data_gov_in_road_accidents_india_2003_2016.json",
+      "sha256": "af89e190ca65eb3f6fbd4d7a1532674370ee27aaead5fdbbc9a221e7674b866f",
+      "bytes": 2378
+    },
+    {
+      "path": "data/manifests/data_gov_in_road_accidents_nhs_2003_2016.json",
+      "sha256": "5915ece7d215fc12c34e584cf18f50ff27e26c27c144c402c1c59fd95ff2ea6d",
+      "bytes": 2364
+    },
+    {
+      "path": "data/manifests/data_gov_in_road_fatal_accidents_2003_2016.json",
+      "sha256": "09b8ed83001fdd6dcb90c46dd824ab37776ff74b2dcacfeb05fac386df35326e",
+      "bytes": 2350
+    },
+    {
+      "path": "data/manifests/highway_project_risk_and_access_panel.json",
+      "sha256": "2501e9422fd7b84358be9fdf6da5af060efa5529994cdde02b20a4086368fcf8",
+      "bytes": 3303
+    },
+    {
+      "path": "data/manifests/morh_arbitration_claims.json",
+      "sha256": "46b934e0e62d324a63032ebf8266a9cc28e0a35fad8304609fd3c6096844c1ce",
+      "bytes": 1886
+    },
+    {
+      "path": "data/manifests/morh_contractor_disclosures.json",
+      "sha256": "bcc3e3f73bafb49ff2ba6001f47c03163bdd0b6d16a978ead4da487340cb5e07",
+      "bytes": 1963
+    },
+    {
+      "path": "data/manifests/morh_procurement_awards.json",
+      "sha256": "8f230bc03a8ea6eb77e3e63b708ced17ded2ca5ebc5491fe9df82f152429a77e",
+      "bytes": 1768
+    },
+    {
+      "path": "data/manifests/morth_annual_report_pdf.json",
+      "sha256": "c905c803571bdb107f8ca137326e79ca0809ee8b599ad30c001382293b2e7658",
+      "bytes": 3229
+    },
+    {
+      "path": "data/manifests/ncrb_road_accidents_state_year.json",
+      "sha256": "1df643be915a58349d1c93aad3eaa93a212c9cc76af678b9e49bad9930438f31",
+      "bytes": 1635
+    },
+    {
+      "path": "data/manifests/ncrb_toll_fastag_claims.json",
+      "sha256": "684ab5cd88208488f30278e49c594ea4fd7ede51e585ab2afe47a9bba9dac7f5",
+      "bytes": 1791
+    },
+    {
+      "path": "data/manifests/nhai_annual_report_documents.json",
+      "sha256": "cebdc4e135a7cfb01d82a782bdeb0914a00f8908a5f59da05261792677bf4dff",
+      "bytes": 9230
+    },
+    {
+      "path": "data/manifests/nhai_audited_results_pdf.json",
+      "sha256": "af694308f177a52011f8277f0bc6b86a3dc806593779289a367c1d3c1f331ca4",
+      "bytes": 2164
+    },
+    {
+      "path": "data/manifests/nhai_constructed_length_series_official.json",
+      "sha256": "be7de820069314ffcb36b2fbce15288065d4008990c543c6f85ef778e8dc978e",
+      "bytes": 2202
+    },
+    {
+      "path": "data/manifests/nhai_press_release_index.json",
+      "sha256": "851b942d3405c98cfb0590a4f250cd10ab7d310250467bc83f7721680ccf326b",
+      "bytes": 1700
+    },
+    {
+      "path": "data/manifests/parliament_qa_highway_queries.json",
+      "sha256": "8a4434b5550abc03e0eef09cbd2c5239ef465970911a202020feae79121e1561",
+      "bytes": 1893
+    },
+    {
+      "path": "data/manifests/parliament_qa_nh_blackspots_state.json",
+      "sha256": "f9f91d6e47977f7fdc804d8fa81bfa2ffec7c236b340953c5a0c16820cecf1ec",
+      "bytes": 2160
+    },
+    {
+      "path": "data/manifests/quality_maintenance_indicators.json",
+      "sha256": "0d57c04eaed41f344ff5805913193c24b6f226104715c09e612978d41eb99ae4",
+      "bytes": 1841
+    },
+    {
+      "path": "data/manifests/rbi_mospi_macro_indicators.json",
+      "sha256": "867997c6a588425d2f477f43870d976eb10848d7ab65bce87b70be7a4d3bf494",
+      "bytes": 1815
+    },
+    {
+      "path": "data/manifests/viirs_nightlights_proxy.json",
+      "sha256": "efbfa6b35b5119eea8f25c53d62eb10570df31370d2d57e71911a30756f135df",
+      "bytes": 1878
+    },
+    {
+      "path": "data/processed/correlation_matrix.parquet",
+      "sha256": "63491d14e18f16342bfe41dd9727b50d341eb0574b109e9cea39d8b259cb37e4",
+      "bytes": 10734
+    },
+    {
+      "path": "data/processed/data_gov_in_gsdp_stateut_current_prices_2017_23.parquet",
+      "sha256": "bca3d786d3b52ac40fba997c88da730eb3037db8edd6533cddba66effd614112",
+      "bytes": 34456
+    },
+    {
+      "path": "data/processed/data_gov_in_nh_fatalities_injuries_state_year.parquet",
+      "sha256": "0a8af39094f72e7050fd36cc765f0aa859e974e9e56f46bf6922bbcda9078a1c",
+      "bytes": 11028
+    },
+    {
+      "path": "data/processed/data_gov_in_nhai_district_projects_implemented.parquet",
+      "sha256": "fae78907ff86ad667f34a77588b8146813995050f61ab5d77fe50694f9b55d45",
+      "bytes": 10444
+    },
+    {
+      "path": "data/processed/data_gov_in_nhai_himachal_nhai_projects_ongoing.parquet",
+      "sha256": "c25a1515e3b611cca73ab2bb814726ce422887bfdddb0146c5dfdaf4ad5b4e20",
+      "bytes": 10868
+    },
+    {
+      "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
+      "sha256": "46ad0339a990c24b804e1f256fa17fe0ee646adbbf298558d4b67e5a53b4d43a",
+      "bytes": 11249
+    },
+    {
+      "path": "data/processed/data_gov_in_nhai_projects_api.parquet",
+      "sha256": "ddf16c0ce3032e96a9429546969c566a55976e0fbcb54d62535e283824e34100",
+      "bytes": 10998
+    },
+    {
+      "path": "data/processed/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs.parquet",
+      "sha256": "efb5eb69400dacb28c19aa29f44e18b93d97ad643c1ea349a1c4272b14a25702",
+      "bytes": 27200
+    },
+    {
+      "path": "data/processed/data_gov_in_nhai_projects_district_target_2023.parquet",
+      "sha256": "9f84949782f9d94f3b480fac7e40f912281f4f4d6e105df3fa369c0369941e84",
+      "bytes": 11712
+    },
+    {
+      "path": "data/processed/data_gov_in_nhai_punjab_42_projects_implementation.parquet",
+      "sha256": "b220a52ecb5471a2c379efc93108a8ba8669951319a9562bbcdd2d6d2ebadcb8",
+      "bytes": 10403
+    },
+    {
+      "path": "data/processed/data_gov_in_nhai_state_projects_api.parquet",
+      "sha256": "c3e69a1855eb4ec9d1b25c65e5c3a3a3de10ba86dd7e6f42d8ed9b2e63f46ab4",
+      "bytes": 7423
+    },
+    {
+      "path": "data/processed/data_gov_in_nhai_stateut_length_constructed_2019_24.parquet",
+      "sha256": "708e19b978581d748a0ecd077579db14768487cf4de2b7ac13ed5e0392290d3f",
+      "bytes": 10159
+    },
+    {
+      "path": "data/processed/data_gov_in_nhai_stateut_project_delay_status_2024.parquet",
+      "sha256": "6e1ee687a60676c72afa286d7ca219e8c24de3a13beaa7c534cf6fe680279092",
+      "bytes": 7343
+    },
+    {
+      "path": "data/processed/data_gov_in_nhai_statewise_nh_project_status_2024_25.parquet",
+      "sha256": "eb07c162aec98ec2d52c50b6373c1e02e4dee5b302d82995da02d4c94791ce6c",
+      "bytes": 14383
+    },
+    {
+      "path": "data/processed/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026.parquet",
+      "sha256": "7ec4ecf7f06a8bc6b5ffb1ecf0ff9cd3e32e3947dab035eb640eb2ff5513eebc",
+      "bytes": 16903
+    },
+    {
+      "path": "data/processed/data_gov_in_nhai_yearwise_nh_constructed_2014_15.parquet",
+      "sha256": "fb564d736c8e3a48209ce35a6c332fada7abbefba492f997def4a082adc89083",
+      "bytes": 5474
+    },
+    {
+      "path": "data/processed/data_gov_in_road_accidents_india_2003_2016.parquet",
+      "sha256": "275cb0cae81e72ade1bd94a0b66edab4a3e3ed82be43078e7dc1f1b5cfaa014f",
+      "bytes": 15687
+    },
+    {
+      "path": "data/processed/data_gov_in_road_accidents_nhs_2003_2016.parquet",
+      "sha256": "266c46afeb368b36b854c6039c489e5256b3189f768fc162d1ca938674c9bca5",
+      "bytes": 15416
+    },
+    {
+      "path": "data/processed/data_gov_in_road_fatal_accidents_2003_2016.parquet",
+      "sha256": "2b4f2ae2c466a2cba5842a6c4a2e7e2717d3021542268f6c59d18fb91dfa0d8f",
+      "bytes": 15519
+    },
+    {
+      "path": "data/processed/highway_project_risk_and_access_panel.parquet",
+      "sha256": "537fed9c7dc77bec902e992b09e09ae5f98d2c3e38159e0535688655638a6208",
+      "bytes": 5591029
+    },
+    {
+      "path": "data/processed/morh_arbitration_claims.parquet",
+      "sha256": "d68c2bd2b02fcb881c5462410ef3fdc34bf7cfc35f2d14e800baa67d66a6fdf6",
+      "bytes": 8016
+    },
+    {
+      "path": "data/processed/morh_contractor_disclosures.parquet",
+      "sha256": "4c4da604d82d99bf2473f75acc6594cbcde94c31ff0b173a07b54cb1d6fe70f6",
+      "bytes": 8171
+    },
+    {
+      "path": "data/processed/morh_procurement_awards.parquet",
+      "sha256": "f7785046699b0633a7de679d48a9445be69ab1baf2780bf02b797c8e0cc2d140",
+      "bytes": 7219
+    },
+    {
+      "path": "data/processed/morth_annual_report_pdf.parquet",
+      "sha256": "715380efec9222b63d924a0a69e60a1b6c80b47820a161e9491591a0b9a397c0",
+      "bytes": 10669
+    },
+    {
+      "path": "data/processed/morth_annual_report_pdf_validation.json",
+      "sha256": "af85226ba77450d34d81f585b3b11c1e92d876f1fd7c29481897235288bb811c",
+      "bytes": 888
+    },
+    {
+      "path": "data/processed/ncrb_road_accidents_state_year.parquet",
+      "sha256": "2a38f93d77363ca9ef3d14f92ef95017f3155f6e34630981e9162f0ff29704c2",
+      "bytes": 6125
+    },
+    {
+      "path": "data/processed/ncrb_toll_fastag_claims.parquet",
+      "sha256": "ced5179e1b0d278ef56fd0c2e66e39a176c9868f1963a7512ccf61791a1b255e",
+      "bytes": 6838
+    },
+    {
+      "path": "data/processed/nhai_annual_report_documents.parquet",
+      "sha256": "231ee13efc7922304cb6dd196c46606657f6ac0f0421a249ebc37cbedef47bc5",
+      "bytes": 13202
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/extraction_manifest.json",
+      "sha256": "2b90efed8134a15e36554648f24ab2e59d2730d44eb4149da8ee6c68ea4c0066",
+      "bytes": 84316
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/quality_report.json",
+      "sha256": "e9103b59394eac979e8fd8206dff2ce398307a3c706fce32bcaac30e324db485",
+      "bytes": 89333
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1989.parquet",
+      "sha256": "f6eb8ce9c8c481160836556a5d7df7af9e334b785cb84624a1de9ad8bfcd6c10",
+      "bytes": 50124
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1996.parquet",
+      "sha256": "8ef45189ee027554adc809d06e8b7dc9b3543a39b24946b6165dddbe5985cc94",
+      "bytes": 38805
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1997.parquet",
+      "sha256": "e5c79165130003d9d620538112bea5bc86267cfc3d2c9893ef3db62ea0b75513",
+      "bytes": 40609
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1998.parquet",
+      "sha256": "d0db2c5b8c911ff853211491401d608663940ec4cc4e54f652a92fb3b6b6b079",
+      "bytes": 68888
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_1999.parquet",
+      "sha256": "4c7c6bb1bd708fe2a79d2ad6f3a63cec6319aeb2baf123ff15f7a2443cf89fa2",
+      "bytes": 27001
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2000.parquet",
+      "sha256": "43b40a9fa6937a49b7552cd5f4d895242ece9bb36363a659b921add74f23ecfc",
+      "bytes": 27016
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2001.parquet",
+      "sha256": "b4f0e69a7aec6b2b97bebe74ff18d8ad572c3fd3974ed7bf6b260e1cb590a8a4",
+      "bytes": 26971
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2002.parquet",
+      "sha256": "01b19bdf28822fa0601c3a596edcb012de8c55932ec4f90f4f51aa335c14f3c8",
+      "bytes": 26971
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2003.parquet",
+      "sha256": "62bfc42743ee12d01517f13a992f3ca088a384e58655b94f31e2f77c733c7194",
+      "bytes": 27648
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2004.parquet",
+      "sha256": "18fb7c6d31faa8927dc24dac0c12045687d7f2f50e7ec0e9e82183340301dbb3",
+      "bytes": 26971
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2005.parquet",
+      "sha256": "1b435d93acc43018e3f8881c942b81dfd02ad828869757bb7c01ab528333a841",
+      "bytes": 26971
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2006.parquet",
+      "sha256": "dc153f21b820dd90966349be1775e20e985de69feb4f2515e9bddbb8db077a59",
+      "bytes": 26961
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2007.parquet",
+      "sha256": "bc675e26a4a0f46ef3608a67242060870b79ee12e02bd5256ca00b0727c7c7c1",
+      "bytes": 64856
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2008.parquet",
+      "sha256": "e1cca7ef5625c0357377e4e85320714b670f5989193ffe09a48eaa8773c354bc",
+      "bytes": 27203
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2009.parquet",
+      "sha256": "40ff81db8b6cb85f0daf1d923d7c5a4ae7bd5831175d41900f140768f246a888",
+      "bytes": 15940
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2010.parquet",
+      "sha256": "dc7eda2532abfbe4aaab9556a431fa175b2968d1c82b88c07558228a4fbf8881",
+      "bytes": 26284
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2011.parquet",
+      "sha256": "be9d496d05d325f28b44b6e1032f287e30791d4a380c8a299387fd3f8ae97119",
+      "bytes": 46476
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2012.parquet",
+      "sha256": "9af2fcf4bae268d86fb96abfe1c08b33c5e9700a7f80312afcf9832e762c9534",
+      "bytes": 141557
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2013.parquet",
+      "sha256": "ecbbd08e5d52385c56c7f23049729762bdde839427b5d3b9cfdb4809a33585ec",
+      "bytes": 81010
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2014.parquet",
+      "sha256": "03a47720578f7aa31af01306e2685f11c7282838f3a1307c693f803eb5bf9ff3",
+      "bytes": 84618
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2015.parquet",
+      "sha256": "cddd25bb62b0823a0973782bb2572c1b994cd0e58f4648b71f7f82f6eb5afee0",
+      "bytes": 116327
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2016.parquet",
+      "sha256": "a291e087adca81bdfe09f13b87b6a256747640ba92c0ef3b815f7fee49ce8675",
+      "bytes": 133465
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2017.parquet",
+      "sha256": "f5f0b124cc032d4c410d9e24ffe879952be94829771773feed82333a6aad3212",
+      "bytes": 52634
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2018.parquet",
+      "sha256": "a10807c4c4bde33f87a68a2c93a409332afcfc81652ae69ee1c599b00d38b27d",
+      "bytes": 319328
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2019.parquet",
+      "sha256": "7b14aa0e59f8b480890989f17c5777c25684894c5a97a25d8d1c895513a3f96f",
+      "bytes": 162475
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2020.parquet",
+      "sha256": "dd33c40e0eadedb1a76f45fec327a8ea68b3f25ba0e93c188d13caff8a61f9e4",
+      "bytes": 42379
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2021.parquet",
+      "sha256": "2651801b0bddf823df06eeecd3870a751f30aa188dcd9bd6aaf1e80f59e2a7de",
+      "bytes": 193122
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2022.parquet",
+      "sha256": "51173c99d5b4430411e95d48bdb22202582c9aa81ef989b898211691b0968d9d",
+      "bytes": 168317
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2023.parquet",
+      "sha256": "cef6be8eb2b104fb096ac2640fb82a27867903248a40e37a96f32e7eb58b6d80",
+      "bytes": 180929
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables/yearly/nhai_annual_report_2025-26.parquet",
+      "sha256": "73420ffa204b24aee49b8f1557f5abb9c92d98b1ad83e59e96bbe25a4c4097ca",
+      "bytes": 26663
+    },
+    {
+      "path": "data/processed/nhai_annual_report_tables_canonical.parquet",
+      "sha256": "3779f5964bfaf026602013e724a2dc9f5171b07bbf950208d03987142740b6d3",
+      "bytes": 1371832
+    },
+    {
+      "path": "data/processed/nhai_audited_results_pdf.parquet",
+      "sha256": "b4d492927e84375a77b613c6bb40515c59e51d06983c93c9590957f86459171b",
+      "bytes": 10181
+    },
+    {
+      "path": "data/processed/nhai_constructed_length_series_official.parquet",
+      "sha256": "f9ee1ec4f1bb087c4f962969a7d1d573cb1dac1834f57eb6332afc2b0203794d",
+      "bytes": 12161
+    },
+    {
+      "path": "data/processed/nhai_press_release_index.parquet",
+      "sha256": "69d23b91008e49d74ea483be75b4b6f840ebcdb0737ae1cedb1cde22000e9157",
+      "bytes": 7027
+    },
+    {
+      "path": "data/processed/parliament_qa_highway_queries.parquet",
+      "sha256": "cb5002d2d98f005e31a66945162b3317cec7d1f70e79d5b3686dab99d7e0a938",
+      "bytes": 7665
+    },
+    {
+      "path": "data/processed/parliament_qa_nh_blackspots_state.parquet",
+      "sha256": "252753bb20c50b195075b97a9374c89065f81f9b89aa553ff68ddfaa61bdb502",
+      "bytes": 12294
+    },
+    {
+      "path": "data/processed/quality_maintenance_indicators.parquet",
+      "sha256": "e8701a34bfccc3acacb0c2d9f1bf4ac4dad22924bb0b47771c04af60a89558f0",
+      "bytes": 6816
+    },
+    {
+      "path": "data/processed/rbi_mospi_macro_indicators.parquet",
+      "sha256": "612d5e6d0b739fdb58ba8f84741806a767824bbce937f9692ad6f71d3415ea3f",
+      "bytes": 6827
+    },
+    {
+      "path": "data/processed/viirs_nightlights_proxy.parquet",
+      "sha256": "86c710f6a5871689b57b7607184e5b539deedbb68370d5c8b3d45230c7174955",
+      "bytes": 7026
+    },
+    {
+      "path": "duckdb/apache-arrow.mjs",
+      "sha256": "b1150fa48493cb98f04bfc6fde200648a7fed398e89914be733494ef0e1c39ce",
+      "bytes": 5108
+    },
+    {
+      "path": "duckdb/duckdb-browser-coi.pthread.worker.js",
+      "sha256": "ab8b55bbbfde2bdabdd1d26700f131fe97d5c7da79c65c43a3f7d3b0e28a9d2a",
+      "bytes": 656471
+    },
+    {
+      "path": "duckdb/duckdb-browser-eh.worker.js",
+      "sha256": "260b4773d2d78e5ab1106bc163ffd5b0b6eaeddedacf23190e9cafc9cc010d3d",
+      "bytes": 760530
+    },
+    {
+      "path": "duckdb/duckdb-browser-mvp.worker.js",
+      "sha256": "f798d151c3db03d3f277f884acb882c7a324d5249ef540bdebb82d3cdafbbc37",
+      "bytes": 820866
+    },
+    {
+      "path": "duckdb/duckdb-browser.mjs",
+      "sha256": "7a4e02ce0f97e4f173bddb97f359ff15b02e0a2cb096130dd938bbfd2700b808",
+      "bytes": 29927
+    },
+    {
+      "path": "duckdb/duckdb-eh.wasm",
+      "sha256": "00d45e5e074b7f7e17e45daabacb0fb67248eac8bd638a72cd1b42dad23788e4",
+      "bytes": 35659694
+    },
+    {
+      "path": "duckdb/duckdb-mvp.wasm",
+      "sha256": "79c530032e746177e0406f3f1c4fa9f69fd7437e17a18587b1f8ab38dc5132ea",
+      "bytes": 40621595
+    },
+    {
+      "path": "index.html",
+      "sha256": "1a08339bae58b55ea084e7938990cfd801f4537e4add4b18e2cbdb208810dd5d",
+      "bytes": 519
+    },
+    {
+      "path": "methodology.html",
+      "sha256": "53f48c3304bd134fa52b665ded9ee1d9e53ba801f7e99819d410d44c29210cae",
+      "bytes": 1524
+    },
+    {
+      "path": "src/app.js",
+      "sha256": "d73c996ab8aac46fc8699c9f2c33559d82ecccc1ba2a3b2b4bfa94f916f7053f",
+      "bytes": 127045
+    },
+    {
+      "path": "src/ontology.js",
+      "sha256": "bd2b35f12feb8e17fd738604f3e98f955ca58116d06126dbe3dbc58caf83b567",
+      "bytes": 3800
+    },
+    {
+      "path": "src/styles.css",
+      "sha256": "98d99f07bcbedb88773584819b52b64f6d595bc5016a1fdd53bbbd8d8b24d83a",
+      "bytes": 8694
+    },
+    {
+      "path": "test_import.html",
+      "sha256": "2b4fa53d55f43604a6fe603a888a93f043d4c36977756ebd89d97117379bd4ef",
+      "bytes": 318
+    }
+  ]
+}

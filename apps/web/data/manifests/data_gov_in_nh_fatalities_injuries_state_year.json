@@ -1,0 +1,63 @@
+{
+  "source_id": "data_gov_in_nh_fatalities_injuries_state_year",
+  "connector": "data_gov_in_ogd",
+  "version": "0.2.0",
+  "status": "ok",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "Ministry of Road Transport and Highways (MoRTH) / data.gov.in",
+    "title": "State-wise details of road accidents, fatalities and injuries on National Highways including National Expressways",
+    "domain": "data.gov.in",
+    "url": "https://www.data.gov.in/resource/state-wise-details-road-accidents-fatalities-and-injuries-national-highways-including",
+    "retrieval_method": "direct download",
+    "access_type": "CSV",
+    "retrieved_at": "2026-03-16T08:52:19.992556+00:00",
+    "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "RS_Session_262_AS_120_A_to_D_iv",
+    "anchor": "resource_file:https://data.gov.in/sites/default/files/RS_Session_262_AS_120_A_to_D_iv.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/data_gov_in_nh_fatalities_injuries_state_year/data_gov_in_nh_fatalities_injuries_state_year/raw_20260316_085220.csv",
+        "sha256": "3ff1632932133bb8a2d7b796d65f8ef7b0d81703242acd1599edba760797290e",
+        "size_bytes": 1634
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/data_gov_in_nh_fatalities_injuries_state_year.parquet",
+        "format": "parquet",
+        "sha256": "0a8af39094f72e7050fd36cc765f0aa859e974e9e56f46bf6922bbcda9078a1c"
+      }
+    ],
+    "row_count": 37,
+    "columns": [
+      "sl._no",
+      "states/ut",
+      "fatalities_-_2020",
+      "fatalities_-_2021",
+      "fatalities_-_2022",
+      "injuries_-_2020",
+      "injuries_-_2021",
+      "injuries_-_2022",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ]
+  },
+  "retrieved_at": "2026-03-16T08:52:19.992556+00:00",
+  "completeness_score": 0.996,
+  "recency_score": 1.0,
+  "provenance_score": 1.0,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "output_table_path": "data/processed/data_gov_in_nh_fatalities_injuries_state_year.parquet"
+}
