@@ -1,0 +1,46 @@
+name: Dependency PR Auto Merge
+
+on:
+  schedule:
+    - cron: "0 5 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: read
+
+concurrency:
+  group: dependency-automerge-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  automerge:
+    name: Auto-merge validated dependency PRs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enable auto-merge for safe dependency PRs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          gh pr list \
+            --repo "$REPO" \
+            --state open \
+            --json number,author,labels,mergeStateStatus,isDraft,url \
+            --jq '.[] | select(.isDraft == false) | select(.author.login == "dependabot[bot]" or .author.login == "app/dependabot") | select(any(.labels[]?; .name == "dependencies")) | @base64' | while read -r row; do
+              [ -n "$row" ] || continue
+              pr_json="$(printf '%s' "$row" | base64 -d)"
+              pr_number="$(printf '%s' "$pr_json" | jq -r '.number')"
+              merge_state="$(printf '%s' "$pr_json" | jq -r '.mergeStateStatus')"
+              pr_url="$(printf '%s' "$pr_json" | jq -r '.url')"
+
+              if [ "$merge_state" = "CLEAN" ] || [ "$merge_state" = "HAS_HOOKS" ]; then
+                echo "Enabling auto-merge for PR #${pr_number}: ${pr_url}"
+                gh pr merge "$pr_number" --repo "$REPO" --auto --squash
+              else
+                echo "Skipping PR #${pr_number} due to merge state ${merge_state}: ${pr_url}"
+              fi
+            done

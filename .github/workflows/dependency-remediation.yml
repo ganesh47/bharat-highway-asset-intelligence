@@ -1,0 +1,105 @@
+name: Dependency Remediation
+
+on:
+  schedule:
+    - cron: "30 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  security-events: read
+  actions: read
+
+concurrency:
+  group: dependency-remediation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  remediate:
+    name: Remediate vulnerable dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Detect open Dependabot alerts
+        id: alerts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          count="$(gh api \
+            -H 'Accept: application/vnd.github+json' \
+            "/repos/${GITHUB_REPOSITORY}/dependabot/alerts?state=open&per_page=100" \
+            --jq 'length')"
+          echo "count=${count}" >> "$GITHUB_OUTPUT"
+          echo "Open Dependabot alerts: ${count}"
+
+      - name: Upgrade pip tooling
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+
+      - name: Install project dependencies
+        run: |
+          python -m pip install -r requirements.txt
+
+      - name: Attempt safe dependency refresh
+        if: steps.alerts.outputs.count != '0'
+        run: |
+          set -euo pipefail
+          python -m pip install pip-tools
+          python -m piptools compile --upgrade --resolver=backtracking pyproject.toml -o requirements.txt
+
+      - name: Check whether dependency files changed
+        id: diff
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- requirements.txt pyproject.toml; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run CI-quality validation
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          python -m compileall -q .
+          python scripts/validate_artifacts.py --inventory research/source_inventory.yaml --catalog data/manifests/catalog.json --manifests data/manifests
+
+      - name: Create remediation pull request
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automation/dependency-remediation
+          delete-branch: true
+          commit-message: "chore(deps): remediate vulnerable dependencies"
+          title: "chore(deps): remediate vulnerable dependencies"
+          body: |
+            Automated dependency remediation run.
+
+            What this PR does:
+            - refreshes Python dependency resolution
+            - attempts to address currently open Dependabot alerts
+            - leaves final review and merge under normal CI controls
+
+            Trigger:
+            - scheduled remediation workflow
+            - opens only when dependency files actually change
+          labels: |
+            dependencies
+            security
+            automated-pr
+
+      - name: No-op summary
+        if: steps.alerts.outputs.count == '0' || steps.diff.outputs.changed != 'true'
+        run: |
+          echo "No remediation PR created. Either no open Dependabot alerts were found, or no safe dependency-file changes were produced."
