@@ -46,13 +46,13 @@ jobs:
 
       - name: Checkout triggered revision
         if: github.event_name == 'workflow_run'
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.workflow_run.head_sha }}
 
       - name: Checkout current revision
         if: github.event_name != 'workflow_run'
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup Python
         uses: actions/setup-python@v6
@@ -227,7 +227,7 @@ jobs:
       DEPLOY_BUNDLE_SHA256: ${{ needs.deploy.outputs.bundle_sha256 }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup Python
         uses: actions/setup-python@v6
