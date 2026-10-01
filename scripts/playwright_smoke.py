@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import csv
+import io
 import re
 from pathlib import Path
 
@@ -226,7 +228,7 @@ else:
 
 def _frontend_fixture_script(source: str) -> str:
     """Exercise the deployed pure calculation functions, including invalid joins."""
-    names = ["num", "completeSum", "statePortfolioObservation", "unrectifiedShare", "fmtNum", "sourceTypeTag", "analyticalReady", "confidenceFromSources", "humanMetric", "disclosureTheme", "validCitation", "disclosureEligible", "disclosureMeasured", "csvText", "deriveDisclosureInsights"]
+    names = ["num", "completeSum", "statePortfolioObservation", "unrectifiedShare", "fmtNum", "sourceTypeTag", "analyticalReady", "confidenceFromSources", "humanMetric", "disclosureTheme", "validCitation", "disclosureEligible", "disclosureMeasured", "csvText", "deriveDisclosureInsights", "netcPaymentHighlights", "netcPaymentSeries", "netcMonthTick"]
     blocks = []
     for name in names:
         start = re.search(r"^function " + re.escape(name) + r"\(", source, re.MULTILINE)
@@ -259,9 +261,26 @@ def _frontend_fixture_script(source: str) -> str:
     check(disclosureTheme({metric:'additional_borrowings_inr_crore'}) === 'debt', 'new borrowings scope');
     check(disclosureTheme({metric:'state_government_guarantees_outstanding_inr_crore'}) === 'debt', 'state guarantees scope');
     check(disclosureTheme({metric:'sh_surfaced_length_km'}) === 'network', 'State Highway surfaced stock');
+    check(disclosureTheme({metric:'netc_payment_transactions'}) === 'toll' && disclosureTheme({metric:'netc_payment_amount_inr_crore'}) === 'toll', 'NETC payment metrics routing');
+    const netc={source_id:'npci_netc_monthly_statistics',entity_type:'payment_network',agency:'NPCI',period_basis:'calendar_month',period_end:'2026-08-31',metric:'netc_payment_transactions',unit:'transactions',value:0};
+    check(netcPaymentHighlights([netc])[0].row?.value === 0, 'NETC observed zero is retained');
+    check(!netcPaymentHighlights([{...netc,agency:'NHAI'}])[0].row, 'NETC is distinct from NHAI receipts');
+    check(!netcPaymentHighlights([{...netc,unit:'PCU'}])[0].row, 'NETC is distinct from PCU traffic');
+    check(!netcPaymentHighlights([netc,netc])[0].row, 'ambiguous NETC highlight suppressed');
+    const netcActual={...netc,entity_id:'NPCI_NETC',statement_basis:'NETC_payment_statistics',estimate_type:'actual',evidence_class:'issuer_disclosure',analytical_eligible:true,period_start:'2026-08-01',data_as_of:'2026-08-31',citation_url:'https://www.npci.org.in/product/netc/product-statistics'};
+    const july={...netcActual,period_start:'2026-07-01',period_end:'2026-07-31',data_as_of:'2026-07-31',value:100};
+    const trend=(rows)=>netcPaymentSeries(rows,'netc_payment_transactions','transactions');
+    const orderedNetc=trend([netcActual,july]);
+    check(orderedNetc.length===2 && orderedNetc[0].label==='2026-07-31' && netcMonthTick(orderedNetc[1].x)==='2026-08-31' && !orderedNetc[1].breakBefore, 'NETC observed month ends in time order');
+    check(trend([netcActual,netcActual,july]).length===1, 'duplicate NETC month is suppressed');
+    check(trend([{...netcActual,estimate_type:'BE'},{...july,analytical_eligible:false}]).length===0, 'NETC estimates and ineligible rows excluded');
+    check(trend([{...netcActual,statement_basis:'NHAI_receipts'},{...july,entity_id:'different_network'}]).length===0, 'NETC incompatible entity or statement scope excluded');
+    check(trend([netcActual,{...july,period_start:'2026-05-01',period_end:'2026-05-31',data_as_of:'2026-05-31'}])[1].breakBefore, 'NETC missing months are not connected');
     const observed={source_id:'fixture',value:80,analytical_eligible:true,estimate_type:'actual',evidence_class:'official_measured',citation_url:'https://example.org/primary'};
     const catalog={fixture:{source_id:'fixture',metric_category:'official_measured',analytical_ready:true,manifest:{row_count:1}}};
     check(disclosureMeasured(observed,catalog), 'actual measured observation');
+    check(disclosureMeasured({...observed,evidence_class:'borrower_audited_project_disclosure'},catalog), 'audited borrower actual is a measured observation');
+    check(!disclosureEligible({...observed,analytical_eligible:false},catalog), 'unreconciled actual excluded from arithmetic');
     check(!disclosureMeasured({...observed,estimate_type:'BE'},catalog) && !disclosureMeasured({...observed,estimate_type:'RE'},catalog), 'budget estimates are not measured actuals');
     check(!disclosureMeasured({...observed,evidence_class:'target'},catalog), 'targets are not measured actuals');
     const base = {entity_id:'P1', entity_type:'project', agency:'NHAI', state:'Odisha', road_class:'NH', period_start:'2025-04-01', period_end:'2026-03-31', period_basis:'financial_year', statement_basis:'project', source_id:'fixture', data_as_of:'2026-03-31', estimate_type:'actual', evidence_class:'official_measured'};
@@ -585,6 +604,87 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
             await road_filter.select_option(sh_class)
             if await network_panel.locator('tbody tr').count() < 1:
                 raise RuntimeError("State Highway network evidence missing")
+            await page.get_by_role('button', name='Toll & traffic', exact=False).click()
+            await page.get_by_label('Agency', exact=True).select_option('NPCI')
+            netc_cards = page.get_by_role('region', name='NETC payment-network observations', exact=True)
+            if await netc_cards.count() != 1:
+                raise RuntimeError('Separate NETC payment-network cards are missing')
+            netc_panel_text = await page.locator('.analyst-evidence-panel').inner_text()
+            for marker in ['NETC payment transactions', 'NETC payment amount', 'calendar_month', 'annual-pass', 'Maharashtra', 'million transactions', 'payment_network']:
+                if marker not in netc_panel_text:
+                    raise RuntimeError(f'NETC scope, periods, units or exclusions missing: {marker}')
+            await validate_charts([
+                {'title': 'NETC monthly payment transactions', 'axes': True, 'data_selector': 'canvas', 'min_points': 1, 'legend_labels': ['Transactions (count)', 'Points:'], 'meta_markers': ['Publication date not disclosed', 'annual-pass', 'Maharashtra', 'As of']},
+                {'title': 'NETC monthly payment amount', 'axes': True, 'data_selector': 'canvas', 'min_points': 1, 'legend_labels': ['Payment amount (₹ crore)', 'Points:'], 'meta_markers': ['Publication date not disclosed', 'annual-pass', 'Maharashtra', 'As of']},
+            ])
+            netc_trends = page.get_by_role('region', name='NETC monthly payment trends', exact=True)
+            for chart in await netc_trends.locator('canvas').all():
+                if int(await chart.get_attribute('data-point-count')) < 17 or await chart.get_attribute('data-period-start') != '2025-04-30' or (await chart.get_attribute('data-period-end')) < '2026-08-31':
+                    raise RuntimeError('NETC trend lost observed monthly coverage or calendar order')
+                await chart.focus()
+                await chart.press('End')
+                current_point = await chart.locator('..').locator('..').get_by_role('status').inner_text()
+                if (await chart.get_attribute('data-period-end')) not in current_point:
+                    raise RuntimeError('NETC chart keyboard readout does not expose the selected month')
+            if await netc_trends.locator('a[href="https://www.npci.org.in/product/netc/product-statistics"]').count() != 2:
+                raise RuntimeError('NETC trends lost their primary citations')
+            async with page.expect_download() as netc_download_info:
+                await page.get_by_role('button', name='Download filtered evidence CSV', exact=True).click()
+            netc_download = await netc_download_info.value
+            netc_csv = Path(await netc_download.path()).read_text(encoding='utf-8-sig')
+            netc_rows = list(csv.DictReader(io.StringIO(netc_csv)))
+            if len(netc_rows) < 34 or {row['metric'] for row in netc_rows} != {'netc_payment_transactions', 'netc_payment_amount_inr_crore'}:
+                raise RuntimeError('NETC download must retain both separately reported monthly payment metrics')
+            for row in netc_rows:
+                if row['source_id'] != 'npci_netc_monthly_statistics' or row['period_basis'] != 'calendar_month' or row['entity_type'] != 'payment_network' or len(row['source_document_sha256']) != 64:
+                    raise RuntimeError('NETC monthly download lost scope or governed document lineage')
+                if row['metric'] == 'netc_payment_transactions' and (row['unit'] != 'transactions' or row['original_unit'] != 'million transactions' or abs(float(row['value']) - float(row['original_value']) * 1_000_000) > .01):
+                    raise RuntimeError('NETC transaction normalization or original units are incorrect')
+                if row['metric'] == 'netc_payment_amount_inr_crore' and row['unit'] != 'INR crore':
+                    raise RuntimeError('NETC payment amount must remain separate currency observations')
+            await page.get_by_label('Metric', exact=True).select_option('netc_payment_transactions')
+            period_filter = page.get_by_label('Reporting period', exact=True)
+            month_option = next((option for option in await period_filter.locator('option').all_text_contents() if '2026-08-01' in option and '2026-08-31' in option), None)
+            if month_option is None:
+                raise RuntimeError('NETC monthly reporting-period filter is absent')
+            await period_filter.select_option(month_option)
+            if await table.locator('tbody tr').count() != 1 or 'transactions' not in await table.inner_text():
+                raise RuntimeError('NETC monthly transaction filter must show one separately scoped observation')
+            await page.get_by_role('button', name='Project delivery', exact=False).click()
+            await page.get_by_label('Agency', exact=True).select_option('MPWD')
+            async with page.expect_download() as audited_download_info:
+                await page.get_by_role('button', name='Download filtered evidence CSV', exact=True).click()
+            audited_download = await audited_download_info.value
+            audited_rows = list(csv.DictReader(io.StringIO(Path(await audited_download.path()).read_text(encoding='utf-8-sig'))))
+            measured_project_rows = [row for row in audited_rows if row['analytical_eligible'] == 'true']
+            qualified_project_rows = [row for row in audited_rows if row['analytical_eligible'] == 'false']
+            if len(measured_project_rows) != 70 or len(qualified_project_rows) != 1 or qualified_project_rows[0]['metric'] != 'project_cash_bank_balance_inr_crore':
+                raise RuntimeError('ADB audited actuals and unreconciled reported aggregate lost eligibility distinctions')
+            for row in audited_rows:
+                if row['source_id'] != 'adb_state_road_projects' or not row['entity_id'].startswith('adb_52298_001') or row['estimate_type'] != 'actual' or row['evidence_class'] != 'borrower_audited_project_disclosure':
+                    raise RuntimeError('ADB project statements must retain project identity and audited actual scope')
+                if row['unit'] != 'INR crore' or row['original_unit'] != 'INR thousand' or abs(float(row['value']) - float(row['original_value']) * .0001) > .000001:
+                    raise RuntimeError('ADB financial statement export lost original units or currency normalization')
+            if '(0)' not in await page.locator('.comparable-insights summary').inner_text():
+                raise RuntimeError('Project actual costs must not be divided by a 450-km target length')
+            await page.get_by_label('Metric', exact=True).select_option('project_civil_works_expenditure_inr_crore')
+            audited_project_text = await table.inner_text()
+            if await table.locator('tbody tr').count() < 1 or not all(marker in audited_project_text for marker in ['borrower audited project disclosure', 'INR thousand', 'adb_state_road_projects']):
+                raise RuntimeError('Audited borrower project expenditure lost its evidence class, original units or ADB lineage')
+            if 'excluded from measured calculations' in audited_project_text:
+                raise RuntimeError('Eligible audited borrower actuals must not be labelled as estimates')
+            await page.get_by_role('button', name='Funding & outcomes', exact=False).click()
+            await page.get_by_label('Agency', exact=True).select_option('MPWD')
+            await page.get_by_label('Evidence class', exact=True).select_option('target')
+            if await table.locator('tbody tr[data-evidence-class="target"]').count() < 1 or 'excluded from measured calculations' not in await table.inner_text():
+                raise RuntimeError('ADB project targets must remain separate from audited actuals')
+            async with page.expect_download() as target_download_info:
+                await page.get_by_role('button', name='Download filtered evidence CSV', exact=True).click()
+            target_download = await target_download_info.value
+            target_rows = list(csv.DictReader(io.StringIO(Path(await target_download.path()).read_text(encoding='utf-8-sig'))))
+            if len(target_rows) != 6 or any(row['analytical_eligible'] != 'false' or row['evidence_class'] != 'target' for row in target_rows):
+                raise RuntimeError('ADB target export must preserve all six planning observations as ineligible')
+            await page.get_by_role('button', name='Debt & repayments', exact=False).click()
             await page.get_by_role('button', name='Funding & outcomes', exact=False).click()
             await page.get_by_role('button', name='Official only', exact=True).click()
             if await page.locator('.source-type.model, .source-type.proxy, .source-type.issuer').count():

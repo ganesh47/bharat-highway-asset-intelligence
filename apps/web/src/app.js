@@ -859,6 +859,8 @@ function LineChart({
   chartHeight,
   xAxisLabel = 'X',
   yAxisLabel = 'Value',
+  legendLabel = '',
+  valueUnit = '',
 }) {
   const points = (series || [])
     .filter((item) => Number.isFinite(num(item.x)) && Number.isFinite(num(item.y)))
@@ -868,7 +870,7 @@ function LineChart({
     ? Math.round(num(chartHeight))
     : Math.round(270 * chartScale);
   const height = Math.max(120, computedHeight);
-  const pad = { top: 16, right: 16, bottom: 26, left: 42 };
+  const pad = { top: 16, right: 16, bottom: 50, left: 110 };
   const xValues = points.map((item) => num(item.x));
   const yValues = points.map((item) => num(item.y));
   const xRange = ensureRange(
@@ -887,6 +889,7 @@ function LineChart({
   const yAxisTicks = axisTicks(yMin, yMax, 5);
   const labels = points.filter((_, index) => index % Math.max(1, Math.floor(points.length / 6)) === 0);
   const chartRef = useRef(null);
+  const [focusedIndex, setFocusedIndex] = useState(0);
 
   useEffect(() => {
     const canvas = chartRef.current;
@@ -909,11 +912,11 @@ function LineChart({
       }
 
       const dpr = window.devicePixelRatio || 1;
-      const logicalWidth = width;
+      const logicalWidth = rect.width;
       const logicalHeight = height;
       const scaleX = rect.width / logicalWidth;
       const scaleY = rect.height / logicalHeight;
-      const plotW = width - pad.left - pad.right;
+      const plotW = logicalWidth - pad.left - pad.right;
       const plotH = height - pad.top - pad.bottom;
 
       const xScale = (v) => pad.left + ((num(v) - xMin) / (xMax - xMin)) * plotW;
@@ -935,12 +938,14 @@ function LineChart({
 
       ctx.beginPath();
       ctx.moveTo(pad.left * scaleX, (pad.top + plotH) * scaleY);
-      ctx.lineTo((width - pad.right) * scaleX, (pad.top + plotH) * scaleY);
+      ctx.lineTo((logicalWidth - pad.right) * scaleX, (pad.top + plotH) * scaleY);
       ctx.moveTo(pad.left * scaleX, pad.top * scaleY);
       ctx.lineTo(pad.left * scaleX, (pad.top + plotH) * scaleY);
       ctx.stroke();
 
-      xAxisTicks.forEach((tick) => {
+      const step = Math.max(1, Math.ceil((points.length - 1) / Math.max(1, Math.floor(rect.width / 120) - 1)));
+      const actualDateTicks = points.filter((_, index) => index % step === 0 || index === points.length - 1).map((point) => point.x);
+      (xTick ? actualDateTicks : xAxisTicks).forEach((tick) => {
         const x = xScale(tick) * scaleX;
         const baseline = (pad.top + plotH) * scaleY;
         ctx.beginPath();
@@ -950,8 +955,8 @@ function LineChart({
         ctx.stroke();
         ctx.fillStyle = '#3b5068';
         ctx.font = '11px Trebuchet MS, Segoe UI, Arial, sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText(formatTick(tick), x, baseline + 17);
+        ctx.textAlign = xTick && tick === xMin ? 'left' : xTick && tick === xMax ? 'right' : 'center';
+        ctx.fillText(xTick ? xTick(tick) : formatTick(tick), x, baseline + 17);
       });
       yAxisTicks.forEach((tick) => {
         const y = yScale(tick) * scaleY;
@@ -963,10 +968,10 @@ function LineChart({
         ctx.fillStyle = '#3b5068';
         ctx.textAlign = 'right';
         ctx.textBaseline = 'middle';
-        ctx.fillText(formatTick(tick, true), (pad.left - 8) * scaleX, y + 3 * scaleY);
+        ctx.fillText(formatTick(tick), (pad.left - 8) * scaleX, y + 3 * scaleY);
       });
 
-      labels.forEach((point) => {
+      (xTick ? [] : labels).forEach((point) => {
         const x = xScale(point.x) * scaleX;
         const y = (pad.top + plotH + 14) * scaleY;
         ctx.fillStyle = '#3b5068';
@@ -981,7 +986,7 @@ function LineChart({
         points.forEach((point, index) => {
           const x = xScale(point.x) * scaleX;
           const y = yScale(point.y) * scaleY;
-          if (index === 0) {
+          if (index === 0 || point.breakBefore) {
             ctx.moveTo(x, y);
           } else {
             ctx.lineTo(x, y);
@@ -1005,7 +1010,7 @@ function LineChart({
       ctx.textAlign = 'center';
       ctx.textBaseline = 'bottom';
       ctx.font = '12px Trebuchet MS, Segoe UI, Arial, sans-serif';
-      ctx.fillText(xAxisLabel, width * 0.5 * scaleX, height - 2);
+      ctx.fillText(xAxisLabel, logicalWidth * 0.5 * scaleX, height - 2);
       ctx.save();
       ctx.translate(12, height * 0.5 * scaleY);
       ctx.rotate(-Math.PI / 2);
@@ -1033,9 +1038,9 @@ function LineChart({
     const rect = chartRef.current.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-    const scaleX = rect.width / width;
+    const scaleX = 1;
     const scaleY = rect.height / height;
-    const plotW = width - pad.left - pad.right;
+    const plotW = rect.width - pad.left - pad.right;
     const plotH = height - pad.top - pad.bottom;
     const xScaleToPixel = (value) => (pad.left + ((num(value) - xMin) / (xMax - xMin)) * plotW) * scaleX;
     const yScaleToPixel = (value) => (pad.top + (1 - (num(value) - yMin) / (yMax - yMin)) * plotH) * scaleY;
@@ -1058,7 +1063,8 @@ function LineChart({
       'div',
       { className: 'card insight-chart' },
       React.createElement('div', { className: 'chart-title' }, title),
-      React.createElement('div', { className: 'chart-meta' }, chartMetaText(description || 'No records available.', asOfDate))
+      React.createElement('div', { className: 'chart-meta' }, chartMetaText(description || 'No records available.', asOfDate)),
+      React.createElement('p', { className: 'insight-note', role: 'status' }, `No validated observations for this chart selection (${yAxisLabel}). Missing or duplicate months are omitted, not zero.`)
     );
   }
 
@@ -1071,13 +1077,25 @@ function LineChart({
     ),
     React.createElement('div', { className: 'chart-meta' }, chartMetaText(description || '', asOfDate)),
     React.createElement('div', { className: 'insight-legend' },
+      legendLabel ? React.createElement('span', { className: 'insight-pill' }, legendLabel) : null,
       React.createElement('span', { className: 'insight-pill' }, `Points: ${points.length}`),
       React.createElement('span', { className: 'insight-pill' }, `Source trust: ${confidence.badge || 'Low'}`)),
     React.createElement('div', { className: 'chart-svg-wrap', style: { height: `${height}px` } },
       React.createElement('canvas', {
         ref: chartRef,
         className: 'chart-canvas',
+        role: 'img',
+        tabIndex: 0,
+        'aria-label': `${title}. ${points.length} observations. Use Left and Right arrows, Home or End to read the observed points below.`,
+        'data-point-count': points.length,
+        'data-period-start': points[0]?.label,
+        'data-period-end': points[points.length - 1]?.label,
         style: { width: '100%', height: `${height}px`, display: 'block' },
+        onKeyDown: (event) => {
+          if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+          event.preventDefault();
+          setFocusedIndex((current) => event.key === 'Home' ? 0 : event.key === 'End' ? points.length - 1 : clamp(current + (event.key === 'ArrowRight' ? 1 : -1), 0, points.length - 1));
+        },
         onMouseMove: (event) => {
           const point = nearestPoint(event);
           if (!point) {
@@ -1087,13 +1105,14 @@ function LineChart({
           onHover(tooltipPayload(event, tooltipText([
             tooltipKey || 'value',
             `${safeLabel(point.label)}`,
-            `x: ${safeLabel(point.x)}`,
-            `y: ${fmtNum(point.y, { compact: false })}`,
+            `${xAxisLabel}: ${xTick ? xTick(point.x) : safeLabel(point.x)}`,
+            `${yAxisLabel}: ${fmtNum(point.y, { compact: false })} ${valueUnit}`,
           ])));
         },
         onMouseLeave: () => onHover({ visible: false }),
       })
     ),
+    React.createElement('p', { className: 'insight-note', role: 'status', 'aria-live': 'polite' }, `${points[clamp(focusedIndex, 0, points.length - 1)].label}: ${fmtNum(points[clamp(focusedIndex, 0, points.length - 1)].y, { compact: false })} ${valueUnit}. Focus the chart and use arrow keys to inspect each observation.`),
     React.createElement('div', { className: 'insight-note' }, confidence.reasons.slice(0, 2).map((r) => r).join(' '))
   );
 }
@@ -2065,7 +2084,7 @@ const DISCLOSURE_SOURCE_IDS = [
 const ANALYST_THEMES = [
   { id: 'funding', title: 'Funding & outcomes', note: 'BE and RE are estimates; actual and YTD observations have separate cutoffs. Gross, net and recoveries are separate lines. Funding utilisation does not measure construction progress.' },
   { id: 'debt', title: 'Debt & repayments', note: 'NHAI, state corporations, concession SPVs and InvIT trusts have distinct balance sheets. DSCR is shown only when disclosed by the issuer. State government debt and guarantees cover all sectors; guarantees are contingent exposures and are not added to debt or attributed to road corporations. Disclosed contractual maturity buckets are separate from carrying-value debt balances. NHAI and NHIT are different obligors; undisclosed repayment schedules are unavailable, not zero.' },
-  { id: 'toll', title: 'Toll & traffic', note: 'NETC payments cover a national payment network; they are not NHAI-only traffic or unique vehicles. Issuer traffic in PCU, toll receipts and payment transactions are separate metrics. Acquisition, annual-pass and reporting exclusions can break comparability.' },
+  { id: 'toll', title: 'Toll & traffic', note: 'NETC payments cover a national payment network; they are not NHAI toll receipts, corridor revenue, vehicle counts or PCU traffic. NPCI excludes annual-pass and Maharashtra EV-exempt transactions from this published series. Issuer traffic in PCU, toll receipts and payment transactions remain separate metrics. Reporting exclusions can break comparisons across periods.' },
   { id: 'monetisation', title: 'TOT & InvIT', note: 'Concession values, realised proceeds, enterprise valuations and distributions have different meanings. Valuations are estimates. Failed or unawarded bundles are not completed sales. DPU may include interest, dividend or capital repayment.' },
   { id: 'network', title: 'NH & SH networks', note: 'Network stock, constructed length and project length are separate measures. State Highways and state expressways remain distinct from National Highways. Published all-state tables may contain older observation dates by state; ownership is not inferred from location.' },
   { id: 'state_finance', title: 'State road spending', note: 'RBI Roads and Bridges expenditure covers a wider function than State Highways. Compare the same fiscal year, estimate type and unit. State government finances and corporation accounts are separate entities; no double-counted national total is computed.' },
@@ -2114,7 +2133,7 @@ function disclosureEligible(row, catalog) {
 function disclosureMeasured(row, catalog) {
   return disclosureEligible(row, catalog)
     && ['actual', 'YTD'].includes(row.estimate_type)
-    && ['official_measured', 'issuer_disclosure', 'audit_finding'].includes(row.evidence_class);
+    && ['official_measured', 'issuer_disclosure', 'borrower_audited_project_disclosure', 'audit_finding'].includes(row.evidence_class);
 }
 
 function disclosureVisible(row, catalog, includeUndated = false) {
@@ -2184,6 +2203,70 @@ function analystHighlights(rows) {
   });
 }
 
+function netcPaymentHighlights(rows) {
+  const selections = [
+    ['NETC payment transactions', 'netc_payment_transactions', 'transactions'],
+    ['NETC payment amount', 'netc_payment_amount_inr_crore', 'INR crore'],
+  ];
+  return selections.map(([label, metric, unit]) => {
+    const candidates = rows.filter((row) => row.source_id === 'npci_netc_monthly_statistics'
+      && row.entity_type === 'payment_network' && row.agency === 'NPCI'
+      && row.period_basis === 'calendar_month' && row.metric === metric && row.unit === unit)
+      .sort((a, b) => String(b.period_end || '').localeCompare(String(a.period_end || '')));
+    const latest = candidates.filter((row) => row.period_end === candidates[0]?.period_end);
+    return { label, row: latest.length === 1 ? latest[0] : undefined };
+  });
+}
+
+function netcPaymentSeries(rows, metric, unit) {
+  const months = new Map();
+  for (const row of rows) {
+    if (row.source_id !== 'npci_netc_monthly_statistics' || row.entity_id !== 'NPCI_NETC'
+      || row.entity_type !== 'payment_network' || row.agency !== 'NPCI'
+      || row.period_basis !== 'calendar_month' || row.statement_basis !== 'NETC_payment_statistics'
+      || row.estimate_type !== 'actual' || row.evidence_class !== 'issuer_disclosure'
+      || ![true, 1, 'true'].includes(row.analytical_eligible) || row.metric !== metric || row.unit !== unit
+      || !Number.isFinite(num(row.value)) || num(row.value) < 0 || !validCitation(row.citation_url)
+      || !/^\d{4}-\d{2}-\d{2}$/.test(row.period_end || '')) continue;
+    const end = new Date(`${row.period_end}T00:00:00Z`);
+    if (!Number.isFinite(end.getTime())) continue;
+    const lastDay = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth() + 1, 0)).toISOString().slice(0, 10);
+    if (row.period_end !== lastDay || row.period_start !== `${row.period_end.slice(0, 7)}-01` || row.data_as_of !== row.period_end) continue;
+    months.set(row.period_end, [...(months.get(row.period_end) || []), row]);
+  }
+  const observed = [...months.values()].filter((matches) => matches.length === 1).map((matches) => matches[0])
+    .sort((a, b) => a.period_end.localeCompare(b.period_end));
+  return observed.map((row, index) => {
+    const previous = observed[index - 1];
+    const end = new Date(`${row.period_end}T00:00:00Z`);
+    const previousMonthEnd = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), 0)).toISOString().slice(0, 10);
+    return { x: end.getTime(), y: num(row.value), label: row.period_end, row, breakBefore: !!previous && previous.period_end !== previousMonthEnd };
+  });
+}
+
+function netcMonthTick(value) {
+  return new Date(value).toISOString().slice(0, 10);
+}
+
+function NETCPaymentTrends({ rows, catalog }) {
+  const [tooltip, setTooltip] = useState({ visible: false });
+  const definitions = [
+    ['NETC monthly payment transactions', 'netc_payment_transactions', 'transactions', 'Transactions (count)'],
+    ['NETC monthly payment amount', 'netc_payment_amount_inr_crore', 'INR crore', 'Payment amount (₹ crore)'],
+  ];
+  const confidence = confidenceFromSources([catalog.npci_netc_monthly_statistics].filter(Boolean));
+  return React.createElement('section', { className: 'netc-trends', 'aria-label': 'NETC monthly payment trends', style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 400px), 1fr))', gap: 12 } },
+    ...definitions.map(([title, metric, unit, axis]) => {
+      const series = netcPaymentSeries(rows, metric, unit);
+      const latest = series[series.length - 1]?.row;
+      return React.createElement('div', { key: metric, 'data-netc-metric': metric },
+        React.createElement(LineChart, { title, description: 'Observed calendar months. NPCI excludes annual-pass and Maharashtra EV-exempt transaction data. Reporting changes may break comparability; no growth rate or causal comparison is inferred. Publication date not disclosed.', series, xTick: netcMonthTick, tooltipKey: title, confidence, onHover: setTooltip, asOfDate: latest?.data_as_of, xAxisLabel: 'Calendar month (month end)', yAxisLabel: axis, legendLabel: axis, valueUnit: unitLabel(unit), chartHeight: 300 }),
+        latest ? React.createElement('p', { className: 'insight-note' }, `Observed range: ${series[0].row.period_start} → ${latest.period_end}. NPCI payment network; separate from NHAI receipts, vehicles and PCU traffic. `,
+          React.createElement('a', { href: validCitation(latest.citation_url), target: '_blank', rel: 'noreferrer' }, 'Primary NETC monthly table')) : null);
+    }),
+    React.createElement(ChartTooltip, { tooltip }));
+}
+
 function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter }) {
   const [theme, setTheme] = useState('funding');
   const [agency, setAgency] = useState('All');
@@ -2227,6 +2310,7 @@ function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter })
       ...values.map((entry) => React.createElement('option', { value: entry, key: entry }, display(entry)))));
   const changeTheme = (id) => { setTheme(id); setAgency('All'); setRoadClass('All'); setPeriod('All'); setEstimate('All'); setEvidence('All'); setMetric('All'); setSearch(''); setPage(0); };
   const highlights = analystHighlights(evidenceRows.filter((row) => disclosureMeasured(row, catalog)));
+  const netcHighlights = netcPaymentHighlights(filtered.filter((row) => disclosureMeasured(row, catalog)));
   return React.createElement('section', { className: 'analyst-console', 'aria-labelledby': 'analyst-title', 'data-evidence-view': sourceFilter },
     React.createElement('div', { className: 'source-line' }, React.createElement('h2', { id: 'analyst-title' }, 'Finance & infrastructure disclosures'),
       React.createElement('div', { className: 'evidence-links' },
@@ -2256,6 +2340,14 @@ function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter })
         select('Evidence class', evidence, setEvidence, [...options('evidence_class'), ...(rows.some((row) => disclosureTheme(row) === theme && !row.data_as_of && disclosureVisible(row, catalog, true)) ? ['undated_context'] : [])], (value) => value === 'undated_context' ? 'Undated context only' : value.replace(/_/g, ' ')),
         select('Metric', metric, setMetric, options('metric'), humanMetric),
         React.createElement('label', { className: 'analyst-filter' }, 'Entity search', React.createElement('input', { type: 'search', value: search, 'aria-label': 'Entity search', placeholder: 'Project, bundle, SPV or authority', onChange: (event) => { setSearch(event.target.value); setPage(0); } }))),
+      theme === 'toll' && evidenceRows.some((row) => row.source_id === 'npci_netc_monthly_statistics') ? React.createElement('section', { className: 'analyst-highlights', 'aria-label': 'NETC payment-network observations' },
+        ...netcHighlights.map(({ label, row }) => React.createElement('article', { className: 'card analyst-highlight', key: label },
+          React.createElement('h3', null, label),
+          React.createElement('strong', null, row ? `${fmtNum(row.value, { compact: false })} ${unitLabel(row.unit)}` : 'Unavailable for this selection'),
+          row ? React.createElement('p', { className: 'insight-note' }, `NPCI · payment network · ${periodLabel(row)} · as of ${row.data_as_of}. Publication: ${row.published_at || 'not disclosed'}. Original: ${fmtNum(row.original_value, { compact: false })} ${row.original_unit}.`) : null,
+          row ? React.createElement('a', { href: validCitation(row.citation_url), target: '_blank', rel: 'noreferrer' }, `Primary NETC table · ${row.table_page || 'monthly statistics'}`) : null,
+          row ? React.createElement('p', { className: 'insight-note' }, row.notes) : null))) : null,
+      theme === 'toll' && evidenceRows.some((row) => row.source_id === 'npci_netc_monthly_statistics') ? React.createElement(NETCPaymentTrends, { rows: filtered.filter((row) => disclosureMeasured(row, catalog)), catalog }) : null,
       ['funding', 'delivery', 'monetisation'].includes(theme) ? React.createElement('details', { className: 'comparable-insights' },
         React.createElement('summary', null, `Comparable calculations (${derived.length}) · matched scope and units`),
         derived.length ? derived.slice(0, 100).map((item, index) => React.createElement('p', { key: index },
