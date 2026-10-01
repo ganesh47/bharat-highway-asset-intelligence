@@ -116,7 +116,8 @@ def _annotate(entry: dict, source: dict, df: pd.DataFrame, processed_root: Path)
     entry["analytical_scope"] = scope or {"road_class": "unspecified", "scope_note": "Use source-specific row definitions; no cross-source identity inferred."}
     evidence = evidence_status(df, source, entry)
     entry["evidence_status"] = evidence
-    entry["source_as_of_date"] = observation_date(df, scope | source | entry.get("source", {}) | {"source_as_of_date": entry.get("source_as_of_date") or source.get("source_as_of_date") or scope.get("source_as_of_date")})
+    cutoff = source.get("source_as_of_date") or scope.get("source_as_of_date") or entry.get("source_as_of_date")
+    entry["source_as_of_date"] = observation_date(df, scope | source | entry.get("source", {}) | {"source_as_of_date": cutoff})
     entry["publication_date"] = source.get("publication_date") or entry.get("publication_date") or entry.get("source", {}).get("publication_date")
     if "publication_date" in df and not df["publication_date"].dropna().empty:
         entry["publication_date"] = sorted(df["publication_date"].dropna().astype(str))[-1]
