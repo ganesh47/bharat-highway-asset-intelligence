@@ -228,7 +228,7 @@ else:
 
 def _frontend_fixture_script(source: str) -> str:
     """Exercise the deployed pure calculation functions, including invalid joins."""
-    names = ["num", "completeSum", "statePortfolioObservation", "unrectifiedShare", "fmtNum", "sourceTypeTag", "analyticalReady", "confidenceFromSources", "humanMetric", "disclosureTheme", "validCitation", "disclosureEligible", "disclosureMeasured", "csvText", "deriveDisclosureInsights", "netcPaymentHighlights", "netcPaymentSeries", "netcMonthTick"]
+    names = ["num", "completeSum", "statePortfolioObservation", "unrectifiedShare", "fmtNum", "sourceTypeTag", "analyticalReady", "disclosureReady", "confidenceFromSources", "humanMetric", "disclosureTheme", "validCitation", "disclosureCutoffKnown", "disclosureEligible", "disclosureMeasured", "disclosureVisible", "disclosureQualifier", "csvText", "deriveDisclosureInsights", "netcPaymentHighlights", "netcPaymentSeries", "netcMonthTick"]
     blocks = []
     for name in names:
         start = re.search(r"^function " + re.escape(name) + r"\(", source, re.MULTILINE)
@@ -276,13 +276,22 @@ def _frontend_fixture_script(source: str) -> str:
     check(trend([{...netcActual,estimate_type:'BE'},{...july,analytical_eligible:false}]).length===0, 'NETC estimates and ineligible rows excluded');
     check(trend([{...netcActual,statement_basis:'NHAI_receipts'},{...july,entity_id:'different_network'}]).length===0, 'NETC incompatible entity or statement scope excluded');
     check(trend([netcActual,{...july,period_start:'2026-05-01',period_end:'2026-05-31',data_as_of:'2026-05-31'}])[1].breakBefore, 'NETC missing months are not connected');
-    const observed={source_id:'fixture',value:80,analytical_eligible:true,estimate_type:'actual',evidence_class:'official_measured',citation_url:'https://example.org/primary'};
+    const observed={source_id:'fixture',value:80,analytical_eligible:true,estimate_type:'actual',evidence_class:'official_measured',data_as_of:'2025-03-31',disclosure_as_of:'2026-02-01',citation_url:'https://example.org/primary'};
     const catalog={fixture:{source_id:'fixture',metric_category:'official_measured',analytical_ready:true,manifest:{row_count:1}}};
     check(disclosureMeasured(observed,catalog), 'actual measured observation');
     check(disclosureMeasured({...observed,evidence_class:'borrower_audited_project_disclosure'},catalog), 'audited borrower actual is a measured observation');
     check(!disclosureEligible({...observed,analytical_eligible:false},catalog), 'unreconciled actual excluded from arithmetic');
     check(!disclosureMeasured({...observed,estimate_type:'BE'},catalog) && !disclosureMeasured({...observed,estimate_type:'RE'},catalog), 'budget estimates are not measured actuals');
     check(!disclosureMeasured({...observed,evidence_class:'target'},catalog), 'targets are not measured actuals');
+    check(!disclosureEligible({...observed,data_as_of:''},catalog), 'later disclosure date is not an observation cutoff');
+    const unknownBudget={...observed,estimate_type:'BE',data_as_of:'',estimate_vintage:'',period_start:'2024-04-01',period_end:'2025-03-31',period_basis:'financial_year',analytical_eligible:false};
+    check(disclosureVisible(unknownBudget,catalog) && disclosureVisible({...unknownBudget,estimate_type:'RE'},catalog), 'supported unknown-vintage fiscal estimates remain visible');
+    check(disclosureVisible({...unknownBudget,period_start:'',period_basis:'balance_sheet_snapshot'},catalog), 'unknown-vintage balance-sheet estimates retain their disclosed snapshot period');
+    check(!disclosureVisible({...unknownBudget,period_start:'',period_end:''},catalog), 'undated context is not a supported fiscal estimate');
+    check(disclosureQualifier(unknownBudget,catalog).includes('estimate vintage not disclosed') && disclosureQualifier(unknownBudget,catalog).includes('excluded from measured totals and comparisons'), 'unknown-vintage estimates clearly qualified');
+    check(!disclosureEligible({...unknownBudget,analytical_eligible:true,data_as_of:'2026-02-01'},catalog), 'missing estimate vintage cannot enter arithmetic');
+    check(!disclosureEligible({...unknownBudget,analytical_eligible:true,data_as_of:'2026-02-01',estimate_vintage:'2025-02-01'},catalog), 'inconsistent estimate vintage cannot enter arithmetic');
+    check(disclosureEligible({...unknownBudget,analytical_eligible:true,data_as_of:'2026-02-01',estimate_vintage:'2026-02-01'},catalog), 'known dated budget estimate remains eligible for matched comparisons');
     const base = {entity_id:'P1', entity_type:'project', agency:'NHAI', state:'Odisha', road_class:'NH', period_start:'2025-04-01', period_end:'2026-03-31', period_basis:'financial_year', statement_basis:'project', source_id:'fixture', data_as_of:'2026-03-31', estimate_type:'actual', evidence_class:'official_measured'};
     const cost = {...base, metric:'sanctioned_cost_inr_crore', value:100, unit:'inr_crore'};
     const length = {...base, metric:'project_length_km', value:10, unit:'km'};
@@ -297,12 +306,14 @@ def _frontend_fixture_script(source: str) -> str:
     check(derive([{...cost,metric:'tot_concession_value_inr_crore'}, {...length,metric:'tot_portfolio_length_km'}])[0]?.label === 'TOT concession value per route km', 'concession value uses disclosed route denominator');
     check(derive([{...cost,metric:'tot_concession_value_inr_crore'}, length]).length === 0, 'concession value does not use unrelated project denominator');
     const actual={...base,metric:'budget_maintenance_inr_crore',value:80,unit:'inr_crore'};
-    const budget={...actual,value:100,estimate_type:'BE'};
+    const budget={...actual,value:100,estimate_type:'BE',estimate_vintage:'2026-03-31'};
     check(derive([actual,budget])[0]?.value === 80, 'matched full-period actual to BE');
     check(derive([{...actual,estimate_type:'YTD'},budget]).length === 0, 'YTD is not full-period actual');
     check(derive([actual,{...budget,data_as_of:'2025-03-31'}]).length === 0, 'budget comparison cutoff');
     check(derive([actual,{...budget,statement_basis:'consolidated'}]).length === 0, 'different accounting basis');
     check(derive([actual,actual,budget]).length === 0, 'ambiguous duplicate actual');
+    check(derive([actual,{...budget,estimate_vintage:''}]).length === 0, 'unknown estimate vintage suppresses utilisation');
+    check(derive([{...actual,data_as_of:'',disclosure_as_of:'2026-02-01'},{...budget,data_as_of:'',disclosure_as_of:'2026-02-01'}]).length === 0, 'shared later reporting date cannot substitute for missing cutoffs');
     check(csvText([{metric:'=1+1'}],['metric']).includes("'=1+1"), 'CSV spreadsheet text safety');
     return failures;
     """
@@ -552,7 +563,7 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
             download = await download_info.value
             download_path = await download.path()
             csv_text = Path(download_path).read_text(encoding='utf-8-sig')
-            for field in ['original_unit', 'period_basis', 'statement_basis', 'citation_url', 'table_page', 'source_document_sha256']:
+            for field in ['original_unit', 'period_basis', 'statement_basis', 'disclosure_as_of', 'estimate_vintage', 'reported_period', 'citation_url', 'table_page', 'source_document_sha256']:
                 if field not in csv_text.splitlines()[0]:
                     raise RuntimeError(f"CSV lost lineage field: {field}")
             if len(csv_text.splitlines()) < 2:
@@ -584,6 +595,20 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
                     raise RuntimeError(f'Maharashtra state road expenditure missing for {estimate_type}')
                 if 'rbi_state_road_finances' not in await table.inner_text():
                     raise RuntimeError('State road finance rows lost their RBI primary-source lineage')
+                estimate_text = await table.inner_text()
+                if estimate_type in {'BE', 'RE'} and not all(marker in estimate_text for marker in ['Estimate vintage: not disclosed', 'estimate vintage not disclosed', 'excluded from measured totals and comparisons', 'Disclosure as of:']):
+                    raise RuntimeError('Unknown-vintage RBI estimates must remain visible with later reporting dates and comparison exclusions')
+            async with page.expect_download() as rbi_download_info:
+                await page.get_by_role('button', name='Download filtered evidence CSV', exact=True).click()
+            rbi_download = await rbi_download_info.value
+            rbi_rows = list(csv.DictReader(io.StringIO(Path(await rbi_download.path()).read_text(encoding='utf-8-sig'))))
+            if not rbi_rows or any(row['estimate_type'] != 'RE' or row['data_as_of'] or row['estimate_vintage'] or row['analytical_eligible'] != 'false' or not row['disclosure_as_of'] or not row['reported_period'] for row in rbi_rows):
+                raise RuntimeError('RBI unknown-vintage RE export must preserve reported periods and later disclosures without inventing observation cutoffs')
+            await page.get_by_label('Estimate type', exact=True).select_option('actual')
+            await page.get_by_label('Reporting period', exact=True).select_option('2023-04-01 → 2024-03-31 (fiscal_year)')
+            historical_text = await table.inner_text()
+            if not all(marker in historical_text for marker in ['As of: 2024-03-31', 'Disclosure as of:', 'Source period label: 2023-24']):
+                raise RuntimeError('Historical RBI actuals must retain fiscal observation cutoffs separately from later disclosure dates')
             await page.get_by_role('button', name='Debt & repayments', exact=False).click()
             await page.get_by_label('Metric', exact=True).select_option('state_government_guarantees_outstanding_inr_crore')
             guarantee_text = await table.inner_text()
