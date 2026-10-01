@@ -139,20 +139,22 @@ sources:
 
   - source_id: data_gov_in_nhai_statewise_nh_project_status_2024_25
     official_flag: true
-    publisher_org: National Highways Authority of India (NHAI)
+    publisher_org: Ministry of Road Transport and Highways (MoRTH) / Parliament Secretariat
+    agency_scope: MoRTH national-highway projects in Arunachal Pradesh, Nagaland, Manipur and Tripura; implementing agencies not separated
+    entity_type: state_aggregate
     domain: data.gov.in
-    dataset_title: Northeast subset NH project status (ongoing, completed, approved), as on March 2024
+    dataset_title: Four-state Northeast NH project status and FY2024-25 YTD completions, reported 27 November 2024
     theme: projects
     access_type: HTML
     auth: none
     update_frequency: annual
     geographic_granularity: state
-    temporal_coverage: 2024-2025
+    temporal_coverage: FY2024-25 year-to-date through 27 November 2024
     license_terms: "Open Government Data License - India (OGL), subject to data.gov.in terms"
     retrieval_method: direct download
     reliability_grade: B
     reliability_justification: "Official dataset on NH project status from a ministry response, but the attached table only covers a Northeast subset."
-    known_limitations: "This file is not all-India. It contains Arunachal Pradesh, Nagaland, Manipur, Tripura, and a Total row only."
+    known_limitations: "This file is not all-India. It contains Arunachal Pradesh, Nagaland, Manipur, Tripura, and a Total row only. FY2024-25 completions are year-to-date at the parliamentary answer, not a full-year result or a March2025 observation. Approved projects are pipeline status, not completed assets; project costs are not expenditure."
     resource_page_url: https://www.data.gov.in/resource/state-wise-details-national-highway-nh-projects-under-construction-completed-approved-yet
     allow_auto_fetch: true
     url: https://www.data.gov.in/resource/state-wise-details-national-highway-nh-projects-under-construction-completed-approved-yet
@@ -160,7 +162,13 @@ sources:
     permanent_identifier_hint: nid=603577044 (resource page) / file RS_Session_266_AU_210_A_to_B_i.csv
     resource_file_urls:
       - https://www.data.gov.in/sites/default/files/RS_Session_266_AU_210_A_to_B_i.csv
-    notes: "Do not use this source for all-India state comparisons. The official file only contains a four-state Northeast subset plus Total."
+    publication_date: '2024-11-27'
+    source_as_of_date: '2024-11-27'
+    primary_reference_url: https://sansad.in/getFile/annex/266/AU210_JMm1YS.pdf?source=pqars
+    primary_reference_sha256: 1c344b826ce5d0d529a645b20d936affe6b8bf9de4587c0306473a6722a7d508
+    primary_reference_page: 1
+    evidence_metadata_path: data/raw/manual/evidence/data_gov_in_nhai_statewise_nh_project_status_2024_25.json
+    notes: "Verified against MoRTH Rajya Sabha unstarred question210, answered27November2024, page1: all45 numeric cells match the OGD CSV. Observation cutoff uses answer date because no earlier table cutoff is disclosed. FY2024-25 completed columns are YTD, not31March2025. Four-state subset plus a reported Total; never sum the Total together with states or infer all-India coverage."
 
   - source_id: data_gov_in_nhai_stateut_project_delay_status_2024
     official_flag: true

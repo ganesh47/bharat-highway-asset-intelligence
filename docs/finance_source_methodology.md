@@ -101,6 +101,16 @@ observation history ledger. The old and final observations cover different perio
 the historical YTD value is not treated as a revision of the March full-year value.
 Existing OGD financial spending remains explicitly through31January2025.
 
+The legacy four-state Northeast project-status CSV is cross-checked against
+MoRTH Rajya Sabha unstarred question210, answered27November2024, physical page1.
+All45 numerical cells match, including Nagaland's explicit zero approved-project
+cells. The answer date is the latest supported observation cutoff; its
+FY2024-25 completed-project columns are year-to-date. They are not a March2025
+full-year result. Approved-project costs describe the pipeline and are not
+incurred expenditure. The cited Total covers only Arunachal Pradesh, Nagaland,
+Manipur and Tripura. A committed reference-evidence JSON pins the PDF and CSV
+checksums and the comparison cells.
+
 Issuer/multilateral public disclosure is not blanket permission to redistribute
 whole reports. CSV extracts link to originals and cite only relevant tables;
 no blanket OGL licence is asserted for those documents.
