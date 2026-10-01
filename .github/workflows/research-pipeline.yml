@@ -116,8 +116,47 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      actions: read
     steps:
       - uses: actions/checkout@v6
+
+      - name: Find last validated workspace
+        id: previous_research
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          run_id=""
+          candidates="$(gh run list --repo "${GITHUB_REPOSITORY}" --workflow research-pipeline.yml --branch "${GITHUB_REF_NAME}" --status success --limit 20 --json databaseId --jq '.[].databaseId')"
+          for candidate in ${candidates}; do
+            artifact_id="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${candidate}/artifacts" --jq '.artifacts[] | select(.name == "bhai-research-artifacts" and .expired == false) | .id')"
+            if [ -n "${artifact_id}" ]; then
+              run_id="${candidate}"
+              break
+            fi
+          done
+          echo "run_id=${run_id}" >> "$GITHUB_OUTPUT"
+          if [ -z "${run_id}" ]; then
+            echo "No retained validated artifact; using the checked-in baseline."
+          fi
+
+      - name: Download last validated workspace
+        if: steps.previous_research.outputs.run_id != ''
+        uses: actions/download-artifact@v8
+        with:
+          name: bhai-research-artifacts
+          path: tmp/previous-research
+          github-token: ${{ github.token }}
+          run-id: ${{ steps.previous_research.outputs.run_id }}
+
+      - name: Restore last validated data
+        if: steps.previous_research.outputs.run_id != ''
+        run: |
+          mkdir -p data/manifests data/processed
+          cp -a tmp/previous-research/data/manifests/. data/manifests/
+          cp -a tmp/previous-research/data/processed/. data/processed/
+          # Keep this revision's source definitions and governed manual extracts.
 
       - name: Setup Python
         uses: actions/setup-python@v6
@@ -245,6 +284,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
+
+      - name: Restore base workspace for historical extraction retention
+        uses: actions/download-artifact@v8
+        with:
+          name: bhai-base-workspace
+          path: data
 
       - name: Download NHAI source parquet
         uses: actions/download-artifact@v8

@@ -10,10 +10,13 @@ from pathlib import Path
 from unittest.mock import Mock, patch
 
 import yaml
+import pandas as pd
 
 from scripts.check_deployed_provenance import verify
 from scripts.research_change_detection import requires_ocr
 from scripts.nhai_annual_report_merge import _validate_shard_manifests
+from scripts.nhai_annual_report_extractor import preserve_failed_documents
+from scripts import nhai_annual_report_extractor as extractor
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -82,6 +85,67 @@ class ResearchDeliveryTests(unittest.TestCase):
             shard = {"source_parquet_sha256": hashlib.sha256(b"previous source list").hexdigest()}
             with self.assertRaisesRegex(SystemExit, "checksum"):
                 _validate_shard_manifests([shard], source, allow_incomplete=False)
+
+    def test_failed_document_extraction_retains_historical_values_and_dates(self):
+        previous = pd.DataFrame([{"source_document_url": "https://example.org/report.pdf",
+                                  "source_document_sha256": "a" * 64, "extraction_method": "table",
+                                  "record_type": "table_row", "metric_value_numeric": 123.0,
+                                  "dataset_created_at": "2025-04-01", "report_year": "2024-25"}])
+        failed = pd.DataFrame([{"source_document_url": "https://example.org/report.pdf",
+                                "source_document_sha256": "", "extraction_method": "error",
+                                "record_type": "extraction_error", "metric_value_numeric": None,
+                                "metric_value_text": "HTTP 503", "dataset_created_at": "2026-10-02"}])
+        rows, outcomes = preserve_failed_documents(failed, previous)
+        self.assertEqual(rows["metric_value_numeric"].tolist(), [123.0])
+        self.assertEqual(rows["dataset_created_at"].tolist(), ["2025-04-01"])
+        self.assertEqual(outcomes[0]["outcome"], "retained_after_failure")
+        previous["source_document_sha256"] = ""
+        rows, outcomes = preserve_failed_documents(failed, previous)
+        self.assertTrue(rows["metric_value_numeric"].isna().all())
+        self.assertEqual(outcomes, [])
+
+    def test_daily_refresh_restores_prior_data_without_overwriting_new_extracts(self):
+        workflow = yaml.safe_load((ROOT / ".github/workflows/research-pipeline.yml").read_text())
+        job = workflow["jobs"]["ingest_base"]
+        self.assertEqual(job["permissions"]["actions"], "read")
+        step = next(item for item in job["steps"] if item.get("name") == "Restore last validated data")
+        self.assertIn("data/manifests", step["run"])
+        self.assertIn("data/processed", step["run"])
+        self.assertNotIn("cp -a tmp/previous-research/data/raw", step["run"])
+
+    def test_extractor_failure_path_preserves_each_year_and_pins_quality(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "source.parquet"
+            yearly = root / "tables/yearly"
+            yearly.mkdir(parents=True)
+            documents = pd.DataFrame([
+                {"source_document_url": f"https://example.org/{year}.pdf", "financial_year": year,
+                 "document_title": f"Annual Report {year}"} for year in ["2023-24", "2024-25"]])
+            documents.to_parquet(source, index=False)
+            old = extractor._coerce_frame(pd.DataFrame([{
+                "source_document_url": "https://example.org/2023-24.pdf", "source_document_sha256": "b" * 64,
+                "extraction_method": "table", "record_type": "table_row", "metric_value_numeric": 75.0,
+                "dataset_created_at": "2024-06-01", "report_year": "2023-24"}]))
+            old.to_parquet(yearly / "nhai_annual_report_2023-24.parquet", index=False)
+            canonical = root / "canonical.parquet"
+            old.to_parquet(canonical, index=False)
+            quality = root / "tables/quality.json"
+            argv = ["extract", "--source-parquet", str(source), "--output-root", str(root / "tables"),
+                    "--canonical-output", str(canonical), "--quality-report-output", str(quality)]
+            with patch.object(sys, "argv", argv), patch.object(extractor, "_extract_one_document",
+                    side_effect=lambda payload, output: extractor._error_result(payload, "HTTP 503")), patch("builtins.print"):
+                extractor.main()
+            previous_year = pd.read_parquet(yearly / "nhai_annual_report_2023-24.parquet")
+            missing_year = pd.read_parquet(yearly / "nhai_annual_report_2024-25.parquet")
+            self.assertEqual(previous_year["metric_value_numeric"].tolist(), [75.0])
+            self.assertEqual(previous_year["dataset_created_at"].tolist(), ["2024-06-01"])
+            self.assertTrue(missing_year["metric_value_numeric"].isna().all())
+            extraction = json.loads((root / "tables/extraction_manifest.json").read_text())
+            self.assertEqual(extraction["rows_merged"], len(pd.read_parquet(canonical)))
+            self.assertEqual(extraction["source_parquet_sha256"], hashlib.sha256(source.read_bytes()).hexdigest())
+            self.assertEqual(extraction["canonical"]["sha256"], hashlib.sha256(canonical.read_bytes()).hexdigest())
+            self.assertEqual(json.loads(quality.read_text())["source_parquet_sha256"], extraction["source_parquet_sha256"])
 
     def test_published_catalog_checksum_must_match_bundle(self):
         catalog = json.dumps({"datasets": [{"source_id": "official"}]}).encode()
