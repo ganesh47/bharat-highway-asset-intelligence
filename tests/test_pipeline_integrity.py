@@ -156,6 +156,19 @@ class PublicationTests(unittest.TestCase):
         self.assertEqual(sha, sha256_for_file(output))
         self.assertEqual(report["sources"], json.loads((self.manifests / "refresh_report.json").read_text())["sources"])
 
+    def test_quality_only_clears_stale_date_in_refresh_report_too(self):
+        self.run_fixture(FixtureConnector(self.frame.assign(data_as_of="", source_document_sha256="a" * 64, analytical_eligible=False)))
+        catalog = json.loads(self.catalog.read_text())
+        report_path = self.manifests / "refresh_report.json"
+        report = json.loads(report_path.read_text())
+        catalog["datasets"][0]["source_as_of_date"] = "2026-12-31"
+        report["sources"][0]["source_as_of_date"] = "2026-12-31"
+        write_json(catalog, self.catalog)
+        write_json(report, report_path)
+        refresh_quality_only(str(self.inventory), ["fixture_source"], self.processed, self.manifests, self.catalog)
+        self.assertIsNone(json.loads(self.catalog.read_text())["datasets"][0]["source_as_of_date"])
+        self.assertIsNone(json.loads(report_path.read_text())["sources"][0]["source_as_of_date"])
+
     def test_duplicate_inventory_ids_are_rejected(self):
         self.inventory.write_text(yaml.safe_dump({"sources": [self.source, self.source]}))
         with self.assertRaises(ValueError):

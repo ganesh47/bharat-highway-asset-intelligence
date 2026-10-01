@@ -314,6 +314,8 @@ def refresh_quality_only(inventory_path: str, selected_sources: list[str] | None
                 row["analytical_ready"] = entry["analytical_ready"]
                 row["disclosure_ready"] = entry["disclosure_ready"]
                 row["extraction_status"] = entry["extraction_status"]
+                for field in ("source_as_of_date", "publication_date", "evidence_status"):
+                    row[field] = entry.get(field)
     write_catalog(catalog_path, list(entries.values()))
     if report:
         report["analytical_ready_source_count"] = sum(row.get("analytical_ready", False) for row in report.get("sources", []))
