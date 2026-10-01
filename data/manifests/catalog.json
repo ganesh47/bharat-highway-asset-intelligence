@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T20:57:32.290099+00:00",
+  "generated_at": "2026-10-01T21:07:07.116611+00:00",
   "datasets": [
     {
       "source_id": "data_gov_in_nhai_projects_api",
@@ -2119,7 +2119,8 @@
         "license_terms": "Official publication on NHAI website; reuse subject to official publication terms.",
         "official_flag": true,
         "domain": "nhai.gov.in",
-        "observation_date_unknown": true
+        "observation_date_unknown": true,
+        "publication_date_unknown": true
       },
       "citations": {
         "permanent_identifier": "NHAI annual report index and policy/circular feeds",
@@ -2299,11 +2300,11 @@
         "observation_date_unknown": true
       },
       "evidence_status": "document_metadata",
-      "publication_date": "2023-01-01",
+      "publication_date": null,
       "disclosure_ready": false,
       "analytical_ready": false,
       "extraction_status": "checksum_mismatch",
-      "last_quality_check_at": "2026-10-01T20:57:32.289560+00:00"
+      "last_quality_check_at": "2026-10-01T21:07:07.116048+00:00"
     },
     {
       "source_id": "nhai_audited_results_pdf",

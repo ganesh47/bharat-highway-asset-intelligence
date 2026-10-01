@@ -1265,11 +1265,12 @@
       "evidence_status": "document_metadata",
       "extraction_status": "checksum_mismatch",
       "observation_as_of": null,
-      "publication_date": "2023-01-01",
+      "publication_date": null,
       "refresh_outcome": "updated",
       "refresh_error": null,
       "last_refresh_checked_at": "2026-10-01T20:08:37.009417+00:00",
-      "observation_date_unknown": true
+      "observation_date_unknown": true,
+      "publication_date_unknown": true
     },
     {
       "source_id": "nhai_press_release_index",
@@ -2825,5 +2826,5 @@
       "last_refresh_checked_at": "2026-10-01T20:17:36.386717+00:00"
     }
   ],
-  "catalog_synced_at": "2026-10-01T20:57:32.540954+00:00"
+  "catalog_synced_at": "2026-10-01T21:07:07.386069+00:00"
 }
