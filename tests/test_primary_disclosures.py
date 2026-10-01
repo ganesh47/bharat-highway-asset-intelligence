@@ -149,6 +149,18 @@ class PrimaryDisclosureTests(unittest.TestCase):
         self.assertEqual(document.read_text(),"<p>Realised28307crore</p>")
         self.assertTrue(list(document.parent.glob("quarantine/*.html")))
 
+    def test_nhidcl_region_and_mmlp_labels_filter_by_canonical_state(self):
+        path=Path(__file__).resolve().parents[1]/"data/raw/manual/nhidcl_monthly_project_progress.csv"
+        df=pd.read_csv(path)
+        self.assertIn("Andaman and Nicobar Islands",set(df.state))
+        self.assertIn("Jammu & Kashmir",set(df.state))
+        self.assertFalse(df.state.str.contains("RO-|MMLP",regex=True).any())
+        mmlp=df[df.road_class.eq("multimodal_logistics")]
+        self.assertEqual(set(mmlp.state),{"Assam"})
+        self.assertTrue(mmlp.notes.str.contains("Original source State/UT/RO label: Assam \\(MMLP\\)").all())
+        jk=df[df.state.eq("Jammu & Kashmir")]
+        self.assertTrue(jk.notes.str.contains("RO- Jammu|RO- Srinagar",regex=True).all())
+
 
 if __name__ == "__main__":
     unittest.main()

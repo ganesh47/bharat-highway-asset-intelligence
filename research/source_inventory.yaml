@@ -191,18 +191,22 @@ sources:
     official_flag: true
     publisher_org: National Highways Authority of India (NHAI)
     domain: data.gov.in
-    dataset_title: Project-wise major ongoing NH works in Tamil Nadu (2024-2026)
+    dataset_title: Project-wise major ongoing NH works in Tamil Nadu, Parliament snapshot 24 July 2024
     theme: projects
     access_type: HTML
     auth: none
     update_frequency: annual
     geographic_granularity: corridor
-    temporal_coverage: 2024-2026
+    temporal_coverage: Snapshot 24 July 2024; 2024-2026 entries are scheduled completion dates
+    source_as_of_date: '2024-07-24'
+    publication_date: '2024-07-24'
+    progress_reference_url: https://sansad.in/getFile/annex/265/AU286_APrEba.pdf?source=pqars
+    progress_reference_sha256: 46a17f9f1efc8d0afda41cfc5ea41b6f7dd69696aa2b2db6d9ae558c7d739267
     license_terms: "Open Government Data License - India (OGL), subject to data.gov.in terms"
     retrieval_method: direct download
     reliability_grade: B
     reliability_justification: "Official answer-based dataset with project-level table for major ongoing works and progress references."
-    known_limitations: "State-specific QA response; status semantics may differ from national project registries."
+    known_limitations: "OGD CSV drops progress decimal points; progress must be repaired against the pinned primary Parliament PDF with exact row alignment. Original corrupted values and both document hashes are retained. Scheduled completion years do not establish observation freshness."
     resource_page_url: https://www.data.gov.in/resource/project-wise-details-major-ongoing-works-projects-state-tamil-nadu-under-national-highway
     allow_auto_fetch: true
     url: https://www.data.gov.in/resource/project-wise-details-major-ongoing-works-projects-state-tamil-nadu-under-national-highway
@@ -1112,7 +1116,7 @@ sources:
     dataset_title: NPCI NETC monthly product statistics
     theme: toll
     access_type: HTML
-    auth: none
+    auth: restricted
     update_frequency: monthly
     geographic_granularity: entity
     temporal_coverage: Monthly releases; no verified current extract
@@ -1314,7 +1318,7 @@ sources:
     dataset_title: ADB Maharashtra State Road Improvement Project52298-001
     theme: state_projects
     access_type: HTML
-    auth: none
+    auth: restricted
     update_frequency: ad_hoc
     geographic_granularity: project
     temporal_coverage: Project disclosures and audit Apr2024-May2025; no verified extract

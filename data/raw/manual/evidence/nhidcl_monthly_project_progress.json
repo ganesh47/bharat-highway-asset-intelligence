@@ -10,10 +10,10 @@
       "size_bytes": 687834
     }
   ],
-  "csv_sha256": "15f5983004ce9b28fecccdea8b1ce46e399baafbbadc40b50a6c09a7ff7a274c",
+  "csv_sha256": "a22286bfa7415ae1d1ce720909382a0605ca47fe2616be39816935bc8f6e6993",
   "extraction_status": "validated",
   "row_count": 2384,
-  "notes": "410 detail projects; do not sum to page1 summary: summary has a narrower stage/agency classification. Emails excluded.",
+  "notes": "410 detail projects; do not sum to page1 summary: summary has a narrower stage/agency classification. Emails excluded. State/UT canonicalization preserves original RO/MMLP labels in row notes.",
   "gap_reason": "",
   "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"
 }
