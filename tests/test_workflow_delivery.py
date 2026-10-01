@@ -81,6 +81,10 @@ class ResearchDeliveryTests(unittest.TestCase):
     def test_cd_browser_job_rejects_untrusted_revisions_and_accepts_schedules(self):
         workflow = yaml.safe_load((ROOT / ".github/workflows/github-pages.yml").read_text())
         self.assertEqual("none", workflow["cache-mode"])
+        smoke = workflow["jobs"]["cd_smoke"]
+        self.assertIn("build", smoke["needs"])
+        checkout = next(step for step in smoke["steps"] if str(step.get("uses", "")).startswith("actions/checkout"))
+        self.assertEqual("${{ needs.build.outputs.source_sha }}", checkout["with"]["ref"])
         condition = workflow["jobs"]["cd_smoke"]["if"]
         cases = [
             ("workflow_dispatch", "refs/heads/main", "", "", "", "", True),
