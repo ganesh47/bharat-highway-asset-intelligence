@@ -43,6 +43,10 @@ DOCUMENT_SOURCES = {"nhai_annual_report_documents", "nhai_audited_results_pdf", 
 
 def observed_row_mask(df: pd.DataFrame) -> pd.Series:
     """Recognize an explicit observation date or a reported row period."""
+    if {"data_as_of", "source_document_sha256"} <= set(df.columns):
+        # Primary records explicitly distinguish the cutoff from a reporting
+        # year, publication date, target period and compatibility aliases.
+        return pd.to_datetime(df["data_as_of"], errors="coerce", utc=True).notna()
     known = pd.Series(False, index=df.index)
     for column in ("source_as_of_date", "data_as_of", "as_of_date", "observation_date", "period_end"):
         if column in df:
@@ -55,6 +59,11 @@ def observed_row_mask(df: pd.DataFrame) -> pd.Series:
 
 def observation_date(df: pd.DataFrame, item: Dict[str, Any]) -> str | None:
     """Observation dates stay independent of publication and download dates."""
+    if {"data_as_of", "source_document_sha256"} <= set(df.columns):
+        dates = pd.to_datetime(df["data_as_of"], utc=True, errors="coerce").dropna()
+        # An explicit unknown must also clear a previously inferred catalog
+        # date; neither the legacy year nor an inherited manifest can fill it.
+        return dates.max().date().isoformat() if not dates.empty else None
     for key in ("source_as_of_date", "data_as_of", "as_of_date", "observation_date", "period_end"):
         value = item.get(key)
         if value:

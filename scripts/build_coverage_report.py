@@ -36,13 +36,16 @@ def cell(value) -> str:
     return str(value).replace("|", "\\|").replace("\n", " ").replace("\r", " ")
 
 
-def dates(df: pd.DataFrame) -> str:
-    for column in ["data_as_of", "source_as_of_date", "period_end", "year"]:
+def dates(df: pd.DataFrame, fallback: str | None = None) -> str:
+    columns = ["data_as_of"] if {"data_as_of", "source_document_sha256"} <= set(df.columns) else ["data_as_of", "source_as_of_date", "period_end", "year"]
+    for column in columns:
         if column in df:
             values = sorted(set(df[column].dropna().astype(str)) - {"", "nan", "None"})
             if values:
                 return values[0] if len(values) == 1 else f"{values[0]} to {values[-1]}"
-    return "Unknown"
+    if {"data_as_of", "source_document_sha256"} <= set(df.columns):
+        return "Unknown"
+    return fallback or "Unknown"
 
 
 def build(inventory_path: Path, catalog_path: Path, out: Path, root: Path = ROOT) -> dict:
@@ -94,7 +97,7 @@ def build(inventory_path: Path, catalog_path: Path, out: Path, root: Path = ROOT
             extraction += ": " + str(reason)
         lines.append("| " + " | ".join(map(cell, [sid, title, outcome["outcome"],
                     "Measured observations" if sid in frames else "Disclosures only" if entry.get("disclosure_ready") else "Excluded / gap", entry.get("manifest", {}).get("row_count", 0),
-                    dates(frames[sid]) if sid in frames else entry.get("source_as_of_date"),
+                    dates(frames[sid], entry.get("source_as_of_date")) if sid in frames else entry.get("source_as_of_date"),
                     entry.get("publication_date"), extraction])) + " |")
     extra = entries.keys() - sources.keys()
     if extra:
@@ -130,7 +133,7 @@ def build(inventory_path: Path, catalog_path: Path, out: Path, root: Path = ROOT
                     continue
                 metric_col = "metric" if "metric" in part else "metric_name" if "metric_name" in part else None
                 metrics = sorted(part[metric_col].dropna().astype(str).unique()) if metric_col else ["network length"]
-                evidence.append(f"{sid}: {', '.join(metrics)} ({dates(part)})" + (". " + "; ".join(historical_regions) if historical_regions else ""))
+                evidence.append(f"{sid}: {', '.join(metrics)} ({dates(part, entries[sid].get('source_as_of_date'))})" + (". " + "; ".join(historical_regions) if historical_regions else ""))
             values.append("; ".join(evidence) or "Gap")
         lines.append("| " + " | ".join(map(cell, [state, *values])) + " |")
     lines.extend(["", "## Boundaries and remaining gaps", "",
