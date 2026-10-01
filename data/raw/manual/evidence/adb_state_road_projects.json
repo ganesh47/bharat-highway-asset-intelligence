@@ -1,12 +1,24 @@
 {
   "source_id": "adb_state_road_projects",
   "research_cutoff": "2026-10-02",
-  "retrieved_at": null,
-  "documents": [],
-  "csv_sha256": "5ccdb1c9a95634063e5199948f333b8309b25565884af5caf41bc7a5d867aabc",
-  "extraction_status": "evidence_gap",
-  "row_count": 0,
-  "notes": "Official project52298-001 primary page HTTP403; financial statement April2024-May2025 disclosed in index; no unretrieved numerical facts.",
-  "gap_reason": "Official project52298-001 primary page HTTP403; financial statement April2024-May2025 disclosed in index; no unretrieved numerical facts.",
+  "retrieved_at": "2026-10-01T21:54:50.461542+00:00",
+  "last_checked_at": "2026-10-01T22:05:45.290514+00:00",
+  "documents": [
+    {
+      "url": "https://www.adb.org/sites/default/files/project-documents/52298/52298-001-apfs-en_3.pdf",
+      "relative_path": "primary_disclosures/adb_state_road_projects/document.pdf",
+      "sha256": "d8d949023e38e46929f39edf948b642fcc670d34332e841ba186121d0b955ffd",
+      "size_bytes": 3005347,
+      "artifact_kind": "publisher_pdf",
+      "checksum_scope": "Exact downloaded publisher PDF bytes",
+      "extraction_method": "Checksum-pinned visual transcription of scanned tables; embedded OCR is not numerical authority",
+      "publication_reference_url": "https://www.adb.org/projects/documents/ind-52298-001-apfs-3"
+    }
+  ],
+  "csv_sha256": "8c2b7b703801d920bf4f067f2ed97bc31bc557672e1064a2c539bd66b7fd974d",
+  "extraction_status": "validated",
+  "row_count": 77,
+  "notes": "Final scanned MPWD project accounts visually checked on physical pages3-8,11-13,24-25. Exact PDF hash pinned; OCR digit errors are not ingested. Cash basis; current1April2024-19May2025, priorFY2023-24, cumulative1April2020-19May2025. Authorised20August2025; auditor22August2025; ADB document pagepublished5September2025. Government of India borrower, ADB lender, MPWD executing agency. No state aggregate debt/guarantees inferred. Printed dashes remain absent. Investment components differ from printed subtotal by one INRthousand. Nine printed package deposits sum928394 versus reported total928530 INRthousand, an unreconciled136-thousand discrepancy; no cause inferred. Reported assertions retained separately. Project450km/5year-maintenance objectives and historical PAM cost plan are target context, excluded from measured arithmetic. Automated ADB requests remain restricted; manual browser download archive used, no automatic refresh claim.",
+  "gap_reason": "",
   "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"
 }

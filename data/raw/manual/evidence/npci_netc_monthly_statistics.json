@@ -2,7 +2,7 @@
   "source_id": "npci_netc_monthly_statistics",
   "research_cutoff": "2026-10-02",
   "retrieved_at": "2026-10-01T21:49:22+00:00",
-  "last_checked_at": "2026-10-01T21:56:15.541204+00:00",
+  "last_checked_at": "2026-10-01T22:05:45.302277+00:00",
   "documents": [
     {
       "url": "https://www.npci.org.in/product/netc/product-statistics",
@@ -16,7 +16,7 @@
       "publisher_document_checksum_available": false
     }
   ],
-  "csv_sha256": "a33d6c5f7eb974526e4f7fb4e197e919374da6c2d058fb9d8d2d228fb4ed4c9c",
+  "csv_sha256": "c2f003690091794931cfba98d9e45d48da83ad57429c88201a267b08e99da8ce",
   "extraction_status": "validated",
   "row_count": 34,
   "notes": "Governed manual browser capture of seventeen official monthly rows, April2025-August2026, captured2026-10-01T21:49:22+00:00. Publication date undisclosed. NETC payment transactions and scheme payment amounts are not NHAI toll receipts, vehicle counts, PCU traffic or corridor revenue. Published exclusions: Annual pass and Maharashtra Electric Vehicle exempted data is not included in the NETC transaction data. Document SHA256 pins local rendered JSON, not publisher response bytes; future months require a new reviewed capture.",

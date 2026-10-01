@@ -4,8 +4,8 @@ Research cutoff: 2 October 2026. The inventory adds 16 government, issuer,
 payment-system and multilateral sources. Government authority does not establish
 extract quality; issuer disclosures are not classified as government measurements.
 
-The governed snapshots contain **4,102 numerical facts** from 14 retrieved sources.
-Two sources have typed empty snapshots and explicit evidence gaps. Every
+The governed snapshots contain **4,179 numerical facts** from 15 retrieved sources.
+One source has a typed empty snapshot and an explicit evidence gap. Every
 nonempty row records its source URL, physical document/table/page anchor, source
 SHA256, original units, normalized value, entity, road class, period, statement
 basis, estimate type, publication date when disclosed, and observation date.
@@ -27,11 +27,12 @@ basis, estimate type, publication date when disclosed, and observation date.
 | UPEIDA project HTML | 8 route, grant and cost context facts | Verified TLS macOS curl retrieval; financial observation/publication dates undisclosed; all rows excluded from measured analytics; Agra-Lucknow cost excludes land |
 | NPCI NETC statistics | 34 monthly payment-volume and amount facts, April2025–August2026 | Governed manual capture of the rendered official table; annual pass and Maharashtra Electric Vehicle exempted data excluded as stated by NPCI; no NHAI-receipts or traffic-count inference |
 | MSRDC financial disclosures | Evidence gap | Index/filings time out; subsidiaryFY23-24 is not parent standaloneFY23-24 |
-| ADB project52298-001 | Evidence gap | Primary page403; discovered audit links alone do not establish numeric facts |
+| ADB project52298-001 final accounts | 77 project/package finance and target facts | MPWD cash-basis accounts through19May2025;70 actuals eligible,6 targets and1 unreconciled deposit total excluded; scanned cells visually checked against exact PDF bytes |
 
 ## Financial and comparison rules
 
 Currency normalization is INRcrore. INRlakh is multiplied by0.01; INRmillion by0.1.
+INRthousand is multiplied by0.0001.
 Per-unit distributions stay INR/unit. Both original value/unit and normalized
 value/unit remain visible. Gross/net allocations, debt carrying values, debt
 outstanding, concession proceeds, total liabilities, and enterprise values are
@@ -87,6 +88,31 @@ capture, not original publisher PDF or HTML bytes. September2026 was not display
 Month ends are observation cutoffs; the capture date is retrieval only and the
 publication day remains unknown. HTTP403/JavaScript restrictions still prevent a
 verified automatic fetch. New months require another reviewed snapshot.
+NPCI's scheme statistics are institutional issuer disclosures; they do not
+become government measurements or proxy data because of portal access restrictions.
+
+ADB-hosted accounts for project52298-001 are borrower-owned MPWD accounts for
+Loan3911-IND. Government of India is the borrower, ADB the lender and MPWD the
+executing agency. The final audited current period is1April2024-19May2025,
+with priorFY2023-24 and cumulative1April2020-19May2025 columns. Financial closure
+is19May2025; authorisation20August2025 and auditor22August2025 are distinct from
+the ADB document page's5September2025 publication. These dates do not imply a
+current whole-state balance sheet or an SPV debt exposure.
+
+The exact25-page publisher PDF was downloaded through the manual browser and its
+SHA256 pinned. Embedded OCR misreads some amounts, including printed current
+payments569785 as569795 and reimbursement674809 as674909, in INRthousand.
+The builder reproduces visually validated source cells only for the pinned bytes;
+a changed PDF requires another review. Annexures1-3 provide cash-basis payments,
+financing shares and reimbursement claims. Package civil-work totals on pages11-12
+reconcile to14934706 INRthousand. Nine printed contractual-deposit values on page11
+sum928394 while the reported total is928530 INRthousand, a136-thousand discrepancy.
+Both assertions are preserved without a balancing amount, and the reported total
+is excluded from measured arithmetic. Source dashes have no numerical facts.
+The450km road objective,5year maintenance objective and historical PAM cost plan
+remain target context. Neither project closure nor the audit establishes measured
+delivery of the planned length or maintenance. Automated ADB access remains
+restricted; the reviewed download is the evidence, with no automatic refresh claim.
 
 The nine disabled legacy manual/proxy sources retain their identifiers, raw rows,
 and evidence gaps. Unsupported URLs are replaced with verified discovery links:

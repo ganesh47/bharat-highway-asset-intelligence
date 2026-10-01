@@ -58,15 +58,16 @@ DOCUMENTS = {
     "morth_state_highway_network": "https://morth.gov.in/backend/documents/uploaded/1781850176_EDsilQvsKL.pdf",
     "upeida_expressway_projects": "https://upeida.up.gov.in/en/page/ganga-expressway",
     "msrdc_financial_disclosures": "https://msrdc.in/1262/Annual-Reports-and-Details-of-Bonds?format=print",
-    "adb_state_road_projects": "https://www.adb.org/projects/52298-001/main",
+    "adb_state_road_projects": "https://www.adb.org/sites/default/files/project-documents/52298/52298-001-apfs-en_3.pdf",
 }
 SOURCE_IDS = tuple(DOCUMENTS)
-HTML_SOURCES = {"nhai_monetisation_transactions", "npci_netc_monthly_statistics", "upeida_expressway_projects", "msrdc_financial_disclosures", "adb_state_road_projects"}
+HTML_SOURCES = {"nhai_monetisation_transactions", "npci_netc_monthly_statistics", "upeida_expressway_projects", "msrdc_financial_disclosures"}
 HTML_RECHECK_SOURCES = {"nhai_monetisation_transactions"}
 RESEARCH_CUTOFF = "2026-10-02"
 NETC_SOURCE_ID = "npci_netc_monthly_statistics"
 NETC_RENDERED_SNAPSHOT = Path("manual/evidence/npci_netc_rendered_snapshot_2026-10-02.json")
 RENDERED_SNAPSHOT_KIND = "governed_rendered_table_snapshot"
+ADB_PROJECT_PDF_SHA256 = "d8d949023e38e46929f39edf948b642fcc670d34332e841ba186121d0b955ffd"
 
 
 def document_path(raw_root: Path, source_id: str) -> Path:
@@ -142,7 +143,7 @@ def validate_facts(df: pd.DataFrame, source_id: str, evidence: dict[str, Any]) -
     if not df["value"].equals(df["metric_value"]):
         raise ValueError("Metric compatibility alias mismatch")
     money = df["unit"].eq("INR crore")
-    conversions = {"INR crore": 1.0, "INR lakh": 0.01, "INR million": 0.1}
+    conversions = {"INR crore": 1.0, "INR lakh": 0.01, "INR million": 0.1, "INR thousand": 0.0001}
     for _, row in df[money].iterrows():
         factor = conversions.get(row["original_unit"])
         if factor is None or not math.isclose(row["value"], row["original_value"] * factor, rel_tol=1e-9, abs_tol=1e-8):
@@ -329,7 +330,7 @@ class SnapshotBuilder:
         original_unit = original_unit or unit
         original_value = float(value)
         if unit == "INR crore":
-            value *= {"INR crore": 1, "INR lakh": .01, "INR million": .1}[original_unit]
+            value *= {"INR crore": 1, "INR lakh": .01, "INR million": .1, "INR thousand": .0001}[original_unit]
         elif unit == "transactions":
             value *= {"transactions": 1, "million transactions": 1_000_000}[original_unit]
         doc = self.documents[sid][document_index]
@@ -584,6 +585,121 @@ class SnapshotBuilder:
         self.fact(sid,"sh_network_length_km",193740,"km","PDF p164; Annexure 2.3.2 published Total",agency="State PWDs",entity_id="brs_published_total",entity_name="BRS published SH total",entity_type="published_total",road_class="State Highway",end="2022-03-31",basis="stock",asof="2022-03-31",statement="BRS_Annexure_2_3_2",eligible=False,notes="Published total193740km; state rows sum193741km; aggregate quarantined and not reconciled artificially.")
         self.notes[sid]="SH network all states/UTs, older per-state footnotes preserved; Arunachal and inconsistent published total quarantined. NH stock is separately covered by existing MoRTH source; no duplicate NH series created."
 
+    def adb_project_accounts(self) -> None:
+        """Visually checked cells from the pinned scanned final project accounts.
+
+        Embedded OCR misreads 569785 as569795 and674809 as674909. Transcription
+        is valid only for these exact publisher PDF bytes and physical pages;
+        a new report/hash requires another visual table review, never guessed OCR.
+        """
+        sid = "adb_state_road_projects"
+        path = document_path(self.raw_root, sid)
+        if not path.exists():
+            return
+        if sha256_for_file(path) != ADB_PROJECT_PDF_SHA256:
+            raise ValueError("ADB scanned accounts changed; new visual extraction required")
+        if len(self.reader(sid).pages) != 25:
+            raise ValueError("ADB final project accounts page contract changed")
+        if not self.documents[sid]:
+            self.pin(sid)
+        self.documents[sid][0].update(
+            artifact_kind="publisher_pdf", checksum_scope="Exact downloaded publisher PDF bytes",
+            extraction_method="Checksum-pinned visual transcription of scanned tables; embedded OCR is not numerical authority",
+            publication_reference_url="https://www.adb.org/projects/documents/ind-52298-001-apfs-3",
+        )
+        self.rows[sid] = []
+        periods = [("2024-04-01", "2025-05-19", "reporting_period"),
+                   ("2023-04-01", "2024-03-31", "fiscal_year"),
+                   ("2020-04-01", "2025-05-19", "project_cumulative")]
+        scope = dict(entity_id="adb_52298_001", entity_name="Maharashtra State Road Improvement Project / ADB52298-001", entity_type="project",
+                     agency="MPWD", state="Maharashtra", road_class="SH and MDR",
+                     published="2025-09-05", evidence="borrower_audited_project_disclosure",
+                     implementing_agency_id="maharashtra_public_works_department", financing_entity_id="adb",
+                     project_name="Maharashtra State Road Improvement Project", source_type="issuer", metric_category="issuer_disclosed")
+        limits = ("Cash-basis MPWD project accounts, Loan3911-IND; Government of India is borrower and ADB lender. "
+                  "Project finances are not whole-state debt or an SPV balance sheet. Printed INR'000 normalized by0.0001 to INR crore. "
+                  "Current period ends19May2025 rather than31March2025; cumulative flows overlap annual flows and must not be added. "
+                  "Amounts in thousands are rounded; minor component discrepancies are preserved, not reconciled by invented values. ")
+        # Current/prior/cumulative columns, physical Annexure1 p3-4. None means
+        # source dash/absence; the helper deliberately creates no numerical fact.
+        payments = [
+            ("project_government_funds_received_inr_crore", [135800,1373033,17253814], 3, "Funds received from Government"),
+            ("project_civil_works_expenditure_inr_crore", [460306,1215115,14934706], 3, "Civil Works"),
+            ("project_utility_shifting_expenditure_inr_crore", [8652,16694,779156], 3, "Utility Shifting"),
+            ("project_social_mitigation_expenditure_inr_crore", [None,7633,47250], 3, "Social Mitigation and gender aspects"),
+            ("project_environmental_mitigation_expenditure_inr_crore", [None,None,15262], 3, "Environmental Mitigation"),
+            ("project_authority_engineer_expenditure_inr_crore", [26988,28737,383223], 3, "Authority Engineer"),
+            ("project_management_services_expenditure_inr_crore", [10000,None,36307], 3, "Project Management Services"),
+            ("project_rnmp_expenditure_inr_crore", [62434,None,62434], 3, "Road Network Master Plan"),
+            ("project_investment_expenditure_inr_crore", [568379,1268179,16258337], 3, "Subtotal(D) Investment Costs"),
+            ("project_recurrent_management_expenditure_inr_crore", [1406,16225,66947], 3, "Project Management(MPWD), Subtotal(E)"),
+            ("project_total_expenditure_inr_crore", [569785,1284404,16325284], 4, "Total Payments / Total Project Cost"),
+        ]
+        for metric, values, page, label in payments:
+            for (start,end,basis),value in zip(periods,values):
+                if value is not None:
+                    self.fact(sid,metric,value,"INR crore",f"PDF p{page}; Annexure1; {label}",original_unit="INR thousand",start=start,end=end,basis=basis,asof=end,statement="project_cash_basis_receipts_payments",notes=limits+"ADB Loan receipts, maintenance, financing-charge and resettlement source dashes have no numerical facts.",**scope)
+        for end,value in [("2025-05-19",928530),("2024-03-31",1362515)]:
+            attrs = scope | dict(eligible=end!="2025-05-19")
+            mismatch = " Note5 nine printed package deposits sum928394 versus reported total928530 INRthousand, an unreconciled136-thousand discrepancy; this reported total is excluded from measured arithmetic, without synthetic balancing." if end=="2025-05-19" else ""
+            self.fact(sid,"project_cash_bank_balance_inr_crore",value,"INR crore","PDF p4; Annexure1; Closing bank Balance(C-H); Note5 p11",original_unit="INR thousand",end=end,basis="balance_sheet_snapshot",asof=end,statement="project_cash_basis_contractual_deposits",notes=limits+"Note5 identifies retention, maintenance, PartV and security deposits at PIUs; not unrestricted project cash."+mismatch,**attrs)
+        # Annexure2 p5 current-period funding shares. Percentages and whole-project
+        # totals elsewhere are not substituted for these paid expenditure amounts.
+        shares = [
+            ("project_adb_financed_civil_works_inr_crore",228543,"ADB Civil Works"),
+            ("project_government_financed_civil_works_inr_crore",231762,"Government Civil Works"),
+            ("project_government_financed_utility_shifting_inr_crore",8652,"Government Utility Shifting"),
+            ("project_adb_financed_authority_engineer_inr_crore",7948,"ADB Authority Engineer"),
+            ("project_government_financed_authority_engineer_inr_crore",19040,"Government Authority Engineer"),
+            ("project_adb_financed_management_services_inr_crore",4250,"ADB Project Management Services"),
+            ("project_government_financed_management_services_inr_crore",5750,"Government Project Management Services"),
+            ("project_adb_financed_rnmp_inr_crore",52605,"ADB Road Network Master Plan"),
+            ("project_government_financed_rnmp_inr_crore",9829,"Government Road Network Master Plan"),
+            ("project_adb_financed_investment_inr_crore",293346,"ADB Subtotal(A)"),
+            ("project_government_financed_investment_inr_crore",275033,"Government Subtotal(A)"),
+            ("project_adb_financed_total_expenditure_inr_crore",293346,"ADB Total Cost(C=A+B)"),
+            ("project_government_financed_total_expenditure_inr_crore",276439,"Government Total Cost(C=A+B)"),
+        ]
+        for metric,value,label in shares:
+            self.fact(sid,metric,value,"INR crore",f"PDF p5; Annexure2; {label}; Actual Expenditure",original_unit="INR thousand",start=periods[0][0],end=periods[0][1],basis="reporting_period",asof=periods[0][1],statement="project_cash_basis_category_financier",notes=limits+"ADB financing allocation differs from disbursement of prior-year outstanding claims.",**scope)
+        claims = [
+            ("project_adb_eligible_expenditure_claimed_inr_crore",[674809,1459739,11556815],"Subtotal(A) / Total Eligible Expenditure Claimed(F)"),
+            ("project_adb_disbursement_current_year_expenditure_inr_crore",[293346,982208,None],"Disbursement from current-year expenditure"),
+            ("project_adb_disbursement_prior_year_outstanding_inr_crore",[381462,477531,None],"Disbursement from previous-year outstanding"),
+            ("project_borrower_share_of_claims_inr_crore",[276439,340801,4768469],"Borrower share(E)"),
+        ]
+        for metric,values,label in claims:
+            for (start,end,basis),value in zip(periods,values):
+                if value is not None:
+                    self.fact(sid,metric,value,"INR crore",f"PDF p6; Annexure3; {label}; reimbursement confirmed p13 Annexure5",original_unit="INR thousand",start=start,end=end,basis=basis,asof=end,statement="project_cash_basis_disbursement_claims",notes=limits+"Reimbursed/eligible claimed expenditure is not outstanding debt principal; grants and unclaimed-expenditure dashes are omitted.",**scope)
+        packages = [
+            (1,"Ratnagiri",1029105,96320,"NH66 to Kante Tulsani Devrukh Marleshwar SH174; Chafe-Ganpatipule MDR55",11),
+            (2,"Ratnagiri",1399141,129213,"Dabhole Shiposhi Korle Vatul joining NH175; Hatiwale-Jaitapur SH170",11),
+            (3,"Solapur",2001478,43664,"Barshi-Solapur SH204",11),
+            (4,"Akluj",2203099,51351,"Korti district border to Awati district border",11),
+            (5,"Pusad",1456894,551,"Shrirampur Vaijapur Risod Washim Pusad Mahagaon Fulsawangi Mandvi SH51",11),
+            (6,"Amravati",2208067,196008,"Riddhapur Tiwsa Anjansinghi Dhamangaon Devgaon Yavatmal SH300",11),
+            (7,"Daryapur",1520256,167010,"Walgaon Daryapur Akot SH47; Daryapur Amla Runmochan Asara MDR21 and SH301",12),
+            (8,"Amravati",1884380,208451,"Chandur Railway Talegaon SH297; Riddhapur Tiwsa SH300",12),
+            (9,"Solapur",1232286,35826,"Waradwadi Phata to Narewadi district border",12),
+        ]
+        for epc,piu,works,deposit,name,page in packages:
+            attrs = scope | dict(entity_id=f"adb_52298_001_epc_{epc}",entity_name=f"MSRIP EPC{epc} / PIU{piu}",entity_type="project_package",asset_id=f"adb_52298_001_epc_{epc}",project_name=name)
+            self.fact(sid,"project_civil_works_expenditure_inr_crore",works,"INR crore",f"PDF p{page}; Note6; EPC{epc} civil work executed",original_unit="INR thousand",start="2020-04-01",end="2025-05-19",basis="project_cumulative",asof="2025-05-19",statement="project_cash_basis_package_civil_works",notes=limits+"EPC package inside parent project; cannot be added to its reported aggregate. Road names retained as disclosed, not independently verified route geometry or legal asset ownership.",**attrs)
+            self.fact(sid,"project_contractual_deposit_balance_inr_crore",deposit,"INR crore",f"PDF p11; Note5 Cash and Cash equivalent; EPC{epc} Deposit",original_unit="INR thousand",end="2025-05-19",basis="balance_sheet_snapshot",asof="2025-05-19",statement="project_cash_basis_contractual_deposits",notes=limits+"PIU retention/maintenance/PartV/security deposits payable under contract; not free cash or contractor debt. Nine printed package values sum928394 versus disclosed total928530 INRthousand; the unreconciled total is quarantined, with no synthetic balancing.",**attrs)
+        target_scope = scope | dict(evidence="target",eligible=False)
+        for metric,value,unit in [("target_project_road_length_km",450,"km"),("target_postconstruction_maintenance_years",5,"years")]:
+            self.fact(sid,metric,value,unit,"PDF p7; Note1 Project nature and activities",end="2025-05-19",basis="project_plan_context",estimate="target",asof="2025-05-19",statement="project_objectives",notes="Project aims to upgrade about450km to two-lane standard and maintain improved assets for5years. These are project objectives; report closure does not measure450km delivery or completed maintenance. Report cutoff dates this disclosed context, not target achievement.",**target_scope)
+        for metric,value,label in [("target_project_base_cost_inr_crore",15574867,"Base Cost"),("target_project_contingency_cost_inr_crore",1773246,"Contingencies"),("target_project_financing_charges_inr_crore",838313,"Financial Charges During Implementation"),("target_project_total_cost_inr_crore",18186426,"Total")]:
+            self.fact(sid,metric,value,"INR crore",f"PDF p8; Note3(c) Project Cost; PAM financing arrangement; {label}",original_unit="INR thousand",end="2025-05-19",basis="project_financing_plan",estimate="target",asof="2025-05-19",statement="PAM_financing_plan",notes="Historical financing plan in final accounts; USD255.99million at INR71.0435/USD, October2019 prices. Original planned cost is not actual expenditure or current replacement value; report cutoff dates the disclosure, not a new plan approval.",**target_scope)
+        self.notes[sid] = ("Final scanned MPWD project accounts visually checked on physical pages3-8,11-13,24-25. Exact PDF hash pinned; OCR digit errors are not ingested. "
+                           "Cash basis; current1April2024-19May2025, priorFY2023-24, cumulative1April2020-19May2025. "
+                           "Authorised20August2025; auditor22August2025; ADB document pagepublished5September2025. "
+                           "Government of India borrower, ADB lender, MPWD executing agency. No state aggregate debt/guarantees inferred. "
+                           "Printed dashes remain absent. Investment components differ from printed subtotal by one INRthousand. Nine printed package deposits sum928394 versus reported total928530 INRthousand, an unreconciled136-thousand discrepancy; no cause inferred. Reported assertions retained separately. "
+                           "Project450km/5year-maintenance objectives and historical PAM cost plan are target context, excluded from measured arithmetic. "
+                           "Automated ADB requests remain restricted; manual browser download archive used, no automatic refresh claim.")
+
     def netc_manual_snapshot(self) -> None:
         """Extract only monthly flows from the governed rendered official table."""
         sid = NETC_SOURCE_ID
@@ -627,7 +743,7 @@ class SnapshotBuilder:
         scope = "NETC payment transactions and scheme payment amounts are not NHAI toll receipts, vehicle counts, PCU traffic or corridor revenue."
         exclusions = snapshot["published_exclusions"]
         for selected_year, raw, start, end, volume, amount in documents:
-            attrs = dict(entity_id="NPCI_NETC", entity_name="NPCI NETC payment network", entity_type="payment_network", agency="NPCI", road_class="NETC network (multiple road classes)", start=start, end=end, basis="calendar_month", asof=end, statement="NETC_payment_statistics", published="", notes=f"{scope} Published exclusions: {exclusions} Local source hash pins governed rendered-table JSON, not publisher PDF bytes. Raw volume '{raw[3]}' million transactions; raw amount '{raw[4]}' INR crore; reporting year {selected_year}. Bank-live and cumulative tag issuance are retained in the capture and not extracted as flows.")
+            attrs = dict(entity_id="NPCI_NETC", entity_name="NPCI NETC payment network", entity_type="payment_network", agency="NPCI", road_class="NETC network (multiple road classes)", start=start, end=end, basis="calendar_month", asof=end, statement="NETC_payment_statistics", published="", evidence="issuer_disclosure", metric_category="issuer_disclosed", source_type="issuer", notes=f"{scope} Institutional issuer disclosure, not a government measurement. Published exclusions: {exclusions} Local source hash pins governed rendered-table JSON, not publisher PDF bytes. Raw volume '{raw[3]}' million transactions; raw amount '{raw[4]}' INR crore; reporting year {selected_year}. Bank-live and cumulative tag issuance are retained in the capture and not extracted as flows.")
             anchor = f"Rendered NETC FASTag Statistics; reporting year {selected_year}; row {raw[0]}"
             self.fact(sid, "netc_payment_transactions", volume, "transactions", anchor + "; Volume (In Mn.) MTD", original_unit="million transactions", **attrs)
             self.fact(sid, "netc_payment_amount_inr_crore", amount, "INR crore", anchor + "; Amount (In Cr) MTD", **attrs)
@@ -655,7 +771,7 @@ def build_snapshots(raw_root: Path) -> SnapshotBuilder:
         if sid != NETC_SOURCE_ID and document_path(raw_root,sid).exists():
             builder.pin(sid)
     builder.notes.update({"npci_netc_monthly_statistics":"HTTP403/JS restricted primary page; governed manual snapshot required; no invented API or search-result numerical facts.","upeida_expressway_projects":"Verified TLS retrieval failed due to missing certificate issuer; Ganga progress PDF link returns500. No unverified project progress/financial facts.","msrdc_financial_disclosures":"Public index/subsidiary FY23-24 filings identified; primary download timed out. Parent standalone latest visible FY18-19, not FY23-24. No statement facts without retrieved PDF.","adb_state_road_projects":"Official project52298-001 primary page HTTP403; financial statement April2024-May2025 disclosed in index; no unretrieved numerical facts.","rbi_state_road_finances":"Goa revenue Roads and Bridges rows contain dashes, left absent rather than invented zero. Road-corporation debt/guarantees and corridor attribution not inferred from state-government aggregates."})
-    for function in (builder.budget,builder.nhit,builder.parliament_and_audit,builder.monetisation,builder.upeida,builder.nhidcl,builder.rbi,builder.brs,builder.netc_manual_snapshot):
+    for function in (builder.budget,builder.nhit,builder.parliament_and_audit,builder.monetisation,builder.upeida,builder.nhidcl,builder.rbi,builder.brs,builder.netc_manual_snapshot,builder.adb_project_accounts):
         function()
     builder.finish()
     return builder

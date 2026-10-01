@@ -12,7 +12,7 @@ import yaml
 from pipelines.common import sha256_for_file
 from pipelines.connectors.primary_disclosures import (
     DOCUMENTS, FACT_COLUMNS, SOURCE_IDS, PrimaryDisclosuresConnector,
-    SnapshotBuilder, validate_facts, build_snapshots, NETC_RENDERED_SNAPSHOT, NETC_SOURCE_ID, RENDERED_SNAPSHOT_KIND,
+    SnapshotBuilder, validate_facts, build_snapshots, NETC_RENDERED_SNAPSHOT, NETC_SOURCE_ID, RENDERED_SNAPSHOT_KIND, ADB_PROJECT_PDF_SHA256,
 )
 
 
@@ -37,8 +37,8 @@ class PrimaryDisclosureTests(unittest.TestCase):
     def evidence(self):
         return {"documents": self.builder.documents[self.sid]}
 
-    def test_lakh_and_million_preserve_original_and_convert(self):
-        for original_unit, expected in [("INR lakh", 1), ("INR million", 10)]:
+    def test_lakh_million_and_thousand_preserve_original_and_convert(self):
+        for original_unit, expected in [("INR lakh", 1), ("INR million", 10), ("INR thousand", 0.01)]:
             self.builder.rows[self.sid] = []
             result = validate_facts(self.fact(original_unit=original_unit), self.sid, self.evidence())
             self.assertEqual(result.iloc[0]["value"], expected)
@@ -78,6 +78,8 @@ class PrimaryDisclosureTests(unittest.TestCase):
         self.assertEqual(set(df.period_basis), {"calendar_month"})
         self.assertTrue(df.published_at.eq("").all())
         self.assertTrue(df.analytical_eligible.all())
+        self.assertEqual(set(df.metric_category), {"issuer_disclosed"})
+        self.assertEqual(set(df.evidence_class), {"issuer_disclosure"})
         self.assertTrue(df.notes.str.contains(captured["published_exclusions"], regex=False).all())
         self.assertTrue(df.notes.str.contains("not NHAI toll receipts", regex=False).all())
         august = df[df.period_end.eq("2026-08-31")].set_index("metric")
@@ -109,6 +111,56 @@ class PrimaryDisclosureTests(unittest.TestCase):
         facts.loc[0, ["value", "metric_value"]] = 351
         with self.assertRaisesRegex(ValueError, "transaction unit conversion"):
             validate_facts(facts, sid, {"documents": builder.documents[sid]})
+
+    def test_adb_final_accounts_scope_units_targets_and_source_dashes(self):
+        raw = Path(__file__).resolve().parents[1] / "data/raw"
+        sid = "adb_state_road_projects"
+        evidence = json.loads((raw / "manual/evidence" / f"{sid}.json").read_text())
+        df = validate_facts(pd.read_csv(raw / "manual" / f"{sid}.csv", keep_default_na=False), sid, evidence)
+        self.assertEqual(len(df), 77)
+        self.assertEqual(df.analytical_eligible.sum(), 70)
+        self.assertEqual(set(df.state), {"Maharashtra"})
+        self.assertEqual(set(df.agency), {"MPWD"})
+        self.assertEqual(set(df.metric_category), {"issuer_disclosed"})
+        self.assertEqual(set(df.published_at), {"2025-09-05"})
+        self.assertEqual(set(df.source_document_sha256), {ADB_PROJECT_PDF_SHA256})
+        current = df[df.entity_id.eq("adb_52298_001") & df.period_start.eq("2024-04-01") & df.period_end.eq("2025-05-19")].set_index("metric")
+        self.assertEqual(current.loc["project_total_expenditure_inr_crore", "original_value"], 569785)
+        self.assertAlmostEqual(current.loc["project_total_expenditure_inr_crore", "value"], 56.9785)
+        self.assertEqual(current.loc["project_total_expenditure_inr_crore", "original_unit"], "INR thousand")
+        self.assertEqual(current.loc["project_total_expenditure_inr_crore", "period_basis"], "reporting_period")
+        self.assertAlmostEqual(current.loc["project_adb_financed_total_expenditure_inr_crore", "value"] + current.loc["project_government_financed_total_expenditure_inr_crore", "value"], current.loc["project_total_expenditure_inr_crore", "value"])
+        self.assertAlmostEqual(current.loc["project_adb_eligible_expenditure_claimed_inr_crore", "value"], 67.4809)
+        self.assertFalse(df.metric.str.contains("maintenance_expenditure|adb_grant|interest_paid|debt_outstanding", regex=True).any())
+        self.assertFalse(((df.metric.eq("project_social_mitigation_expenditure_inr_crore")) & df.period_start.eq("2024-04-01")).any())
+        targets = df[df.evidence_class.eq("target")]
+        self.assertEqual(len(targets), 6)
+        self.assertFalse(targets.analytical_eligible.any())
+        self.assertEqual(targets.set_index("metric").loc["target_project_road_length_km", "value"], 450)
+        self.assertAlmostEqual(targets.set_index("metric").loc["target_project_total_cost_inr_crore", "value"], 1818.6426)
+
+    def test_adb_unreconciled_deposit_total_is_quarantined_without_balancing(self):
+        raw = Path(__file__).resolve().parents[1] / "data/raw"
+        df = pd.read_csv(raw / "manual/adb_state_road_projects.csv", keep_default_na=False)
+        total = df[df.metric.eq("project_cash_bank_balance_inr_crore") & df.period_end.eq("2025-05-19")].iloc[0]
+        packages = df[df.metric.eq("project_contractual_deposit_balance_inr_crore")]
+        self.assertEqual(len(packages), 9)
+        self.assertEqual(packages.original_value.sum(), 928394)
+        self.assertEqual(total.original_value, 928530)
+        self.assertEqual(total.original_value - packages.original_value.sum(), 136)
+        self.assertFalse(bool(total.analytical_eligible))
+        self.assertTrue(packages.analytical_eligible.all())
+        self.assertIn("136-thousand", total.notes)
+        self.assertFalse(df.metric.str.contains("balancing|reconciliation_adjustment").any())
+        civil = df[df.metric.eq("project_civil_works_expenditure_inr_crore") & df.entity_type.eq("project_package")]
+        self.assertEqual(civil.original_value.sum(), 14934706)
+
+    def test_adb_changed_scanned_pdf_requires_new_visual_extraction(self):
+        path = self.root / "primary_disclosures/adb_state_road_projects/document.pdf"
+        path.parent.mkdir(parents=True)
+        path.write_bytes(b"%PDF-new-scanned-financial-report")
+        with self.assertRaisesRegex(ValueError, "new visual extraction"):
+            SnapshotBuilder(self.root).adb_project_accounts()
 
     def test_scoped_duplicates_rejected_be_re_distinct(self):
         self.fact(estimate="BE")

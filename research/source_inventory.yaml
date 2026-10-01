@@ -838,13 +838,13 @@ sources:
     domain: openstreetmap.org
     dataset_title: Corridor geometry and ancillary maintenance proxy indicators
     theme: quality_maintenance_signals
-    access_type: API
+    access_type: portal
     auth: none
     update_frequency: monthly
     geographic_granularity: corridor
     temporal_coverage: ongoing
     license_terms: OpenStreetMap ODbL terms; geometry/proxy use with attribution and separation from official metrics.
-    retrieval_method: API call
+    retrieval_method: manual
     reliability_grade: C
     known_limitations: Proxy only. Not an official measurement of highway condition.
     reliability_justification: Open mapping dataset useful for route geometry context; explicitly separated from official metrics.
@@ -1190,7 +1190,7 @@ sources:
   - source_id: npci_netc_monthly_statistics
     official_flag: false
     publisher_org: National Payments Corporation of India
-    publisher_type: payment_system
+    publisher_type: issuer
     domain: www.npci.org.in
     dataset_title: NPCI NETC monthly product statistics
     theme: toll
@@ -1209,15 +1209,16 @@ sources:
     resource_page_url: https://www.npci.org.in/product/netc/product-statistics
     permanent_identifier_hint: npci_netc_monthly_statistics
     connector: primary_disclosures
-    metric_category: official_measured
+    metric_category: issuer_disclosed
     source_as_of_date: '2026-08-31'
     publication_date: null
     research_verified_at: '2026-10-02'
     manual_fallback: true
-    notes: Official table manually rendered and reviewed2October2026, with reporting-year selection and scrolling to load all prior-year months. Pinned JSON checksum identifies this governed browser capture, not original publisher HTML/PDF bytes. Capture time is retrieval, not publication or observation. Governed CSV and evidence remain data/raw/manual/npci_netc_monthly_statistics.csv and data/raw/manual/evidence/npci_netc_monthly_statistics.json. No automatic API or refresh is asserted; new months require another validated rendered snapshot.
+    notes: Official table manually rendered and reviewed2October2026, with reporting-year selection and scrolling to load all prior-year months. NPCI is an institutional payment-system issuer of its own statistics, not a government measurement or proxy. Pinned JSON checksum identifies this governed browser capture, not original publisher HTML/PDF bytes. Capture time is retrieval, not publication or observation. Governed CSV and evidence remain data/raw/manual/npci_netc_monthly_statistics.csv and data/raw/manual/evidence/npci_netc_monthly_statistics.json. No automatic API or refresh is asserted; new months require another validated rendered snapshot.
     publication_date_unknown: true
     rendered_snapshot_path: data/raw/manual/evidence/npci_netc_rendered_snapshot_2026-10-02.json
     rendered_snapshot_sha256: 3743b75a8a0b48a4aba9b6c328164248ebf3ff2da8eb0a954f95d249c230cf99
+    evidence_class: issuer_disclosure
 
   - source_id: rbi_state_road_finances
     official_flag: true
@@ -1390,34 +1391,34 @@ sources:
       checks cannot replace validated evidence on changed content.
   - source_id: adb_state_road_projects
     official_flag: false
-    publisher_org: Asian Development Bank
+    publisher_org: Maharashtra Public Works Department (borrower-owned accounts) / Asian Development Bank (disclosure host)
     publisher_type: multilateral
     domain: www.adb.org
     dataset_title: ADB Maharashtra State Road Improvement Project52298-001
     theme: state_projects
-    access_type: HTML
+    access_type: PDF
     auth: restricted
     update_frequency: ad_hoc
     geographic_granularity: project
-    temporal_coverage: Project disclosures and audit Apr2024-May2025; no verified extract
-    license_terms: Public primary disclosure; attribution required. No blanket OGL claim
-      for issuer/multilateral content; link to original document and cite table/page.
-    retrieval_method: verified primary document download + governed reproducible extract
+    temporal_coverage: Final current-period accounts1April2024-19May2025; priorFY2023-24; cumulative1April2020-19May2025
+    license_terms: Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.
+    retrieval_method: governed manual browser download of publisher PDF + visually validated checksum-pinned table transcription
     reliability_grade: C
-    reliability_justification: Primary document authority is separate from extraction
-      readiness and financial comparability.
-    known_limitations: Official pageHTTP403; discovered financial statements do not
-      become numerical facts without retrieved evidence.
+    reliability_justification: Primary document authority is separate from extraction readiness and financial comparability.
+    known_limitations: Automated ADB requests remain HTTP403/restricted; actual publisher PDF was downloaded through the manual browser. Borrower-owned final MPWD project cash-basis accounts do not establish ADB-wide, whole-state or SPV debt. Original INRthousand figures are normalized to INRcrore; unreliable embedded OCR is replaced only by checksum-pinned visual source-cell transcription. Reported package deposits928394 vs disclosed total928530 INRthousand are unreconciled; reported total is excluded from measured arithmetic. Source dashes are absent, not zero.450km,5year-maintenance and historical PAM cost figures are targets, not delivery/actual expenditure.
     allow_auto_fetch: false
-    url: https://www.adb.org/projects/52298-001/main
+    url: https://www.adb.org/sites/default/files/project-documents/52298/52298-001-apfs-en_3.pdf
     resource_page_url: https://www.adb.org/projects/52298-001/main
     permanent_identifier_hint: adb_state_road_projects
     connector: primary_disclosures
-    metric_category: official_measured
-    source_as_of_date: null
-    publication_date: null
+    metric_category: issuer_disclosed
+    source_as_of_date: '2025-05-19'
+    publication_date: '2025-09-05'
     research_verified_at: '2026-10-02'
     manual_fallback: true
-    notes: Governed CSV data/raw/manual/adb_state_road_projects.csv; SHA256 evidence
-      data/raw/manual/evidence/adb_state_road_projects.json; current document checksum
-      checks cannot replace validated evidence on changed content.
+    notes: Government of India is borrower, ADB lender, MPWD executing agency, Loan3911-IND. Accounts financially close19May2025; authorised20August2025, auditor22August2025, document pagepublished5September2025. Governed CSV has77 disclosed facts:70 analytically eligible actuals,6 targets and1 unreconciled reported deposit total excluded. Exact publisher PDF SHA256 retained; no observed date is inferred from download or publication. Scanned statements on physical pages3-8,11-13,24-25 visually reviewed. No automatic refresh enabled; changed PDF bytes require another manual extraction review.
+    discovery_reference_urls:
+    - https://www.adb.org/projects/documents/ind-52298-001-apfs-3
+    primary_reference_url: https://www.adb.org/sites/default/files/project-documents/52298/52298-001-apfs-en_3.pdf
+    primary_reference_sha256: d8d949023e38e46929f39edf948b642fcc670d34332e841ba186121d0b955ffd
+    evidence_metadata_path: data/raw/manual/evidence/adb_state_road_projects.json
