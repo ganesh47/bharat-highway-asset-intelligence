@@ -39,7 +39,12 @@ class StateFinanceEvidenceTests(unittest.TestCase):
         metric = "state_government_debt_outstanding_inr_crore"
         row = self.select("Assam", metric, "2026-03-31")[0]
         self.assertEqual(row["estimate_type"], "BE")
-        self.assertEqual(row["data_as_of"], "2026-01-23")
+        self.assertEqual(row["data_as_of"], "")
+        self.assertEqual(row["estimate_vintage"], "")
+        self.assertEqual(row["disclosure_as_of"], "2026-01-23")
+        self.assertEqual(row["published_at"], "2026-01-23")
+        self.assertEqual(row["reported_period"], "end-March 2026 (BE)")
+        self.assertEqual(row["analytical_eligible"], "False")
         self.assertIn("apportioned", self.select("Jammu and Kashmir", metric, "2024-03-31")[0]["notes"])
 
 

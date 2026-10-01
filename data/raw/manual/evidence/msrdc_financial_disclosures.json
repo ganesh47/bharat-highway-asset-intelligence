@@ -3,10 +3,11 @@
   "research_cutoff": "2026-10-02",
   "retrieved_at": null,
   "documents": [],
-  "csv_sha256": "5ccdb1c9a95634063e5199948f333b8309b25565884af5caf41bc7a5d867aabc",
+  "csv_sha256": "00238de3ec0a91725467fc5092e033650f789412256294382f35cf54cba5dff4",
   "extraction_status": "evidence_gap",
   "row_count": 0,
   "notes": "Public index/subsidiary FY23-24 filings identified; primary download timed out. Parent standalone latest visible FY18-19, not FY23-24. No statement facts without retrieved PDF.",
   "gap_reason": "Public index/subsidiary FY23-24 filings identified; primary download timed out. Parent standalone latest visible FY18-19, not FY23-24. No statement facts without retrieved PDF.",
-  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "last_checked_at": "2026-10-01T23:15:07.076959+00:00"
 }

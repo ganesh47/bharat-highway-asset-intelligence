@@ -10,10 +10,11 @@
       "size_bytes": 5869520
     }
   ],
-  "csv_sha256": "1ff5fc4dd1990c00a30373554805d952ed5a915af92566d6d7356e6e167205fc",
+  "csv_sha256": "5ec5eabece19525b6850806d34482cabb3ce28e6ca7b3731cdc2785c8071f06d",
   "extraction_status": "validated",
   "row_count": 6,
   "notes": "Board text validated. Annexure I scanned statement pages remain quarantined; no unvalidated OCR accounting lines entered.",
   "gap_reason": "",
-  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "last_checked_at": "2026-10-01T23:15:06.789673+00:00"
 }

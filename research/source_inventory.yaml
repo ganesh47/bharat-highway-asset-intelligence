@@ -916,7 +916,9 @@ sources:
     manual_fallback: true
     notes: Governed CSV data/raw/manual/union_budget_morth_demand86.csv; SHA256 evidence
       data/raw/manual/evidence/union_budget_morth_demand86.json; current document checksum
-      checks cannot replace validated evidence on changed content.
+      checks cannot replace validated evidence on changed content. ActualFY2024-25 cutoff is31March2025;
+      current-edition FY2025-26RE/FY2026-27BE vintage is1February2026. Reproduced FY2025-26BE original
+      vintage is undisclosed here and retained as disclosure-only. Publication and disclosure dates never refresh historical actuals.
   - source_id: union_budget_highway_outcomes
     official_flag: true
     publisher_org: Ministry of Finance / MoRTH
@@ -1147,13 +1149,15 @@ sources:
     permanent_identifier_hint: parliament_nhai_debt_tot_invit
     connector: primary_disclosures
     metric_category: official_measured
-    source_as_of_date: '2025-12-31'
+    source_as_of_date: '2026-02-05'
     publication_date: '2026-02-05'
     research_verified_at: '2026-10-02'
     manual_fallback: true
     notes: Governed CSV data/raw/manual/parliament_nhai_debt_tot_invit.csv; SHA256 evidence
       data/raw/manual/evidence/parliament_nhai_debt_tot_invit.json; current document
-      checksum checks cannot replace validated evidence on changed content.
+      checksum checks cannot replace validated evidence on changed content. Debt stock remains31December2025;
+      historical receipts retain their reported fiscal cutoff. TOT17 and Round4CFI receipts areFY2025-26YTD
+      through5February2026. Round4 table-yearFY2024-25 is retained separately from its footnoted receipt year.
   - source_id: nhai_monetisation_transactions
     official_flag: true
     publisher_org: Press Information Bureau / MoRTH
@@ -1248,13 +1252,15 @@ sources:
     permanent_identifier_hint: rbi_state_road_finances
     connector: primary_disclosures
     metric_category: official_measured
-    source_as_of_date: '2026-01-23'
+    source_as_of_date: '2024-03-31'
     publication_date: '2026-01-23'
     research_verified_at: '2026-10-02'
     manual_fallback: true
     notes: Governed CSV data/raw/manual/rbi_state_road_finances.csv; SHA256 evidence
       data/raw/manual/evidence/rbi_state_road_finances.json; current document checksum
-      checks cannot replace validated evidence on changed content.
+      checks cannot replace validated evidence on changed content. FY2023-24Accounts observations end31March2024;
+      State-specificBE/RE estimate vintage is undisclosed and remains blank/disclosure-only. The23January2026
+      publication/disclosure date never becomes an actual observation cutoff or guessed estimate vintage.
   - source_id: cag_bharatmala_performance_audit
     official_flag: true
     publisher_org: Comptroller and Auditor General of India

@@ -11,10 +11,11 @@
       "semantic_document_sha256": "1c0d94d382ddc7a0dfb13a87259a0e55fa95836388b2a84cbefa74cbfaf20bf9"
     }
   ],
-  "csv_sha256": "c131c905a2a68e860cd8b10451f1e75f5556208fe7572c9165312003aab77917",
+  "csv_sha256": "486681dd25b0ccb2a5b7771894a4be18179598560a9705d47a1b0355ccba8ef1",
   "extraction_status": "validated",
   "row_count": 6,
   "notes": "PIB release30March2026 reports FY25-26 progress before year end; target30000crore is not actual.",
   "gap_reason": "",
-  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "last_checked_at": "2026-10-01T23:15:06.975918+00:00"
 }

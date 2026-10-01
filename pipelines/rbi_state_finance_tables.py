@@ -73,7 +73,11 @@ def extract_state_liabilities(pdf_path: Path) -> list[dict]:
                     records.append({"state": name, "metric": metric,
                                     "value": float(tokens[0].replace(",", "")), "unit": "INR crore",
                                     "period_end": end, "estimate_type": estimate,
-                                    "data_as_of": end if estimate == "actual" else PUBLICATION,
+                                    "data_as_of": end if estimate == "actual" else "",
+                                    "published_at": PUBLICATION,
+                                    "disclosure_as_of": PUBLICATION,
+                                    "estimate_vintage": "",
+                                    "reported_period": f"end-March {year}" + (f" ({estimate})" if estimate != "actual" else ""),
                                     "table_page": f"Statement {statement}, printed p.{physical - 13}, PDF p.{physical}",
                                     "notes": notes})
     return records

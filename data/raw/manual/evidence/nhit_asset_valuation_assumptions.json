@@ -10,10 +10,12 @@
       "size_bytes": 5622960
     }
   ],
-  "csv_sha256": "5137d035db0c318334e5ba294386fc6365025c3f893509758096b2b22e4ebb0e",
+  "csv_sha256": "6970b21a5732aa77b2fb7d0395593feb40df241d625cf03ef3c256ab02385ed8",
   "extraction_status": "validated",
   "row_count": 17,
   "notes": "",
   "gap_reason": "",
-  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "last_checked_at": "2026-10-01T23:15:06.797092+00:00",
+  "date_transformation": "Historical actual data_as_of is the observed fiscal/quarter/stock/transaction cutoff, never later publication. disclosure_as_of preserves the later reporting context; estimate_vintage is populated only when source-supported. Unknown-vintage estimates remain visible but ineligible. reported_period preserves table year labels separately from receipt periods."
 }

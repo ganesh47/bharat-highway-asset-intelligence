@@ -10,10 +10,11 @@
       "size_bytes": 3099218
     }
   ],
-  "csv_sha256": "03f99965e45bd9d5d90c977dc4ac3fbcd09a99972f5146a58b10d6eb73d2775f",
+  "csv_sha256": "7f9ddbc01455eede0f482fb506d1cd2e9860da592fa2cbea470959f7e577d280",
   "extraction_status": "validated",
   "row_count": 12,
   "notes": "",
   "gap_reason": "",
-  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "last_checked_at": "2026-10-01T23:15:06.770574+00:00"
 }

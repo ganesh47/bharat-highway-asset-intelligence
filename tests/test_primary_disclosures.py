@@ -31,6 +31,8 @@ class PrimaryDisclosureTests(unittest.TestCase):
         self.temp.cleanup()
 
     def fact(self, **changes):
+        if changes.get("estimate") in {"BE", "RE"}:
+            changes.setdefault("estimate_vintage", "2026-02-01")
         self.builder.fact(self.sid, "budget_net_inr_crore", 100, "INR crore", "PDF p1", start="2025-04-01", end="2026-03-31", asof="2026-02-01", **changes)
         return pd.DataFrame(self.builder.rows[self.sid])
 
@@ -177,6 +179,73 @@ class PrimaryDisclosureTests(unittest.TestCase):
             df.loc[0, "analytical_eligible"] = True
             with self.assertRaisesRegex(ValueError, "Targets and valuation"):
                 validate_facts(df, self.sid, self.evidence())
+
+    def test_later_disclosure_cannot_refresh_historical_actual(self):
+        self.builder.fact(self.sid, "budget_net_inr_crore", 100, "INR crore", "PDF p1",
+                          start="2024-04-01", end="2025-03-31", asof="2025-03-31",
+                          disclosure_as_of="2026-02-01", published="2026-02-01")
+        df = pd.DataFrame(self.builder.rows[self.sid])
+        self.assertEqual(validate_facts(df, self.sid, self.evidence()).iloc[0].data_as_of, "2025-03-31")
+        df.loc[0, "data_as_of"] = "2026-02-01"
+        with self.assertRaisesRegex(ValueError, "Observation cutoff exceeds"):
+            validate_facts(df, self.sid, self.evidence())
+
+    def test_explicit_unknown_estimate_date_does_not_fall_back_to_period_end(self):
+        self.builder.fact(self.sid, "budget_net_inr_crore", 100, "INR crore", "PDF p1",
+                          start="2025-04-01", end="2026-03-31", estimate="BE", asof="",
+                          published="2026-02-01", disclosure_as_of="2026-02-01", eligible=False)
+        df = pd.DataFrame(self.builder.rows[self.sid])
+        checked = validate_facts(df, self.sid, self.evidence())
+        self.assertEqual(checked.iloc[0].data_as_of, "")
+        self.assertEqual(checked.iloc[0].estimate_vintage, "")
+        df.loc[0, "data_as_of"] = "2026-02-01"
+        df.loc[0, "analytical_eligible"] = True
+        with self.assertRaisesRegex(ValueError, "source-supported vintage"):
+            validate_facts(df, self.sid, self.evidence())
+
+    def test_snapshot_observation_cutoffs_and_estimate_vintages_are_separate(self):
+        raw = Path(__file__).resolve().parents[1] / "data/raw/manual"
+        rbi = pd.read_csv(raw / "rbi_state_road_finances.csv", keep_default_na=False)
+        actual = rbi[rbi.estimate_type.eq("actual")]
+        self.assertTrue(actual.data_as_of.eq(actual.period_end).all())
+        self.assertEqual(actual.data_as_of.max(), "2024-03-31")
+        estimates = rbi[rbi.estimate_type.isin(["BE", "RE"])]
+        self.assertEqual(len(estimates), 279)
+        self.assertTrue(estimates.data_as_of.eq("").all())
+        self.assertTrue(estimates.estimate_vintage.eq("").all())
+        self.assertFalse(estimates.analytical_eligible.any())
+        self.assertTrue(rbi.disclosure_as_of.eq("2026-01-23").all())
+        budget = pd.read_csv(raw / "union_budget_morth_demand86.csv", keep_default_na=False)
+        actual = budget[budget.estimate_type.eq("actual")]
+        self.assertEqual(len(actual), 10)
+        self.assertTrue(actual.data_as_of.eq("2025-03-31").all())
+        prior_be = budget[budget.estimate_type.eq("BE") & budget.period_end.eq("2026-03-31")]
+        self.assertEqual(len(prior_be), 10)
+        self.assertTrue(prior_be.data_as_of.eq("").all())
+        self.assertFalse(prior_be.analytical_eligible.any())
+        current = budget[budget.estimate_type.eq("RE") | budget.period_end.eq("2027-03-31")]
+        self.assertEqual(len(current), 20)
+        self.assertTrue(current.estimate_vintage.eq("2026-02-01").all())
+        self.assertTrue(current.data_as_of.eq(current.estimate_vintage).all())
+        presentation = pd.read_csv(raw / "nhit_quarterly_operations_finance.csv", keep_default_na=False)
+        prior = presentation[presentation.period_end.eq("2025-06-30")]
+        self.assertEqual(len(prior), 58)
+        self.assertTrue(prior.data_as_of.eq("2025-06-30").all())
+        self.assertTrue(prior.disclosure_as_of.eq("2026-06-30").all())
+        valuation = pd.read_csv(raw / "nhit_asset_valuation_assumptions.csv", keep_default_na=False)
+        transaction = valuation[valuation.period_basis.eq("transaction")]
+        self.assertEqual(len(transaction), 10)
+        self.assertTrue(transaction.data_as_of.eq(transaction.period_end).all())
+        self.assertTrue(transaction.disclosure_as_of.eq("2026-06-30").all())
+        parliament = pd.read_csv(raw / "parliament_nhai_debt_tot_invit.csv", keep_default_na=False)
+        self.assertTrue(parliament.data_as_of.eq(parliament.period_end).all())
+        ytd = parliament[parliament.estimate_type.eq("YTD")]
+        self.assertEqual(len(ytd), 4)
+        self.assertEqual(set(ytd.entity_id), {"tot_17", "nhit_round_4"})
+        self.assertTrue(ytd.period_end.eq("2026-02-05").all())
+        self.assertTrue(ytd.period_basis.eq("fiscal_year_to_date").all())
+        self.assertEqual(set(ytd[ytd.entity_id.eq("nhit_round_4")].reported_period), {"2024-25"})
+        self.assertTrue(parliament.disclosure_as_of.eq("2026-02-05").all())
 
     def test_missing_lineage_and_numerics_rejected(self):
         for column, invalid in [("value", "bad"), ("entity_id", ""), ("source_document_sha256", "f" * 64), ("citation_url", "https://example.com/unrelated")]:

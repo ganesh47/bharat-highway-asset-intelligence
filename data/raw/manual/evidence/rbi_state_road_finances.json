@@ -10,10 +10,12 @@
       "size_bytes": 3616815
     }
   ],
-  "csv_sha256": "3fd2c72511598067bbdad943c128fbb4de667cb887de1c10cfd4db04b9a1c952",
+  "csv_sha256": "04433c736fcf3521d12ac8466a962b26a2e0faadb5140408aea048a5a96b3935",
   "extraction_status": "validated",
   "row_count": 1302,
   "notes": "Goa revenue Roads and Bridges rows contain dashes, left absent rather than invented zero. Road-corporation debt/guarantees and corridor attribution not inferred from state-government aggregates. Statements19/28 add1050all-sector state-government liabilities/guarantees, distinct from roads budgets and corporation finance.",
   "gap_reason": "",
-  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "last_checked_at": "2026-10-01T23:15:07.051546+00:00",
+  "date_transformation": "Historical actual data_as_of is the observed fiscal/quarter/stock/transaction cutoff, never later publication. disclosure_as_of preserves the later reporting context; estimate_vintage is populated only when source-supported. Unknown-vintage estimates remain visible but ineligible. reported_period preserves table year labels separately from receipt periods."
 }

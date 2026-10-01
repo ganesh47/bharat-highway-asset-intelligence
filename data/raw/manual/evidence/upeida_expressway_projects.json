@@ -16,10 +16,11 @@
       "size_bytes": 41332
     }
   ],
-  "csv_sha256": "9143e86cd21b8ba5db762d19630ebedcfc342cce7dfd561c34f81a91b5124fc7",
+  "csv_sha256": "bfc27a4a268fb65a729f0546895e0c3f1aa630837b3223f28516fb6313862a6c",
   "extraction_status": "validated",
   "row_count": 8,
   "notes": "TLS-verified macOS curl retrieved historical project/grant HTML; source publication/observation dates undisclosed, figures quarantined from dated rankings. Current Ganga progress PDF URL unavailable; no progress actuals claimed.",
   "gap_reason": "",
-  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "last_checked_at": "2026-10-01T23:15:07.075463+00:00"
 }

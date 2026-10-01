@@ -39,6 +39,7 @@ FACT_COLUMNS = [
     "comparison_group",
     "asset_owner_id", "implementing_agency_id", "operator_id",
     "concessionaire_id", "financing_entity_id", "contractor_name",
+    "disclosure_as_of", "estimate_vintage", "reported_period",
 ]
 
 # These are documented public downloads, not guessed portal/API endpoints.
@@ -135,7 +136,7 @@ def validate_facts(df: pd.DataFrame, source_id: str, evidence: dict[str, Any]) -
         raise ValueError("Fact/document lineage mismatch")
     if any((row.source_document_sha256,row.citation_url) not in document_pairs for row in df.itertuples()):
         raise ValueError("Fact source URL/checksum pair mismatch")
-    for column in ["data_as_of", "published_at"]:
+    for column in ["data_as_of", "published_at", "disclosure_as_of", "estimate_vintage"]:
         values = df[column].fillna("").astype(str)
         for value in values[values.ne("")]:
             if date.fromisoformat(value) > date.fromisoformat(RESEARCH_CUTOFF):
@@ -168,6 +169,10 @@ def validate_facts(df: pd.DataFrame, source_id: str, evidence: dict[str, Any]) -
             raise ValueError("Reversed fact period")
         if row["estimate_type"] in {"actual","YTD"} and row["period_end"] and row["period_end"]>RESEARCH_CUTOFF:
             raise ValueError("Future actual observation")
+        if row["estimate_type"] in {"actual", "YTD"} and row["period_end"] and row["data_as_of"] and row["data_as_of"] > row["period_end"]:
+            raise ValueError("Observation cutoff exceeds actual reporting period; use disclosure_as_of for later assertions")
+        if row["analytical_eligible"] and row["estimate_type"] in {"BE", "RE"} and (not row["estimate_vintage"] or row["estimate_vintage"] != row["data_as_of"]):
+            raise ValueError("Analytical estimates require an explicit source-supported vintage")
     return df
 
 
@@ -326,7 +331,7 @@ class SnapshotBuilder:
         if sid in HTML_RECHECK_SOURCES and path.suffix==".html":
             self.documents[sid][-1]["semantic_document_sha256"]=hashlib.sha256(html_text(path.read_text()).encode()).hexdigest()
 
-    def fact(self, sid: str, metric: str, value: float, unit: str, page: str | int, *, entity_id: str = "", entity_name: str = "", entity_type: str = "agency", agency: str = "MoRTH", state: str = "All India", road_class: str = "National Highway", start: str = "", end: str = "", basis: str = "fiscal_year", estimate: str = "actual", statement: str = "agency", asof: str = "", published: str = "", evidence: str = "official_measured", eligible: bool = True, original_unit: str | None = None, notes: str = "", document_index: int = 0, **extra: Any) -> None:
+    def fact(self, sid: str, metric: str, value: float, unit: str, page: str | int, *, entity_id: str = "", entity_name: str = "", entity_type: str = "agency", agency: str = "MoRTH", state: str = "All India", road_class: str = "National Highway", start: str = "", end: str = "", basis: str = "fiscal_year", estimate: str = "actual", statement: str = "agency", asof: str | None = None, published: str = "", disclosure_as_of: str = "", estimate_vintage: str = "", reported_period: str = "", evidence: str = "official_measured", eligible: bool = True, original_unit: str | None = None, notes: str = "", document_index: int = 0, **extra: Any) -> None:
         original_unit = original_unit or unit
         original_value = float(value)
         if unit == "INR crore":
@@ -335,7 +340,7 @@ class SnapshotBuilder:
             value *= {"transactions": 1, "million transactions": 1_000_000}[original_unit]
         doc = self.documents[sid][document_index]
         row = {column: "" for column in FACT_COLUMNS}
-        row.update(entity_id=entity_id or identifier(agency), entity_name=entity_name or agency, entity_type=entity_type, agency=agency, state=state, road_class=road_class, metric=metric, value=float(value), unit=unit, original_value=original_value, original_unit=original_unit, period_start=start, period_end=end, period_basis=basis, estimate_type=estimate, statement_basis=statement, data_as_of=asof or end, published_at=published, source_id=sid, citation_url=doc["url"], table_page=str(page), evidence_class=evidence, analytical_eligible=eligible, source_document_sha256=doc["sha256"], notes=notes, entity=entity_name or agency, year=int((end or asof or RESEARCH_CUTOFF)[:4]), metric_name=metric, metric_value=float(value), metric_category="issuer_disclosed" if sid.startswith("nhit_") else "official_measured", source_type="issuer" if sid.startswith("nhit_") else "official", comparison_group=f"{statement}|{road_class}")
+        row.update(entity_id=entity_id or identifier(agency), entity_name=entity_name or agency, entity_type=entity_type, agency=agency, state=state, road_class=road_class, metric=metric, value=float(value), unit=unit, original_value=original_value, original_unit=original_unit, period_start=start, period_end=end, period_basis=basis, estimate_type=estimate, statement_basis=statement, data_as_of=end if asof is None else asof, published_at=published, disclosure_as_of=disclosure_as_of, estimate_vintage=estimate_vintage, reported_period=reported_period, source_id=sid, citation_url=doc["url"], table_page=str(page), evidence_class=evidence, analytical_eligible=eligible, source_document_sha256=doc["sha256"], notes=notes, entity=entity_name or agency, year=int((end or asof or RESEARCH_CUTOFF)[:4]), metric_name=metric, metric_value=float(value), metric_category="issuer_disclosed" if sid.startswith("nhit_") else "official_measured", source_type="issuer" if sid.startswith("nhit_") else "official", comparison_group=f"{statement}|{road_class}")
         row.update(extra)
         row["analytical_eligible"] = bool(eligible and evidence not in {"target","valuation_estimate"})
         if agency=="NHIT":
@@ -365,7 +370,10 @@ class SnapshotBuilder:
                 assert len(numeric) == 12, (label, numeric)
                 for j, (year, estimate) in enumerate([(2024, "actual"), (2025, "BE"), (2025, "RE"), (2026, "BE")]):
                     start, end = fiscal_period(year)
-                    self.fact(sid, metric, number(numeric[j * 3 + 2]), "INR crore", f"PDF p{page}; Demand 86 row {label}, Total column", agency=agency, start=start, end=end, estimate=estimate, asof="2026-02-01", published="2026-02-01", statement="Union Budget Demand 86", notes="BE and RE are estimates; inter-fund transfers are not additive to net expenditure.")
+                    # The current edition establishes its RE/current-BE vintage,
+                    # not the original vintage of the reproduced prior BE column.
+                    vintage = "2026-02-01" if j in (2, 3) else ""
+                    self.fact(sid, metric, number(numeric[j * 3 + 2]), "INR crore", f"PDF p{page}; Demand 86 row {label}, Total column", agency=agency, start=start, end=end, estimate=estimate, asof=end if estimate == "actual" else vintage, published="2026-02-01", disclosure_as_of="2026-02-01", estimate_vintage=vintage, reported_period=f"{year}-{str(year+1)[2:]}", eligible=estimate == "actual" or bool(vintage), statement="Union Budget Demand 86", notes="BE and RE are estimates; inter-fund transfers are not additive to net expenditure. Actual observation cutoff is the fiscal year end. Current-edition RE/FY26-27BE vintage is1February2026; the reproduced FY25-26BE original vintage is undisclosed here and excluded from arithmetic.")
         sid = "union_budget_highway_outcomes"
         tables = [(238, "target_nh_construction_km", 10000, "km"), (238, "target_northeast_nh_construction_km", 1200, "km"), (238, "target_tribal_nh_construction_km", 400, "km"), (238, "target_operational_highspeed_corridor_km", 6000, "km"), (238, "target_private_investment_inr_crore", 30000, "INR crore"), (238, "target_ppp_awarded_length_share_percent", 30, "percent"), (238, "target_asset_monetisation_inr_crore", 30000, "INR crore"), (239, "target_blackspots_removed_count", 1000, "count"), (239, "target_wayside_amenities_awarded_count", 80, "count"), (239, "target_wayside_amenities_operational_count", 150, "count"), (239, "target_mlff_toll_coverage_km", 1200, "km"), (239, "target_toll_wait_seconds", 40, "seconds")]
         for page, metric, value, unit in tables:
@@ -379,11 +387,11 @@ class SnapshotBuilder:
         for metric, values, unit in rows:
             for year, value in zip([2025, 2026], values):
                 assert str(value) in text, (metric, value)
-                self.fact(sid, metric, value, unit, "PDF p12; printed slide 11, Financial Performance (Consolidated)", agency="NHIT", entity_id="nhit", entity_type="InvIT", start=f"{year}-04-01", end=f"{year}-06-30", basis="fiscal_quarter", asof="2026-06-30", published="2026-08-31", statement="consolidated", evidence="issuer_disclosure", notes="Q1FY27 includes Round 5 from 1 April 2026; issuer presentation values are rounded.")
+                self.fact(sid, metric, value, unit, "PDF p12; printed slide 11, Financial Performance (Consolidated)", agency="NHIT", entity_id="nhit", entity_type="InvIT", start=f"{year}-04-01", end=f"{year}-06-30", basis="fiscal_quarter", asof=f"{year}-06-30", disclosure_as_of="2026-06-30", published="2026-08-31", statement="consolidated", evidence="issuer_disclosure", notes="Q1FY27 includes Round 5 from 1 April 2026; issuer presentation values are rounded. Historical comparator cutoff remains its own quarter end, distinct from the June2026 disclosure context.")
         for spv, name, values in [("nwppl_r1_r2", "NWPPL R1/R2", [266,299]), ("neppl", "NEPPL R3", [363,417]), ("nsppl", "NSPPL R4", [394,468]), ("nwppl_r5", "NWPPL R5", [None,128])]:
             for year, value in zip([2025,2026], values):
                 if value is not None:
-                    self.fact(sid, "revenue_operations_inr_crore", value, "INR crore", "PDF p12; printed slide 11", agency="NHIT", entity_id=spv, entity_name=name, entity_type="SPV_round", start=f"{year}-04-01", end=f"{year}-06-30", basis="fiscal_quarter", asof="2026-06-30", published="2026-08-31", statement="SPV_round", evidence="issuer_disclosure")
+                    self.fact(sid, "revenue_operations_inr_crore", value, "INR crore", "PDF p12; printed slide 11", agency="NHIT", entity_id=spv, entity_name=name, entity_type="SPV_round", start=f"{year}-04-01", end=f"{year}-06-30", basis="fiscal_quarter", asof=f"{year}-06-30", disclosure_as_of="2026-06-30", published="2026-08-31", statement="SPV_round", evidence="issuer_disclosure")
         charts = [
             (9,"nwppl", "AP AS KK BK CK BM AB SJ".split(),[35208,38682,45386,32454,12868,24595,31103,18107],[34011,38963,50157,37466,14850,27507,36330,18458],[25,18,58,24,31,59,26,24],[24,18,67,28,38,68,31,25]),
             (10,"neppl","RKJL LK OB HHC ChK ASP".split(),[20752,29858,31302,26849,26072,20477],[22763,33855,31966,30264,29988,22523],[102,66,32,90,23,49],[123,77,33,104,27,54]),
@@ -396,7 +404,7 @@ class SnapshotBuilder:
                     assert str(traffic) in text and str(revenue) in text
                     statement = "IHMCL_ETC_only" if spv == "nsppl" and year == 2025 else "ETC_non_ETC_including_exempt"
                     for metric, value, unit in [("traffic_pcu",traffic,"PCU"),("toll_revenue_inr_crore",revenue,"INR crore")]:
-                        self.fact(sid, metric, value, unit, f"PDF p{page}; printed slide {page-1}, asset chart {code}", agency="NHIT", entity_id=f"{spv}_{code.lower()}", entity_name=f"{spv.upper()} / {code}", entity_type="toll_asset_group", asset_id=f"{spv}_{code.lower()}", start=f"{year}-04-01", end=f"{year}-06-30", basis="fiscal_quarter", asof="2026-06-30", published="2026-08-31", statement=statement, evidence="issuer_disclosure", notes="NSPPL FY26 traffic uses ETC only; FY27 includes non-ETC/exempt: these bases cannot support a comparable YoY calculation. FY27 toll revenue includes annual pass compensation.")
+                        self.fact(sid, metric, value, unit, f"PDF p{page}; printed slide {page-1}, asset chart {code}", agency="NHIT", entity_id=f"{spv}_{code.lower()}", entity_name=f"{spv.upper()} / {code}", entity_type="toll_asset_group", asset_id=f"{spv}_{code.lower()}", start=f"{year}-04-01", end=f"{year}-06-30", basis="fiscal_quarter", asof=f"{year}-06-30", disclosure_as_of="2026-06-30", published="2026-08-31", statement=statement, evidence="issuer_disclosure", notes="NSPPL FY26 traffic uses ETC only; FY27 includes non-ETC/exempt: these bases cannot support a comparable YoY calculation. FY27 toll revenue includes annual pass compensation.")
         sid = "nhit_quarterly_financial_filings"
         for page, metric, value, unit, evidence in [(1,"distribution_per_unit_inr",3.187,"INR/unit","issuer_disclosure"),(1,"distribution_interest_per_unit_inr",3.179,"INR/unit","issuer_disclosure"),(1,"distribution_other_income_per_unit_inr",.008,"INR/unit","issuer_disclosure"),(2,"enterprise_value_inr_crore",58245,"INR crore","valuation_estimate"),(2,"nav_pre_distribution_per_unit_inr",159.35,"INR/unit","valuation_estimate"),(2,"nav_post_distribution_per_unit_inr",156.16,"INR/unit","valuation_estimate")]:
             assert str(value) in self.text(sid,page).replace(",", "")
@@ -406,7 +414,7 @@ class SnapshotBuilder:
         for round_id, spv, count, fee, effective in [(1,"NWPPL",5,74514,"2021-12-16"),(2,"NWPPL",3,28497,"2022-10-29"),(3,"NEPPL",7,156999,"2024-04-01"),(4,"NSPPL",11,177379,"2025-04-01"),(5,"NWPPL",2,63669,"2026-04-01")]:
             assert f"{fee:,}" in self.text(sid,5)
             for metric,value,unit,original in [("invit_concession_value_inr_crore",fee,"INR crore","INR million"),("concession_asset_count",count,"count","count")]:
-                self.fact(sid,metric,value,unit,"PDF p5; printed p4, Executive Summary concession table",entity_id=f"nhit_round_{round_id}",entity_name=f"NHIT Round {round_id} / {spv}",entity_type="InvIT_round",agency="NHIT",start=effective,end=effective,basis="transaction",asof="2026-06-30",published="2026-08-07",statement="management_concession_fee",original_unit=original,evidence="issuer_disclosure",notes="Original concession fee INR million; related-party concession transaction, distinct from valuation enterprise value.")
+                self.fact(sid,metric,value,unit,"PDF p5; printed p4, Executive Summary concession table",entity_id=f"nhit_round_{round_id}",entity_name=f"NHIT Round {round_id} / {spv}",entity_type="InvIT_round",agency="NHIT",start=effective,end=effective,basis="transaction",asof=effective,disclosure_as_of="2026-06-30",published="2026-08-07",statement="management_concession_fee",original_unit=original,evidence="issuer_disclosure",notes="Original concession fee INR million; related-party concession transaction, distinct from valuation enterprise value. Observation is the stated effective date; June2026 is the later reporting context.")
         for value,metric,unit in [(2653,"portfolio_length_km","km"),(13315,"portfolio_lane_length_km","lane-km"),(13,"portfolio_state_count","count")]:
             assert str(value) in self.text(sid,6).replace(",", "")
             self.fact(sid,metric,value,unit,"PDF p6; printed p5",agency="NHIT",entity_id="nhit",entity_type="InvIT",end="2026-06-30",basis="stock",asof="2026-06-30",published="2026-08-07",statement="valuation_portfolio",evidence="issuer_disclosure",notes="Approximate portfolio route length; issuer presentation separately reports 2,655km. Source definitions preserved.")
@@ -457,18 +465,25 @@ class SnapshotBuilder:
     def parliament_and_audit(self) -> None:
         sid="parliament_nhai_debt_tot_invit"
         assert "2,37,247.95" in self.text(sid,2)
-        self.fact(sid,"debt_outstanding_inr_crore",237247.95,"INR crore","PDF p2; answer(a), latest quarter31December2025",agency="NHAI",entity_id="nhai",end="2025-12-31",basis="stock",asof="2025-12-31",published="2026-02-05",statement="parliament_reply")
+        self.fact(sid,"debt_outstanding_inr_crore",237247.95,"INR crore","PDF p2; answer(a), latest quarter31December2025",agency="NHAI",entity_id="nhai",end="2025-12-31",basis="stock",asof="2025-12-31",disclosure_as_of="2026-02-05",published="2026-02-05",statement="parliament_reply")
         bundles=[("1",2018,681,9682,"Andhra Pradesh; Odisha; Gujarat"),("3",2020,566,5011,"Uttar Pradesh; Bihar; Jharkhand; Tamil Nadu"),("5A1",2021,54,1011,"Gujarat"),("5A2",2022,106,1251,"Gujarat"),("7",2022,135,6267,"Eastern Peripheral Expressway"),("9",2022,73,3144,"Uttar Pradesh"),("11",2023,84,2156,"Uttar Pradesh"),("12",2023,316,4428,"Madhya Pradesh"),("13",2023,108,1683,"Madhya Pradesh; Rajasthan"),("14",2023,189,7701,"Uttar Pradesh; Delhi; Odisha"),("16",2024,252,6661,"Hyderabad-Nagpur"),("17",2025,366,9270,"Uttar Pradesh")]
         for bundle,year,length,fee,state in bundles:
             assert str(fee) in self.text(sid,3)
             start,end=fiscal_period(year)
+            current_year = year == 2025
+            if current_year:
+                end = "2026-02-05"
             for metric,value,unit in [("tot_portfolio_length_km",length,"km"),("tot_concession_value_inr_crore",fee,"INR crore")]:
-                self.fact(sid,metric,value,unit,f"PDF p3/4; Annexure A, TOT-{bundle}",agency="NHAI",entity_id="tot_"+bundle.lower(),entity_name="TOT Bundle "+bundle,entity_type="TOT_bundle",state=state,start=start,end=end,basis="fiscal_year",asof="2026-02-05",published="2026-02-05",statement="receipts_deposited_CFI",notes="Concession proceeds transferred to CFI; not direct NHAI toll revenue or a measure of debt principal retired. Fiscal year records receipts, not necessarily concession execution date.")
+                self.fact(sid,metric,value,unit,f"PDF p3/4; Annexure A, TOT-{bundle}",agency="NHAI",entity_id="tot_"+bundle.lower(),entity_name="TOT Bundle "+bundle,entity_type="TOT_bundle",state=state,start=start,end=end,basis="fiscal_year_to_date" if current_year else "fiscal_year",estimate="YTD" if current_year else "actual",asof=end,disclosure_as_of="2026-02-05",published="2026-02-05",reported_period=f"{year}-{str(year+1)[2:]}",statement="receipts_deposited_CFI",notes="Concession proceeds transferred to CFI; not direct NHAI toll revenue or a measure of debt principal retired. Fiscal year records receipts, not necessarily concession execution date. Closed-year observations retain their year-end cutoff; FY25-26 is only observed through the5February2026 answer, not a full-year result.")
         for round_id,year,length,fee in [(1,2021,389,7350),(2,2022,246,2850),(3,2023,889,15700),(4,2024,754,17738)]:
             assert f"{fee:,}" in self.text(sid,4)
             start,end=fiscal_period(year)
+            # The Round4 footnote moves the receipt to FY25-26. Preserve the
+            # table's FY24-25 label separately, rather than using it as receipt year.
+            if round_id == 4:
+                start,end = "2025-04-01","2026-02-05"
             for metric,value,unit in [("invit_portfolio_length_km",length,"km"),("invit_concession_value_inr_crore",fee,"INR crore")]:
-                self.fact(sid,metric,value,unit,f"PDF p4; Annexure B, Round {round_id}",agency="NHAI",entity_id=f"nhit_round_{round_id}",entity_name=f"InvIT Round {round_id}",entity_type="InvIT_round",start=start,end=end,basis="fiscal_year",asof="2026-02-05",published="2026-02-05",statement="parliament_receipts",notes="Round4 FY24-25 shown in table; receipts deposited CFI FY25-26. Rounded Parliamentary fees differ from issuer concession fees; never add both assertions.")
+                self.fact(sid,metric,value,unit,f"PDF p4; Annexure B, Round {round_id}",agency="NHAI",entity_id=f"nhit_round_{round_id}",entity_name=f"InvIT Round {round_id}",entity_type="InvIT_round",start=start,end=end,basis="fiscal_year_to_date" if round_id == 4 else "fiscal_year",estimate="YTD" if round_id == 4 else "actual",asof=end,disclosure_as_of="2026-02-05",published="2026-02-05",reported_period=f"{year}-{str(year+1)[2:]}",statement="parliament_receipts",notes="Round4 FY24-25 shown in table; footnote says receipts deposited CFI FY25-26. Its receipt observation ends at the5February2026 answer, while reported_period preserves the table's round-year label. Rounded Parliamentary fees differ from issuer concession fees; never add both assertions. Portfolio length describes the receipt bundle, not length newly constructed in that fiscal year.")
         sid="cag_bharatmala_performance_audit"
         text=self.text(sid,11)+self.text(sid,12)
         for metric,value,unit in [("programme_approved_length_km",34800,"km"),("programme_approved_outlay_inr_crore",535000,"INR crore"),("programme_awarded_length_km",26316,"km"),("programme_sanctioned_cost_inr_crore",846588,"INR crore"),("programme_completed_length_km",13499,"km"),("audit_sample_project_count",66,"count")]:
@@ -558,13 +573,14 @@ class SnapshotBuilder:
                             continue
                         assert re.fullmatch(r"[\d,.]+",raw),(p+1,state,raw)
                         start,end = fiscal_period(year)
-                        self.fact(sid,metric,number(raw),"INR crore",f"PDF p{p+1}; printed p{p-12}; {'Appendix II' if p<269 else 'Appendix IV'} Roads and Bridges",agency="State governments",entity_id="state_"+identifier(state),entity_name=state,entity_type="state_aggregate",state=state,road_class="roads_and_bridges_all_classes",start=start,end=end,estimate=estimate,asof="2026-01-23",published="2026-01-23",statement=statement,original_unit="INR lakh",notes="Functional Roads and Bridges expenditure includes all road classes; it is not a State Highway-only budget. BE/RE retained separately. Revenue account and capital outlay exclude loans/repayments.")
+                        self.fact(sid,metric,number(raw),"INR crore",f"PDF p{p+1}; printed p{p-12}; {'Appendix II' if p<269 else 'Appendix IV'} Roads and Bridges",agency="State governments",entity_id="state_"+identifier(state),entity_name=state,entity_type="state_aggregate",state=state,road_class="roads_and_bridges_all_classes",start=start,end=end,estimate=estimate,asof=end if estimate == "actual" else "",disclosure_as_of="2026-01-23",published="2026-01-23",reported_period=f"{year}-{str(year+1)[2:]}",eligible=estimate == "actual",statement=statement,original_unit="INR lakh",notes="Functional Roads and Bridges expenditure includes all road classes; it is not a State Highway-only budget. BE/RE retained separately. Revenue account and capital outlay exclude loans/repayments. Accounts observations end31March2024. State-specific BE/RE original vintage is undisclosed;23January2026 is publication, not estimate observation, and unknown-vintage estimates are excluded from arithmetic.")
         assert len(self.rows[sid]) == 252, len(self.rows[sid])
         from pipelines.rbi_state_finance_tables import extract_state_liabilities
         for record in extract_state_liabilities(document_path(self.raw_root,sid)):
             state=record["state"].replace("Jammu and Kashmir","Jammu & Kashmir")
             entity_id="state_government_"+identifier(state)
-            self.fact(sid,record["metric"],record["value"],record["unit"],record["table_page"],agency="State governments",entity_id=entity_id,entity_name=state+" government",entity_type="state_government",state=state,road_class="All sectors",end=record["period_end"],basis="balance_sheet_snapshot",estimate=record["estimate_type"],asof=record["data_as_of"],published="2026-01-23",statement="state_government_all_sectors",financing_entity_id=entity_id,notes=record["notes"])
+            actual = record["estimate_type"] == "actual"
+            self.fact(sid,record["metric"],record["value"],record["unit"],record["table_page"],agency="State governments",entity_id=entity_id,entity_name=state+" government",entity_type="state_government",state=state,road_class="All sectors",end=record["period_end"],basis="balance_sheet_snapshot",estimate=record["estimate_type"],asof=record["period_end"] if actual else "",disclosure_as_of=record["disclosure_as_of"],published=record["published_at"],reported_period=record["reported_period"],eligible=actual,statement="state_government_all_sectors",financing_entity_id=entity_id,notes=record["notes"]+" State-specific RE/BE estimate vintage is undisclosed; publication is preserved separately and never becomes an observation cutoff.")
         assert len(self.rows[sid])==1302,len(self.rows[sid])
 
     def brs(self) -> None:

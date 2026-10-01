@@ -4,7 +4,8 @@ Research cutoff: 2 October 2026. The inventory adds 16 government, issuer,
 payment-system and multilateral sources. Government authority does not establish
 extract quality; issuer disclosures are not classified as government measurements.
 
-The governed snapshots contain **4,179 numerical facts** from 15 retrieved sources.
+The governed snapshots contain **4,179 numerical facts**, of which **3,852** are
+eligible for scoped calculations, from 15 retrieved sources.
 One source has a typed empty snapshot and an explicit evidence gap. Every
 nonempty row records its source URL, physical document/table/page anchor, source
 SHA256, original units, normalized value, entity, road class, period, statement
@@ -12,16 +13,16 @@ basis, estimate type, publication date when disclosed, and observation date.
 
 | Source | Extracted coverage | Important limits |
 | --- | --- | --- |
-| Union Budget Demand86 | 40 actual/BE/RE gross, recovery, net, NHAI, road works, CRIF, maintenance and safety allocations | Revenue/capital/total columns; transfers and recoveries are never summed into net spending |
+| Union Budget Demand86 | 40 actual/BE/RE gross, recovery, net, NHAI, road works, CRIF, maintenance and safety allocations | Revenue/capital/total columns; transfers and recoveries are never summed into net spending; 10 reproduced prior-BE rows have unknown original vintage and remain disclosure-only |
 | Outcome Framework2026-27 | 12 construction, PPP, monetisation, safety and tolling targets | Forward targets, no achievement inference |
 | NHIT June2026 presentation | 117 consolidated/SPV finance, asset-group traffic and toll facts | Portfolio expansion; NSPPL FY26 ETC-only versus FY27 full collection traffic; rounded amounts |
 | NHIT quarterly board outcome | 6 distribution and NAV/EV facts | Scanned AnnexureI accounting statements remain quarantined |
 | NHIT June2026 valuation | 17 concession-round, portfolio and WACC facts | Valuer assumptions differ from measurements; INRmillion concession fees normalized to INRcrore |
 | NHIT Annual Report2025-26 | 62 audited consolidated financial, SPV operating, debt flow and instrument maturity facts | Audited INRlakh normalized; fiscal publication day undisclosed; maturity uses contractual undiscounted basis; eight source dashes omitted |
 | NHIDCL PMP31August2026 | 2,384 facts from410 detailed project rows | Termination and MMLP rows differ from summary scope; contractor role is not assumed to mean operator |
-| Parliament UQ963 | 33 debt/TOT/InvIT facts | Debt asof31December2025; proceeds deposited CFI; rounded transaction assertions differ from issuer fees |
+| Parliament UQ963 | 33 debt/TOT/InvIT facts | Debt asof31December2025; closed fiscal receipts retain their year-end cutoff; TOT17 and Round4 receipts are FY25-26YTD through5February2026; Round4 table year is preserved separately |
 | PIB30March2026 monetisation | 6 realised/target/InvIT5/TOT18 facts | FY25-26 YTD before year end, not final actual |
-| RBI State Finances2025-26 | 1,302 Roads and Bridges budget and all-sector state liabilities/guarantees facts | All road classes, not SH-only; actual/BE/RE distinct; Goa revenue dashes retained as absence |
+| RBI State Finances2025-26 | 1,302 Roads and Bridges budget and all-sector state liabilities/guarantees facts | All road classes, not SH-only; actual/BE/RE distinct; actuals end no later than31March2024; 279 BE/RE rows have unknown state-specific vintage and remain disclosure-only; Goa revenue dashes retained as absence |
 | CAG Report19of2023 | 6 Bharatmala programme/sample facts | Historical audit; sample66 cannot define all-India project failure incidence |
 | MoRTH Basic Road Statistics | 75 SH network/surface facts | State footnotes2018-2021 override report headline2022; duplicate spreads excluded; inconsistent rows quarantined |
 | UPEIDA project HTML | 8 route, grant and cost context facts | Verified TLS macOS curl retrieval; financial observation/publication dates undisclosed; all rows excluded from measured analytics; Agra-Lucknow cost excludes land |
@@ -43,6 +44,19 @@ and consolidated/standalone/SPV/CFI/valuation basis form the comparison key.
 Totals are cited assertions rather than additive contributions from every report.
 The same InvIT round in Parliament, issuer valuation and press releases must not
 be counted three times. Route-km and lane-km remain separate units.
+
+`data_as_of` identifies the observation cutoff or an explicitly supported estimate
+vintage. It never becomes a newer date merely because an older number is repeated
+in a later document. `disclosure_as_of` preserves later reporting/assertion context,
+`published_at` preserves publication, `estimate_vintage` identifies the dated
+estimate when established, and `reported_period` preserves the source's year label.
+Blank estimate vintage means unknown. The FY2024-25 Budget actuals end31March2025;
+NHIT Q1FY26 comparator observations end30June2025; historical concession rows use
+their stated effective dates. The current Budget edition establishes1February2026
+for FY2025-26RE and FY2026-27BE, but does not establish the original vintage of its
+reproduced FY2025-26BE column. RBI's23January2026 publication is not an observation
+date for FY2023-24 Accounts or a state-specific BE/RE vintage. These289 unknown-vintage
+estimates remain readable and are excluded from arithmetic by the existing date guard.
 
 `disclosure_ready` means verified numerical disclosures can be shown.
 `analytical_eligible` on each row controls measured calculations. Targets,
