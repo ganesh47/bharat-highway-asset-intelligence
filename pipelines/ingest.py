@@ -69,7 +69,7 @@ def _load_nhai_extraction_quality(processed_root: Path, output_table_path: str |
         "parser_environment": quality_payload.get("parser_environment", {}),
         "source_parquet": str(expected), "source_parquet_sha256": input_sha,
         "quality_report_path": str(quality_path), "extraction_manifest_path": str(manifest_path),
-        "rows_merged": total,
+        "rows_merged": total, "document_refresh_outcomes": manifest_payload.get("document_refresh_outcomes", []),
     }
 
 
@@ -133,10 +133,11 @@ def _annotate(entry: dict, source: dict, df: pd.DataFrame, processed_root: Path)
         for key in ("extraction_quality", "extraction_quality_reference", "extraction_quality_score"):
             entry.pop(key, None)
         stale_quality = (processed_root / "nhai_annual_report_tables" / "quality_report.json").exists() and source["source_id"] in NHAI_EXTRACTION_QUALITY_SOURCE_IDS
-        entry["extraction_status"] = "extracted" if extraction else "checksum_mismatch" if stale_quality else "fetched" if not df.empty else "discovered"
+        retained_documents = extraction and any(row.get("outcome") == "retained_after_failure" for row in extraction.get("document_refresh_outcomes", []))
+        entry["extraction_status"] = "extracted_with_retained_documents" if retained_documents else "extracted" if extraction else "checksum_mismatch" if stale_quality else "fetched" if not df.empty else "discovered"
         if extraction:
             entry["extraction_quality"] = extraction
-            entry["extraction_quality_reference"] = {key: extraction[key] for key in ("quality_report_path", "extraction_manifest_path", "generated_at", "source_parquet", "source_parquet_sha256")}
+            entry["extraction_quality_reference"] = {key: extraction[key] for key in ("quality_report_path", "extraction_manifest_path", "generated_at", "source_parquet", "source_parquet_sha256", "document_refresh_outcomes")}
     else:
         entry.setdefault("extraction_status", "validated" if entry["analytical_ready"] else "pending")
     context = source | entry.get("source", {}) | {k: entry[k] for k in ("status", "evidence_status", "extraction_status", "source_as_of_date") if k in entry}

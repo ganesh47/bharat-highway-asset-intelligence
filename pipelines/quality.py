@@ -437,6 +437,8 @@ def evaluate(df, item: Dict[str, Any]) -> Dict[str, Any]:
     if item.get("extraction_status") in {"discovered", "fetched", "pending", "checksum_mismatch"}:
         badge = "Low"
         reasons.append("Document discovery is not validated financial extraction")
+    if item.get("extraction_status") == "extracted_with_retained_documents":
+        reasons.append("Some PDFs failed this refresh; prior extracted rows were retained with document lineage")
 
     output = {
         "completeness_score": c,

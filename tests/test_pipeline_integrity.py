@@ -191,12 +191,13 @@ class QualityTests(unittest.TestCase):
             write_json({"canonical_rows": 1, "quality": {}, "method_mix": {}}, quality)
             write_json({"source_parquet": str(source), "rows_merged": 1}, manifest)
             self.assertIsNone(_load_nhai_extraction_quality(root, str(source)))
-            write_json({"source_parquet_sha256": sha256_for_file(source), "rows_merged": 1}, manifest)
+            retained = [{"source_document_url": "https://nhai.gov.in/report.pdf", "outcome": "retained_after_failure", "rows_retained": 1}]
+            write_json({"source_parquet_sha256": sha256_for_file(source), "rows_merged": 1, "document_refresh_outcomes": retained}, manifest)
             # A stale or legacy hashless quality report cannot be attached even
             # when the extraction manifest happens to match the live input.
             self.assertIsNone(_load_nhai_extraction_quality(root, str(source)))
             write_json({"source_parquet_sha256": sha256_for_file(source), "canonical_rows": 1, "quality": {}, "method_mix": {}}, quality)
-            self.assertIsNotNone(_load_nhai_extraction_quality(root, str(source)))
+            self.assertEqual(retained, _load_nhai_extraction_quality(root, str(source))["document_refresh_outcomes"])
             write_parquet(pd.DataFrame({"document": ["changed"]}), source)
             self.assertIsNone(_load_nhai_extraction_quality(root, str(source)))
 
