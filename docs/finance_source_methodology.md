@@ -4,8 +4,8 @@ Research cutoff: 2 October 2026. The inventory adds 16 government, issuer,
 payment-system and multilateral sources. Government authority does not establish
 extract quality; issuer disclosures are not classified as government measurements.
 
-The governed snapshots contain **4,068 numerical facts** from 13 retrieved sources.
-Three sources have typed empty snapshots and explicit evidence gaps. Every
+The governed snapshots contain **4,102 numerical facts** from 14 retrieved sources.
+Two sources have typed empty snapshots and explicit evidence gaps. Every
 nonempty row records its source URL, physical document/table/page anchor, source
 SHA256, original units, normalized value, entity, road class, period, statement
 basis, estimate type, publication date when disclosed, and observation date.
@@ -25,7 +25,7 @@ basis, estimate type, publication date when disclosed, and observation date.
 | CAG Report19of2023 | 6 Bharatmala programme/sample facts | Historical audit; sample66 cannot define all-India project failure incidence |
 | MoRTH Basic Road Statistics | 75 SH network/surface facts | State footnotes2018-2021 override report headline2022; duplicate spreads excluded; inconsistent rows quarantined |
 | UPEIDA project HTML | 8 route, grant and cost context facts | Verified TLS macOS curl retrieval; financial observation/publication dates undisclosed; all rows excluded from measured analytics; Agra-Lucknow cost excludes land |
-| NPCI NETC statistics | Evidence gap | Primary page403/JS restriction; no invented API or search-result observations |
+| NPCI NETC statistics | 34 monthly payment-volume and amount facts, April2025–August2026 | Governed manual capture of the rendered official table; annual pass and Maharashtra Electric Vehicle exempted data excluded as stated by NPCI; no NHAI-receipts or traffic-count inference |
 | MSRDC financial disclosures | Evidence gap | Index/filings time out; subsidiaryFY23-24 is not parent standaloneFY23-24 |
 | ADB project52298-001 | Evidence gap | Primary page403; discovered audit links alone do not establish numeric facts |
 
@@ -78,6 +78,37 @@ Candidate bytes cannot replace pinned source bytes: changed documents are saved
 under`quarantine/<sha256>.pdf`, flagged for extraction, and the pipeline retains
 the previous validated artifact. HTTP errors do not become successful extraction.
 Manual/restricted sources receive no guessed endpoint or silent numeric fallback.
+
+NPCI NETC uses a governed manual browser capture of the official product-statistics
+table. Reporting-year selection and scrolling were checked to load all twelve
+FY2025-26 months and the five available FY2026-27 months. The pinned snapshot JSON
+records the rendered cells, headings and exclusions; its SHA256 identifies the
+capture, not original publisher PDF or HTML bytes. September2026 was not displayed.
+Month ends are observation cutoffs; the capture date is retrieval only and the
+publication day remains unknown. HTTP403/JavaScript restrictions still prevent a
+verified automatic fetch. New months require another reviewed snapshot.
+
+The nine disabled legacy manual/proxy sources retain their identifiers, raw rows,
+and evidence gaps. Unsupported URLs are replaced with verified discovery links:
+[NCRB ADSI](https://www.ncrb.gov.in/accidental-deaths-suicides-in-india-adsi.html),
+[Parliament Questions & Answers](https://sansad.in/rs/questions/questions-and-answers),
+[RBI DBIE](https://data.rbi.org.in/),
+[MoSPI eSankhyiki](https://esankhyiki.mospi.gov.in/macroindicators-main),
+[CPPP ePublishing](https://eprocure.gov.in/epublish//app),
+[NPCI NETC ecosystem statistics](https://www.npci.org.in/product/ecosystem-statistics/netc),
+[Overpass](https://overpass-api.de/), and
+[NASA VNP46A4](https://ladsweb.modaps.eosdis.nasa.gov/missions-and-measurements/products/VNP46A4/).
+These links establish discovery, not numerical lineage, extracted periods,
+automatic access or redistribution rights. The legacy toll source's NCRB prefix
+is retained for compatibility while its publisher is corrected to NPCI; it stays
+separate from the verified monthly snapshot. MoRTH's arbitration SOP is policy
+context, not evidence of claim amounts. No source dates are inferred from these
+portals or from the years in unverified manual rows.
+
+The two original OGD API definitions now contain concrete resource UUID URLs.
+Their official resource-page metadata advertises API availability and the same
+UUIDs. This verifies identification rather than successful authenticated access;
+the existing credentialed API and direct-file fallback remain unchanged.
 
 For the known PIB monetisation HTML page only, dynamic script/viewstate wrappers
 change raw bytes while visible disclosure text stays identical. Its evidence stores
