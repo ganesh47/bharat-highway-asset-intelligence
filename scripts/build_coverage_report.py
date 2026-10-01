@@ -24,6 +24,7 @@ STATES = [
     "Lakshadweep", "Puducherry",
 ]
 ALIASES = {"NCT of Delhi": "Delhi", "National Capital Territory of Delhi": "Delhi",
+           "NCT Delhi": "Delhi", "Andaman & Nicobar Island": "Andaman and Nicobar Islands",
            "Andaman & Nicobar Islands": "Andaman and Nicobar Islands", "Orissa": "Odisha",
            "Uttaranchal": "Uttarakhand", "Jammu & Kashmir": "Jammu and Kashmir",
            "Dadra & Nagar Haveli and Daman & Diu": "Dadra and Nagar Haveli and Daman and Diu"}
@@ -103,9 +104,9 @@ def build(inventory_path: Path, catalog_path: Path, out: Path, root: Path = ROOT
             lines.append(f"| {cell(sid)} | {entry.get('manifest', {}).get('row_count', 0)} | {cell(entry.get('citations', {}).get('note', 'Derived artifact'))} |")
     lines.extend(["", "## State and union territory coverage", "",
                   "Each cell lists disclosed metrics and their own periods. Project portfolios are not highway network stocks. Roads and Bridges expenditure has a broader scope than State Highways. A zero published in a primary table is a reported value; an empty cell below means no eligible observations.", "",
-                  "| State / UT | NH / SH network stock | Roads and Bridges spending | Detailed corridor / delivery evidence |",
-                  "|---|---|---|---|"])
-    buckets = [{"morth_state_highway_network", "morth_annual_report_pdf"}, {"rbi_state_road_finances"},
+                  "| State / UT | NH network stock | SH network stock | Roads and Bridges spending | Detailed corridor / delivery evidence |",
+                  "|---|---|---|---|---|"])
+    buckets = [{"morth_annual_report_pdf"}, {"morth_state_highway_network"}, {"rbi_state_road_finances"},
                {"nhidcl_monthly_project_progress", "upeida_expressway_projects", "msrdc_financial_disclosures", "adb_state_road_projects"}]
     for state in STATES:
         values = []
@@ -117,6 +118,10 @@ def build(inventory_path: Path, catalog_path: Path, out: Path, root: Path = ROOT
                 if not state_col:
                     continue
                 part = df[df[state_col].map(lambda value: ALIASES.get(str(value), str(value))).eq(state)]
+                historical_regions = []
+                if state == "Dadra and Nagar Haveli and Daman and Diu" and sid == "morth_state_highway_network":
+                    part = df[df[state_col].isin(["Dadra & Nagar Haveli", "Daman & Diu"])]
+                    historical_regions = ["Separate historical entities; no combined stock inferred"]
                 if sid == "rbi_state_road_finances" and "metric" in part:
                     part = part[part["metric"].str.startswith("roads_bridges_")]
                 if sid == "morth_annual_report_pdf" and "metric_name" in part:
@@ -125,7 +130,7 @@ def build(inventory_path: Path, catalog_path: Path, out: Path, root: Path = ROOT
                     continue
                 metric_col = "metric" if "metric" in part else "metric_name" if "metric_name" in part else None
                 metrics = sorted(part[metric_col].dropna().astype(str).unique()) if metric_col else ["network length"]
-                evidence.append(f"{sid}: {', '.join(metrics)} ({dates(part)})")
+                evidence.append(f"{sid}: {', '.join(metrics)} ({dates(part)})" + (". " + "; ".join(historical_regions) if historical_regions else ""))
             values.append("; ".join(evidence) or "Gap")
         lines.append("| " + " | ".join(map(cell, [state, *values])) + " |")
     lines.extend(["", "## Boundaries and remaining gaps", "",
