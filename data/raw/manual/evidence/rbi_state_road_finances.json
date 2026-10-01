@@ -10,10 +10,10 @@
       "size_bytes": 3616815
     }
   ],
-  "csv_sha256": "b6b5124fa3b4e6633ae5f5c122acc5a8469a6e2ee334b92db11921b689ac087e",
+  "csv_sha256": "3fd2c72511598067bbdad943c128fbb4de667cb887de1c10cfd4db04b9a1c952",
   "extraction_status": "validated",
-  "row_count": 252,
-  "notes": "Goa revenue Roads and Bridges rows contain dashes, left absent rather than invented zero. Road-corporation debt/guarantees and corridor attribution not inferred from state-government aggregates.",
+  "row_count": 1302,
+  "notes": "Goa revenue Roads and Bridges rows contain dashes, left absent rather than invented zero. Road-corporation debt/guarantees and corridor attribution not inferred from state-government aggregates. Statements19/28 add1050all-sector state-government liabilities/guarantees, distinct from roads budgets and corporation finance.",
   "gap_reason": "",
   "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"
 }

@@ -4,7 +4,7 @@ Research cutoff: 2 October 2026. The inventory adds 16 government, issuer,
 payment-system and multilateral sources. Government authority does not establish
 extract quality; issuer disclosures are not classified as government measurements.
 
-The governed snapshots contain **3,026 numerical facts** from 13 retrieved sources.
+The governed snapshots contain **4,076 numerical facts** from 13 retrieved sources.
 Three sources have typed empty snapshots and explicit evidence gaps. Every
 nonempty row records its source URL, physical document/table/page anchor, source
 SHA256, original units, normalized value, entity, road class, period, statement
@@ -21,7 +21,7 @@ basis, estimate type, publication date when disclosed, and observation date.
 | NHIDCL PMP31August2026 | 2,384 facts from410 detailed project rows | Termination and MMLP rows differ from summary scope; contractor role is not assumed to mean operator |
 | Parliament UQ963 | 33 debt/TOT/InvIT facts | Debt asof31December2025; proceeds deposited CFI; rounded transaction assertions differ from issuer fees |
 | PIB30March2026 monetisation | 6 realised/target/InvIT5/TOT18 facts | FY25-26 YTD before year end, not final actual |
-| RBI State Finances2025-26 | 252 state/all-state Roads and Bridges revenue/capital facts | All road classes, not SH-only; actual/BE/RE distinct; Goa revenue dashes retained as absence |
+| RBI State Finances2025-26 | 1,302 Roads and Bridges budget and all-sector state liabilities/guarantees facts | All road classes, not SH-only; actual/BE/RE distinct; Goa revenue dashes retained as absence |
 | CAG Report19of2023 | 6 Bharatmala programme/sample facts | Historical audit; sample66 cannot define all-India project failure incidence |
 | MoRTH Basic Road Statistics | 75 SH network/surface facts | State footnotes2018-2021 override report headline2022; duplicate spreads excluded; inconsistent rows quarantined |
 | UPEIDA project HTML | 8 route, grant and cost context facts | Verified TLS macOS curl retrieval; financial observation/publication dates undisclosed; all rows excluded from measured analytics; Agra-Lucknow cost excludes land |

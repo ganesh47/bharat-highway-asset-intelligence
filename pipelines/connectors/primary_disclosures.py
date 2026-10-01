@@ -510,6 +510,12 @@ class SnapshotBuilder:
                         start,end = fiscal_period(year)
                         self.fact(sid,metric,number(raw),"INR crore",f"PDF p{p+1}; printed p{p-12}; {'Appendix II' if p<269 else 'Appendix IV'} Roads and Bridges",agency="State governments",entity_id="state_"+identifier(state),entity_name=state,entity_type="state_aggregate",state=state,road_class="roads_and_bridges_all_classes",start=start,end=end,estimate=estimate,asof="2026-01-23",published="2026-01-23",statement=statement,original_unit="INR lakh",notes="Functional Roads and Bridges expenditure includes all road classes; it is not a State Highway-only budget. BE/RE retained separately. Revenue account and capital outlay exclude loans/repayments.")
         assert len(self.rows[sid]) == 252, len(self.rows[sid])
+        from pipelines.rbi_state_finance_tables import extract_state_liabilities
+        for record in extract_state_liabilities(document_path(self.raw_root,sid)):
+            state=record["state"].replace("Jammu and Kashmir","Jammu & Kashmir")
+            entity_id="state_government_"+identifier(state)
+            self.fact(sid,record["metric"],record["value"],record["unit"],record["table_page"],agency="State governments",entity_id=entity_id,entity_name=state+" government",entity_type="state_government",state=state,road_class="All sectors",end=record["period_end"],basis="balance_sheet_snapshot",estimate=record["estimate_type"],asof=record["data_as_of"],published="2026-01-23",statement="state_government_all_sectors",financing_entity_id=entity_id,notes=record["notes"])
+        assert len(self.rows[sid])==1302,len(self.rows[sid])
 
     def brs(self) -> None:
         import pdfplumber

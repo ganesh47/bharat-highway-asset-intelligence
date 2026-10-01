@@ -1149,7 +1149,7 @@ sources:
     auth: none
     update_frequency: annual
     geographic_granularity: state
-    temporal_coverage: FY2023-24 actual;FY2024-25BE/RE;FY2025-26BE
+    temporal_coverage: Roads budgets FY2023-24 actual/FY2024-25BE-RE/FY2025-26BE; all-sector balances2008-2026
     license_terms: Public primary disclosure; attribution required. No blanket OGL claim
       for issuer/multilateral content; link to original document and cite table/page.
     retrieval_method: verified primary document download + governed reproducible extract
@@ -1158,7 +1158,7 @@ sources:
       readiness and financial comparability.
     known_limitations: INRlakh converted to INRcrore. Functional all-road-class state
       spending, not StateHighway-only. Goa revenue dashes preserved as gap, not zero.
-      State corporation guarantees/debt not inferred.
+      Statements19/28 include all-sector state liabilities/guarantees; State corporation guarantees/debt not inferred.
     allow_auto_fetch: true
     url: https://rbidocs.rbi.org.in/rdocs/Publications/PDFs/0SF23012026877D47254C4F4B0793B2C38F05FB7EC5.PDF
     resource_page_url: https://rbidocs.rbi.org.in/rdocs/Publications/PDFs/0SF23012026877D47254C4F4B0793B2C38F05FB7EC5.PDF
