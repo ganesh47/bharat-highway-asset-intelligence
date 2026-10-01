@@ -74,10 +74,12 @@ To regenerate research artifacts:
 
 ```bash
 PYENV_VERSION=3.11.9 python -m research.scan
-PYENV_VERSION=3.11.9 python -m research.gap_report
-PYENV_VERSION=3.11.9 python scripts/validate_artifacts.py --inventory research/source_inventory.yaml --catalog data/manifests/catalog.json --manifests data/manifests
 PYENV_VERSION=3.11.9 python -m pipelines.ingest
 PYENV_VERSION=3.11.9 python -m pipelines.correlation
+PYENV_VERSION=3.11.9 python -m research.scan --sync-catalog
+PYENV_VERSION=3.11.9 python -m research.gap_report
+PYENV_VERSION=3.11.9 python scripts/validate_artifacts.py --inventory research/source_inventory.yaml --catalog data/manifests/catalog.json --manifests data/manifests --fail-on-warning
+PYENV_VERSION=3.11.9 python scripts/build_coverage_report.py
 ```
 
 ## Frontend
