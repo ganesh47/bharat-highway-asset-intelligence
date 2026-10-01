@@ -226,7 +226,7 @@ else:
 
 def _frontend_fixture_script(source: str) -> str:
     """Exercise the deployed pure calculation functions, including invalid joins."""
-    names = ["num", "fmtNum", "sourceTypeTag", "confidenceFromSources", "humanMetric", "csvText", "deriveDisclosureInsights"]
+    names = ["num", "fmtNum", "sourceTypeTag", "analyticalReady", "confidenceFromSources", "humanMetric", "disclosureTheme", "validCitation", "disclosureEligible", "disclosureMeasured", "csvText", "deriveDisclosureInsights"]
     blocks = []
     for name in names:
         start = re.search(r"^function " + re.escape(name) + r"\(", source, re.MULTILINE)
@@ -245,6 +245,14 @@ def _frontend_fixture_script(source: str) -> str:
     check(confidenceFromSources([{overall_confidence_badge:'High'}]).badge === 'High', 'high confidence');
     check(confidenceFromSources([{overall_confidence_badge:'High'},{overall_confidence_badge:'Med'}]).badge === 'Med', 'contributing confidence floor');
     check(confidenceFromSources([]).badge === 'Low', 'missing confidence');
+    check(disclosureTheme({metric:'additional_borrowings_inr_crore'}) === 'debt', 'new borrowings scope');
+    check(disclosureTheme({metric:'state_government_guarantees_outstanding_inr_crore'}) === 'debt', 'state guarantees scope');
+    check(disclosureTheme({metric:'sh_surfaced_length_km'}) === 'network', 'State Highway surfaced stock');
+    const observed={source_id:'fixture',value:80,analytical_eligible:true,estimate_type:'actual',evidence_class:'official_measured',citation_url:'https://example.org/primary'};
+    const catalog={fixture:{source_id:'fixture',metric_category:'official_measured',analytical_ready:true,manifest:{row_count:1}}};
+    check(disclosureMeasured(observed,catalog), 'actual measured observation');
+    check(!disclosureMeasured({...observed,estimate_type:'BE'},catalog) && !disclosureMeasured({...observed,estimate_type:'RE'},catalog), 'budget estimates are not measured actuals');
+    check(!disclosureMeasured({...observed,evidence_class:'target'},catalog), 'targets are not measured actuals');
     const base = {entity_id:'P1', entity_type:'project', agency:'NHAI', state:'Odisha', road_class:'NH', period_start:'2025-04-01', period_end:'2026-03-31', period_basis:'financial_year', statement_basis:'project', source_id:'fixture', data_as_of:'2026-03-31', estimate_type:'actual', evidence_class:'official_measured'};
     const cost = {...base, metric:'sanctioned_cost_inr_crore', value:100, unit:'inr_crore'};
     const length = {...base, metric:'project_length_km', value:10, unit:'km'};
@@ -256,12 +264,15 @@ def _frontend_fixture_script(source: str) -> str:
     check(derive([cost,{...length,road_class:'SH'}]).length === 0, 'different road class');
     check(derive([cost,{...length,data_as_of:'2025-12-31'}]).length === 0, 'different cutoff');
     check(derive([cost,length,length]).length === 0, 'ambiguous duplicate denominator');
+    check(derive([{...cost,metric:'tot_concession_value_inr_crore'}, {...length,metric:'tot_portfolio_length_km'}])[0]?.label === 'TOT concession value per route km', 'concession value uses disclosed route denominator');
+    check(derive([{...cost,metric:'tot_concession_value_inr_crore'}, length]).length === 0, 'concession value does not use unrelated project denominator');
     const actual={...base,metric:'budget_maintenance_inr_crore',value:80,unit:'inr_crore'};
     const budget={...actual,value:100,estimate_type:'BE'};
     check(derive([actual,budget])[0]?.value === 80, 'matched full-period actual to BE');
     check(derive([{...actual,estimate_type:'YTD'},budget]).length === 0, 'YTD is not full-period actual');
     check(derive([actual,{...budget,data_as_of:'2025-03-31'}]).length === 0, 'budget comparison cutoff');
     check(derive([actual,{...budget,statement_basis:'consolidated'}]).length === 0, 'different accounting basis');
+    check(derive([actual,actual,budget]).length === 0, 'ambiguous duplicate actual');
     check(csvText([{metric:'=1+1'}],['metric']).includes("'=1+1"), 'CSV spreadsheet text safety');
     return failures;
     """

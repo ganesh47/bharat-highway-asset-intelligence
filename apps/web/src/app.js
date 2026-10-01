@@ -1969,7 +1969,7 @@ function CoverageCards({ catalog, rowCounts, disclosureRows = [] }) {
   const entries = Object.values(catalog);
   const count = (kind) => entries.filter((entry) => sourceTypeTag(entry)[1] === kind && analyticalReady(entry)).length;
   const eligibleCounts = {};
-  disclosureRows.filter((row) => disclosureEligible(row, catalog)).forEach((row) => { eligibleCounts[row.source_id] = (eligibleCounts[row.source_id] || 0) + 1; });
+  disclosureRows.filter((row) => disclosureMeasured(row, catalog)).forEach((row) => { eligibleCounts[row.source_id] = (eligibleCounts[row.source_id] || 0) + 1; });
   const evidenceRows = entries.filter((entry) => ['official', 'issuer'].includes(sourceTypeTag(entry)[1]) && analyticalReady(entry))
     .reduce((sum, entry) => sum + (entry.manifest?.columns?.includes('analytical_eligible') ? (eligibleCounts[entry.source_id] || 0) : (Number(rowCounts[entry.source_id]) || 0)), 0);
   const modelRows = entries.filter((entry) => sourceTypeTag(entry)[1] === 'model')
@@ -2051,13 +2051,13 @@ const ANALYST_THEMES = [
 function disclosureTheme(row) {
   const metric = String(row.metric || '');
   if (/^roads_bridges_/.test(metric)) return 'state_finance';
-  if (/^(nh|sh)_network_/.test(metric)) return 'network';
+  if (/^(nh|sh)_(network|surfaced)_/.test(metric)) return 'network';
   if (/^budget_|^target_/.test(metric)) return 'funding';
-  if (/debt|guarantees|repayment|maturity|finance_charges|dscr/.test(metric)) return 'debt';
-  if (/tot_|invit_|monetisation|enterprise_value|wacc|distribution|nav_|unit_value/.test(metric)) return 'monetisation';
+  if (/debt|borrowings|guarantees|repayment|maturity|finance_charges|dscr|cash_equivalents|total_assets|total_liabilities|equity/.test(metric)) return 'debt';
+  if (/tot_|invit_|monetisation|enterprise_value|wacc|distribution|nav_|unit_value|concession_asset|units_outstanding|portfolio_/.test(metric)) return 'monetisation';
   if (/traffic|toll|netc|transactions|tags_/.test(metric)) return 'toll';
   if (/project|progress|constructed|sanctioned|awarded|delay|completion|audit/.test(metric)) return 'delivery';
-  if (/revenue_operations|ebitda|pat_/.test(metric)) return 'monetisation';
+  if (/revenue_operations|ebitda|pat_|income|profit|expenses|depreciation|government_grant/.test(metric)) return 'monetisation';
   return 'delivery';
 }
 
@@ -2085,6 +2085,12 @@ function validCitation(url) {
 function disclosureEligible(row, catalog) {
   if (![true, 1, 'true'].includes(row.analytical_eligible)) return false;
   return Number.isFinite(num(row.value)) && analyticalReady(catalog[row.source_id]) && !!validCitation(row.citation_url);
+}
+
+function disclosureMeasured(row, catalog) {
+  return disclosureEligible(row, catalog)
+    && ['actual', 'YTD'].includes(row.estimate_type)
+    && ['official_measured', 'issuer_disclosure', 'audit_finding'].includes(row.evidence_class);
 }
 
 function disclosureVisible(row, catalog, includeUndated = false) {
@@ -2119,22 +2125,22 @@ function deriveDisclosureInsights(rows) {
   const croreUnit = (row) => ['inr_crore', 'INR crore', 'INR_crore', 'crore', '₹ crore'].includes(row.unit);
   for (const facts of groups.values()) {
     const unique = (metric) => { const found = facts.filter((row) => row.metric === metric); return found.length === 1 ? found[0] : null; };
-    const length = unique('project_length_km');
-    for (const [metric, label] of [['sanctioned_cost_inr_crore', 'Sanctioned cost per project km'], ['awarded_cost_inr_crore', 'Awarded cost per project km'], ['tot_concession_value_inr_crore', 'TOT concession value per route km'], ['invit_concession_value_inr_crore', 'InvIT concession value per route km']]) {
+    for (const [metric, lengthMetric, label] of [['sanctioned_cost_inr_crore', 'project_length_km', 'Sanctioned cost per project km'], ['awarded_cost_inr_crore', 'project_length_km', 'Awarded cost per project km'], ['project_cost_excluding_land_inr_crore', 'project_length_km', 'Disclosed cost excluding land per project km'], ['tot_concession_value_inr_crore', 'tot_portfolio_length_km', 'TOT concession value per route km'], ['invit_concession_value_inr_crore', 'invit_portfolio_length_km', 'InvIT concession value per route km']]) {
+      const length = unique(lengthMetric);
       const cost = unique(metric);
       if (!cost || !length || num(cost.value) < 0 || !croreUnit(cost) || length.unit !== 'km' || num(length.value) <= 0 || cost.data_as_of !== length.data_as_of || cost.estimate_type !== length.estimate_type || cost.evidence_class !== length.evidence_class) continue;
-      insights.push({ label, value: cost.value / length.value, unit: '₹ crore / km', numerator: cost, denominator: length, method: `${humanMetric(cost.metric)} ÷ project length, same entity, source, period and cutoff. Route length is not lane length; no lane/terrain adjustment or investment return is inferred.` });
+      insights.push({ label, value: cost.value / length.value, unit: '₹ crore / km', numerator: cost, denominator: length, method: `${humanMetric(cost.metric)} ÷ ${humanMetric(length.metric)}, same entity, source, period and cutoff. Route length is not lane length; no lane/terrain adjustment or investment return is inferred.` });
     }
     const physical = unique('physical_progress_percent');
     const financial = unique('financial_progress_percent');
     if (physical && financial && physical.unit === financial.unit && ['percent', '%'].includes(physical.unit)
-      && physical.data_as_of === financial.data_as_of && physical.estimate_type === financial.estimate_type
+      && physical.data_as_of === financial.data_as_of && physical.estimate_type === financial.estimate_type && physical.evidence_class === financial.evidence_class
       && [physical.value, financial.value].every((value) => Number.isFinite(value) && value >= 0 && value <= 100)) {
       insights.push({ label: 'Physical minus financial progress', value: physical.value - financial.value, unit: 'percentage points', numerator: physical, denominator: financial, method: 'Physical progress minus financial progress at the same project snapshot. A gap is an observed accounting/execution difference, not a forecast of delay.' });
     }
     for (const actual of facts.filter((row) => row.metric.startsWith('budget_') && row.estimate_type === 'actual')) {
       const budget = facts.filter((row) => row.metric === actual.metric && row.estimate_type === 'BE');
-      if (budget.length !== 1 || actual.data_as_of !== budget[0].data_as_of || !['official_measured', 'issuer_disclosure'].includes(actual.evidence_class) || !['official_measured', 'issuer_disclosure', 'target'].includes(budget[0].evidence_class) || budget[0].unit !== actual.unit || num(budget[0].value) <= 0 || !actual.period_end || !actual.data_as_of || actual.data_as_of < actual.period_end) continue;
+      if (facts.filter((row) => row.metric === actual.metric && row.estimate_type === 'actual').length !== 1 || budget.length !== 1 || actual.data_as_of !== budget[0].data_as_of || !['official_measured', 'issuer_disclosure'].includes(actual.evidence_class) || !['official_measured', 'issuer_disclosure', 'target'].includes(budget[0].evidence_class) || budget[0].unit !== actual.unit || num(budget[0].value) <= 0 || !actual.period_end || !actual.data_as_of || actual.data_as_of < actual.period_end) continue;
       insights.push({ label: 'Actual expenditure / original BE', value: actual.value / budget[0].value * 100, unit: '%', numerator: actual, denominator: budget[0], method: 'Full-period actual divided by original BE for the same budget line, entity, fiscal period, accounting basis and source. YTD and RE are excluded; this does not measure physical completion.' });
     }
   }
@@ -2196,7 +2202,7 @@ function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter })
       React.createElement('option', { value: 'All' }, `All ${label.toLowerCase()}`),
       ...values.map((entry) => React.createElement('option', { value: entry, key: entry }, display(entry)))));
   const changeTheme = (id) => { setTheme(id); setAgency('All'); setRoadClass('All'); setPeriod('All'); setEstimate('All'); setEvidence('All'); setMetric('All'); setSearch(''); setPage(0); };
-  const highlights = analystHighlights(evidenceRows.filter((row) => disclosureEligible(row, catalog)));
+  const highlights = analystHighlights(evidenceRows.filter((row) => disclosureMeasured(row, catalog)));
   return React.createElement('section', { className: 'analyst-console', 'aria-labelledby': 'analyst-title', 'data-evidence-view': sourceFilter },
     React.createElement('div', { className: 'source-line' }, React.createElement('h2', { id: 'analyst-title' }, 'Finance & infrastructure disclosures'),
       React.createElement('div', { className: 'evidence-links' },
@@ -2247,7 +2253,7 @@ function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter })
             React.createElement('td', null, periodLabel(row), React.createElement('small', null, `${row.estimate_type || 'estimate not disclosed'} · ${row.statement_basis || 'statement basis not disclosed'}`)),
             React.createElement('td', null, `As of: ${row.data_as_of || 'not disclosed'}`, React.createElement('small', null, `Published: ${row.published_at || 'not disclosed'}`)),
             React.createElement('td', null, String(row.evidence_class || '').replace(/_/g, ' '),
-              !disclosureEligible(row, catalog) ? React.createElement('small', { className: 'nonmeasured-evidence' }, row.data_as_of ? 'Estimate / context · excluded from measured calculations' : 'Undated context · excluded from measured calculations') : null, React.createElement('small', null,
+              !disclosureMeasured(row, catalog) ? React.createElement('small', { className: 'nonmeasured-evidence' }, !row.data_as_of ? 'Undated context · excluded from measured calculations' : ['BE', 'RE'].includes(row.estimate_type) && disclosureEligible(row, catalog) ? 'Budget estimate · excluded from measured totals; only matched budget comparisons may use it' : 'Estimate / context · excluded from measured calculations') : null, React.createElement('small', null,
               React.createElement('a', { href: validCitation(row.citation_url), target: '_blank', rel: 'noreferrer', 'aria-label': `Primary source for ${humanMetric(row.metric)} at ${row.entity_id}` }, `${row.source_id} · ${row.table_page || 'document'}`), row.notes ? React.createElement('small', null, row.notes) : null)))))))
         : React.createElement('p', { className: 'unavailable-evidence', role: 'status' }, 'No validated observations for these filters. Change the selection or inspect the evidence gaps below. Undisclosed values and omitted states are not assigned zero.'),
       React.createElement('div', { className: 'evidence-pagination' }, React.createElement('button', { type: 'button', disabled: activePage === 0, onClick: () => setPage(Math.max(0, activePage - 1)) }, 'Previous'),
@@ -2263,6 +2269,7 @@ function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter })
 async function loadAnalyticCatalog(conn, catalog) {
   const fetchById = async (sourceId, queryFactory) => {
     const manifest = catalog[sourceId];
+    if (sourceTypeTag(manifest)[1] !== 'model' && !analyticalReady(manifest) && !disclosureReady(manifest)) return [];
     const sourcePath = manifest?.output_table_path || `data/processed/${sourceId}.parquet`;
     try {
       return await queryParquetRows(conn, sourcePath, queryFactory);
@@ -2461,14 +2468,14 @@ async function loadAnalyticCatalog(conn, catalog) {
   const morthSourcePath = catalog?.morth_annual_report_pdf?.output_table_path || 'data/processed/morth_annual_report_pdf.parquet';
   let morthAppendix = [];
   try {
-    const morthRows = await queryParquetRows(conn, morthSourcePath, (alias) => `
+    const morthRows = analyticalReady(catalog.morth_annual_report_pdf) ? await queryParquetRows(conn, morthSourcePath, (alias) => `
       SELECT
         CAST("state" AS VARCHAR) AS state,
         CAST("year" AS VARCHAR) AS year,
         CAST("metric_name" AS VARCHAR) AS metric_name,
         CAST("metric_value" AS VARCHAR) AS metric_value
       FROM read_parquet('${alias}')
-    `);
+    `) : [];
     morthAppendix = pickByMetric(morthRows, (metricName) => [
       'appendix2_statewise_nh_count',
       'appendix2_statewise_nh_length_km',
@@ -2526,7 +2533,7 @@ async function loadAnalyticCatalog(conn, catalog) {
   const stateStatusRows = stateProjectDelays
     .map((row) => ({
       state: row.state,
-      active_projects: Math.max(0, num(row.total_projects) - num(row.delayed_projects)),
+      active_projects: Number.isFinite(num(row.total_projects)) && Number.isFinite(num(row.delayed_projects)) ? Math.max(0, num(row.total_projects) - num(row.delayed_projects)) : null,
       delayed_projects: num(row.delayed_projects),
       total_projects: num(row.total_projects),
       source: 'data_gov_in_nhai_stateut_project_delay_status_2024',
