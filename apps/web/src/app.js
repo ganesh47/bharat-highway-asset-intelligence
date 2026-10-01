@@ -3568,11 +3568,7 @@ function App() {
       analyticsLoading ? React.createElement('div', { className: 'card' }, 'Loading insight panels...') : null,
       React.createElement(OntologyPanel, { catalog }),
       ...Object.values(catalog)
-        .filter((item) => {
-          if (sourceFilter === 'all') return true;
-          const tag = sourceTypeTag(item)[1];
-          return tag === sourceFilter;
-        })
+        .filter((item) => matchesSourceFilter(item, sourceFilter))
         .map((item) =>
           React.createElement(MetricCard, {
             key: item.source_id,
