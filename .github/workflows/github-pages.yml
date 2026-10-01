@@ -269,10 +269,18 @@ jobs:
       DEPLOY_PAGE_URL: ${{ needs.deploy.outputs.page_url }}
       DEPLOY_BUNDLE_SHA256: ${{ needs.deploy.outputs.bundle_sha256 }}
     steps:
-      - name: Checkout revision validated by the build job
+      - name: Checkout trusted workflow revision
         uses: actions/checkout@v6
-        with:
-          ref: ${{ needs.build.outputs.source_sha }}
+
+      - name: Require the build-validated immutable revision
+        env:
+          VALIDATED_SOURCE_SHA: ${{ needs.build.outputs.source_sha }}
+        run: |
+          set -euo pipefail
+          if [ "$(git rev-parse HEAD)" != "${VALIDATED_SOURCE_SHA}" ]; then
+            echo "Main changed since the validated research run. Validate and deploy its latest research revision." >&2
+            exit 1
+          fi
 
       - name: Setup Python
         uses: actions/setup-python@v6

@@ -84,7 +84,11 @@ class ResearchDeliveryTests(unittest.TestCase):
         smoke = workflow["jobs"]["cd_smoke"]
         self.assertIn("build", smoke["needs"])
         checkout = next(step for step in smoke["steps"] if str(step.get("uses", "")).startswith("actions/checkout"))
-        self.assertEqual("${{ needs.build.outputs.source_sha }}", checkout["with"]["ref"])
+        self.assertNotIn("ref", checkout.get("with", {}))
+        match = next(step for step in smoke["steps"] if step["name"] == "Require the build-validated immutable revision")
+        self.assertEqual("${{ needs.build.outputs.source_sha }}", match["env"]["VALIDATED_SOURCE_SHA"])
+        self.assertIn('git rev-parse HEAD', match["run"])
+        self.assertLess(smoke["steps"].index(match), next(index for index, step in enumerate(smoke["steps"]) if step["name"] == "Install dependencies"))
         condition = workflow["jobs"]["cd_smoke"]["if"]
         cases = [
             ("workflow_dispatch", "refs/heads/main", "", "", "", "", True),
