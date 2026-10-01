@@ -161,6 +161,19 @@ class PrimaryDisclosureTests(unittest.TestCase):
         jk=df[df.state.eq("Jammu & Kashmir")]
         self.assertTrue(jk.notes.str.contains("RO- Jammu|RO- Srinagar",regex=True).all())
 
+    def test_nhit_maturity_dashes_are_absent_and_numeric_overview_remains(self):
+        raw=Path(__file__).resolve().parents[1]/"data/raw/manual"
+        df=pd.read_csv(raw/"nhit_annual_report.csv")
+        short=df.metric.isin(["debt_maturity_lt1yr_inr_crore","debt_maturity_1to3yr_inr_crore"])
+        dashed=df.entity_id.isin(["nhit_ncd","nhit_zero_coupon_bond"]) & short
+        self.assertTrue(df[dashed].empty,"Printed maturity dashes must not become numerical zero facts")
+        self.assertFalse(df.value.eq(0).any())
+        total=df[df.entity_id.eq("nhit_debt_all") & short & df.period_end.eq("2026-03-31")].set_index("metric")
+        self.assertAlmostEqual(total.loc["debt_maturity_lt1yr_inr_crore","value"],233.50)
+        self.assertAlmostEqual(total.loc["debt_maturity_1to3yr_inr_crore","value"],556.85)
+        evidence=json.loads((raw/"evidence/nhit_annual_report.json").read_text())
+        self.assertIn("omitted, not converted to zero",evidence["notes"])
+
 
 if __name__ == "__main__":
     unittest.main()

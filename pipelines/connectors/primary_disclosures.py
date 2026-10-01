@@ -417,20 +417,24 @@ class SnapshotBuilder:
         # also includes leases/trade payables and is not labelled as debt.
         text=self.text(sid,205)
         assert "contractual undiscounted payments" in text and "All amounts in ₹ lakh" in text
-        instruments=[("term_loan",[2255334.08,23349.70,55684.90,2176299.48],[1918534.78,19899.70,44656.40,1853978.68]),("ncd",[148754.05,0,0,148754.05],[148694.23,0,0,148694.23]),("zero_coupon_bond",[99827.01,0,0,99827.01],[99820.22,0,0,99820.22])]
+        # A printed dash is nonnumeric. Without an explicit nil definition, it
+        # cannot establish a zero maturity amount or supply an original value.
+        instruments=[("term_loan",[2255334.08,23349.70,55684.90,2176299.48],[1918534.78,19899.70,44656.40,1853978.68]),("ncd",[148754.05,None,None,148754.05],[148694.23,None,None,148694.23]),("zero_coupon_bond",[99827.01,None,None,99827.01],[99820.22,None,None,99820.22])]
         for instrument,fy26,fy25 in instruments:
             for year,values in [(2025,fy26),(2024,fy25)]:
                 for metric,value in zip(["debt_carrying_amount_inr_crore","debt_maturity_lt1yr_inr_crore","debt_maturity_1to3yr_inr_crore","debt_maturity_gt3yr_inr_crore"],values):
-                    if value: assert f"{value:.2f}" in text.replace(",", ""),(instrument,value)
+                    if value is None:
+                        continue
+                    assert f"{value:.2f}" in text.replace(",", ""),(instrument,value)
                     start,end=fiscal_period(year)
-                    self.fact(sid,metric,value,"INR crore","PDF p205; printed p408/409, contractual maturity profile",agency="NHIT",entity_id=f"nhit_{instrument}",entity_name=f"NHIT {instrument.replace('_',' ')}",entity_type="debt_instrument",start=start,end=end,basis="stock",asof=end,statement="contractual_undiscounted_maturity" if "maturity" in metric else "consolidated_audited_carrying_amount",original_unit="INR lakh",evidence="issuer_disclosure",notes="Source labels maturity contractual undiscounted payments; keep maturity buckets distinct from carrying amounts and borrowing balance. Dashes in instrument buckets explicitly mean nil here.")
+                    self.fact(sid,metric,value,"INR crore","PDF p205; printed p408/409, contractual maturity profile",agency="NHIT",entity_id=f"nhit_{instrument}",entity_name=f"NHIT {instrument.replace('_',' ')}",entity_type="debt_instrument",start=start,end=end,basis="stock",asof=end,statement="contractual_undiscounted_maturity" if "maturity" in metric else "consolidated_audited_carrying_amount",original_unit="INR lakh",evidence="issuer_disclosure",notes="Source labels maturity contractual undiscounted payments; keep maturity buckets distinct from carrying amounts and borrowing balance. Eight NCD/zero-coupon bond <1year and1-3year source dashes are omitted as nonnumeric; no zero is inferred.")
         text=self.text(sid,245)
         for metric,values in [("debt_carrying_amount_inr_crore",[25039.15,21670.49]),("additional_borrowings_inr_crore",[3571.01,11192.05]),("debt_repayments_inr_crore",[200.24,1245.58]),("debt_maturity_lt1yr_inr_crore",[233.50,199.00]),("debt_maturity_1to3yr_inr_crore",[556.85,446.56]),("debt_maturity_gt3yr_inr_crore",[24248.80,21024.93])]:
             for year,value in zip([2025,2024],values):
                 assert f"{value:.2f}" in text.replace(",", "")
                 start,end=fiscal_period(year)
                 self.fact(sid,metric,value,"INR crore","PDF p245; printed p488/489, external borrowing/debt maturity overview",agency="NHIT",entity_id="nhit_debt_all",entity_name="NHIT all external borrowings",entity_type="debt_aggregate",start=start,end=end,basis="stock" if "carrying" in metric or "maturity" in metric else "fiscal_year",asof=end,statement="contractual_undiscounted_maturity" if "maturity" in metric else "external_borrowings_overview",evidence="issuer_disclosure",notes="All debt instruments, excluding lease/trade/payable financial liabilities. Overview is rounded INRcrore; repayment amounts shown as outflow magnitude, not signed debt balance.")
-        self.notes[sid]="Audited consolidated balance sheet/P&L and financial-risk debt maturity note extracted and unit-checked. Issuer SPV operating overview is separately labelled approximate; publication day not asserted."
+        self.notes[sid]="Audited consolidated balance sheet/P&L and financial-risk debt maturity note extracted and unit-checked. Eight NCD/zero-coupon bond <1year and1-3year source dashes on physicalp205 are nonnumeric and omitted, not converted to zero. Numeric debt-overview totals remain separately sourced. Issuer SPV operating overview is separately labelled approximate; publication day not asserted."
 
     def parliament_and_audit(self) -> None:
         sid="parliament_nhai_debt_tot_invit"
@@ -563,9 +567,9 @@ class SnapshotBuilder:
         self.fact(sid,"sh_network_length_km",193740,"km","PDF p164; Annexure 2.3.2 published Total",agency="State PWDs",entity_id="brs_published_total",entity_name="BRS published SH total",entity_type="published_total",road_class="State Highway",end="2022-03-31",basis="stock",asof="2022-03-31",statement="BRS_Annexure_2_3_2",eligible=False,notes="Published total193740km; state rows sum193741km; aggregate quarantined and not reconciled artificially.")
         self.notes[sid]="SH network all states/UTs, older per-state footnotes preserved; Arunachal and inconsistent published total quarantined. NH stock is separately covered by existing MoRTH source; no duplicate NH series created."
 
-    def finish(self) -> None:
+    def finish(self, source_ids: tuple[str, ...] = SOURCE_IDS) -> None:
         manual=self.raw_root/"manual"; (manual/"evidence").mkdir(parents=True,exist_ok=True)
-        for sid in SOURCE_IDS:
+        for sid in source_ids:
             rows=self.rows[sid]
             path=manual/f"{sid}.csv"
             with path.open("w",newline="") as stream:

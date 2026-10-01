@@ -4,7 +4,7 @@ Research cutoff: 2 October 2026. The inventory adds 16 government, issuer,
 payment-system and multilateral sources. Government authority does not establish
 extract quality; issuer disclosures are not classified as government measurements.
 
-The governed snapshots contain **4,076 numerical facts** from 13 retrieved sources.
+The governed snapshots contain **4,068 numerical facts** from 13 retrieved sources.
 Three sources have typed empty snapshots and explicit evidence gaps. Every
 nonempty row records its source URL, physical document/table/page anchor, source
 SHA256, original units, normalized value, entity, road class, period, statement
@@ -17,7 +17,7 @@ basis, estimate type, publication date when disclosed, and observation date.
 | NHIT June2026 presentation | 117 consolidated/SPV finance, asset-group traffic and toll facts | Portfolio expansion; NSPPL FY26 ETC-only versus FY27 full collection traffic; rounded amounts |
 | NHIT quarterly board outcome | 6 distribution and NAV/EV facts | Scanned AnnexureI accounting statements remain quarantined |
 | NHIT June2026 valuation | 17 concession-round, portfolio and WACC facts | Valuer assumptions differ from measurements; INRmillion concession fees normalized to INRcrore |
-| NHIT Annual Report2025-26 | 70 audited consolidated financial, SPV operating, debt flow and instrument maturity facts | Audited INRlakh normalized; fiscal publication day undisclosed; maturity uses contractual undiscounted basis |
+| NHIT Annual Report2025-26 | 62 audited consolidated financial, SPV operating, debt flow and instrument maturity facts | Audited INRlakh normalized; fiscal publication day undisclosed; maturity uses contractual undiscounted basis; eight source dashes omitted |
 | NHIDCL PMP31August2026 | 2,384 facts from410 detailed project rows | Termination and MMLP rows differ from summary scope; contractor role is not assumed to mean operator |
 | Parliament UQ963 | 33 debt/TOT/InvIT facts | Debt asof31December2025; proceeds deposited CFI; rounded transaction assertions differ from issuer fees |
 | PIB30March2026 monetisation | 6 realised/target/InvIT5/TOT18 facts | FY25-26 YTD before year end, not final actual |
@@ -53,6 +53,10 @@ NHIT debt maturity rows distinguish term loans, NCDs, zero-coupon bonds, and the
 issuer's rounded debt-only total from all financial liabilities. FY2026 total
 debt maturity overview is233.50/556.85/24248.80crore for <1/1-3/>3years.
 Repayment amounts are positive outflow magnitudes; they are not debt stocks.
+Eight NCD/zero-coupon bond <1year and1-3year cells are printed as dashes on
+physical page205. They have no numerical facts and are not interpreted as zero.
+The disclosed term-loan amounts, carrying values, >3year instrument values and
+separately reported all-debt maturity overview remain available.
 
 Entity roles are additive fields: asset owner, implementing agency, operator,
 concessionaire, financing entity and contractor. Document-supported NHIDCL
