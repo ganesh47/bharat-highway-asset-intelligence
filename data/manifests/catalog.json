@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T21:07:07.116611+00:00",
+  "generated_at": "2026-10-01T21:28:26.598152+00:00",
   "datasets": [
     {
       "source_id": "data_gov_in_nhai_projects_api",
@@ -1324,11 +1324,13 @@
       },
       "retrieved_at": "2026-03-11T05:17:32.830647+00:00",
       "completeness_score": 0.98,
-      "recency_score": 0.98,
+      "recency_score": 0.25,
       "provenance_score": 0.98,
       "consistency_score": 0.98,
       "overall_confidence_badge": "Low",
       "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Observation date is unavailable; collection time is not data freshness",
         "Not eligible for measured analyst calculations",
         "Document discovery is not validated financial extraction"
       ],
@@ -1342,14 +1344,15 @@
         "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
       },
       "evidence_status": "unverified",
-      "source_as_of_date": "2025-12-31",
+      "source_as_of_date": null,
       "publication_date": null,
       "disclosure_ready": false,
       "analytical_ready": false,
       "extraction_status": "pending",
-      "recency_basis": "observation_date",
+      "recency_basis": "unknown",
       "validation_errors": [],
-      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date"
+      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date",
+      "last_quality_check_at": "2026-10-01T21:28:26.570900+00:00"
     },
     {
       "source_id": "highway_project_risk_and_access_panel",
@@ -1463,7 +1466,8 @@
       "analytical_ready": false,
       "extraction_status": "pending",
       "recency_basis": "unknown",
-      "validation_errors": []
+      "validation_errors": [],
+      "last_quality_check_at": "2026-10-01T21:28:26.597606+00:00"
     },
     {
       "source_id": "parliament_qa_highway_queries",
@@ -1517,11 +1521,13 @@
       },
       "retrieved_at": "2026-03-11T05:17:35.798756+00:00",
       "completeness_score": 0.98,
-      "recency_score": 0.98,
+      "recency_score": 0.25,
       "provenance_score": 0.833,
       "consistency_score": 0.98,
       "overall_confidence_badge": "Low",
       "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Observation date is unavailable; collection time is not data freshness",
         "Not eligible for measured analyst calculations",
         "Document discovery is not validated financial extraction"
       ],
@@ -1535,14 +1541,15 @@
         "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
       },
       "evidence_status": "unverified",
-      "source_as_of_date": "2025-12-31",
+      "source_as_of_date": null,
       "publication_date": null,
       "disclosure_ready": false,
       "analytical_ready": false,
       "extraction_status": "pending",
-      "recency_basis": "observation_date",
+      "recency_basis": "unknown",
       "validation_errors": [],
-      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date"
+      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date",
+      "last_quality_check_at": "2026-10-01T21:28:26.572377+00:00"
     },
     {
       "source_id": "rbi_mospi_macro_indicators",
@@ -1601,6 +1608,7 @@
       "overall_confidence_badge": "Low",
       "overall_confidence_reason": [
         "Recency is stale against claimed update frequency",
+        "Observation date is unavailable; collection time is not data freshness",
         "Not eligible for measured analyst calculations",
         "Document discovery is not validated financial extraction"
       ],
@@ -1614,14 +1622,15 @@
         "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
       },
       "evidence_status": "unverified",
-      "source_as_of_date": "2026-12-31",
+      "source_as_of_date": null,
       "publication_date": null,
       "disclosure_ready": false,
       "analytical_ready": false,
       "extraction_status": "pending",
-      "recency_basis": "observation_date",
+      "recency_basis": "unknown",
       "validation_errors": [],
-      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date"
+      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date",
+      "last_quality_check_at": "2026-10-01T21:28:26.569133+00:00"
     },
     {
       "source_id": "morh_procurement_awards",
@@ -1675,12 +1684,13 @@
       },
       "retrieved_at": "2026-03-11T05:17:35.811480+00:00",
       "completeness_score": 0.909,
-      "recency_score": 0.2,
+      "recency_score": 0.25,
       "provenance_score": 0.833,
       "consistency_score": 0.98,
       "overall_confidence_badge": "Low",
       "overall_confidence_reason": [
         "Recency is stale against claimed update frequency",
+        "Observation date is unavailable; collection time is not data freshness",
         "Not eligible for measured analyst calculations",
         "Document discovery is not validated financial extraction"
       ],
@@ -1694,14 +1704,15 @@
         "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
       },
       "evidence_status": "unverified",
-      "source_as_of_date": "2025-12-31",
+      "source_as_of_date": null,
       "publication_date": null,
       "disclosure_ready": false,
       "analytical_ready": false,
       "extraction_status": "pending",
-      "recency_basis": "observation_date",
+      "recency_basis": "unknown",
       "validation_errors": [],
-      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date"
+      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date",
+      "last_quality_check_at": "2026-10-01T21:28:26.574067+00:00"
     },
     {
       "source_id": "morh_contractor_disclosures",
@@ -1756,11 +1767,13 @@
       },
       "retrieved_at": "2026-03-11T05:17:35.817631+00:00",
       "completeness_score": 0.98,
-      "recency_score": 0.98,
+      "recency_score": 0.25,
       "provenance_score": 0.833,
       "consistency_score": 0.98,
       "overall_confidence_badge": "Low",
       "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Observation date is unavailable; collection time is not data freshness",
         "Not eligible for measured analyst calculations",
         "Document discovery is not validated financial extraction"
       ],
@@ -1774,14 +1787,15 @@
         "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
       },
       "evidence_status": "unverified",
-      "source_as_of_date": "2025-12-31",
+      "source_as_of_date": null,
       "publication_date": null,
       "disclosure_ready": false,
       "analytical_ready": false,
       "extraction_status": "pending",
-      "recency_basis": "observation_date",
+      "recency_basis": "unknown",
       "validation_errors": [],
-      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date"
+      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date",
+      "last_quality_check_at": "2026-10-01T21:28:26.575564+00:00"
     },
     {
       "source_id": "morh_arbitration_claims",
@@ -1836,11 +1850,13 @@
       },
       "retrieved_at": "2026-03-11T05:17:35.823747+00:00",
       "completeness_score": 0.98,
-      "recency_score": 0.98,
+      "recency_score": 0.25,
       "provenance_score": 0.833,
       "consistency_score": 0.98,
       "overall_confidence_badge": "Low",
       "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Observation date is unavailable; collection time is not data freshness",
         "Not eligible for measured analyst calculations",
         "Document discovery is not validated financial extraction"
       ],
@@ -1854,14 +1870,15 @@
         "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
       },
       "evidence_status": "unverified",
-      "source_as_of_date": "2025-12-31",
+      "source_as_of_date": null,
       "publication_date": null,
       "disclosure_ready": false,
       "analytical_ready": false,
       "extraction_status": "pending",
-      "recency_basis": "observation_date",
+      "recency_basis": "unknown",
       "validation_errors": [],
-      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date"
+      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date",
+      "last_quality_check_at": "2026-10-01T21:28:26.576876+00:00"
     },
     {
       "source_id": "ncrb_toll_fastag_claims",
@@ -1914,13 +1931,14 @@
       },
       "retrieved_at": "2026-03-11T05:17:35.830438+00:00",
       "completeness_score": 0.98,
-      "recency_score": 0.2,
+      "recency_score": 0.25,
       "provenance_score": 0.6859999999999999,
       "consistency_score": 0.75,
       "overall_confidence_badge": "Low",
       "overall_confidence_reason": [
         "Recency is stale against claimed update frequency",
         "Million-scale metric is labelled as an unscaled count",
+        "Observation date is unavailable; collection time is not data freshness",
         "Not eligible for measured analyst calculations",
         "Document discovery is not validated financial extraction"
       ],
@@ -1934,16 +1952,17 @@
         "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
       },
       "evidence_status": "unverified",
-      "source_as_of_date": "2025-12-31",
+      "source_as_of_date": null,
       "publication_date": null,
       "disclosure_ready": false,
       "analytical_ready": false,
       "extraction_status": "pending",
-      "recency_basis": "observation_date",
+      "recency_basis": "unknown",
       "validation_errors": [
         "Million-scale metric is labelled as an unscaled count"
       ],
-      "quarantine_reason": "Million-scale metric is labelled as an unscaled count"
+      "quarantine_reason": "Million-scale metric is labelled as an unscaled count",
+      "last_quality_check_at": "2026-10-01T21:28:26.578485+00:00"
     },
     {
       "source_id": "quality_maintenance_indicators",
@@ -1996,13 +2015,14 @@
       },
       "retrieved_at": "2026-03-11T05:17:35.836220+00:00",
       "completeness_score": 0.98,
-      "recency_score": 0.2,
+      "recency_score": 0.25,
       "provenance_score": 0.588,
       "consistency_score": 0.75,
       "overall_confidence_badge": "Low",
       "overall_confidence_reason": [
         "Recency is stale against claimed update frequency",
         "Unsupported roughness unit km_per_km",
+        "Observation date is unavailable; collection time is not data freshness",
         "Not eligible for measured analyst calculations",
         "Document discovery is not validated financial extraction"
       ],
@@ -2016,16 +2036,17 @@
         "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
       },
       "evidence_status": "unverified",
-      "source_as_of_date": "2025-12-31",
+      "source_as_of_date": null,
       "publication_date": null,
       "disclosure_ready": false,
       "analytical_ready": false,
       "extraction_status": "pending",
-      "recency_basis": "observation_date",
+      "recency_basis": "unknown",
       "validation_errors": [
         "Unsupported roughness unit km_per_km"
       ],
-      "quarantine_reason": "Unsupported roughness unit km_per_km"
+      "quarantine_reason": "Unsupported roughness unit km_per_km",
+      "last_quality_check_at": "2026-10-01T21:28:26.580066+00:00"
     },
     {
       "source_id": "viirs_nightlights_proxy",
@@ -2078,11 +2099,13 @@
       },
       "retrieved_at": "2026-03-11T05:17:35.842099+00:00",
       "completeness_score": 0.98,
-      "recency_score": 0.98,
+      "recency_score": 0.25,
       "provenance_score": 0.588,
       "consistency_score": 0.98,
       "overall_confidence_badge": "Low",
       "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Observation date is unavailable; collection time is not data freshness",
         "Not eligible for measured analyst calculations",
         "Document discovery is not validated financial extraction"
       ],
@@ -2096,14 +2119,15 @@
         "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
       },
       "evidence_status": "unverified",
-      "source_as_of_date": "2025-12-31",
+      "source_as_of_date": null,
       "publication_date": null,
       "disclosure_ready": false,
       "analytical_ready": false,
       "extraction_status": "pending",
-      "recency_basis": "observation_date",
+      "recency_basis": "unknown",
       "validation_errors": [],
-      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date"
+      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date",
+      "last_quality_check_at": "2026-10-01T21:28:26.581359+00:00"
     },
     {
       "source_id": "nhai_annual_report_documents",

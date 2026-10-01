@@ -14,7 +14,7 @@ import pandas as pd
 from research.loader import load_inventory
 from pipelines.connectors import CONNECTORS
 from pipelines.common import ensure_dirs, write_catalog, write_json, read_json, write_parquet, sha256_for_file, dataframe_checksum
-from pipelines.quality import evaluate, evidence_status, semantic_errors, observation_date, DOCUMENT_SOURCES
+from pipelines.quality import evaluate, evidence_status, semantic_errors, observation_date, DOCUMENT_SOURCES, UNSUPPORTED_OBSERVATION_EVIDENCE
 
 NHAI_EXTRACTION_QUALITY_SOURCE_IDS = {"nhai_annual_report_documents"}
 SUCCESS_STATUSES = {"ok", "automated", "manual_ingest", "validated", "generated"}
@@ -129,7 +129,11 @@ def _annotate(entry: dict, source: dict, df: pd.DataFrame, processed_root: Path)
     evidence = evidence_status(df, source, entry)
     entry["evidence_status"] = evidence
     cutoff = source.get("source_as_of_date") or scope.get("source_as_of_date") or entry.get("source_as_of_date")
-    entry["source_as_of_date"] = observation_date(df, scope | source | entry.get("source", {}) | {"source_as_of_date": cutoff})
+    entry["source_as_of_date"] = observation_date(df, scope | source | entry.get("source", {}) | {"source_as_of_date": cutoff, "evidence_status": evidence})
+    if evidence in UNSUPPORTED_OBSERVATION_EVIDENCE:
+        for metadata in (source_metadata, entry["analytical_scope"]):
+            if "source_as_of_date" in metadata:
+                metadata["source_as_of_date"] = None
     if source.get("publication_date_unknown") is True:
         entry["publication_date"] = None
         if "publication_date" in source_metadata:

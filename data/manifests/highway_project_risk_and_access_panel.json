@@ -110,5 +110,6 @@
   "analytical_ready": false,
   "extraction_status": "pending",
   "recency_basis": "unknown",
-  "validation_errors": []
+  "validation_errors": [],
+  "last_quality_check_at": "2026-10-01T21:28:26.597606+00:00"
 }

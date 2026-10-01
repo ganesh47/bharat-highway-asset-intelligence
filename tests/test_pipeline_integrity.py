@@ -106,6 +106,33 @@ class PublicationTests(unittest.TestCase):
         self.assertEqual(sha, sha256_for_file(output))
         self.assertEqual("Low", entry["overall_confidence_badge"])
 
+    def test_unverified_manual_dates_do_not_create_cutoff_or_freshness(self):
+        self.source["source_as_of_date"] = "2026-12-31"
+        self.inventory.write_text(yaml.safe_dump({"sources": [self.source]}))
+        frame = self.frame.assign(year=2026, source_as_of_date="2026-12-31")
+        output = self.processed / "fixture_source.parquet"
+        write_parquet(frame, output)
+        previous = FixtureConnector(frame, "manual_ingest").run(self.source, self.raw, self.processed, self.manifests).manifest
+        previous["source_as_of_date"] = "2026-12-31"
+        write_catalog(self.catalog, [previous])
+        write_json({"sources": [{"source_id": "fixture_source", "outcome": "manual_evidence_required", "source_as_of_date": "2026-12-31"}]},
+                   self.manifests / "refresh_report.json")
+        sha = sha256_for_file(output)
+        result = refresh_quality_only(str(self.inventory), ["fixture_source"], self.processed, self.manifests, self.catalog)["fixture_source"]
+        self.assertEqual("unverified", result["evidence_status"])
+        self.assertIsNone(result["source_as_of_date"])
+        self.assertIsNone(result["analytical_scope"]["source_as_of_date"])
+        self.assertEqual("unknown", result["recency_basis"])
+        self.assertLessEqual(result["recency_score"], 0.25)
+        self.assertEqual(sha, sha256_for_file(output))
+        self.assertEqual(2026, pd.read_parquet(output).iloc[0]["year"])
+        self.assertEqual("2026-12-31", pd.read_parquet(output).iloc[0]["source_as_of_date"])
+        self.assertIsNone(json.loads((self.manifests / "refresh_report.json").read_text())["sources"][0]["source_as_of_date"])
+        for evidence in ("manual_unverified", "synthetic", "unavailable"):
+            self.assertIsNone(observation_date(frame, {"evidence_status": evidence, "source_as_of_date": "2026-12-31"}))
+        self.assertEqual("2024-03-31", observation_date(frame, {"evidence_status": "validated", "source_as_of_date": "2024-03-31"}))
+        self.assertEqual("2024-03-31", observation_date(frame, {"evidence_status": "document_metadata", "source_as_of_date": "2024-03-31"}))
+
     def test_every_source_has_an_outcome_even_without_connector(self):
         self.source["allow_auto_fetch"] = False
         self.inventory.write_text(yaml.safe_dump({"sources": [self.source]}))

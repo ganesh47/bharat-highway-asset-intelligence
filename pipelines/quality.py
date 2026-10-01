@@ -39,6 +39,7 @@ CURATED_MANUAL_SOURCES = {
     "nhai_constructed_length_series_official",
 }
 DOCUMENT_SOURCES = {"nhai_annual_report_documents", "nhai_audited_results_pdf", "nhai_press_release_index"}
+UNSUPPORTED_OBSERVATION_EVIDENCE = {"unverified", "manual_unverified", "synthetic", "unavailable"}
 
 
 def observed_row_mask(df: pd.DataFrame) -> pd.Series:
@@ -59,6 +60,10 @@ def observed_row_mask(df: pd.DataFrame) -> pd.Series:
 
 def observation_date(df: pd.DataFrame, item: Dict[str, Any]) -> str | None:
     """Observation dates stay independent of publication and download dates."""
+    if item.get("evidence_status") in UNSUPPORTED_OBSERVATION_EVIDENCE or item.get("metric_category") == "model_output":
+        # A year or explicit date in an unverified manual/model record is a
+        # claim to review, not evidence of a source observation or freshness.
+        return None
     if {"data_as_of", "source_document_sha256"} <= set(df.columns):
         dates = pd.to_datetime(df["data_as_of"], utc=True, errors="coerce").dropna()
         # An explicit unknown must also clear a previously inferred catalog
