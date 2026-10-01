@@ -24,6 +24,11 @@ def load_inventory(path: str | Path = "research/source_inventory.yaml") -> Sourc
     version = int(payload.get("version", 1))
     last_updated = payload.get("last_updated")
     sources = list(payload.get("sources", []))
+    ids = [source.get("source_id") for source in sources]
+    if any(not isinstance(source_id, str) or not source_id.strip() for source_id in ids):
+        raise ValueError("Every inventory source requires a non-empty source_id")
+    if len(ids) != len(set(ids)):
+        raise ValueError("Source inventory contains duplicate source_id values")
     return SourceInventory(version=version, sources=sources, last_updated=last_updated)
 
 
@@ -41,5 +46,6 @@ def write_machine_inventory(
     }
     out = Path(path)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(payload, indent=2, sort_keys=False), encoding="utf-8")
+    from pipelines.common import write_json
+    write_json(payload, out)
     return out

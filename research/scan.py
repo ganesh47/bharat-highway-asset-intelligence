@@ -104,7 +104,7 @@ def _http_probe(url: str, allowed_hosts: set[str], timeout: int = 20) -> Dict[st
         return status
 
     try:
-        resp = requests.get(safe_url, headers=DEFAULT_HEADERS, timeout=timeout, allow_redirects=True)
+        resp = requests.get(safe_url, headers=DEFAULT_HEADERS, timeout=timeout, allow_redirects=True, stream=True)
         if not sanitize_public_http_url(resp.url or safe_url, allowed_hosts=allowed_hosts):
             status["error"] = "unsafe_redirect_url"
             return status
@@ -113,6 +113,7 @@ def _http_probe(url: str, allowed_hosts: set[str], timeout: int = 20) -> Dict[st
         status["etag"] = resp.headers.get("ETag")
         status["last_modified"] = resp.headers.get("Last-Modified")
         status["status_ok"] = 200 <= resp.status_code < 400
+        resp.close()
     except requests.RequestException as exc:
         status["error"] = str(exc)
     return status
@@ -132,10 +133,24 @@ def _scan_item(item: Dict[str, Any]) -> Dict[str, Any]:
             "last_modified": None,
             "last-modified": None,
             "scan_error": None,
+            "scan_status": "unavailable",
+            "endpoint_checks": [],
         }
     )
 
     allowed_hosts = collect_allowed_hosts_from_source(item)
+    if item.get("retrieval_method") == "model_generation":
+        result["scan_status"] = "model_generated"
+        result["scan_error"] = "local_model_no_remote_endpoint"
+        return result
+    if item.get("auth") in {"captcha", "restricted"}:
+        result["scan_status"] = "restricted"
+        result["scan_error"] = f"auto_fetch_skipped_auth={item.get('auth')}"
+        return result
+    if not item.get("allow_auto_fetch"):
+        result["scan_status"] = "manual_evidence_required"
+        result["scan_error"] = "auto_fetch_disabled_in_inventory"
+        return result
     url = _safe_url(item)
     if not url:
         result["status_ok"] = False
@@ -143,14 +158,6 @@ def _scan_item(item: Dict[str, Any]) -> Dict[str, Any]:
         return result
     if not sanitize_public_http_url(url, allowed_hosts=allowed_hosts):
         result["scan_error"] = "invalid_or_unsafe_url"
-        return result
-
-    if item.get("auth") in {"captcha", "restricted"}:
-        result["scan_error"] = f"auto_fetch_skipped_auth={item.get('auth')}"
-        return result
-
-    if not item.get("allow_auto_fetch"):
-        result["scan_error"] = "auto_fetch_disabled_in_inventory"
         return result
 
     candidates = _safe_url_list(item)
@@ -161,7 +168,9 @@ def _scan_item(item: Dict[str, Any]) -> Dict[str, Any]:
         result["scan_error"] = "missing_or_unresolved_url"
         return result
 
-    for candidate in candidates:
+    successful_probe = None
+    last_probe = None
+    for candidate in dict.fromkeys(candidates):
         safe_candidate = sanitize_public_http_url(candidate, allowed_hosts=allowed_hosts)
         if not safe_candidate:
             result["scan_error"] = "invalid_or_unsafe_url"
@@ -171,20 +180,22 @@ def _scan_item(item: Dict[str, Any]) -> Dict[str, Any]:
             reason = robots.get("reason")
             if reason and reason.startswith("robots_fetch"):
                 # best-effort probe for transient robots failures; keep strict on explicit disallow.
-                result.update(_http_probe(safe_candidate, allowed_hosts))
+                probe = _http_probe(safe_candidate, allowed_hosts)
+                result["endpoint_checks"].append({"url": safe_candidate, **probe, "robots_warning": reason})
+                last_probe = probe
                 result["crawl_delay_seconds"] = robots.get("crawl_delay")
                 result["scan_error"] = reason
                 if result.get("last_modified"):
                     result["last-modified"] = result["last_modified"]
-                if result.get("status_ok"):
-                    result["scanned_url"] = safe_candidate
-                    return result
+                if probe.get("status_ok") and successful_probe is None:
+                    successful_probe = probe | {"scanned_url": safe_candidate}
                 continue
 
             continue
 
         probe = _http_probe(safe_candidate, allowed_hosts)
-        result.update(probe)
+        result["endpoint_checks"].append({"url": safe_candidate, **probe})
+        last_probe = probe
         result["crawl_delay_seconds"] = robots.get("crawl_delay")
         result["scanned_url"] = safe_candidate
         if result.get("last_modified"):
@@ -194,7 +205,17 @@ def _scan_item(item: Dict[str, Any]) -> Dict[str, Any]:
             result["scan_error"] = probe["error"]
             continue
 
+        if probe.get("status_ok") and successful_probe is None:
+            successful_probe = probe | {"scanned_url": safe_candidate}
+
+    if successful_probe:
+        result.update(successful_probe)
+        result["scan_status"] = "available"
+        result["scan_error"] = None
+        result["last-modified"] = result.get("last_modified")
         return result
+    if last_probe:
+        result.update(last_probe)
 
     result["scan_error"] = result.get("scan_error") or "candidate_probe_failed"
     return result
@@ -204,8 +225,16 @@ def run_scan(inventory_path: str = "research/source_inventory.yaml", out_path: s
     inventory = load_inventory(inventory_path)
     results: List[Dict[str, Any]] = []
 
+    manifest_root = Path("data/manifests")
     for item in inventory.sources:
         scanned = _scan_item(item)
+        manifest_path = manifest_root / f"{item['source_id']}.json"
+        if manifest_path.exists():
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            scanned["analytical_ready"] = manifest.get("analytical_ready", False)
+            scanned["evidence_status"] = manifest.get("evidence_status", "unverified")
+            scanned["extraction_status"] = manifest.get("extraction_status", "unknown")
+            scanned["observation_as_of"] = manifest.get("source_as_of_date")
         results.append(scanned)
 
         delay = scanned.get("crawl_delay_seconds") or min_delay
