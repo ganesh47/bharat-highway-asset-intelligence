@@ -16,7 +16,7 @@ def verify_bundle(root: Path, expected_bundle_sha: str | None = None,
     if expected_source_sha is not None and manifest.get("git_sha") != expected_source_sha:
         raise ValueError("Bundle source revision mismatch")
     paths = [item["path"] for item in records]
-    if len(paths) != len(set(paths)) or paths != sorted(paths):
+    if len(paths) != len(set(paths)) or paths != sorted(paths, key=PurePosixPath):
         raise ValueError("Bundle paths must be unique and sorted")
     required = {".nojekyll", "apps/web/.nojekyll", "data/manifests/catalog.json", "data/manifests/refresh_report.json"}
     if not required <= set(paths):

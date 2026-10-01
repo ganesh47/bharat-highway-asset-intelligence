@@ -16,10 +16,11 @@ class SiteBundleIntegrityTests(unittest.TestCase):
         self.temporary = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary.name)
         assets = {".nojekyll": b"", "apps/web/.nojekyll": b"", "apps/web/app.js": b"app-v1",
+                  "assets.css": b"styles", "assets/icon.svg": b"icon",
                   "data/manifests/catalog.json": b'{"datasets":[]}', "data/manifests/refresh_report.json": b'{"sources":[]}'}
         records = []
         digest = hashlib.sha256()
-        for path, data in sorted(assets.items()):
+        for path, data in sorted(assets.items(), key=lambda item: Path(item[0])):
             target = self.root / path
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes(data)
@@ -38,7 +39,7 @@ class SiteBundleIntegrityTests(unittest.TestCase):
         (self.root / "bundle-manifest.json").write_text(json.dumps(self.manifest))
 
     def test_valid_bundle_includes_hidden_markers_but_missing_marker_blocks_deploy(self):
-        self.assertEqual(5, verify_bundle(self.root, self.manifest["bundle_sha256"], "a" * 40)["verified_files"])
+        self.assertEqual(7, verify_bundle(self.root, self.manifest["bundle_sha256"], "a" * 40)["verified_files"])
         (self.root / "apps/web/.nojekyll").unlink()
         with self.assertRaisesRegex(ValueError, "Missing.*.nojekyll"):
             verify_bundle(self.root)
