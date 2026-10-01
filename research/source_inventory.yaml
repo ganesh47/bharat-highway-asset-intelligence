@@ -1,5 +1,5 @@
 version: 1
-last_updated: '2026-03-11'
+last_updated: '2026-10-02'
 sources:
   - source_id: data_gov_in_nhai_projects_api
     official_flag: true
@@ -50,7 +50,8 @@ sources:
     api_key_env: DATA_GOV_IN_API_KEY
     resource_nid: 603798306
     permanent_identifier_hint: "uuid c898c59e-1f0c-4c09-b195-7d3ac1cd19d4"
-    notes: "Auto-fetched from data.gov.in API (uuid). File fallback retained in resource_file_urls for resilience."
+    source_as_of_date: 2025-01-31
+    notes: "Partial FY2024-25 expenditure through31January2025; older FY flows remain historical. Published finance coverage is not a current audited NHAI balance sheet. API/file fallback preserved."
     resource_file_urls:
       - https://www.data.gov.in/sites/default/files/RS_Session_267_AU_1550_D.i.csv
     manual_fallback: true
@@ -316,15 +317,15 @@ sources:
     auth: none
     update_frequency: ad_hoc
     geographic_granularity: nation
-    temporal_coverage: 2014-15 to 2025-26 YTD
+    temporal_coverage: 2014-15 to 2025-26
     license_terms: "Official public documents; cite annual report section, press release date, and parliamentary question/answer date."
     retrieval_method: manual
     reliability_grade: A
     reliability_justification: "Curated from official NHAI annual report, official NHAI press release, and official Rajya Sabha answer with row-level citation fields preserved."
-    known_limitations: "2025-26 value is provisional current-year progress only through October 2025 and must not be compared directly with full-year totals."
+    known_limitations: "FY2025-26 full-year5313km replaces October2025 provisional3468km, verified in PIB1April2026 release."
     allow_auto_fetch: false
     url: https://nhai.gov.in/nhai/sites/default/files/2025-09/NHAI-Annual_Report_2023-24_English.pdf
-    permanent_identifier_hint: "NHAI Annual Report 2023-24 section 8.1 + NHAI press release 2025-04-02 + Rajya Sabha UQ 2037 answered 2025-12-17"
+    permanent_identifier_hint: "NHAI Annual Report2023-24 section8.1 + NHAI press release2025-04-02 + PIB PRID2247870,2026-04-01"
     notes: "Keep this as an approved manual CSV snapshot under data/raw/manual with row-level source_url, citation_anchor, source_as_of_date, and series_status fields."
 
   - source_id: data_gov_in_nhai_district_projects_implemented
@@ -798,3 +799,543 @@ sources:
     url: https://earthdata.nasa.gov/
     permanent_identifier_hint: "official nightlight scene id or annual product release"
     notes: "Use only officially mirrored/stable snapshots; add through data/raw/manual for reproducibility."
+
+  # Primary finance and State Highway disclosures verified at the research cutoff.
+  - source_id: union_budget_morth_demand86
+    official_flag: true
+    publisher_org: Ministry of Finance / MoRTH
+    publisher_type: government
+    domain: www.indiabudget.gov.in
+    dataset_title: 'Union Budget2026-27 Demand86: actual/BE/RE financial allocations'
+    theme: finance
+    access_type: PDF
+    auth: none
+    update_frequency: annual
+    geographic_granularity: entity
+    temporal_coverage: 2024-25 actual;2025-26 BE/RE;2026-27 BE
+    license_terms: Public primary disclosure; attribution required. No blanket OGL claim
+      for issuer/multilateral content; link to original document and cite table/page.
+    retrieval_method: verified primary document download + governed reproducible extract
+    reliability_grade: A
+    reliability_justification: Primary document authority is separate from extraction
+      readiness and financial comparability.
+    known_limitations: Net allocations, gross and recoveries are distinct; transfers
+      are not additive to spending.
+    allow_auto_fetch: true
+    url: https://www.indiabudget.gov.in/doc/eb/sbe86.pdf
+    resource_page_url: https://www.indiabudget.gov.in/doc/eb/sbe86.pdf
+    permanent_identifier_hint: union_budget_morth_demand86
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2026-02-01'
+    publication_date: '2026-02-01'
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Governed CSV data/raw/manual/union_budget_morth_demand86.csv; SHA256 evidence
+      data/raw/manual/evidence/union_budget_morth_demand86.json; current document checksum
+      checks cannot replace validated evidence on changed content.
+  - source_id: union_budget_highway_outcomes
+    official_flag: true
+    publisher_org: Ministry of Finance / MoRTH
+    publisher_type: government
+    domain: www.indiabudget.gov.in
+    dataset_title: 'Output Outcome Monitoring Framework2026-27: Road Wing indicators'
+    theme: targets
+    access_type: PDF
+    auth: none
+    update_frequency: annual
+    geographic_granularity: entity
+    temporal_coverage: 2026-27 targets
+    license_terms: Public primary disclosure; attribution required. No blanket OGL claim
+      for issuer/multilateral content; link to original document and cite table/page.
+    retrieval_method: verified primary document download + governed reproducible extract
+    reliability_grade: A
+    reliability_justification: Primary document authority is separate from extraction
+      readiness and financial comparability.
+    known_limitations: Forward targets only, excluded from measured analytics; indicators
+      not amenable to a target omitted.
+    allow_auto_fetch: true
+    url: https://www.indiabudget.gov.in/doc/OutcomeBudgetE2026_2027.pdf
+    resource_page_url: https://www.indiabudget.gov.in/doc/OutcomeBudgetE2026_2027.pdf
+    permanent_identifier_hint: union_budget_highway_outcomes
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2026-02-01'
+    publication_date: '2026-02-01'
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Governed CSV data/raw/manual/union_budget_highway_outcomes.csv; SHA256 evidence
+      data/raw/manual/evidence/union_budget_highway_outcomes.json; current document
+      checksum checks cannot replace validated evidence on changed content.
+  - source_id: nhit_quarterly_operations_finance
+    official_flag: false
+    publisher_org: National Highways Infra Trust
+    publisher_type: issuer
+    domain: nhit.co.in
+    dataset_title: 'NHIT Investor Presentation June2026: Q1FY27 finances and asset traffic'
+    theme: toll_finance
+    access_type: PDF
+    auth: none
+    update_frequency: quarterly
+    geographic_granularity: entity
+    temporal_coverage: Q1FY2025-26 andQ1FY2026-27
+    license_terms: Public primary disclosure; attribution required. No blanket OGL claim
+      for issuer/multilateral content; link to original document and cite table/page.
+    retrieval_method: verified primary document download + governed reproducible extract
+    reliability_grade: A
+    reliability_justification: Primary document authority is separate from extraction
+      readiness and financial comparability.
+    known_limitations: Issuer rounded figures; R5 portfolio expansion and NSPPL ETC-only
+      baseline break prevent unqualified YoY traffic comparisons.
+    allow_auto_fetch: true
+    url: https://nhit.co.in/pdf/investor-presentations/Investor%20Presentation%20June%202026.pdf
+    resource_page_url: https://nhit.co.in/pdf/investor-presentations/Investor%20Presentation%20June%202026.pdf
+    permanent_identifier_hint: nhit_quarterly_operations_finance
+    connector: primary_disclosures
+    metric_category: issuer_disclosed
+    source_as_of_date: '2026-06-30'
+    publication_date: '2026-08-31'
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Governed CSV data/raw/manual/nhit_quarterly_operations_finance.csv; SHA256
+      evidence data/raw/manual/evidence/nhit_quarterly_operations_finance.json; current
+      document checksum checks cannot replace validated evidence on changed content.
+  - source_id: nhit_quarterly_financial_filings
+    official_flag: false
+    publisher_org: National Highways Infra Trust
+    publisher_type: issuer
+    domain: nhit.co.in
+    dataset_title: 'NHIT Board Outcome7August2026: distribution/NAV and quarterly results'
+    theme: finance
+    access_type: PDF
+    auth: none
+    update_frequency: quarterly
+    geographic_granularity: entity
+    temporal_coverage: Quarter ended30June2026
+    license_terms: Public primary disclosure; attribution required. No blanket OGL claim
+      for issuer/multilateral content; link to original document and cite table/page.
+    retrieval_method: verified primary document download + governed reproducible extract
+    reliability_grade: A
+    reliability_justification: Primary document authority is separate from extraction
+      readiness and financial comparability.
+    known_limitations: Board distribution text validated; scanned AnnexureI statements
+      quarantined. NAV/EV are estimates and excluded from measured analytics.
+    allow_auto_fetch: true
+    url: https://nhit.co.in/pdf/communication-to-stock-exchange/BM%20Outcome%2007082026%20F.pdf
+    resource_page_url: https://nhit.co.in/pdf/communication-to-stock-exchange/BM%20Outcome%2007082026%20F.pdf
+    permanent_identifier_hint: nhit_quarterly_financial_filings
+    connector: primary_disclosures
+    metric_category: issuer_disclosed
+    source_as_of_date: '2026-06-30'
+    publication_date: '2026-08-07'
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Governed CSV data/raw/manual/nhit_quarterly_financial_filings.csv; SHA256
+      evidence data/raw/manual/evidence/nhit_quarterly_financial_filings.json; current
+      document checksum checks cannot replace validated evidence on changed content.
+  - source_id: nhit_asset_valuation_assumptions
+    official_flag: false
+    publisher_org: National Highways Infra Trust / Ernst & Young Merchant Banking Services
+      LLP
+    publisher_type: issuer
+    domain: nhit.co.in
+    dataset_title: 'NHIT Valuation Report asof30June2026: concessions, portfolio, WACC'
+    theme: valuation
+    access_type: PDF
+    auth: none
+    update_frequency: quarterly
+    geographic_granularity: entity
+    temporal_coverage: As of30June2026, transaction rounds2021-2026
+    license_terms: Public primary disclosure; attribution required. No blanket OGL claim
+      for issuer/multilateral content; link to original document and cite table/page.
+    retrieval_method: verified primary document download + governed reproducible extract
+    reliability_grade: A
+    reliability_justification: Primary document authority is separate from extraction
+      readiness and financial comparability.
+    known_limitations: Original INRmillion concession table converted to INRcrore. WACC/valuation
+      are model estimates; round lengths/fees differ from Parliament rounded receipt
+      assertions.
+    allow_auto_fetch: true
+    url: https://nhit.co.in/pdf/valuation-report/Valuation%20Report%20F_08_08_26.pdf
+    resource_page_url: https://nhit.co.in/pdf/valuation-report/Valuation%20Report%20F_08_08_26.pdf
+    permanent_identifier_hint: nhit_asset_valuation_assumptions
+    connector: primary_disclosures
+    metric_category: issuer_disclosed
+    source_as_of_date: '2026-06-30'
+    publication_date: '2026-08-07'
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Governed CSV data/raw/manual/nhit_asset_valuation_assumptions.csv; SHA256
+      evidence data/raw/manual/evidence/nhit_asset_valuation_assumptions.json; current
+      document checksum checks cannot replace validated evidence on changed content.
+  - source_id: nhit_annual_report
+    official_flag: false
+    publisher_org: National Highways Infra Trust
+    publisher_type: issuer
+    domain: nhit.co.in
+    dataset_title: 'NHIT Annual Report2025-26: audited consolidated finances and debt
+      maturity'
+    theme: finance
+    access_type: PDF
+    auth: none
+    update_frequency: annual
+    geographic_granularity: entity
+    temporal_coverage: FY2024-25 andFY2025-26
+    license_terms: Public primary disclosure; attribution required. No blanket OGL claim
+      for issuer/multilateral content; link to original document and cite table/page.
+    retrieval_method: verified primary document download + governed reproducible extract
+    reliability_grade: A
+    reliability_justification: Primary document authority is separate from extraction
+      readiness and financial comparability.
+    known_limitations: Statements signed13May2026; publication day undisclosed. Audited
+      INRlakh converted to INRcrore; maturity is contractual undiscounted, not carrying
+      balance.
+    allow_auto_fetch: true
+    url: https://nhit.co.in/pdf/annual-report/NHIT_Annual%20Report%20FY%202025-26.pdf
+    resource_page_url: https://nhit.co.in/pdf/annual-report/NHIT_Annual%20Report%20FY%202025-26.pdf
+    permanent_identifier_hint: nhit_annual_report
+    connector: primary_disclosures
+    metric_category: issuer_disclosed
+    source_as_of_date: '2026-03-31'
+    publication_date: null
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Governed CSV data/raw/manual/nhit_annual_report.csv; SHA256 evidence data/raw/manual/evidence/nhit_annual_report.json;
+      current document checksum checks cannot replace validated evidence on changed
+      content.
+  - source_id: nhidcl_monthly_project_progress
+    official_flag: true
+    publisher_org: National Highways and Infrastructure Development Corporation Ltd.
+    publisher_type: government
+    domain: www.nhidcl.com
+    dataset_title: NHIDCL completed/ongoing project status PMP31August2026
+    theme: projects
+    access_type: PDF
+    auth: none
+    update_frequency: monthly
+    geographic_granularity: project
+    temporal_coverage: As of31August2026
+    license_terms: Public primary disclosure; attribution required. No blanket OGL claim
+      for issuer/multilateral content; link to original document and cite table/page.
+    retrieval_method: verified primary document download + governed reproducible extract
+    reliability_grade: A
+    reliability_justification: Primary document authority is separate from extraction
+      readiness and financial comparability.
+    known_limitations: 410 detailed projects include termination/MMLP. Summary ongoing
+      excludes termination; project sums must not be forced to summary totals. September2026
+      download folder is not a precise publication date.
+    allow_auto_fetch: true
+    url: https://www.nhidcl.com/sites/default/files/2026-09/nhidcl-completed_and_ongoing_projects_status_per_pmp_data_lake_portal_31-08-2026.pdf
+    resource_page_url: https://www.nhidcl.com/sites/default/files/2026-09/nhidcl-completed_and_ongoing_projects_status_per_pmp_data_lake_portal_31-08-2026.pdf
+    permanent_identifier_hint: nhidcl_monthly_project_progress
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2026-08-31'
+    publication_date: null
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Governed CSV data/raw/manual/nhidcl_monthly_project_progress.csv; SHA256
+      evidence data/raw/manual/evidence/nhidcl_monthly_project_progress.json; current
+      document checksum checks cannot replace validated evidence on changed content.
+  - source_id: parliament_nhai_debt_tot_invit
+    official_flag: true
+    publisher_org: MoRTH / Parliament Secretariat
+    publisher_type: government
+    domain: sansad.in
+    dataset_title: 'Lok SabhaUQ963: NHAI debt and TOT/InvIT receipts'
+    theme: finance
+    access_type: PDF
+    auth: none
+    update_frequency: ad_hoc
+    geographic_granularity: entity
+    temporal_coverage: Debt31December2025; transactionsFY2018-19 toFY2025-26
+    license_terms: Public primary disclosure; attribution required. No blanket OGL claim
+      for issuer/multilateral content; link to original document and cite table/page.
+    retrieval_method: verified primary document download + governed reproducible extract
+    reliability_grade: A
+    reliability_justification: Primary document authority is separate from extraction
+      readiness and financial comparability.
+    known_limitations: Debt stock and rounded monetisation receipts kept distinct. TOT
+      proceeds deposited CFI; cannot equate receipts to debt principal repayments. Round4
+      CFI receiptFY25-26 differs from table fiscal year.
+    allow_auto_fetch: true
+    url: https://sansad.in/getFile/loksabhaquestions/annex/187/AU963_8iM1pC.pdf?source=pqals
+    resource_page_url: https://sansad.in/getFile/loksabhaquestions/annex/187/AU963_8iM1pC.pdf?source=pqals
+    permanent_identifier_hint: parliament_nhai_debt_tot_invit
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2025-12-31'
+    publication_date: '2026-02-05'
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Governed CSV data/raw/manual/parliament_nhai_debt_tot_invit.csv; SHA256 evidence
+      data/raw/manual/evidence/parliament_nhai_debt_tot_invit.json; current document
+      checksum checks cannot replace validated evidence on changed content.
+  - source_id: nhai_monetisation_transactions
+    official_flag: true
+    publisher_org: Press Information Bureau / MoRTH
+    publisher_type: government
+    domain: www.pib.gov.in
+    dataset_title: NHAI asset monetisation progress and InvIT5/TOT18 transactions
+    theme: monetisation
+    access_type: HTML
+    auth: none
+    update_frequency: ad_hoc
+    geographic_granularity: entity
+    temporal_coverage: FY2025-26 progress through30March2026
+    license_terms: Public primary disclosure; attribution required. No blanket OGL claim
+      for issuer/multilateral content; link to original document and cite table/page.
+    retrieval_method: verified primary document download + governed reproducible extract
+    reliability_grade: A
+    reliability_justification: Primary document authority is separate from extraction
+      readiness and financial comparability.
+    known_limitations: YTD realised28307crore is not final FY25-26 actual or proof of30000crore
+      target attainment.
+    allow_auto_fetch: true
+    url: https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2247011&lang=2&reg=48
+    resource_page_url: https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2247011&lang=2&reg=48
+    permanent_identifier_hint: nhai_monetisation_transactions
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2026-03-30'
+    publication_date: '2026-03-30'
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Governed CSV data/raw/manual/nhai_monetisation_transactions.csv; SHA256 evidence
+      data/raw/manual/evidence/nhai_monetisation_transactions.json; current document
+      checksum checks cannot replace validated evidence on changed content.
+  - source_id: npci_netc_monthly_statistics
+    official_flag: false
+    publisher_org: National Payments Corporation of India
+    publisher_type: payment_system
+    domain: www.npci.org.in
+    dataset_title: NPCI NETC monthly product statistics
+    theme: toll
+    access_type: HTML
+    auth: none
+    update_frequency: monthly
+    geographic_granularity: entity
+    temporal_coverage: Monthly releases; no verified current extract
+    license_terms: Public primary disclosure; attribution required. No blanket OGL claim
+      for issuer/multilateral content; link to original document and cite table/page.
+    retrieval_method: verified primary document download + governed reproducible extract
+    reliability_grade: C
+    reliability_justification: Primary document authority is separate from extraction
+      readiness and financial comparability.
+    known_limitations: HTTP403/JS restrictions; governed manual evidence required. Annual
+      pass and exempt categories affect NETC-only coverage; no invented public API.
+    allow_auto_fetch: false
+    url: https://www.npci.org.in/product/netc/product-statistics
+    resource_page_url: https://www.npci.org.in/product/netc/product-statistics
+    permanent_identifier_hint: npci_netc_monthly_statistics
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: null
+    publication_date: null
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Governed CSV data/raw/manual/npci_netc_monthly_statistics.csv; SHA256 evidence
+      data/raw/manual/evidence/npci_netc_monthly_statistics.json; current document checksum
+      checks cannot replace validated evidence on changed content.
+  - source_id: rbi_state_road_finances
+    official_flag: true
+    publisher_org: Reserve Bank of India
+    publisher_type: government
+    domain: rbidocs.rbi.org.in
+    dataset_title: 'State Finances: A Study of Budgets of2025-26, AppendicesII/IV Roads
+      and Bridges'
+    theme: state_finance
+    access_type: PDF
+    auth: none
+    update_frequency: annual
+    geographic_granularity: state
+    temporal_coverage: FY2023-24 actual;FY2024-25BE/RE;FY2025-26BE
+    license_terms: Public primary disclosure; attribution required. No blanket OGL claim
+      for issuer/multilateral content; link to original document and cite table/page.
+    retrieval_method: verified primary document download + governed reproducible extract
+    reliability_grade: A
+    reliability_justification: Primary document authority is separate from extraction
+      readiness and financial comparability.
+    known_limitations: INRlakh converted to INRcrore. Functional all-road-class state
+      spending, not StateHighway-only. Goa revenue dashes preserved as gap, not zero.
+      State corporation guarantees/debt not inferred.
+    allow_auto_fetch: true
+    url: https://rbidocs.rbi.org.in/rdocs/Publications/PDFs/0SF23012026877D47254C4F4B0793B2C38F05FB7EC5.PDF
+    resource_page_url: https://rbidocs.rbi.org.in/rdocs/Publications/PDFs/0SF23012026877D47254C4F4B0793B2C38F05FB7EC5.PDF
+    permanent_identifier_hint: rbi_state_road_finances
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2026-01-23'
+    publication_date: '2026-01-23'
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Governed CSV data/raw/manual/rbi_state_road_finances.csv; SHA256 evidence
+      data/raw/manual/evidence/rbi_state_road_finances.json; current document checksum
+      checks cannot replace validated evidence on changed content.
+  - source_id: cag_bharatmala_performance_audit
+    official_flag: true
+    publisher_org: Comptroller and Auditor General of India
+    publisher_type: government
+    domain: saiindia.gov.in
+    dataset_title: 'CAG Report19of2023: Bharatmala PhaseI performance audit'
+    theme: audit
+    access_type: PDF
+    auth: none
+    update_frequency: ad_hoc
+    geographic_granularity: entity
+    temporal_coverage: AuditFY2017-18 toFY2020-21; programme totals31March2023
+    license_terms: Public primary disclosure; attribution required. No blanket OGL claim
+      for issuer/multilateral content; link to original document and cite table/page.
+    retrieval_method: verified primary document download + governed reproducible extract
+    reliability_grade: A
+    reliability_justification: Primary document authority is separate from extraction
+      readiness and financial comparability.
+    known_limitations: Historical findings only. Sample66projects cannot stand for all-India
+      project risk incidence. Approved vs sanctioned quantities have different coverage.
+    allow_auto_fetch: true
+    url: https://saiindia.gov.in/webroot/uploads/download_audit_report/2023/Report-No.-19-of-203--Bharatmala-English-064d5db7bc63c20.06754442.pdf
+    resource_page_url: https://saiindia.gov.in/webroot/uploads/download_audit_report/2023/Report-No.-19-of-203--Bharatmala-English-064d5db7bc63c20.06754442.pdf
+    permanent_identifier_hint: cag_bharatmala_performance_audit
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2023-03-31'
+    publication_date: null
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Governed CSV data/raw/manual/cag_bharatmala_performance_audit.csv; SHA256
+      evidence data/raw/manual/evidence/cag_bharatmala_performance_audit.json; current
+      document checksum checks cannot replace validated evidence on changed content.
+  - source_id: morth_state_highway_network
+    official_flag: true
+    publisher_org: MoRTH Transport Research Wing / StatePWDs
+    publisher_type: government
+    domain: morth.gov.in
+    dataset_title: 'Basic Road Statistics2020-21&2021-22: state highway network Annexure2.3.2'
+    theme: network
+    access_type: PDF
+    auth: none
+    update_frequency: annual
+    geographic_granularity: state
+    temporal_coverage: Headline31March2022 with state footnotes2018-2021
+    license_terms: Public primary disclosure; attribution required. No blanket OGL claim
+      for issuer/multilateral content; link to original document and cite table/page.
+    retrieval_method: verified primary document download + governed reproducible extract
+    reliability_grade: A
+    reliability_justification: Primary document authority is separate from extraction
+      readiness and financial comparability.
+    known_limitations: Duplicate spreads deduplicated. Older per-state dates honored;
+      Arunachal13500km and published total193740vs state sum193741 quarantined. NH network
+      remains existing MoRTH source.
+    allow_auto_fetch: true
+    url: https://morth.gov.in/backend/documents/uploaded/1781850176_EDsilQvsKL.pdf
+    resource_page_url: https://morth.gov.in/backend/documents/uploaded/1781850176_EDsilQvsKL.pdf
+    permanent_identifier_hint: morth_state_highway_network
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2022-03-31'
+    publication_date: null
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Governed CSV data/raw/manual/morth_state_highway_network.csv; SHA256 evidence
+      data/raw/manual/evidence/morth_state_highway_network.json; current document checksum
+      checks cannot replace validated evidence on changed content.
+  - source_id: upeida_expressway_projects
+    official_flag: true
+    publisher_org: Uttar Pradesh Expressways Industrial Development Authority
+    publisher_type: government
+    domain: upeida.up.gov.in
+    dataset_title: UPEIDA Ganga/Agra-Lucknow expressway project and award grant disclosures
+    theme: state_projects
+    access_type: HTML
+    auth: none
+    update_frequency: ad_hoc
+    geographic_granularity: project
+    temporal_coverage: Historical project disclosures; current observation dates undisclosed
+    license_terms: Public primary disclosure; attribution required. No blanket OGL claim
+      for issuer/multilateral content; link to original document and cite table/page.
+    retrieval_method: verified primary document download + governed reproducible extract
+    reliability_grade: A
+    reliability_justification: Primary document authority is separate from extraction
+      readiness and financial comparability.
+    known_limitations: TLS-verified macOS curl HTML retrieval; publication/observation
+      dates missing, context facts quarantined. Ganga progress PDF unavailable. Agra-Lucknow11526.73crore
+      excludes land.
+    allow_auto_fetch: false
+    url: https://upeida.up.gov.in/en/page/ganga-expressway
+    resource_page_url: https://upeida.up.gov.in/en/page/ganga-expressway
+    permanent_identifier_hint: upeida_expressway_projects
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: null
+    publication_date: null
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Governed CSV data/raw/manual/upeida_expressway_projects.csv; SHA256 evidence
+      data/raw/manual/evidence/upeida_expressway_projects.json; current document checksum
+      checks cannot replace validated evidence on changed content.
+  - source_id: msrdc_financial_disclosures
+    official_flag: false
+    publisher_org: Maharashtra State Road Development Corporation Ltd.
+    publisher_type: issuer
+    domain: msrdc.in
+    dataset_title: MSRDC annual reports, bond information and subsidiary audited financials
+    theme: state_finance
+    access_type: HTML
+    auth: none
+    update_frequency: annual
+    geographic_granularity: state
+    temporal_coverage: FY2023-24 subsidiary statements; parent standalone visibleFY2018-19
+    license_terms: Public primary disclosure; attribution required. No blanket OGL claim
+      for issuer/multilateral content; link to original document and cite table/page.
+    retrieval_method: verified primary document download + governed reproducible extract
+    reliability_grade: C
+    reliability_justification: Primary document authority is separate from extraction
+      readiness and financial comparability.
+    known_limitations: Primary filings timed out; no extracted finance facts. Do not
+      treat subsidiaryFY23-24 as a current standalone parent annual report.
+    allow_auto_fetch: false
+    url: https://msrdc.in/1262/Annual-Reports-and-Details-of-Bonds?format=print
+    resource_page_url: https://msrdc.in/1262/Annual-Reports-and-Details-of-Bonds?format=print
+    permanent_identifier_hint: msrdc_financial_disclosures
+    connector: primary_disclosures
+    metric_category: issuer_disclosed
+    source_as_of_date: null
+    publication_date: null
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Governed CSV data/raw/manual/msrdc_financial_disclosures.csv; SHA256 evidence
+      data/raw/manual/evidence/msrdc_financial_disclosures.json; current document checksum
+      checks cannot replace validated evidence on changed content.
+  - source_id: adb_state_road_projects
+    official_flag: false
+    publisher_org: Asian Development Bank
+    publisher_type: multilateral
+    domain: www.adb.org
+    dataset_title: ADB Maharashtra State Road Improvement Project52298-001
+    theme: state_projects
+    access_type: HTML
+    auth: none
+    update_frequency: ad_hoc
+    geographic_granularity: project
+    temporal_coverage: Project disclosures and audit Apr2024-May2025; no verified extract
+    license_terms: Public primary disclosure; attribution required. No blanket OGL claim
+      for issuer/multilateral content; link to original document and cite table/page.
+    retrieval_method: verified primary document download + governed reproducible extract
+    reliability_grade: C
+    reliability_justification: Primary document authority is separate from extraction
+      readiness and financial comparability.
+    known_limitations: Official pageHTTP403; discovered financial statements do not
+      become numerical facts without retrieved evidence.
+    allow_auto_fetch: false
+    url: https://www.adb.org/projects/52298-001/main
+    resource_page_url: https://www.adb.org/projects/52298-001/main
+    permanent_identifier_hint: adb_state_road_projects
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: null
+    publication_date: null
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Governed CSV data/raw/manual/adb_state_road_projects.csv; SHA256 evidence
+      data/raw/manual/evidence/adb_state_road_projects.json; current document checksum
+      checks cannot replace validated evidence on changed content.

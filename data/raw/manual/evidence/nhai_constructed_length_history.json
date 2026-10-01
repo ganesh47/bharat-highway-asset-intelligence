@@ -1,0 +1,17 @@
+{
+  "source_id": "nhai_constructed_length_series_official",
+  "history_csv": "data/raw/manual/nhai_constructed_length_observation_history.csv",
+  "history_sha256": "94c684603a0377a62bce008d2065372c2848dfc815e9d926a433400d966c1350",
+  "note": "Append-only historical observations: October2025YTD3468km superseded by March2026final5313km. Live legacy series remains unique period, latest final only. Different coverage is not a numerical revision of the same observation.",
+  "baseline_git_commit": "9424ae24062db5d6a1c5e989f20638c481886b67",
+  "citations": [
+    "https://sansad.in/getFile/annex/269/AU2037_hZihrF.pdf?source=pqars",
+    "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2247870&lang=1&reg=3"
+  ],
+  "final_release_document": {
+    "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2247870&lang=1&reg=3",
+    "relative_path": "primary_disclosures/nhai_constructed_length_series_official/fy2025-26_final.html",
+    "sha256": "92b04b41e3bf5648bf1e8385caf92c9b8288d44831a6cdfb72471aa50a841889",
+    "size_bytes": 72709
+  }
+}
