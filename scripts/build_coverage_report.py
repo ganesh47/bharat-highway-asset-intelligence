@@ -71,11 +71,13 @@ def build(inventory_path: Path, catalog_path: Path, out: Path, root: Path = ROOT
             frame = frame[frame["analytical_eligible"].eq(True)]
         frames[sid] = frame
     summary = {"registered_sources": len(sources), "published_datasets": len(entries),
+               "disclosure_ready_sources": sum(entry.get("disclosure_ready") is True for entry in entries.values()),
                "ready_sources": len(frames), "ready_rows": sum(len(df) for df in frames.values()),
                "refresh_outcomes": dict(Counter(row["outcome"] for row in outcomes.values()))}
     lines = ["# Highway intelligence coverage", "", "Research cutoff: **2 October 2026**. Observation dates below remain those of the disclosures.", "",
              f"{summary['registered_sources']} registered sources; {summary['published_datasets']} published datasets; "
-             f"{summary['ready_sources']} sources eligible for analyst calculations. Eligible rows are heterogeneous observations, not a network-size or project-count measure.", "",
+             f"{summary['disclosure_ready_sources']} sources with verified readable disclosures, including clearly tagged targets/valuations; "
+             f"{summary['ready_sources']} sources with observations eligible for measured calculations. Eligible rows are heterogeneous observations, not a network-size or project-count measure.", "",
              "A retained dataset can remain useful after a failed check. Read its observation cutoff and failure together. Unknown and unavailable values are gaps; they are never substituted with zero.", "",
              "## Source-by-source refresh and extraction matrix", "",
              "| Source ID | Publisher / title | Outcome | Analytical use | Rows | Observation cutoff | Publication | Extraction / gap |",
@@ -90,7 +92,7 @@ def build(inventory_path: Path, catalog_path: Path, out: Path, root: Path = ROOT
         if reason:
             extraction += ": " + str(reason)
         lines.append("| " + " | ".join(map(cell, [sid, title, outcome["outcome"],
-                    "Eligible" if sid in frames else "Excluded / gap", entry.get("manifest", {}).get("row_count", 0),
+                    "Measured observations" if sid in frames else "Disclosures only" if entry.get("disclosure_ready") else "Excluded / gap", entry.get("manifest", {}).get("row_count", 0),
                     dates(frames[sid]) if sid in frames else entry.get("source_as_of_date"),
                     entry.get("publication_date"), extraction])) + " |")
     extra = entries.keys() - sources.keys()
@@ -115,6 +117,8 @@ def build(inventory_path: Path, catalog_path: Path, out: Path, root: Path = ROOT
                 if not state_col:
                     continue
                 part = df[df[state_col].map(lambda value: ALIASES.get(str(value), str(value))).eq(state)]
+                if sid == "rbi_state_road_finances" and "metric" in part:
+                    part = part[part["metric"].str.startswith("roads_bridges_")]
                 if sid == "morth_annual_report_pdf" and "metric_name" in part:
                     part = part[part["metric_name"].eq("appendix2_statewise_nh_length_km")]
                 if part.empty:

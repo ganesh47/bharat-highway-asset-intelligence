@@ -11,10 +11,11 @@ class StateFinanceEvidenceTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         path = ROOT / "data/raw/manual/rbi_state_road_finances.csv"
-        cls.rows = list(csv.DictReader(path.open()))
+        with path.open() as stream:
+            cls.rows = list(csv.DictReader(stream))
 
     def select(self, state, metric, end):
-        return [row for row in self.rows if row["state"] == state and row["metric"] == metric
+        return [row for row in self.rows if row["state"].replace("&", "and") == state and row["metric"] == metric
                 and row["period_end"] == end]
 
     def test_debt_and_guarantees_are_different_all_sector_balances(self):
