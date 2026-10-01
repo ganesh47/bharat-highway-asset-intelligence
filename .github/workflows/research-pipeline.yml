@@ -65,12 +65,9 @@ jobs:
             exit 0
           fi
 
-          changed_files="$(git diff --name-only "$BEFORE_SHA" "$AFTER_SHA" || true)"
-          printf '%s\n' "$changed_files"
-
-          if [ "$(printf '%s\n' "$changed_files" | python scripts/research_change_detection.py)" = "true" ]; then
+          if [ "$(python scripts/research_change_detection.py --git-before "$BEFORE_SHA" --git-after "$AFTER_SHA")" = "true" ]; then
             echo "run_nhai_ocr=true" >> "$GITHUB_OUTPUT"
-            echo "run_reason=OCR-relevant files changed" >> "$GITHUB_OUTPUT"
+            echo "run_reason=OCR-relevant files changed or comparison could not be verified" >> "$GITHUB_OUTPUT"
           else
             echo "run_nhai_ocr=false" >> "$GITHUB_OUTPUT"
             echo "run_reason=no OCR-relevant file changes detected" >> "$GITHUB_OUTPUT"
