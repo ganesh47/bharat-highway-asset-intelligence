@@ -1,22 +1,40 @@
 <!doctype html>
-<html>
-  <body style="font-family:Georgia, serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; line-height:1.6;">
-    <h1>Confidence Methodology</h1>
-    <p>The UI assigns confidence to every metric from four orthogonal scores:</p>
-    <ol>
-      <li><strong>Completeness</strong> – missingness in the canonical dataset after parsing.</li>
-      <li><strong>Recency</strong> – freshness compared with declared <code>update_frequency</code>.</li>
-      <li><strong>Provenance</strong> – official status and reliability grade A/B/C.</li>
-      <li><strong>Consistency</strong> – simple schema and range checks for known numeric fields.</li>
-    </ol>
-    <p>Final badges are High / Med / Low from weighted aggregation and mapped to limitations shown in tooltips.</p>
-    <p>Signals are classified as:</p>
-    <ul>
-      <li><strong>Official measured</strong> - direct official publications/API/parsing outputs.</li>
-      <li><strong>Proxy-derived</strong> - non-official context or geometry signals used for analysis context only.</li>
-      <li><strong>Model outputs</strong> - predictive/risk outputs (if/when added), never treated as fact.</li>
-    </ul>
-    <p>Model outputs are explicitly separated from official measured values and should be read as risk signals only.</p>
-    <p>The optional <code>correlation_matrix</code> artifact is a model output computed from source metrics joined on available state/year keys and is not treated as an official measurement.</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bharat Highway — Evidence methodology</title>
+</head>
+<body style="font-family:Georgia,serif;max-width:960px;margin:2rem auto;padding:0 1rem;line-height:1.65;color:#13253b">
+  <a href="./">Back to the evidence console</a>
+  <h1>Evidence and confidence methodology</h1>
+  <p>The default analyst view includes validated government measurements and issuer disclosures. Proxy signals, synthetic scenarios, document indexes and unverified snapshots remain in the source inventory, with explicit readiness labels.</p>
+  <h2>Confidence is a quality signal</h2>
+  <p>Source credibility, observation age, extraction quality, analytical coverage and freshness of retrieval are distinct. A successful download or a recent retrieval does not make an old observation current. High confidence does not certify investment suitability or statistical causality.</p>
+  <ol>
+    <li><strong>Completeness:</strong> missingness in the parsed observations, with missing values kept separate from observed zero.</li>
+    <li><strong>Recency:</strong> observation dates and publication dates evaluated separately from when a source was checked or fetched.</li>
+    <li><strong>Provenance:</strong> government, issuer, proxy or model evidence and declared source reliability.</li>
+    <li><strong>Consistency:</strong> schema, unit, range, reconciliation and entity checks. Source-specific validation accompanies generic checks.</li>
+    <li><strong>Extraction:</strong> parser/OCR quality where applicable, including known low-confidence and failed rows.</li>
+  </ol>
+  <p>High / Med / Low badges retain the pipeline quality scores and reasons. Each chart uses the lowest confidence among its contributing sources. The catalog floor also includes gaps and model artifacts; it is not the badge of every chart.</p>
+  <h2>What can be compared</h2>
+  <ul>
+    <li><strong>Entities:</strong> NHAI, MoRTH programmes, state governments, state expressway corporations, concession SPVs and InvIT trusts have different scopes. Location does not establish ownership. Standalone and consolidated accounts are separate.</li>
+    <li><strong>Road classes:</strong> National Highways, State Highways and state expressways are explicit classifications. RBI Roads and Bridges expenditure is a broader functional category than State Highways.</li>
+    <li><strong>Time:</strong> actual, Budget Estimate (BE), Revised Estimate (RE), targets and year-to-date (YTD) values retain their fiscal/calendar basis and cutoff. Targets are not achieved outcomes. Per-state observation years may differ within a report.</li>
+    <li><strong>Units:</strong> original values and units accompany normalized values. Crore, lakh and million rupees are converted explicitly. Route-km, lane-km, bridges counted in numbers, traffic PCU and payment transactions remain distinct.</li>
+    <li><strong>Stock and flow:</strong> network length is a stock at a date; construction is a period flow; project portfolio length is the scope of disclosed works. No geographic fallback substitutes one for another.</li>
+    <li><strong>Finance:</strong> gross, recoveries and net expenditure are separate rows. Funding, toll receipts, concession consideration, enterprise valuation and distribution per unit are separate measures. DPU can include interest, dividend and capital repayment.</li>
+    <li><strong>Traffic:</strong> NPCI NETC is national payment-network data, not NHAI-only vehicle traffic. Transactions are not unique vehicles. Retain source exclusions and changes in acquisition/annual-pass treatment.</li>
+  </ul>
+  <h2>Lineage, gaps and download</h2>
+  <p><a href="./research/coverage_matrix.md" download="highway-source-state-coverage.md">Download the source and State/UT coverage matrix</a> · <a href="./research/source_inventory.json" download="highway-source-inventory.json">Machine-readable source inventory</a></p>
+  <p>Disclosure tables retain entity, agency, location, road class, metric, unit, reporting period, estimate type, accounting basis, data-as-of, publication date, evidence class and document/table/page citation. CSV exports include all filtered observations and original units. Missing schedules, blocked sources and documents without validated extraction are shown as unavailable; no zero is fabricated.</p>
+  <p>Historical audit findings retain the audited period and sample. Issuer forecasts and valuations are estimates. Synthetic scenario rows are excluded from analyst totals and are visible only through explicit exploration filters.</p>
+  <h2>Safety and correlation</h2>
+  <p>NH fatalities normalized against a later network snapshot are burden context, not a same-year or traffic-exposure risk rate. Black-spot accident reference periods and rectification reply dates are separate. Missing historical observations are omitted rather than connected as zero.</p>
+  <p>Correlations require declared compatible entities, metric definitions, period basis and aggregation. Sparse overlaps and unverified manual samples are suppressed. Pearson or Spearman association never establishes the effect of highways on economic output, safety or project delivery.</p>
+</body>
 </html>

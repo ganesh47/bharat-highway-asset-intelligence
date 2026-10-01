@@ -87,10 +87,12 @@ REQUIRED_CHARTS = [
         "data_selector": ".line-path",
         "min_points": 1,
         "legend_labels": ["Allocation total", "Expenditure total"],
+        "meta_markers": ["YTD through 31 January 2025", "Others includes monetisation"],
         "empty_markers": ["No records available."],
     },
     {
-        "title": "State Portfolio: Total NH Length vs State",
+        "title": "State Portfolio: Total NH Network Length by State/UT",
+        "note_markers": ["network stock", "Project portfolio lengths and annual construction flows are separate"],
         "data_selector": ".bar-row",
         "min_points": 1,
         "empty_markers": ["No records available."],
@@ -181,6 +183,10 @@ REQUIRED_CHARTS = [
         "note_markers": ["Latest available current-price GSDP year varies by state", "relative delivery burden"],
         "empty_markers": ["No records available."],
     },
+
+]
+
+MODEL_CHARTS = [
     {
         "title": "Project Economics: Land Acquisition vs Maintenance (Model Panel)",
         "axes": True,
@@ -192,7 +198,7 @@ REQUIRED_CHARTS = [
 ]
 
 if _synthetic_model_panel_ready():
-    REQUIRED_CHARTS.insert(
+    MODEL_CHARTS.insert(
         11,
         {
             "title": "Synthetic Risk Scenario Score by State (exploratory)",
@@ -204,7 +210,7 @@ if _synthetic_model_panel_ready():
         },
     )
 else:
-    REQUIRED_CHARTS.insert(
+    MODEL_CHARTS.insert(
         11,
         {
             "title": "Synthetic Risk Scenario Panel (hidden pending better coverage)",
@@ -341,91 +347,158 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
                 await browser.close()
                 return 1
 
-            for chart in REQUIRED_CHARTS:
-                title_selector = chart.get("title")
-                if chart.get("title_prefix"):
-                    title_selector = chart["title_prefix"]
+            async def validate_charts(charts):
+                for chart in charts:
+                    title_selector = chart.get("title")
+                    if chart.get("title_prefix"):
+                        title_selector = chart["title_prefix"]
 
-                card = page.locator(".insight-chart").filter(
-                    has=page.locator(".chart-title", has_text=title_selector)
-                )
-                count = await card.count()
-                if count == 0:
-                    print(f"Missing chart by selector: {title_selector}")
-                    await browser.close()
-                    return 1
-                if count != 1:
-                    print(f"Chart appears multiple times ({count}) for selector: {title_selector}")
-                    await browser.close()
-                    return 1
-
-                chart_card = card.first
-                meta_text = [
-                    text or ''
-                    for text in await chart_card.locator('.chart-meta').all_inner_texts()
-                ]
-                if any(marker in ' '.join(meta_text) for marker in chart.get('empty_markers', [])):
-                    print(f"Chart has empty-data marker for: {title_selector}")
-                    await browser.close()
-                    return 1
-
-                marker_count = await chart_card.locator(chart['data_selector']).count()
-                if marker_count < chart['min_points']:
-                    if chart['data_selector'] in {".line-path", ".point"} and await _chart_has_canvas_content(chart_card):
-                        pass
-                    else:
-                        print(f"Chart has insufficient rendered points ({marker_count}) for: {title_selector}")
+                    card = page.locator(".insight-chart").filter(
+                        has=page.locator(".chart-title", has_text=title_selector)
+                    )
+                    count = await card.count()
+                    if count == 0:
+                        print(f"Missing chart by selector: {title_selector}")
                         await browser.close()
-                        return 1
-
-                for marker in chart.get("meta_markers", []):
-                    if not any(marker in text for text in meta_text):
-                        print(f"Chart is missing meta marker '{marker}' for: {title_selector}")
+                        raise RuntimeError("Chart validation failed")
+                    if count != 1:
+                        print(f"Chart appears multiple times ({count}) for selector: {title_selector}")
                         await browser.close()
-                        return 1
+                        raise RuntimeError("Chart validation failed")
 
-                note_text = [
-                    text or ''
-                    for text in await chart_card.locator('.insight-note').all_inner_texts()
-                ]
-                for marker in chart.get("note_markers", []):
-                    if not any(marker in text for text in note_text):
-                        print(f"Chart is missing note marker '{marker}' for: {title_selector}")
-                        await browser.close()
-                        return 1
-
-                if chart.get('axes'):
-                    axis_titles = [
-                        value or ''
-                        for value in await chart_card.locator('.axis-title').evaluate_all('(els) => els.map((el) => el.textContent || "")')
+                    chart_card = card.first
+                    meta_text = [
+                        text or ''
+                        for text in await chart_card.locator('.chart-meta').all_inner_texts()
                     ]
-                    if len([label.strip() for label in axis_titles if str(label).strip()]) < 2:
-                        if not await _chart_has_canvas_content(chart_card):
-                            print(f"Chart is missing axis labels: {title_selector}")
-                            await browser.close()
-                            return 1
+                    if any(marker in ' '.join(meta_text) for marker in chart.get('empty_markers', [])):
+                        print(f"Chart has empty-data marker for: {title_selector}")
+                        await browser.close()
+                        raise RuntimeError("Chart validation failed")
 
-                legend_labels = chart.get("legend_labels", [])
-                legend_min_pills = chart.get("legend_min_pills", 0)
-                if legend_labels or legend_min_pills:
-                    legend = chart_card.locator(".insight-legend")
-                    if await legend.count() != 1:
-                        print(f"Chart is missing legend container: {title_selector}")
-                        await browser.close()
-                        return 1
-                    pill_texts = [
-                        (text or "").strip()
-                        for text in await legend.locator(".insight-pill").all_inner_texts()
-                    ]
-                    if len([text for text in pill_texts if text]) < legend_min_pills:
-                        print(f"Chart legend has too few items for: {title_selector}")
-                        await browser.close()
-                        return 1
-                    for label in legend_labels:
-                        if not any(label in text for text in pill_texts):
-                            print(f"Chart legend is missing label '{label}' for: {title_selector}")
+                    marker_count = await chart_card.locator(chart['data_selector']).count()
+                    if marker_count < chart['min_points']:
+                        if chart['data_selector'] in {".line-path", ".point"} and await _chart_has_canvas_content(chart_card):
+                            pass
+                        else:
+                            print(f"Chart has insufficient rendered points ({marker_count}) for: {title_selector}")
                             await browser.close()
-                            return 1
+                            raise RuntimeError("Chart validation failed")
+
+                    for marker in chart.get("meta_markers", []):
+                        if not any(marker in text for text in meta_text):
+                            print(f"Chart is missing meta marker '{marker}' for: {title_selector}")
+                            await browser.close()
+                            raise RuntimeError("Chart validation failed")
+
+                    note_text = [
+                        text or ''
+                        for text in await chart_card.locator('.insight-note').all_inner_texts()
+                    ]
+                    for marker in chart.get("note_markers", []):
+                        if not any(marker in text for text in note_text):
+                            print(f"Chart is missing note marker '{marker}' for: {title_selector}")
+                            await browser.close()
+                            raise RuntimeError("Chart validation failed")
+
+                    if chart.get('axes'):
+                        axis_titles = [
+                            value or ''
+                            for value in await chart_card.locator('.axis-title').evaluate_all('(els) => els.map((el) => el.textContent || "")')
+                        ]
+                        if len([label.strip() for label in axis_titles if str(label).strip()]) < 2:
+                            if not await _chart_has_canvas_content(chart_card):
+                                print(f"Chart is missing axis labels: {title_selector}")
+                                await browser.close()
+                                raise RuntimeError("Chart validation failed")
+
+                    legend_labels = chart.get("legend_labels", [])
+                    legend_min_pills = chart.get("legend_min_pills", 0)
+                    if legend_labels or legend_min_pills:
+                        legend = chart_card.locator(".insight-legend")
+                        if await legend.count() != 1:
+                            print(f"Chart is missing legend container: {title_selector}")
+                            await browser.close()
+                            raise RuntimeError("Chart validation failed")
+                        pill_texts = [
+                            (text or "").strip()
+                            for text in await legend.locator(".insight-pill").all_inner_texts()
+                        ]
+                        if len([text for text in pill_texts if text]) < legend_min_pills:
+                            print(f"Chart legend has too few items for: {title_selector}")
+                            await browser.close()
+                            raise RuntimeError("Chart validation failed")
+                        for label in legend_labels:
+                            if not any(label in text for text in pill_texts):
+                                print(f"Chart legend is missing label '{label}' for: {title_selector}")
+                                await browser.close()
+                                raise RuntimeError("Chart validation failed")
+            if await page.get_by_role("button", name="Analyst evidence", exact=True).get_attribute("class") != "toggle active":
+                raise RuntimeError("Default view must be validated analyst evidence")
+            if await page.locator('.chart-title').filter(has_text="Synthetic Risk").count() or await page.locator('.chart-title').filter(has_text="Project Economics").count():
+                raise RuntimeError("Synthetic charts leaked into the default analyst view")
+            if not any("model rows excluded" in text for text in summary_text):
+                raise RuntimeError("Measured evidence coverage must exclude model rows")
+            if not any("Issuer disclosures:" in text for text in summary_text):
+                raise RuntimeError("Issuer disclosure coverage missing")
+            await validate_charts(REQUIRED_CHARTS)
+            await page.get_by_role("heading", name="Finance & infrastructure disclosures", exact=True).wait_for()
+            for label in ["Agency", "Road class", "Reporting period", "Estimate type", "Evidence class", "Metric", "Entity search"]:
+                if await page.get_by_label(label, exact=True).count() != 1:
+                    raise RuntimeError(f"Missing or ambiguous disclosure filter: {label}")
+            table = page.locator('.evidence-table')
+            if await table.count() != 1 or await table.locator('tbody tr').count() < 1:
+                raise RuntimeError("Funding disclosures have no validated evidence rows")
+            for label in ["Value / unit", "Period / estimate / basis", "Observation / publication", "Evidence / source"]:
+                if await table.get_by_role('columnheader', name=label, exact=True).count() != 1:
+                    raise RuntimeError(f"Missing evidence table context: {label}")
+            if await table.locator('tbody a[href^="https://"]').count() < 1:
+                raise RuntimeError("Disclosure observations lack primary citations")
+            async with page.expect_download() as download_info:
+                await page.get_by_role('button', name='Download filtered evidence CSV', exact=True).click()
+            download = await download_info.value
+            download_path = await download.path()
+            csv_text = Path(download_path).read_text(encoding='utf-8-sig')
+            for field in ['original_unit', 'period_basis', 'statement_basis', 'citation_url', 'table_page', 'source_document_sha256']:
+                if field not in csv_text.splitlines()[0]:
+                    raise RuntimeError(f"CSV lost lineage field: {field}")
+            if len(csv_text.splitlines()) < 2:
+                raise RuntimeError("CSV export has no observation rows")
+            await page.get_by_role('button', name='Debt & repayments', exact=False).click()
+            debt_text = await page.locator('.analyst-evidence-panel').inner_text()
+            if 'Disclosed debt maturity buckets are available' not in debt_text and 'No validated debt maturity schedule' not in debt_text:
+                raise RuntimeError("Debt maturities must show disclosed scope or an explicit evidence gap")
+            await page.get_by_role('button', name='NH & SH networks', exact=False).click()
+            network_panel = page.locator('.analyst-evidence-panel')
+            if await network_panel.locator('tbody tr').count() < 1:
+                raise RuntimeError("Comparable highway network disclosures missing")
+            await page.get_by_label('Road class', exact=True).select_option('SH')
+            if await network_panel.locator('tbody tr').count() < 1:
+                raise RuntimeError("State Highway network evidence missing")
+            await page.get_by_role('button', name='Funding & outcomes', exact=False).click()
+            await page.get_by_role('button', name='Official only', exact=True).click()
+            if await page.locator('.source-type.model, .source-type.proxy, .source-type.issuer').count():
+                raise RuntimeError("Government-only source filter leaked other evidence types")
+            if await page.locator('.chart-title').filter(has_text="Project Economics").count():
+                raise RuntimeError("Government-only charts leaked a model")
+            await page.get_by_role('button', name='Issuer disclosures', exact=True).click()
+            if await page.locator('.source-type.official, .source-type.proxy, .source-type.model').count():
+                raise RuntimeError("Issuer filter leaked other evidence types")
+            await page.get_by_role('button', name='Model only', exact=True).click()
+            await validate_charts(MODEL_CHARTS)
+            if await page.locator('.source-type.proxy').count():
+                raise RuntimeError("Model sources were incorrectly classified as proxy")
+            await page.get_by_role('button', name='Analyst evidence', exact=True).click()
+            # Missing observations and empty selections must not change hook order or invent zero.
+            state_selector = page.locator('.toolbar select').first
+            state_options = await state_selector.locator('option').all_text_contents()
+            if 'Ladakh' in state_options:
+                await state_selector.select_option('Ladakh')
+                await page.get_by_role('button', name='Debt & repayments', exact=False).click()
+                if 'No validated observations' not in (await page.locator('.analyst-evidence-panel').inner_text()):
+                    raise RuntimeError("Empty state/finance selection must show unavailable evidence")
+                await state_selector.select_option('All')
+            await page.get_by_role('button', name='Funding & outcomes', exact=False).click()
 
             if generate_screenshot:
                 await page.screenshot(path="buildcheck/last-smoke.png", full_page=True)

@@ -707,6 +707,7 @@ function sourceTypeTag(item) {
 }
 
 function analyticalReady(item) {
+  if (item && sourceTypeTag(item)[1] === 'model') return false;
   if (!item || item.analytical_ready === false || item.analytical_eligible === false) return false;
   if (['unverified', 'unavailable', 'metadata_only', 'discovery_only'].includes(item.evidence_status)) return false;
   if (['disabled', 'stubs_disabled', 'metadata_only', 'candidate_ready', 'stubbed_manual_gap'].includes(item.status)) return false;
@@ -1984,10 +1985,17 @@ function QualityBreakdown({ catalog }) {
   );
 }
 
+function elementText(element) {
+  if (element == null || typeof element === 'boolean') return '';
+  if (typeof element === 'string' || typeof element === 'number') return String(element);
+  if (Array.isArray(element)) return element.map(elementText).join(' ');
+  return elementText(element.props?.children);
+}
+
 function LegacyChartGroup({ sourceFilter, chartScale, children }) {
   const selected = React.Children.toArray(children).filter((child) => {
     if (child.type === ChartTooltip) return true;
-    const title = String(child.props?.title || JSON.stringify(child.props?.children || ''));
+    const title = String(child.props?.title || elementText(child));
     const kind = /Synthetic Risk|Project Economics.*Model Panel/.test(title) ? 'model' : 'official';
     return sourceFilter === 'all' || (sourceFilter === 'analyst' && kind === 'official') || sourceFilter === kind;
   });
@@ -2005,6 +2013,231 @@ function toTopStates(analyticsRows, selectedState) {
 function isAggregateStateLabel(value) {
   const key = normalizeState(value);
   return key === 'total' || key === 'india' || key === 'all india' || key.startsWith('all ') || key === 'all';
+}
+
+const DISCLOSURE_SOURCE_IDS = [
+  'union_budget_morth_demand86', 'union_budget_highway_outcomes',
+  'nhit_quarterly_operations_finance', 'nhit_quarterly_financial_filings',
+  'nhit_asset_valuation_assumptions', 'nhit_annual_report',
+  'nhidcl_monthly_project_progress', 'parliament_nhai_debt_tot_invit',
+  'nhai_monetisation_transactions', 'npci_netc_monthly_statistics',
+  'rbi_state_road_finances', 'cag_bharatmala_performance_audit',
+  'morth_state_highway_network', 'upeida_expressway_projects',
+  'msrdc_financial_disclosures', 'adb_state_road_projects',
+];
+
+const ANALYST_THEMES = [
+  { id: 'funding', title: 'Funding & outcomes', note: 'BE and RE are estimates; actual and YTD observations have separate cutoffs. Gross, net and recoveries are separate lines. Funding utilisation does not measure construction progress.' },
+  { id: 'debt', title: 'Debt & repayments', note: 'NHAI, state corporations, concession SPVs and InvIT trusts have distinct balance sheets. DSCR is shown only when disclosed by the issuer. Disclosed contractual maturity buckets are separate from carrying-value debt balances. NHAI and NHIT are different obligors; undisclosed repayment schedules are unavailable, not zero.' },
+  { id: 'toll', title: 'Toll & traffic', note: 'NETC payments cover a national payment network; they are not NHAI-only traffic or unique vehicles. Issuer traffic in PCU, toll receipts and payment transactions are separate metrics. Acquisition, annual-pass and reporting exclusions can break comparability.' },
+  { id: 'monetisation', title: 'TOT & InvIT', note: 'Concession values, realised proceeds, enterprise valuations and distributions have different meanings. Valuations are estimates. Failed or unawarded bundles are not completed sales. DPU may include interest, dividend or capital repayment.' },
+  { id: 'network', title: 'NH & SH networks', note: 'Network stock, constructed length and project length are separate measures. State Highways and state expressways remain distinct from National Highways. Published all-state tables may contain older observation dates by state; ownership is not inferred from location.' },
+  { id: 'state_finance', title: 'State road spending', note: 'RBI Roads and Bridges expenditure covers a wider function than State Highways. Compare the same fiscal year, estimate type and unit. State government finances and corporation accounts are separate entities; no double-counted national total is computed.' },
+  { id: 'delivery', title: 'Project delivery', note: 'Reported physical and financial progress, project dates and costs retain agency, project identity and snapshot date. Bridges measured in numbers are excluded from cost per kilometre. Audit samples and multilateral project portfolios are not national project censuses.' },
+];
+
+function disclosureTheme(row) {
+  const metric = String(row.metric || '');
+  if (/^roads_bridges_/.test(metric)) return 'state_finance';
+  if (/^(nh|sh)_network_/.test(metric)) return 'network';
+  if (/^budget_|^target_/.test(metric)) return 'funding';
+  if (/debt|repayment|maturity|finance_charges|dscr/.test(metric)) return 'debt';
+  if (/tot_|invit_|monetisation|enterprise_value|wacc|distribution|nav_|unit_value/.test(metric)) return 'monetisation';
+  if (/traffic|toll|netc|transactions|tags_/.test(metric)) return 'toll';
+  if (/project|progress|constructed|sanctioned|awarded|delay|completion|audit/.test(metric)) return 'delivery';
+  if (/revenue_operations|ebitda|pat_/.test(metric)) return 'monetisation';
+  return 'delivery';
+}
+
+function humanMetric(metric) {
+  return String(metric || 'Unknown metric')
+    .replace(/_inr_crore$/, '').replace(/_per_unit_inr$/, ' per unit')
+    .replace(/_percent$/, '').replace(/_ratio$/, '').replace(/_km$/, '')
+    .replace(/_/g, ' ').replace(/\b(nhai|nhit|nh|sh|tot|invit|pcu|netc|ebitda|dscr|be|re)\b/gi, (word) => word.toUpperCase());
+}
+
+function unitLabel(unit) {
+  const labels = { inr_crore: '₹ crore', 'INR crore': '₹ crore', INR_crore: '₹ crore', crore: '₹ crore', inr: '₹', inr_per_unit: '₹ / unit', INR_per_unit: '₹ / unit', percent: '%', percentage: '%', km: 'km', ratio: 'ratio', pcu: 'PCU', PCU: 'PCU', million: 'million', days: 'days', count: 'count' };
+  return labels[unit] || String(unit || 'unit not disclosed');
+}
+
+function periodLabel(row) {
+  if (!row.period_start && !row.period_end) return row.data_as_of ? `Snapshot ${row.data_as_of}` : 'Period not disclosed';
+  return `${row.period_start || '?'} → ${row.period_end || '?'} (${row.period_basis || 'basis not disclosed'})`;
+}
+
+function validCitation(url) {
+  try { const parsed = new URL(url); return ['https:', 'http:'].includes(parsed.protocol) ? parsed.href : ''; } catch { return ''; }
+}
+
+function disclosureEligible(row, catalog) {
+  if (![true, 1, 'true'].includes(row.analytical_eligible)) return false;
+  return Number.isFinite(num(row.value)) && analyticalReady(catalog[row.source_id]) && !!validCitation(row.citation_url);
+}
+
+function csvText(rows, columns) {
+  const cell = (value) => {
+    let text = value == null ? '' : String(value);
+    // Do not turn source text into executable spreadsheet formulas on export.
+    if (typeof value !== 'number' && /^[=+@-]/.test(text)) text = `'${text}`;
+    return `"${text.replace(/"/g, '""')}"`;
+  };
+  return '\uFEFF' + [columns.map(cell).join(','), ...rows.map((row) => columns.map((key) => cell(row[key])).join(','))].join('\r\n');
+}
+
+function downloadDisclosureCSV(rows, name) {
+  const columns = ['entity_id', 'entity_name', 'entity_type', 'agency', 'state', 'road_class', 'metric', 'value', 'unit', 'original_value', 'original_unit', 'period_start', 'period_end', 'period_basis', 'estimate_type', 'statement_basis', 'data_as_of', 'published_at', 'evidence_class', 'source_id', 'citation_url', 'table_page', 'source_document_sha256', 'analytical_eligible', 'asset_owner', 'asset_owner_id', 'implementing_agency', 'operator', 'operator_id', 'concessionaire', 'concessionaire_id', 'financing_entity', 'financing_entity_id', 'contract_mode', 'lanes', 'notes'];
+  const url = URL.createObjectURL(new Blob([csvText(rows, columns)], { type: 'text/csv;charset=utf-8;' }));
+  const link = document.createElement('a'); link.href = url; link.download = `bharat-highway-${name}.csv`; link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function deriveDisclosureInsights(rows) {
+  const baseKey = (row) => ['entity_id', 'entity_type', 'agency', 'state', 'road_class', 'period_start', 'period_end', 'period_basis', 'statement_basis', 'source_id'].map((key) => row[key] || '').join('::');
+  const groups = new Map();
+  rows.forEach((row) => { const key = baseKey(row); groups.set(key, [...(groups.get(key) || []), row]); });
+  const insights = [];
+  const croreUnit = (row) => ['inr_crore', 'INR crore', 'INR_crore', 'crore', '₹ crore'].includes(row.unit);
+  for (const facts of groups.values()) {
+    const unique = (metric) => { const found = facts.filter((row) => row.metric === metric); return found.length === 1 ? found[0] : null; };
+    const length = unique('project_length_km');
+    for (const [metric, label] of [['sanctioned_cost_inr_crore', 'Sanctioned cost per project km'], ['awarded_cost_inr_crore', 'Awarded cost per project km'], ['tot_concession_value_inr_crore', 'TOT concession value per route km'], ['invit_concession_value_inr_crore', 'InvIT concession value per route km']]) {
+      const cost = unique(metric);
+      if (!cost || !length || num(cost.value) < 0 || !croreUnit(cost) || length.unit !== 'km' || num(length.value) <= 0 || cost.data_as_of !== length.data_as_of || cost.estimate_type !== length.estimate_type || cost.evidence_class !== length.evidence_class) continue;
+      insights.push({ label, value: cost.value / length.value, unit: '₹ crore / km', numerator: cost, denominator: length, method: `${humanMetric(cost.metric)} ÷ project length, same entity, source, period and cutoff. Route length is not lane length; no lane/terrain adjustment or investment return is inferred.` });
+    }
+    const physical = unique('physical_progress_percent');
+    const financial = unique('financial_progress_percent');
+    if (physical && financial && physical.unit === financial.unit && ['percent', '%'].includes(physical.unit)
+      && physical.data_as_of === financial.data_as_of && physical.estimate_type === financial.estimate_type
+      && [physical.value, financial.value].every((value) => Number.isFinite(value) && value >= 0 && value <= 100)) {
+      insights.push({ label: 'Physical minus financial progress', value: physical.value - financial.value, unit: 'percentage points', numerator: physical, denominator: financial, method: 'Physical progress minus financial progress at the same project snapshot. A gap is an observed accounting/execution difference, not a forecast of delay.' });
+    }
+    for (const actual of facts.filter((row) => row.metric.startsWith('budget_') && row.estimate_type === 'actual')) {
+      const budget = facts.filter((row) => row.metric === actual.metric && row.estimate_type === 'BE');
+      if (budget.length !== 1 || actual.data_as_of !== budget[0].data_as_of || !['official_measured', 'issuer_disclosure'].includes(actual.evidence_class) || !['official_measured', 'issuer_disclosure', 'target'].includes(budget[0].evidence_class) || budget[0].unit !== actual.unit || num(budget[0].value) <= 0 || !actual.period_end || !actual.data_as_of || actual.data_as_of < actual.period_end) continue;
+      insights.push({ label: 'Actual expenditure / original BE', value: actual.value / budget[0].value * 100, unit: '%', numerator: actual, denominator: budget[0], method: 'Full-period actual divided by original BE for the same budget line, entity, fiscal period, accounting basis and source. YTD and RE are excluded; this does not measure physical completion.' });
+    }
+  }
+  return insights;
+}
+
+function analystHighlights(rows) {
+  const selections = [
+    ['NHAI debt snapshot', 'parliament_nhai_debt_tot_invit', 'debt_outstanding_inr_crore'],
+    ['NHIT disclosed DSCR', 'nhit_quarterly_operations_finance', 'dscr_ratio'],
+    ['Realised monetisation', 'nhai_monetisation_transactions', 'monetisation_realised_inr_crore'],
+  ];
+  return selections.map(([label, source, metric]) => {
+    const candidates = rows.filter((row) => row.source_id === source && row.metric === metric)
+      .sort((a, b) => String(b.data_as_of || b.period_end || '').localeCompare(String(a.data_as_of || a.period_end || '')));
+    return { label, row: candidates[0] };
+  });
+}
+
+function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter }) {
+  const [theme, setTheme] = useState('funding');
+  const [agency, setAgency] = useState('All');
+  const [roadClass, setRoadClass] = useState('All');
+  const [period, setPeriod] = useState('All');
+  const [estimate, setEstimate] = useState('All');
+  const [evidence, setEvidence] = useState('All');
+  const [metric, setMetric] = useState('All');
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(0);
+  const eligibleRows = rows.filter((row) => disclosureEligible(row, catalog));
+  const evidenceRows = eligibleRows.filter((row) => {
+    const item = catalog[row.source_id];
+    return matchesSourceFilter(item, sourceFilter)
+      && (selectedState === 'All' || normalizeState(row.state) === normalizeState(selectedState));
+  });
+  const themed = evidenceRows.filter((row) => disclosureTheme(row) === theme);
+  const options = (key) => [...new Set(themed.map((row) => String(row[key] || '')).filter(Boolean))].sort();
+  const periodOptions = [...new Set(themed.map(periodLabel))].sort();
+  const filtered = themed.filter((row) => (agency === 'All' || row.agency === agency)
+    && (roadClass === 'All' || row.road_class === roadClass)
+    && (period === 'All' || periodLabel(row) === period)
+    && (estimate === 'All' || row.estimate_type === estimate)
+    && (evidence === 'All' || row.evidence_class === evidence)
+    && (metric === 'All' || row.metric === metric)
+    && (!search || `${row.entity_id} ${row.entity_type} ${row.entity_name || ''} ${row.project_name || ''}`.toLowerCase().includes(search.toLowerCase())));
+  const ratioRows = themed.filter((row) => (agency === 'All' || row.agency === agency) && (roadClass === 'All' || row.road_class === roadClass) && (period === 'All' || periodLabel(row) === period) && (estimate === 'All' || row.estimate_type === estimate) && (evidence === 'All' || row.evidence_class === evidence) && (!search || `${row.entity_id} ${row.entity_name || ''}`.toLowerCase().includes(search.toLowerCase())));
+  const derived = deriveDisclosureInsights(ratioRows);
+  const ordered = [...filtered].sort((a, b) => String(b.period_end || b.data_as_of || '').localeCompare(String(a.period_end || a.data_as_of || ''))
+    || String(a.agency).localeCompare(String(b.agency)) || String(a.entity_id).localeCompare(String(b.entity_id)) || String(a.metric).localeCompare(String(b.metric)));
+  const pageSize = 50;
+  const pageCount = Math.max(1, Math.ceil(ordered.length / pageSize));
+  const activePage = Math.min(page, pageCount - 1);
+  const visible = ordered.slice(activePage * pageSize, (activePage + 1) * pageSize);
+  const activeTheme = ANALYST_THEMES.find((item) => item.id === theme);
+  const maturityAvailable = filtered.some((row) => row.metric.startsWith('debt_maturity_'));
+  const gaps = DISCLOSURE_SOURCE_IDS.map((id) => catalog[id]).filter(Boolean).filter((item) => !analyticalReady(item));
+  const select = (label, value, setter, values, display = (value) => value) => React.createElement('label', { className: 'analyst-filter', key: label }, label,
+    React.createElement('select', { value, 'aria-label': label, onChange: (event) => { setter(event.target.value); setPage(0); } },
+      React.createElement('option', { value: 'All' }, `All ${label.toLowerCase()}`),
+      ...values.map((entry) => React.createElement('option', { value: entry, key: entry }, display(entry)))));
+  const changeTheme = (id) => { setTheme(id); setAgency('All'); setRoadClass('All'); setPeriod('All'); setEstimate('All'); setEvidence('All'); setMetric('All'); setSearch(''); setPage(0); };
+  const highlights = analystHighlights(evidenceRows);
+  return React.createElement('section', { className: 'analyst-console', 'aria-labelledby': 'analyst-title', 'data-evidence-view': sourceFilter },
+    React.createElement('div', { className: 'source-line' }, React.createElement('h2', { id: 'analyst-title' }, 'Finance & infrastructure disclosures'),
+      React.createElement('div', { className: 'evidence-links' },
+        React.createElement('a', { href: candidateAssetPaths('methodology.html')[0] }, 'Definitions & comparability'),
+        React.createElement('a', { href: candidateAssetPaths('data/manifests/catalog.json')[0].replace('data/manifests/catalog.json', 'research/coverage_matrix.md'), download: 'highway-source-state-coverage.md' }, 'Download source & state coverage'),
+        React.createElement('a', { href: candidateAssetPaths('data/manifests/catalog.json')[0].replace('data/manifests/catalog.json', 'research/source_inventory.json'), download: 'highway-source-inventory.json' }, 'Source inventory'))),
+    React.createElement('p', { className: 'analyst-intro' }, 'National and State Highways, state expressways and financing entities. Every observation retains its unit, period, agency and primary citation. No national total is inferred from overlapping portfolios.'),
+    React.createElement('div', { className: 'analyst-highlights' }, ...highlights.map(({ label, row }) => React.createElement('article', { className: 'card analyst-highlight', key: label },
+      React.createElement('h3', null, label),
+      React.createElement('strong', null, row ? `${fmtNum(row.value, { compact: false })} ${unitLabel(row.unit)}` : 'Unavailable for this selection'),
+      row ? React.createElement('p', { className: 'insight-note' }, `${row.agency} · ${row.entity_id} · ${row.statement_basis || 'basis not disclosed'} · ${row.estimate_type} · as of ${row.data_as_of || row.period_end || 'date not disclosed'}`) : null,
+      row ? React.createElement('a', { href: validCitation(row.citation_url), target: '_blank', rel: 'noreferrer' }, `Source · ${row.table_page || 'document'}`) : null))),
+    React.createElement('div', { className: 'analyst-tabs', role: 'group', 'aria-label': 'Analyst themes' }, ...ANALYST_THEMES.map((item) => React.createElement('button', {
+      key: item.id, type: 'button', className: theme === item.id ? 'active' : '', 'aria-pressed': theme === item.id,
+      onClick: () => changeTheme(item.id),
+    }, `${item.title} (${evidenceRows.filter((row) => disclosureTheme(row) === item.id).length})`))),
+    React.createElement('article', { className: 'card analyst-evidence-panel', 'data-theme': theme },
+      React.createElement('div', { className: 'source-line' }, React.createElement('h3', null, activeTheme.title),
+        React.createElement('button', { type: 'button', disabled: !ordered.length, onClick: () => downloadDisclosureCSV(ordered, theme), 'aria-label': 'Download filtered evidence CSV' }, 'Download CSV')),
+      React.createElement('p', { className: 'insight-note', id: 'analyst-comparability' }, activeTheme.note),
+      theme === 'debt' ? React.createElement('p', { className: 'insight-note', role: 'status' }, maturityAvailable ? 'Disclosed debt maturity buckets are available for this selection. Read the instrument, statement basis and original units; contractual undiscounted obligations are not the same as balance-sheet carrying values.' : 'No validated debt maturity schedule for this selection. Undisclosed principal repayments and maturity buckets are unavailable, not zero.') : null,
+      React.createElement('div', { className: 'analyst-filters', 'aria-label': 'Disclosure filters' },
+        select('Agency', agency, setAgency, options('agency')),
+        select('Road class', roadClass, setRoadClass, options('road_class')),
+        select('Reporting period', period, setPeriod, periodOptions),
+        select('Estimate type', estimate, setEstimate, options('estimate_type')),
+        select('Evidence class', evidence, setEvidence, options('evidence_class'), (value) => value.replace(/_/g, ' ')),
+        select('Metric', metric, setMetric, options('metric'), humanMetric),
+        React.createElement('label', { className: 'analyst-filter' }, 'Entity search', React.createElement('input', { type: 'search', value: search, 'aria-label': 'Entity search', placeholder: 'Project, bundle, SPV or authority', onChange: (event) => { setSearch(event.target.value); setPage(0); } }))),
+      ['funding', 'delivery', 'monetisation'].includes(theme) ? React.createElement('details', { className: 'comparable-insights' },
+        React.createElement('summary', null, `Comparable calculations (${derived.length}) · matched scope and units`),
+        derived.length ? derived.slice(0, 100).map((item, index) => React.createElement('p', { key: index },
+          React.createElement('strong', null, `${item.numerator.entity_name || item.numerator.entity_id}: ${item.label} ${fmtNum(item.value, { compact: false })} ${item.unit}`),
+          React.createElement('small', null, ` ${periodLabel(item.numerator)} · as of ${item.numerator.data_as_of}. ${item.method} Numerator notes: ${item.numerator.notes || 'Land inclusion, lanes and contract mode not disclosed in the extract; verify the source.'} Denominator notes: ${item.denominator.notes || 'Verify source length definition.'} `),
+          React.createElement('a', { href: validCitation(item.numerator.citation_url), target: '_blank', rel: 'noreferrer' }, `Numerator · ${item.numerator.table_page}`), ' / ',
+          React.createElement('a', { href: validCitation(item.denominator.citation_url), target: '_blank', rel: 'noreferrer' }, `Denominator · ${item.denominator.table_page}`)))
+          : React.createElement('p', { className: 'insight-note' }, 'No disclosed compatible numerator/denominator pair for this selection. Calculations require the same entity, agency, period, accounting basis and source; cost/km also requires kilometre units and the same cutoff. Missing pairs are not inferred.')) : null,
+      React.createElement('p', { className: 'metric-meta', role: 'status', 'aria-live': 'polite' }, `${ordered.length.toLocaleString('en-IN')} observations · ${new Set(ordered.map((row) => row.source_id)).size} sources · ${new Set(ordered.map((row) => normalizeState(row.state)).filter((state) => state && !isAggregateStateLabel(state))).size} State/UT locations. Missing or omitted evidence is not zero.`),
+      ordered.length ? React.createElement('div', { className: 'evidence-table-wrap', tabIndex: 0, role: 'region', 'aria-label': 'Scrollable disclosure evidence table' },
+        React.createElement('table', { className: 'evidence-table', 'aria-describedby': 'analyst-comparability' },
+          React.createElement('caption', null, `${activeTheme.title}: rows ${activePage * pageSize + 1}–${Math.min((activePage + 1) * pageSize, ordered.length)} of ${ordered.length}. CSV includes all filtered rows and original units.`),
+          React.createElement('thead', null, React.createElement('tr', null, ...['Entity / agency', 'State / road class', 'Metric', 'Value / unit', 'Period / estimate / basis', 'Observation / publication', 'Evidence / source'].map((title) => React.createElement('th', { key: title, scope: 'col' }, title)))),
+          React.createElement('tbody', null, ...visible.map((row, index) => React.createElement('tr', { key: `${row.source_id}:${row.entity_id}:${row.metric}:${index}`, 'data-evidence-class': row.evidence_class },
+            React.createElement('td', null, React.createElement('strong', null, row.entity_name || row.project_name || row.entity_id), React.createElement('small', null, `${row.agency} · ${row.entity_type || 'entity type not disclosed'}`)),
+            React.createElement('td', null, row.state || 'National / portfolio', React.createElement('small', null, row.road_class || 'Classification not disclosed')),
+            React.createElement('td', null, humanMetric(row.metric)),
+            React.createElement('td', { className: 'evidence-number' }, `${fmtNum(row.value, { compact: false })} ${unitLabel(row.unit)}`, React.createElement('small', null, `Original: ${typeof row.original_value === 'number' ? fmtNum(row.original_value, { compact: false }) : String(row.original_value ?? 'not disclosed')} ${row.original_unit || row.unit}`)),
+            React.createElement('td', null, periodLabel(row), React.createElement('small', null, `${row.estimate_type || 'estimate not disclosed'} · ${row.statement_basis || 'statement basis not disclosed'}`)),
+            React.createElement('td', null, `As of: ${row.data_as_of || 'not disclosed'}`, React.createElement('small', null, `Published: ${row.published_at || 'not disclosed'}`)),
+            React.createElement('td', null, String(row.evidence_class || '').replace(/_/g, ' '), React.createElement('small', null,
+              React.createElement('a', { href: validCitation(row.citation_url), target: '_blank', rel: 'noreferrer', 'aria-label': `Primary source for ${humanMetric(row.metric)} at ${row.entity_id}` }, `${row.source_id} · ${row.table_page || 'document'}`), row.notes ? React.createElement('small', null, row.notes) : null))))))))
+        : React.createElement('p', { className: 'unavailable-evidence', role: 'status' }, 'No validated observations for these filters. Change the selection or inspect the evidence gaps below. Undisclosed values and omitted states are not assigned zero.'),
+      React.createElement('div', { className: 'evidence-pagination' }, React.createElement('button', { type: 'button', disabled: activePage === 0, onClick: () => setPage(Math.max(0, activePage - 1)) }, 'Previous'),
+        React.createElement('span', null, `Page ${activePage + 1} of ${pageCount}`), React.createElement('button', { type: 'button', disabled: activePage >= pageCount - 1, onClick: () => setPage(activePage + 1) }, 'Next'))),
+    React.createElement('details', { className: 'card evidence-gaps' }, React.createElement('summary', null, `Evidence gaps (${gaps.length}) · unavailable sources and extraction limits`),
+      React.createElement('p', { className: 'insight-note' }, 'Restricted, unavailable, oversized or unvalidated documents stay visible in the inventory. Document presence and successful HTTP retrieval do not establish usable financial facts.'),
+      ...gaps.map((item) => React.createElement('p', { key: item.source_id }, React.createElement('strong', null, item.source?.title || item.source_id), ' — ', readinessLabel(item),
+        React.createElement('small', null, ` ${item.refresh_error || item.note || item.skip_reason || ''} Last checked: ${item.last_checked_at || item.retrieved_at || 'unknown'}. `),
+        validCitation(item.source?.url) ? React.createElement('a', { href: validCitation(item.source.url), target: '_blank', rel: 'noreferrer' }, 'Primary source') : null)))
+  );
 }
 
 async function loadAnalyticCatalog(conn, catalog) {
@@ -2552,7 +2785,16 @@ async function loadAnalyticCatalog(conn, catalog) {
     })
     .filter(Boolean);
 
+  const disclosureRows = [];
+  for (const entry of Object.values(catalog)) {
+    const columns = entry.manifest?.columns || [];
+    if (!DISCLOSURE_SOURCE_IDS.includes(entry.source_id) && !(columns.includes('metric') && columns.includes('value') && columns.includes('evidence_class'))) continue;
+    const observations = await fetchById(entry.source_id, (alias) => `SELECT * FROM read_parquet('${alias}')`);
+    observations.forEach((row) => disclosureRows.push({ ...row, source_id: row.source_id || entry.source_id, value: num(row.value), original_value: row.original_value }));
+  }
+
   const stateList = new Set();
+  disclosureRows.forEach((row) => { if (row.state) stateList.add(row.state); });
   portfolioRows.forEach((row) => stateList.add(row.state));
   stateUTRows.forEach((row) => stateList.add(row.state));
   stateStatusRows.forEach((row) => stateList.add(row.state));
@@ -2566,6 +2808,7 @@ async function loadAnalyticCatalog(conn, catalog) {
   morthAppendix2LengthRows.forEach((row) => stateList.add(row.state));
   morthPermitRows.forEach((row) => stateList.add(row.state));
   return {
+    disclosureRows,
     growthRows,
     financeRows,
     portfolioRows: mergedPortfolioRows,
@@ -2704,7 +2947,8 @@ function App() {
     };
   }, [analytics, selectedState]);
 
-  const activeStateList = (analytics?.portfolioRows || [])
+  const activeStateList = (analytics?.disclosureRows || [])
+    .concat(analytics?.portfolioRows || [])
     .concat(analytics?.stateStatusRows || [])
     .concat(analytics?.accidentRows || [])
     .concat(analytics?.officialSafetyTrendRows || [])
@@ -2993,7 +3237,7 @@ function App() {
       'header',
       null,
       React.createElement('h1', null, 'Bharat Highway Evidence Console'),
-      React.createElement('p', { className: 'subhead' }, `Official-first visual analytics for highways growth, safety, finance and project-risk planning. Every chart is tied to a source manifest with citations and confidence scoring.`),
+      React.createElement('p', { className: 'subhead' }, 'Official and issuer evidence for highway construction, funding, debt, toll operations and asset monetisation. Observation periods and accounting entities remain separate; synthetic scenarios are excluded from the default analyst view.'),
       React.createElement(SourceMetaFooter, { label: `Catalog confidence floor: ${confidenceByAll.badge} · chart badges use their contributing sources`, confidence: confidenceByAll.badge }),
       React.createElement(MethodologyBadge, { label: 'Why these badges?', href: methodologyUrl })
     ),
@@ -3065,6 +3309,7 @@ function App() {
         }, 'Focus')
       )
     ),
+    React.createElement(DisclosureExplorer, { rows: analytics?.disclosureRows || [], catalog, selectedState, sourceFilter }),
     React.createElement(
       'section',
       { className: 'charts-grid' },
