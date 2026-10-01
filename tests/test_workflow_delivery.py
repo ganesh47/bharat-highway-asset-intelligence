@@ -141,8 +141,11 @@ class ResearchDeliveryTests(unittest.TestCase):
         job = workflow["jobs"]["ingest_base"]
         self.assertEqual(job["permissions"]["actions"], "read")
         step = next(item for item in job["steps"] if item.get("name") == "Restore last validated data")
-        self.assertIn("data/manifests", step["run"])
-        self.assertIn("data/processed", step["run"])
+        self.assertIn("scripts/restore_validated_workspace.py", step["run"])
+        self.assertIn("--prior tmp/previous-research", step["run"])
+        names = [item.get("name") for item in job["steps"]]
+        self.assertLess(names.index("Install dependencies"), names.index("Restore last validated data"))
+        self.assertLess(names.index("Restore last validated data"), names.index("Ingest all registered sources"))
         self.assertNotIn("cp -a tmp/previous-research/data/raw", step["run"])
 
     def test_extractor_failure_path_preserves_each_year_and_pins_quality(self):

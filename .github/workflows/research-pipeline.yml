@@ -147,14 +147,6 @@ jobs:
           github-token: ${{ github.token }}
           run-id: ${{ steps.previous_research.outputs.run_id }}
 
-      - name: Restore last validated data
-        if: steps.previous_research.outputs.run_id != ''
-        run: |
-          mkdir -p data/manifests data/processed
-          cp -a tmp/previous-research/data/manifests/. data/manifests/
-          cp -a tmp/previous-research/data/processed/. data/processed/
-          # Keep this revision's source definitions and governed manual extracts.
-
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
@@ -171,6 +163,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
+
+      - name: Restore last validated data
+        if: steps.previous_research.outputs.run_id != ''
+        run: |
+          python scripts/restore_validated_workspace.py --prior tmp/previous-research \
+            --inventory research/source_inventory.yaml
 
       - name: Ingest all registered sources
         run: |
