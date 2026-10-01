@@ -517,7 +517,8 @@ sources:
     auth: none
     update_frequency: annual
     geographic_granularity: nation
-    temporal_coverage: 2015-16 to 2026-27
+    temporal_coverage: available official linked reports; reporting periods determined per document
+    observation_date_unknown: true
     license_terms: "Official publication on NHAI website; reuse subject to official publication terms."
     retrieval_method: API call
     reliability_grade: B
