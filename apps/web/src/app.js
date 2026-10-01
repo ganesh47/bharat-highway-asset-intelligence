@@ -717,16 +717,23 @@ function analyticalReady(item) {
   return Number(item.manifest?.row_count || 0) > 0;
 }
 
+function disclosureReady(item) {
+  if (!item || !['official', 'issuer'].includes(sourceTypeTag(item)[1])) return false;
+  if (item.disclosure_ready === true) return true;
+  return item.evidence_status === 'verified' && item.extraction_status === 'validated' && Number(item.manifest?.row_count || 0) > 0;
+}
+
 function matchesSourceFilter(item, filter) {
   const kind = sourceTypeTag(item)[1];
   if (filter === 'all') return true;
-  if (filter === 'analyst') return ['official', 'issuer'].includes(kind) && analyticalReady(item);
+  if (filter === 'analyst') return ['official', 'issuer'].includes(kind) && (analyticalReady(item) || disclosureReady(item));
   return kind === filter;
 }
 
 function readinessLabel(item) {
   if (item?.refresh_outcome === 'failed_preserved') return 'Refresh failed · previous evidence retained';
   if (analyticalReady(item)) return 'Validated analytical evidence';
+  if (disclosureReady(item)) return 'Validated disclosure · estimates or undated context excluded from measured calculations';
   if (item?.manifest?.row_count > 0) return 'Document or unverified snapshot · excluded from analyst calculations';
   return `Unavailable · ${item?.skip_reason || item?.evidence_status || item?.status || 'no validated observations'}`;
 }
@@ -1958,11 +1965,13 @@ function OntologyPanel({ catalog }) {
   );
 }
 
-function CoverageCards({ catalog, rowCounts }) {
+function CoverageCards({ catalog, rowCounts, disclosureRows = [] }) {
   const entries = Object.values(catalog);
   const count = (kind) => entries.filter((entry) => sourceTypeTag(entry)[1] === kind && analyticalReady(entry)).length;
+  const eligibleCounts = {};
+  disclosureRows.filter((row) => disclosureEligible(row, catalog)).forEach((row) => { eligibleCounts[row.source_id] = (eligibleCounts[row.source_id] || 0) + 1; });
   const evidenceRows = entries.filter((entry) => ['official', 'issuer'].includes(sourceTypeTag(entry)[1]) && analyticalReady(entry))
-    .reduce((sum, entry) => sum + (Number(rowCounts[entry.source_id]) || 0), 0);
+    .reduce((sum, entry) => sum + (entry.manifest?.columns?.includes('analytical_eligible') ? (eligibleCounts[entry.source_id] || 0) : (Number(rowCounts[entry.source_id]) || 0)), 0);
   const modelRows = entries.filter((entry) => sourceTypeTag(entry)[1] === 'model')
     .reduce((sum, entry) => sum + (Number(rowCounts[entry.source_id]) || 0), 0);
   return React.createElement('section', { className: 'summary', 'aria-label': 'Validated evidence coverage' },
@@ -1970,7 +1979,7 @@ function CoverageCards({ catalog, rowCounts }) {
     React.createElement('div', { className: 'card' }, `Issuer disclosures: ${count('issuer')} validated`),
     React.createElement('div', { className: 'card' }, `Proxy-derived signals: ${entries.filter((entry) => sourceTypeTag(entry)[1] === 'proxy').length}`),
     React.createElement('div', { className: 'card' }, `Model output signals: ${entries.filter((entry) => sourceTypeTag(entry)[1] === 'model').length} · excluded by default`),
-    React.createElement('div', { className: 'card' }, `Analyst evidence rows: ${evidenceRows.toLocaleString('en-IN')}`),
+    React.createElement('div', { className: 'card' }, `Measured evidence rows: ${evidenceRows.toLocaleString('en-IN')}`),
     React.createElement('div', { className: 'card' }, `Catalog entries: ${entries.length} · ${modelRows.toLocaleString('en-IN')} model rows excluded`)
   );
 }
@@ -1980,8 +1989,9 @@ function QualityBreakdown({ catalog }) {
   return React.createElement('div', { className: 'card chart' },
     React.createElement('h2', null, 'Evidence readiness'),
     React.createElement('div', { className: 'coverage-grid' },
-      React.createElement('div', { className: 'coverage-cell' }, `Validated for analysis: ${entries.filter(analyticalReady).length}`),
-      React.createElement('div', { className: 'coverage-cell' }, `Unavailable or unverified: ${entries.filter((entry) => !analyticalReady(entry)).length}`)
+      React.createElement('div', { className: 'coverage-cell' }, `Validated measured sources: ${entries.filter(analyticalReady).length}`),
+      React.createElement('div', { className: 'coverage-cell' }, `Other validated disclosures: ${entries.filter((entry) => disclosureReady(entry) && !analyticalReady(entry)).length}`),
+      React.createElement('div', { className: 'coverage-cell' }, `Unavailable or unverified: ${entries.filter((entry) => !analyticalReady(entry) && !disclosureReady(entry)).length}`)
     ),
     React.createElement('p', { className: 'insight-note' }, 'Source credibility, extraction quality, observation age and analytical coverage are separate. A document download is not an extracted financial observation.')
   );
@@ -2077,6 +2087,13 @@ function disclosureEligible(row, catalog) {
   return Number.isFinite(num(row.value)) && analyticalReady(catalog[row.source_id]) && !!validCitation(row.citation_url);
 }
 
+function disclosureVisible(row, catalog, includeUndated = false) {
+  if (!Number.isFinite(num(row.value)) || !validCitation(row.citation_url)) return false;
+  if (!analyticalReady(catalog[row.source_id]) && !disclosureReady(catalog[row.source_id])) return false;
+  if (!row.data_as_of && !includeUndated) return false;
+  return true;
+}
+
 function csvText(rows, columns) {
   const cell = (value) => {
     let text = value == null ? '' : String(value);
@@ -2147,8 +2164,8 @@ function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter })
   const [metric, setMetric] = useState('All');
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(0);
-  const eligibleRows = rows.filter((row) => disclosureEligible(row, catalog));
-  const evidenceRows = eligibleRows.filter((row) => {
+  const disclosedRows = rows.filter((row) => disclosureVisible(row, catalog, evidence === 'undated_context'));
+  const evidenceRows = disclosedRows.filter((row) => {
     const item = catalog[row.source_id];
     return matchesSourceFilter(item, sourceFilter)
       && (selectedState === 'All' || normalizeState(row.state) === normalizeState(selectedState));
@@ -2160,11 +2177,11 @@ function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter })
     && (roadClass === 'All' || row.road_class === roadClass)
     && (period === 'All' || periodLabel(row) === period)
     && (estimate === 'All' || row.estimate_type === estimate)
-    && (evidence === 'All' || row.evidence_class === evidence)
+    && (evidence === 'All' || (evidence === 'undated_context' ? !row.data_as_of : row.evidence_class === evidence))
     && (metric === 'All' || row.metric === metric)
     && (!search || `${row.entity_id} ${row.entity_type} ${row.entity_name || ''} ${row.project_name || ''}`.toLowerCase().includes(search.toLowerCase())));
-  const ratioRows = themed.filter((row) => (agency === 'All' || row.agency === agency) && (roadClass === 'All' || row.road_class === roadClass) && (period === 'All' || periodLabel(row) === period) && (estimate === 'All' || row.estimate_type === estimate) && (evidence === 'All' || row.evidence_class === evidence) && (!search || `${row.entity_id} ${row.entity_name || ''}`.toLowerCase().includes(search.toLowerCase())));
-  const derived = deriveDisclosureInsights(ratioRows);
+  const ratioRows = themed.filter((row) => (agency === 'All' || row.agency === agency) && (roadClass === 'All' || row.road_class === roadClass) && (period === 'All' || periodLabel(row) === period) && (estimate === 'All' || row.estimate_type === estimate) && (evidence === 'All' || (evidence === 'undated_context' ? !row.data_as_of : row.evidence_class === evidence)) && (!search || `${row.entity_id} ${row.entity_name || ''}`.toLowerCase().includes(search.toLowerCase())));
+  const derived = deriveDisclosureInsights(ratioRows.filter((row) => disclosureEligible(row, catalog)));
   const ordered = [...filtered].sort((a, b) => String(b.period_end || b.data_as_of || '').localeCompare(String(a.period_end || a.data_as_of || ''))
     || String(a.agency).localeCompare(String(b.agency)) || String(a.entity_id).localeCompare(String(b.entity_id)) || String(a.metric).localeCompare(String(b.metric)));
   const pageSize = 50;
@@ -2173,13 +2190,13 @@ function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter })
   const visible = ordered.slice(activePage * pageSize, (activePage + 1) * pageSize);
   const activeTheme = ANALYST_THEMES.find((item) => item.id === theme);
   const maturityAvailable = filtered.some((row) => row.metric.startsWith('debt_maturity_'));
-  const gaps = DISCLOSURE_SOURCE_IDS.map((id) => catalog[id]).filter(Boolean).filter((item) => !analyticalReady(item));
+  const gaps = Object.values(catalog).filter((item) => sourceTypeTag(item)[1] !== 'model' && !analyticalReady(item) && !disclosureReady(item));
   const select = (label, value, setter, values, display = (value) => value) => React.createElement('label', { className: 'analyst-filter', key: label }, label,
     React.createElement('select', { value, 'aria-label': label, onChange: (event) => { setter(event.target.value); setPage(0); } },
       React.createElement('option', { value: 'All' }, `All ${label.toLowerCase()}`),
       ...values.map((entry) => React.createElement('option', { value: entry, key: entry }, display(entry)))));
   const changeTheme = (id) => { setTheme(id); setAgency('All'); setRoadClass('All'); setPeriod('All'); setEstimate('All'); setEvidence('All'); setMetric('All'); setSearch(''); setPage(0); };
-  const highlights = analystHighlights(evidenceRows);
+  const highlights = analystHighlights(evidenceRows.filter((row) => disclosureEligible(row, catalog)));
   return React.createElement('section', { className: 'analyst-console', 'aria-labelledby': 'analyst-title', 'data-evidence-view': sourceFilter },
     React.createElement('div', { className: 'source-line' }, React.createElement('h2', { id: 'analyst-title' }, 'Finance & infrastructure disclosures'),
       React.createElement('div', { className: 'evidence-links' },
@@ -2206,7 +2223,7 @@ function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter })
         select('Road class', roadClass, setRoadClass, options('road_class')),
         select('Reporting period', period, setPeriod, periodOptions),
         select('Estimate type', estimate, setEstimate, options('estimate_type')),
-        select('Evidence class', evidence, setEvidence, options('evidence_class'), (value) => value.replace(/_/g, ' ')),
+        select('Evidence class', evidence, setEvidence, [...options('evidence_class'), ...(rows.some((row) => disclosureTheme(row) === theme && !row.data_as_of && disclosureVisible(row, catalog, true)) ? ['undated_context'] : [])], (value) => value === 'undated_context' ? 'Undated context only' : value.replace(/_/g, ' ')),
         select('Metric', metric, setMetric, options('metric'), humanMetric),
         React.createElement('label', { className: 'analyst-filter' }, 'Entity search', React.createElement('input', { type: 'search', value: search, 'aria-label': 'Entity search', placeholder: 'Project, bundle, SPV or authority', onChange: (event) => { setSearch(event.target.value); setPage(0); } }))),
       ['funding', 'delivery', 'monetisation'].includes(theme) ? React.createElement('details', { className: 'comparable-insights' },
@@ -2229,7 +2246,8 @@ function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter })
             React.createElement('td', { className: 'evidence-number' }, `${fmtNum(row.value, { compact: false })} ${unitLabel(row.unit)}`, React.createElement('small', null, `Original: ${typeof row.original_value === 'number' ? fmtNum(row.original_value, { compact: false }) : String(row.original_value ?? 'not disclosed')} ${row.original_unit || row.unit}`)),
             React.createElement('td', null, periodLabel(row), React.createElement('small', null, `${row.estimate_type || 'estimate not disclosed'} · ${row.statement_basis || 'statement basis not disclosed'}`)),
             React.createElement('td', null, `As of: ${row.data_as_of || 'not disclosed'}`, React.createElement('small', null, `Published: ${row.published_at || 'not disclosed'}`)),
-            React.createElement('td', null, String(row.evidence_class || '').replace(/_/g, ' '), React.createElement('small', null,
+            React.createElement('td', null, String(row.evidence_class || '').replace(/_/g, ' '),
+              !disclosureEligible(row, catalog) ? React.createElement('small', { className: 'nonmeasured-evidence' }, row.data_as_of ? 'Estimate / context · excluded from measured calculations' : 'Undated context · excluded from measured calculations') : null, React.createElement('small', null,
               React.createElement('a', { href: validCitation(row.citation_url), target: '_blank', rel: 'noreferrer', 'aria-label': `Primary source for ${humanMetric(row.metric)} at ${row.entity_id}` }, `${row.source_id} · ${row.table_page || 'document'}`), row.notes ? React.createElement('small', null, row.notes) : null)))))))
         : React.createElement('p', { className: 'unavailable-evidence', role: 'status' }, 'No validated observations for these filters. Change the selection or inspect the evidence gaps below. Undisclosed values and omitted states are not assigned zero.'),
       React.createElement('div', { className: 'evidence-pagination' }, React.createElement('button', { type: 'button', disabled: activePage === 0, onClick: () => setPage(Math.max(0, activePage - 1)) }, 'Previous'),
@@ -3241,7 +3259,7 @@ function App() {
       React.createElement(SourceMetaFooter, { label: `Catalog confidence floor: ${confidenceByAll.badge} · chart badges use their contributing sources`, confidence: confidenceByAll.badge }),
       React.createElement(MethodologyBadge, { label: 'Why these badges?', href: methodologyUrl })
     ),
-    React.createElement(CoverageCards, { catalog, rowCounts }),
+    React.createElement(CoverageCards, { catalog, rowCounts, disclosureRows: analytics?.disclosureRows || [] }),
     React.createElement(
       'div',
       { className: 'toolbar' },

@@ -768,3 +768,8 @@ summary:focus-visible {
   margin: 6px 0;
   color: var(--muted);
 }
+
+.nonmeasured-evidence {
+  color: #754000 !important;
+  font-weight: 600;
+}

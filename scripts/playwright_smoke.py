@@ -524,7 +524,12 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
             network_panel = page.locator('.analyst-evidence-panel')
             if await network_panel.locator('tbody tr').count() < 1:
                 raise RuntimeError("Comparable highway network disclosures missing")
-            await page.get_by_label('Road class', exact=True).select_option('SH')
+            road_filter = page.get_by_label('Road class', exact=True)
+            road_options = await road_filter.locator('option').all_text_contents()
+            sh_class = next((value for value in road_options if value in {'SH', 'State Highway', 'State Highways'}), None)
+            if sh_class is None:
+                raise RuntimeError('State Highway classification is absent')
+            await road_filter.select_option(sh_class)
             if await network_panel.locator('tbody tr').count() < 1:
                 raise RuntimeError("State Highway network evidence missing")
             await page.get_by_role('button', name='Funding & outcomes', exact=False).click()
