@@ -2040,7 +2040,7 @@ const DISCLOSURE_SOURCE_IDS = [
 
 const ANALYST_THEMES = [
   { id: 'funding', title: 'Funding & outcomes', note: 'BE and RE are estimates; actual and YTD observations have separate cutoffs. Gross, net and recoveries are separate lines. Funding utilisation does not measure construction progress.' },
-  { id: 'debt', title: 'Debt & repayments', note: 'NHAI, state corporations, concession SPVs and InvIT trusts have distinct balance sheets. DSCR is shown only when disclosed by the issuer. Disclosed contractual maturity buckets are separate from carrying-value debt balances. NHAI and NHIT are different obligors; undisclosed repayment schedules are unavailable, not zero.' },
+  { id: 'debt', title: 'Debt & repayments', note: 'NHAI, state corporations, concession SPVs and InvIT trusts have distinct balance sheets. DSCR is shown only when disclosed by the issuer. State government debt and guarantees cover all sectors; guarantees are contingent exposures and are not added to debt or attributed to road corporations. Disclosed contractual maturity buckets are separate from carrying-value debt balances. NHAI and NHIT are different obligors; undisclosed repayment schedules are unavailable, not zero.' },
   { id: 'toll', title: 'Toll & traffic', note: 'NETC payments cover a national payment network; they are not NHAI-only traffic or unique vehicles. Issuer traffic in PCU, toll receipts and payment transactions are separate metrics. Acquisition, annual-pass and reporting exclusions can break comparability.' },
   { id: 'monetisation', title: 'TOT & InvIT', note: 'Concession values, realised proceeds, enterprise valuations and distributions have different meanings. Valuations are estimates. Failed or unawarded bundles are not completed sales. DPU may include interest, dividend or capital repayment.' },
   { id: 'network', title: 'NH & SH networks', note: 'Network stock, constructed length and project length are separate measures. State Highways and state expressways remain distinct from National Highways. Published all-state tables may contain older observation dates by state; ownership is not inferred from location.' },
@@ -2053,7 +2053,7 @@ function disclosureTheme(row) {
   if (/^roads_bridges_/.test(metric)) return 'state_finance';
   if (/^(nh|sh)_network_/.test(metric)) return 'network';
   if (/^budget_|^target_/.test(metric)) return 'funding';
-  if (/debt|repayment|maturity|finance_charges|dscr/.test(metric)) return 'debt';
+  if (/debt|guarantees|repayment|maturity|finance_charges|dscr/.test(metric)) return 'debt';
   if (/tot_|invit_|monetisation|enterprise_value|wacc|distribution|nav_|unit_value/.test(metric)) return 'monetisation';
   if (/traffic|toll|netc|transactions|tags_/.test(metric)) return 'toll';
   if (/project|progress|constructed|sanctioned|awarded|delay|completion|audit/.test(metric)) return 'delivery';
