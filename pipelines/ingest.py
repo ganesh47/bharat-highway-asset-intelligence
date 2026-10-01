@@ -222,12 +222,12 @@ def run_ingestion(
                     entry.pop("last_successful_retrieval_at", None)
                 if connector is None:
                     outcome = "not_mapped"
+                elif source.get("auth") in {"restricted", "captcha"}:
+                    outcome = "restricted"
                 elif entry.get("status") == "metadata_only":
                     outcome = "metadata_only"
                 elif candidate and candidate.get("status") == "manual_ingest" and evidence_status(candidate_df, source, candidate) == "unverified":
                     outcome = "manual_evidence_required"
-                elif source.get("auth") in {"restricted", "captcha"}:
-                    outcome = "restricted"
                 elif previous and not published_df.empty:
                     outcome = "retained_after_failure"
                 elif not source.get("allow_auto_fetch"):

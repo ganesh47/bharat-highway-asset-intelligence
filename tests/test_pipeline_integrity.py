@@ -72,6 +72,17 @@ class PublicationTests(unittest.TestCase):
         self.run_fixture(FixtureConnector(invalid))
         self.assertEqual(sha, sha256_for_file(output))
 
+    def test_restricted_refresh_keeps_previous_data_and_reports_access_policy(self):
+        first = self.run_fixture(FixtureConnector(self.frame))
+        output = self.processed / "fixture_source.parquet"
+        sha = sha256_for_file(output)
+        self.source["auth"] = "restricted"
+        self.inventory.write_text(yaml.safe_dump({"sources": [self.source]}))
+        failed = self.run_fixture(FixtureConnector(self.frame, "manual_ingest"))
+        self.assertEqual("restricted", failed["refresh_outcome"])
+        self.assertEqual(sha, sha256_for_file(output))
+        self.assertEqual(first["source"]["retrieved_at"], failed["source"]["retrieved_at"])
+
     def test_unchanged_observations_do_not_refresh_bytes_or_observation_dates(self):
         first = self.run_fixture(FixtureConnector(self.frame))
         sha = sha256_for_file(self.processed / "fixture_source.parquet")
