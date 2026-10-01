@@ -1,5 +1,7 @@
 import hashlib
 import json
+import os
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -63,5 +65,22 @@ class SiteBundleIntegrityTests(unittest.TestCase):
         verify = next(index for index, step in enumerate(steps) if step.get("name") == "Verify every packaged file before deployment")
         publish = next(index for index, step in enumerate(steps) if step.get("name") == "Publish built site to gh-pages branch")
         self.assertLess(verify, publish)
-        self.assertIn("needs.build.outputs.bundle_sha256", steps[verify]["run"])
-        self.assertIn("needs.build.outputs.source_sha", steps[verify]["run"])
+        self.assertEqual("${{ needs.build.outputs.bundle_sha256 }}", steps[verify]["env"]["EXPECTED_BUNDLE_SHA"])
+        self.assertEqual("${{ needs.build.outputs.source_sha }}", steps[verify]["env"]["EXPECTED_SOURCE_SHA"])
+        self.assertNotIn("${{", steps[verify]["run"])
+        for job in workflow["jobs"].values():
+            for step in job.get("steps", []):
+                if str(step.get("uses", "")).startswith("actions/checkout"):
+                    self.assertNotIn("ref", step.get("with", {}))
+
+    def test_trigger_revision_guard_rejects_mismatch_and_shell_payload(self):
+        workflow = yaml.safe_load((ROOT / ".github/workflows/github-pages.yml").read_text())
+        guard = next(step for step in workflow["jobs"]["build"]["steps"] if step.get("name") == "Require the triggering immutable research revision")
+        expected = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+        marker = self.root / "injection-marker"
+        for revision, allowed in [(expected, True), ("0" * 40, False), ('"; touch "$BHAI_TEST_MARKER"; "', False)]:
+            result = subprocess.run(["bash", "-c", guard["run"]], cwd=ROOT,
+                                    env={**os.environ, "TRIGGER_SOURCE_SHA": revision, "BHAI_TEST_MARKER": str(marker)},
+                                    capture_output=True, text=True, timeout=10)
+            self.assertEqual(result.returncode == 0, allowed)
+            self.assertFalse(marker.exists())

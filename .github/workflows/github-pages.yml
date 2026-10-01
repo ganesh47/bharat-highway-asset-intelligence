@@ -50,15 +50,18 @@ jobs:
             exit 1
           fi
 
-      - name: Checkout triggered revision
-        if: github.event_name == 'workflow_run'
+      - name: Checkout trusted workflow revision
         uses: actions/checkout@v6
-        with:
-          ref: ${{ github.event.workflow_run.head_sha }}
 
-      - name: Checkout current revision
-        if: github.event_name != 'workflow_run'
-        uses: actions/checkout@v6
+      - name: Require the triggering immutable research revision
+        env:
+          TRIGGER_SOURCE_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+          if [ -n "${TRIGGER_SOURCE_SHA}" ] && [ "$(git rev-parse HEAD)" != "${TRIGGER_SOURCE_SHA}" ]; then
+            echo "Main changed since the triggering research run. Validate its latest revision before deployment." >&2
+            exit 1
+          fi
 
       - name: Resolve validated research run
         id: research_run
@@ -197,8 +200,17 @@ jobs:
       - name: Checkout validated bundle verifier
         uses: actions/checkout@v6
         with:
-          ref: ${{ needs.build.outputs.source_sha }}
           persist-credentials: false
+
+      - name: Require the build-validated verifier revision
+        env:
+          EXPECTED_SOURCE_SHA: ${{ needs.build.outputs.source_sha }}
+        run: |
+          set -euo pipefail
+          if [ "$(git rev-parse HEAD)" != "${EXPECTED_SOURCE_SHA}" ]; then
+            echo "Bundle verifier revision differs from the validated build." >&2
+            exit 1
+          fi
 
       - name: Download packaged site artifact
         uses: actions/download-artifact@v8
@@ -207,10 +219,13 @@ jobs:
           path: /tmp/gh-pages
 
       - name: Verify every packaged file before deployment
+        env:
+          EXPECTED_BUNDLE_SHA: ${{ needs.build.outputs.bundle_sha256 }}
+          EXPECTED_SOURCE_SHA: ${{ needs.build.outputs.source_sha }}
         run: |
           python scripts/verify_site_bundle.py --root /tmp/gh-pages \
-            --expected-bundle-sha "${{ needs.build.outputs.bundle_sha256 }}" \
-            --expected-source-sha "${{ needs.build.outputs.source_sha }}"
+            --expected-bundle-sha "${EXPECTED_BUNDLE_SHA}" \
+            --expected-source-sha "${EXPECTED_SOURCE_SHA}"
 
       - name: Verify deploy secret is configured
         env:
