@@ -124,7 +124,12 @@ def _annotate(entry: dict, source: dict, df: pd.DataFrame, processed_root: Path)
         dates = [value for value in df["published_at"].dropna().astype(str) if value]
         if dates:
             entry["publication_date"] = sorted(dates)[-1]
-    entry["analytical_ready"] = entry.get("metric_category") in {"official_measured", "issuer_disclosed"} and evidence in {"validated", "verified", "validated_primary", "validated_curated"} and not semantic_errors(df, source)
+    entry["disclosure_ready"] = (not df.empty and entry.get("metric_category") in {"official_measured", "issuer_disclosed"}
+                                  and evidence in {"validated", "verified", "validated_primary", "validated_curated"}
+                                  and not semantic_errors(df, source))
+    # A verified target or valuation assumption can be read as a disclosure,
+    # while measured arithmetic requires explicitly eligible observations.
+    entry["analytical_ready"] = entry["disclosure_ready"]
     if "analytical_eligible" in df:
         entry["analytical_ready"] = entry["analytical_ready"] and bool(df["analytical_eligible"].fillna(False).any())
     if source["source_id"] in DOCUMENT_SOURCES:
@@ -274,6 +279,7 @@ def run_ingestion(
             outcomes[source_id] = {"source_id": source_id, "outcome": outcome, "last_checked_at": checked,
                                    "source_as_of_date": entry.get("source_as_of_date"), "publication_date": entry.get("publication_date"),
                                    "analytical_ready": entry["analytical_ready"], "evidence_status": entry["evidence_status"],
+                                   "disclosure_ready": entry["disclosure_ready"],
                                    "extraction_status": entry["extraction_status"],
                                    "row_count": len(published_df), "error": failure}
     write_catalog(catalog_path, list(entries.values()))
@@ -281,7 +287,8 @@ def run_ingestion(
     write_json({"generated_at": datetime.now(timezone.utc).isoformat(), "started_at": started,
                 "registered_source_count": len(source_map), "checked_source_count": len(rows),
                 "run_source_ids": targets, "outcome_counts": dict(Counter(r["outcome"] for r in rows)),
-                "analytical_ready_source_count": sum(r["analytical_ready"] for r in rows), "sources": rows}, report_path)
+                "analytical_ready_source_count": sum(r["analytical_ready"] for r in rows),
+                "disclosure_ready_source_count": sum(r.get("disclosure_ready", False) for r in rows), "sources": rows}, report_path)
     return entries
 
 
@@ -305,9 +312,12 @@ def refresh_quality_only(inventory_path: str, selected_sources: list[str] | None
         for row in report.get("sources", []):
             if row["source_id"] == source_id:
                 row["analytical_ready"] = entry["analytical_ready"]
+                row["disclosure_ready"] = entry["disclosure_ready"]
                 row["extraction_status"] = entry["extraction_status"]
     write_catalog(catalog_path, list(entries.values()))
     if report:
+        report["analytical_ready_source_count"] = sum(row.get("analytical_ready", False) for row in report.get("sources", []))
+        report["disclosure_ready_source_count"] = sum(row.get("disclosure_ready", False) for row in report.get("sources", []))
         write_json(report, report_path)
     return entries
 

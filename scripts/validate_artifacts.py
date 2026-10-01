@@ -50,7 +50,7 @@ def _validate_entry(entry: Dict, manifest_root: Path, errors: List[str], warning
     if not manifest.exists():
         errors.append(f"Missing per-source manifest: {source_id}")
 
-    required_fields = ["source_id", "status", "metric_category", "source", "citations", "manifest", "overall_confidence_badge", "output_table_path", "analytical_ready", "evidence_status", "extraction_status", "last_checked_at", "refresh_outcome"]
+    required_fields = ["source_id", "status", "metric_category", "source", "citations", "manifest", "overall_confidence_badge", "output_table_path", "analytical_ready", "disclosure_ready", "evidence_status", "extraction_status", "last_checked_at", "refresh_outcome"]
     for field in required_fields:
         if field not in entry:
             errors.append(f"Source {source_id} missing required catalog field: {field}")
@@ -77,6 +77,8 @@ def _validate_entry(entry: Dict, manifest_root: Path, errors: List[str], warning
         errors.append(f"Source {source_id} has unknown refresh outcome: {entry.get('refresh_outcome')}")
     if entry.get("analytical_ready") and entry.get("evidence_status") not in {"verified", "validated", "validated_primary", "validated_curated"}:
         errors.append(f"Source {source_id} analytical readiness has no verified evidence")
+    if entry.get("disclosure_ready") and entry.get("evidence_status") not in {"verified", "validated", "validated_primary", "validated_curated"}:
+        errors.append(f"Source {source_id} disclosure readiness has no verified evidence")
     if entry.get("metric_category") in {"proxy_derived", "model_output"} and entry.get("analytical_ready"):
         errors.append(f"Source {source_id} proxy/synthetic values cannot enter measured analyst calculations")
 

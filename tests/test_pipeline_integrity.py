@@ -111,6 +111,14 @@ class PublicationTests(unittest.TestCase):
         self.assertFalse(entry["analytical_ready"])
         self.assertIsNone(entry["source"].get("retrieved_at"))
 
+    def test_verified_ineligible_rows_remain_disclosures_without_becoming_measures(self):
+        entry = self.run_fixture(FixtureConnector(self.frame.assign(analytical_eligible=False)))
+        self.assertTrue(entry["disclosure_ready"])
+        self.assertFalse(entry["analytical_ready"])
+        report = json.loads((self.manifests / "refresh_report.json").read_text())
+        self.assertEqual(1, report["disclosure_ready_source_count"])
+        self.assertEqual(0, report["analytical_ready_source_count"])
+
     def test_unchanged_data_adopts_license_correction_without_changing_lineage(self):
         first = self.run_fixture(FixtureConnector(self.frame))
         sha = sha256_for_file(self.processed / "fixture_source.parquet")

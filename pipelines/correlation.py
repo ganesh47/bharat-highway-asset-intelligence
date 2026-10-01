@@ -155,7 +155,7 @@ def run_correlation(catalog_path: str = "data/manifests/catalog.json", output_pa
     manifest = {
         "source_id": "correlation_matrix", "connector": "correlation_scoring", "version": "0.2.0", "status": "generated",
         "output_table_path": str(output_path), "metric_category": "model_output", "evidence_status": "derived_analysis",
-        "analytical_ready": False, "extraction_status": "validated", "refresh_outcome": "model_generated", "last_checked_at": now,
+        "analytical_ready": False, "disclosure_ready": False, "extraction_status": "validated", "refresh_outcome": "model_generated", "last_checked_at": now,
         "source": {"publisher": "Bharat Highway correlation engine", "title": "Approved descriptive comparisons",
                    "retrieved_at": now, "official_flag": False, "license_terms": "Derived descriptive analysis; use input source licences."},
         "citations": {"permanent_identifier": "correlation_matrix_v2", "anchor": str(diagnostic_path),
