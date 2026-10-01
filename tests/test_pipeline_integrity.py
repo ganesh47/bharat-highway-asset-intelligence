@@ -163,6 +163,19 @@ class PublicationTests(unittest.TestCase):
         self.assertEqual(first["source"]["retrieved_at"], second["source"]["retrieved_at"])
         self.assertEqual(sha, sha256_for_file(self.processed / "fixture_source.parquet"))
 
+    def test_quality_only_attaches_verified_reference_without_replacing_extraction_citation(self):
+        first = self.run_fixture(FixtureConnector(self.frame))
+        sha = sha256_for_file(self.processed / "fixture_source.parquet")
+        self.source.update(primary_reference_url="https://sansad.in/verified.pdf", primary_reference_sha256="a" * 64,
+                           primary_reference_page="3", evidence_metadata_path="data/raw/manual/evidence/fixture.json")
+        self.inventory.write_text(yaml.safe_dump({"sources": [self.source]}))
+        result = refresh_quality_only(str(self.inventory), ["fixture_source"], self.processed, self.manifests, self.catalog)["fixture_source"]
+        self.assertEqual(first["citations"]["permanent_identifier"], result["citations"]["permanent_identifier"])
+        self.assertEqual(first["citations"]["anchor"], result["citations"]["anchor"])
+        self.assertEqual("a" * 64, result["citations"]["primary_reference"]["sha256"])
+        self.assertEqual("data/raw/manual/evidence/fixture.json", result["citations"]["primary_reference"]["evidence_metadata_path"])
+        self.assertEqual(sha, sha256_for_file(self.processed / "fixture_source.parquet"))
+
     def test_unknown_selection_is_an_error(self):
         with self.assertRaises(ValueError):
             run_ingestion(str(self.inventory), ["does_not_exist"])
@@ -346,6 +359,39 @@ class QualityTests(unittest.TestCase):
             inventory.write_text(yaml.safe_dump({"sources": [{"source_id": "fixture"}, {"source_id": "missing"}]}))
             with self.assertRaises(ValueError):
                 sync_catalog_metadata(str(inventory), str(scanned), str(catalog))
+
+
+class AnnualDocumentDiscoveryTests(unittest.TestCase):
+    def test_audited_discovery_retains_explicit_url_without_generating_years(self):
+        url = "https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf"
+        source = {"dataset_title": "NHAI audited results", "url": url, "resource_file_urls": [url],
+                  "annual_document_url_prefix": "https://nhai.gov.in/archive", "annual_filename_template": "invented-{year}.pdf",
+                  "start_year": 2018, "end_year": 2026, "financial_years": ["2026-27"]}
+        connector = NHAIAnnualDocumentsConnector()
+        with patch.object(connector, "_probe_pdf_url", side_effect=AssertionError("Invented filename probed")), \
+                patch("pipelines.connectors.nhai_annual_documents.requests.get", side_effect=AssertionError("Undeclared index fetched")):
+            result = connector._discover_audited_candidates(source, "2026-10-02")
+        self.assertEqual([url], [row["document_url"] for row in result])
+        self.assertEqual("inventory_hint", result[0]["source_hint"])
+
+    def test_audited_discovery_does_not_supply_endpoints_when_inventory_has_none(self):
+        connector = NHAIAnnualDocumentsConnector()
+        with patch.object(connector, "_discover_candidates_from_api", side_effect=AssertionError("Undeclared API fetched")), \
+                patch.object(connector, "_probe_pdf_url", side_effect=AssertionError("Invented PDF fetched")):
+            result = connector._discover_audited_candidates({"start_year": 2018, "end_year": 2026}, "2026-10-02")
+        self.assertEqual([], result)
+
+    def test_audited_index_uses_only_actual_safe_pdf_links(self):
+        connector = NHAIAnnualDocumentsConnector()
+        page = "https://nhai.gov.in/en/audited-results"
+        document = "https://nhai.gov.in/nhai/reports/Audited_Results_2023-24.pdf"
+        response = MagicMock(ok=True, url=page, text='<a href="/nhai/reports/Audited_Results_2023-24.pdf">Audited</a><a href="http://127.0.0.1/secret.pdf">Unsafe</a>')
+        with patch("pipelines.connectors.nhai_annual_documents.requests.get", return_value=response) as get, \
+                patch.object(connector, "_probe_pdf_url", return_value=True) as probe:
+            result = connector._discover_audited_candidates({"resource_page_url": page}, "2026-10-02")
+        get.assert_called_once()
+        probe.assert_called_once_with(document)
+        self.assertEqual([document], [row["document_url"] for row in result])
 
 
 class DataGovCorrectionTests(unittest.TestCase):

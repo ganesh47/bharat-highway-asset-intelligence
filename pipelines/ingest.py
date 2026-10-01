@@ -114,6 +114,15 @@ def _annotate(entry: dict, source: dict, df: pd.DataFrame, processed_root: Path)
             source_metadata[metadata_key] = source[inventory_key]
     if source.get("resource_page_url") or source.get("url"):
         source_metadata["url"] = source.get("resource_page_url") or source["url"]
+    if source.get("primary_reference_url"):
+        # A later verification document supplements the original extraction
+        # citation without changing the retained CSV/parquet lineage.
+        entry.setdefault("citations", {})["primary_reference"] = {
+            "url": source["primary_reference_url"],
+            "sha256": source.get("primary_reference_sha256"),
+            "table_page": source.get("primary_reference_page"),
+            "evidence_metadata_path": source.get("evidence_metadata_path"),
+        }
     scope = LEGACY_SCOPE_METADATA.get(source["source_id"], {}) | {key: source[key] for key in ("agency", "entity_type", "entity_id", "road_class", "scope_note", "source_as_of_date", "publisher_type", "evidence_class", "estimate_type", "statement_basis", "period_basis", "analytical_eligible", "observation_date_unknown") if key in source}
     entry["analytical_scope"] = scope or {"road_class": "unspecified", "scope_note": "Use source-specific row definitions; no cross-source identity inferred."}
     evidence = evidence_status(df, source, entry)
