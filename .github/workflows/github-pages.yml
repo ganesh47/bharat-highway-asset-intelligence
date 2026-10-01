@@ -178,6 +178,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: gh-pages-site
+          include-hidden-files: true
           if-no-files-found: error
           path: /tmp/gh-pages
 
@@ -193,11 +194,23 @@ jobs:
     environment:
       name: production
     steps:
+      - name: Checkout validated bundle verifier
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.build.outputs.source_sha }}
+          persist-credentials: false
+
       - name: Download packaged site artifact
         uses: actions/download-artifact@v8
         with:
           name: gh-pages-site
           path: /tmp/gh-pages
+
+      - name: Verify every packaged file before deployment
+        run: |
+          python scripts/verify_site_bundle.py --root /tmp/gh-pages \
+            --expected-bundle-sha "${{ needs.build.outputs.bundle_sha256 }}" \
+            --expected-source-sha "${{ needs.build.outputs.source_sha }}"
 
       - name: Verify deploy secret is configured
         env:
