@@ -15,6 +15,7 @@ from .stub_connectors import (
     NightlightsProxyConnector,
 )
 from .model_panels import HighwayProjectRiskPanelConnector
+from .primary_disclosures import PrimaryDisclosuresConnector
 
 CONNECTORS = [
     DataGovInConnector(),
@@ -31,6 +32,7 @@ CONNECTORS = [
     ParliamentQAConnector(),
     NightlightsProxyConnector(),
     HighwayProjectRiskPanelConnector(),
+    PrimaryDisclosuresConnector(),
 ]
 
 __all__ = ["Connector", "CONNECTORS"]

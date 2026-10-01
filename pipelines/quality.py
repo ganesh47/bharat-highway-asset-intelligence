@@ -139,6 +139,48 @@ def semantic_errors(df: pd.DataFrame, source: Dict[str, Any]) -> list[str]:
             errors.append("Construction series must remain NHAI-only")
         if "period" not in df or df["period"].duplicated().any():
             errors.append("Construction series requires unique periods")
+    sid = source.get("source_id")
+    if sid in {"data_gov_in_nh_fatalities_injuries_state_year", "data_gov_in_nhai_stateut_project_delay_status_2024", "data_gov_in_gsdp_stateut_current_prices_2017_23", "parliament_qa_nh_blackspots_state"}:
+        state_col = next((col for col in ("states/ut", "state/ut", "state_ut", "state", "states_ut") if col in df), None)
+        if state_col is None:
+            errors.append("Missing State/UT identity column")
+        else:
+            core = df.loc[~df[state_col].astype(str).str.strip().str.lower().isin({"total", "india", "all india"})]
+            minimum = 35 if sid == "data_gov_in_nh_fatalities_injuries_state_year" else 30
+            if core[state_col].nunique() < minimum:
+                errors.append(f"Insufficient State/UT coverage: expected at least {minimum}")
+            if core[state_col].duplicated().any():
+                errors.append("Duplicate State/UT observations")
+            if sid == "data_gov_in_nh_fatalities_injuries_state_year":
+                for metric in ("fatalities", "injuries"):
+                    for year in (2020, 2021, 2022):
+                        column = next((col for col in core if metric[:-3] in col.lower() and str(year) in col), None)
+                        if column is None:
+                            errors.append(f"Missing {metric} {year} observations")
+                            continue
+                        values = pd.to_numeric(core[column], errors="coerce")
+                        missing_states = set(core.loc[values.isna(), state_col].astype(str))
+                        allowed_missing = {"Ladakh"} if year == 2020 else set()
+                        if missing_states - allowed_missing:
+                            errors.append(f"Missing/non-numeric {metric} {year} for {sorted(missing_states - allowed_missing)}")
+            if sid == "data_gov_in_nhai_stateut_project_delay_status_2024":
+                for col in ("number_of_projects", "number_of_delayed_projects"):
+                    if col not in core or pd.to_numeric(core[col], errors="coerce").isna().any():
+                        errors.append(f"Missing/non-numeric {col}")
+                if {"number_of_projects", "number_of_delayed_projects"} <= set(core) and (pd.to_numeric(core["number_of_delayed_projects"], errors="coerce") > pd.to_numeric(core["number_of_projects"], errors="coerce")).any():
+                    errors.append("Delayed projects exceed reported total projects")
+            if sid == "parliament_qa_nh_blackspots_state":
+                for col in ("nh_blackspots", "nh_blackspot_accidents", "nh_blackspot_fatalities", "rectified_blackspots"):
+                    if col not in core or pd.to_numeric(core[col], errors="coerce").isna().any():
+                        errors.append(f"Missing/non-numeric {col}")
+                if {"nh_blackspots", "rectified_blackspots"} <= set(core) and (pd.to_numeric(core["rectified_blackspots"], errors="coerce") > pd.to_numeric(core["nh_blackspots"], errors="coerce")).any():
+                    errors.append("Rectified blackspots exceed reported blackspots")
+            if sid == "data_gov_in_gsdp_stateut_current_prices_2017_23":
+                columns = [col for col in core if "gross_state_domestic_product" in col and "current_prices" in col]
+                if len(columns) < 6:
+                    errors.append("Missing GSDP year coverage")
+                elif core[columns].apply(lambda values: pd.to_numeric(values.astype(str).str.replace(",", "", regex=False), errors="coerce")).isna().all(axis=1).any():
+                    errors.append("GSDP State/UT row has no numerical observation")
     if {"metric_name", "metric_value", "unit"} <= set(df.columns):
         values = pd.to_numeric(df["metric_value"], errors="coerce")
         if values.isna().any():

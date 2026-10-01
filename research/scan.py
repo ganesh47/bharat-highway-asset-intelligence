@@ -103,6 +103,7 @@ def _http_probe(url: str, allowed_hosts: set[str], timeout: int = 20) -> Dict[st
         status["error"] = "unsafe_url"
         return status
 
+    resp = None
     try:
         resp = requests.get(safe_url, headers=DEFAULT_HEADERS, timeout=timeout, allow_redirects=True, stream=True)
         if not sanitize_public_http_url(resp.url or safe_url, allowed_hosts=allowed_hosts):
@@ -113,9 +114,11 @@ def _http_probe(url: str, allowed_hosts: set[str], timeout: int = 20) -> Dict[st
         status["etag"] = resp.headers.get("ETag")
         status["last_modified"] = resp.headers.get("Last-Modified")
         status["status_ok"] = 200 <= resp.status_code < 400
-        resp.close()
     except requests.RequestException as exc:
         status["error"] = str(exc)
+    finally:
+        if resp is not None:
+            resp.close()
     return status
 
 
@@ -190,7 +193,8 @@ def _scan_item(item: Dict[str, Any]) -> Dict[str, Any]:
                 if probe.get("status_ok") and successful_probe is None:
                     successful_probe = probe | {"scanned_url": safe_candidate}
                 continue
-
+            result["scan_error"] = reason
+            result["endpoint_checks"].append({"url": safe_candidate, "status_ok": False, "http_status": None, "error": reason, "request_attempted": False})
             continue
 
         probe = _http_probe(safe_candidate, allowed_hosts)
@@ -216,6 +220,8 @@ def _scan_item(item: Dict[str, Any]) -> Dict[str, Any]:
         return result
     if last_probe:
         result.update(last_probe)
+    if result.get("scan_error") == "disallowed_by_robots":
+        result["scan_status"] = "restricted_by_robots"
 
     result["scan_error"] = result.get("scan_error") or "candidate_probe_failed"
     return result

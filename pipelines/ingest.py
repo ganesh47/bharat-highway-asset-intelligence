@@ -191,7 +191,8 @@ def run_ingestion(
                 entry = _rewrite_paths(entry, staged_processed, processed_root)
                 entry["output_table_path"] = str(output)
                 if not output.exists():
-                    write_parquet(pd.DataFrame(columns=["source_id", "source_type", "metric_category"]), output)
+                    empty = candidate_df.iloc[0:0] if len(candidate_df.columns) else pd.DataFrame(columns=["source_id", "source_type", "metric_category"])
+                    write_parquet(empty, output)
                 published_df = _read_frame(output)
                 if not previous:
                     entry = _base_manifest(source, output) | {k: v for k, v in entry.items() if k not in {"manifest", "output_table_path"}}

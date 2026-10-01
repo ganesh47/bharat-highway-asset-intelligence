@@ -103,6 +103,12 @@ class PublicationTests(unittest.TestCase):
         self.assertEqual(["fixture_source"], [r["source_id"] for r in report["sources"]])
         self.assertTrue(Path(entry["output_table_path"]).exists())
 
+    def test_empty_financial_gap_preserves_contract_schema(self):
+        frame = pd.DataFrame({"entity_id": pd.Series(dtype="string"), "value": pd.Series(dtype="float64"), "analytical_eligible": pd.Series(dtype="bool")})
+        entry = self.run_fixture(FixtureConnector(frame, "manual_gap"))
+        self.assertEqual(list(frame.columns), list(pd.read_parquet(entry["output_table_path"]).columns))
+        self.assertFalse(entry["analytical_ready"])
+
     def test_unknown_selection_is_an_error(self):
         with self.assertRaises(ValueError):
             run_ingestion(str(self.inventory), ["does_not_exist"])
@@ -174,6 +180,19 @@ class QualityTests(unittest.TestCase):
             self.assertEqual("model_generated", _scan_item({"source_id": "model", "retrieval_method": "model_generation"})["scan_status"])
             self.assertEqual("restricted", _scan_item({"source_id": "restricted", "auth": "restricted"})["scan_status"])
             self.assertEqual("manual_evidence_required", _scan_item({"source_id": "manual", "allow_auto_fetch": False})["scan_status"])
+
+    def test_unsafe_candidate_is_recorded_without_unbound_reason(self):
+        source = {"source_id": "fixture", "allow_auto_fetch": True, "url": "https://example.gov.in/resource", "resource_file_urls": ["http://127.0.0.1/private"]}
+        with patch("research.scan._robots_allowed", return_value={"allowed": True}), patch("research.scan._http_probe", return_value={"status_ok": True, "http_status": 200}):
+            self.assertEqual("available", _scan_item(source)["scan_status"])
+
+    def test_explicit_robots_disallow_never_probes_endpoint(self):
+        source = {"source_id": "fixture", "allow_auto_fetch": True, "url": "https://example.gov.in/resource"}
+        with patch("research.scan._robots_allowed", return_value={"allowed": False, "reason": "disallowed_by_robots"}), patch("research.scan._http_probe", side_effect=AssertionError("Disallowed endpoint fetched")):
+            result = _scan_item(source)
+        self.assertEqual("restricted_by_robots", result["scan_status"])
+        self.assertEqual("disallowed_by_robots", result["scan_error"])
+        self.assertFalse(result["endpoint_checks"][0]["request_attempted"])
 
     def test_gap_report_does_not_let_last_source_override_theme(self):
         sources = [{"source_id": "available", "theme": "finance", "allow_auto_fetch": True}, {"source_id": "blocked", "theme": "finance", "allow_auto_fetch": False}]
