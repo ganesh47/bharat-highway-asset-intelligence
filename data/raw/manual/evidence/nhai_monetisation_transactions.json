@@ -7,7 +7,8 @@
       "url": "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2247011&lang=2&reg=48",
       "relative_path": "primary_disclosures/nhai_monetisation_transactions/document.html",
       "sha256": "c2ff31f3a1530bee63a9fd061d31366ad69abfce3869ba5ecbe62e041049a683",
-      "size_bytes": 90217
+      "size_bytes": 90217,
+      "semantic_document_sha256": "1c0d94d382ddc7a0dfb13a87259a0e55fa95836388b2a84cbefa74cbfaf20bf9"
     }
   ],
   "csv_sha256": "c131c905a2a68e860cd8b10451f1e75f5556208fe7572c9165312003aab77917",

@@ -75,6 +75,14 @@ under`quarantine/<sha256>.pdf`, flagged for extraction, and the pipeline retains
 the previous validated artifact. HTTP errors do not become successful extraction.
 Manual/restricted sources receive no guessed endpoint or silent numeric fallback.
 
+For the known PIB monetisation HTML page only, dynamic script/viewstate wrappers
+change raw bytes while visible disclosure text stays identical. Its evidence stores
+a durable SHA256 of all normalized visible text. A refresh re-extracts that text:
+an exact semantic digest match archives the new raw wrapper and records both
+checksums while preserving the CSV's pinned raw checksum and observation date.
+A change in visible text still requires a new governed extract. This rule works
+even when CI has only the committed evidence JSON and no restored raw HTML cache.
+
 Rebuild after downloading/restoring the pinned source documents:
 
 ```sh

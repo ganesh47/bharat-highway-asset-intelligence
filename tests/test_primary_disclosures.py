@@ -109,6 +109,46 @@ class PrimaryDisclosureTests(unittest.TestCase):
         self.assertTrue(result.skipped)
         self.assertIn("checksum", result.skip_reason.lower())
 
+    def test_pib_dynamic_wrapper_revalidation_without_pinned_pdf_cache(self):
+        sid="nhai_monetisation_transactions"
+        document=self.root/"primary_disclosures"/sid/"document.html"
+        document.parent.mkdir(parents=True)
+        document.write_text("<p>Realised28307crore</p><script>nonce1</script>")
+        builder=SnapshotBuilder(self.root);builder.pin(sid)
+        builder.fact(sid,"monetisation_realised_inr_crore",28307,"INR crore","PIB body",start="2025-04-01",end="2026-03-30",asof="2026-03-30")
+        builder.finish()
+        original_csv=(self.root/"manual"/f"{sid}.csv").read_bytes()
+        document.unlink()  # Fresh CI checkout: durable semantic evidence remains.
+        def download(url,path):
+            path.parent.mkdir(parents=True,exist_ok=True)
+            path.write_text("<p>Realised28307crore</p><script>nonce2</script>")
+            return path
+        with patch("pipelines.connectors.primary_disclosures.download_document",side_effect=download),patch.dict(os.environ,{"BHAI_PRIMARY_REMOTE_CHECK":"1"}):
+            result=PrimaryDisclosuresConnector().run({"source_id":sid,"allow_auto_fetch":True},self.root,self.root/"processed",self.root/"manifest")
+        self.assertFalse(result.skipped)
+        self.assertEqual(result.manifest["refresh_outcome"],"checked_unchanged")
+        self.assertTrue(result.manifest["semantic_rechecks"])
+        self.assertEqual((self.root/"manual"/f"{sid}.csv").read_bytes(),original_csv)
+        self.assertTrue(list(document.parent.glob("wrapper_archive/*.html")))
+
+    def test_pib_changed_visible_fact_requires_new_extract(self):
+        sid="nhai_monetisation_transactions"
+        document=self.root/"primary_disclosures"/sid/"document.html"
+        document.parent.mkdir(parents=True)
+        document.write_text("<p>Realised28307crore</p>")
+        builder=SnapshotBuilder(self.root);builder.pin(sid)
+        builder.fact(sid,"monetisation_realised_inr_crore",28307,"INR crore","PIB body",start="2025-04-01",end="2026-03-30",asof="2026-03-30")
+        builder.finish()
+        def download(url,path):
+            path.write_text("<p>Realised30000crore</p>")
+            return path
+        with patch("pipelines.connectors.primary_disclosures.download_document",side_effect=download),patch.dict(os.environ,{"BHAI_PRIMARY_REMOTE_CHECK":"1"}):
+            result=PrimaryDisclosuresConnector().run({"source_id":sid,"allow_auto_fetch":True},self.root,self.root/"processed",self.root/"manifest")
+        self.assertTrue(result.skipped)
+        self.assertEqual(result.skip_reason,"changed_document_requires_extraction")
+        self.assertEqual(document.read_text(),"<p>Realised28307crore</p>")
+        self.assertTrue(list(document.parent.glob("quarantine/*.html")))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -61,6 +61,7 @@ DOCUMENTS = {
 }
 SOURCE_IDS = tuple(DOCUMENTS)
 HTML_SOURCES = {"nhai_monetisation_transactions", "npci_netc_monthly_statistics", "upeida_expressway_projects", "msrdc_financial_disclosures", "adb_state_road_projects"}
+HTML_RECHECK_SOURCES = {"nhai_monetisation_transactions"}
 RESEARCH_CUTOFF = "2026-10-02"
 
 
@@ -113,6 +114,7 @@ def validate_facts(df: pd.DataFrame, source_id: str, evidence: dict[str, Any]) -
     df = df.copy()
     document_hashes = {item["sha256"] for item in evidence.get("documents", []) if re.fullmatch(r"[0-9a-f]{64}", item.get("sha256", ""))}
     urls = {item["url"] for item in evidence.get("documents", [])}
+    document_pairs = {(item["sha256"],item["url"]) for item in evidence.get("documents", [])}
     if not document_hashes:
         raise ValueError("No source document checksum")
     if not df["source_id"].eq(source_id).all():
@@ -126,6 +128,8 @@ def validate_facts(df: pd.DataFrame, source_id: str, evidence: dict[str, Any]) -
             raise ValueError("Non-finite numerical fact")
     if not df["source_document_sha256"].isin(document_hashes).all() or not df["citation_url"].isin(urls).all():
         raise ValueError("Fact/document lineage mismatch")
+    if any((row.source_document_sha256,row.citation_url) not in document_pairs for row in df.itertuples()):
+        raise ValueError("Fact source URL/checksum pair mismatch")
     for column in ["data_as_of", "published_at"]:
         values = df[column].fillna("").astype(str)
         for value in values[values.ne("")]:
@@ -170,6 +174,7 @@ class PrimaryDisclosuresConnector:
         reason = "validated_extract_missing"
         raw_files = []
         checked_retrieval_at = None
+        semantic_rechecks = []
         if evidence_path.exists():
             evidence = json.loads(evidence_path.read_text())
             raw_files.append(evidence_path)
@@ -193,18 +198,36 @@ class PrimaryDisclosuresConnector:
                         candidate = pinned.with_name("candidate" + pinned.suffix)
                         check_path = pinned.parent / "remote_check.json"
                         previous = json.loads(check_path.read_text()) if check_path.exists() else {}
-                        if previous.get("checked_date") == now[:10] and previous.get("sha256") == document["sha256"]:
+                        if previous.get("checked_date") == now[:10] and previous.get("outcome") == "checked_unchanged" and previous.get("pinned_sha256",previous.get("sha256")) == document["sha256"]:
+                            checked_retrieval_at=previous.get("checked_at")
                             continue
                         try:
                             download_document(document["url"], candidate)
                             checked_retrieval_at = now
                             current_hash = sha256_for_file(candidate)
-                            write_json({"checked_date": now[:10], "sha256": current_hash, "url": document["url"]}, check_path)
+                            check={"checked_date":now[:10],"checked_at":now,"sha256":current_hash,"pinned_sha256":document["sha256"],"url":document["url"],"outcome":"checked_unchanged" if current_hash==document["sha256"] else "changed_document_requires_extraction"}
                             if current_hash != document["sha256"]:
+                                # Known PIB HTML adds dynamic script/viewstate
+                                # wrappers. Re-extract all visible source text and
+                                # compare its durable digest; never rebind CSVs.
+                                if source_id in HTML_RECHECK_SOURCES and candidate.suffix==".html":
+                                    semantic_hash=hashlib.sha256(html_text(candidate.read_text()).encode()).hexdigest()
+                                    check["semantic_document_sha256"]=semantic_hash
+                                    if semantic_hash==document.get("semantic_document_sha256"):
+                                        archive=pinned.parent/"wrapper_archive"/(current_hash+pinned.suffix)
+                                        archive.parent.mkdir(parents=True,exist_ok=True)
+                                        candidate.replace(archive)
+                                        check.update(outcome="checked_unchanged",archive_path=str(archive))
+                                        semantic_rechecks.append(check)
+                                        raw_files.append(archive)
+                                        write_json(check,check_path)
+                                        continue
                                 quarantine=pinned.parent/"quarantine"/(current_hash+pinned.suffix)
                                 quarantine.parent.mkdir(parents=True,exist_ok=True)
                                 candidate.replace(quarantine)
+                                write_json(check,check_path)
                                 raise ValueError("changed_document_requires_extraction")
+                            write_json(check,check_path)
                         except (OSError, urllib.error.URLError) as exc:
                             raise ValueError(f"failed_retrieval: {type(exc).__name__}") from exc
                         finally:
@@ -234,6 +257,7 @@ class PrimaryDisclosuresConnector:
             "citations": {"permanent_identifier": source_id, "anchor": "row.citation_url + row.table_page + row.source_document_sha256", "note": evidence.get("notes", reason)},
             "manifest": {"raw_files": [{"path": str(path), "sha256": sha256_for_file(path), "size_bytes": path.stat().st_size} for path in raw_files], "source_documents": evidence.get("documents", []), "output_files": [{"path": str(output), "format": "parquet", "sha256": sha256_for_file(output)}], "row_count": len(rows), "columns": list(rows.columns)},
             "retrieved_at": evidence.get("retrieved_at"),
+            "semantic_rechecks": semantic_rechecks,
         }
         if ready:
             manifest.update(evaluate(rows, source | manifest["source"]))
@@ -283,6 +307,8 @@ class SnapshotBuilder:
     def pin(self, sid: str, path: Path | None = None, url: str | None = None) -> None:
         path = path or document_path(self.raw_root, sid)
         self.documents[sid].append({"url": url or DOCUMENTS[sid], "relative_path": str(path.relative_to(self.raw_root)), "sha256": sha256_for_file(path), "size_bytes": path.stat().st_size})
+        if sid in HTML_RECHECK_SOURCES and path.suffix==".html":
+            self.documents[sid][-1]["semantic_document_sha256"]=hashlib.sha256(html_text(path.read_text()).encode()).hexdigest()
 
     def fact(self, sid: str, metric: str, value: float, unit: str, page: str | int, *, entity_id: str = "", entity_name: str = "", entity_type: str = "agency", agency: str = "MoRTH", state: str = "All India", road_class: str = "National Highway", start: str = "", end: str = "", basis: str = "fiscal_year", estimate: str = "actual", statement: str = "agency", asof: str = "", published: str = "", evidence: str = "official_measured", eligible: bool = True, original_unit: str | None = None, notes: str = "", document_index: int = 0, **extra: Any) -> None:
         original_unit = original_unit or unit
