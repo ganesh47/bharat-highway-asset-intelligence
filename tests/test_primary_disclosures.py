@@ -1,0 +1,114 @@
+import json
+import os
+import tempfile
+import unittest
+from pathlib import Path
+from unittest.mock import patch
+
+import pandas as pd
+
+from pipelines.common import sha256_for_file
+from pipelines.connectors.primary_disclosures import (
+    DOCUMENTS, FACT_COLUMNS, SOURCE_IDS, PrimaryDisclosuresConnector,
+    SnapshotBuilder, validate_facts,
+)
+
+
+class PrimaryDisclosureTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.root = Path(self.temp.name)
+        self.sid = "union_budget_morth_demand86"
+        self.builder = SnapshotBuilder(self.root)
+        document = self.root / "primary_disclosures/test/document.pdf"
+        document.parent.mkdir(parents=True)
+        document.write_bytes(b"%PDF-fixture")
+        self.builder.documents[self.sid] = [{"sha256": "a" * 64, "url": DOCUMENTS[self.sid], "relative_path": "primary_disclosures/test/document.pdf"}]
+
+    def tearDown(self):
+        self.temp.cleanup()
+
+    def fact(self, **changes):
+        self.builder.fact(self.sid, "budget_net_inr_crore", 100, "INR crore", "PDF p1", start="2025-04-01", end="2026-03-31", asof="2026-02-01", **changes)
+        return pd.DataFrame(self.builder.rows[self.sid])
+
+    def evidence(self):
+        return {"documents": self.builder.documents[self.sid]}
+
+    def test_lakh_and_million_preserve_original_and_convert(self):
+        for original_unit, expected in [("INR lakh", 1), ("INR million", 10)]:
+            self.builder.rows[self.sid] = []
+            result = validate_facts(self.fact(original_unit=original_unit), self.sid, self.evidence())
+            self.assertEqual(result.iloc[0]["value"], expected)
+            self.assertEqual(result.iloc[0]["original_value"], 100)
+            self.assertEqual(result.iloc[0]["original_unit"], original_unit)
+
+    def test_bad_currency_conversion_and_compatibility_alias_rejected(self):
+        df = self.fact(original_unit="INR lakh")
+        df.loc[0, ["value", "metric_value"]] = 100
+        with self.assertRaisesRegex(ValueError, "conversion"):
+            validate_facts(df, self.sid, self.evidence())
+        df = self.fact()
+        df.loc[0, "metric_value"] = 123
+        with self.assertRaisesRegex(ValueError, "alias"):
+            validate_facts(df, self.sid, self.evidence())
+
+    def test_scoped_duplicates_rejected_be_re_distinct(self):
+        self.fact(estimate="BE")
+        df = self.fact(estimate="RE")
+        self.assertEqual(len(validate_facts(df, self.sid, self.evidence())), 2)
+        with self.assertRaisesRegex(ValueError, "Duplicate"):
+            validate_facts(pd.concat([df, df.iloc[:1]], ignore_index=True), self.sid, self.evidence())
+
+    def test_targets_and_valuation_cannot_enter_measured_analytics(self):
+        for evidence in ["target", "valuation_estimate"]:
+            self.builder.rows[self.sid] = []
+            df = self.fact(evidence=evidence)
+            self.assertFalse(df.iloc[0]["analytical_eligible"])
+            df.loc[0, "analytical_eligible"] = True
+            with self.assertRaisesRegex(ValueError, "Targets and valuation"):
+                validate_facts(df, self.sid, self.evidence())
+
+    def test_missing_lineage_and_numerics_rejected(self):
+        for column, invalid in [("value", "bad"), ("entity_id", ""), ("source_document_sha256", "f" * 64), ("citation_url", "https://example.com/unrelated")]:
+            self.builder.rows[self.sid] = []
+            df = self.fact()
+            df[column] = df[column].astype(object)
+            df.loc[0, column] = invalid
+            with self.assertRaises(ValueError):
+                validate_facts(df, self.sid, self.evidence())
+        with self.assertRaisesRegex(ValueError, "Missing fact columns"):
+            validate_facts(self.fact().drop(columns="unit"), self.sid, self.evidence())
+
+    def test_durable_snapshots_have_pinned_hashes_and_contracts(self):
+        raw = Path(__file__).resolve().parents[1] / "data/raw"
+        for sid in SOURCE_IDS:
+            with self.subTest(source_id=sid):
+                path = raw / "manual" / f"{sid}.csv"
+                evidence = json.loads((raw / "manual/evidence" / f"{sid}.json").read_text())
+                self.assertEqual(sha256_for_file(path), evidence["csv_sha256"])
+                df = pd.read_csv(path, keep_default_na=False)
+                self.assertEqual(set(df.columns), set(FACT_COLUMNS))
+                if evidence["row_count"]:
+                    validate_facts(df, sid, evidence)
+                else:
+                    self.assertEqual(evidence["extraction_status"], "evidence_gap")
+                    self.assertTrue(evidence["gap_reason"])
+        budget = pd.read_csv(raw / "manual/union_budget_morth_demand86.csv")
+        self.assertEqual(set(budget.estimate_type), {"actual", "BE", "RE"})
+        fy27 = budget[budget.period_end.eq("2027-03-31")].set_index("metric")
+        self.assertAlmostEqual(fy27.loc["budget_gross_inr_crore", "value"] + fy27.loc["budget_recoveries_inr_crore", "value"], fy27.loc["budget_net_inr_crore", "value"])
+
+    def test_csv_hash_change_quarantines(self):
+        source = {"source_id": self.sid, "allow_auto_fetch": False}
+        self.fact()
+        self.builder.finish()
+        path = self.root / "manual" / f"{self.sid}.csv"
+        path.write_text(path.read_text() + "\n")
+        result = PrimaryDisclosuresConnector().run(source, self.root, self.root / "processed", self.root / "manifest")
+        self.assertTrue(result.skipped)
+        self.assertIn("checksum", result.skip_reason.lower())
+
+
+if __name__ == "__main__":
+    unittest.main()

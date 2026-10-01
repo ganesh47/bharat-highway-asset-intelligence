@@ -1,0 +1,19 @@
+{
+  "source_id": "nhidcl_monthly_project_progress",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-01T19:28:49.064739+00:00",
+  "documents": [
+    {
+      "url": "https://www.nhidcl.com/sites/default/files/2026-09/nhidcl-completed_and_ongoing_projects_status_per_pmp_data_lake_portal_31-08-2026.pdf",
+      "relative_path": "primary_disclosures/nhidcl_monthly_project_progress/document.pdf",
+      "sha256": "8d651f90b0d4a1410cabf2e74b8fa4338936fc6b8e468541590c44ad3d2038f3",
+      "size_bytes": 687834
+    }
+  ],
+  "csv_sha256": "15f5983004ce9b28fecccdea8b1ce46e399baafbbadc40b50a6c09a7ff7a274c",
+  "extraction_status": "validated",
+  "row_count": 2384,
+  "notes": "410 detail projects; do not sum to page1 summary: summary has a narrower stage/agency classification. Emails excluded.",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"
+}

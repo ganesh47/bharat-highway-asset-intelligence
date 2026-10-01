@@ -1,0 +1,12 @@
+{
+  "source_id": "msrdc_financial_disclosures",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": null,
+  "documents": [],
+  "csv_sha256": "5ccdb1c9a95634063e5199948f333b8309b25565884af5caf41bc7a5d867aabc",
+  "extraction_status": "evidence_gap",
+  "row_count": 0,
+  "notes": "Public index/subsidiary FY23-24 filings identified; primary download timed out. Parent standalone latest visible FY18-19, not FY23-24. No statement facts without retrieved PDF.",
+  "gap_reason": "Public index/subsidiary FY23-24 filings identified; primary download timed out. Parent standalone latest visible FY18-19, not FY23-24. No statement facts without retrieved PDF.",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"
+}

@@ -1,0 +1,19 @@
+{
+  "source_id": "nhit_annual_report",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-01T19:28:59.062600+00:00",
+  "documents": [
+    {
+      "url": "https://nhit.co.in/pdf/annual-report/NHIT_Annual%20Report%20FY%202025-26.pdf",
+      "relative_path": "primary_disclosures/nhit_annual_report/document.pdf",
+      "sha256": "e3f4ef047898465a34c8fa72fca6dcfea44596ec5e7fe2210118e343be465997",
+      "size_bytes": 63634629
+    }
+  ],
+  "csv_sha256": "e407703c027f8e3fb89eb564a218ba9fb2ab42ed06660e49c4dce2405ced39ee",
+  "extraction_status": "validated",
+  "row_count": 70,
+  "notes": "Audited consolidated balance sheet/P&L and financial-risk debt maturity note extracted and unit-checked. Issuer SPV operating overview is separately labelled approximate; publication day not asserted.",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"
+}
