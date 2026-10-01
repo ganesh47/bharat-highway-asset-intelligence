@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -16,10 +16,22 @@ class SourceInventory:
     last_updated: str | None = None
 
 
+def _normalize_yaml_values(value):
+    # YAML treats unquoted ISO dates as Python date objects. All published
+    # metadata uses JSON-safe ISO strings, including nested source contracts.
+    if isinstance(value, (date, datetime)):
+        return value.isoformat()
+    if isinstance(value, dict):
+        return {_normalize_yaml_values(key): _normalize_yaml_values(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_normalize_yaml_values(item) for item in value]
+    return value
+
+
 def load_inventory(path: str | Path = "research/source_inventory.yaml") -> SourceInventory:
     path = Path(path)
     with path.open("r", encoding="utf-8") as fh:
-        payload = yaml.safe_load(fh) or {}
+        payload = _normalize_yaml_values(yaml.safe_load(fh) or {})
 
     version = int(payload.get("version", 1))
     last_updated = payload.get("last_updated")

@@ -149,6 +149,24 @@ class PublicationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             load_inventory(self.inventory)
 
+    def test_unquoted_yaml_dates_are_normalized_recursively(self):
+        self.inventory.write_text("last_updated: 2026-10-02\nsources:\n  - source_id: fixture_source\n    source_as_of_date: 2025-01-31\n    nested:\n      dates: [2024-03-31, 2025-03-31]\n")
+        inventory = load_inventory(self.inventory)
+        self.assertEqual("2026-10-02", inventory.last_updated)
+        self.assertEqual("2025-01-31", inventory.sources[0]["source_as_of_date"])
+        self.assertEqual(["2024-03-31", "2025-03-31"], inventory.sources[0]["nested"]["dates"])
+        json.dumps(inventory.sources)
+
+    def test_failed_json_serialization_preserves_previous_file_without_orphan(self):
+        output = self.root / "published.json"
+        write_json({"valid": True}, output)
+        before = output.read_bytes()
+        files_before = set(self.root.iterdir())
+        with self.assertRaises(TypeError):
+            write_json({"invalid": object()}, output)
+        self.assertEqual(before, output.read_bytes())
+        self.assertEqual(files_before, set(self.root.iterdir()))
+
 
 class QualityTests(unittest.TestCase):
     def test_fresh_download_does_not_make_historical_or_negative_values_high(self):

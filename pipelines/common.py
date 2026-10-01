@@ -37,13 +37,15 @@ def write_parquet(df: pd.DataFrame, path: Path) -> None:
 
 def write_json(payload: Dict[str, Any], path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.NamedTemporaryFile(dir=path.parent, suffix=".json", mode="w", encoding="utf-8", delete=False) as fh:
-        temporary = Path(fh.name)
-        json.dump(payload, fh, ensure_ascii=False, indent=2, allow_nan=False)
+    temporary = None
     try:
+        with tempfile.NamedTemporaryFile(dir=path.parent, suffix=".json", mode="w", encoding="utf-8", delete=False) as fh:
+            temporary = Path(fh.name)
+            json.dump(payload, fh, ensure_ascii=False, indent=2, allow_nan=False)
         os.replace(temporary, path)
     finally:
-        temporary.unlink(missing_ok=True)
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
 
 
 def dataframe_checksum(df: pd.DataFrame) -> str:
