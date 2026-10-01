@@ -64,7 +64,12 @@ def observation_date(df: pd.DataFrame, item: Dict[str, Any]) -> str | None:
         # An explicit unknown must also clear a previously inferred catalog
         # date; neither the legacy year nor an inherited manifest can fill it.
         return dates.max().date().isoformat() if not dates.empty else None
+    if item.get("observation_date_unknown") is True:
+        return None
+    non_measured_class = item.get("evidence_class") in {"target", "forecast", "valuation_estimate"}
     for key in ("source_as_of_date", "data_as_of", "as_of_date", "observation_date", "period_end"):
+        if key == "period_end" and non_measured_class:
+            continue
         value = item.get(key)
         if value:
             parsed = pd.to_datetime(value, utc=True, errors="coerce")
@@ -74,6 +79,8 @@ def observation_date(df: pd.DataFrame, item: Dict[str, Any]) -> str | None:
             dates = pd.to_datetime(df[key], utc=True, errors="coerce").dropna()
             if not dates.empty:
                 return dates.max().date().isoformat()
+    if non_measured_class:
+        return None  # A planned period is not an observed cutoff.
     years = []
     # Use observed periods only; claimed inventory coverage is not observation evidence.
     for col in ("period", "financial_year", "reporting_period", "year_wise", "year", "report_year"):
@@ -470,6 +477,8 @@ def evaluate(df, item: Dict[str, Any]) -> Dict[str, Any]:
         reasons.append("Document discovery is not validated financial extraction")
     if item.get("extraction_status") == "extracted_with_retained_documents":
         reasons.append("Some PDFs failed this refresh; prior extracted rows were retained with document lineage")
+    if item.get("analytical_eligible") is False or item.get("evidence_class") in {"target", "forecast", "valuation_estimate"}:
+        reasons.append("Planned/estimated disclosure is readable evidence and excluded from measured calculations")
 
     output = {
         "completeness_score": c,

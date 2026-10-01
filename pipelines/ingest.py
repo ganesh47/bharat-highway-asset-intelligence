@@ -107,12 +107,14 @@ def _annotate(entry: dict, source: dict, df: pd.DataFrame, processed_root: Path)
     source_metadata = entry.setdefault("source", {})
     for inventory_key, metadata_key in (("publisher_org", "publisher"), ("dataset_title", "title"),
                                        ("official_flag", "official_flag"), ("license_terms", "license_terms"),
-                                       ("publisher_type", "publisher_type"), ("domain", "domain")):
+                                       ("publisher_type", "publisher_type"), ("domain", "domain"),
+                                       ("evidence_class", "evidence_class"), ("analytical_eligible", "analytical_eligible"),
+                                       ("observation_date_unknown", "observation_date_unknown")):
         if inventory_key in source:
             source_metadata[metadata_key] = source[inventory_key]
     if source.get("resource_page_url") or source.get("url"):
         source_metadata["url"] = source.get("resource_page_url") or source["url"]
-    scope = LEGACY_SCOPE_METADATA.get(source["source_id"], {}) | {key: source[key] for key in ("agency", "entity_type", "entity_id", "road_class", "scope_note", "source_as_of_date", "publisher_type") if key in source}
+    scope = LEGACY_SCOPE_METADATA.get(source["source_id"], {}) | {key: source[key] for key in ("agency", "entity_type", "entity_id", "road_class", "scope_note", "source_as_of_date", "publisher_type", "evidence_class", "estimate_type", "statement_basis", "period_basis", "analytical_eligible", "observation_date_unknown") if key in source}
     entry["analytical_scope"] = scope or {"road_class": "unspecified", "scope_note": "Use source-specific row definitions; no cross-source identity inferred."}
     evidence = evidence_status(df, source, entry)
     entry["evidence_status"] = evidence
@@ -133,6 +135,8 @@ def _annotate(entry: dict, source: dict, df: pd.DataFrame, processed_root: Path)
     entry["analytical_ready"] = entry["disclosure_ready"]
     if "analytical_eligible" in df:
         entry["analytical_ready"] = entry["analytical_ready"] and bool(df["analytical_eligible"].fillna(False).any())
+    if source.get("analytical_eligible") is False or source.get("evidence_class") in {"target", "forecast", "valuation_estimate"}:
+        entry["analytical_ready"] = False
     if source["source_id"] in DOCUMENT_SOURCES:
         entry["analytical_ready"] = False  # presence rows are not extracted accounting facts
         extraction = _load_nhai_extraction_quality(processed_root, entry.get("output_table_path")) if source["source_id"] in NHAI_EXTRACTION_QUALITY_SOURCE_IDS else None
@@ -145,7 +149,7 @@ def _annotate(entry: dict, source: dict, df: pd.DataFrame, processed_root: Path)
             entry["extraction_quality"] = extraction
             entry["extraction_quality_reference"] = {key: extraction[key] for key in ("quality_report_path", "extraction_manifest_path", "generated_at", "source_parquet", "source_parquet_sha256", "document_refresh_outcomes")}
     else:
-        entry.setdefault("extraction_status", "validated" if entry["analytical_ready"] else "pending")
+        entry.setdefault("extraction_status", "validated" if entry["disclosure_ready"] else "pending")
     context = source | entry.get("source", {}) | {k: entry[k] for k in ("status", "evidence_status", "extraction_status", "source_as_of_date") if k in entry}
     context["source_id"] = source["source_id"]
     if entry.get("extraction_quality"):

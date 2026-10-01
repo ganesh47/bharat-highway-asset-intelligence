@@ -131,6 +131,27 @@ class PublicationTests(unittest.TestCase):
         self.assertEqual(1, report["disclosure_ready_source_count"])
         self.assertEqual(0, report["analytical_ready_source_count"])
 
+    def test_source_level_planned_amounts_remain_readable_and_leave_measured_counts(self):
+        self.run_fixture(FixtureConnector(self.frame.assign(year=2024)))
+        self.source.update(evidence_class="target", analytical_eligible=False, observation_date_unknown=True,
+                           source_as_of_date=None, publication_date="2021-12-23", period_basis="planning_window", estimate_type="planned")
+        self.inventory.write_text(yaml.safe_dump({"sources": [self.source]}))
+        result = refresh_quality_only(str(self.inventory), ["fixture_source"], self.processed, self.manifests, self.catalog)["fixture_source"]
+        self.assertTrue(result["disclosure_ready"])
+        self.assertFalse(result["analytical_ready"])
+        self.assertIsNone(result["source_as_of_date"])
+        self.assertEqual("2021-12-23", result["publication_date"])
+        self.assertEqual("target", result["analytical_scope"]["evidence_class"])
+        self.assertEqual("planned", result["analytical_scope"]["estimate_type"])
+        report = json.loads((self.manifests / "refresh_report.json").read_text())
+        self.assertEqual(0, report["analytical_ready_source_count"])
+        self.assertEqual(1, report["disclosure_ready_source_count"])
+
+    def test_planned_period_without_observation_cutoff_is_not_inferred_as_actual(self):
+        frame = pd.DataFrame({"year": [2024], "period_end": ["2024-12-31"]})
+        self.assertIsNone(observation_date(frame, {"evidence_class": "target"}))
+        self.assertIsNone(observation_date(frame, {"observation_date_unknown": True, "source_as_of_date": "2024-12-31"}))
+
     def test_unchanged_data_adopts_license_correction_without_changing_lineage(self):
         first = self.run_fixture(FixtureConnector(self.frame))
         sha = sha256_for_file(self.processed / "fixture_source.parquet")
