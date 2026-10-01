@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T20:33:26.180393+00:00",
+  "generated_at": "2026-10-01T20:53:56.656298+00:00",
   "datasets": [
     {
       "source_id": "data_gov_in_nhai_projects_api",
@@ -175,20 +175,29 @@
       "status": "ok",
       "metric_category": "official_measured",
       "source": {
-        "publisher": "National Highways Authority of India (NHAI)",
-        "title": "State-wise national highway and road project counts",
+        "publisher": "Ministry of Road Transport and Highways (MoRTH) / Parliament Secretariat",
+        "title": "Five-state NIP highway project plans and planned capital outlay for 2020-2024",
         "domain": "data.gov.in",
         "url": "https://www.data.gov.in/resource/state-wise-number-nh-and-road-projects-relating-are-included-national-infrastructure",
         "retrieval_method": "API call",
         "access_type": "API",
         "retrieved_at": "2026-10-01T20:08:24.677999+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
-        "official_flag": true
+        "official_flag": true,
+        "evidence_class": "target",
+        "analytical_eligible": false,
+        "observation_date_unknown": true
       },
       "citations": {
         "permanent_identifier": "uuid b358bfbb-1eee-4e3f-9ebd-956cae5040a7",
         "anchor": "resource_file:https://data.gov.in/sites/default/files/dataurl08122021/RS_Session_253_AU2230.C.csv",
-        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic.",
+        "primary_reference": {
+          "url": "https://www.data.gov.in/resource/state-wise-number-nh-and-road-projects-relating-are-included-national-infrastructure",
+          "sha256": "2a8166c46e56457603daa0048acba207646f2534f48c33b739890e9b9737caf9",
+          "table_page": null,
+          "evidence_metadata_path": "data/raw/manual/evidence/data_gov_in_nhai_state_projects_api.json"
+        }
       },
       "manifest": {
         "raw_files": [
@@ -221,13 +230,17 @@
       },
       "retrieved_at": "2026-10-01T20:08:24.677999+00:00",
       "completeness_score": 1.0,
-      "recency_score": 0.7,
+      "recency_score": 0.25,
       "provenance_score": 0.85,
       "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "source_as_of_date": "2024-12-31",
-      "recency_basis": "observation_date",
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Observation date is unavailable; collection time is not data freshness",
+        "Planned/estimated disclosure is readable evidence and excluded from measured calculations"
+      ],
+      "source_as_of_date": null,
+      "recency_basis": "unknown",
       "validation_errors": [],
       "output_table_path": "data/processed/data_gov_in_nhai_state_projects_api.parquet",
       "data_checksum": "87bc99b352cb0c99447ef24399e7356039d455145430280cc74745b69aa8316c",
@@ -237,14 +250,18 @@
       "last_checked_at": "2026-10-01T20:08:24.675139+00:00",
       "refresh_outcome": "updated",
       "analytical_scope": {
-        "road_class": "unspecified",
-        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+        "entity_type": "state_aggregate",
+        "source_as_of_date": null,
+        "evidence_class": "target",
+        "analytical_eligible": false,
+        "observation_date_unknown": true
       },
       "evidence_status": "validated",
-      "publication_date": null,
+      "publication_date": "2021-12-23",
       "disclosure_ready": true,
-      "analytical_ready": true,
-      "extraction_status": "validated"
+      "analytical_ready": false,
+      "extraction_status": "validated",
+      "last_quality_check_at": "2026-10-01T20:53:56.650175+00:00"
     },
     {
       "source_id": "data_gov_in_nhai_projects_district_target_2023",
@@ -253,20 +270,28 @@
       "status": "ok",
       "metric_category": "official_measured",
       "source": {
-        "publisher": "National Highways Authority of India (NHAI)",
-        "title": "District-wise details of project target length of National Highways during 2023-24",
+        "publisher": "Ministry of Road Transport and Highways (MoRTH) / Parliament Secretariat",
+        "title": "Jharkhand project length, completed length through March2023 and FY2023-24 targets, reported 7 February 2024",
         "domain": "data.gov.in",
         "url": "https://www.data.gov.in/resource/district-wise-details-project-target-length-national-highways-during-2023-24",
         "retrieval_method": "direct download",
         "access_type": "HTML",
         "retrieved_at": "2026-03-11T05:17:08.158375+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
-        "official_flag": true
+        "official_flag": true,
+        "evidence_class": "mixed_actual_target",
+        "analytical_eligible": false
       },
       "citations": {
         "permanent_identifier": "uuid 7d3d0adf-dce6-4440-afd5-bd88b7c3d653 or resource file RS_Session_263_AS_52_A_0.csv",
         "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_263_AS_52_A_0.csv",
-        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic.",
+        "primary_reference": {
+          "url": "https://sansad.in/getFile/annex/263/AS52.pdf?source=pqars",
+          "sha256": "ca3280b26827d35995e5a947cef02c34df1902111d25725d6bd60ecf583ecdb4",
+          "table_page": "3-6",
+          "evidence_metadata_path": "data/raw/manual/evidence/data_gov_in_nhai_projects_district_target_2023.json"
+        }
       },
       "manifest": {
         "raw_files": [
@@ -305,7 +330,8 @@
       "consistency_score": 1.0,
       "overall_confidence_badge": "Med",
       "overall_confidence_reason": [
-        "Recency is stale against claimed update frequency"
+        "Recency is stale against claimed update frequency",
+        "Planned/estimated disclosure is readable evidence and excluded from measured calculations"
       ],
       "output_table_path": "data/processed/data_gov_in_nhai_projects_district_target_2023.parquet",
       "data_checksum": "b0b36cf12244b5cf2dade7b44bcf486a81dd759f0f3f561cbaf7e5312db5c0bf",
@@ -314,17 +340,20 @@
       "last_checked_at": "2026-10-01T20:08:25.281276+00:00",
       "refresh_outcome": "checked_unchanged",
       "analytical_scope": {
-        "road_class": "unspecified",
-        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+        "entity_type": "project",
+        "source_as_of_date": "2024-02-07",
+        "evidence_class": "mixed_actual_target",
+        "analytical_eligible": false
       },
       "evidence_status": "validated",
-      "source_as_of_date": "2024-03-31",
-      "publication_date": null,
+      "source_as_of_date": "2024-02-07",
+      "publication_date": "2024-02-07",
       "disclosure_ready": true,
-      "analytical_ready": true,
+      "analytical_ready": false,
       "extraction_status": "validated",
       "recency_basis": "observation_date",
-      "validation_errors": []
+      "validation_errors": [],
+      "last_quality_check_at": "2026-10-01T20:53:56.648366+00:00"
     },
     {
       "source_id": "data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs",
@@ -2282,7 +2311,7 @@
       "metric_category": "official_measured",
       "source": {
         "publisher": "National Highways Authority of India (NHAI)",
-        "title": "NHAI audited financial results (SEBI format), across all available years",
+        "title": "NHAI audited financial results (SEBI format), quarter and year ended 31 March 2024",
         "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
         "retrieved_at": "2026-10-01T20:08:33.763091+00:00",
         "license_terms": "Official publication on NHAI website; reuse subject to official publication terms.",
@@ -2292,7 +2321,13 @@
       "citations": {
         "permanent_identifier": "NHAI audited results annual PDFs from NHAI mix_file archive",
         "anchor": "discovery:https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
-        "note": "Official NHAI document discovery and ingestion succeeded."
+        "note": "Official NHAI document discovery and ingestion succeeded.",
+        "primary_reference": {
+          "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
+          "sha256": "3e782fa352efdebc326e8b3f2f539690dd8784120e865855998b04b05548f9ad",
+          "table_page": 1,
+          "evidence_metadata_path": "data/raw/manual/evidence/nhai_audited_results_pdf.json"
+        }
       },
       "manifest": {
         "raw_files": [
@@ -2329,17 +2364,16 @@
       },
       "retrieved_at": "2026-10-01T20:08:33.763091+00:00",
       "completeness_score": 0.786,
-      "recency_score": 0.25,
+      "recency_score": 0.4,
       "provenance_score": 0.85,
       "consistency_score": 1.0,
       "overall_confidence_badge": "Low",
       "overall_confidence_reason": [
         "Recency is stale against claimed update frequency",
-        "Observation date is unavailable; collection time is not data freshness",
         "Document discovery is not validated financial extraction"
       ],
-      "source_as_of_date": null,
-      "recency_basis": "unknown",
+      "source_as_of_date": "2024-03-31",
+      "recency_basis": "observation_date",
       "validation_errors": [],
       "output_table_path": "data/processed/nhai_audited_results_pdf.parquet",
       "data_checksum": "337ffba7cc00de91c995a8287c01c6f57e872e816c092f0a2f2352ac88b39340",
@@ -2349,14 +2383,14 @@
       "last_checked_at": "2026-10-01T20:08:33.760105+00:00",
       "refresh_outcome": "updated",
       "analytical_scope": {
-        "road_class": "unspecified",
-        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+        "source_as_of_date": "2024-03-31"
       },
       "evidence_status": "document_metadata",
       "publication_date": null,
       "disclosure_ready": false,
       "analytical_ready": false,
-      "extraction_status": "fetched"
+      "extraction_status": "fetched",
+      "last_quality_check_at": "2026-10-01T20:53:56.656002+00:00"
     },
     {
       "source_id": "data_gov_in_nhai_statewise_nh_project_status_2024_25",
@@ -2365,8 +2399,8 @@
       "status": "ok",
       "metric_category": "official_measured",
       "source": {
-        "publisher": "National Highways Authority of India (NHAI)",
-        "title": "Northeast subset NH project status (ongoing, completed, approved), as on March 2024",
+        "publisher": "Ministry of Road Transport and Highways (MoRTH) / Parliament Secretariat",
+        "title": "Four-state Northeast NH project status and FY2024-25 YTD completions, reported 27 November 2024",
         "domain": "data.gov.in",
         "url": "https://www.data.gov.in/resource/state-wise-details-national-highway-nh-projects-under-construction-completed-approved-yet",
         "retrieval_method": "direct download",
@@ -2378,7 +2412,13 @@
       "citations": {
         "permanent_identifier": "nid=603577044 (resource page) / file RS_Session_266_AU_210_A_to_B_i.csv",
         "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_266_AU_210_A_to_B_i.csv",
-        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic.",
+        "primary_reference": {
+          "url": "https://sansad.in/getFile/annex/266/AU210_JMm1YS.pdf?source=pqars",
+          "sha256": "1c344b826ce5d0d529a645b20d936affe6b8bf9de4587c0306473a6722a7d508",
+          "table_page": 1,
+          "evidence_metadata_path": "data/raw/manual/evidence/data_gov_in_nhai_statewise_nh_project_status_2024_25.json"
+        }
       },
       "manifest": {
         "raw_files": [
@@ -2429,17 +2469,18 @@
       "last_checked_at": "2026-10-01T20:08:26.630374+00:00",
       "refresh_outcome": "checked_unchanged",
       "analytical_scope": {
-        "road_class": "unspecified",
-        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+        "entity_type": "state_aggregate",
+        "source_as_of_date": "2024-11-27"
       },
       "evidence_status": "validated",
-      "source_as_of_date": "2025-03-31",
-      "publication_date": null,
+      "source_as_of_date": "2024-11-27",
+      "publication_date": "2024-11-27",
       "disclosure_ready": true,
       "analytical_ready": true,
       "extraction_status": "validated",
       "recency_basis": "observation_date",
-      "validation_errors": []
+      "validation_errors": [],
+      "last_quality_check_at": "2026-10-01T20:53:56.652709+00:00"
     },
     {
       "source_id": "data_gov_in_nhai_stateut_project_delay_status_2024",
@@ -3641,9 +3682,9 @@
       "status": "manual_ingest",
       "metric_category": "issuer_disclosed",
       "refresh_outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:15.126851+00:00",
-      "last_successful_retrieval_at": "2026-10-01T20:10:15.130557+00:00",
-      "data_changed_at": "2026-10-01T20:10:15.126851+00:00",
+      "last_checked_at": "2026-10-01T20:51:37.149625+00:00",
+      "last_successful_retrieval_at": "2026-10-01T19:28:59.062600+00:00",
+      "data_changed_at": "2026-10-01T20:51:37.149625+00:00",
       "publication_date": null,
       "source_as_of_date": "2026-03-31",
       "analytical_ready": true,
@@ -3664,14 +3705,14 @@
       "citations": {
         "permanent_identifier": "nhit_annual_report",
         "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
-        "note": "Audited consolidated balance sheet/P&L and financial-risk debt maturity note extracted and unit-checked. Issuer SPV operating overview is separately labelled approximate; publication day not asserted."
+        "note": "Audited consolidated balance sheet/P&L and financial-risk debt maturity note extracted and unit-checked. Eight NCD/zero-coupon bond <1year and1-3year source dashes on physicalp205 are nonnumeric and omitted, not converted to zero. Numeric debt-overview totals remain separately sourced. Issuer SPV operating overview is separately labelled approximate; publication day not asserted."
       },
       "manifest": {
         "raw_files": [
           {
             "path": "data/raw/manual/evidence/nhit_annual_report.json",
-            "sha256": "98664211ba13f1f9bf0bd55f40958929db625461bd86c95270c2cab57929d293",
-            "size_bytes": 981
+            "sha256": "7de8e1296abe2b9e2b9dc3dd189ae620e33267edf5e8dffe301b58a7fccaec60",
+            "size_bytes": 1219
           },
           {
             "path": "data/raw/primary_disclosures/nhit_annual_report/document.pdf",
@@ -3680,8 +3721,8 @@
           },
           {
             "path": "data/raw/manual/nhit_annual_report.csv",
-            "sha256": "e407703c027f8e3fb89eb564a218ba9fb2ab42ed06660e49c4dce2405ced39ee",
-            "size_bytes": 53920
+            "sha256": "9a860c1766e2c8ddbbec279da23516c42f063c3a2fbbb09b57b9ca44e7b4370c",
+            "size_bytes": 48348
           }
         ],
         "source_documents": [
@@ -3696,10 +3737,10 @@
           {
             "path": "data/processed/nhit_annual_report.parquet",
             "format": "parquet",
-            "sha256": "22b24aff7b32197764f84866ad28a8ab3d89c55205cb4b442b83a3229c0e9d3c"
+            "sha256": "a6ff5b47aefeffd659827e56aa5bcb6603607540ad7dbeb45c5cfdd437497ef1"
           }
         ],
-        "row_count": 70,
+        "row_count": 62,
         "columns": [
           "entity_id",
           "entity_name",
@@ -3759,8 +3800,8 @@
       "recency_basis": "observation_date",
       "validation_errors": [],
       "output_table_path": "data/processed/nhit_annual_report.parquet",
-      "data_checksum": "dad6d76ca2dfb31443b8d5b0c379bbdc12d4da488e82f09a0a1ae4e1035453cf",
-      "last_ingested_at": "2026-10-01T20:10:15.126851+00:00",
+      "data_checksum": "8e5c4d3ce6da294541b8c5ca760fd0250b833ae16d6ccd1422c724486b5b203b",
+      "last_ingested_at": "2026-10-01T20:51:37.149625+00:00",
       "analytical_scope": {
         "source_as_of_date": "2026-03-31",
         "publisher_type": "issuer"

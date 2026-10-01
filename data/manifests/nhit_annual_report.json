@@ -5,9 +5,9 @@
   "status": "manual_ingest",
   "metric_category": "issuer_disclosed",
   "refresh_outcome": "updated",
-  "last_checked_at": "2026-10-01T20:10:15.126851+00:00",
-  "last_successful_retrieval_at": "2026-10-01T20:10:15.130557+00:00",
-  "data_changed_at": "2026-10-01T20:10:15.126851+00:00",
+  "last_checked_at": "2026-10-01T20:51:37.149625+00:00",
+  "last_successful_retrieval_at": "2026-10-01T19:28:59.062600+00:00",
+  "data_changed_at": "2026-10-01T20:51:37.149625+00:00",
   "publication_date": null,
   "source_as_of_date": "2026-03-31",
   "analytical_ready": true,
@@ -28,14 +28,14 @@
   "citations": {
     "permanent_identifier": "nhit_annual_report",
     "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
-    "note": "Audited consolidated balance sheet/P&L and financial-risk debt maturity note extracted and unit-checked. Issuer SPV operating overview is separately labelled approximate; publication day not asserted."
+    "note": "Audited consolidated balance sheet/P&L and financial-risk debt maturity note extracted and unit-checked. Eight NCD/zero-coupon bond <1year and1-3year source dashes on physicalp205 are nonnumeric and omitted, not converted to zero. Numeric debt-overview totals remain separately sourced. Issuer SPV operating overview is separately labelled approximate; publication day not asserted."
   },
   "manifest": {
     "raw_files": [
       {
         "path": "data/raw/manual/evidence/nhit_annual_report.json",
-        "sha256": "98664211ba13f1f9bf0bd55f40958929db625461bd86c95270c2cab57929d293",
-        "size_bytes": 981
+        "sha256": "7de8e1296abe2b9e2b9dc3dd189ae620e33267edf5e8dffe301b58a7fccaec60",
+        "size_bytes": 1219
       },
       {
         "path": "data/raw/primary_disclosures/nhit_annual_report/document.pdf",
@@ -44,8 +44,8 @@
       },
       {
         "path": "data/raw/manual/nhit_annual_report.csv",
-        "sha256": "e407703c027f8e3fb89eb564a218ba9fb2ab42ed06660e49c4dce2405ced39ee",
-        "size_bytes": 53920
+        "sha256": "9a860c1766e2c8ddbbec279da23516c42f063c3a2fbbb09b57b9ca44e7b4370c",
+        "size_bytes": 48348
       }
     ],
     "source_documents": [
@@ -60,10 +60,10 @@
       {
         "path": "data/processed/nhit_annual_report.parquet",
         "format": "parquet",
-        "sha256": "22b24aff7b32197764f84866ad28a8ab3d89c55205cb4b442b83a3229c0e9d3c"
+        "sha256": "a6ff5b47aefeffd659827e56aa5bcb6603607540ad7dbeb45c5cfdd437497ef1"
       }
     ],
-    "row_count": 70,
+    "row_count": 62,
     "columns": [
       "entity_id",
       "entity_name",
@@ -123,8 +123,8 @@
   "recency_basis": "observation_date",
   "validation_errors": [],
   "output_table_path": "data/processed/nhit_annual_report.parquet",
-  "data_checksum": "dad6d76ca2dfb31443b8d5b0c379bbdc12d4da488e82f09a0a1ae4e1035453cf",
-  "last_ingested_at": "2026-10-01T20:10:15.126851+00:00",
+  "data_checksum": "8e5c4d3ce6da294541b8c5ca760fd0250b833ae16d6ccd1422c724486b5b203b",
+  "last_ingested_at": "2026-10-01T20:51:37.149625+00:00",
   "analytical_scope": {
     "source_as_of_date": "2026-03-31",
     "publisher_type": "issuer"

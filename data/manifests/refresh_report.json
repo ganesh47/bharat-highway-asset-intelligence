@@ -1,13 +1,10 @@
 {
-  "generated_at": "2026-10-01T20:29:44.134681+00:00",
-  "started_at": "2026-10-01T20:29:44.030836+00:00",
+  "generated_at": "2026-10-01T20:51:37.263096+00:00",
+  "started_at": "2026-10-01T20:51:37.149618+00:00",
   "registered_source_count": 50,
   "checked_source_count": 50,
   "run_source_ids": [
-    "morh_procurement_awards",
-    "morh_contractor_disclosures",
-    "morh_arbitration_claims",
-    "ncrb_toll_fastag_claims"
+    "nhit_annual_report"
   ],
   "outcome_counts": {
     "checked_unchanged": 18,
@@ -17,7 +14,7 @@
     "restricted": 6,
     "retained_after_failure": 1
   },
-  "analytical_ready_source_count": 32,
+  "analytical_ready_source_count": 30,
   "disclosure_ready_source_count": 34,
   "sources": [
     {
@@ -50,9 +47,9 @@
       "source_id": "data_gov_in_nhai_state_projects_api",
       "outcome": "updated",
       "last_checked_at": "2026-10-01T20:08:24.675139+00:00",
-      "source_as_of_date": "2024-12-31",
-      "publication_date": null,
-      "analytical_ready": true,
+      "source_as_of_date": null,
+      "publication_date": "2021-12-23",
+      "analytical_ready": false,
       "evidence_status": "validated",
       "disclosure_ready": true,
       "extraction_status": "validated",
@@ -63,9 +60,9 @@
       "source_id": "data_gov_in_nhai_projects_district_target_2023",
       "outcome": "checked_unchanged",
       "last_checked_at": "2026-10-01T20:08:25.281276+00:00",
-      "source_as_of_date": "2024-03-31",
-      "publication_date": null,
-      "analytical_ready": true,
+      "source_as_of_date": "2024-02-07",
+      "publication_date": "2024-02-07",
+      "analytical_ready": false,
       "evidence_status": "validated",
       "disclosure_ready": true,
       "extraction_status": "validated",
@@ -89,8 +86,8 @@
       "source_id": "data_gov_in_nhai_statewise_nh_project_status_2024_25",
       "outcome": "checked_unchanged",
       "last_checked_at": "2026-10-01T20:08:26.630374+00:00",
-      "source_as_of_date": "2025-03-31",
-      "publication_date": null,
+      "source_as_of_date": "2024-11-27",
+      "publication_date": "2024-11-27",
       "analytical_ready": true,
       "evidence_status": "validated",
       "disclosure_ready": true,
@@ -258,7 +255,7 @@
       "source_id": "nhai_audited_results_pdf",
       "outcome": "updated",
       "last_checked_at": "2026-10-01T20:08:33.760105+00:00",
-      "source_as_of_date": null,
+      "source_as_of_date": "2024-03-31",
       "publication_date": null,
       "analytical_ready": false,
       "evidence_status": "document_metadata",
@@ -530,14 +527,14 @@
     {
       "source_id": "nhit_annual_report",
       "outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:15.126851+00:00",
+      "last_checked_at": "2026-10-01T20:51:37.149625+00:00",
       "source_as_of_date": "2026-03-31",
       "publication_date": null,
       "analytical_ready": true,
       "evidence_status": "verified",
       "disclosure_ready": true,
       "extraction_status": "validated",
-      "row_count": 70,
+      "row_count": 62,
       "error": null
     },
     {

@@ -5,20 +5,29 @@
   "status": "ok",
   "metric_category": "official_measured",
   "source": {
-    "publisher": "National Highways Authority of India (NHAI)",
-    "title": "State-wise national highway and road project counts",
+    "publisher": "Ministry of Road Transport and Highways (MoRTH) / Parliament Secretariat",
+    "title": "Five-state NIP highway project plans and planned capital outlay for 2020-2024",
     "domain": "data.gov.in",
     "url": "https://www.data.gov.in/resource/state-wise-number-nh-and-road-projects-relating-are-included-national-infrastructure",
     "retrieval_method": "API call",
     "access_type": "API",
     "retrieved_at": "2026-10-01T20:08:24.677999+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
-    "official_flag": true
+    "official_flag": true,
+    "evidence_class": "target",
+    "analytical_eligible": false,
+    "observation_date_unknown": true
   },
   "citations": {
     "permanent_identifier": "uuid b358bfbb-1eee-4e3f-9ebd-956cae5040a7",
     "anchor": "resource_file:https://data.gov.in/sites/default/files/dataurl08122021/RS_Session_253_AU2230.C.csv",
-    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic.",
+    "primary_reference": {
+      "url": "https://www.data.gov.in/resource/state-wise-number-nh-and-road-projects-relating-are-included-national-infrastructure",
+      "sha256": "2a8166c46e56457603daa0048acba207646f2534f48c33b739890e9b9737caf9",
+      "table_page": null,
+      "evidence_metadata_path": "data/raw/manual/evidence/data_gov_in_nhai_state_projects_api.json"
+    }
   },
   "manifest": {
     "raw_files": [
@@ -51,13 +60,17 @@
   },
   "retrieved_at": "2026-10-01T20:08:24.677999+00:00",
   "completeness_score": 1.0,
-  "recency_score": 0.7,
+  "recency_score": 0.25,
   "provenance_score": 0.85,
   "consistency_score": 1.0,
-  "overall_confidence_badge": "High",
-  "overall_confidence_reason": [],
-  "source_as_of_date": "2024-12-31",
-  "recency_basis": "observation_date",
+  "overall_confidence_badge": "Med",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency",
+    "Observation date is unavailable; collection time is not data freshness",
+    "Planned/estimated disclosure is readable evidence and excluded from measured calculations"
+  ],
+  "source_as_of_date": null,
+  "recency_basis": "unknown",
   "validation_errors": [],
   "output_table_path": "data/processed/data_gov_in_nhai_state_projects_api.parquet",
   "data_checksum": "87bc99b352cb0c99447ef24399e7356039d455145430280cc74745b69aa8316c",
@@ -67,12 +80,16 @@
   "last_checked_at": "2026-10-01T20:08:24.675139+00:00",
   "refresh_outcome": "updated",
   "analytical_scope": {
-    "road_class": "unspecified",
-    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+    "entity_type": "state_aggregate",
+    "source_as_of_date": null,
+    "evidence_class": "target",
+    "analytical_eligible": false,
+    "observation_date_unknown": true
   },
   "evidence_status": "validated",
-  "publication_date": null,
+  "publication_date": "2021-12-23",
   "disclosure_ready": true,
-  "analytical_ready": true,
-  "extraction_status": "validated"
+  "analytical_ready": false,
+  "extraction_status": "validated",
+  "last_quality_check_at": "2026-10-01T20:53:56.650175+00:00"
 }

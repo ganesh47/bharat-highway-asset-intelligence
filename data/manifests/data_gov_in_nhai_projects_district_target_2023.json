@@ -5,20 +5,28 @@
   "status": "ok",
   "metric_category": "official_measured",
   "source": {
-    "publisher": "National Highways Authority of India (NHAI)",
-    "title": "District-wise details of project target length of National Highways during 2023-24",
+    "publisher": "Ministry of Road Transport and Highways (MoRTH) / Parliament Secretariat",
+    "title": "Jharkhand project length, completed length through March2023 and FY2023-24 targets, reported 7 February 2024",
     "domain": "data.gov.in",
     "url": "https://www.data.gov.in/resource/district-wise-details-project-target-length-national-highways-during-2023-24",
     "retrieval_method": "direct download",
     "access_type": "HTML",
     "retrieved_at": "2026-03-11T05:17:08.158375+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
-    "official_flag": true
+    "official_flag": true,
+    "evidence_class": "mixed_actual_target",
+    "analytical_eligible": false
   },
   "citations": {
     "permanent_identifier": "uuid 7d3d0adf-dce6-4440-afd5-bd88b7c3d653 or resource file RS_Session_263_AS_52_A_0.csv",
     "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_263_AS_52_A_0.csv",
-    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic.",
+    "primary_reference": {
+      "url": "https://sansad.in/getFile/annex/263/AS52.pdf?source=pqars",
+      "sha256": "ca3280b26827d35995e5a947cef02c34df1902111d25725d6bd60ecf583ecdb4",
+      "table_page": "3-6",
+      "evidence_metadata_path": "data/raw/manual/evidence/data_gov_in_nhai_projects_district_target_2023.json"
+    }
   },
   "manifest": {
     "raw_files": [
@@ -57,7 +65,8 @@
   "consistency_score": 1.0,
   "overall_confidence_badge": "Med",
   "overall_confidence_reason": [
-    "Recency is stale against claimed update frequency"
+    "Recency is stale against claimed update frequency",
+    "Planned/estimated disclosure is readable evidence and excluded from measured calculations"
   ],
   "output_table_path": "data/processed/data_gov_in_nhai_projects_district_target_2023.parquet",
   "data_checksum": "b0b36cf12244b5cf2dade7b44bcf486a81dd759f0f3f561cbaf7e5312db5c0bf",
@@ -66,15 +75,18 @@
   "last_checked_at": "2026-10-01T20:08:25.281276+00:00",
   "refresh_outcome": "checked_unchanged",
   "analytical_scope": {
-    "road_class": "unspecified",
-    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+    "entity_type": "project",
+    "source_as_of_date": "2024-02-07",
+    "evidence_class": "mixed_actual_target",
+    "analytical_eligible": false
   },
   "evidence_status": "validated",
-  "source_as_of_date": "2024-03-31",
-  "publication_date": null,
+  "source_as_of_date": "2024-02-07",
+  "publication_date": "2024-02-07",
   "disclosure_ready": true,
-  "analytical_ready": true,
+  "analytical_ready": false,
   "extraction_status": "validated",
   "recency_basis": "observation_date",
-  "validation_errors": []
+  "validation_errors": [],
+  "last_quality_check_at": "2026-10-01T20:53:56.648366+00:00"
 }

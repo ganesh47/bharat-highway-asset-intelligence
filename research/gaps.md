@@ -1,17 +1,17 @@
 # Source Gap Analysis
 
-Generated: 2026-10-01T20:33:26.648474+00:00 UTC
+Generated: 2026-10-01T20:53:57.225091+00:00 UTC
 
 Tracks missing dimensions before ETL and recommends official avenues to fill them.
 
 ## Missing dimensions
 
 - Theme: **projects**
-  - Missing reason: 2 of 15 sources require manual evidence, validated extraction, or restricted access; discovery is not analytical coverage
+  - Missing reason: 4 of 15 sources require manual evidence, validated extraction, or restricted access; discovery is not analytical coverage
   - Suggested action: Use MoRTH/NHAI annual publications, PMGSY and State PWD handover statements.
   - Priority: evidence_required
 
-  - Sources: nhai_constructed_length_series_official, nhai_press_release_index
+  - Sources: data_gov_in_nhai_projects_district_target_2023, data_gov_in_nhai_state_projects_api, nhai_constructed_length_series_official, nhai_press_release_index
 
 - Theme: **finance**
   - Missing reason: 3 of 8 sources require manual evidence, validated extraction, or restricted access; discovery is not analytical coverage
