@@ -16,6 +16,10 @@ on:
 permissions:
   contents: read
 
+# Release jobs install from the validated revision and need no shared cache.
+# Scoped cache tokens enforce this even for a manually dispatched deployment.
+cache-mode: none
+
 concurrency:
   group: github-pages
   cancel-in-progress: false

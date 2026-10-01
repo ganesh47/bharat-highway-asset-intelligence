@@ -80,6 +80,7 @@ class ResearchDeliveryTests(unittest.TestCase):
 
     def test_cd_browser_job_rejects_untrusted_revisions_and_accepts_schedules(self):
         workflow = yaml.safe_load((ROOT / ".github/workflows/github-pages.yml").read_text())
+        self.assertEqual("none", workflow["cache-mode"])
         condition = workflow["jobs"]["cd_smoke"]["if"]
         cases = [
             ("workflow_dispatch", "refs/heads/main", "", "", "", "", True),
