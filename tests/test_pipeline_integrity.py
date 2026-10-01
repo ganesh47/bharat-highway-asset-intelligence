@@ -15,7 +15,7 @@ from pipelines.correlation import _approved_correlations, _build_metric_long, JO
 from pipelines.ingest import run_ingestion, refresh_quality_only, _load_nhai_extraction_quality
 from pipelines.quality import evidence_status, evaluate, semantic_errors, observation_date, observed_row_mask
 from research.loader import load_inventory
-from research.scan import _scan_item
+from research.scan import _scan_item, sync_catalog_metadata
 from research.gap_report import detect_gaps
 
 
@@ -247,6 +247,28 @@ class QualityTests(unittest.TestCase):
         finance = [gap for gap in detect_gaps(sources) if gap["theme"] == "finance"][0]
         self.assertEqual(["blocked"], finance["source_ids"])
         self.assertIn("1 of 2", finance["missing_reason"])
+
+    def test_catalog_sync_preserves_endpoint_checks_without_network(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            inventory, scanned, catalog = root / "inventory.yaml", root / "inventory.json", root / "catalog.json"
+            inventory.write_text(yaml.safe_dump({"sources": [{"source_id": "fixture"}]}))
+            checks = [{"url": "https://example.gov.in/report.pdf", "http_status": 200}]
+            write_json({"generated_at": "original_scan", "sources": [{"source_id": "fixture", "last_checked_at": "original_check", "status_ok": True, "endpoint_checks": checks}]}, scanned)
+            write_catalog(catalog, [{"source_id": "fixture", "analytical_ready": False, "disclosure_ready": True,
+                                     "evidence_status": "verified", "extraction_status": "validated",
+                                     "source_as_of_date": "2025-03-31", "last_checked_at": "publication_check"}])
+            with patch("research.scan.requests.get", side_effect=AssertionError("Repeated network scan")):
+                result = sync_catalog_metadata(str(inventory), str(scanned), str(catalog))[0]
+            self.assertEqual(checks, result["endpoint_checks"])
+            self.assertEqual("original_check", result["last_checked_at"])
+            self.assertEqual("publication_check", result["last_refresh_checked_at"])
+            self.assertTrue(result["disclosure_ready"])
+            self.assertFalse(result["analytical_ready"])
+            self.assertEqual("original_scan", json.loads(scanned.read_text())["generated_at"])
+            inventory.write_text(yaml.safe_dump({"sources": [{"source_id": "fixture"}, {"source_id": "missing"}]}))
+            with self.assertRaises(ValueError):
+                sync_catalog_metadata(str(inventory), str(scanned), str(catalog))
 
 
 class CorrelationTests(unittest.TestCase):

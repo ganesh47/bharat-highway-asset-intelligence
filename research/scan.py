@@ -14,6 +14,7 @@ import requests
 
 from .loader import load_inventory, write_machine_inventory
 from pipelines.url_safety import collect_allowed_hosts_from_source, sanitize_public_http_url
+from pipelines.common import read_json, write_json
 
 
 DEFAULT_HEADERS = {
@@ -242,6 +243,7 @@ def run_scan(inventory_path: str = "research/source_inventory.yaml", out_path: s
         if manifest_path.exists():
             manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
             scanned["analytical_ready"] = manifest.get("analytical_ready", False)
+            scanned["disclosure_ready"] = manifest.get("disclosure_ready", False)
             scanned["evidence_status"] = manifest.get("evidence_status", "unverified")
             scanned["extraction_status"] = manifest.get("extraction_status", "unknown")
             scanned["observation_as_of"] = manifest.get("source_as_of_date")
@@ -255,17 +257,49 @@ def run_scan(inventory_path: str = "research/source_inventory.yaml", out_path: s
     return results
 
 
+def sync_catalog_metadata(inventory_path: str = "research/source_inventory.yaml",
+                          out_path: str = "research/source_inventory.json",
+                          catalog_path: str = "data/manifests/catalog.json") -> List[Dict[str, Any]]:
+    """Synchronize publication readiness without altering endpoint check evidence."""
+    inventory = load_inventory(inventory_path)
+    payload = read_json(Path(out_path))
+    results = payload.get("sources", [])
+    expected_ids = {source["source_id"] for source in inventory.sources}
+    scanned_ids = [source.get("source_id") for source in results]
+    if len(scanned_ids) != len(set(scanned_ids)) or set(scanned_ids) != expected_ids:
+        raise ValueError("Machine inventory source IDs differ from the registered inventory; run the source scan first")
+    entries = {entry["source_id"]: entry for entry in read_json(Path(catalog_path)).get("datasets", [])}
+    if expected_ids - entries.keys():
+        raise ValueError(f"Published catalog missing registered sources: {sorted(expected_ids - entries.keys())}")
+    for result in results:
+        entry = entries[result["source_id"]]
+        result.update(analytical_ready=entry.get("analytical_ready", False),
+                      disclosure_ready=entry.get("disclosure_ready", False),
+                      evidence_status=entry.get("evidence_status", "unverified"),
+                      extraction_status=entry.get("extraction_status", "unknown"),
+                      observation_as_of=entry.get("source_as_of_date"),
+                      publication_date=entry.get("publication_date"),
+                      refresh_outcome=entry.get("refresh_outcome"),
+                      refresh_error=entry.get("refresh_error"),
+                      last_refresh_checked_at=entry.get("last_checked_at"))
+    payload["catalog_synced_at"] = datetime.now(timezone.utc).isoformat()
+    write_json(payload, Path(out_path))
+    return results
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run official source inventory scan")
     parser.add_argument("--inventory", default="research/source_inventory.yaml")
     parser.add_argument("--out", default="research/source_inventory.json")
     parser.add_argument("--min-delay", type=float, default=1.0)
+    parser.add_argument("--sync-catalog", action="store_true", help="Update readiness from the published catalog without network requests")
+    parser.add_argument("--catalog", default="data/manifests/catalog.json")
     args = parser.parse_args()
-    results = run_scan(args.inventory, args.out, args.min_delay)
+    results = sync_catalog_metadata(args.inventory, args.out, args.catalog) if args.sync_catalog else run_scan(args.inventory, args.out, args.min_delay)
 
     ok = sum(1 for item in results if item.get("status_ok"))
     total = len(results)
-    print(json.dumps({"status": "done", "checked": total, "ok": ok, "out": str(Path(args.out))}, indent=2))
+    print(json.dumps({"status": "catalog_synced" if args.sync_catalog else "done", "checked": total, "ok": ok, "out": str(Path(args.out))}, indent=2))
 
 
 if __name__ == "__main__":
