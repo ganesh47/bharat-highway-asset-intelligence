@@ -431,6 +431,28 @@ function num(value, fallback = null) {
   return Number.isFinite(n) ? n : fallback;
 }
 
+function completeSum(values) {
+  const observed = values.map((value) => num(value));
+  return observed.length && observed.every(Number.isFinite) ? observed.reduce((sum, value) => sum + value, 0) : null;
+}
+
+function statePortfolioObservation(row) {
+  return {
+    state: row.state,
+    projects: num(row.number_of_nh_projects),
+    length_km: num(row.length_in_km ?? row.length__in_km_),
+    capital_outlay: num(row.capital_outlay__rs_in_cr_for_the_years_2020_to_2024
+      ?? row.capital_outlay___rs_in_cr__for_the_years_2020_to_2024),
+  };
+}
+
+function unrectifiedShare(blackspots, rectified) {
+  const total = num(blackspots);
+  const completed = num(rectified);
+  return Number.isFinite(total) && total > 0 && Number.isFinite(completed) && completed >= 0 && completed <= total
+    ? (total - completed) / total * 100 : null;
+}
+
 function fmtNum(value, options = {}) {
   if (value == null || (typeof value === 'string' && !value.trim())) return 'N/A';
   const n = Number(value);
@@ -1528,14 +1550,15 @@ function StackedStateStatus({
       state: safeLabel(row.state),
       segments: segments.map((segment) => ({
         ...segment,
-        value: Math.max(0, num(row[segment.key], 0)),
+        value: num(row[segment.key]),
       })),
     }))
     .map((row) => ({
       ...row,
-      total: row.segments.reduce((acc, segment) => acc + segment.value, 0),
+      total: completeSum(row.segments.map((segment) => segment.value)),
     }))
-    .filter((row) => row.state && row.state !== 'Unknown' && row.total > 0);
+    .filter((row) => row.state && row.state !== 'Unknown' && Number.isFinite(row.total)
+      && row.segments.every((segment) => segment.value >= 0));
 
   const max = Math.max(...cleaned.map((row) => row.total), 1);
   const ordered = cleaned.sort((a, b) => b.total - a.total);
@@ -1647,9 +1670,10 @@ function ScatterChart({
   const yMax = yRange.max;
   const xAxisTicks = axisTicks(xMin, xMax, 6);
   const yAxisTicks = axisTicks(yMin, yMax, 5);
-  const rMin = Math.min(...points.map((p) => num(p.radius) || 3));
-  const rMax = Math.max(...points.map((p) => num(p.radius) || 3));
-  const radiusScale = (v) => clamp(((num(v) - rMin) / (rMax - rMin || 1)) * 7 + 3, 3, 12);
+  const observedRadii = points.map((point) => num(point.radius)).filter(Number.isFinite);
+  const rMin = observedRadii.length ? Math.min(...observedRadii) : 0;
+  const rMax = observedRadii.length ? Math.max(...observedRadii) : 0;
+  const radiusScale = (value) => Number.isFinite(num(value)) ? clamp(((num(value) - rMin) / (rMax - rMin || 1)) * 7 + 3, 3, 12) : 3;
   const chartRef = useRef(null);
   const [scatterResizeTick, setScatterResizeTick] = useState(0);
 
@@ -1731,10 +1755,10 @@ function ScatterChart({
     points.forEach((point) => {
       const x = xScale(point.x) * scaleX;
       const y = yScale(point.y) * scaleY;
-      const radius = radiusScale(point.radius || 1);
+      const radius = radiusScale(point.radius);
       ctx.beginPath();
       ctx.arc(x, y, radius, 0, Math.PI * 2);
-      ctx.fillStyle = point.radius ? '#a0182d' : '#2f5f99';
+      ctx.fillStyle = Number.isFinite(num(point.radius)) ? '#a0182d' : '#2f5f99';
       ctx.fill();
     });
 
@@ -2314,26 +2338,17 @@ async function loadAnalyticCatalog(conn, catalog) {
   const rawStateUTRows = await fetchById('data_gov_in_nhai_stateut_length_constructed_2019_24', (alias) => `
     SELECT
       CAST("state/ut" AS VARCHAR) AS state,
-      COALESCE(CAST("length_constructed_km._2019-20" AS DOUBLE), 0)
-      + COALESCE(CAST("length_constructed_km._2020-21" AS DOUBLE), 0)
-      + COALESCE(CAST("length_constructed_km._2021-22" AS DOUBLE), 0)
-      + COALESCE(CAST("length_constructed_km._2022-23" AS DOUBLE), 0)
-      + COALESCE(CAST("length_constructed_km._2023-24" AS DOUBLE), 0) AS length_km
+      CAST("length_constructed_km._2019-20" AS DOUBLE) AS annual_2019_20,
+      CAST("length_constructed_km._2020-21" AS DOUBLE) AS annual_2020_21,
+      CAST("length_constructed_km._2021-22" AS DOUBLE) AS annual_2021_22,
+      CAST("length_constructed_km._2022-23" AS DOUBLE) AS annual_2022_23,
+      CAST("length_constructed_km._2023-24" AS DOUBLE) AS annual_2023_24
     FROM read_parquet('${alias}')
     WHERE "state/ut" IS NOT NULL
   `);
   const statePortfolio = rawStatePortfolioRows
     .filter((row) => row)
-    .map((row) => ({
-      state: row.state,
-      projects: num(row.number_of_nh_projects || row['number_of_nh_projects'] || 0),
-      length_km: num(row.length_in_km || row.length__in_km_ || 0),
-      capital_outlay: num(
-        row['capital_outlay__rs_in_cr_for_the_years_2020_to_2024']
-        || row['capital_outlay___rs_in_cr__for_the_years_2020_to_2024']
-        || 0
-      ),
-    }))
+    .map(statePortfolioObservation)
     .filter((row) => row.state && !isAggregateStateLabel(normalizeState(row.state)));
 
   const stateProjectDelays = await fetchById('data_gov_in_nhai_stateut_project_delay_status_2024', (alias) => `
@@ -2524,7 +2539,7 @@ async function loadAnalyticCatalog(conn, catalog) {
     .map((row) => ({
       state: row.state,
       projects: null,
-      length: num(row.length_km),
+      length: completeSum([row.annual_2019_20, row.annual_2020_21, row.annual_2021_22, row.annual_2022_23, row.annual_2023_24]),
       capital: null,
       source: 'data_gov_in_nhai_stateut_length_constructed_2019_24',
     }))
@@ -2563,7 +2578,7 @@ async function loadAnalyticCatalog(conn, catalog) {
     .map((row) => ({
       state: row.state,
       year: num(row.year),
-      safety_risk: num(row.fatal_crashes) || num(row.total_killed),
+      safety_risk: num(row.total_killed),
         source: 'data_gov_in_nh_fatalities_injuries_state_year',
     }))
     .filter((row) => row.state && Number.isFinite(row.year) && Number.isFinite(row.safety_risk));
@@ -2804,7 +2819,7 @@ async function loadAnalyticCatalog(conn, catalog) {
         nh_blackspot_accidents: num(row.nh_blackspot_accidents),
         nh_length_km: nhLengthKm,
         nh_blackspots_per_1000km: (blackspots / nhLengthKm) * 1000,
-        nh_unrectified_blackspot_share_pct: ((Math.max(0, blackspots - rectified)) / blackspots) * 100,
+        nh_unrectified_blackspot_share_pct: unrectifiedShare(blackspots, rectified),
         source: 'parliament_qa_nh_blackspots_state',
       };
     })
@@ -3210,9 +3225,9 @@ function App() {
 
   const modelCostRows = (filteredModelSummaryRows || []).map((row) => ({
     label: row.state,
-    x: num(row.avg_land_acquisition_cost_cr) || 0,
-    y: num(row.avg_maintenance_cost_cr) || 0,
-    radius: num(row.avg_sanctioned_cost_cr) || 1,
+    x: num(row.avg_land_acquisition_cost_cr),
+    y: num(row.avg_maintenance_cost_cr),
+    radius: num(row.avg_sanctioned_cost_cr),
   })).filter((r) => Number.isFinite(r.x) && Number.isFinite(r.y));
 
   const morthCrifAllocationSeries = (analytics?.morthCrifRows || [])
@@ -3241,10 +3256,10 @@ function App() {
       const stateCount = num((filteredStateRows?.morthAppendix2CountRows || analytics?.morthAppendix2CountRows || []).find((item) => normalizeState(item.state) === key)?.value);
       return {
         state: row.state,
-        x: num((analytics?.morthNHLengthByState || {})[key]) || 0,
+        x: num((analytics?.morthNHLengthByState || {})[key]),
         y: row.value,
-        radius: stateCount || 4,
-        modelConfidence: stateCount ? `NH count: ${stateCount}` : 'official',
+        radius: stateCount,
+        modelConfidence: `NH count: ${fmtNum(stateCount)}`,
       };
     })
     .filter((row) => Number.isFinite(row.x) && Number.isFinite(row.y));

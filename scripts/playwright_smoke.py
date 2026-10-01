@@ -226,7 +226,7 @@ else:
 
 def _frontend_fixture_script(source: str) -> str:
     """Exercise the deployed pure calculation functions, including invalid joins."""
-    names = ["num", "fmtNum", "sourceTypeTag", "analyticalReady", "confidenceFromSources", "humanMetric", "disclosureTheme", "validCitation", "disclosureEligible", "disclosureMeasured", "csvText", "deriveDisclosureInsights"]
+    names = ["num", "completeSum", "statePortfolioObservation", "unrectifiedShare", "fmtNum", "sourceTypeTag", "analyticalReady", "confidenceFromSources", "humanMetric", "disclosureTheme", "validCitation", "disclosureEligible", "disclosureMeasured", "csvText", "deriveDisclosureInsights"]
     blocks = []
     for name in names:
         start = re.search(r"^function " + re.escape(name) + r"\(", source, re.MULTILINE)
@@ -239,6 +239,17 @@ def _frontend_fixture_script(source: str) -> str:
     const failures = [];
     const check = (condition, label) => { if (!condition) failures.push(label); };
     check(num(null) === null && num('') === null && num(0) === 0, 'missing values versus observed zero');
+    check(completeSum([10,20,0,30,40]) === 100, 'five observed construction years summed');
+    check(completeSum([0,0,0,0,0]) === 0, 'five observed zero years retained');
+    check(completeSum([10,20,null,30,40]) === null, 'partial construction years are not a full five-year total');
+    check(completeSum([null,null,null,null,null]) === null && completeSum([0,0,'',0,0]) === null, 'missing construction history is unavailable');
+    const missingPortfolio=statePortfolioObservation({state:'Fixture'});
+    check(missingPortfolio.projects === null && missingPortfolio.length_km === null && missingPortfolio.capital_outlay === null, 'missing project portfolio fields preserved');
+    const zeroPortfolio=statePortfolioObservation({state:'Fixture',number_of_nh_projects:0,length_in_km:0,length__in_km_:9,capital_outlay__rs_in_cr_for_the_years_2020_to_2024:0,capital_outlay___rs_in_cr__for_the_years_2020_to_2024:12});
+    check(zeroPortfolio.projects === 0 && zeroPortfolio.length_km === 0 && zeroPortfolio.capital_outlay === 0, 'portfolio zero not replaced by another alias');
+    check(unrectifiedShare(10,null) === null, 'missing rectification count is not a full backlog');
+    check(unrectifiedShare(10,0) === 100 && unrectifiedShare(10,10) === 0, 'observed rectification zero and full completion');
+    check(unrectifiedShare(0,0) === null && unrectifiedShare(10,11) === null, 'invalid black-spot denominator or scope');
     check(fmtNum(null) === 'N/A', 'missing display');
     check(sourceTypeTag({metric_category:'model_output', source:{official_flag:false}})[1] === 'model', 'model classification');
     check(sourceTypeTag({metric_category:'issuer_disclosed', source:{official_flag:false}})[1] === 'issuer', 'issuer classification');
