@@ -1956,7 +1956,7 @@
       "publication_date": "2026-02-01",
       "research_verified_at": "2026-10-02",
       "manual_fallback": true,
-      "notes": "Governed CSV data/raw/manual/union_budget_morth_demand86.csv; SHA256 evidence data/raw/manual/evidence/union_budget_morth_demand86.json; current document checksum checks cannot replace validated evidence on changed content.",
+      "notes": "Governed CSV data/raw/manual/union_budget_morth_demand86.csv; SHA256 evidence data/raw/manual/evidence/union_budget_morth_demand86.json; current document checksum checks cannot replace validated evidence on changed content. ActualFY2024-25 cutoff is31March2025; current-edition FY2025-26RE/FY2026-27BE vintage is1February2026. Reproduced FY2025-26BE original vintage is undisclosed here and retained as disclosure-only. Publication and disclosure dates never refresh historical actuals.",
       "last_checked_at": "2026-10-01T20:30:12.213937+00:00",
       "status_ok": true,
       "http_status": 200,
@@ -1989,7 +1989,7 @@
       "observation_as_of": "2026-02-01",
       "refresh_outcome": "updated",
       "refresh_error": null,
-      "last_refresh_checked_at": "2026-10-01T20:10:12.945500+00:00"
+      "last_refresh_checked_at": "2026-10-01T23:17:25.298683+00:00"
     },
     {
       "source_id": "union_budget_highway_outcomes",
@@ -2052,7 +2052,7 @@
       "observation_as_of": "2026-02-01",
       "refresh_outcome": "updated",
       "refresh_error": null,
-      "last_refresh_checked_at": "2026-10-01T20:10:13.059150+00:00"
+      "last_refresh_checked_at": "2026-10-01T23:17:25.358664+00:00"
     },
     {
       "source_id": "nhit_quarterly_operations_finance",
@@ -2115,7 +2115,7 @@
       "observation_as_of": "2026-06-30",
       "refresh_outcome": "updated",
       "refresh_error": null,
-      "last_refresh_checked_at": "2026-10-01T20:10:13.254546+00:00"
+      "last_refresh_checked_at": "2026-10-01T23:17:25.391784+00:00"
     },
     {
       "source_id": "nhit_quarterly_financial_filings",
@@ -2178,7 +2178,7 @@
       "observation_as_of": "2026-06-30",
       "refresh_outcome": "updated",
       "refresh_error": null,
-      "last_refresh_checked_at": "2026-10-01T20:10:13.820434+00:00"
+      "last_refresh_checked_at": "2026-10-01T23:17:25.436063+00:00"
     },
     {
       "source_id": "nhit_asset_valuation_assumptions",
@@ -2241,7 +2241,7 @@
       "observation_as_of": "2026-06-30",
       "refresh_outcome": "updated",
       "refresh_error": null,
-      "last_refresh_checked_at": "2026-10-01T20:10:14.481041+00:00"
+      "last_refresh_checked_at": "2026-10-01T23:17:25.473279+00:00"
     },
     {
       "source_id": "nhit_annual_report",
@@ -2304,7 +2304,7 @@
       "observation_as_of": "2026-03-31",
       "refresh_outcome": "updated",
       "refresh_error": null,
-      "last_refresh_checked_at": "2026-10-01T20:51:37.149625+00:00"
+      "last_refresh_checked_at": "2026-10-01T23:17:25.510931+00:00"
     },
     {
       "source_id": "nhidcl_monthly_project_progress",
@@ -2367,7 +2367,7 @@
       "observation_as_of": "2026-08-31",
       "refresh_outcome": "updated",
       "refresh_error": null,
-      "last_refresh_checked_at": "2026-10-01T20:17:36.105278+00:00"
+      "last_refresh_checked_at": "2026-10-01T23:17:25.592389+00:00"
     },
     {
       "source_id": "parliament_nhai_debt_tot_invit",
@@ -2393,11 +2393,11 @@
       "permanent_identifier_hint": "parliament_nhai_debt_tot_invit",
       "connector": "primary_disclosures",
       "metric_category": "official_measured",
-      "source_as_of_date": "2025-12-31",
+      "source_as_of_date": "2026-02-05",
       "publication_date": "2026-02-05",
       "research_verified_at": "2026-10-02",
       "manual_fallback": true,
-      "notes": "Governed CSV data/raw/manual/parliament_nhai_debt_tot_invit.csv; SHA256 evidence data/raw/manual/evidence/parliament_nhai_debt_tot_invit.json; current document checksum checks cannot replace validated evidence on changed content.",
+      "notes": "Governed CSV data/raw/manual/parliament_nhai_debt_tot_invit.csv; SHA256 evidence data/raw/manual/evidence/parliament_nhai_debt_tot_invit.json; current document checksum checks cannot replace validated evidence on changed content. Debt stock remains31December2025; historical receipts retain their reported fiscal cutoff. TOT17 and Round4CFI receipts areFY2025-26YTD through5February2026. Round4 table-yearFY2024-25 is retained separately from its footnoted receipt year.",
       "last_checked_at": "2026-10-01T20:30:15.944720+00:00",
       "status_ok": true,
       "http_status": 200,
@@ -2427,10 +2427,10 @@
       "disclosure_ready": true,
       "evidence_status": "verified",
       "extraction_status": "validated",
-      "observation_as_of": "2025-12-31",
+      "observation_as_of": "2026-02-05",
       "refresh_outcome": "updated",
       "refresh_error": null,
-      "last_refresh_checked_at": "2026-10-01T20:10:20.723904+00:00"
+      "last_refresh_checked_at": "2026-10-01T23:17:25.844958+00:00"
     },
     {
       "source_id": "nhai_monetisation_transactions",
@@ -2493,7 +2493,7 @@
       "observation_as_of": "2026-03-30",
       "refresh_outcome": "updated",
       "refresh_error": null,
-      "last_refresh_checked_at": "2026-10-01T20:10:21.085166+00:00"
+      "last_refresh_checked_at": "2026-10-01T23:17:25.881870+00:00"
     },
     {
       "source_id": "npci_netc_monthly_statistics",
@@ -2541,7 +2541,7 @@
       "observation_as_of": "2026-08-31",
       "refresh_outcome": "updated",
       "refresh_error": null,
-      "last_refresh_checked_at": "2026-10-01T22:09:08.785172+00:00",
+      "last_refresh_checked_at": "2026-10-01T23:17:25.908621+00:00",
       "publication_date_unknown": true,
       "rendered_snapshot_path": "data/raw/manual/evidence/npci_netc_rendered_snapshot_2026-10-02.json",
       "rendered_snapshot_sha256": "3743b75a8a0b48a4aba9b6c328164248ebf3ff2da8eb0a954f95d249c230cf99",
@@ -2571,11 +2571,11 @@
       "permanent_identifier_hint": "rbi_state_road_finances",
       "connector": "primary_disclosures",
       "metric_category": "official_measured",
-      "source_as_of_date": "2026-01-23",
+      "source_as_of_date": "2024-03-31",
       "publication_date": "2026-01-23",
       "research_verified_at": "2026-10-02",
       "manual_fallback": true,
-      "notes": "Governed CSV data/raw/manual/rbi_state_road_finances.csv; SHA256 evidence data/raw/manual/evidence/rbi_state_road_finances.json; current document checksum checks cannot replace validated evidence on changed content.",
+      "notes": "Governed CSV data/raw/manual/rbi_state_road_finances.csv; SHA256 evidence data/raw/manual/evidence/rbi_state_road_finances.json; current document checksum checks cannot replace validated evidence on changed content. FY2023-24Accounts observations end31March2024; State-specificBE/RE estimate vintage is undisclosed and remains blank/disclosure-only. The23January2026 publication/disclosure date never becomes an actual observation cutoff or guessed estimate vintage.",
       "last_checked_at": "2026-10-01T20:30:16.911338+00:00",
       "status_ok": true,
       "http_status": 200,
@@ -2605,10 +2605,10 @@
       "disclosure_ready": true,
       "evidence_status": "verified",
       "extraction_status": "validated",
-      "observation_as_of": "2026-01-23",
-      "refresh_outcome": "retained_after_failure",
-      "refresh_error": "Response is not a PDF",
-      "last_refresh_checked_at": "2026-10-01T20:12:43.564983+00:00"
+      "observation_as_of": "2024-03-31",
+      "refresh_outcome": "updated",
+      "refresh_error": null,
+      "last_refresh_checked_at": "2026-10-01T23:17:25.938980+00:00"
     },
     {
       "source_id": "cag_bharatmala_performance_audit",
@@ -2671,7 +2671,7 @@
       "observation_as_of": "2023-03-31",
       "refresh_outcome": "updated",
       "refresh_error": null,
-      "last_refresh_checked_at": "2026-10-01T20:10:21.281214+00:00"
+      "last_refresh_checked_at": "2026-10-01T23:17:26.078170+00:00"
     },
     {
       "source_id": "morth_state_highway_network",
@@ -2734,7 +2734,7 @@
       "observation_as_of": "2022-03-31",
       "refresh_outcome": "updated",
       "refresh_error": null,
-      "last_refresh_checked_at": "2026-10-01T20:10:23.253136+00:00"
+      "last_refresh_checked_at": "2026-10-01T23:17:26.111249+00:00"
     },
     {
       "source_id": "upeida_expressway_projects",
@@ -2782,7 +2782,7 @@
       "observation_as_of": null,
       "refresh_outcome": "updated",
       "refresh_error": null,
-      "last_refresh_checked_at": "2026-10-01T20:10:25.306552+00:00"
+      "last_refresh_checked_at": "2026-10-01T23:17:26.150409+00:00"
     },
     {
       "source_id": "msrdc_financial_disclosures",
@@ -2830,7 +2830,7 @@
       "observation_as_of": null,
       "refresh_outcome": "manual_evidence_required",
       "refresh_error": "Public index/subsidiary FY23-24 filings identified; primary download timed out. Parent standalone latest visible FY18-19, not FY23-24. No statement facts without retrieved PDF.",
-      "last_refresh_checked_at": "2026-10-01T20:10:25.333873+00:00"
+      "last_refresh_checked_at": "2026-10-01T23:17:26.176064+00:00"
     },
     {
       "source_id": "adb_state_road_projects",
@@ -2878,7 +2878,7 @@
       "observation_as_of": "2025-05-19",
       "refresh_outcome": "updated",
       "refresh_error": null,
-      "last_refresh_checked_at": "2026-10-01T22:09:08.840551+00:00",
+      "last_refresh_checked_at": "2026-10-01T23:17:26.189198+00:00",
       "discovery_reference_urls": [
         "https://www.adb.org/projects/documents/ind-52298-001-apfs-3"
       ],
@@ -2887,5 +2887,5 @@
       "evidence_metadata_path": "data/raw/manual/evidence/adb_state_road_projects.json"
     }
   ],
-  "catalog_synced_at": "2026-10-01T22:14:43.927462+00:00"
+  "catalog_synced_at": "2026-10-01T23:17:26.514236+00:00"
 }

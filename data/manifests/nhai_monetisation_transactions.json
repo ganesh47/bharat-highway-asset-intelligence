@@ -5,9 +5,9 @@
   "status": "manual_ingest",
   "metric_category": "official_measured",
   "refresh_outcome": "updated",
-  "last_checked_at": "2026-10-01T20:10:21.085166+00:00",
-  "last_successful_retrieval_at": "2026-10-01T20:05:45.232974+00:00",
-  "data_changed_at": "2026-10-01T20:10:21.085166+00:00",
+  "last_checked_at": "2026-10-01T23:17:25.881870+00:00",
+  "last_successful_retrieval_at": "2026-10-01T19:28:46.585482+00:00",
+  "data_changed_at": "2026-10-01T23:17:25.881870+00:00",
   "publication_date": "2026-03-30",
   "source_as_of_date": "2026-03-30",
   "analytical_ready": true,
@@ -34,8 +34,8 @@
     "raw_files": [
       {
         "path": "data/raw/manual/evidence/nhai_monetisation_transactions.json",
-        "sha256": "37bd7d42e5c7cc9bd15e9a0fb1b32a9a51e19b089446d124915e030d73ff01cf",
-        "size_bytes": 1001
+        "sha256": "96faa462c392a8aec8378663e8f761f382f3a11a62fdc4c03081da1cab80f189",
+        "size_bytes": 1057
       },
       {
         "path": "data/raw/primary_disclosures/nhai_monetisation_transactions/document.html",
@@ -44,8 +44,8 @@
       },
       {
         "path": "data/raw/manual/nhai_monetisation_transactions.csv",
-        "sha256": "c131c905a2a68e860cd8b10451f1e75f5556208fe7572c9165312003aab77917",
-        "size_bytes": 5151
+        "sha256": "486681dd25b0ccb2a5b7771894a4be18179598560a9705d47a1b0355ccba8ef1",
+        "size_bytes": 5219
       }
     ],
     "source_documents": [
@@ -61,7 +61,7 @@
       {
         "path": "data/processed/nhai_monetisation_transactions.parquet",
         "format": "parquet",
-        "sha256": "c0630800289457a7aed7b8adf51d3d0a65f81ce6113763b49b9e673d44ec5738"
+        "sha256": "a636de9c14479a2e15b5b348ac85262df004d1f686d526f78defbb965b09db67"
       }
     ],
     "row_count": 6,
@@ -110,7 +110,10 @@
       "operator_id",
       "concessionaire_id",
       "financing_entity_id",
-      "contractor_name"
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period"
     ]
   },
   "retrieved_at": "2026-10-01T19:28:46.585482+00:00",
@@ -124,8 +127,8 @@
   "recency_basis": "observation_date",
   "validation_errors": [],
   "output_table_path": "data/processed/nhai_monetisation_transactions.parquet",
-  "data_checksum": "ebb2ca71f6afe7282de0660072ae0f390141764eb1b54354afbee3ebf3eb3a7a",
-  "last_ingested_at": "2026-10-01T20:10:21.085166+00:00",
+  "data_checksum": "a2eaf18e589f2893bc05367bea5d41522ba12c9fd5188d32d856bf4fd30e3b50",
+  "last_ingested_at": "2026-10-01T23:17:25.881870+00:00",
   "analytical_scope": {
     "source_as_of_date": "2026-03-30",
     "publisher_type": "government"

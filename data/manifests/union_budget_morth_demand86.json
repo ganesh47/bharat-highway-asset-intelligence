@@ -5,9 +5,9 @@
   "status": "manual_ingest",
   "metric_category": "official_measured",
   "refresh_outcome": "updated",
-  "last_checked_at": "2026-10-01T20:10:12.945500+00:00",
-  "last_successful_retrieval_at": "2026-10-01T20:10:12.947756+00:00",
-  "data_changed_at": "2026-10-01T20:10:12.945500+00:00",
+  "last_checked_at": "2026-10-01T23:17:25.298683+00:00",
+  "last_successful_retrieval_at": "2026-10-01T19:28:45.439777+00:00",
+  "data_changed_at": "2026-10-01T23:17:25.298683+00:00",
   "publication_date": "2026-02-01",
   "source_as_of_date": "2026-02-01",
   "analytical_ready": true,
@@ -34,8 +34,8 @@
     "raw_files": [
       {
         "path": "data/raw/manual/evidence/union_budget_morth_demand86.json",
-        "sha256": "68339b3b982a362d49d3a9844de40914e939dbfa383c178d17c7003891b60c6a",
-        "size_bytes": 768
+        "sha256": "e51ebe2ed6150c0a1f0ddcc6898e679bb5c6864f48ec0ff15a7fe4daa0df01de",
+        "size_bytes": 1211
       },
       {
         "path": "data/raw/primary_disclosures/union_budget_morth_demand86/document.pdf",
@@ -44,8 +44,8 @@
       },
       {
         "path": "data/raw/manual/union_budget_morth_demand86.csv",
-        "sha256": "7feab9444d19f3b3d26195b8b76c27b59ecac408f1721548b747b040937944ad",
-        "size_bytes": 25479
+        "sha256": "fec0dbd3584fd0cd03358c4d24fd7b554ae02a8239fdac1d7db2109f4488dc4c",
+        "size_bytes": 34279
       }
     ],
     "source_documents": [
@@ -60,7 +60,7 @@
       {
         "path": "data/processed/union_budget_morth_demand86.parquet",
         "format": "parquet",
-        "sha256": "17e478957ed90135c7649428fd1bee55e281ad6f28813253ca040f03f8a7804e"
+        "sha256": "71937fc92a06879ac80ca24a46565e039eaced8a09446f7183879f5db2b4d7fa"
       }
     ],
     "row_count": 40,
@@ -109,7 +109,10 @@
       "operator_id",
       "concessionaire_id",
       "financing_entity_id",
-      "contractor_name"
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period"
     ]
   },
   "retrieved_at": "2026-10-01T19:28:45.439777+00:00",
@@ -123,8 +126,8 @@
   "recency_basis": "observation_date",
   "validation_errors": [],
   "output_table_path": "data/processed/union_budget_morth_demand86.parquet",
-  "data_checksum": "28e21aef6f40ce416a3eef92b1d271adc665ea2ae85626badc5f87b3b15445d3",
-  "last_ingested_at": "2026-10-01T20:10:12.945500+00:00",
+  "data_checksum": "be5e83fb9d9a75a094390d369aed20dda9181ab2f8d9040b959d652896e999f6",
+  "last_ingested_at": "2026-10-01T23:17:25.298683+00:00",
   "analytical_scope": {
     "source_as_of_date": "2026-02-01",
     "publisher_type": "government"

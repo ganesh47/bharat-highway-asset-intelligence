@@ -5,9 +5,9 @@
   "status": "manual_ingest",
   "metric_category": "issuer_disclosed",
   "refresh_outcome": "updated",
-  "last_checked_at": "2026-10-01T22:09:08.840551+00:00",
+  "last_checked_at": "2026-10-01T23:17:26.189198+00:00",
   "last_successful_retrieval_at": "2026-10-01T21:54:50.461542+00:00",
-  "data_changed_at": "2026-10-01T22:09:08.840551+00:00",
+  "data_changed_at": "2026-10-01T23:17:26.189198+00:00",
   "publication_date": "2025-09-05",
   "source_as_of_date": "2025-05-19",
   "analytical_ready": true,
@@ -40,7 +40,7 @@
     "raw_files": [
       {
         "path": "data/raw/manual/evidence/adb_state_road_projects.json",
-        "sha256": "c586e367862542c444d3d508a3742a1282280639260fbb4199edd220e7384541",
+        "sha256": "54718e66c311938db2956ebbeefb27e7e44ed26a282c15f774a489162f7a9478",
         "size_bytes": 2132
       },
       {
@@ -50,8 +50,8 @@
       },
       {
         "path": "data/raw/manual/adb_state_road_projects.csv",
-        "sha256": "8c2b7b703801d920bf4f067f2ed97bc31bc557672e1064a2c539bd66b7fd974d",
-        "size_bytes": 109149
+        "sha256": "da155abb93a0fbdf52852bbe89c0cb6233a65f1637e994078d34c0ac04c9e8a6",
+        "size_bytes": 108960
       }
     ],
     "source_documents": [
@@ -70,7 +70,7 @@
       {
         "path": "data/processed/adb_state_road_projects.parquet",
         "format": "parquet",
-        "sha256": "e84de258406d01c70817ff026a30df2e4696d0154db9caa7dc4c57555942b845"
+        "sha256": "1d104fb83bf204c5953dea13d2b1ef0ef463f4bf8362a1ffadde33d8a8771f76"
       }
     ],
     "row_count": 77,
@@ -119,7 +119,10 @@
       "operator_id",
       "concessionaire_id",
       "financing_entity_id",
-      "contractor_name"
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period"
     ]
   },
   "retrieved_at": "2026-10-01T21:54:50.461542+00:00",
@@ -133,11 +136,10 @@
   "recency_basis": "observation_date",
   "validation_errors": [],
   "output_table_path": "data/processed/adb_state_road_projects.parquet",
-  "data_checksum": "8fa6927ecb40bef4fdc9fbf24f9cd18796a241bf429218da4efdd0ffb141aad7",
-  "last_ingested_at": "2026-10-01T22:09:08.840551+00:00",
+  "data_checksum": "1c8698c68bd1c52c95af55ee2674f60364f4021396341938a41803252b8241bc",
+  "last_ingested_at": "2026-10-01T23:17:26.189198+00:00",
   "analytical_scope": {
     "source_as_of_date": "2025-05-19",
     "publisher_type": "multilateral"
-  },
-  "last_quality_check_at": "2026-10-01T22:14:43.674869+00:00"
+  }
 }

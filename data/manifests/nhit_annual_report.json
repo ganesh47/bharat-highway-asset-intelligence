@@ -5,9 +5,9 @@
   "status": "manual_ingest",
   "metric_category": "issuer_disclosed",
   "refresh_outcome": "updated",
-  "last_checked_at": "2026-10-01T20:51:37.149625+00:00",
+  "last_checked_at": "2026-10-01T23:17:25.510931+00:00",
   "last_successful_retrieval_at": "2026-10-01T19:28:59.062600+00:00",
-  "data_changed_at": "2026-10-01T20:51:37.149625+00:00",
+  "data_changed_at": "2026-10-01T23:17:25.510931+00:00",
   "publication_date": null,
   "source_as_of_date": "2026-03-31",
   "analytical_ready": true,
@@ -34,7 +34,7 @@
     "raw_files": [
       {
         "path": "data/raw/manual/evidence/nhit_annual_report.json",
-        "sha256": "7de8e1296abe2b9e2b9dc3dd189ae620e33267edf5e8dffe301b58a7fccaec60",
+        "sha256": "675a2a131bae83531b100f10843e893d6901afbd76cad771d9283618e101f6ee",
         "size_bytes": 1219
       },
       {
@@ -44,8 +44,8 @@
       },
       {
         "path": "data/raw/manual/nhit_annual_report.csv",
-        "sha256": "9a860c1766e2c8ddbbec279da23516c42f063c3a2fbbb09b57b9ca44e7b4370c",
-        "size_bytes": 48348
+        "sha256": "439460c9785aa88cdb74240b3b1436717c0b7379ca4a309859bf359157b521cb",
+        "size_bytes": 48584
       }
     ],
     "source_documents": [
@@ -60,7 +60,7 @@
       {
         "path": "data/processed/nhit_annual_report.parquet",
         "format": "parquet",
-        "sha256": "a6ff5b47aefeffd659827e56aa5bcb6603607540ad7dbeb45c5cfdd437497ef1"
+        "sha256": "a4bf81c2e90b4defff20bff355f6f0d7c05c9203fe5943a665dc8431280898b8"
       }
     ],
     "row_count": 62,
@@ -109,7 +109,10 @@
       "operator_id",
       "concessionaire_id",
       "financing_entity_id",
-      "contractor_name"
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period"
     ]
   },
   "retrieved_at": "2026-10-01T19:28:59.062600+00:00",
@@ -123,8 +126,8 @@
   "recency_basis": "observation_date",
   "validation_errors": [],
   "output_table_path": "data/processed/nhit_annual_report.parquet",
-  "data_checksum": "8e5c4d3ce6da294541b8c5ca760fd0250b833ae16d6ccd1422c724486b5b203b",
-  "last_ingested_at": "2026-10-01T20:51:37.149625+00:00",
+  "data_checksum": "bec861cb047dfc9eaf263370fa0794e3d1563c28da0ddd761734587a9c39b407",
+  "last_ingested_at": "2026-10-01T23:17:25.510931+00:00",
   "analytical_scope": {
     "source_as_of_date": "2026-03-31",
     "publisher_type": "issuer"

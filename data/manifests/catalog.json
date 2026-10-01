@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T22:14:43.675226+00:00",
+  "generated_at": "2026-10-01T23:17:26.224772+00:00",
   "datasets": [
     {
       "source_id": "data_gov_in_nhai_projects_api",
@@ -3062,9 +3062,9 @@
       "status": "manual_ingest",
       "metric_category": "official_measured",
       "refresh_outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:12.945500+00:00",
-      "last_successful_retrieval_at": "2026-10-01T20:10:12.947756+00:00",
-      "data_changed_at": "2026-10-01T20:10:12.945500+00:00",
+      "last_checked_at": "2026-10-01T23:17:25.298683+00:00",
+      "last_successful_retrieval_at": "2026-10-01T19:28:45.439777+00:00",
+      "data_changed_at": "2026-10-01T23:17:25.298683+00:00",
       "publication_date": "2026-02-01",
       "source_as_of_date": "2026-02-01",
       "analytical_ready": true,
@@ -3091,8 +3091,8 @@
         "raw_files": [
           {
             "path": "data/raw/manual/evidence/union_budget_morth_demand86.json",
-            "sha256": "68339b3b982a362d49d3a9844de40914e939dbfa383c178d17c7003891b60c6a",
-            "size_bytes": 768
+            "sha256": "e51ebe2ed6150c0a1f0ddcc6898e679bb5c6864f48ec0ff15a7fe4daa0df01de",
+            "size_bytes": 1211
           },
           {
             "path": "data/raw/primary_disclosures/union_budget_morth_demand86/document.pdf",
@@ -3101,8 +3101,8 @@
           },
           {
             "path": "data/raw/manual/union_budget_morth_demand86.csv",
-            "sha256": "7feab9444d19f3b3d26195b8b76c27b59ecac408f1721548b747b040937944ad",
-            "size_bytes": 25479
+            "sha256": "fec0dbd3584fd0cd03358c4d24fd7b554ae02a8239fdac1d7db2109f4488dc4c",
+            "size_bytes": 34279
           }
         ],
         "source_documents": [
@@ -3117,7 +3117,7 @@
           {
             "path": "data/processed/union_budget_morth_demand86.parquet",
             "format": "parquet",
-            "sha256": "17e478957ed90135c7649428fd1bee55e281ad6f28813253ca040f03f8a7804e"
+            "sha256": "71937fc92a06879ac80ca24a46565e039eaced8a09446f7183879f5db2b4d7fa"
           }
         ],
         "row_count": 40,
@@ -3166,7 +3166,10 @@
           "operator_id",
           "concessionaire_id",
           "financing_entity_id",
-          "contractor_name"
+          "contractor_name",
+          "disclosure_as_of",
+          "estimate_vintage",
+          "reported_period"
         ]
       },
       "retrieved_at": "2026-10-01T19:28:45.439777+00:00",
@@ -3180,8 +3183,8 @@
       "recency_basis": "observation_date",
       "validation_errors": [],
       "output_table_path": "data/processed/union_budget_morth_demand86.parquet",
-      "data_checksum": "28e21aef6f40ce416a3eef92b1d271adc665ea2ae85626badc5f87b3b15445d3",
-      "last_ingested_at": "2026-10-01T20:10:12.945500+00:00",
+      "data_checksum": "be5e83fb9d9a75a094390d369aed20dda9181ab2f8d9040b959d652896e999f6",
+      "last_ingested_at": "2026-10-01T23:17:25.298683+00:00",
       "analytical_scope": {
         "source_as_of_date": "2026-02-01",
         "publisher_type": "government"
@@ -3194,9 +3197,9 @@
       "status": "manual_ingest",
       "metric_category": "official_measured",
       "refresh_outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:13.059150+00:00",
-      "last_successful_retrieval_at": "2026-10-01T20:10:13.062066+00:00",
-      "data_changed_at": "2026-10-01T20:10:13.059150+00:00",
+      "last_checked_at": "2026-10-01T23:17:25.358664+00:00",
+      "last_successful_retrieval_at": "2026-10-01T19:28:45.546713+00:00",
+      "data_changed_at": "2026-10-01T23:17:25.358664+00:00",
       "publication_date": "2026-02-01",
       "source_as_of_date": "2026-02-01",
       "analytical_ready": false,
@@ -3223,8 +3226,8 @@
         "raw_files": [
           {
             "path": "data/raw/manual/evidence/union_budget_highway_outcomes.json",
-            "sha256": "b7f7bdf6343e267fb04dbc5e36e4d98a267f527638b975acf6309aafee47c153",
-            "size_bytes": 788
+            "sha256": "20996bcd5657073e0767ec16901295aa166df8f0429121e40235b1d74bed7798",
+            "size_bytes": 844
           },
           {
             "path": "data/raw/primary_disclosures/union_budget_highway_outcomes/document.pdf",
@@ -3233,8 +3236,8 @@
           },
           {
             "path": "data/raw/manual/union_budget_highway_outcomes.csv",
-            "sha256": "03f99965e45bd9d5d90c977dc4ac3fbcd09a99972f5146a58b10d6eb73d2775f",
-            "size_bytes": 8057
+            "sha256": "7f9ddbc01455eede0f482fb506d1cd2e9860da592fa2cbea470959f7e577d280",
+            "size_bytes": 8143
           }
         ],
         "source_documents": [
@@ -3249,7 +3252,7 @@
           {
             "path": "data/processed/union_budget_highway_outcomes.parquet",
             "format": "parquet",
-            "sha256": "dce386a44f0aea1f7708258f7dcf64d4cb405b38070d6a8cf35c6d0baa80d24e"
+            "sha256": "527ae95b6c3ec0dedb7157831fa207ffc7335442133c99643bbe16b32ed6133e"
           }
         ],
         "row_count": 12,
@@ -3298,14 +3301,17 @@
           "operator_id",
           "concessionaire_id",
           "financing_entity_id",
-          "contractor_name"
+          "contractor_name",
+          "disclosure_as_of",
+          "estimate_vintage",
+          "reported_period"
         ]
       },
       "retrieved_at": "2026-10-01T19:28:45.546713+00:00",
       "semantic_rechecks": [],
       "output_table_path": "data/processed/union_budget_highway_outcomes.parquet",
-      "data_checksum": "9e439aaa8334cb46ee45c34faeb18016ed5f3193ea29890d889ed7951f2ae5f6",
-      "last_ingested_at": "2026-10-01T20:10:13.059150+00:00",
+      "data_checksum": "85daafff9f48b1525387d362b70a57edb8a60f805af3b5c2ba17b4e1ad8c1a3c",
+      "last_ingested_at": "2026-10-01T23:17:25.358664+00:00",
       "analytical_scope": {
         "source_as_of_date": "2026-02-01",
         "publisher_type": "government"
@@ -3326,9 +3332,9 @@
       "status": "manual_ingest",
       "metric_category": "issuer_disclosed",
       "refresh_outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:13.254546+00:00",
-      "last_successful_retrieval_at": "2026-10-01T20:10:13.257451+00:00",
-      "data_changed_at": "2026-10-01T20:10:13.254546+00:00",
+      "last_checked_at": "2026-10-01T23:17:25.391784+00:00",
+      "last_successful_retrieval_at": "2026-10-01T19:28:46.101037+00:00",
+      "data_changed_at": "2026-10-01T23:17:25.391784+00:00",
       "publication_date": "2026-08-31",
       "source_as_of_date": "2026-06-30",
       "analytical_ready": true,
@@ -3355,8 +3361,8 @@
         "raw_files": [
           {
             "path": "data/raw/manual/evidence/nhit_quarterly_operations_finance.json",
-            "sha256": "e604a66ceffed58b03a67eed07f8854a01444160710ae4b839b4090166e43a5f",
-            "size_bytes": 822
+            "sha256": "49f53216dedb5092d25e2145c3603652d46376571c6d3dbeb0a97b008c48c243",
+            "size_bytes": 1265
           },
           {
             "path": "data/raw/primary_disclosures/nhit_quarterly_operations_finance/document.pdf",
@@ -3365,8 +3371,8 @@
           },
           {
             "path": "data/raw/manual/nhit_quarterly_operations_finance.csv",
-            "sha256": "4e6155f121b479c3ffbc91d680ab06befe890a142cc6d8902c99fc2e5a4507f5",
-            "size_bytes": 87257
+            "sha256": "85cb524360ea333eca7cb741578d9a20dd6da3cfa8b170b52d549997d445a641",
+            "size_bytes": 91182
           }
         ],
         "source_documents": [
@@ -3381,7 +3387,7 @@
           {
             "path": "data/processed/nhit_quarterly_operations_finance.parquet",
             "format": "parquet",
-            "sha256": "9a38f34bb53f652f770180f531ea0ac38216a612794e0fa114ee009803b7e8d4"
+            "sha256": "e2043d3cdfdb491ccf5f62d15d51ea940254cb07fb8592eeb14471ab2a4c461e"
           }
         ],
         "row_count": 117,
@@ -3430,7 +3436,10 @@
           "operator_id",
           "concessionaire_id",
           "financing_entity_id",
-          "contractor_name"
+          "contractor_name",
+          "disclosure_as_of",
+          "estimate_vintage",
+          "reported_period"
         ]
       },
       "retrieved_at": "2026-10-01T19:28:46.101037+00:00",
@@ -3444,8 +3453,8 @@
       "recency_basis": "observation_date",
       "validation_errors": [],
       "output_table_path": "data/processed/nhit_quarterly_operations_finance.parquet",
-      "data_checksum": "f70d628fe9c3cbabb918928f9bf7a82309db4c66f786bbcb087820069b2f352f",
-      "last_ingested_at": "2026-10-01T20:10:13.254546+00:00",
+      "data_checksum": "e854c3480237b8307f93799d066859d1ae94a5e93b6d7097aef43592ab615ac6",
+      "last_ingested_at": "2026-10-01T23:17:25.391784+00:00",
       "analytical_scope": {
         "source_as_of_date": "2026-06-30",
         "publisher_type": "issuer"
@@ -3458,9 +3467,9 @@
       "status": "manual_ingest",
       "metric_category": "issuer_disclosed",
       "refresh_outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:13.820434+00:00",
-      "last_successful_retrieval_at": "2026-10-01T20:10:13.823730+00:00",
-      "data_changed_at": "2026-10-01T20:10:13.820434+00:00",
+      "last_checked_at": "2026-10-01T23:17:25.436063+00:00",
+      "last_successful_retrieval_at": "2026-10-01T19:28:46.194237+00:00",
+      "data_changed_at": "2026-10-01T23:17:25.436063+00:00",
       "publication_date": "2026-08-07",
       "source_as_of_date": "2026-06-30",
       "analytical_ready": true,
@@ -3487,8 +3496,8 @@
         "raw_files": [
           {
             "path": "data/raw/manual/evidence/nhit_quarterly_financial_filings.json",
-            "sha256": "182fcf32261fa46e19c99d6a7793df72ef2d0b490483d2fb10425c719f920068",
-            "size_bytes": 938
+            "sha256": "b499e506018c9244bf9f9e13a4d45cd1c6cd3f1258014b830cf5f73b46e31ce4",
+            "size_bytes": 994
           },
           {
             "path": "data/raw/primary_disclosures/nhit_quarterly_financial_filings/document.pdf",
@@ -3497,8 +3506,8 @@
           },
           {
             "path": "data/raw/manual/nhit_quarterly_financial_filings.csv",
-            "sha256": "1ff5fc4dd1990c00a30373554805d952ed5a915af92566d6d7356e6e167205fc",
-            "size_bytes": 4118
+            "sha256": "5ec5eabece19525b6850806d34482cabb3ce28e6ca7b3731cdc2785c8071f06d",
+            "size_bytes": 4186
           }
         ],
         "source_documents": [
@@ -3513,7 +3522,7 @@
           {
             "path": "data/processed/nhit_quarterly_financial_filings.parquet",
             "format": "parquet",
-            "sha256": "356453d78207f072421cfd4d558762b7b9095e5ad5216a7e91c6dcb12296b267"
+            "sha256": "08f4c99fa1ff4b3bb0ecdfc4b711f6c099f5ad138e42e7faa533fd46eacf9a59"
           }
         ],
         "row_count": 6,
@@ -3562,7 +3571,10 @@
           "operator_id",
           "concessionaire_id",
           "financing_entity_id",
-          "contractor_name"
+          "contractor_name",
+          "disclosure_as_of",
+          "estimate_vintage",
+          "reported_period"
         ]
       },
       "retrieved_at": "2026-10-01T19:28:46.194237+00:00",
@@ -3576,8 +3588,8 @@
       "recency_basis": "observation_date",
       "validation_errors": [],
       "output_table_path": "data/processed/nhit_quarterly_financial_filings.parquet",
-      "data_checksum": "15aecbf491c9dcee53a8b8568a75bb9c19b8383a6bc0902d5343bbdd344bfce0",
-      "last_ingested_at": "2026-10-01T20:10:13.820434+00:00",
+      "data_checksum": "604008bc7940bd4c257d2d1a86e817eaf82d27ba3a8d8ad1ca0dd5d9cf2c7b13",
+      "last_ingested_at": "2026-10-01T23:17:25.436063+00:00",
       "analytical_scope": {
         "source_as_of_date": "2026-06-30",
         "publisher_type": "issuer"
@@ -3590,9 +3602,9 @@
       "status": "manual_ingest",
       "metric_category": "issuer_disclosed",
       "refresh_outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:14.481041+00:00",
-      "last_successful_retrieval_at": "2026-10-01T20:10:14.484096+00:00",
-      "data_changed_at": "2026-10-01T20:10:14.481041+00:00",
+      "last_checked_at": "2026-10-01T23:17:25.473279+00:00",
+      "last_successful_retrieval_at": "2026-10-01T19:28:46.272467+00:00",
+      "data_changed_at": "2026-10-01T23:17:25.473279+00:00",
       "publication_date": "2026-08-07",
       "source_as_of_date": "2026-06-30",
       "analytical_ready": true,
@@ -3619,8 +3631,8 @@
         "raw_files": [
           {
             "path": "data/raw/manual/evidence/nhit_asset_valuation_assumptions.json",
-            "sha256": "83a9d28782c5f08f6be7029d93cbd796f1a3364a68388315859cd654e164bf96",
-            "size_bytes": 807
+            "sha256": "16ac94e4c1a4b2f5e5984db3ed6005923d54a630e6ebe3cc1ea1f99e54e9f33c",
+            "size_bytes": 1250
           },
           {
             "path": "data/raw/primary_disclosures/nhit_asset_valuation_assumptions/document.pdf",
@@ -3629,8 +3641,8 @@
           },
           {
             "path": "data/raw/manual/nhit_asset_valuation_assumptions.csv",
-            "sha256": "5137d035db0c318334e5ba294386fc6365025c3f893509758096b2b22e4ebb0e",
-            "size_bytes": 12494
+            "sha256": "6970b21a5732aa77b2fb7d0395593feb40df241d625cf03ef3c256ab02385ed8",
+            "size_bytes": 13525
           }
         ],
         "source_documents": [
@@ -3645,7 +3657,7 @@
           {
             "path": "data/processed/nhit_asset_valuation_assumptions.parquet",
             "format": "parquet",
-            "sha256": "1d21b46138ed4896162b4649e35753b9c0879e5b9bd9e564cbff0c960f15d93b"
+            "sha256": "98c4075aac657be43c971666476408b87eace736d9515bc31f8121031f4e5a5d"
           }
         ],
         "row_count": 17,
@@ -3694,7 +3706,10 @@
           "operator_id",
           "concessionaire_id",
           "financing_entity_id",
-          "contractor_name"
+          "contractor_name",
+          "disclosure_as_of",
+          "estimate_vintage",
+          "reported_period"
         ]
       },
       "retrieved_at": "2026-10-01T19:28:46.272467+00:00",
@@ -3708,8 +3723,8 @@
       "recency_basis": "observation_date",
       "validation_errors": [],
       "output_table_path": "data/processed/nhit_asset_valuation_assumptions.parquet",
-      "data_checksum": "9ebb5099e556747fad28863d5c4fd5010b95c8fa51350da03da89bd034cbc1f0",
-      "last_ingested_at": "2026-10-01T20:10:14.481041+00:00",
+      "data_checksum": "c670af1c8d17246b3a7e617cc6a8d59ce0d7367bf38c75dac4fac83d9df55d17",
+      "last_ingested_at": "2026-10-01T23:17:25.473279+00:00",
       "analytical_scope": {
         "source_as_of_date": "2026-06-30",
         "publisher_type": "issuer"
@@ -3722,9 +3737,9 @@
       "status": "manual_ingest",
       "metric_category": "issuer_disclosed",
       "refresh_outcome": "updated",
-      "last_checked_at": "2026-10-01T20:51:37.149625+00:00",
+      "last_checked_at": "2026-10-01T23:17:25.510931+00:00",
       "last_successful_retrieval_at": "2026-10-01T19:28:59.062600+00:00",
-      "data_changed_at": "2026-10-01T20:51:37.149625+00:00",
+      "data_changed_at": "2026-10-01T23:17:25.510931+00:00",
       "publication_date": null,
       "source_as_of_date": "2026-03-31",
       "analytical_ready": true,
@@ -3751,7 +3766,7 @@
         "raw_files": [
           {
             "path": "data/raw/manual/evidence/nhit_annual_report.json",
-            "sha256": "7de8e1296abe2b9e2b9dc3dd189ae620e33267edf5e8dffe301b58a7fccaec60",
+            "sha256": "675a2a131bae83531b100f10843e893d6901afbd76cad771d9283618e101f6ee",
             "size_bytes": 1219
           },
           {
@@ -3761,8 +3776,8 @@
           },
           {
             "path": "data/raw/manual/nhit_annual_report.csv",
-            "sha256": "9a860c1766e2c8ddbbec279da23516c42f063c3a2fbbb09b57b9ca44e7b4370c",
-            "size_bytes": 48348
+            "sha256": "439460c9785aa88cdb74240b3b1436717c0b7379ca4a309859bf359157b521cb",
+            "size_bytes": 48584
           }
         ],
         "source_documents": [
@@ -3777,7 +3792,7 @@
           {
             "path": "data/processed/nhit_annual_report.parquet",
             "format": "parquet",
-            "sha256": "a6ff5b47aefeffd659827e56aa5bcb6603607540ad7dbeb45c5cfdd437497ef1"
+            "sha256": "a4bf81c2e90b4defff20bff355f6f0d7c05c9203fe5943a665dc8431280898b8"
           }
         ],
         "row_count": 62,
@@ -3826,7 +3841,10 @@
           "operator_id",
           "concessionaire_id",
           "financing_entity_id",
-          "contractor_name"
+          "contractor_name",
+          "disclosure_as_of",
+          "estimate_vintage",
+          "reported_period"
         ]
       },
       "retrieved_at": "2026-10-01T19:28:59.062600+00:00",
@@ -3840,8 +3858,8 @@
       "recency_basis": "observation_date",
       "validation_errors": [],
       "output_table_path": "data/processed/nhit_annual_report.parquet",
-      "data_checksum": "8e5c4d3ce6da294541b8c5ca760fd0250b833ae16d6ccd1422c724486b5b203b",
-      "last_ingested_at": "2026-10-01T20:51:37.149625+00:00",
+      "data_checksum": "bec861cb047dfc9eaf263370fa0794e3d1563c28da0ddd761734587a9c39b407",
+      "last_ingested_at": "2026-10-01T23:17:25.510931+00:00",
       "analytical_scope": {
         "source_as_of_date": "2026-03-31",
         "publisher_type": "issuer"
@@ -3854,9 +3872,9 @@
       "status": "manual_ingest",
       "metric_category": "official_measured",
       "refresh_outcome": "updated",
-      "last_checked_at": "2026-10-01T20:17:36.105278+00:00",
-      "last_successful_retrieval_at": "2026-10-01T20:10:18.482229+00:00",
-      "data_changed_at": "2026-10-01T20:17:36.105278+00:00",
+      "last_checked_at": "2026-10-01T23:17:25.592389+00:00",
+      "last_successful_retrieval_at": "2026-10-01T19:28:49.064739+00:00",
+      "data_changed_at": "2026-10-01T23:17:25.592389+00:00",
       "publication_date": null,
       "source_as_of_date": "2026-08-31",
       "analytical_ready": true,
@@ -3883,8 +3901,8 @@
         "raw_files": [
           {
             "path": "data/raw/manual/evidence/nhidcl_monthly_project_progress.json",
-            "sha256": "93040e0c3a5ea9d810238b68ab82cf6793d5f13e6e43a274eec1f4470d47d8e2",
-            "size_bytes": 1058
+            "sha256": "e30d4f7bfdf07e5ac7b32efb320376473d011e5f66eed7d1a94834df033a5f10",
+            "size_bytes": 1114
           },
           {
             "path": "data/raw/primary_disclosures/nhidcl_monthly_project_progress/document.pdf",
@@ -3893,8 +3911,8 @@
           },
           {
             "path": "data/raw/manual/nhidcl_monthly_project_progress.csv",
-            "sha256": "a22286bfa7415ae1d1ce720909382a0605ca47fe2616be39816935bc8f6e6993",
-            "size_bytes": 4006094
+            "sha256": "270168b03bbb7a6b388869ab8554d78cdd4921fc6a8e15fc55acbf17a99ec19a",
+            "size_bytes": 4013296
           }
         ],
         "source_documents": [
@@ -3909,7 +3927,7 @@
           {
             "path": "data/processed/nhidcl_monthly_project_progress.parquet",
             "format": "parquet",
-            "sha256": "827c9fc3a41ab8905d168940457947ace00adf465f2c6a1e93d5cb8f7f487064"
+            "sha256": "47f3dc9d125c0f2b22318f83bf5f800634b33b6a34f58c49b4aafe807972504a"
           }
         ],
         "row_count": 2384,
@@ -3958,7 +3976,10 @@
           "operator_id",
           "concessionaire_id",
           "financing_entity_id",
-          "contractor_name"
+          "contractor_name",
+          "disclosure_as_of",
+          "estimate_vintage",
+          "reported_period"
         ]
       },
       "retrieved_at": "2026-10-01T19:28:49.064739+00:00",
@@ -3972,8 +3993,8 @@
       "recency_basis": "observation_date",
       "validation_errors": [],
       "output_table_path": "data/processed/nhidcl_monthly_project_progress.parquet",
-      "data_checksum": "35baa131215669dfdedc055348559dfe28ccbb5d59d4890e92af829fbe8e9594",
-      "last_ingested_at": "2026-10-01T20:17:36.105278+00:00",
+      "data_checksum": "a64a67b65915b08c913ba9b828c9cb42b04c3d55ed38299d9a792c487bba525f",
+      "last_ingested_at": "2026-10-01T23:17:25.592389+00:00",
       "analytical_scope": {
         "source_as_of_date": "2026-08-31",
         "publisher_type": "government"
@@ -3986,11 +4007,11 @@
       "status": "manual_ingest",
       "metric_category": "official_measured",
       "refresh_outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:20.723904+00:00",
-      "last_successful_retrieval_at": "2026-10-01T20:10:20.726889+00:00",
-      "data_changed_at": "2026-10-01T20:10:20.723904+00:00",
+      "last_checked_at": "2026-10-01T23:17:25.844958+00:00",
+      "last_successful_retrieval_at": "2026-10-01T19:28:46.561911+00:00",
+      "data_changed_at": "2026-10-01T23:17:25.844958+00:00",
       "publication_date": "2026-02-05",
-      "source_as_of_date": "2025-12-31",
+      "source_as_of_date": "2026-02-05",
       "analytical_ready": true,
       "evidence_status": "verified",
       "disclosure_ready": true,
@@ -4015,8 +4036,8 @@
         "raw_files": [
           {
             "path": "data/raw/manual/evidence/parliament_nhai_debt_tot_invit.json",
-            "sha256": "108212f04e066a5458664a97f55539dfa47c84e2eb4e52e159691acea69f8de8",
-            "size_bytes": 810
+            "sha256": "a5aba9d03614730179b4d39d860d768c5c5c734019cd06c550435a0883ae7a76",
+            "size_bytes": 1253
           },
           {
             "path": "data/raw/primary_disclosures/parliament_nhai_debt_tot_invit/document.pdf",
@@ -4025,8 +4046,8 @@
           },
           {
             "path": "data/raw/manual/parliament_nhai_debt_tot_invit.csv",
-            "sha256": "640a69ce016a192de84012c27330dde336a4aa21274c45090b3b6bebdcff2456",
-            "size_bytes": 25324
+            "sha256": "dafdf6a0d75f00a41c8d26b47c90426022dcc18881e24da39570337df33b491b",
+            "size_bytes": 31191
           }
         ],
         "source_documents": [
@@ -4041,7 +4062,7 @@
           {
             "path": "data/processed/parliament_nhai_debt_tot_invit.parquet",
             "format": "parquet",
-            "sha256": "49aa06b8fb7676d027e8469a457c176de34bb8b0965f14afe99d4f2e5608963d"
+            "sha256": "e4affb90ee3cd4479bf5a4607b34c191bb6b3fdb08f8be24fe1afb072180f18a"
           }
         ],
         "row_count": 33,
@@ -4090,7 +4111,10 @@
           "operator_id",
           "concessionaire_id",
           "financing_entity_id",
-          "contractor_name"
+          "contractor_name",
+          "disclosure_as_of",
+          "estimate_vintage",
+          "reported_period"
         ]
       },
       "retrieved_at": "2026-10-01T19:28:46.561911+00:00",
@@ -4104,10 +4128,10 @@
       "recency_basis": "observation_date",
       "validation_errors": [],
       "output_table_path": "data/processed/parliament_nhai_debt_tot_invit.parquet",
-      "data_checksum": "6056a82d540394e5989cb152e74b7868ab626499cee9b4096085b0ba79cbbb6e",
-      "last_ingested_at": "2026-10-01T20:10:20.723904+00:00",
+      "data_checksum": "11a76787d58488000f21ef15adaa4f9f48fa035859c5173b561dd1258069d98a",
+      "last_ingested_at": "2026-10-01T23:17:25.844958+00:00",
       "analytical_scope": {
-        "source_as_of_date": "2025-12-31",
+        "source_as_of_date": "2026-02-05",
         "publisher_type": "government"
       }
     },
@@ -4118,9 +4142,9 @@
       "status": "manual_ingest",
       "metric_category": "official_measured",
       "refresh_outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:21.085166+00:00",
-      "last_successful_retrieval_at": "2026-10-01T20:05:45.232974+00:00",
-      "data_changed_at": "2026-10-01T20:10:21.085166+00:00",
+      "last_checked_at": "2026-10-01T23:17:25.881870+00:00",
+      "last_successful_retrieval_at": "2026-10-01T19:28:46.585482+00:00",
+      "data_changed_at": "2026-10-01T23:17:25.881870+00:00",
       "publication_date": "2026-03-30",
       "source_as_of_date": "2026-03-30",
       "analytical_ready": true,
@@ -4147,8 +4171,8 @@
         "raw_files": [
           {
             "path": "data/raw/manual/evidence/nhai_monetisation_transactions.json",
-            "sha256": "37bd7d42e5c7cc9bd15e9a0fb1b32a9a51e19b089446d124915e030d73ff01cf",
-            "size_bytes": 1001
+            "sha256": "96faa462c392a8aec8378663e8f761f382f3a11a62fdc4c03081da1cab80f189",
+            "size_bytes": 1057
           },
           {
             "path": "data/raw/primary_disclosures/nhai_monetisation_transactions/document.html",
@@ -4157,8 +4181,8 @@
           },
           {
             "path": "data/raw/manual/nhai_monetisation_transactions.csv",
-            "sha256": "c131c905a2a68e860cd8b10451f1e75f5556208fe7572c9165312003aab77917",
-            "size_bytes": 5151
+            "sha256": "486681dd25b0ccb2a5b7771894a4be18179598560a9705d47a1b0355ccba8ef1",
+            "size_bytes": 5219
           }
         ],
         "source_documents": [
@@ -4174,7 +4198,7 @@
           {
             "path": "data/processed/nhai_monetisation_transactions.parquet",
             "format": "parquet",
-            "sha256": "c0630800289457a7aed7b8adf51d3d0a65f81ce6113763b49b9e673d44ec5738"
+            "sha256": "a636de9c14479a2e15b5b348ac85262df004d1f686d526f78defbb965b09db67"
           }
         ],
         "row_count": 6,
@@ -4223,7 +4247,10 @@
           "operator_id",
           "concessionaire_id",
           "financing_entity_id",
-          "contractor_name"
+          "contractor_name",
+          "disclosure_as_of",
+          "estimate_vintage",
+          "reported_period"
         ]
       },
       "retrieved_at": "2026-10-01T19:28:46.585482+00:00",
@@ -4237,8 +4264,8 @@
       "recency_basis": "observation_date",
       "validation_errors": [],
       "output_table_path": "data/processed/nhai_monetisation_transactions.parquet",
-      "data_checksum": "ebb2ca71f6afe7282de0660072ae0f390141764eb1b54354afbee3ebf3eb3a7a",
-      "last_ingested_at": "2026-10-01T20:10:21.085166+00:00",
+      "data_checksum": "a2eaf18e589f2893bc05367bea5d41522ba12c9fd5188d32d856bf4fd30e3b50",
+      "last_ingested_at": "2026-10-01T23:17:25.881870+00:00",
       "analytical_scope": {
         "source_as_of_date": "2026-03-30",
         "publisher_type": "government"
@@ -4251,9 +4278,9 @@
       "status": "manual_ingest",
       "metric_category": "issuer_disclosed",
       "refresh_outcome": "updated",
-      "last_checked_at": "2026-10-01T22:09:08.785172+00:00",
+      "last_checked_at": "2026-10-01T23:17:25.908621+00:00",
       "last_successful_retrieval_at": "2026-10-01T21:49:22+00:00",
-      "data_changed_at": "2026-10-01T22:09:08.785172+00:00",
+      "data_changed_at": "2026-10-01T23:17:25.908621+00:00",
       "publication_date": null,
       "source_as_of_date": "2026-08-31",
       "analytical_ready": true,
@@ -4282,7 +4309,7 @@
         "raw_files": [
           {
             "path": "data/raw/manual/evidence/npci_netc_monthly_statistics.json",
-            "sha256": "34c67f27ddf9bbacc41bd776e943f199e7a1ebe1d7d5fc77fb5e3cf6603bd13d",
+            "sha256": "bc975d0e6eff39d4952cae3bce3fac8d4c2ea06291fc789af447732db3261111",
             "size_bytes": 1939
           },
           {
@@ -4292,8 +4319,8 @@
           },
           {
             "path": "data/raw/manual/npci_netc_monthly_statistics.csv",
-            "sha256": "c2f003690091794931cfba98d9e45d48da83ad57429c88201a267b08e99da8ce",
-            "size_bytes": 44196
+            "sha256": "212f87b794e4d88525b90a37764841f02c999ca7053940a8801601101eb71641",
+            "size_bytes": 44348
           }
         ],
         "source_documents": [
@@ -4313,7 +4340,7 @@
           {
             "path": "data/processed/npci_netc_monthly_statistics.parquet",
             "format": "parquet",
-            "sha256": "b82115de1f97f7394f2c26d205c5918720f3d6fb339a400ae2f93a1f233bf478"
+            "sha256": "023e969053dd4e8c2bb77a19366463cdf2b8c27dbafe21a4b2689eb3fa154e28"
           }
         ],
         "row_count": 34,
@@ -4362,7 +4389,10 @@
           "operator_id",
           "concessionaire_id",
           "financing_entity_id",
-          "contractor_name"
+          "contractor_name",
+          "disclosure_as_of",
+          "estimate_vintage",
+          "reported_period"
         ]
       },
       "retrieved_at": "2026-10-01T21:49:22+00:00",
@@ -4376,14 +4406,13 @@
       "recency_basis": "observation_date",
       "validation_errors": [],
       "output_table_path": "data/processed/npci_netc_monthly_statistics.parquet",
-      "data_checksum": "21d29429bd3086fca5bddc8d862d7a16ce99922b148cd0817d2f3caf2b9d97a9",
-      "last_ingested_at": "2026-10-01T22:09:08.785172+00:00",
+      "data_checksum": "6abc8188a5365464dddd02bfbbe5eb4414406f238f170307a1645afb68d7119e",
+      "last_ingested_at": "2026-10-01T23:17:25.908621+00:00",
       "analytical_scope": {
         "source_as_of_date": "2026-08-31",
         "publisher_type": "issuer",
         "evidence_class": "issuer_disclosure"
-      },
-      "last_quality_check_at": "2026-10-01T22:14:43.670174+00:00"
+      }
     },
     {
       "source_id": "rbi_state_road_finances",
@@ -4391,12 +4420,12 @@
       "version": "1.0.0",
       "status": "manual_ingest",
       "metric_category": "official_measured",
-      "refresh_outcome": "retained_after_failure",
-      "last_checked_at": "2026-10-01T20:12:43.564983+00:00",
+      "refresh_outcome": "updated",
+      "last_checked_at": "2026-10-01T23:17:25.938980+00:00",
       "last_successful_retrieval_at": "2026-10-01T19:28:49.237144+00:00",
-      "data_changed_at": "2026-10-01T20:12:43.099018+00:00",
+      "data_changed_at": "2026-10-01T23:17:25.938980+00:00",
       "publication_date": "2026-01-23",
-      "source_as_of_date": "2026-01-23",
+      "source_as_of_date": "2024-03-31",
       "analytical_ready": true,
       "evidence_status": "verified",
       "disclosure_ready": true,
@@ -4421,8 +4450,8 @@
         "raw_files": [
           {
             "path": "data/raw/manual/evidence/rbi_state_road_finances.json",
-            "sha256": "e39e2677fec09949f1fbc1e95dd610da2986c0f4b26c68d099a3694d32f75f07",
-            "size_bytes": 1136
+            "sha256": "05a279c353e2a93afcfa697320b495cfd5b6dd2c6bac39b5fb8b7ebae1f6123e",
+            "size_bytes": 1579
           },
           {
             "path": "data/raw/primary_disclosures/rbi_state_road_finances/document.pdf",
@@ -4431,8 +4460,8 @@
           },
           {
             "path": "data/raw/manual/rbi_state_road_finances.csv",
-            "sha256": "3fd2c72511598067bbdad943c128fbb4de667cb887de1c10cfd4db04b9a1c952",
-            "size_bytes": 1225356
+            "sha256": "04433c736fcf3521d12ac8466a962b26a2e0faadb5140408aea048a5a96b3935",
+            "size_bytes": 1446953
           }
         ],
         "source_documents": [
@@ -4447,7 +4476,7 @@
           {
             "path": "data/processed/rbi_state_road_finances.parquet",
             "format": "parquet",
-            "sha256": "584f3b87ca001f5f0c27c57cc37a5ff546414881b342b16a5fe612010cca1a9c"
+            "sha256": "0e400c715a1d8055e38502827b3c45a725d19e299b3763c918dd8c0a440b712c"
           }
         ],
         "row_count": 1302,
@@ -4496,27 +4525,31 @@
           "operator_id",
           "concessionaire_id",
           "financing_entity_id",
-          "contractor_name"
+          "contractor_name",
+          "disclosure_as_of",
+          "estimate_vintage",
+          "reported_period"
         ]
       },
       "retrieved_at": "2026-10-01T19:28:49.237144+00:00",
       "semantic_rechecks": [],
       "completeness_score": 0.98,
-      "recency_score": 0.98,
+      "recency_score": 0.4,
       "provenance_score": 0.98,
       "consistency_score": 0.98,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency"
+      ],
       "recency_basis": "observation_date",
       "validation_errors": [],
       "output_table_path": "data/processed/rbi_state_road_finances.parquet",
-      "data_checksum": "2bb97263f69a4054fa0f797b7b28f4d8fdd803d7e82fcbcc0f017acda10b12c6",
-      "last_ingested_at": "2026-10-01T20:12:43.099018+00:00",
+      "data_checksum": "b5b8c7016e28be1d9ca951cf58e52474bb4902bc13480a61791efcfb105aebb7",
+      "last_ingested_at": "2026-10-01T23:17:25.938980+00:00",
       "analytical_scope": {
-        "source_as_of_date": "2026-01-23",
+        "source_as_of_date": "2024-03-31",
         "publisher_type": "government"
-      },
-      "refresh_error": "Response is not a PDF"
+      }
     },
     {
       "source_id": "cag_bharatmala_performance_audit",
@@ -4525,9 +4558,9 @@
       "status": "manual_ingest",
       "metric_category": "official_measured",
       "refresh_outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:21.281214+00:00",
-      "last_successful_retrieval_at": "2026-10-01T20:10:21.285334+00:00",
-      "data_changed_at": "2026-10-01T20:10:21.281214+00:00",
+      "last_checked_at": "2026-10-01T23:17:26.078170+00:00",
+      "last_successful_retrieval_at": "2026-10-01T19:28:51.317541+00:00",
+      "data_changed_at": "2026-10-01T23:17:26.078170+00:00",
       "publication_date": null,
       "source_as_of_date": "2023-03-31",
       "analytical_ready": true,
@@ -4554,8 +4587,8 @@
         "raw_files": [
           {
             "path": "data/raw/manual/evidence/cag_bharatmala_performance_audit.json",
-            "sha256": "de7c2ac86e79f49b14b5af14994e09317460c1ad5b1eccab97cb49864602273e",
-            "size_bytes": 867
+            "sha256": "b0a962bab880868056258d414659513e6c366c77b1b0567ccfea1ef4091f2cad",
+            "size_bytes": 923
           },
           {
             "path": "data/raw/primary_disclosures/cag_bharatmala_performance_audit/document.pdf",
@@ -4564,8 +4597,8 @@
           },
           {
             "path": "data/raw/manual/cag_bharatmala_performance_audit.csv",
-            "sha256": "4a0f5c27922e9640e702df0feb209a924a218b1662053782eee4d6c36f23e06c",
-            "size_bytes": 5441
+            "sha256": "42944ba0a5798cedaa4be67a5884f7b91a38fbc0ab5754769d5084b94eb10009",
+            "size_bytes": 5509
           }
         ],
         "source_documents": [
@@ -4580,7 +4613,7 @@
           {
             "path": "data/processed/cag_bharatmala_performance_audit.parquet",
             "format": "parquet",
-            "sha256": "abb8caf8c87268cd8c4753bd6d3af4ee288452fe3ae2b357b0202593293ae30e"
+            "sha256": "dbc3d77de5d7776d3786780874a9a68171c3fbce15ac63bbd838bb6ebee1a1be"
           }
         ],
         "row_count": 6,
@@ -4629,7 +4662,10 @@
           "operator_id",
           "concessionaire_id",
           "financing_entity_id",
-          "contractor_name"
+          "contractor_name",
+          "disclosure_as_of",
+          "estimate_vintage",
+          "reported_period"
         ]
       },
       "retrieved_at": "2026-10-01T19:28:51.317541+00:00",
@@ -4645,8 +4681,8 @@
       "recency_basis": "observation_date",
       "validation_errors": [],
       "output_table_path": "data/processed/cag_bharatmala_performance_audit.parquet",
-      "data_checksum": "befca65b36e9ce24a1b857ff30fbabe658b32cc8c68b75609d442e11193f246e",
-      "last_ingested_at": "2026-10-01T20:10:21.281214+00:00",
+      "data_checksum": "317313078333280f4ed416a1cc1428dcf7969a2f0afa105af05f5bb9cdbfde5c",
+      "last_ingested_at": "2026-10-01T23:17:26.078170+00:00",
       "analytical_scope": {
         "source_as_of_date": "2023-03-31",
         "publisher_type": "government"
@@ -4659,9 +4695,9 @@
       "status": "manual_ingest",
       "metric_category": "official_measured",
       "refresh_outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:23.253136+00:00",
-      "last_successful_retrieval_at": "2026-10-01T20:10:23.256737+00:00",
-      "data_changed_at": "2026-10-01T20:10:23.253136+00:00",
+      "last_checked_at": "2026-10-01T23:17:26.111249+00:00",
+      "last_successful_retrieval_at": "2026-10-01T19:28:52.082854+00:00",
+      "data_changed_at": "2026-10-01T23:17:26.111249+00:00",
       "publication_date": null,
       "source_as_of_date": "2022-03-31",
       "analytical_ready": true,
@@ -4688,8 +4724,8 @@
         "raw_files": [
           {
             "path": "data/raw/manual/evidence/morth_state_highway_network.json",
-            "sha256": "54d2a09edf7a85928b74c940be3646bdaaeeb1799039ec1e97dc2603893949e2",
-            "size_bytes": 1003
+            "sha256": "d679d14ae5e8382d9c88564ab723ae1b46d48be6b2be54bce58f7b1002cb0c65",
+            "size_bytes": 1059
           },
           {
             "path": "data/raw/primary_disclosures/morth_state_highway_network/document.pdf",
@@ -4698,8 +4734,8 @@
           },
           {
             "path": "data/raw/manual/morth_state_highway_network.csv",
-            "sha256": "16e41b292a79c8d3e1e0537efe109f402ca936cf7caf196fa87c2a53f835b7f8",
-            "size_bytes": 61422
+            "sha256": "5afbe9886f0e071722b3bd4794b8f02c35ae82a565ae20d144c4f6a064bafc41",
+            "size_bytes": 61697
           }
         ],
         "source_documents": [
@@ -4714,7 +4750,7 @@
           {
             "path": "data/processed/morth_state_highway_network.parquet",
             "format": "parquet",
-            "sha256": "d4ff72cb698bf38de9088fdf9b0d299cc8d3f45eaab65a69380848e6185b3916"
+            "sha256": "7938c762c97cd24862b71df0a927b8b765031274d2b9b99a5725b19dffe4015f"
           }
         ],
         "row_count": 75,
@@ -4763,7 +4799,10 @@
           "operator_id",
           "concessionaire_id",
           "financing_entity_id",
-          "contractor_name"
+          "contractor_name",
+          "disclosure_as_of",
+          "estimate_vintage",
+          "reported_period"
         ]
       },
       "retrieved_at": "2026-10-01T19:28:52.082854+00:00",
@@ -4779,8 +4818,8 @@
       "recency_basis": "observation_date",
       "validation_errors": [],
       "output_table_path": "data/processed/morth_state_highway_network.parquet",
-      "data_checksum": "4801c27240f995ffdb0793966e1730aa9a7aa238e301c6a1ba59d55411651f2f",
-      "last_ingested_at": "2026-10-01T20:10:23.253136+00:00",
+      "data_checksum": "60114592903f66e3a6b232d72cf90aef787f5201bc8570951450e4de6fd7a8b7",
+      "last_ingested_at": "2026-10-01T23:17:26.111249+00:00",
       "analytical_scope": {
         "source_as_of_date": "2022-03-31",
         "publisher_type": "government"
@@ -4793,9 +4832,9 @@
       "status": "manual_ingest",
       "metric_category": "official_measured",
       "refresh_outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:25.306552+00:00",
+      "last_checked_at": "2026-10-01T23:17:26.150409+00:00",
       "last_successful_retrieval_at": "2026-10-01T19:49:37.207385+00:00",
-      "data_changed_at": "2026-10-01T20:10:25.306552+00:00",
+      "data_changed_at": "2026-10-01T23:17:26.150409+00:00",
       "publication_date": null,
       "source_as_of_date": null,
       "analytical_ready": false,
@@ -4822,8 +4861,8 @@
         "raw_files": [
           {
             "path": "data/raw/manual/evidence/upeida_expressway_projects.json",
-            "sha256": "b31b64b9ef954bfbdf1e601ea3ebbf01eb21124c2b889888bb0614d7e47cff46",
-            "size_bytes": 1282
+            "sha256": "6943bf31992aa96423f65daec2ddee56141689c7151c7d79c2c3a2a53088cd9f",
+            "size_bytes": 1338
           },
           {
             "path": "data/raw/primary_disclosures/upeida_expressway_projects/document.html",
@@ -4837,8 +4876,8 @@
           },
           {
             "path": "data/raw/manual/upeida_expressway_projects.csv",
-            "sha256": "9143e86cd21b8ba5db762d19630ebedcfc342cce7dfd561c34f81a91b5124fc7",
-            "size_bytes": 6206
+            "sha256": "bfc27a4a268fb65a729f0546895e0c3f1aa630837b3223f28516fb6313862a6c",
+            "size_bytes": 6280
           }
         ],
         "source_documents": [
@@ -4859,7 +4898,7 @@
           {
             "path": "data/processed/upeida_expressway_projects.parquet",
             "format": "parquet",
-            "sha256": "bcb90bb106a6311fe5bf738d5df0b078640bf5d0770965926e6ff6277bf75807"
+            "sha256": "7a576e39b4fee405294a0b35c999c5e7cda72164c1d46452950fed2038f93124"
           }
         ],
         "row_count": 8,
@@ -4908,14 +4947,17 @@
           "operator_id",
           "concessionaire_id",
           "financing_entity_id",
-          "contractor_name"
+          "contractor_name",
+          "disclosure_as_of",
+          "estimate_vintage",
+          "reported_period"
         ]
       },
       "retrieved_at": "2026-10-01T19:49:37.207385+00:00",
       "semantic_rechecks": [],
       "output_table_path": "data/processed/upeida_expressway_projects.parquet",
-      "data_checksum": "1ab031c517279e3d403c55751301c6ffad3e7b2e927f2656fdc92d7517ed2395",
-      "last_ingested_at": "2026-10-01T20:10:25.306552+00:00",
+      "data_checksum": "11bccaa5f36c2f8a27f2c9b02a9017d99e60b23d393913750c8074896dd7e3f3",
+      "last_ingested_at": "2026-10-01T23:17:26.150409+00:00",
       "analytical_scope": {
         "source_as_of_date": null,
         "publisher_type": "government"
@@ -4930,8 +4972,7 @@
         "Observation date is unavailable; collection time is not data freshness"
       ],
       "recency_basis": "unknown",
-      "validation_errors": [],
-      "last_quality_check_at": "2026-10-01T20:33:26.179909+00:00"
+      "validation_errors": []
     },
     {
       "source_id": "msrdc_financial_disclosures",
@@ -5013,7 +5054,7 @@
       "connector": "primary_disclosures",
       "version": "1.0.0",
       "refresh_outcome": "manual_evidence_required",
-      "last_checked_at": "2026-10-01T20:10:25.333873+00:00",
+      "last_checked_at": "2026-10-01T23:17:26.176064+00:00",
       "data_changed_at": null,
       "publication_date": null,
       "source_as_of_date": null,
@@ -5053,9 +5094,9 @@
       "status": "manual_ingest",
       "metric_category": "issuer_disclosed",
       "refresh_outcome": "updated",
-      "last_checked_at": "2026-10-01T22:09:08.840551+00:00",
+      "last_checked_at": "2026-10-01T23:17:26.189198+00:00",
       "last_successful_retrieval_at": "2026-10-01T21:54:50.461542+00:00",
-      "data_changed_at": "2026-10-01T22:09:08.840551+00:00",
+      "data_changed_at": "2026-10-01T23:17:26.189198+00:00",
       "publication_date": "2025-09-05",
       "source_as_of_date": "2025-05-19",
       "analytical_ready": true,
@@ -5088,7 +5129,7 @@
         "raw_files": [
           {
             "path": "data/raw/manual/evidence/adb_state_road_projects.json",
-            "sha256": "c586e367862542c444d3d508a3742a1282280639260fbb4199edd220e7384541",
+            "sha256": "54718e66c311938db2956ebbeefb27e7e44ed26a282c15f774a489162f7a9478",
             "size_bytes": 2132
           },
           {
@@ -5098,8 +5139,8 @@
           },
           {
             "path": "data/raw/manual/adb_state_road_projects.csv",
-            "sha256": "8c2b7b703801d920bf4f067f2ed97bc31bc557672e1064a2c539bd66b7fd974d",
-            "size_bytes": 109149
+            "sha256": "da155abb93a0fbdf52852bbe89c0cb6233a65f1637e994078d34c0ac04c9e8a6",
+            "size_bytes": 108960
           }
         ],
         "source_documents": [
@@ -5118,7 +5159,7 @@
           {
             "path": "data/processed/adb_state_road_projects.parquet",
             "format": "parquet",
-            "sha256": "e84de258406d01c70817ff026a30df2e4696d0154db9caa7dc4c57555942b845"
+            "sha256": "1d104fb83bf204c5953dea13d2b1ef0ef463f4bf8362a1ffadde33d8a8771f76"
           }
         ],
         "row_count": 77,
@@ -5167,7 +5208,10 @@
           "operator_id",
           "concessionaire_id",
           "financing_entity_id",
-          "contractor_name"
+          "contractor_name",
+          "disclosure_as_of",
+          "estimate_vintage",
+          "reported_period"
         ]
       },
       "retrieved_at": "2026-10-01T21:54:50.461542+00:00",
@@ -5181,13 +5225,12 @@
       "recency_basis": "observation_date",
       "validation_errors": [],
       "output_table_path": "data/processed/adb_state_road_projects.parquet",
-      "data_checksum": "8fa6927ecb40bef4fdc9fbf24f9cd18796a241bf429218da4efdd0ffb141aad7",
-      "last_ingested_at": "2026-10-01T22:09:08.840551+00:00",
+      "data_checksum": "1c8698c68bd1c52c95af55ee2674f60364f4021396341938a41803252b8241bc",
+      "last_ingested_at": "2026-10-01T23:17:26.189198+00:00",
       "analytical_scope": {
         "source_as_of_date": "2025-05-19",
         "publisher_type": "multilateral"
-      },
-      "last_quality_check_at": "2026-10-01T22:14:43.674869+00:00"
+      }
     },
     {
       "source_id": "correlation_matrix",

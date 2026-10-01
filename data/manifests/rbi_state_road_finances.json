@@ -4,12 +4,12 @@
   "version": "1.0.0",
   "status": "manual_ingest",
   "metric_category": "official_measured",
-  "refresh_outcome": "retained_after_failure",
-  "last_checked_at": "2026-10-01T20:12:43.564983+00:00",
+  "refresh_outcome": "updated",
+  "last_checked_at": "2026-10-01T23:17:25.938980+00:00",
   "last_successful_retrieval_at": "2026-10-01T19:28:49.237144+00:00",
-  "data_changed_at": "2026-10-01T20:12:43.099018+00:00",
+  "data_changed_at": "2026-10-01T23:17:25.938980+00:00",
   "publication_date": "2026-01-23",
-  "source_as_of_date": "2026-01-23",
+  "source_as_of_date": "2024-03-31",
   "analytical_ready": true,
   "evidence_status": "verified",
   "disclosure_ready": true,
@@ -34,8 +34,8 @@
     "raw_files": [
       {
         "path": "data/raw/manual/evidence/rbi_state_road_finances.json",
-        "sha256": "e39e2677fec09949f1fbc1e95dd610da2986c0f4b26c68d099a3694d32f75f07",
-        "size_bytes": 1136
+        "sha256": "05a279c353e2a93afcfa697320b495cfd5b6dd2c6bac39b5fb8b7ebae1f6123e",
+        "size_bytes": 1579
       },
       {
         "path": "data/raw/primary_disclosures/rbi_state_road_finances/document.pdf",
@@ -44,8 +44,8 @@
       },
       {
         "path": "data/raw/manual/rbi_state_road_finances.csv",
-        "sha256": "3fd2c72511598067bbdad943c128fbb4de667cb887de1c10cfd4db04b9a1c952",
-        "size_bytes": 1225356
+        "sha256": "04433c736fcf3521d12ac8466a962b26a2e0faadb5140408aea048a5a96b3935",
+        "size_bytes": 1446953
       }
     ],
     "source_documents": [
@@ -60,7 +60,7 @@
       {
         "path": "data/processed/rbi_state_road_finances.parquet",
         "format": "parquet",
-        "sha256": "584f3b87ca001f5f0c27c57cc37a5ff546414881b342b16a5fe612010cca1a9c"
+        "sha256": "0e400c715a1d8055e38502827b3c45a725d19e299b3763c918dd8c0a440b712c"
       }
     ],
     "row_count": 1302,
@@ -109,25 +109,29 @@
       "operator_id",
       "concessionaire_id",
       "financing_entity_id",
-      "contractor_name"
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period"
     ]
   },
   "retrieved_at": "2026-10-01T19:28:49.237144+00:00",
   "semantic_rechecks": [],
   "completeness_score": 0.98,
-  "recency_score": 0.98,
+  "recency_score": 0.4,
   "provenance_score": 0.98,
   "consistency_score": 0.98,
-  "overall_confidence_badge": "High",
-  "overall_confidence_reason": [],
+  "overall_confidence_badge": "Med",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency"
+  ],
   "recency_basis": "observation_date",
   "validation_errors": [],
   "output_table_path": "data/processed/rbi_state_road_finances.parquet",
-  "data_checksum": "2bb97263f69a4054fa0f797b7b28f4d8fdd803d7e82fcbcc0f017acda10b12c6",
-  "last_ingested_at": "2026-10-01T20:12:43.099018+00:00",
+  "data_checksum": "b5b8c7016e28be1d9ca951cf58e52474bb4902bc13480a61791efcfb105aebb7",
+  "last_ingested_at": "2026-10-01T23:17:25.938980+00:00",
   "analytical_scope": {
-    "source_as_of_date": "2026-01-23",
+    "source_as_of_date": "2024-03-31",
     "publisher_type": "government"
-  },
-  "refresh_error": "Response is not a PDF"
+  }
 }

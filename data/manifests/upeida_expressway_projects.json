@@ -5,9 +5,9 @@
   "status": "manual_ingest",
   "metric_category": "official_measured",
   "refresh_outcome": "updated",
-  "last_checked_at": "2026-10-01T20:10:25.306552+00:00",
+  "last_checked_at": "2026-10-01T23:17:26.150409+00:00",
   "last_successful_retrieval_at": "2026-10-01T19:49:37.207385+00:00",
-  "data_changed_at": "2026-10-01T20:10:25.306552+00:00",
+  "data_changed_at": "2026-10-01T23:17:26.150409+00:00",
   "publication_date": null,
   "source_as_of_date": null,
   "analytical_ready": false,
@@ -34,8 +34,8 @@
     "raw_files": [
       {
         "path": "data/raw/manual/evidence/upeida_expressway_projects.json",
-        "sha256": "b31b64b9ef954bfbdf1e601ea3ebbf01eb21124c2b889888bb0614d7e47cff46",
-        "size_bytes": 1282
+        "sha256": "6943bf31992aa96423f65daec2ddee56141689c7151c7d79c2c3a2a53088cd9f",
+        "size_bytes": 1338
       },
       {
         "path": "data/raw/primary_disclosures/upeida_expressway_projects/document.html",
@@ -49,8 +49,8 @@
       },
       {
         "path": "data/raw/manual/upeida_expressway_projects.csv",
-        "sha256": "9143e86cd21b8ba5db762d19630ebedcfc342cce7dfd561c34f81a91b5124fc7",
-        "size_bytes": 6206
+        "sha256": "bfc27a4a268fb65a729f0546895e0c3f1aa630837b3223f28516fb6313862a6c",
+        "size_bytes": 6280
       }
     ],
     "source_documents": [
@@ -71,7 +71,7 @@
       {
         "path": "data/processed/upeida_expressway_projects.parquet",
         "format": "parquet",
-        "sha256": "bcb90bb106a6311fe5bf738d5df0b078640bf5d0770965926e6ff6277bf75807"
+        "sha256": "7a576e39b4fee405294a0b35c999c5e7cda72164c1d46452950fed2038f93124"
       }
     ],
     "row_count": 8,
@@ -120,14 +120,17 @@
       "operator_id",
       "concessionaire_id",
       "financing_entity_id",
-      "contractor_name"
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period"
     ]
   },
   "retrieved_at": "2026-10-01T19:49:37.207385+00:00",
   "semantic_rechecks": [],
   "output_table_path": "data/processed/upeida_expressway_projects.parquet",
-  "data_checksum": "1ab031c517279e3d403c55751301c6ffad3e7b2e927f2656fdc92d7517ed2395",
-  "last_ingested_at": "2026-10-01T20:10:25.306552+00:00",
+  "data_checksum": "11bccaa5f36c2f8a27f2c9b02a9017d99e60b23d393913750c8074896dd7e3f3",
+  "last_ingested_at": "2026-10-01T23:17:26.150409+00:00",
   "analytical_scope": {
     "source_as_of_date": null,
     "publisher_type": "government"
@@ -142,6 +145,5 @@
     "Observation date is unavailable; collection time is not data freshness"
   ],
   "recency_basis": "unknown",
-  "validation_errors": [],
-  "last_quality_check_at": "2026-10-01T20:33:26.179909+00:00"
+  "validation_errors": []
 }

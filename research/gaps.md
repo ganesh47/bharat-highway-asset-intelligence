@@ -1,6 +1,6 @@
 # Source Gap Analysis
 
-Generated: 2026-10-01T22:09:09.686294+00:00 UTC
+Generated: 2026-10-01T23:17:26.741032+00:00 UTC
 
 Tracks missing dimensions before ETL and recommends official avenues to fill them.
 

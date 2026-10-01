@@ -5,9 +5,9 @@
   "status": "manual_ingest",
   "metric_category": "official_measured",
   "refresh_outcome": "updated",
-  "last_checked_at": "2026-10-01T20:17:36.105278+00:00",
-  "last_successful_retrieval_at": "2026-10-01T20:10:18.482229+00:00",
-  "data_changed_at": "2026-10-01T20:17:36.105278+00:00",
+  "last_checked_at": "2026-10-01T23:17:25.592389+00:00",
+  "last_successful_retrieval_at": "2026-10-01T19:28:49.064739+00:00",
+  "data_changed_at": "2026-10-01T23:17:25.592389+00:00",
   "publication_date": null,
   "source_as_of_date": "2026-08-31",
   "analytical_ready": true,
@@ -34,8 +34,8 @@
     "raw_files": [
       {
         "path": "data/raw/manual/evidence/nhidcl_monthly_project_progress.json",
-        "sha256": "93040e0c3a5ea9d810238b68ab82cf6793d5f13e6e43a274eec1f4470d47d8e2",
-        "size_bytes": 1058
+        "sha256": "e30d4f7bfdf07e5ac7b32efb320376473d011e5f66eed7d1a94834df033a5f10",
+        "size_bytes": 1114
       },
       {
         "path": "data/raw/primary_disclosures/nhidcl_monthly_project_progress/document.pdf",
@@ -44,8 +44,8 @@
       },
       {
         "path": "data/raw/manual/nhidcl_monthly_project_progress.csv",
-        "sha256": "a22286bfa7415ae1d1ce720909382a0605ca47fe2616be39816935bc8f6e6993",
-        "size_bytes": 4006094
+        "sha256": "270168b03bbb7a6b388869ab8554d78cdd4921fc6a8e15fc55acbf17a99ec19a",
+        "size_bytes": 4013296
       }
     ],
     "source_documents": [
@@ -60,7 +60,7 @@
       {
         "path": "data/processed/nhidcl_monthly_project_progress.parquet",
         "format": "parquet",
-        "sha256": "827c9fc3a41ab8905d168940457947ace00adf465f2c6a1e93d5cb8f7f487064"
+        "sha256": "47f3dc9d125c0f2b22318f83bf5f800634b33b6a34f58c49b4aafe807972504a"
       }
     ],
     "row_count": 2384,
@@ -109,7 +109,10 @@
       "operator_id",
       "concessionaire_id",
       "financing_entity_id",
-      "contractor_name"
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period"
     ]
   },
   "retrieved_at": "2026-10-01T19:28:49.064739+00:00",
@@ -123,8 +126,8 @@
   "recency_basis": "observation_date",
   "validation_errors": [],
   "output_table_path": "data/processed/nhidcl_monthly_project_progress.parquet",
-  "data_checksum": "35baa131215669dfdedc055348559dfe28ccbb5d59d4890e92af829fbe8e9594",
-  "last_ingested_at": "2026-10-01T20:17:36.105278+00:00",
+  "data_checksum": "a64a67b65915b08c913ba9b828c9cb42b04c3d55ed38299d9a792c487bba525f",
+  "last_ingested_at": "2026-10-01T23:17:25.592389+00:00",
   "analytical_scope": {
     "source_as_of_date": "2026-08-31",
     "publisher_type": "government"

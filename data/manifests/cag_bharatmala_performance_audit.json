@@ -5,9 +5,9 @@
   "status": "manual_ingest",
   "metric_category": "official_measured",
   "refresh_outcome": "updated",
-  "last_checked_at": "2026-10-01T20:10:21.281214+00:00",
-  "last_successful_retrieval_at": "2026-10-01T20:10:21.285334+00:00",
-  "data_changed_at": "2026-10-01T20:10:21.281214+00:00",
+  "last_checked_at": "2026-10-01T23:17:26.078170+00:00",
+  "last_successful_retrieval_at": "2026-10-01T19:28:51.317541+00:00",
+  "data_changed_at": "2026-10-01T23:17:26.078170+00:00",
   "publication_date": null,
   "source_as_of_date": "2023-03-31",
   "analytical_ready": true,
@@ -34,8 +34,8 @@
     "raw_files": [
       {
         "path": "data/raw/manual/evidence/cag_bharatmala_performance_audit.json",
-        "sha256": "de7c2ac86e79f49b14b5af14994e09317460c1ad5b1eccab97cb49864602273e",
-        "size_bytes": 867
+        "sha256": "b0a962bab880868056258d414659513e6c366c77b1b0567ccfea1ef4091f2cad",
+        "size_bytes": 923
       },
       {
         "path": "data/raw/primary_disclosures/cag_bharatmala_performance_audit/document.pdf",
@@ -44,8 +44,8 @@
       },
       {
         "path": "data/raw/manual/cag_bharatmala_performance_audit.csv",
-        "sha256": "4a0f5c27922e9640e702df0feb209a924a218b1662053782eee4d6c36f23e06c",
-        "size_bytes": 5441
+        "sha256": "42944ba0a5798cedaa4be67a5884f7b91a38fbc0ab5754769d5084b94eb10009",
+        "size_bytes": 5509
       }
     ],
     "source_documents": [
@@ -60,7 +60,7 @@
       {
         "path": "data/processed/cag_bharatmala_performance_audit.parquet",
         "format": "parquet",
-        "sha256": "abb8caf8c87268cd8c4753bd6d3af4ee288452fe3ae2b357b0202593293ae30e"
+        "sha256": "dbc3d77de5d7776d3786780874a9a68171c3fbce15ac63bbd838bb6ebee1a1be"
       }
     ],
     "row_count": 6,
@@ -109,7 +109,10 @@
       "operator_id",
       "concessionaire_id",
       "financing_entity_id",
-      "contractor_name"
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period"
     ]
   },
   "retrieved_at": "2026-10-01T19:28:51.317541+00:00",
@@ -125,8 +128,8 @@
   "recency_basis": "observation_date",
   "validation_errors": [],
   "output_table_path": "data/processed/cag_bharatmala_performance_audit.parquet",
-  "data_checksum": "befca65b36e9ce24a1b857ff30fbabe658b32cc8c68b75609d442e11193f246e",
-  "last_ingested_at": "2026-10-01T20:10:21.281214+00:00",
+  "data_checksum": "317313078333280f4ed416a1cc1428dcf7969a2f0afa105af05f5bb9cdbfde5c",
+  "last_ingested_at": "2026-10-01T23:17:26.078170+00:00",
   "analytical_scope": {
     "source_as_of_date": "2023-03-31",
     "publisher_type": "government"

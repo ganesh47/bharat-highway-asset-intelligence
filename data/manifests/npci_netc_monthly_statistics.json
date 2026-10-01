@@ -5,9 +5,9 @@
   "status": "manual_ingest",
   "metric_category": "issuer_disclosed",
   "refresh_outcome": "updated",
-  "last_checked_at": "2026-10-01T22:09:08.785172+00:00",
+  "last_checked_at": "2026-10-01T23:17:25.908621+00:00",
   "last_successful_retrieval_at": "2026-10-01T21:49:22+00:00",
-  "data_changed_at": "2026-10-01T22:09:08.785172+00:00",
+  "data_changed_at": "2026-10-01T23:17:25.908621+00:00",
   "publication_date": null,
   "source_as_of_date": "2026-08-31",
   "analytical_ready": true,
@@ -36,7 +36,7 @@
     "raw_files": [
       {
         "path": "data/raw/manual/evidence/npci_netc_monthly_statistics.json",
-        "sha256": "34c67f27ddf9bbacc41bd776e943f199e7a1ebe1d7d5fc77fb5e3cf6603bd13d",
+        "sha256": "bc975d0e6eff39d4952cae3bce3fac8d4c2ea06291fc789af447732db3261111",
         "size_bytes": 1939
       },
       {
@@ -46,8 +46,8 @@
       },
       {
         "path": "data/raw/manual/npci_netc_monthly_statistics.csv",
-        "sha256": "c2f003690091794931cfba98d9e45d48da83ad57429c88201a267b08e99da8ce",
-        "size_bytes": 44196
+        "sha256": "212f87b794e4d88525b90a37764841f02c999ca7053940a8801601101eb71641",
+        "size_bytes": 44348
       }
     ],
     "source_documents": [
@@ -67,7 +67,7 @@
       {
         "path": "data/processed/npci_netc_monthly_statistics.parquet",
         "format": "parquet",
-        "sha256": "b82115de1f97f7394f2c26d205c5918720f3d6fb339a400ae2f93a1f233bf478"
+        "sha256": "023e969053dd4e8c2bb77a19366463cdf2b8c27dbafe21a4b2689eb3fa154e28"
       }
     ],
     "row_count": 34,
@@ -116,7 +116,10 @@
       "operator_id",
       "concessionaire_id",
       "financing_entity_id",
-      "contractor_name"
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period"
     ]
   },
   "retrieved_at": "2026-10-01T21:49:22+00:00",
@@ -130,12 +133,11 @@
   "recency_basis": "observation_date",
   "validation_errors": [],
   "output_table_path": "data/processed/npci_netc_monthly_statistics.parquet",
-  "data_checksum": "21d29429bd3086fca5bddc8d862d7a16ce99922b148cd0817d2f3caf2b9d97a9",
-  "last_ingested_at": "2026-10-01T22:09:08.785172+00:00",
+  "data_checksum": "6abc8188a5365464dddd02bfbbe5eb4414406f238f170307a1645afb68d7119e",
+  "last_ingested_at": "2026-10-01T23:17:25.908621+00:00",
   "analytical_scope": {
     "source_as_of_date": "2026-08-31",
     "publisher_type": "issuer",
     "evidence_class": "issuer_disclosure"
-  },
-  "last_quality_check_at": "2026-10-01T22:14:43.670174+00:00"
+  }
 }

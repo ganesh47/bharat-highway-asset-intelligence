@@ -1,19 +1,32 @@
 {
-  "generated_at": "2026-10-01T22:09:08.877713+00:00",
-  "started_at": "2026-10-01T22:09:08.785167+00:00",
+  "generated_at": "2026-10-01T23:17:26.227670+00:00",
+  "started_at": "2026-10-01T23:17:25.298678+00:00",
   "registered_source_count": 50,
   "checked_source_count": 50,
   "run_source_ids": [
+    "union_budget_morth_demand86",
+    "union_budget_highway_outcomes",
+    "nhit_quarterly_operations_finance",
+    "nhit_quarterly_financial_filings",
+    "nhit_asset_valuation_assumptions",
+    "nhit_annual_report",
+    "nhidcl_monthly_project_progress",
+    "parliament_nhai_debt_tot_invit",
+    "nhai_monetisation_transactions",
     "npci_netc_monthly_statistics",
+    "rbi_state_road_finances",
+    "cag_bharatmala_performance_audit",
+    "morth_state_highway_network",
+    "upeida_expressway_projects",
+    "msrdc_financial_disclosures",
     "adb_state_road_projects"
   ],
   "outcome_counts": {
     "checked_unchanged": 18,
-    "updated": 20,
+    "updated": 21,
     "metadata_only": 1,
     "manual_evidence_required": 6,
-    "restricted": 4,
-    "retained_after_failure": 1
+    "restricted": 4
   },
   "analytical_ready_source_count": 32,
   "disclosure_ready_source_count": 36,
@@ -463,7 +476,7 @@
     {
       "source_id": "union_budget_morth_demand86",
       "outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:12.945500+00:00",
+      "last_checked_at": "2026-10-01T23:17:25.298683+00:00",
       "source_as_of_date": "2026-02-01",
       "publication_date": "2026-02-01",
       "analytical_ready": true,
@@ -476,7 +489,7 @@
     {
       "source_id": "union_budget_highway_outcomes",
       "outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:13.059150+00:00",
+      "last_checked_at": "2026-10-01T23:17:25.358664+00:00",
       "source_as_of_date": "2026-02-01",
       "publication_date": "2026-02-01",
       "analytical_ready": false,
@@ -489,7 +502,7 @@
     {
       "source_id": "nhit_quarterly_operations_finance",
       "outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:13.254546+00:00",
+      "last_checked_at": "2026-10-01T23:17:25.391784+00:00",
       "source_as_of_date": "2026-06-30",
       "publication_date": "2026-08-31",
       "analytical_ready": true,
@@ -502,7 +515,7 @@
     {
       "source_id": "nhit_quarterly_financial_filings",
       "outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:13.820434+00:00",
+      "last_checked_at": "2026-10-01T23:17:25.436063+00:00",
       "source_as_of_date": "2026-06-30",
       "publication_date": "2026-08-07",
       "analytical_ready": true,
@@ -515,7 +528,7 @@
     {
       "source_id": "nhit_asset_valuation_assumptions",
       "outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:14.481041+00:00",
+      "last_checked_at": "2026-10-01T23:17:25.473279+00:00",
       "source_as_of_date": "2026-06-30",
       "publication_date": "2026-08-07",
       "analytical_ready": true,
@@ -528,7 +541,7 @@
     {
       "source_id": "nhit_annual_report",
       "outcome": "updated",
-      "last_checked_at": "2026-10-01T20:51:37.149625+00:00",
+      "last_checked_at": "2026-10-01T23:17:25.510931+00:00",
       "source_as_of_date": "2026-03-31",
       "publication_date": null,
       "analytical_ready": true,
@@ -541,7 +554,7 @@
     {
       "source_id": "nhidcl_monthly_project_progress",
       "outcome": "updated",
-      "last_checked_at": "2026-10-01T20:17:36.105278+00:00",
+      "last_checked_at": "2026-10-01T23:17:25.592389+00:00",
       "source_as_of_date": "2026-08-31",
       "publication_date": null,
       "analytical_ready": true,
@@ -554,8 +567,8 @@
     {
       "source_id": "parliament_nhai_debt_tot_invit",
       "outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:20.723904+00:00",
-      "source_as_of_date": "2025-12-31",
+      "last_checked_at": "2026-10-01T23:17:25.844958+00:00",
+      "source_as_of_date": "2026-02-05",
       "publication_date": "2026-02-05",
       "analytical_ready": true,
       "evidence_status": "verified",
@@ -567,7 +580,7 @@
     {
       "source_id": "nhai_monetisation_transactions",
       "outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:21.085166+00:00",
+      "last_checked_at": "2026-10-01T23:17:25.881870+00:00",
       "source_as_of_date": "2026-03-30",
       "publication_date": "2026-03-30",
       "analytical_ready": true,
@@ -580,7 +593,7 @@
     {
       "source_id": "npci_netc_monthly_statistics",
       "outcome": "updated",
-      "last_checked_at": "2026-10-01T22:09:08.785172+00:00",
+      "last_checked_at": "2026-10-01T23:17:25.908621+00:00",
       "source_as_of_date": "2026-08-31",
       "publication_date": null,
       "analytical_ready": true,
@@ -592,21 +605,21 @@
     },
     {
       "source_id": "rbi_state_road_finances",
-      "outcome": "retained_after_failure",
-      "last_checked_at": "2026-10-01T20:12:43.564983+00:00",
-      "source_as_of_date": "2026-01-23",
+      "outcome": "updated",
+      "last_checked_at": "2026-10-01T23:17:25.938980+00:00",
+      "source_as_of_date": "2024-03-31",
       "publication_date": "2026-01-23",
       "analytical_ready": true,
       "evidence_status": "verified",
       "disclosure_ready": true,
       "extraction_status": "validated",
       "row_count": 1302,
-      "error": "Response is not a PDF"
+      "error": null
     },
     {
       "source_id": "cag_bharatmala_performance_audit",
       "outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:21.281214+00:00",
+      "last_checked_at": "2026-10-01T23:17:26.078170+00:00",
       "source_as_of_date": "2023-03-31",
       "publication_date": null,
       "analytical_ready": true,
@@ -619,7 +632,7 @@
     {
       "source_id": "morth_state_highway_network",
       "outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:23.253136+00:00",
+      "last_checked_at": "2026-10-01T23:17:26.111249+00:00",
       "source_as_of_date": "2022-03-31",
       "publication_date": null,
       "analytical_ready": true,
@@ -632,7 +645,7 @@
     {
       "source_id": "upeida_expressway_projects",
       "outcome": "updated",
-      "last_checked_at": "2026-10-01T20:10:25.306552+00:00",
+      "last_checked_at": "2026-10-01T23:17:26.150409+00:00",
       "source_as_of_date": null,
       "publication_date": null,
       "analytical_ready": false,
@@ -645,7 +658,7 @@
     {
       "source_id": "msrdc_financial_disclosures",
       "outcome": "manual_evidence_required",
-      "last_checked_at": "2026-10-01T20:10:25.333873+00:00",
+      "last_checked_at": "2026-10-01T23:17:26.176064+00:00",
       "source_as_of_date": null,
       "publication_date": null,
       "analytical_ready": false,
@@ -658,7 +671,7 @@
     {
       "source_id": "adb_state_road_projects",
       "outcome": "updated",
-      "last_checked_at": "2026-10-01T22:09:08.840551+00:00",
+      "last_checked_at": "2026-10-01T23:17:26.189198+00:00",
       "source_as_of_date": "2025-05-19",
       "publication_date": "2025-09-05",
       "analytical_ready": true,

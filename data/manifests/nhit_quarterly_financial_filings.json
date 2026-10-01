@@ -5,9 +5,9 @@
   "status": "manual_ingest",
   "metric_category": "issuer_disclosed",
   "refresh_outcome": "updated",
-  "last_checked_at": "2026-10-01T20:10:13.820434+00:00",
-  "last_successful_retrieval_at": "2026-10-01T20:10:13.823730+00:00",
-  "data_changed_at": "2026-10-01T20:10:13.820434+00:00",
+  "last_checked_at": "2026-10-01T23:17:25.436063+00:00",
+  "last_successful_retrieval_at": "2026-10-01T19:28:46.194237+00:00",
+  "data_changed_at": "2026-10-01T23:17:25.436063+00:00",
   "publication_date": "2026-08-07",
   "source_as_of_date": "2026-06-30",
   "analytical_ready": true,
@@ -34,8 +34,8 @@
     "raw_files": [
       {
         "path": "data/raw/manual/evidence/nhit_quarterly_financial_filings.json",
-        "sha256": "182fcf32261fa46e19c99d6a7793df72ef2d0b490483d2fb10425c719f920068",
-        "size_bytes": 938
+        "sha256": "b499e506018c9244bf9f9e13a4d45cd1c6cd3f1258014b830cf5f73b46e31ce4",
+        "size_bytes": 994
       },
       {
         "path": "data/raw/primary_disclosures/nhit_quarterly_financial_filings/document.pdf",
@@ -44,8 +44,8 @@
       },
       {
         "path": "data/raw/manual/nhit_quarterly_financial_filings.csv",
-        "sha256": "1ff5fc4dd1990c00a30373554805d952ed5a915af92566d6d7356e6e167205fc",
-        "size_bytes": 4118
+        "sha256": "5ec5eabece19525b6850806d34482cabb3ce28e6ca7b3731cdc2785c8071f06d",
+        "size_bytes": 4186
       }
     ],
     "source_documents": [
@@ -60,7 +60,7 @@
       {
         "path": "data/processed/nhit_quarterly_financial_filings.parquet",
         "format": "parquet",
-        "sha256": "356453d78207f072421cfd4d558762b7b9095e5ad5216a7e91c6dcb12296b267"
+        "sha256": "08f4c99fa1ff4b3bb0ecdfc4b711f6c099f5ad138e42e7faa533fd46eacf9a59"
       }
     ],
     "row_count": 6,
@@ -109,7 +109,10 @@
       "operator_id",
       "concessionaire_id",
       "financing_entity_id",
-      "contractor_name"
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period"
     ]
   },
   "retrieved_at": "2026-10-01T19:28:46.194237+00:00",
@@ -123,8 +126,8 @@
   "recency_basis": "observation_date",
   "validation_errors": [],
   "output_table_path": "data/processed/nhit_quarterly_financial_filings.parquet",
-  "data_checksum": "15aecbf491c9dcee53a8b8568a75bb9c19b8383a6bc0902d5343bbdd344bfce0",
-  "last_ingested_at": "2026-10-01T20:10:13.820434+00:00",
+  "data_checksum": "604008bc7940bd4c257d2d1a86e817eaf82d27ba3a8d8ad1ca0dd5d9cf2c7b13",
+  "last_ingested_at": "2026-10-01T23:17:25.436063+00:00",
   "analytical_scope": {
     "source_as_of_date": "2026-06-30",
     "publisher_type": "issuer"

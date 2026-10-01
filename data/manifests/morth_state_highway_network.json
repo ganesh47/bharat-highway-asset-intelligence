@@ -5,9 +5,9 @@
   "status": "manual_ingest",
   "metric_category": "official_measured",
   "refresh_outcome": "updated",
-  "last_checked_at": "2026-10-01T20:10:23.253136+00:00",
-  "last_successful_retrieval_at": "2026-10-01T20:10:23.256737+00:00",
-  "data_changed_at": "2026-10-01T20:10:23.253136+00:00",
+  "last_checked_at": "2026-10-01T23:17:26.111249+00:00",
+  "last_successful_retrieval_at": "2026-10-01T19:28:52.082854+00:00",
+  "data_changed_at": "2026-10-01T23:17:26.111249+00:00",
   "publication_date": null,
   "source_as_of_date": "2022-03-31",
   "analytical_ready": true,
@@ -34,8 +34,8 @@
     "raw_files": [
       {
         "path": "data/raw/manual/evidence/morth_state_highway_network.json",
-        "sha256": "54d2a09edf7a85928b74c940be3646bdaaeeb1799039ec1e97dc2603893949e2",
-        "size_bytes": 1003
+        "sha256": "d679d14ae5e8382d9c88564ab723ae1b46d48be6b2be54bce58f7b1002cb0c65",
+        "size_bytes": 1059
       },
       {
         "path": "data/raw/primary_disclosures/morth_state_highway_network/document.pdf",
@@ -44,8 +44,8 @@
       },
       {
         "path": "data/raw/manual/morth_state_highway_network.csv",
-        "sha256": "16e41b292a79c8d3e1e0537efe109f402ca936cf7caf196fa87c2a53f835b7f8",
-        "size_bytes": 61422
+        "sha256": "5afbe9886f0e071722b3bd4794b8f02c35ae82a565ae20d144c4f6a064bafc41",
+        "size_bytes": 61697
       }
     ],
     "source_documents": [
@@ -60,7 +60,7 @@
       {
         "path": "data/processed/morth_state_highway_network.parquet",
         "format": "parquet",
-        "sha256": "d4ff72cb698bf38de9088fdf9b0d299cc8d3f45eaab65a69380848e6185b3916"
+        "sha256": "7938c762c97cd24862b71df0a927b8b765031274d2b9b99a5725b19dffe4015f"
       }
     ],
     "row_count": 75,
@@ -109,7 +109,10 @@
       "operator_id",
       "concessionaire_id",
       "financing_entity_id",
-      "contractor_name"
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period"
     ]
   },
   "retrieved_at": "2026-10-01T19:28:52.082854+00:00",
@@ -125,8 +128,8 @@
   "recency_basis": "observation_date",
   "validation_errors": [],
   "output_table_path": "data/processed/morth_state_highway_network.parquet",
-  "data_checksum": "4801c27240f995ffdb0793966e1730aa9a7aa238e301c6a1ba59d55411651f2f",
-  "last_ingested_at": "2026-10-01T20:10:23.253136+00:00",
+  "data_checksum": "60114592903f66e3a6b232d72cf90aef787f5201bc8570951450e4de6fd7a8b7",
+  "last_ingested_at": "2026-10-01T23:17:26.111249+00:00",
   "analytical_scope": {
     "source_as_of_date": "2022-03-31",
     "publisher_type": "government"

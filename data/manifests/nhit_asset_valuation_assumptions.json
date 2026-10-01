@@ -5,9 +5,9 @@
   "status": "manual_ingest",
   "metric_category": "issuer_disclosed",
   "refresh_outcome": "updated",
-  "last_checked_at": "2026-10-01T20:10:14.481041+00:00",
-  "last_successful_retrieval_at": "2026-10-01T20:10:14.484096+00:00",
-  "data_changed_at": "2026-10-01T20:10:14.481041+00:00",
+  "last_checked_at": "2026-10-01T23:17:25.473279+00:00",
+  "last_successful_retrieval_at": "2026-10-01T19:28:46.272467+00:00",
+  "data_changed_at": "2026-10-01T23:17:25.473279+00:00",
   "publication_date": "2026-08-07",
   "source_as_of_date": "2026-06-30",
   "analytical_ready": true,
@@ -34,8 +34,8 @@
     "raw_files": [
       {
         "path": "data/raw/manual/evidence/nhit_asset_valuation_assumptions.json",
-        "sha256": "83a9d28782c5f08f6be7029d93cbd796f1a3364a68388315859cd654e164bf96",
-        "size_bytes": 807
+        "sha256": "16ac94e4c1a4b2f5e5984db3ed6005923d54a630e6ebe3cc1ea1f99e54e9f33c",
+        "size_bytes": 1250
       },
       {
         "path": "data/raw/primary_disclosures/nhit_asset_valuation_assumptions/document.pdf",
@@ -44,8 +44,8 @@
       },
       {
         "path": "data/raw/manual/nhit_asset_valuation_assumptions.csv",
-        "sha256": "5137d035db0c318334e5ba294386fc6365025c3f893509758096b2b22e4ebb0e",
-        "size_bytes": 12494
+        "sha256": "6970b21a5732aa77b2fb7d0395593feb40df241d625cf03ef3c256ab02385ed8",
+        "size_bytes": 13525
       }
     ],
     "source_documents": [
@@ -60,7 +60,7 @@
       {
         "path": "data/processed/nhit_asset_valuation_assumptions.parquet",
         "format": "parquet",
-        "sha256": "1d21b46138ed4896162b4649e35753b9c0879e5b9bd9e564cbff0c960f15d93b"
+        "sha256": "98c4075aac657be43c971666476408b87eace736d9515bc31f8121031f4e5a5d"
       }
     ],
     "row_count": 17,
@@ -109,7 +109,10 @@
       "operator_id",
       "concessionaire_id",
       "financing_entity_id",
-      "contractor_name"
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period"
     ]
   },
   "retrieved_at": "2026-10-01T19:28:46.272467+00:00",
@@ -123,8 +126,8 @@
   "recency_basis": "observation_date",
   "validation_errors": [],
   "output_table_path": "data/processed/nhit_asset_valuation_assumptions.parquet",
-  "data_checksum": "9ebb5099e556747fad28863d5c4fd5010b95c8fa51350da03da89bd034cbc1f0",
-  "last_ingested_at": "2026-10-01T20:10:14.481041+00:00",
+  "data_checksum": "c670af1c8d17246b3a7e617cc6a8d59ce0d7367bf38c75dac4fac83d9df55d17",
+  "last_ingested_at": "2026-10-01T23:17:25.473279+00:00",
   "analytical_scope": {
     "source_as_of_date": "2026-06-30",
     "publisher_type": "issuer"

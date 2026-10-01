@@ -5,9 +5,9 @@
   "status": "manual_ingest",
   "metric_category": "official_measured",
   "refresh_outcome": "updated",
-  "last_checked_at": "2026-10-01T20:10:13.059150+00:00",
-  "last_successful_retrieval_at": "2026-10-01T20:10:13.062066+00:00",
-  "data_changed_at": "2026-10-01T20:10:13.059150+00:00",
+  "last_checked_at": "2026-10-01T23:17:25.358664+00:00",
+  "last_successful_retrieval_at": "2026-10-01T19:28:45.546713+00:00",
+  "data_changed_at": "2026-10-01T23:17:25.358664+00:00",
   "publication_date": "2026-02-01",
   "source_as_of_date": "2026-02-01",
   "analytical_ready": false,
@@ -34,8 +34,8 @@
     "raw_files": [
       {
         "path": "data/raw/manual/evidence/union_budget_highway_outcomes.json",
-        "sha256": "b7f7bdf6343e267fb04dbc5e36e4d98a267f527638b975acf6309aafee47c153",
-        "size_bytes": 788
+        "sha256": "20996bcd5657073e0767ec16901295aa166df8f0429121e40235b1d74bed7798",
+        "size_bytes": 844
       },
       {
         "path": "data/raw/primary_disclosures/union_budget_highway_outcomes/document.pdf",
@@ -44,8 +44,8 @@
       },
       {
         "path": "data/raw/manual/union_budget_highway_outcomes.csv",
-        "sha256": "03f99965e45bd9d5d90c977dc4ac3fbcd09a99972f5146a58b10d6eb73d2775f",
-        "size_bytes": 8057
+        "sha256": "7f9ddbc01455eede0f482fb506d1cd2e9860da592fa2cbea470959f7e577d280",
+        "size_bytes": 8143
       }
     ],
     "source_documents": [
@@ -60,7 +60,7 @@
       {
         "path": "data/processed/union_budget_highway_outcomes.parquet",
         "format": "parquet",
-        "sha256": "dce386a44f0aea1f7708258f7dcf64d4cb405b38070d6a8cf35c6d0baa80d24e"
+        "sha256": "527ae95b6c3ec0dedb7157831fa207ffc7335442133c99643bbe16b32ed6133e"
       }
     ],
     "row_count": 12,
@@ -109,14 +109,17 @@
       "operator_id",
       "concessionaire_id",
       "financing_entity_id",
-      "contractor_name"
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period"
     ]
   },
   "retrieved_at": "2026-10-01T19:28:45.546713+00:00",
   "semantic_rechecks": [],
   "output_table_path": "data/processed/union_budget_highway_outcomes.parquet",
-  "data_checksum": "9e439aaa8334cb46ee45c34faeb18016ed5f3193ea29890d889ed7951f2ae5f6",
-  "last_ingested_at": "2026-10-01T20:10:13.059150+00:00",
+  "data_checksum": "85daafff9f48b1525387d362b70a57edb8a60f805af3b5c2ba17b4e1ad8c1a3c",
+  "last_ingested_at": "2026-10-01T23:17:25.358664+00:00",
   "analytical_scope": {
     "source_as_of_date": "2026-02-01",
     "publisher_type": "government"

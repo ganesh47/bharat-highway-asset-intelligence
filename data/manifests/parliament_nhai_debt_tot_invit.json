@@ -5,11 +5,11 @@
   "status": "manual_ingest",
   "metric_category": "official_measured",
   "refresh_outcome": "updated",
-  "last_checked_at": "2026-10-01T20:10:20.723904+00:00",
-  "last_successful_retrieval_at": "2026-10-01T20:10:20.726889+00:00",
-  "data_changed_at": "2026-10-01T20:10:20.723904+00:00",
+  "last_checked_at": "2026-10-01T23:17:25.844958+00:00",
+  "last_successful_retrieval_at": "2026-10-01T19:28:46.561911+00:00",
+  "data_changed_at": "2026-10-01T23:17:25.844958+00:00",
   "publication_date": "2026-02-05",
-  "source_as_of_date": "2025-12-31",
+  "source_as_of_date": "2026-02-05",
   "analytical_ready": true,
   "evidence_status": "verified",
   "disclosure_ready": true,
@@ -34,8 +34,8 @@
     "raw_files": [
       {
         "path": "data/raw/manual/evidence/parliament_nhai_debt_tot_invit.json",
-        "sha256": "108212f04e066a5458664a97f55539dfa47c84e2eb4e52e159691acea69f8de8",
-        "size_bytes": 810
+        "sha256": "a5aba9d03614730179b4d39d860d768c5c5c734019cd06c550435a0883ae7a76",
+        "size_bytes": 1253
       },
       {
         "path": "data/raw/primary_disclosures/parliament_nhai_debt_tot_invit/document.pdf",
@@ -44,8 +44,8 @@
       },
       {
         "path": "data/raw/manual/parliament_nhai_debt_tot_invit.csv",
-        "sha256": "640a69ce016a192de84012c27330dde336a4aa21274c45090b3b6bebdcff2456",
-        "size_bytes": 25324
+        "sha256": "dafdf6a0d75f00a41c8d26b47c90426022dcc18881e24da39570337df33b491b",
+        "size_bytes": 31191
       }
     ],
     "source_documents": [
@@ -60,7 +60,7 @@
       {
         "path": "data/processed/parliament_nhai_debt_tot_invit.parquet",
         "format": "parquet",
-        "sha256": "49aa06b8fb7676d027e8469a457c176de34bb8b0965f14afe99d4f2e5608963d"
+        "sha256": "e4affb90ee3cd4479bf5a4607b34c191bb6b3fdb08f8be24fe1afb072180f18a"
       }
     ],
     "row_count": 33,
@@ -109,7 +109,10 @@
       "operator_id",
       "concessionaire_id",
       "financing_entity_id",
-      "contractor_name"
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period"
     ]
   },
   "retrieved_at": "2026-10-01T19:28:46.561911+00:00",
@@ -123,10 +126,10 @@
   "recency_basis": "observation_date",
   "validation_errors": [],
   "output_table_path": "data/processed/parliament_nhai_debt_tot_invit.parquet",
-  "data_checksum": "6056a82d540394e5989cb152e74b7868ab626499cee9b4096085b0ba79cbbb6e",
-  "last_ingested_at": "2026-10-01T20:10:20.723904+00:00",
+  "data_checksum": "11a76787d58488000f21ef15adaa4f9f48fa035859c5173b561dd1258069d98a",
+  "last_ingested_at": "2026-10-01T23:17:25.844958+00:00",
   "analytical_scope": {
-    "source_as_of_date": "2025-12-31",
+    "source_as_of_date": "2026-02-05",
     "publisher_type": "government"
   }
 }
