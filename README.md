@@ -1,6 +1,8 @@
 # Bharat Highway Asset Intelligence
 
-This scaffold implements a research-first, official-first pipeline for official Indian transportation data.
+An evidence-based dashboard for India's National Highways, State Highways, state expressways and disclosed highway finances. The enrichment baseline uses primary government, issuer and multilateral disclosures available through **2 October 2026**, preserving each observation's own reporting date.
+
+Open the [published dashboard](https://ganesh47.github.io/bharat-highway-asset-intelligence/). Read the [source-by-source coverage matrix](docs/coverage_matrix.md), [financial extraction methodology](docs/finance_source_methodology.md), and [upgrade and validation record](docs/governance/2026-10-02-finance-enrichment.md) before comparing figures.
 
 ## What is included
 
@@ -133,3 +135,25 @@ Manual run:
 - Parquet tables in `data/processed/<source_id>.parquet`
 - Unified dataset index `data/manifests/catalog.json`
 - Confidence badges and citation fields in each manifest row
+
+## Analytical boundaries
+
+The default dashboard uses validated observations. Synthetic demonstrations, document-presence indexes and unsupported manual records remain available for review and are excluded from measured totals. Coverage counts distinguish source discovery from extracted analytical evidence.
+
+Financial records carry entity and agency identifiers, road class, metric, original and normalized units, reporting period, estimate class, statement basis, observation cutoff, source document checksum and page/table citation. Money is normalized to ₹ crore; ₹ per unit, transaction counts, PCU traffic, route-km, lane-km and bridge counts retain their separate units. Issuer disclosures are classified separately from government statistics.
+
+Actual expenditure, budget estimates and revised estimates are separate observations. NHIT trust/SPV accounts, NHAI standalone disclosures, ministry budgets and state Roads and Bridges expenditure have different entity and expenditure boundaries. NPCI NETC amounts represent payment-system activity and cannot substitute for NHAI receipts or corridor traffic. Valuation assumptions, delivery targets and historical audit samples have their own evidence classes.
+
+Network stocks, construction flows and project portfolios are separate measures. State-specific older dates and published discrepancies in Basic Road Statistics remain visible. Cost/km requires compatible length-based works, with lane, mode and land-cost scope disclosed. Exploratory correlations require an approved comparable pair and at least ten matched observations; sample size accompanies every result.
+
+## Safe refresh and source evidence
+
+`pipelines.ingest` stages each connector output and validates its structure, semantics and provenance before publication. A failed fetch or changed source document requiring re-extraction retains the last validated parquet and its observation dates. `last_checked_at` records the attempt; it does not improve observation freshness. The full audit appears in `data/manifests/refresh_report.json` and the generated coverage matrix.
+
+Governed manual extracts require a source-specific CSV plus `data/raw/manual/evidence/<source_id>.json`, containing identifiable primary documents, their checksums and extraction metadata. Unsupported manual records are quarantined. Accessible primary documents are checked within their configured fetch policy; restricted publishers remain manual gaps. Publisher-specific terms apply; the India OGD license is not inherited by unrelated publishers.
+
+After ingestion, regenerate the accountability report with:
+
+```bash
+python scripts/build_coverage_report.py
+```
