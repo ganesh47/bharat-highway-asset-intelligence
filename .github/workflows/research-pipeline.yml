@@ -4,6 +4,15 @@ on:
   schedule:
     - cron: '0 6 * * *'
   workflow_dispatch:
+    inputs:
+      ocr_mode:
+        description: NHAI document extraction (daily scheduled runs always use full)
+        type: choice
+        required: true
+        default: full
+        options:
+          - full
+          - skip
   push:
     branches: [ main ]
 
@@ -34,6 +43,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.ocr_mode }}" = "skip" ]; then
+            echo "run_nhai_ocr=false" >> "$GITHUB_OUTPUT"
+            echo "run_reason=manual refresh without OCR; existing extraction remains checksum gated" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
 
           if [ "${{ github.event_name }}" != "push" ]; then
             echo "run_nhai_ocr=true" >> "$GITHUB_OUTPUT"
