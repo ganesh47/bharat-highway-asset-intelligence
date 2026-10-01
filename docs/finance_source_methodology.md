@@ -134,6 +134,13 @@ evidence class is `mixed_actual_target` and it remains a disclosure with
 CSV's NA cells remain nonnumeric; the reference evidence preserves the original
 NIL, dash, blank and Bridge Work tokens without replacing them with zero.
 
+The legacy NHAI audited-results source retains only its verified FY2023-24
+official PDF link. Its six scanned pages were retrieved and the first-page
+heading visually checked: quarter/year ended31March2024, amounts in INRlakh.
+Annual filename guessing and future fiscal coverage claims are removed. This
+source supplies document metadata; accounting amounts await validated extraction
+and do not enter measured calculations. The report's publication day is unknown.
+
 Issuer/multilateral public disclosure is not blanket permission to redistribute
 whole reports. CSV extracts link to originals and cite only relevant tables;
 no blanket OGL licence is asserted for those documents.

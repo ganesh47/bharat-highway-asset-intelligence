@@ -482,28 +482,30 @@ sources:
     official_flag: true
     publisher_org: National Highways Authority of India (NHAI)
     domain: nhai.gov.in
-    dataset_title: NHAI audited financial results (SEBI format), across all available years
+    dataset_title: NHAI audited financial results (SEBI format), quarter and year ended 31 March 2024
     theme: finance
     access_type: PDF
     auth: none
     update_frequency: annual
     geographic_granularity: nation
-    temporal_coverage: 2015-16 to 2026-27
+    temporal_coverage: Quarter and year ended31March2024, with comparative periods in the verified statement
     license_terms: "Official publication on NHAI website; reuse subject to official publication terms."
     retrieval_method: manual
     reliability_grade: B
-    reliability_justification: Official fiscal statements published by NHAI with stable naming pattern and periodic annual release.
-    known_limitations: "Historical years may be renamed by archive migration or unavailable online."
+    reliability_justification: Explicit official NHAI FY2023-24 PDF retrieved and verified as a six-page statement; physicalpage1 confirms the accounting cutoff and INRlakh units.
+    known_limitations: "Historical scanned statement; numerical accounting extraction is not validated and cannot enter measured analytics. Publication day is undisclosed. Portal restrictions or archive migration can make the declared URL unavailable on later refreshes. No report availability or future fiscal coverage is inferred from filename patterns."
     allow_auto_fetch: true
     url: https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf
-    annual_document_url_prefix: https://nhai.gov.in/nhai/sites/default/files/mix_file
-    annual_filename_template: Audited_Results_{year}(SEBI_Format).pdf
-    start_year: 2018
-    end_year: 2026
     resource_file_urls:
       - https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf
-    permanent_identifier_hint: "NHAI audited results annual PDFs from NHAI mix_file archive"
-    notes: "Auto-discover audited-result PDFs from NHAI archive naming pattern; include manual overrides via data/raw/manual when needed."
+    source_as_of_date: '2024-03-31'
+    publication_date: null
+    primary_reference_url: https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf
+    primary_reference_sha256: 3e782fa352efdebc326e8b3f2f539690dd8784120e865855998b04b05548f9ad
+    primary_reference_page: 1
+    evidence_metadata_path: data/raw/manual/evidence/nhai_audited_results_pdf.json
+    permanent_identifier_hint: "Verified official NHAI audited-results PDF for31March2024"
+    notes: "Fetch only the explicitly listed verified official URL or documents actually linked by verified official discovery. Do not generate annual filenames or future-year URLs. Retrieved2October2026: HTTP200, validPDF, six scannedpages; cover visuallychecked31March2024 cutoff and INRlakh units. Document metadata only; source accounting amounts remain an extraction gap."
 
   - source_id: nhai_annual_report_documents
     official_flag: true

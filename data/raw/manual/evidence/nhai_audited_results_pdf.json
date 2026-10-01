@@ -1,0 +1,27 @@
+{
+  "source_id": "nhai_audited_results_pdf",
+  "evidence_status": "document_metadata",
+  "extraction_status": "document_metadata",
+  "analytical_eligible": false,
+  "row_count": 0,
+  "source_as_of_date": "2024-03-31",
+  "publication_date": null,
+  "reference_document": {
+    "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
+    "sha256": "3e782fa352efdebc326e8b3f2f539690dd8784120e865855998b04b05548f9ad",
+    "relative_path": "primary_disclosures/nhai_audited_results_pdf/reference.pdf",
+    "size_bytes": 1733398,
+    "pages": 6,
+    "table_page": 1,
+    "title": "Statement of audited financial results for the quarter and year ended31March2024",
+    "original_unit": "INR lakh",
+    "validation": "HTTP200; PDF magic and six pages verified; physicalpage1 rendered using Poppler and heading/unit/cutoff visually checked"
+  },
+  "limitations": [
+    "All six pages scanned with no extractable text",
+    "No validated accounting amounts published from this source",
+    "Publication day unknown",
+    "No filename patterns or future-year URLs establish document availability"
+  ],
+  "retrieved_at": "2026-10-01T20:52:24.813795+00:00"
+}
