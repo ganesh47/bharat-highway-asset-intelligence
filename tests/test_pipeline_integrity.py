@@ -13,7 +13,7 @@ from pipelines.connectors.base import ConnectorResult
 from pipelines.connectors.nhai_annual_documents import NHAIAnnualDocumentsConnector
 from pipelines.correlation import _approved_correlations, _build_metric_long, JOIN_KEYS, canonical_entity
 from pipelines.ingest import run_ingestion, refresh_quality_only, _load_nhai_extraction_quality
-from pipelines.quality import evidence_status, evaluate, semantic_errors, observation_date
+from pipelines.quality import evidence_status, evaluate, semantic_errors, observation_date, observed_row_mask
 from research.loader import load_inventory
 from research.scan import _scan_item
 from research.gap_report import detect_gaps
@@ -162,6 +162,17 @@ class QualityTests(unittest.TestCase):
     def test_legacy_manual_requires_concrete_lineage_and_observation_date(self):
         frame = pd.DataFrame({"state": ["Delhi"], "year": [2025], "value": [10]})
         self.assertEqual("unverified", evidence_status(frame, {"source_id": "morh_procurement_awards"}, {"status": "manual_ingest"}))
+
+    def test_curated_morth_mixed_tables_do_not_discard_dated_stock(self):
+        frame = pd.DataFrame({"year": ["2024-25", "2000-01", None],
+                              "source_as_of_date": ["2024-12-31", None, None],
+                              "citation_anchor": ["appendix-2-page-123", "appendix-3-page-127", "appendix-5-page-129"],
+                              "document_section": ["appendix_2", "appendix_3", "appendix_5"]})
+        frame["analytical_eligible"] = observed_row_mask(frame)
+        self.assertEqual([True, True, False], list(frame["analytical_eligible"]))
+        self.assertEqual("validated_curated", evidence_status(frame, {"source_id": "morth_annual_report_pdf"}, {"status": "manual_ingest"}))
+        frame.loc[2, "analytical_eligible"] = True
+        self.assertEqual("unverified", evidence_status(frame, {"source_id": "morth_annual_report_pdf"}, {"status": "manual_ingest"}))
 
     def test_observation_and_publication_dates_are_separate(self):
         frame = pd.DataFrame({"source_as_of_date": ["2019-03-31", "2020-03-31"], "published_at": ["2026-01-23", "2026-01-23"]})

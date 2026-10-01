@@ -41,6 +41,18 @@ CURATED_MANUAL_SOURCES = {
 DOCUMENT_SOURCES = {"nhai_annual_report_documents", "nhai_audited_results_pdf", "nhai_press_release_index"}
 
 
+def observed_row_mask(df: pd.DataFrame) -> pd.Series:
+    """Recognize an explicit observation date or a reported row period."""
+    known = pd.Series(False, index=df.index)
+    for column in ("source_as_of_date", "data_as_of", "as_of_date", "observation_date", "period_end"):
+        if column in df:
+            known |= pd.to_datetime(df[column], errors="coerce", utc=True).notna()
+    for column in ("period", "financial_year", "reporting_period", "year_wise", "year", "report_year"):
+        if column in df:
+            known |= df[column].fillna("").astype(str).str.strip().str.fullmatch(r"(?:FY\s*)?(?:19|20)\d{2}(?:[-/](?:\d{2}|\d{4})|\.0)?")
+    return known
+
+
 def observation_date(df: pd.DataFrame, item: Dict[str, Any]) -> str | None:
     """Observation dates stay independent of publication and download dates."""
     for key in ("source_as_of_date", "data_as_of", "as_of_date", "observation_date", "period_end"):
@@ -90,6 +102,16 @@ def evidence_status(df: pd.DataFrame, source: Dict[str, Any], manifest: Dict[str
         return declared
     if manifest.get("status") == "manual_ingest":
         required = {"citation_anchor", "source_as_of_date", "document_section"}
+        if source.get("source_id") == "morth_annual_report_pdf":
+            # This audited curated snapshot combines dated NH stock, CRIF
+            # fiscal rows and an undated permit table. Keep the latter readable
+            # without qualifying it as a measured observation.
+            required.discard("source_as_of_date")
+            known = observed_row_mask(df)
+            if "analytical_eligible" not in df or not known.any():
+                return "unverified"
+            if (df["analytical_eligible"].fillna(False).eq(True) & ~known).any():
+                return "unverified"
         if source.get("source_id") not in CURATED_MANUAL_SOURCES:
             required.add("source_url")
         if not required <= set(df.columns):
