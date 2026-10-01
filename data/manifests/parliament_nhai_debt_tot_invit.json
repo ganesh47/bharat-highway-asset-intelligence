@@ -1,0 +1,132 @@
+{
+  "source_id": "parliament_nhai_debt_tot_invit",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "refresh_outcome": "updated",
+  "last_checked_at": "2026-10-01T20:10:20.723904+00:00",
+  "last_successful_retrieval_at": "2026-10-01T20:10:20.726889+00:00",
+  "data_changed_at": "2026-10-01T20:10:20.723904+00:00",
+  "publication_date": "2026-02-05",
+  "source_as_of_date": "2025-12-31",
+  "analytical_ready": true,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "",
+  "source": {
+    "publisher": "MoRTH / Parliament Secretariat",
+    "title": "Lok SabhaUQ963: NHAI debt and TOT/InvIT receipts",
+    "url": "https://sansad.in/getFile/loksabhaquestions/annex/187/AU963_8iM1pC.pdf?source=pqals",
+    "retrieved_at": "2026-10-01T19:28:46.561911+00:00",
+    "official_flag": true,
+    "publisher_type": "government",
+    "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+    "domain": "sansad.in"
+  },
+  "citations": {
+    "permanent_identifier": "parliament_nhai_debt_tot_invit",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": ""
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/evidence/parliament_nhai_debt_tot_invit.json",
+        "sha256": "108212f04e066a5458664a97f55539dfa47c84e2eb4e52e159691acea69f8de8",
+        "size_bytes": 810
+      },
+      {
+        "path": "data/raw/primary_disclosures/parliament_nhai_debt_tot_invit/document.pdf",
+        "sha256": "a8fc9ba166a457d2644c4d9defd18e860b680de96cad1b7daeca489813e7efc7",
+        "size_bytes": 191392
+      },
+      {
+        "path": "data/raw/manual/parliament_nhai_debt_tot_invit.csv",
+        "sha256": "640a69ce016a192de84012c27330dde336a4aa21274c45090b3b6bebdcff2456",
+        "size_bytes": 25324
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://sansad.in/getFile/loksabhaquestions/annex/187/AU963_8iM1pC.pdf?source=pqals",
+        "relative_path": "primary_disclosures/parliament_nhai_debt_tot_invit/document.pdf",
+        "sha256": "a8fc9ba166a457d2644c4d9defd18e860b680de96cad1b7daeca489813e7efc7",
+        "size_bytes": 191392
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/parliament_nhai_debt_tot_invit.parquet",
+        "format": "parquet",
+        "sha256": "49aa06b8fb7676d027e8469a457c176de34bb8b0965f14afe99d4f2e5608963d"
+      }
+    ],
+    "row_count": 33,
+    "columns": [
+      "entity_id",
+      "entity_name",
+      "entity_type",
+      "agency",
+      "state",
+      "road_class",
+      "metric",
+      "value",
+      "unit",
+      "original_value",
+      "original_unit",
+      "period_start",
+      "period_end",
+      "period_basis",
+      "estimate_type",
+      "statement_basis",
+      "data_as_of",
+      "published_at",
+      "source_id",
+      "citation_url",
+      "table_page",
+      "evidence_class",
+      "analytical_eligible",
+      "source_document_sha256",
+      "notes",
+      "entity",
+      "year",
+      "metric_name",
+      "metric_value",
+      "metric_category",
+      "source_type",
+      "asset_id",
+      "project_name",
+      "nh_number",
+      "project_stage",
+      "scheduled_completion_date",
+      "likely_completion_date",
+      "actual_completion_date",
+      "comparison_group",
+      "asset_owner_id",
+      "implementing_agency_id",
+      "operator_id",
+      "concessionaire_id",
+      "financing_entity_id",
+      "contractor_name"
+    ]
+  },
+  "retrieved_at": "2026-10-01T19:28:46.561911+00:00",
+  "semantic_rechecks": [],
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/parliament_nhai_debt_tot_invit.parquet",
+  "data_checksum": "6056a82d540394e5989cb152e74b7868ab626499cee9b4096085b0ba79cbbb6e",
+  "last_ingested_at": "2026-10-01T20:10:20.723904+00:00",
+  "analytical_scope": {
+    "source_as_of_date": "2025-12-31",
+    "publisher_type": "government"
+  }
+}

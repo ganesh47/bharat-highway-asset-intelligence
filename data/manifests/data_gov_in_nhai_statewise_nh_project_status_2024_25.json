@@ -57,10 +57,27 @@
   },
   "retrieved_at": "2026-03-15T08:36:20.724922+00:00",
   "completeness_score": 1.0,
-  "recency_score": 1.0,
+  "recency_score": 0.7,
   "provenance_score": 0.85,
   "consistency_score": 1.0,
   "overall_confidence_badge": "High",
   "overall_confidence_reason": [],
-  "output_table_path": "data/processed/data_gov_in_nhai_statewise_nh_project_status_2024_25.parquet"
+  "output_table_path": "data/processed/data_gov_in_nhai_statewise_nh_project_status_2024_25.parquet",
+  "data_checksum": "c7f9767093fe4eaec101ad5360359aef5044b9a638d8017aa783549e10312ad7",
+  "last_successful_retrieval_at": "2026-10-01T20:08:26.630374+00:00",
+  "last_ingested_at": "2026-10-01T20:08:26.630374+00:00",
+  "last_checked_at": "2026-10-01T20:08:26.630374+00:00",
+  "refresh_outcome": "checked_unchanged",
+  "analytical_scope": {
+    "road_class": "unspecified",
+    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+  },
+  "evidence_status": "validated",
+  "source_as_of_date": "2025-03-31",
+  "publication_date": null,
+  "disclosure_ready": true,
+  "analytical_ready": true,
+  "extraction_status": "validated",
+  "recency_basis": "observation_date",
+  "validation_errors": []
 }

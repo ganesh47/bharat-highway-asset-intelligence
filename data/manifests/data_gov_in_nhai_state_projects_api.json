@@ -2,7 +2,7 @@
   "source_id": "data_gov_in_nhai_state_projects_api",
   "connector": "data_gov_in_ogd",
   "version": "0.2.0",
-  "status": "automated",
+  "status": "ok",
   "metric_category": "official_measured",
   "source": {
     "publisher": "National Highways Authority of India (NHAI)",
@@ -11,37 +11,37 @@
     "url": "https://www.data.gov.in/resource/state-wise-number-nh-and-road-projects-relating-are-included-national-infrastructure",
     "retrieval_method": "API call",
     "access_type": "API",
-    "retrieved_at": "2026-03-11T05:17:07.740637+00:00",
+    "retrieved_at": "2026-10-01T20:08:24.677999+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true
   },
   "citations": {
     "permanent_identifier": "uuid b358bfbb-1eee-4e3f-9ebd-956cae5040a7",
-    "anchor": "api:data_gov_in_nhai_state_projects_api:b358bfbb-1eee-4e3f-9ebd-956cae5040a7",
+    "anchor": "resource_file:https://data.gov.in/sites/default/files/dataurl08122021/RS_Session_253_AU2230.C.csv",
     "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
   },
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_nhai_state_projects_api/data_gov_in_nhai_state_projects_api/raw_20260311_051708.json",
-        "sha256": "e99655baef5687b5eb90c36d3e450fcc2687f4f29681927c44441b8a9e7c37f9",
-        "size_bytes": 735
+        "path": "data/raw/data_gov_in_nhai_state_projects_api/data_gov_in_nhai_state_projects_api/raw_20261001_200825.csv",
+        "sha256": "65b482de972b3afab75ae44b362d10b932dfa1e2e901db752c5d86d7245fdd07",
+        "size_bytes": 245
       }
     ],
     "output_files": [
       {
         "path": "data/processed/data_gov_in_nhai_state_projects_api.parquet",
         "format": "parquet",
-        "sha256": "c3e69a1855eb4ec9d1b25c65e5c3a3a3de10ba86dd7e6f42d8ed9b2e63f46ab4"
+        "sha256": "47685abcd332f86c8811c9397d8cae5f337d1ab01972583520afc384ecbe6681"
       }
     ],
     "row_count": 5,
     "columns": [
-      "_sl__no_",
+      "sl._no.",
       "state",
       "number_of_nh_projects",
-      "length__in_km_",
-      "capital_outlay___rs_in_cr__for_the_years_2020_to_2024",
+      "length_in_km",
+      "capital_outlay__rs_in_cr_for_the_years_2020_to_2024",
       "source_type",
       "source_id",
       "metric_category",
@@ -49,12 +49,30 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-03-11T05:17:07.740637+00:00",
+  "retrieved_at": "2026-10-01T20:08:24.677999+00:00",
   "completeness_score": 1.0,
-  "recency_score": 1.0,
+  "recency_score": 0.7,
   "provenance_score": 0.85,
   "consistency_score": 1.0,
   "overall_confidence_badge": "High",
   "overall_confidence_reason": [],
-  "output_table_path": "data/processed/data_gov_in_nhai_state_projects_api.parquet"
+  "source_as_of_date": "2024-12-31",
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/data_gov_in_nhai_state_projects_api.parquet",
+  "data_checksum": "87bc99b352cb0c99447ef24399e7356039d455145430280cc74745b69aa8316c",
+  "data_changed_at": "2026-10-01T20:08:24.675139+00:00",
+  "last_successful_retrieval_at": "2026-10-01T20:08:24.675139+00:00",
+  "last_ingested_at": "2026-10-01T20:08:24.675139+00:00",
+  "last_checked_at": "2026-10-01T20:08:24.675139+00:00",
+  "refresh_outcome": "updated",
+  "analytical_scope": {
+    "road_class": "unspecified",
+    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+  },
+  "evidence_status": "validated",
+  "publication_date": null,
+  "disclosure_ready": true,
+  "analytical_ready": true,
+  "extraction_status": "validated"
 }

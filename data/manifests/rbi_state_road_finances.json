@@ -1,0 +1,133 @@
+{
+  "source_id": "rbi_state_road_finances",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "refresh_outcome": "retained_after_failure",
+  "last_checked_at": "2026-10-01T20:12:43.564983+00:00",
+  "last_successful_retrieval_at": "2026-10-01T19:28:49.237144+00:00",
+  "data_changed_at": "2026-10-01T20:12:43.099018+00:00",
+  "publication_date": "2026-01-23",
+  "source_as_of_date": "2026-01-23",
+  "analytical_ready": true,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "",
+  "source": {
+    "publisher": "Reserve Bank of India",
+    "title": "State Finances: A Study of Budgets of2025-26, AppendicesII/IV Roads and Bridges",
+    "url": "https://rbidocs.rbi.org.in/rdocs/Publications/PDFs/0SF23012026877D47254C4F4B0793B2C38F05FB7EC5.PDF",
+    "retrieved_at": "2026-10-01T19:28:49.237144+00:00",
+    "official_flag": true,
+    "publisher_type": "government",
+    "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+    "domain": "rbidocs.rbi.org.in"
+  },
+  "citations": {
+    "permanent_identifier": "rbi_state_road_finances",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "Goa revenue Roads and Bridges rows contain dashes, left absent rather than invented zero. Road-corporation debt/guarantees and corridor attribution not inferred from state-government aggregates. Statements19/28 add1050all-sector state-government liabilities/guarantees, distinct from roads budgets and corporation finance."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/evidence/rbi_state_road_finances.json",
+        "sha256": "e39e2677fec09949f1fbc1e95dd610da2986c0f4b26c68d099a3694d32f75f07",
+        "size_bytes": 1136
+      },
+      {
+        "path": "data/raw/primary_disclosures/rbi_state_road_finances/document.pdf",
+        "sha256": "0da62779a6cb5441149e0de4bad024d4d63c449dab564f821fdd307ea3e4fc77",
+        "size_bytes": 3616815
+      },
+      {
+        "path": "data/raw/manual/rbi_state_road_finances.csv",
+        "sha256": "3fd2c72511598067bbdad943c128fbb4de667cb887de1c10cfd4db04b9a1c952",
+        "size_bytes": 1225356
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://rbidocs.rbi.org.in/rdocs/Publications/PDFs/0SF23012026877D47254C4F4B0793B2C38F05FB7EC5.PDF",
+        "relative_path": "primary_disclosures/rbi_state_road_finances/document.pdf",
+        "sha256": "0da62779a6cb5441149e0de4bad024d4d63c449dab564f821fdd307ea3e4fc77",
+        "size_bytes": 3616815
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/rbi_state_road_finances.parquet",
+        "format": "parquet",
+        "sha256": "584f3b87ca001f5f0c27c57cc37a5ff546414881b342b16a5fe612010cca1a9c"
+      }
+    ],
+    "row_count": 1302,
+    "columns": [
+      "entity_id",
+      "entity_name",
+      "entity_type",
+      "agency",
+      "state",
+      "road_class",
+      "metric",
+      "value",
+      "unit",
+      "original_value",
+      "original_unit",
+      "period_start",
+      "period_end",
+      "period_basis",
+      "estimate_type",
+      "statement_basis",
+      "data_as_of",
+      "published_at",
+      "source_id",
+      "citation_url",
+      "table_page",
+      "evidence_class",
+      "analytical_eligible",
+      "source_document_sha256",
+      "notes",
+      "entity",
+      "year",
+      "metric_name",
+      "metric_value",
+      "metric_category",
+      "source_type",
+      "asset_id",
+      "project_name",
+      "nh_number",
+      "project_stage",
+      "scheduled_completion_date",
+      "likely_completion_date",
+      "actual_completion_date",
+      "comparison_group",
+      "asset_owner_id",
+      "implementing_agency_id",
+      "operator_id",
+      "concessionaire_id",
+      "financing_entity_id",
+      "contractor_name"
+    ]
+  },
+  "retrieved_at": "2026-10-01T19:28:49.237144+00:00",
+  "semantic_rechecks": [],
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/rbi_state_road_finances.parquet",
+  "data_checksum": "2bb97263f69a4054fa0f797b7b28f4d8fdd803d7e82fcbcc0f017acda10b12c6",
+  "last_ingested_at": "2026-10-01T20:12:43.099018+00:00",
+  "analytical_scope": {
+    "source_as_of_date": "2026-01-23",
+    "publisher_type": "government"
+  },
+  "refresh_error": "Response is not a PDF"
+}

@@ -1,0 +1,132 @@
+{
+  "source_id": "nhit_quarterly_operations_finance",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "issuer_disclosed",
+  "refresh_outcome": "updated",
+  "last_checked_at": "2026-10-01T20:10:13.254546+00:00",
+  "last_successful_retrieval_at": "2026-10-01T20:10:13.257451+00:00",
+  "data_changed_at": "2026-10-01T20:10:13.254546+00:00",
+  "publication_date": "2026-08-31",
+  "source_as_of_date": "2026-06-30",
+  "analytical_ready": true,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "",
+  "source": {
+    "publisher": "National Highways Infra Trust",
+    "title": "NHIT Investor Presentation June2026: Q1FY27 finances and asset traffic",
+    "url": "https://nhit.co.in/pdf/investor-presentations/Investor%20Presentation%20June%202026.pdf",
+    "retrieved_at": "2026-10-01T19:28:46.101037+00:00",
+    "official_flag": false,
+    "publisher_type": "issuer",
+    "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+    "domain": "nhit.co.in"
+  },
+  "citations": {
+    "permanent_identifier": "nhit_quarterly_operations_finance",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": ""
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/evidence/nhit_quarterly_operations_finance.json",
+        "sha256": "e604a66ceffed58b03a67eed07f8854a01444160710ae4b839b4090166e43a5f",
+        "size_bytes": 822
+      },
+      {
+        "path": "data/raw/primary_disclosures/nhit_quarterly_operations_finance/document.pdf",
+        "sha256": "da8176d700cfc2e88e991e2a71e0a78d92d3397a519a7f13b240808a55db65f1",
+        "size_bytes": 3410545
+      },
+      {
+        "path": "data/raw/manual/nhit_quarterly_operations_finance.csv",
+        "sha256": "4e6155f121b479c3ffbc91d680ab06befe890a142cc6d8902c99fc2e5a4507f5",
+        "size_bytes": 87257
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://nhit.co.in/pdf/investor-presentations/Investor%20Presentation%20June%202026.pdf",
+        "relative_path": "primary_disclosures/nhit_quarterly_operations_finance/document.pdf",
+        "sha256": "da8176d700cfc2e88e991e2a71e0a78d92d3397a519a7f13b240808a55db65f1",
+        "size_bytes": 3410545
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/nhit_quarterly_operations_finance.parquet",
+        "format": "parquet",
+        "sha256": "9a38f34bb53f652f770180f531ea0ac38216a612794e0fa114ee009803b7e8d4"
+      }
+    ],
+    "row_count": 117,
+    "columns": [
+      "entity_id",
+      "entity_name",
+      "entity_type",
+      "agency",
+      "state",
+      "road_class",
+      "metric",
+      "value",
+      "unit",
+      "original_value",
+      "original_unit",
+      "period_start",
+      "period_end",
+      "period_basis",
+      "estimate_type",
+      "statement_basis",
+      "data_as_of",
+      "published_at",
+      "source_id",
+      "citation_url",
+      "table_page",
+      "evidence_class",
+      "analytical_eligible",
+      "source_document_sha256",
+      "notes",
+      "entity",
+      "year",
+      "metric_name",
+      "metric_value",
+      "metric_category",
+      "source_type",
+      "asset_id",
+      "project_name",
+      "nh_number",
+      "project_stage",
+      "scheduled_completion_date",
+      "likely_completion_date",
+      "actual_completion_date",
+      "comparison_group",
+      "asset_owner_id",
+      "implementing_agency_id",
+      "operator_id",
+      "concessionaire_id",
+      "financing_entity_id",
+      "contractor_name"
+    ]
+  },
+  "retrieved_at": "2026-10-01T19:28:46.101037+00:00",
+  "semantic_rechecks": [],
+  "completeness_score": 0.98,
+  "recency_score": 0.7,
+  "provenance_score": 0.49,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "Med",
+  "overall_confidence_reason": [],
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/nhit_quarterly_operations_finance.parquet",
+  "data_checksum": "f70d628fe9c3cbabb918928f9bf7a82309db4c66f786bbcb087820069b2f352f",
+  "last_ingested_at": "2026-10-01T20:10:13.254546+00:00",
+  "analytical_scope": {
+    "source_as_of_date": "2026-06-30",
+    "publisher_type": "issuer"
+  }
+}

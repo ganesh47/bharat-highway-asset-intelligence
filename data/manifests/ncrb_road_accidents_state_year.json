@@ -9,7 +9,9 @@
     "title": "Road accident state and year summary tables",
     "retrieved_at": "2026-03-11T05:17:32.830539+00:00",
     "license_terms": "NCRB publication terms. Use only published tables and cite report/table numbers.",
-    "official_flag": true
+    "official_flag": true,
+    "domain": "ncrb.gov.in",
+    "url": "https://ncrb.gov.in/en/road-accidents-statistics"
   },
   "citations": {
     "permanent_identifier": "year and report table page numbers",
@@ -26,6 +28,7 @@
     "output_files": [
       {
         "path": "data/processed/ncrb_road_accidents_state_year.parquet",
+        "format": "parquet",
         "sha256": "2a38f93d77363ca9ef3d14f92ef95017f3155f6e34630981e9162f0ff29704c2"
       }
     ],
@@ -47,7 +50,27 @@
   "recency_score": 0.98,
   "provenance_score": 0.98,
   "consistency_score": 0.98,
-  "overall_confidence_badge": "High",
-  "overall_confidence_reason": [],
-  "output_table_path": "data/processed/ncrb_road_accidents_state_year.parquet"
+  "overall_confidence_badge": "Low",
+  "overall_confidence_reason": [
+    "Not eligible for measured analyst calculations",
+    "Document discovery is not validated financial extraction"
+  ],
+  "output_table_path": "data/processed/ncrb_road_accidents_state_year.parquet",
+  "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
+  "data_checksum": "96c58d768edd6451762d383f3f36adf8c84dda4f476acdf60b28eaba85887457",
+  "last_checked_at": "2026-10-01T20:09:56.513285+00:00",
+  "refresh_outcome": "manual_evidence_required",
+  "analytical_scope": {
+    "road_class": "unspecified",
+    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+  },
+  "evidence_status": "unverified",
+  "source_as_of_date": "2025-12-31",
+  "publication_date": null,
+  "disclosure_ready": false,
+  "analytical_ready": false,
+  "extraction_status": "pending",
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date"
 }

@@ -8,7 +8,7 @@
     "publisher": "National Highways Authority of India (NHAI)",
     "title": "NHAI audited financial results (SEBI format), across all available years",
     "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
-    "retrieved_at": "2026-03-13T12:20:39.401433+00:00",
+    "retrieved_at": "2026-10-01T20:08:33.763091+00:00",
     "license_terms": "Official publication on NHAI website; reuse subject to official publication terms.",
     "official_flag": true,
     "domain": "nhai.gov.in"
@@ -21,7 +21,7 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/nhai_audited_results_pdf/nhai_audited_results_pdf/raw_20260313_122042.pdf",
+        "path": "data/raw/nhai_audited_results_pdf/nhai_audited_results_pdf/raw_20261001_200836.pdf",
         "sha256": "3e782fa352efdebc326e8b3f2f539690dd8784120e865855998b04b05548f9ad",
         "size_bytes": 1733398
       }
@@ -30,7 +30,7 @@
       {
         "path": "data/processed/nhai_audited_results_pdf.parquet",
         "format": "parquet",
-        "sha256": "b4d492927e84375a77b613c6bb40515c59e51d06983c93c9590957f86459171b"
+        "sha256": "5ca2267ca0110f4ea45329651ad1167219a532ace8877ae5660de29dcdc9bd8b"
       }
     ],
     "row_count": 1,
@@ -51,12 +51,34 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-03-13T12:20:39.401433+00:00",
-  "completeness_score": 0.857,
-  "recency_score": 1.0,
+  "retrieved_at": "2026-10-01T20:08:33.763091+00:00",
+  "completeness_score": 0.786,
+  "recency_score": 0.25,
   "provenance_score": 0.85,
   "consistency_score": 1.0,
-  "overall_confidence_badge": "High",
-  "overall_confidence_reason": [],
-  "output_table_path": "data/processed/nhai_audited_results_pdf.parquet"
+  "overall_confidence_badge": "Low",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency",
+    "Observation date is unavailable; collection time is not data freshness",
+    "Document discovery is not validated financial extraction"
+  ],
+  "source_as_of_date": null,
+  "recency_basis": "unknown",
+  "validation_errors": [],
+  "output_table_path": "data/processed/nhai_audited_results_pdf.parquet",
+  "data_checksum": "337ffba7cc00de91c995a8287c01c6f57e872e816c092f0a2f2352ac88b39340",
+  "data_changed_at": "2026-10-01T20:08:33.760105+00:00",
+  "last_successful_retrieval_at": "2026-10-01T20:08:33.760105+00:00",
+  "last_ingested_at": "2026-10-01T20:08:33.760105+00:00",
+  "last_checked_at": "2026-10-01T20:08:33.760105+00:00",
+  "refresh_outcome": "updated",
+  "analytical_scope": {
+    "road_class": "unspecified",
+    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+  },
+  "evidence_status": "document_metadata",
+  "publication_date": null,
+  "disclosure_ready": false,
+  "analytical_ready": false,
+  "extraction_status": "fetched"
 }

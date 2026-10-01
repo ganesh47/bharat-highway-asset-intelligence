@@ -8,9 +8,10 @@
     "publisher": "Ministry of Road Transport and Highways (MoRTH)",
     "title": "MoRTH Annual Report 2024-25 curated appendix snapshot (Appendix 2/3/5)",
     "url": "https://morth.nic.in/annual-report",
-    "retrieved_at": "2026-03-16T08:52:20.439277+00:00",
+    "retrieved_at": "2026-10-01T20:08:33.695700+00:00",
     "license_terms": "Open publication on morth.gov.in; verify page-level reuse permissions in the PDF footer or Gazette notice",
-    "official_flag": true
+    "official_flag": true,
+    "domain": "morth.nic.in"
   },
   "citations": {
     "permanent_identifier": "annual report year + section/table identifier",
@@ -21,28 +22,20 @@
     "raw_files": [
       {
         "path": "data/raw/manual/morth_annual_report_pdf.csv",
-        "sha256": "57fea310633ccc5dc5668ff04b570d37671099483e6152be7e02ddb8a0298b03",
-        "size_bytes": 15048
-      },
-      {
-        "path": "data/raw/manual/morth_annual_report_pdf.pdf",
-        "sha256": "59f3693bddda349aef2e87c4c344bca7d7028167e6e12d840468e8bc67624251",
-        "size_bytes": 19474671
+        "sha256": "b6aac2ab2eeecf2d2d906912b3fd075ef1fb3ee13a488529c859a48aa01f787e",
+        "size_bytes": 14892
       },
       {
         "path": "data/raw/manual/morth_annual_report_pdf_validation_2025.csv",
-        "sha256": "2a1e098378c759de38f7891c1d9f877b09b7517fee78b55d97b1f065f5b95d18",
-        "size_bytes": 5386
+        "sha256": "3cb2db00484ba2d15122d2fecf30cae0f024cb1274ffc821c7f572700f897ec0",
+        "size_bytes": 5350
       }
     ],
     "output_files": [
       {
         "path": "data/processed/morth_annual_report_pdf.parquet",
-        "sha256": "715380efec9222b63d924a0a69e60a1b6c80b47820a161e9491591a0b9a397c0"
-      },
-      {
-        "path": "data/processed/morth_annual_report_pdf_validation.json",
-        "sha256": "af85226ba77450d34d81f585b3b11c1e92d876f1fd7c29481897235288bb811c"
+        "format": "parquet",
+        "sha256": "2c393d25fe052cd437b6e44f4a901becb58e8b17b5a9d0e1f675e509e6469bfd"
       }
     ],
     "row_count": 155,
@@ -59,10 +52,11 @@
       "source_id",
       "metric_category",
       "dataset_source",
+      "analytical_eligible",
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-03-16T08:52:20.439277+00:00",
+  "retrieved_at": "2026-10-01T20:08:33.695700+00:00",
   "source_as_of_date": "2024-12-31",
   "validation_sources": [
     {
@@ -79,11 +73,30 @@
     }
   ],
   "validation_report_path": "data/processed/morth_annual_report_pdf_validation.json",
-  "completeness_score": 0.918,
-  "recency_score": 0.98,
+  "completeness_score": 0.924,
+  "recency_score": 0.7,
   "provenance_score": 0.833,
   "consistency_score": 0.98,
   "overall_confidence_badge": "High",
   "overall_confidence_reason": [],
-  "output_table_path": "data/processed/morth_annual_report_pdf.parquet"
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/morth_annual_report_pdf.parquet",
+  "data_checksum": "8f3b692f1db08cfc6329eb47f0b09f60e21bf8a790acae764951a1674c77a434",
+  "data_changed_at": "2026-10-01T20:08:33.692284+00:00",
+  "last_successful_retrieval_at": "2026-03-16T08:52:20.439277+00:00",
+  "last_ingested_at": "2026-10-01T20:08:33.692284+00:00",
+  "last_checked_at": "2026-10-01T20:08:33.692284+00:00",
+  "refresh_outcome": "updated",
+  "analytical_scope": {
+    "agency": "MoRTH",
+    "entity_type": "state_ut",
+    "road_class": "Mixed NH and State Roads programmes",
+    "scope_note": "NH network stock and CRIF allocations are separate metrics; CRIF state roads are not exclusively State Highways."
+  },
+  "evidence_status": "validated_curated",
+  "publication_date": null,
+  "disclosure_ready": true,
+  "analytical_ready": true,
+  "extraction_status": "validated"
 }
