@@ -425,12 +425,14 @@ async function countRows(conn, sourcePath) {
   return Number(rows[0]?.row_count || 0);
 }
 
-function num(value, fallback = 0) {
+function num(value, fallback = null) {
+  if (value == null || (typeof value === 'string' && !value.trim())) return fallback;
   const n = Number(value);
   return Number.isFinite(n) ? n : fallback;
 }
 
 function fmtNum(value, options = {}) {
+  if (value == null || (typeof value === 'string' && !value.trim())) return 'N/A';
   const n = Number(value);
   if (!Number.isFinite(n)) {
     return 'N/A';
@@ -521,9 +523,6 @@ function extractDateCandidatesFromRow(row) {
     'date',
     'time',
     'timestamp',
-    'created_at',
-    'updated_at',
-    'retrieved_at',
     'as_of',
     'asof',
     'as-of',
@@ -551,6 +550,7 @@ function extractDateCandidatesFromRow(row) {
   });
 
   Object.entries(row).forEach(([key, value]) => {
+    if (/^(retrieved_at|created_at|updated_at|timestamp)$/i.test(key)) return;
     if (candidatePattern.test(key) || key === 'period' || key === 'label' || key === 'source') {
       const parsed = parseDateValue(value);
       if (parsed) {
@@ -586,7 +586,7 @@ function latestDateFromCatalog(catalog, sourceIds = []) {
   const dates = (sourceIds || [])
     .map((sourceId) => catalog?.[sourceId])
     .filter(Boolean)
-    .map((entry) => formatDateOnly(entry.retrieved_at) || formatDateOnly(entry.source?.retrieved_at))
+    .map((entry) => formatDateOnly(entry.source_as_of_date || entry.data_as_of))
     .filter(Boolean);
 
   if (!dates.length) {
@@ -649,12 +649,22 @@ function safeLabel(v) {
   return String(v || 'Unknown');
 }
 
+const STATE_ALIASES = {
+  'orissa': 'odisha', 'uttaranchal': 'uttarakhand', 'pondicherry': 'puducherry',
+  'nct of delhi': 'delhi', 'national capital territory of delhi': 'delhi',
+  'andaman nicobar islands': 'andaman and nicobar islands',
+  'andaman nicobar': 'andaman and nicobar islands',
+  'jammu kashmir': 'jammu and kashmir',
+  'dadra nagar haveli and daman diu': 'dadra and nagar haveli and daman and diu',
+};
+
 function normalizeState(value) {
-  return String(value || '')
+  const key = String(value || '')
     .trim()
     .toLowerCase()
     .replace(/[^a-z0-9 ]/g, '')
     .replace(/\s+/g, ' ');
+  return STATE_ALIASES[key] || key;
 }
 
 function toYearNumeric(value) {
@@ -688,13 +698,34 @@ function pickByMetric(rows, predicate) {
 
 function sourceTypeTag(item) {
   const category = String(item?.metric_category || item?.source_type || item?.source?.source_type || '').toLowerCase();
-  if (item?.source?.official_flag === false || category.includes('proxy')) {
-    return ['Proxy-derived', 'proxy'];
-  }
-  if (category.includes('model')) {
-    return ['Model outputs', 'model'];
-  }
+  const evidence = String(item?.evidence_class || item?.source?.evidence_class || '').toLowerCase();
+  if (category.includes('model')) return ['Model outputs', 'model'];
+  if (category.includes('proxy')) return ['Proxy-derived', 'proxy'];
+  if (category.includes('issuer') || evidence.includes('issuer') || evidence.includes('valuation')) return ['Issuer disclosure', 'issuer'];
+  if (item?.source?.official_flag === false) return ['Proxy-derived', 'proxy'];
   return ['Official measured', 'official'];
+}
+
+function analyticalReady(item) {
+  if (!item || item.analytical_ready === false || item.analytical_eligible === false) return false;
+  if (['unverified', 'unavailable', 'metadata_only', 'discovery_only'].includes(item.evidence_status)) return false;
+  if (['disabled', 'stubs_disabled', 'metadata_only', 'candidate_ready', 'stubbed_manual_gap'].includes(item.status)) return false;
+  if (['nhai_annual_report_documents', 'nhai_audited_results_pdf', 'nhai_press_release_index'].includes(item.source_id)) return item.analytical_ready === true;
+  return Number(item.manifest?.row_count || 0) > 0;
+}
+
+function matchesSourceFilter(item, filter) {
+  const kind = sourceTypeTag(item)[1];
+  if (filter === 'all') return true;
+  if (filter === 'analyst') return ['official', 'issuer'].includes(kind) && analyticalReady(item);
+  return kind === filter;
+}
+
+function readinessLabel(item) {
+  if (item?.refresh_outcome === 'failed_preserved') return 'Refresh failed · previous evidence retained';
+  if (analyticalReady(item)) return 'Validated analytical evidence';
+  if (item?.manifest?.row_count > 0) return 'Document or unverified snapshot · excluded from analyst calculations';
+  return `Unavailable · ${item?.skip_reason || item?.evidence_status || item?.status || 'no validated observations'}`;
 }
 
 function confidenceFromSources(entries) {
@@ -706,7 +737,7 @@ function confidenceFromSources(entries) {
     };
   }
 
-  let minScore = 1;
+  let minScore = 3;
   const reasons = new Set();
   entries.forEach((entry) => {
     const badge = String(entry?.overall_confidence_badge || 'Low').toLowerCase();
@@ -1054,14 +1085,7 @@ function MultiLineChart({
     points: (layer.points || []).filter((point) => Number.isFinite(num(point.x)) && Number.isFinite(num(point.y))).sort((a, b) => num(a.x) - num(b.x)),
   }));
   const allSeries = normalizedLayers.flatMap((layer) => layer.points || []);
-  if (!allSeries.length) {
-    return React.createElement(
-      'div',
-      { className: 'card insight-chart' },
-      React.createElement('div', { className: 'chart-title' }, title),
-      React.createElement('div', { className: 'chart-meta' }, chartMetaText(description || 'No records available.', asOfDate))
-    );
-  }
+
 
   const xExtent = {
     min: Math.min(...allSeries.map((item) => num(item.x))),
@@ -1264,6 +1288,15 @@ function MultiLineChart({
     return bestDist <= 1200 ? best : null;
   };
 
+  if (!allSeries.length) {
+    return React.createElement(
+      'div',
+      { className: 'card insight-chart' },
+      React.createElement('div', { className: 'chart-title' }, title),
+      React.createElement('div', { className: 'chart-meta' }, chartMetaText(description || 'No records available.', asOfDate))
+    );
+  }
+
   return React.createElement('div', { className: 'card insight-chart' },
     React.createElement('div', { className: 'source-line' },
       React.createElement('div', { className: 'chart-title' }, title),
@@ -1323,6 +1356,7 @@ function HorizontalBars({ title, rows, xLabel, yLabel, confidence, onHover, tool
     ),
     React.createElement('div', { className: 'chart-meta' }, chartMetaText(`${xLabel || ''} by ${yLabel || 'category'}`, asOfDate)),
     React.createElement('div', { className: 'bars' },
+      top.length ? null : React.createElement('p', { role: 'status', className: 'insight-note' }, 'No records available for this selection. Missing values are not zero.'),
       ...top.map((row) => {
         const width = Math.round((num(row.value) / max) * 100);
         return React.createElement('div', { key: row.label, className: 'bar-row' },
@@ -1512,6 +1546,7 @@ function StackedStateStatus({
       ))
     ),
     React.createElement('div', { className: 'bars' },
+      ordered.length ? null : React.createElement('p', { role: 'status', className: 'insight-note' }, 'No records available for this selection. Omitted geographies are not assigned zero.'),
       ...ordered.map((row) => {
         const barSegments = row.segments.map((segment) => ({
           ...segment,
@@ -1579,14 +1614,7 @@ function ScatterChart({
       ? [{ key: 'radius', label: `Bubble size: ${radiusLabel}`, swatchColor: '#a0182d' }]
       : []),
   ];
-  if (!points.length) {
-    return React.createElement(
-      'div',
-      { className: 'card insight-chart' },
-      React.createElement('div', { className: 'chart-title' }, title),
-      React.createElement('div', { className: 'chart-meta' }, chartMetaText(metaText || 'No scatter points.', asOfDate))
-    );
-  }
+
 
   const width = 980;
   const computedHeight = Number.isFinite(num(chartHeight))
@@ -1763,6 +1791,15 @@ function ScatterChart({
     return bestDist <= 1100 ? best : null;
   };
 
+  if (!points.length) {
+    return React.createElement(
+      'div',
+      { className: 'card insight-chart' },
+      React.createElement('div', { className: 'chart-title' }, title),
+      React.createElement('div', { className: 'chart-meta' }, chartMetaText(metaText || 'No scatter points.', asOfDate))
+    );
+  }
+
   return React.createElement('div', { className: 'card insight-chart' },
     React.createElement('div', { className: 'source-line' },
       React.createElement('div', { className: 'chart-title' }, title),
@@ -1843,7 +1880,7 @@ function MetricCard({ item, rowCount, sourceFilter }) {
   const temporaryLicense = String(license || '').slice(0, 160);
   const permanentIdentifier = citation.permanent_identifier || source.permanent_identifier_hint || 'N/A';
   const anchor = citation.anchor || 'pending';
-  const isVisible = sourceFilter === 'all' || String(kind) === sourceFilter;
+  const isVisible = matchesSourceFilter(item, sourceFilter);
   if (!isVisible) return null;
 
   return React.createElement(
@@ -1861,12 +1898,13 @@ function MetricCard({ item, rowCount, sourceFilter }) {
     React.createElement('h3', null, source.title || item.source_id),
     React.createElement('div', { className: `source-type ${kind}` }, label),
     React.createElement('div', { className: 'metric-meta' }, `Rows in parquet: ${rowCount}`),
-    React.createElement('div', { className: 'metric-meta' }, `Primary source: ${primarySource}`),
+    React.createElement('div', { className: 'metric-meta' }, 'Primary source: ', source.url ? React.createElement('a', { href: source.url, target: '_blank', rel: 'noreferrer' }, primarySource) : primarySource),
     React.createElement('div', { className: 'metric-meta' }, `Retrieval date: ${retrievalDate}`),
     React.createElement('div', { className: 'metric-meta' }, `Permanent identifier: ${permanentIdentifier}`),
     React.createElement('div', { className: 'metric-meta' }, `Citation anchor: ${anchor}`),
     React.createElement('div', { className: 'metric-meta' }, `License: ${temporaryLicense}`),
-    React.createElement('div', { className: `status ${item.skip_reason ? 'warn' : 'success'}` }, item.skip_reason ? `Skipped: ${item.skip_reason}` : 'Ready')
+    React.createElement('div', { className: 'metric-meta' }, `Data as of: ${item.source_as_of_date || item.data_as_of || 'See observation periods; retrieval is not an observation date'}`),
+    React.createElement('div', { className: `status ${analyticalReady(item) ? 'success' : 'warn'}` }, readinessLabel(item))
   );
 }
 
@@ -1918,43 +1956,43 @@ function OntologyPanel({ catalog }) {
 }
 
 function CoverageCards({ catalog, rowCounts }) {
-  const officialCount = Object.values(catalog).filter((entry) => sourceTypeTag(entry)[1] === 'official').length;
-  const proxyCount = Object.values(catalog).filter((entry) => sourceTypeTag(entry)[1] === 'proxy').length;
-  const modelCount = Object.values(catalog).filter((entry) => sourceTypeTag(entry)[1] === 'model').length;
-  const rowTotal = Object.values(rowCounts).reduce((acc, value) => acc + (Number(value) || 0), 0);
-
-  return React.createElement(
-    'section',
-    { className: 'summary' },
-    React.createElement('div', { className: 'card' }, `Official measured sources: ${officialCount}`),
-    React.createElement('div', { className: 'card' }, `Proxy-derived signals: ${proxyCount}`),
-    React.createElement('div', { className: 'card' }, `Model output signals: ${modelCount}`),
-    React.createElement('div', { className: 'card' }, `Catalog entries: ${Object.keys(catalog).length}`),
-    React.createElement('div', { className: 'card' }, `Ingested rows: ${rowTotal.toLocaleString()}`)
+  const entries = Object.values(catalog);
+  const count = (kind) => entries.filter((entry) => sourceTypeTag(entry)[1] === kind && analyticalReady(entry)).length;
+  const evidenceRows = entries.filter((entry) => ['official', 'issuer'].includes(sourceTypeTag(entry)[1]) && analyticalReady(entry))
+    .reduce((sum, entry) => sum + (Number(rowCounts[entry.source_id]) || 0), 0);
+  const modelRows = entries.filter((entry) => sourceTypeTag(entry)[1] === 'model')
+    .reduce((sum, entry) => sum + (Number(rowCounts[entry.source_id]) || 0), 0);
+  return React.createElement('section', { className: 'summary', 'aria-label': 'Validated evidence coverage' },
+    React.createElement('div', { className: 'card' }, `Official measured sources: ${count('official')} validated`),
+    React.createElement('div', { className: 'card' }, `Issuer disclosures: ${count('issuer')} validated`),
+    React.createElement('div', { className: 'card' }, `Proxy-derived signals: ${entries.filter((entry) => sourceTypeTag(entry)[1] === 'proxy').length}`),
+    React.createElement('div', { className: 'card' }, `Model output signals: ${entries.filter((entry) => sourceTypeTag(entry)[1] === 'model').length} · excluded by default`),
+    React.createElement('div', { className: 'card' }, `Analyst evidence rows: ${evidenceRows.toLocaleString('en-IN')}`),
+    React.createElement('div', { className: 'card' }, `Catalog entries: ${entries.length} · ${modelRows.toLocaleString('en-IN')} model rows excluded`)
   );
 }
 
 function QualityBreakdown({ catalog }) {
-  const official = [];
-  const proxy = [];
-  const model = [];
-  Object.values(catalog || {}).forEach((item) => {
-    const tag = sourceTypeTag(item)[1];
-    if (tag === 'official') official.push(item);
-    else if (tag === 'proxy') proxy.push(item);
-    else model.push(item);
-  });
-
+  const entries = Object.values(catalog || {});
   return React.createElement('div', { className: 'card chart' },
-    React.createElement('h2', null, 'Coverage by Type'),
-    React.createElement(
-      'div',
-      { className: 'coverage-grid' },
-      React.createElement('div', { className: 'coverage-cell' }, `Official measured: ${official.length}`),
-      React.createElement('div', { className: 'coverage-cell' }, `Proxy-derived: ${proxy.length}`),
-      React.createElement('div', { className: 'coverage-cell' }, `Model outputs: ${model.length}`)
-    )
+    React.createElement('h2', null, 'Evidence readiness'),
+    React.createElement('div', { className: 'coverage-grid' },
+      React.createElement('div', { className: 'coverage-cell' }, `Validated for analysis: ${entries.filter(analyticalReady).length}`),
+      React.createElement('div', { className: 'coverage-cell' }, `Unavailable or unverified: ${entries.filter((entry) => !analyticalReady(entry)).length}`)
+    ),
+    React.createElement('p', { className: 'insight-note' }, 'Source credibility, extraction quality, observation age and analytical coverage are separate. A document download is not an extracted financial observation.')
   );
+}
+
+function LegacyChartGroup({ sourceFilter, chartScale, children }) {
+  const selected = React.Children.toArray(children).filter((child) => {
+    if (child.type === ChartTooltip) return true;
+    const title = String(child.props?.title || JSON.stringify(child.props?.children || ''));
+    const kind = /Synthetic Risk|Project Economics.*Model Panel/.test(title) ? 'model' : 'official';
+    return sourceFilter === 'all' || (sourceFilter === 'analyst' && kind === 'official') || sourceFilter === kind;
+  });
+  if (!selected.some((child) => child.type !== ChartTooltip)) return null;
+  return React.createElement('section', { className: 'chart-grid', 'data-size': chartScale, 'aria-label': 'Highway context charts' }, ...selected);
 }
 
 function toTopStates(analyticsRows, selectedState) {
@@ -2259,7 +2297,7 @@ async function loadAnalyticCatalog(conn, catalog) {
       total_killed: num(row.total_killed),
       fatal_crashes: num(row.fatal_crashes),
       total_injured: num(row.total_injured),
-      source: 'ncrb_road_accidents_state_year',
+      source: 'data_gov_in_nh_fatalities_injuries_state_year',
     }))
     .filter((row) => row.state);
 
@@ -2268,7 +2306,7 @@ async function loadAnalyticCatalog(conn, catalog) {
       state: row.state,
       year: num(row.year),
       safety_risk: num(row.fatal_crashes) || num(row.total_killed),
-        source: 'ncrb_road_accidents_state_year',
+        source: 'data_gov_in_nh_fatalities_injuries_state_year',
     }))
     .filter((row) => row.state && Number.isFinite(row.year) && Number.isFinite(row.safety_risk));
 
@@ -2280,7 +2318,7 @@ async function loadAnalyticCatalog(conn, catalog) {
       nh_injuries: num(row.total_injured),
       source: 'data_gov_in_nh_fatalities_injuries_state_year',
     }))
-    .filter((row) => row.state && Number.isFinite(row.year) && Number.isFinite(row.nh_fatalities));
+    .filter((row) => row.state && !isAggregateStateLabel(row.state) && Number.isFinite(row.year) && Number.isFinite(row.nh_fatalities));
 
   const gsdpRows = gsdp
     .map((row) => {
@@ -2442,34 +2480,9 @@ async function loadAnalyticCatalog(conn, catalog) {
     .map((row) => ({ state: row.state, value: num(row.metric_value), source: 'morth_annual_report_pdf' }))
     .filter((row) => Number.isFinite(row.value));
 
-  const portfolioRowsByState = new Map();
-  portfolioRows.forEach((row) => {
-    const key = normalizeState(row.state);
-    if (key && !isAggregateStateLabel(key) && Number.isFinite(row.length)) {
-      portfolioRowsByState.set(key, row);
-    }
-  });
-  morthAppendix2LengthRows.forEach((row) => {
-    const key = normalizeState(row.state);
-    if (!key || Number.isNaN(row.value) || isAggregateStateLabel(key) || portfolioRowsByState.has(key)) {
-      return;
-    }
-    portfolioRowsByState.set(key, {
-      state: row.state,
-      projects: null,
-      length: row.value,
-      capital: null,
-      source: 'morth_annual_report_pdf',
-    });
-  });
-  stateUTRows.forEach((row) => {
-    const key = normalizeState(row.state);
-    if (!key || Number.isNaN(row.length) || isAggregateStateLabel(key) || portfolioRowsByState.has(key)) {
-      return;
-    }
-    portfolioRowsByState.set(key, row);
-  });
-  const mergedPortfolioRows = Array.from(portfolioRowsByState.values());
+  const mergedPortfolioRows = morthAppendix2LengthRows
+    .filter((row) => !isAggregateStateLabel(row.state))
+    .map((row) => ({ state: row.state, projects: null, length: row.value, capital: null, source: 'morth_annual_report_pdf' }));
 
   const morthCrifRows = morthAppendix
     .filter((row) => row.metric_name && row.metric_name.startsWith('appendix3_crif'))
@@ -2585,7 +2598,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [analyticsLoading, setAnalyticsLoading] = useState(true);
   const [error, setError] = useState('');
-  const [sourceFilter, setSourceFilter] = useState('all');
+  const [sourceFilter, setSourceFilter] = useState('analyst');
   const [chartScale, setChartScale] = useState('normal');
   const [selectedState, setSelectedState] = useState('All');
   const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0, text: '' });
@@ -2705,7 +2718,7 @@ function App() {
     .concat(analytics?.morthPermitRows || [])
     .filter((row) => row?.state && !isAggregateStateLabel(row.state))
     .map((row) => row.state)
-    .filter((value, index, array) => array.indexOf(value) === index)
+    .filter((value, index, array) => array.findIndex((other) => normalizeState(other) === normalizeState(value)) === index)
     .sort();
 
   useEffect(() => {
@@ -2768,50 +2781,15 @@ function App() {
   const portfolioBars = (filteredStateRows?.portfolioRows || analytics?.portfolioRows || [])
     .map((row) => ({ label: row.state, value: row.length }))
     .filter((item) => Number.isFinite(num(item.value)));
-  const statusSeedRows = (filteredStateRows?.portfolioRows || analytics?.portfolioRows || [])
-    .concat(filteredStateRows?.morthAppendix2LengthRows || analytics?.morthAppendix2LengthRows || [])
-    .concat(filteredStateRows?.accidentRows || analytics?.accidentRows || []);
-  const statusStateSeed = new Map();
-  statusSeedRows.forEach((row) => {
-    const key = normalizeState(row.state);
-    if (key && !statusStateSeed.has(key)) {
-      statusStateSeed.set(key, safeLabel(row.state));
-    }
-  });
-  const statusLookup = new Map(
-    (filteredStateRows?.stateStatusRows || analytics?.stateStatusRows || [])
-      .filter((row) => row.state)
-      .map((row) => [normalizeState(row.state), row])
-  );
-  const statusBars = Array.from(statusStateSeed.entries())
-    .map(([key, state]) => statusLookup.get(key) || {
-      state,
-      active_projects: 0,
-      delayed_projects: 0,
-    })
-    .map((row) => ({
-      state: row.state,
-      active_projects: num(row.active_projects),
-      delayed_projects: num(row.delayed_projects),
-    }))
-    .sort((a, b) => {
-      const aTotal = a.active_projects + a.delayed_projects;
-      const bTotal = b.active_projects + b.delayed_projects;
-      return bTotal - aTotal;
-    });
+  const statusBars = (filteredStateRows?.stateStatusRows || analytics?.stateStatusRows || [])
+    .map((row) => ({ state: row.state, active_projects: num(row.active_projects), delayed_projects: num(row.delayed_projects) }))
+    .filter((row) => Number.isFinite(row.active_projects) && Number.isFinite(row.delayed_projects))
+    .sort((a, b) => (b.active_projects + b.delayed_projects) - (a.active_projects + a.delayed_projects));
 
   const filteredModelSummaryRows = filteredStateRows?.modelByStateSummary || analytics?.modelByStateSummary || [];
   const filteredModelRiskRows = filteredStateRows?.modelStateRisk || analytics?.modelStateRisk || [];
   const filteredAccidentTrendRows = filteredStateRows?.accidentTrendRows || analytics?.accidentTrendRows || [];
-  const modelRiskLookup = new Map();
-  filteredModelRiskRows.forEach((row) => {
-    modelRiskLookup.set(`${normalizeState(row.state)}::${num(row.year)}`, row);
-  });
-  const mergedModelRiskRows = [
-    ...filteredModelRiskRows,
-    ...filteredAccidentTrendRows
-      .filter((row) => !modelRiskLookup.has(`${normalizeState(row.state)}::${num(row.year)}`)),
-  ];
+  const mergedModelRiskRows = filteredModelRiskRows;
 
   const nhFatalityBurdenBars = (filteredStateRows?.nhFatalityBurdenRows || analytics?.nhFatalityBurdenRows || [])
     .map((row) => ({
@@ -2851,7 +2829,7 @@ function App() {
   const officialSafetyLines = officialSafetyFocusStates
     .map((state) => {
       const points = safetyTrendSeedRows
-        .filter((row) => row.state === state)
+        .filter((row) => normalizeState(row.state) === normalizeState(state))
         .sort((a, b) => num(a.year) - num(b.year))
         .map((row) => ({
           x: num(row.year),
@@ -2899,8 +2877,8 @@ function App() {
           state: row.state,
           x: num(row.gsdp_current_price),
           y: nhLengthKm,
-          radius: Math.max(1, num(delay?.delayed_projects)),
-          modelConfidence: `Latest GSDP year: ${row.gsdp_year} • Delayed NH projects: ${fmtNum(delay?.delayed_projects || 0)}`,
+          radius: num(delay?.delayed_projects),
+          modelConfidence: `Latest GSDP year: ${row.gsdp_year} • Delayed NH projects: ${fmtNum(delay?.delayed_projects)}`,
           gsdp_year: row.gsdp_year,
           delayed_projects: num(delay?.delayed_projects),
         };
@@ -3002,9 +2980,7 @@ function App() {
     })
     .filter((row) => Number.isFinite(row.x) && Number.isFinite(row.y));
 
-  const portfolioConfidence = confidenceFromSources(
-    Object.values(catalog).filter((item) => ['data_gov_in_nhai_state_projects_api', 'data_gov_in_nhai_stateut_length_constructed_2019_24', 'data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026', 'data_gov_in_nhai_projects_api'].includes(item.source_id))
-  );
+  const portfolioConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'morth_annual_report_pdf'));
   const stateStatusConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'data_gov_in_nhai_stateut_project_delay_status_2024'));
   const growthConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'nhai_constructed_length_series_official'));
   const modelConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'highway_project_risk_and_access_panel'));
@@ -3018,7 +2994,7 @@ function App() {
       null,
       React.createElement('h1', null, 'Bharat Highway Evidence Console'),
       React.createElement('p', { className: 'subhead' }, `Official-first visual analytics for highways growth, safety, finance and project-risk planning. Every chart is tied to a source manifest with citations and confidence scoring.`),
-      React.createElement(SourceMetaFooter, { label: `All dashboards confidence floor: ${confidenceByAll.badge}`, confidence: confidenceByAll.badge }),
+      React.createElement(SourceMetaFooter, { label: `Catalog confidence floor: ${confidenceByAll.badge} · chart badges use their contributing sources`, confidence: confidenceByAll.badge }),
       React.createElement(MethodologyBadge, { label: 'Why these badges?', href: methodologyUrl })
     ),
     React.createElement(CoverageCards, { catalog, rowCounts }),
@@ -3039,6 +3015,8 @@ function App() {
       React.createElement(
         'div',
         { className: 'toggle-group' },
+        React.createElement('button', { type: 'button', className: `toggle ${sourceFilter === 'analyst' ? 'active' : ''}`, onClick: () => setSourceFilter('analyst') }, 'Analyst evidence'),
+        React.createElement('button', { type: 'button', className: `toggle ${sourceFilter === 'issuer' ? 'active' : ''}`, onClick: () => setSourceFilter('issuer') }, 'Issuer disclosures'),
         React.createElement('button', {
           type: 'button',
           className: `toggle ${sourceFilter === 'all' ? 'active' : ''}`,
@@ -3093,11 +3071,11 @@ function App() {
       React.createElement(QualityBreakdown, { catalog })
     ),
     React.createElement(
-      'section',
-      { className: 'chart-grid', 'data-size': chartScale },
+      LegacyChartGroup,
+      { sourceFilter, chartScale },
       React.createElement(MultiLineChart, {
         title: 'Growth Story: NHAI Constructed Length by Year',
-        description: 'Official NHAI-only construction series. Full-year totals run through FY 2024-25; current-year progress is shown separately when only provisional YTD evidence exists. Do not compare provisional YTD progress directly with full-year totals.',
+        description: 'Official NHAI-only construction series. Full-year and current-year evidence are labelled separately; current-year progress is shown separately when only provisional YTD evidence exists. Do not compare provisional YTD progress directly with full-year totals.',
         layers: [
           { key: 'final', name: 'Full-year official totals', points: growthFinalLineData },
           { key: 'provisional', name: 'Current-year progress (provisional)', points: growthProvisionalLineData },
@@ -3115,7 +3093,7 @@ function App() {
       React.createElement(ChartTooltip, { tooltip }),
       React.createElement(MultiLineChart, {
         title: 'Budget vs Expenditure (All Source Years)',
-        description: `Official budget and release movement (year-wise) from NHAI project finance dataset. Strong lag between allocation and actual release indicates pipeline pressure.`,
+        description: 'NH development and maintenance funds: allocation and expenditure have different accounting roles. FY 2024-25 expenditure is YTD through 31 January 2025; Others includes monetisation and project financing. A gap alone does not establish a delivery delay.',
         layers: [
           { key: 'allocation', name: 'Allocation total', points: allocationSeries },
           { key: 'expenditure', name: 'Expenditure total', points: expenditureSeries },
@@ -3131,11 +3109,12 @@ function App() {
       }),
       React.createElement(ChartTooltip, { tooltip }),
       React.createElement(HorizontalBars, {
-        title: 'State Portfolio: Total NH Length vs State',
+        title: 'State Portfolio: Total NH Network Length by State/UT',
         rows: portfolioBars,
         confidence: portfolioConfidence,
         onHover: setTooltip,
-        asOfDate: chartDates.portfolio,
+        asOfDate: catalog.morth_annual_report_pdf?.source_as_of_date || '',
+        tooltipLines: 'Total national-highway network stock from MoRTH Appendix 2. Project portfolio lengths and annual construction flows are separate measures and are not substituted here.',
         xLabel: 'Length (km)',
         yLabel: 'State',
       }),
@@ -3199,6 +3178,7 @@ function App() {
         title: 'State Project Mix (active vs delayed NH projects, official March 2024 snapshot)',
         rows: statusBars,
         confidence: stateStatusConfidence,
+        onHover: setTooltip,
         asOfDate: 'March 2024',
         segmentDefinitions: [
           { key: 'active_projects', label: 'Active without listed delay', color: '#2f5f99' },
@@ -3295,6 +3275,8 @@ function App() {
       }),
       React.createElement(ScatterChart, {
         title: 'Project Economics: Land Acquisition vs Maintenance (Model Panel)',
+        metaText: 'Synthetic demonstration only; values and assigned states are generated, not measured project economics.',
+        noteText: 'Excluded from default analyst evidence. Costs and locations are synthetic assumptions and cannot support investment comparisons.',
         rows: modelCostRows,
         confidence: modelConfidence,
         onHover: setTooltip,
