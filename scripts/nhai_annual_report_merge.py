@@ -79,6 +79,10 @@ def _validate_shard_manifests(manifests: list[dict[str, Any]], source_parquet: P
     if not manifests:
         raise SystemExit("No shard manifests found.")
 
+    source_checksum = extractor._checksum(source_parquet.read_bytes())
+    if any(m.get("source_parquet_sha256") != source_checksum for m in manifests):
+        raise SystemExit("OCR shard input checksum does not match the source parquet.")
+
     totals = {int(m.get("shard", {}).get("total_shards", 0)) for m in manifests}
     if len(totals) != 1:
         raise SystemExit(f"Shard manifests disagree on total_shards: {sorted(totals)}")
@@ -233,12 +237,14 @@ def main() -> None:
     all_df = all_df.drop_duplicates(subset=extractor.CANONICAL_COLUMNS, keep="first")
     all_df = extractor._sort_output_frame(all_df)
     quality = extractor.build_quality_report(
-        all_df,
+        canonical_df,
         canonical_summary,
         yearly_manifest,
         quality_output,
         validation["parser_environment"],
     )
+    quality["source_parquet_sha256"] = extractor._checksum(source_parquet.read_bytes())
+    extractor._write_json(quality_output, quality)
 
     parser_metrics: dict[str, int] = defaultdict(int)
     parallel_errors: list[dict[str, Any]] = []
@@ -249,6 +255,7 @@ def main() -> None:
 
     merged_manifest = {
         "source_parquet": manifests[0].get("source_parquet", ""),
+        "source_parquet_sha256": extractor._checksum(source_parquet.read_bytes()),
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "rows_input": validation["document_key_count"],
         "parser_environment": validation["parser_environment"],

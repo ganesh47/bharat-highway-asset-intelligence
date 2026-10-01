@@ -8,11 +8,17 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
+
+# Direct execution puts scripts/ on sys.path; pipeline imports need the repository.
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 import pandas as pd
 import requests
@@ -1404,6 +1410,7 @@ def main() -> None:
 
     manifest: dict[str, Any] = {
         "source_parquet": str(source_path),
+        "source_parquet_sha256": _checksum(source_path.read_bytes()),
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "rows_input": int(len(annual_rows)),
         "parser_environment": _parser_environment(),
@@ -1515,7 +1522,9 @@ def main() -> None:
 
     all_df = pd.concat(all_frames, ignore_index=True) if all_frames else pd.DataFrame(columns=CANONICAL_COLUMNS)
     all_df = _sort_output_frame(_coerce_frame(all_df))
-    quality = build_quality_report(all_df, canonical_summary, manifest["yearly_datasets"], run_quality_path, manifest["parser_environment"])
+    quality = build_quality_report(canonical_df, canonical_summary, manifest["yearly_datasets"], run_quality_path, manifest["parser_environment"])
+    quality["source_parquet_sha256"] = manifest["source_parquet_sha256"]
+    _write_json(run_quality_path, quality)
 
     manifest["canonical"] = canonical_summary
     manifest["quality"] = quality["quality"]

@@ -53,7 +53,7 @@ jobs:
           changed_files="$(git diff --name-only "$BEFORE_SHA" "$AFTER_SHA" || true)"
           printf '%s\n' "$changed_files"
 
-          if printf '%s\n' "$changed_files" | rg -q '^(\\.github/workflows/research-pipeline\\.yml|\\.github/workflows/github-pages\\.yml|requirements\\.txt|research/source_inventory\\.yaml|pipelines/(ingest|quality)\\.py|pipelines/connectors/nhai_annual_documents\\.py|scripts/nhai_annual_report_(extractor|merge)\\.py|data/raw/manual/nhai_|data/manifests/nhai_|data/processed/nhai_)'; then
+          if [ "$(printf '%s\n' "$changed_files" | python scripts/research_change_detection.py)" = "true" ]; then
             echo "run_nhai_ocr=true" >> "$GITHUB_OUTPUT"
             echo "run_reason=OCR-relevant files changed" >> "$GITHUB_OUTPUT"
           else
@@ -135,6 +135,14 @@ jobs:
             data/processed/
             data/raw/manual/
 
+      - name: Archive source evidence
+        uses: actions/upload-artifact@v7
+        with:
+          name: bhai-source-evidence
+          if-no-files-found: warn
+          retention-days: 7
+          path: data/raw/
+
       - name: Upload NHAI source parquet
         if: needs.changes.outputs.run_nhai_ocr == 'true'
         uses: actions/upload-artifact@v7
@@ -179,7 +187,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: bhai-nhai-source-parquet
-          path: .
+          path: data/processed
 
       - name: Extract NHAI OCR shard
         run: |
@@ -227,7 +235,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: bhai-nhai-source-parquet
-          path: .
+          path: data/processed
 
       - name: Download OCR shards
         uses: actions/download-artifact@v8
@@ -281,17 +289,17 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: bhai-base-workspace
-          path: .
+          path: data
 
       - name: Download merged OCR artifacts
         uses: actions/download-artifact@v8
         with:
           name: bhai-nhai-merged-ocr
-          path: .
+          path: data/processed
 
       - name: Refresh NHAI confidence from merged OCR quality
         run: |
-          python -m pipelines.ingest --inventory research/source_inventory.yaml --source nhai_annual_report_documents --source nhai_audited_results_pdf
+          python -m pipelines.ingest --inventory research/source_inventory.yaml --refresh-quality-only --source nhai_annual_report_documents --source nhai_audited_results_pdf
 
       - name: Upload refreshed workspace
         uses: actions/upload-artifact@v7
@@ -304,7 +312,7 @@ jobs:
             data/raw/manual/
 
   build_correlation:
-    if: always() && needs.ingest_base.result == 'success' && (needs.refresh_nhai_confidence.result == 'success' || needs.refresh_nhai_confidence.result == 'skipped')
+    if: always() && needs.ingest_base.result == 'success' && ((needs.changes.outputs.run_nhai_ocr == 'true' && needs.refresh_nhai_confidence.result == 'success') || (needs.changes.outputs.run_nhai_ocr != 'true' && needs.refresh_nhai_confidence.result == 'skipped'))
     needs:
       - changes
       - ingest_base
@@ -331,14 +339,14 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: bhai-refreshed-workspace
-          path: .
+          path: data
 
       - name: Download base workspace
         if: needs.changes.outputs.run_nhai_ocr != 'true'
         uses: actions/download-artifact@v8
         with:
           name: bhai-base-workspace
-          path: .
+          path: data
 
       - name: Build correlation artifacts
         run: |
@@ -381,17 +389,18 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: bhai-inventory-reports
-          path: .
+          path: research
 
       - name: Download correlated workspace
         uses: actions/download-artifact@v8
         with:
           name: bhai-correlated-workspace
-          path: .
+          path: data
 
       - name: Validate generated artifacts
         run: |
-          python scripts/validate_artifacts.py --inventory research/source_inventory.yaml --catalog data/manifests/catalog.json --manifests data/manifests
+          python -m unittest discover -s tests -v
+          python scripts/validate_artifacts.py --inventory research/source_inventory.yaml --catalog data/manifests/catalog.json --manifests data/manifests --fail-on-warning
 
       - name: Upload research artifacts
         uses: actions/upload-artifact@v7
@@ -403,6 +412,7 @@ jobs:
             research/gaps.md
             data/manifests/
             data/processed/
+            data/raw/manual/
 
       - name: Upload logs
         uses: actions/upload-artifact@v7

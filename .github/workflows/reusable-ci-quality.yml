@@ -72,7 +72,8 @@ jobs:
 
       - name: Run Python compile checks
         run: |
-          python -m compileall -q .
+          python -m compileall -q pipelines research scripts
+          python -m unittest discover -s tests -v
 
   artifact_validation:
     name: Artifact validation
@@ -98,7 +99,7 @@ jobs:
 
       - name: Validate generated artifacts
         run: |
-          python scripts/validate_artifacts.py --inventory research/source_inventory.yaml --catalog data/manifests/catalog.json --manifests data/manifests
+          python scripts/validate_artifacts.py --inventory research/source_inventory.yaml --catalog data/manifests/catalog.json --manifests data/manifests ${{ inputs.fail_on_warnings && '--fail-on-warning' || '' }}
 
   quality_gate:
     name: Quality gate status
