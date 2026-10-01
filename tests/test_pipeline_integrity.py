@@ -203,6 +203,20 @@ class PublicationTests(unittest.TestCase):
         self.assertIsNone(json.loads(self.catalog.read_text())["datasets"][0]["source_as_of_date"])
         self.assertIsNone(json.loads(report_path.read_text())["sources"][0]["source_as_of_date"])
 
+    def test_explicit_unknown_publication_clears_inherited_claim_without_rewriting_records(self):
+        frame = self.frame.assign(publication_date="2023-01-01", published_at="2023-01-01")
+        self.run_fixture(FixtureConnector(frame))
+        output = self.processed / "fixture_source.parquet"
+        sha = sha256_for_file(output)
+        self.source["publication_date_unknown"] = True
+        self.inventory.write_text(yaml.safe_dump({"sources": [self.source]}))
+        result = refresh_quality_only(str(self.inventory), ["fixture_source"], self.processed, self.manifests, self.catalog)["fixture_source"]
+        self.assertIsNone(result["publication_date"])
+        self.assertTrue(result["source"]["publication_date_unknown"])
+        self.assertIsNone(json.loads((self.manifests / "refresh_report.json").read_text())["sources"][0]["publication_date"])
+        self.assertEqual(sha, sha256_for_file(output))
+        self.assertEqual("2023-01-01", pd.read_parquet(output).iloc[0]["publication_date"])
+
     def test_duplicate_inventory_ids_are_rejected(self):
         self.inventory.write_text(yaml.safe_dump({"sources": [self.source, self.source]}))
         with self.assertRaises(ValueError):
@@ -362,6 +376,24 @@ class QualityTests(unittest.TestCase):
 
 
 class AnnualDocumentDiscoveryTests(unittest.TestCase):
+    def test_publication_metadata_requires_labelled_full_date(self):
+        connector = NHAIAnnualDocumentsConnector()
+        report_cover = "Annual Report 2023-24\nFor year ended 31 March 2024\nDate: 2024-04-30"
+        reader = MagicMock()
+        reader.pages = [MagicMock(), MagicMock()]
+        reader.pages[0].extract_text.return_value = report_cover
+        reader.pages[1].extract_text.return_value = "FY 2023-24"
+        with patch("pipelines.connectors.nhai_annual_documents.PdfReader", return_value=reader):
+            date, text = connector._pdf_metadata(Path("fixture.pdf"))
+        self.assertIsNone(date)
+        self.assertIn("2023-24", text)
+        for label, expected in [("Published on: 2024-07-24", "2024-07-24"),
+                                ("Date of publication: 24/07/2024", "2024-07-24"),
+                                ("Published on 24 July 2024", "2024-07-24")]:
+            self.assertEqual(expected, connector._parse_publication_date(report_cover + "\n" + label))
+        self.assertIsNone(connector._parse_publication_date("Published on: 2023"))
+        self.assertIsNone(connector._parse_publication_date("Date of publication: 2023-24"))
+
     def test_audited_discovery_retains_explicit_url_without_generating_years(self):
         url = "https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf"
         source = {"dataset_title": "NHAI audited results", "url": url, "resource_file_urls": [url],

@@ -555,11 +555,29 @@ class NHAIAnnualDocumentsConnector:
             return False
 
     @staticmethod
+    def _parse_publication_date(page_text: str) -> str | None:
+        # Report years, accounting cutoffs and dates elsewhere on the cover
+        # are not publication dates. Require an explicit label and full date.
+        label = r"\b(?:published\s+on|date\s+of\s+publication)\s*[:\-]?\s*"
+        full_date = (r"(?:\d{4}-\d{1,2}-\d{1,2}|\d{1,2}[-/]\d{1,2}[-/]\d{4}|"
+                     r"\d{1,2}\s+[A-Za-z]+\s+\d{4}|[A-Za-z]+\s+\d{1,2},?\s+\d{4})\b")
+        formats = ("%Y-%m-%d", "%d-%m-%Y", "%d/%m/%Y", "%d %B %Y", "%d %b %Y",
+                   "%B %d, %Y", "%b %d, %Y", "%B %d %Y", "%b %d %Y")
+        for match in re.finditer(label + "(" + full_date + ")", page_text, flags=re.IGNORECASE):
+            token = re.sub(r"\s+", " ", match.group(1)).strip()
+            for fmt in formats:
+                try:
+                    return datetime.strptime(token, fmt).date().isoformat()
+                except ValueError:
+                    continue
+        return None
+
+    @staticmethod
     def _pdf_metadata(path: Path) -> tuple[str | None, str | None]:
         try:
             reader = PdfReader(str(path))
             page_text = "\n".join((page.extract_text() or "") for page in reader.pages[:2])
-            return NHAIAnnualDocumentsConnector._parse_date_hint(page_text), page_text
+            return NHAIAnnualDocumentsConnector._parse_publication_date(page_text), page_text
         except Exception:
             return None, None
 

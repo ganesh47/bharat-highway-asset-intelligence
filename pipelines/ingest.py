@@ -109,7 +109,8 @@ def _annotate(entry: dict, source: dict, df: pd.DataFrame, processed_root: Path)
                                        ("official_flag", "official_flag"), ("license_terms", "license_terms"),
                                        ("publisher_type", "publisher_type"), ("domain", "domain"),
                                        ("evidence_class", "evidence_class"), ("analytical_eligible", "analytical_eligible"),
-                                       ("observation_date_unknown", "observation_date_unknown")):
+                                       ("observation_date_unknown", "observation_date_unknown"),
+                                       ("publication_date_unknown", "publication_date_unknown")):
         if inventory_key in source:
             source_metadata[metadata_key] = source[inventory_key]
     if source.get("resource_page_url") or source.get("url"):
@@ -129,13 +130,18 @@ def _annotate(entry: dict, source: dict, df: pd.DataFrame, processed_root: Path)
     entry["evidence_status"] = evidence
     cutoff = source.get("source_as_of_date") or scope.get("source_as_of_date") or entry.get("source_as_of_date")
     entry["source_as_of_date"] = observation_date(df, scope | source | entry.get("source", {}) | {"source_as_of_date": cutoff})
-    entry["publication_date"] = source.get("publication_date") or entry.get("publication_date") or entry.get("source", {}).get("publication_date")
-    if "publication_date" in df and not df["publication_date"].dropna().empty:
-        entry["publication_date"] = sorted(df["publication_date"].dropna().astype(str))[-1]
-    if "published_at" in df and not df["published_at"].dropna().empty:
-        dates = [value for value in df["published_at"].dropna().astype(str) if value]
-        if dates:
-            entry["publication_date"] = sorted(dates)[-1]
+    if source.get("publication_date_unknown") is True:
+        entry["publication_date"] = None
+        if "publication_date" in source_metadata:
+            source_metadata["publication_date"] = None
+    else:
+        entry["publication_date"] = source.get("publication_date") or entry.get("publication_date") or entry.get("source", {}).get("publication_date")
+        if "publication_date" in df and not df["publication_date"].dropna().empty:
+            entry["publication_date"] = sorted(df["publication_date"].dropna().astype(str))[-1]
+        if "published_at" in df and not df["published_at"].dropna().empty:
+            dates = [value for value in df["published_at"].dropna().astype(str) if value]
+            if dates:
+                entry["publication_date"] = sorted(dates)[-1]
     entry["disclosure_ready"] = (not df.empty and entry.get("metric_category") in {"official_measured", "issuer_disclosed"}
                                   and evidence in {"validated", "verified", "validated_primary", "validated_curated"}
                                   and not semantic_errors(df, source))
