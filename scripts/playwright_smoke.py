@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import re
 from pathlib import Path
 
 from typing import Union
@@ -221,6 +222,50 @@ else:
             "empty_markers": ["No records available."],
         },
     )
+
+
+def _frontend_fixture_script(source: str) -> str:
+    """Exercise the deployed pure calculation functions, including invalid joins."""
+    names = ["num", "fmtNum", "sourceTypeTag", "confidenceFromSources", "humanMetric", "csvText", "deriveDisclosureInsights"]
+    blocks = []
+    for name in names:
+        start = re.search(r"^function " + re.escape(name) + r"\(", source, re.MULTILINE)
+        if start is None:
+            raise RuntimeError(f"Deployed frontend is missing semantic function: {name}")
+        following = re.search(r"^(?:async )?function ", source[start.end():], re.MULTILINE)
+        end = start.end() + following.start() if following else len(source)
+        blocks.append(source[start.start():end])
+    assertions = r"""
+    const failures = [];
+    const check = (condition, label) => { if (!condition) failures.push(label); };
+    check(num(null) === null && num('') === null && num(0) === 0, 'missing values versus observed zero');
+    check(fmtNum(null) === 'N/A', 'missing display');
+    check(sourceTypeTag({metric_category:'model_output', source:{official_flag:false}})[1] === 'model', 'model classification');
+    check(sourceTypeTag({metric_category:'issuer_disclosed', source:{official_flag:false}})[1] === 'issuer', 'issuer classification');
+    check(confidenceFromSources([{overall_confidence_badge:'High'}]).badge === 'High', 'high confidence');
+    check(confidenceFromSources([{overall_confidence_badge:'High'},{overall_confidence_badge:'Med'}]).badge === 'Med', 'contributing confidence floor');
+    check(confidenceFromSources([]).badge === 'Low', 'missing confidence');
+    const base = {entity_id:'P1', entity_type:'project', agency:'NHAI', state:'Odisha', road_class:'NH', period_start:'2025-04-01', period_end:'2026-03-31', period_basis:'financial_year', statement_basis:'project', source_id:'fixture', data_as_of:'2026-03-31', estimate_type:'actual', evidence_class:'official_measured'};
+    const cost = {...base, metric:'sanctioned_cost_inr_crore', value:100, unit:'inr_crore'};
+    const length = {...base, metric:'project_length_km', value:10, unit:'km'};
+    const derive = (rows) => deriveDisclosureInsights(rows);
+    check(derive([cost,length])[0]?.value === 10, 'valid cost per kilometre');
+    check(derive([cost,{...length,unit:'Nos'}]).length === 0, 'bridge count is not kilometres');
+    check(derive([cost,{...length,value:0}]).length === 0, 'zero denominator');
+    check(derive([cost,{...length,agency:'NHIDCL'}]).length === 0, 'different agency');
+    check(derive([cost,{...length,road_class:'SH'}]).length === 0, 'different road class');
+    check(derive([cost,{...length,data_as_of:'2025-12-31'}]).length === 0, 'different cutoff');
+    check(derive([cost,length,length]).length === 0, 'ambiguous duplicate denominator');
+    const actual={...base,metric:'budget_maintenance_inr_crore',value:80,unit:'inr_crore'};
+    const budget={...actual,value:100,estimate_type:'BE'};
+    check(derive([actual,budget])[0]?.value === 80, 'matched full-period actual to BE');
+    check(derive([{...actual,estimate_type:'YTD'},budget]).length === 0, 'YTD is not full-period actual');
+    check(derive([actual,{...budget,data_as_of:'2025-03-31'}]).length === 0, 'budget comparison cutoff');
+    check(derive([actual,{...budget,statement_basis:'consolidated'}]).length === 0, 'different accounting basis');
+    check(csvText([{metric:'=1+1'}],['metric']).includes("'=1+1"), 'CSV spreadsheet text safety');
+    return failures;
+    """
+    return "() => {\n" + "\n".join(blocks) + assertions + "\n}"
 
 
 async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
@@ -442,6 +487,13 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
             if not any("Issuer disclosures:" in text for text in summary_text):
                 raise RuntimeError("Issuer disclosure coverage missing")
             await validate_charts(REQUIRED_CHARTS)
+            module_url = await page.evaluate("new URL('src/app.js', location.href).href")
+            module_response = await page.request.get(module_url)
+            if not module_response.ok:
+                raise RuntimeError('Cannot inspect the deployed calculation module')
+            semantic_failures = await page.evaluate(_frontend_fixture_script(await module_response.text()))
+            if semantic_failures:
+                raise RuntimeError(f'Frontend semantic fixtures failed: {semantic_failures}')
             await page.get_by_role("heading", name="Finance & infrastructure disclosures", exact=True).wait_for()
             for label in ["Agency", "Road class", "Reporting period", "Estimate type", "Evidence class", "Metric", "Entity search"]:
                 if await page.get_by_label(label, exact=True).count() != 1:

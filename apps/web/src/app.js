@@ -540,6 +540,8 @@ function extractDateCandidatesFromRow(row) {
   ];
   const candidatePattern = /(date|time|timestamp|year|period|month|snapshot|as[_-]of|effective|publication|release|quarter|fy|observ|time)/i;
 
+  const explicit = ['data_as_of', 'source_as_of_date', 'source_as_of', 'snapshot_date'].map((key) => parseDateValue(row[key])).filter(Boolean);
+  if (explicit.length) return explicit;
   const dates = [];
   dateValueHints.forEach((key) => {
     const value = row[key];
@@ -1924,7 +1926,7 @@ function OntologyPanel({ catalog }) {
     'section',
     { className: 'card' },
     React.createElement('h2', null, 'Ontology & Provenance Coverage'),
-    React.createElement('p', { className: 'metric-meta' }, 'Entity references are inferred from canonical manifest columns and source titles. Use this to quickly confirm what each story can be grounded against.'),
+    React.createElement('p', { className: 'metric-meta' }, 'Schema coverage from canonical manifest columns and source titles. Co-occurring columns do not validate a join, asset ownership or observed location.'),
     React.createElement(
       'div',
       { className: 'ontology' },
@@ -2272,14 +2274,12 @@ async function loadAnalyticCatalog(conn, catalog) {
       year_label: row['year-wise'] || row.year_wise || row.year || row.year_label,
       allocation_total:
         row['allocation/target_-_total']
-        || row.allocation_target___total
-        || row.allocation_target___budgetary
-        || 0,
+        ?? row.allocation_target___total
+        ?? null,
       expenditure_total:
         row['expenditure/release_of_funds/actuals_-_total']
-        || row.expenditure_release_of_funds_actuals___total
-        || row.expenditure_release_of_funds_actuals___budgetary
-        || 0,
+        ?? row.expenditure_release_of_funds_actuals___total
+        ?? null,
     }));
 
   const rawStatePortfolioRows = await fetchById('data_gov_in_nhai_state_projects_api', (alias) => `

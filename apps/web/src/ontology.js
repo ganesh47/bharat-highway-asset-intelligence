@@ -42,6 +42,9 @@ export const ONTOLOGY = {
   ],
   metric_dimensions: ["metric", "unit", "original_unit", "estimate_type", "statement_basis", "period_basis", "evidence_class"],
   relations: [
+    { from: "asset_entity", to: "agency", name: "reported_by", rationale: "Financial and asset observations retain their reporting agency without inferring ownership from geography." },
+    { from: "asset_entity", to: "road_class", name: "classified_as", rationale: "NH, SH and state expressways are explicit source classifications." },
+    { from: "asset_entity", to: "date", name: "observed_for_period", rationale: "Financial facts retain reporting periods and observation cutoffs." },
     {
       from: "project",
       to: "state",
