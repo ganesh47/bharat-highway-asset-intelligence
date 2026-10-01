@@ -6,6 +6,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import pandas as pd
+import yaml
 
 from pipelines.common import sha256_for_file
 from pipelines.connectors.primary_disclosures import (
@@ -173,6 +174,27 @@ class PrimaryDisclosureTests(unittest.TestCase):
         self.assertAlmostEqual(total.loc["debt_maturity_1to3yr_inr_crore","value"],556.85)
         evidence=json.loads((raw/"evidence/nhit_annual_report.json").read_text())
         self.assertIn("omitted, not converted to zero",evidence["notes"])
+
+    def test_legacy_parliamentary_reference_dates_and_mixed_cells_are_durable(self):
+        repo=Path(__file__).resolve().parents[1]
+        sources={s["source_id"]:s for s in yaml.safe_load((repo/"research/source_inventory.yaml").read_text())["sources"]}
+        evidence_root=repo/"data/raw/manual/evidence"
+        for sid,cutoff in [("data_gov_in_nhai_statewise_nh_project_status_2024_25","2024-11-27"),("data_gov_in_nhai_projects_district_target_2023","2024-02-07")]:
+            evidence=json.loads((evidence_root/f"{sid}.json").read_text())
+            self.assertEqual(sources[sid]["source_as_of_date"],cutoff)
+            self.assertEqual(evidence["source_as_of_date"],cutoff)
+            self.assertEqual(sources[sid]["primary_reference_sha256"],evidence["reference_document"]["sha256"])
+        sid="data_gov_in_nhai_projects_district_target_2023"
+        evidence=json.loads((evidence_root/f"{sid}.json").read_text())
+        self.assertFalse(sources[sid]["analytical_eligible"])
+        self.assertEqual(sources[sid]["evidence_class"],"mixed_actual_target")
+        compared=evidence["compared_csv"]
+        self.assertEqual(compared["numeric_cells_matched"],125)
+        self.assertEqual(compared["nonnumeric_cells_preserved_as_NA"],16)
+        for row in compared["comparison_rows"]:
+            for original,copy in zip(row["source_cells"],row["csv_cells"]):
+                if original.upper() in {"NIL","BRIDGE WORK","---","--",""}:
+                    self.assertEqual(copy,"NA","Nonnumeric source cells cannot become zero")
 
 
 if __name__ == "__main__":

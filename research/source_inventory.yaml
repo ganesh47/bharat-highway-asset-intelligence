@@ -97,15 +97,18 @@ sources:
 
   - source_id: data_gov_in_nhai_projects_district_target_2023
     official_flag: true
-    publisher_org: National Highways Authority of India (NHAI)
+    publisher_org: Ministry of Road Transport and Highways (MoRTH) / Parliament Secretariat
+    agency_scope: Jharkhand district project table; implementing agencies not separated
+    entity_type: project
+    state: Jharkhand
     domain: data.gov.in
-    dataset_title: District-wise details of project target length of National Highways during 2023-24
+    dataset_title: Jharkhand project length, completed length through March2023 and FY2023-24 targets, reported 7 February 2024
     theme: projects
     access_type: HTML
     auth: none
     update_frequency: annual
     geographic_granularity: district
-    temporal_coverage: 2023-24
+    temporal_coverage: Completed length through31March2023 and FY2023-24 target plans, reported7February2024
     license_terms: "Open Government Data License - India (OGL), subject to data.gov.in terms"
     retrieval_method: direct download
     resource_page_url: https://www.data.gov.in/resource/district-wise-details-project-target-length-national-highways-during-2023-24
@@ -116,10 +119,18 @@ sources:
     resource_file_urls:
       - https://www.data.gov.in/sites/default/files/RS_Session_263_AS_52_A_0.csv
     reliability_grade: B
-    reliability_justification: Data is on official OGD resource page; file-level row totals are stable and suitable as district-level project indicators.
-    known_limitations: "Contains primarily 2023-24 snapshot rows; historical backfill may require alternate OGD resource pages."
+    reliability_justification: Official OGD annexure cross-checked against MoRTH Rajya Sabha starred question52 of7February2024; actual and target columns require separate analytical treatment.
+    known_limitations: "Jharkhand only. Total route length, completed length through31March2023 and FY2023-24target are different measures. Source NA includes NIL, dash, blank and Bridge Work cells; they remain nonnumeric and are not converted to zero. Column-level normalization is required before measured calculations."
     allow_auto_fetch: true
-    notes: "Auto-fetched from data.gov.in API (uuid) and preserved file fallback for reproducibility."
+    evidence_class: mixed_actual_target
+    analytical_eligible: false
+    publication_date: '2024-02-07'
+    source_as_of_date: '2024-02-07'
+    primary_reference_url: https://sansad.in/getFile/annex/263/AS52.pdf?source=pqars
+    primary_reference_sha256: ca3280b26827d35995e5a947cef02c34df1902111d25725d6bd60ecf583ecdb4
+    primary_reference_page: 3-6
+    evidence_metadata_path: data/raw/manual/evidence/data_gov_in_nhai_projects_district_target_2023.json
+    notes: "Verified47OGDrows against official answer annexure physicalpages3-6. Parliament serials include multiple subprojects per district; CSV renumbers them sequentially. Source cutoff is7February2024, not31March2024; completed-length column is explicitly through31March2023 and FY23-24target remains a plan. Mixed source retained for disclosure only pending column-level fact normalization. OGDpage publication11March2024 and update3April2024 are distinct from underlying answer date."
     permanent_identifier_hint: "uuid 7d3d0adf-dce6-4440-afd5-bd88b7c3d653 or resource file RS_Session_263_AS_52_A_0.csv"
     url: https://www.data.gov.in/resource/district-wise-details-project-target-length-national-highways-during-2023-24
 

@@ -125,6 +125,15 @@ This source retains its existing identifier and raw snapshot but is marked
 stays unknown. The five states are Uttar Pradesh, Tamil Nadu, Kerala, West Bengal
 and Assam; this table cannot establish all-state project coverage.
 
+The legacy47-row Jharkhand district/project table is matched to MoRTH Rajya
+Sabha starred question52, answered7February2024, physical pages3-6. It combines
+route length, completed length explicitly through31March2023, and FY2023-24
+targets. The source cutoff uses the answer date; it is not31March2024. Its source
+evidence class is `mixed_actual_target` and it remains a disclosure with
+`analytical_eligible=false` until individual columns are normalized. The source
+CSV's NA cells remain nonnumeric; the reference evidence preserves the original
+NIL, dash, blank and Bridge Work tokens without replacing them with zero.
+
 Issuer/multilateral public disclosure is not blanket permission to redistribute
 whole reports. CSV extracts link to originals and cite only relevant tables;
 no blanket OGL licence is asserted for those documents.
