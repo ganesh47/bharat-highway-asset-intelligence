@@ -360,7 +360,7 @@ class DataGovInConnector:
         out = df.copy(deep=True)
         for col in out.columns:
             series = out[col]
-            if not pd.api.types.is_object_dtype(series.dtype):
+            if not (pd.api.types.is_object_dtype(series.dtype) or pd.api.types.is_string_dtype(series.dtype)):
                 continue
             if series.dropna().empty:
                 continue
@@ -371,6 +371,79 @@ class DataGovInConnector:
             if numeric_ratio >= 0.8:
                 out[col] = candidate_numeric
         return out
+
+    @staticmethod
+    def _reconcile_tamil_progress(df: pd.DataFrame, source: Dict[str, Any], raw_root: Path,
+                                  raw_paths: list[Path]) -> tuple[pd.DataFrame, Path | None, dict | None]:
+        """Use pinned parliamentary cells for a known corrupt OGD CSV export.
+
+        The CSV dropped decimal points, including values that still pass a
+        0-100 range check. Never infer a blanket divisor or apply this repair to
+        another input snapshot; both documents and row identities are checked.
+        """
+        source_id = "data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026"
+        if source.get("source_id") != source_id:
+            return df, None, None
+        csv_sha = "2b2e98b196e10d006292707a584fa49f0fdc82035d6a0f4c00f3cf2d44d9f65c"
+        pdf_sha = "46a17f9f1efc8d0afda41cfc5ea41b6f7dd69696aa2b2db6d9ae558c7d739267"
+        url = "https://sansad.in/getFile/annex/265/AU286_APrEba.pdf?source=pqars"
+        if source.get("progress_reference_url") != url or source.get("progress_reference_sha256") != pdf_sha:
+            raise ValueError("Tamil progress requires the approved checksum-pinned Annexure II reference")
+        if not any(path.suffix == ".csv" and path.exists() and sha256_for_file(path) == csv_sha for path in raw_paths):
+            raise ValueError("Tamil CSV snapshot changed; progress reconciliation requires a new evidence review")
+        required = {"sl._no.", "project_name", "implementing_agency", "appointed_date", "length_km", "tpc_rs_in_crore", "physical_progress_pct"}
+        if not required <= set(df) or len(df) != 55 or list(pd.to_numeric(df["sl._no."], errors="coerce")) != list(range(1, 56)):
+            raise ValueError("Tamil progress project row contract changed")
+        from pipelines.connectors.primary_disclosures import download_document
+        import pdfplumber
+        import math
+        import re
+        document = raw_root / source_id / "progress_reference_AU286_20240724.pdf"
+        if not document.exists():
+            download_document(url, document, max_bytes=8_000_000)
+        if sha256_for_file(document) != pdf_sha:
+            raise ValueError("Tamil parliamentary reference changed; re-extraction required")
+        rows = []
+        with pdfplumber.open(document) as pdf:
+            for page_number, page in enumerate(pdf.pages[2:], start=3):
+                for table in page.extract_tables():
+                    for row in table:
+                        if len(row) == 7 and row[0] and re.fullmatch(r"\d+", row[0].strip()):
+                            rows.append((page_number, row))
+        if len(rows) != 55:
+            raise ValueError("Tamil parliamentary reference does not contain all 55 project rows")
+        values, anchors = [], []
+        compact = lambda value: re.sub(r"[^a-z0-9]", "", str(value).lower())
+        for index, (page_number, row) in enumerate(rows):
+            source_row = df.iloc[index]
+            nhai = index < 34
+            expected_serial = index + 1 if nhai else index - 33
+            expected_agency = "National Highways Authority of India (NHAI)" if nhai else "State Public Works Department (PWD)"
+            if int(row[0]) != expected_serial or source_row["implementing_agency"] != expected_agency:
+                raise ValueError("Tamil parliamentary project agency/order mismatch")
+            if compact(source_row["appointed_date"]) != compact(row[4]):
+                raise ValueError("Tamil parliamentary project appointed-date mismatch")
+            for column, cell in (("length_km", row[2]), ("tpc_rs_in_crore", row[3])):
+                expected = pd.to_numeric(cell.replace(",", ""), errors="coerce")
+                actual = pd.to_numeric(source_row[column], errors="coerce")
+                if not ((pd.isna(actual) and pd.isna(expected)) or (pd.notna(actual) and pd.notna(expected) and math.isclose(float(actual), float(expected), rel_tol=1e-8))):
+                    raise ValueError(f"Tamil parliamentary project {column} mismatch")
+            value = pd.to_numeric(row[6].strip().rstrip("%"), errors="coerce")
+            if pd.notna(value) and not 0 <= value <= 100:
+                raise ValueError("Tamil parliamentary progress itself is outside 0-100")
+            values.append(value)
+            anchors.append(f"PDF p{page_number}; Annexure II; {'NHAI' if nhai else 'State PWD'} row {expected_serial}")
+        out = df.copy(deep=True)
+        out["physical_progress_raw_csv"] = out["physical_progress_pct"]
+        out["physical_progress_pct"] = values
+        out["progress_reference_url"] = url
+        out["progress_source_document_sha256"] = pdf_sha
+        out["progress_citation_anchor"] = anchors
+        out["source_as_of_date"] = "2024-07-24"
+        changed = int((out["physical_progress_pct"].fillna(-1) != out["physical_progress_raw_csv"].fillna(-1)).sum())
+        return out, document, {"reference_url": url, "reference_sha256": pdf_sha, "raw_csv_sha256": csv_sha,
+                               "rows_checked": len(rows), "progress_cells_corrected": changed,
+                               "transformation": "Exact Annexure II physical-progress cells; original CSV values retained; no inferred scaling"}
 
     @staticmethod
     def _write_raw_response(
@@ -638,6 +711,9 @@ class DataGovInConnector:
         df = self._standardize_df(df)
         df = self._parse_year(df)
         df = self._coerce_mixed_numeric_columns(df)
+        df, progress_document, progress_reconciliation = self._reconcile_tamil_progress(df, source, raw_root, raw_paths)
+        if progress_document is not None:
+            raw_paths.append(progress_document)
 
         if "source_type" not in df.columns:
             df["source_type"] = "official_measured"
@@ -712,6 +788,9 @@ class DataGovInConnector:
             "retrieved_at": now,
         }
 
+        if progress_reconciliation:
+            manifest["progress_reconciliation"] = progress_reconciliation
+            manifest["citations"]["note"] += " Physical progress reconciled against checksum-pinned parliamentary Annexure II; row-level PDF anchors and original CSV values retained."
         if skip_reason:
             manifest["skip_reason"] = skip_reason
 

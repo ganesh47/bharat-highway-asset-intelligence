@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-26T15:43:51.277657+00:00",
+  "generated_at": "2026-10-01T21:07:07.116611+00:00",
   "datasets": [
     {
       "source_id": "data_gov_in_nhai_projects_api",
@@ -54,12 +54,32 @@
       },
       "retrieved_at": "2026-03-11T05:17:07.260825+00:00",
       "completeness_score": 1.0,
-      "recency_score": 1.0,
+      "recency_score": 0.25,
       "provenance_score": 1.0,
       "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/data_gov_in_nhai_projects_api.parquet"
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Observation date is unavailable; collection time is not data freshness"
+      ],
+      "output_table_path": "data/processed/data_gov_in_nhai_projects_api.parquet",
+      "data_checksum": "e59b2658d556906c2a5bfd48a82eef5a433d593e9be23d6d1ae0747676e87c21",
+      "last_successful_retrieval_at": "2026-10-01T20:08:24.456310+00:00",
+      "last_ingested_at": "2026-10-01T20:08:24.456310+00:00",
+      "last_checked_at": "2026-10-01T20:08:24.456310+00:00",
+      "refresh_outcome": "checked_unchanged",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "validated",
+      "source_as_of_date": null,
+      "publication_date": null,
+      "disclosure_ready": true,
+      "analytical_ready": true,
+      "extraction_status": "validated",
+      "recency_basis": "unknown",
+      "validation_errors": []
     },
     {
       "source_id": "data_gov_in_nhai_project_finance_api",
@@ -95,20 +115,20 @@
           {
             "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
             "format": "parquet",
-            "sha256": "46ad0339a990c24b804e1f256fa17fe0ee646adbbf298558d4b67e5a53b4d43a"
+            "sha256": "a1fa78fbc8a4d44b880da3448c8158e29256b818c05fd170ba12fe4a4f200a20"
           }
         ],
         "row_count": 6,
         "columns": [
-          "year_wise",
-          "allocation_target___budgetary",
-          "allocation_target___iebr_target",
-          "allocation_target___others",
-          "allocation_target___total",
-          "expenditure_release_of_funds_actuals___budgetary",
-          "expenditure_release_of_funds_actuals___iebr_actual",
-          "expenditure_release_of_funds_actuals___others",
-          "expenditure_release_of_funds_actuals___total",
+          "year-wise",
+          "allocation/target_-_budgetary",
+          "allocation/target_-_iebr_target",
+          "allocation/target_-_others",
+          "allocation/target_-_total",
+          "expenditure/release_of_funds/actuals_-_budgetary",
+          "expenditure/release_of_funds/actuals_-_iebr_actual",
+          "expenditure/release_of_funds/actuals_-_others",
+          "expenditure/release_of_funds/actuals_-_total",
           "source_type",
           "source_id",
           "metric_category",
@@ -118,57 +138,89 @@
       },
       "retrieved_at": "2026-03-11T05:17:07.362507+00:00",
       "completeness_score": 0.976,
-      "recency_score": 1.0,
+      "recency_score": 0.2,
       "provenance_score": 1.0,
       "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/data_gov_in_nhai_project_finance_api.parquet"
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency"
+      ],
+      "output_table_path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
+      "data_checksum": "6ff6a1a12bf17f463251ba4ab1da0cab4bed42257d0d77cecc889acc750a4582",
+      "last_successful_retrieval_at": "2026-10-01T20:08:24.579304+00:00",
+      "last_ingested_at": "2026-10-01T20:08:24.579304+00:00",
+      "last_checked_at": "2026-10-01T20:08:24.579304+00:00",
+      "refresh_outcome": "checked_unchanged",
+      "analytical_scope": {
+        "agency": "MoRTH",
+        "entity_type": "programme",
+        "entity_id": "nh-development-maintenance-pm-gatishakti",
+        "road_class": "National Highway",
+        "scope_note": "NH development and maintenance funding; not NHAI standalone accounts. FY2024-25 is through 31 January 2025.",
+        "source_as_of_date": "2025-01-31"
+      },
+      "evidence_status": "validated",
+      "source_as_of_date": "2025-01-31",
+      "publication_date": null,
+      "disclosure_ready": true,
+      "analytical_ready": true,
+      "extraction_status": "validated",
+      "recency_basis": "observation_date",
+      "validation_errors": []
     },
     {
       "source_id": "data_gov_in_nhai_state_projects_api",
       "connector": "data_gov_in_ogd",
       "version": "0.2.0",
-      "status": "automated",
+      "status": "ok",
       "metric_category": "official_measured",
       "source": {
-        "publisher": "National Highways Authority of India (NHAI)",
-        "title": "State-wise national highway and road project counts",
+        "publisher": "Ministry of Road Transport and Highways (MoRTH) / Parliament Secretariat",
+        "title": "Five-state NIP highway project plans and planned capital outlay for 2020-2024",
         "domain": "data.gov.in",
         "url": "https://www.data.gov.in/resource/state-wise-number-nh-and-road-projects-relating-are-included-national-infrastructure",
         "retrieval_method": "API call",
         "access_type": "API",
-        "retrieved_at": "2026-03-11T05:17:07.740637+00:00",
+        "retrieved_at": "2026-10-01T20:08:24.677999+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
-        "official_flag": true
+        "official_flag": true,
+        "evidence_class": "target",
+        "analytical_eligible": false,
+        "observation_date_unknown": true
       },
       "citations": {
         "permanent_identifier": "uuid b358bfbb-1eee-4e3f-9ebd-956cae5040a7",
-        "anchor": "api:data_gov_in_nhai_state_projects_api:b358bfbb-1eee-4e3f-9ebd-956cae5040a7",
-        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+        "anchor": "resource_file:https://data.gov.in/sites/default/files/dataurl08122021/RS_Session_253_AU2230.C.csv",
+        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic.",
+        "primary_reference": {
+          "url": "https://www.data.gov.in/resource/state-wise-number-nh-and-road-projects-relating-are-included-national-infrastructure",
+          "sha256": "2a8166c46e56457603daa0048acba207646f2534f48c33b739890e9b9737caf9",
+          "table_page": null,
+          "evidence_metadata_path": "data/raw/manual/evidence/data_gov_in_nhai_state_projects_api.json"
+        }
       },
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/data_gov_in_nhai_state_projects_api/data_gov_in_nhai_state_projects_api/raw_20260311_051708.json",
-            "sha256": "e99655baef5687b5eb90c36d3e450fcc2687f4f29681927c44441b8a9e7c37f9",
-            "size_bytes": 735
+            "path": "data/raw/data_gov_in_nhai_state_projects_api/data_gov_in_nhai_state_projects_api/raw_20261001_200825.csv",
+            "sha256": "65b482de972b3afab75ae44b362d10b932dfa1e2e901db752c5d86d7245fdd07",
+            "size_bytes": 245
           }
         ],
         "output_files": [
           {
             "path": "data/processed/data_gov_in_nhai_state_projects_api.parquet",
             "format": "parquet",
-            "sha256": "c3e69a1855eb4ec9d1b25c65e5c3a3a3de10ba86dd7e6f42d8ed9b2e63f46ab4"
+            "sha256": "47685abcd332f86c8811c9397d8cae5f337d1ab01972583520afc384ecbe6681"
           }
         ],
         "row_count": 5,
         "columns": [
-          "_sl__no_",
+          "sl._no.",
           "state",
           "number_of_nh_projects",
-          "length__in_km_",
-          "capital_outlay___rs_in_cr__for_the_years_2020_to_2024",
+          "length_in_km",
+          "capital_outlay__rs_in_cr_for_the_years_2020_to_2024",
           "source_type",
           "source_id",
           "metric_category",
@@ -176,14 +228,40 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-11T05:17:07.740637+00:00",
+      "retrieved_at": "2026-10-01T20:08:24.677999+00:00",
       "completeness_score": 1.0,
-      "recency_score": 1.0,
+      "recency_score": 0.25,
       "provenance_score": 0.85,
       "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/data_gov_in_nhai_state_projects_api.parquet"
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Observation date is unavailable; collection time is not data freshness",
+        "Planned/estimated disclosure is readable evidence and excluded from measured calculations"
+      ],
+      "source_as_of_date": null,
+      "recency_basis": "unknown",
+      "validation_errors": [],
+      "output_table_path": "data/processed/data_gov_in_nhai_state_projects_api.parquet",
+      "data_checksum": "87bc99b352cb0c99447ef24399e7356039d455145430280cc74745b69aa8316c",
+      "data_changed_at": "2026-10-01T20:08:24.675139+00:00",
+      "last_successful_retrieval_at": "2026-10-01T20:08:24.675139+00:00",
+      "last_ingested_at": "2026-10-01T20:08:24.675139+00:00",
+      "last_checked_at": "2026-10-01T20:08:24.675139+00:00",
+      "refresh_outcome": "updated",
+      "analytical_scope": {
+        "entity_type": "state_aggregate",
+        "source_as_of_date": null,
+        "evidence_class": "target",
+        "analytical_eligible": false,
+        "observation_date_unknown": true
+      },
+      "evidence_status": "validated",
+      "publication_date": "2021-12-23",
+      "disclosure_ready": true,
+      "analytical_ready": false,
+      "extraction_status": "validated",
+      "last_quality_check_at": "2026-10-01T20:53:56.650175+00:00"
     },
     {
       "source_id": "data_gov_in_nhai_projects_district_target_2023",
@@ -192,20 +270,28 @@
       "status": "ok",
       "metric_category": "official_measured",
       "source": {
-        "publisher": "National Highways Authority of India (NHAI)",
-        "title": "District-wise details of project target length of National Highways during 2023-24",
+        "publisher": "Ministry of Road Transport and Highways (MoRTH) / Parliament Secretariat",
+        "title": "Jharkhand project length, completed length through March2023 and FY2023-24 targets, reported 7 February 2024",
         "domain": "data.gov.in",
         "url": "https://www.data.gov.in/resource/district-wise-details-project-target-length-national-highways-during-2023-24",
         "retrieval_method": "direct download",
         "access_type": "HTML",
         "retrieved_at": "2026-03-11T05:17:08.158375+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
-        "official_flag": true
+        "official_flag": true,
+        "evidence_class": "mixed_actual_target",
+        "analytical_eligible": false
       },
       "citations": {
         "permanent_identifier": "uuid 7d3d0adf-dce6-4440-afd5-bd88b7c3d653 or resource file RS_Session_263_AS_52_A_0.csv",
         "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_263_AS_52_A_0.csv",
-        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic.",
+        "primary_reference": {
+          "url": "https://sansad.in/getFile/annex/263/AS52.pdf?source=pqars",
+          "sha256": "ca3280b26827d35995e5a947cef02c34df1902111d25725d6bd60ecf583ecdb4",
+          "table_page": "3-6",
+          "evidence_metadata_path": "data/raw/manual/evidence/data_gov_in_nhai_projects_district_target_2023.json"
+        }
       },
       "manifest": {
         "raw_files": [
@@ -239,12 +325,35 @@
       },
       "retrieved_at": "2026-03-11T05:17:08.158375+00:00",
       "completeness_score": 0.969,
-      "recency_score": 1.0,
+      "recency_score": 0.4,
       "provenance_score": 0.85,
       "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/data_gov_in_nhai_projects_district_target_2023.parquet"
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Planned/estimated disclosure is readable evidence and excluded from measured calculations"
+      ],
+      "output_table_path": "data/processed/data_gov_in_nhai_projects_district_target_2023.parquet",
+      "data_checksum": "b0b36cf12244b5cf2dade7b44bcf486a81dd759f0f3f561cbaf7e5312db5c0bf",
+      "last_successful_retrieval_at": "2026-10-01T20:08:25.281276+00:00",
+      "last_ingested_at": "2026-10-01T20:08:25.281276+00:00",
+      "last_checked_at": "2026-10-01T20:08:25.281276+00:00",
+      "refresh_outcome": "checked_unchanged",
+      "analytical_scope": {
+        "entity_type": "project",
+        "source_as_of_date": "2024-02-07",
+        "evidence_class": "mixed_actual_target",
+        "analytical_eligible": false
+      },
+      "evidence_status": "validated",
+      "source_as_of_date": "2024-02-07",
+      "publication_date": "2024-02-07",
+      "disclosure_ready": true,
+      "analytical_ready": false,
+      "extraction_status": "validated",
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "last_quality_check_at": "2026-10-01T20:53:56.648366+00:00"
     },
     {
       "source_id": "data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs",
@@ -300,12 +409,32 @@
       },
       "retrieved_at": "2026-03-11T05:17:08.258352+00:00",
       "completeness_score": 1.0,
-      "recency_score": 1.0,
+      "recency_score": 0.25,
       "provenance_score": 1.0,
       "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs.parquet"
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Observation date is unavailable; collection time is not data freshness"
+      ],
+      "output_table_path": "data/processed/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs.parquet",
+      "data_checksum": "8555103cb1dc8bf3dd0ead818b5e6eb51a1b6ad79c73c610f1c3bf8daddfeaff",
+      "last_successful_retrieval_at": "2026-10-01T20:08:26.103764+00:00",
+      "last_ingested_at": "2026-10-01T20:08:26.103764+00:00",
+      "last_checked_at": "2026-10-01T20:08:26.103764+00:00",
+      "refresh_outcome": "checked_unchanged",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "validated",
+      "source_as_of_date": null,
+      "publication_date": null,
+      "disclosure_ready": true,
+      "analytical_ready": true,
+      "extraction_status": "validated",
+      "recency_basis": "unknown",
+      "validation_errors": []
     },
     {
       "source_id": "data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026",
@@ -315,33 +444,38 @@
       "metric_category": "official_measured",
       "source": {
         "publisher": "National Highways Authority of India (NHAI)",
-        "title": "Project-wise major ongoing NH works in Tamil Nadu (2024-2026)",
+        "title": "Project-wise major ongoing NH works in Tamil Nadu, Parliament snapshot 24 July 2024",
         "domain": "data.gov.in",
         "url": "https://www.data.gov.in/resource/project-wise-details-major-ongoing-works-projects-state-tamil-nadu-under-national-highway",
         "retrieval_method": "direct download",
         "access_type": "HTML",
-        "retrieved_at": "2026-03-11T05:17:08.468662+00:00",
+        "retrieved_at": "2026-10-01T20:22:52.812560+00:00",
         "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
         "official_flag": true
       },
       "citations": {
         "permanent_identifier": "nid=603256479 (resource page) / file RS_Session_265_AU_286_C_ii.csv",
         "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_265_AU_286_C_ii.csv",
-        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic. Physical progress reconciled against checksum-pinned parliamentary Annexure II; row-level PDF anchors and original CSV values retained."
       },
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026/raw_20260311_051708.csv",
+            "path": "data/raw/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026/raw_20261001_202252.csv",
             "sha256": "2b2e98b196e10d006292707a584fa49f0fdc82035d6a0f4c00f3cf2d44d9f65c",
             "size_bytes": 13265
+          },
+          {
+            "path": "data/raw/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026/progress_reference_AU286_20240724.pdf",
+            "sha256": "46a17f9f1efc8d0afda41cfc5ea41b6f7dd69696aa2b2db6d9ae558c7d739267",
+            "size_bytes": 302399
           }
         ],
         "output_files": [
           {
             "path": "data/processed/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026.parquet",
             "format": "parquet",
-            "sha256": "7ec4ecf7f06a8bc6b5ffb1ecf0ff9cd3e32e3947dab035eb640eb2ff5513eebc"
+            "sha256": "eeafefecbad9f9c783682eb5f8db90d05df0552168ecdf3c6d3a506637501470"
           }
         ],
         "row_count": 55,
@@ -354,6 +488,11 @@
           "physical_progress_pct",
           "length_km",
           "tpc_rs_in_crore",
+          "physical_progress_raw_csv",
+          "progress_reference_url",
+          "progress_source_document_sha256",
+          "progress_citation_anchor",
+          "source_as_of_date",
           "source_type",
           "source_id",
           "metric_category",
@@ -361,14 +500,41 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-11T05:17:08.468662+00:00",
+      "retrieved_at": "2026-10-01T20:22:52.812560+00:00",
+      "progress_reconciliation": {
+        "reference_url": "https://sansad.in/getFile/annex/265/AU286_APrEba.pdf?source=pqars",
+        "reference_sha256": "46a17f9f1efc8d0afda41cfc5ea41b6f7dd69696aa2b2db6d9ae558c7d739267",
+        "raw_csv_sha256": "2b2e98b196e10d006292707a584fa49f0fdc82035d6a0f4c00f3cf2d44d9f65c",
+        "rows_checked": 55,
+        "progress_cells_corrected": 33,
+        "transformation": "Exact Annexure II physical-progress cells; original CSV values retained; no inferred scaling"
+      },
       "completeness_score": 0.992,
-      "recency_score": 1.0,
+      "recency_score": 0.4,
       "provenance_score": 0.85,
       "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026.parquet"
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency"
+      ],
+      "source_as_of_date": "2024-07-24",
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "output_table_path": "data/processed/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026.parquet",
+      "data_checksum": "18bdc9608527ec12fd5e293a7e18095cb9194a260740e097dfd2c50a5ddff0f8",
+      "data_changed_at": "2026-10-01T20:22:52.808482+00:00",
+      "last_successful_retrieval_at": "2026-10-01T20:22:52.808482+00:00",
+      "last_ingested_at": "2026-10-01T20:22:52.808482+00:00",
+      "last_checked_at": "2026-10-01T20:22:52.808482+00:00",
+      "refresh_outcome": "updated",
+      "analytical_scope": {
+        "source_as_of_date": "2024-07-24"
+      },
+      "evidence_status": "validated",
+      "publication_date": "2024-07-24",
+      "disclosure_ready": true,
+      "analytical_ready": true,
+      "extraction_status": "validated"
     },
     {
       "source_id": "data_gov_in_nhai_himachal_nhai_projects_ongoing",
@@ -424,12 +590,32 @@
       },
       "retrieved_at": "2026-03-11T05:17:08.552508+00:00",
       "completeness_score": 1.0,
-      "recency_score": 1.0,
+      "recency_score": 0.25,
       "provenance_score": 0.85,
       "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/data_gov_in_nhai_himachal_nhai_projects_ongoing.parquet"
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Observation date is unavailable; collection time is not data freshness"
+      ],
+      "output_table_path": "data/processed/data_gov_in_nhai_himachal_nhai_projects_ongoing.parquet",
+      "data_checksum": "0d7c1e055968890343fd09d4715c477f96c287e0b38970082f0c68ce4a54a7b9",
+      "last_successful_retrieval_at": "2026-10-01T20:08:29.049728+00:00",
+      "last_ingested_at": "2026-10-01T20:08:29.049728+00:00",
+      "last_checked_at": "2026-10-01T20:08:29.049728+00:00",
+      "refresh_outcome": "checked_unchanged",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "validated",
+      "source_as_of_date": null,
+      "publication_date": null,
+      "disclosure_ready": true,
+      "analytical_ready": true,
+      "extraction_status": "validated",
+      "recency_basis": "unknown",
+      "validation_errors": []
     },
     {
       "source_id": "data_gov_in_nhai_punjab_42_projects_implementation",
@@ -483,12 +669,32 @@
       },
       "retrieved_at": "2026-03-11T05:17:08.648750+00:00",
       "completeness_score": 0.997,
-      "recency_score": 1.0,
+      "recency_score": 0.25,
       "provenance_score": 0.85,
       "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/data_gov_in_nhai_punjab_42_projects_implementation.parquet"
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Observation date is unavailable; collection time is not data freshness"
+      ],
+      "output_table_path": "data/processed/data_gov_in_nhai_punjab_42_projects_implementation.parquet",
+      "data_checksum": "b7b4c57b8532f15fd756dc434526291ae0fae3548aaab05fd3a0c392ba5ed8d5",
+      "last_successful_retrieval_at": "2026-10-01T20:08:29.508232+00:00",
+      "last_ingested_at": "2026-10-01T20:08:29.508232+00:00",
+      "last_checked_at": "2026-10-01T20:08:29.508232+00:00",
+      "refresh_outcome": "checked_unchanged",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "validated",
+      "source_as_of_date": null,
+      "publication_date": null,
+      "disclosure_ready": true,
+      "analytical_ready": true,
+      "extraction_status": "validated",
+      "recency_basis": "unknown",
+      "validation_errors": []
     },
     {
       "source_id": "data_gov_in_nhai_yearwise_nh_constructed_2014_15",
@@ -540,12 +746,31 @@
       },
       "retrieved_at": "2026-03-11T05:17:08.746726+00:00",
       "completeness_score": 1.0,
-      "recency_score": 1.0,
+      "recency_score": 0.2,
       "provenance_score": 0.85,
       "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/data_gov_in_nhai_yearwise_nh_constructed_2014_15.parquet"
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency"
+      ],
+      "output_table_path": "data/processed/data_gov_in_nhai_yearwise_nh_constructed_2014_15.parquet",
+      "data_checksum": "e50e8609109a222d51b5b6cfa6a4f26315066d8efa8ca4eabfa52624acc145a5",
+      "last_successful_retrieval_at": "2026-10-01T20:08:30.029437+00:00",
+      "last_ingested_at": "2026-10-01T20:08:30.029437+00:00",
+      "last_checked_at": "2026-10-01T20:08:30.029437+00:00",
+      "refresh_outcome": "checked_unchanged",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "validated",
+      "source_as_of_date": "2022-03-31",
+      "publication_date": null,
+      "disclosure_ready": true,
+      "analytical_ready": true,
+      "extraction_status": "validated",
+      "recency_basis": "observation_date",
+      "validation_errors": []
     },
     {
       "source_id": "data_gov_in_nhai_stateut_length_constructed_2019_24",
@@ -602,12 +827,31 @@
       },
       "retrieved_at": "2026-03-11T05:17:08.857426+00:00",
       "completeness_score": 1.0,
-      "recency_score": 1.0,
+      "recency_score": 0.4,
       "provenance_score": 0.85,
       "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/data_gov_in_nhai_stateut_length_constructed_2019_24.parquet"
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency"
+      ],
+      "output_table_path": "data/processed/data_gov_in_nhai_stateut_length_constructed_2019_24.parquet",
+      "data_checksum": "adaee1351c08a12702a25d8b75f11afd1a0644eb13884c49a869a6b7e2faaa4d",
+      "last_successful_retrieval_at": "2026-10-01T20:08:30.588139+00:00",
+      "last_ingested_at": "2026-10-01T20:08:30.588139+00:00",
+      "last_checked_at": "2026-10-01T20:08:30.588139+00:00",
+      "refresh_outcome": "checked_unchanged",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "validated",
+      "source_as_of_date": "2024-03-31",
+      "publication_date": null,
+      "disclosure_ready": true,
+      "analytical_ready": true,
+      "extraction_status": "validated",
+      "recency_basis": "observation_date",
+      "validation_errors": []
     },
     {
       "source_id": "data_gov_in_nhai_district_projects_implemented",
@@ -662,12 +906,32 @@
       },
       "retrieved_at": "2026-03-11T05:17:08.972748+00:00",
       "completeness_score": 1.0,
-      "recency_score": 1.0,
+      "recency_score": 0.25,
       "provenance_score": 0.85,
       "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/data_gov_in_nhai_district_projects_implemented.parquet"
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Observation date is unavailable; collection time is not data freshness"
+      ],
+      "output_table_path": "data/processed/data_gov_in_nhai_district_projects_implemented.parquet",
+      "data_checksum": "e95a6e4535ab7247678f1108d02ed2a0400ae9239cff2a1fa20a5ff629b3d060",
+      "last_successful_retrieval_at": "2026-10-01T20:08:31.207052+00:00",
+      "last_ingested_at": "2026-10-01T20:08:31.207052+00:00",
+      "last_checked_at": "2026-10-01T20:08:31.207052+00:00",
+      "refresh_outcome": "checked_unchanged",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "validated",
+      "source_as_of_date": null,
+      "publication_date": null,
+      "disclosure_ready": true,
+      "analytical_ready": true,
+      "extraction_status": "validated",
+      "recency_basis": "unknown",
+      "validation_errors": []
     },
     {
       "source_id": "data_gov_in_road_accidents_nhs_2003_2016",
@@ -732,12 +996,31 @@
       },
       "retrieved_at": "2026-03-11T05:17:09.074208+00:00",
       "completeness_score": 0.985,
-      "recency_score": 1.0,
+      "recency_score": 0.2,
       "provenance_score": 0.85,
       "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/data_gov_in_road_accidents_nhs_2003_2016.parquet"
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency"
+      ],
+      "output_table_path": "data/processed/data_gov_in_road_accidents_nhs_2003_2016.parquet",
+      "data_checksum": "59f3622fda879de18874b3da0e2f5d91e853e54f0f5541f28bfe469936de5454",
+      "last_successful_retrieval_at": "2026-10-01T20:08:31.893802+00:00",
+      "last_ingested_at": "2026-10-01T20:08:31.893802+00:00",
+      "last_checked_at": "2026-10-01T20:08:31.893802+00:00",
+      "refresh_outcome": "checked_unchanged",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "validated",
+      "source_as_of_date": "2016-12-31",
+      "publication_date": null,
+      "disclosure_ready": true,
+      "analytical_ready": true,
+      "extraction_status": "validated",
+      "recency_basis": "observation_date",
+      "validation_errors": []
     },
     {
       "source_id": "data_gov_in_road_accidents_india_2003_2016",
@@ -802,12 +1085,31 @@
       },
       "retrieved_at": "2026-03-11T05:17:09.174692+00:00",
       "completeness_score": 0.984,
-      "recency_score": 1.0,
+      "recency_score": 0.2,
       "provenance_score": 0.85,
       "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/data_gov_in_road_accidents_india_2003_2016.parquet"
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency"
+      ],
+      "output_table_path": "data/processed/data_gov_in_road_accidents_india_2003_2016.parquet",
+      "data_checksum": "f522efb39c3ad59ac98b2ed8b6c5c1fcfe2684b2a7f853c55bcf42697ca81716",
+      "last_successful_retrieval_at": "2026-10-01T20:08:32.497671+00:00",
+      "last_ingested_at": "2026-10-01T20:08:32.497671+00:00",
+      "last_checked_at": "2026-10-01T20:08:32.497671+00:00",
+      "refresh_outcome": "checked_unchanged",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "validated",
+      "source_as_of_date": "2016-12-31",
+      "publication_date": null,
+      "disclosure_ready": true,
+      "analytical_ready": true,
+      "extraction_status": "validated",
+      "recency_basis": "observation_date",
+      "validation_errors": []
     },
     {
       "source_id": "data_gov_in_road_fatal_accidents_2003_2016",
@@ -872,12 +1174,31 @@
       },
       "retrieved_at": "2026-03-11T05:17:09.276082+00:00",
       "completeness_score": 0.984,
-      "recency_score": 1.0,
+      "recency_score": 0.2,
       "provenance_score": 0.85,
       "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/data_gov_in_road_fatal_accidents_2003_2016.parquet"
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency"
+      ],
+      "output_table_path": "data/processed/data_gov_in_road_fatal_accidents_2003_2016.parquet",
+      "data_checksum": "1a8bb3415b763891f8849f6ca171c1623148286bc13b7e4c10c82f349859d258",
+      "last_successful_retrieval_at": "2026-10-01T20:08:33.037510+00:00",
+      "last_ingested_at": "2026-10-01T20:08:33.037510+00:00",
+      "last_checked_at": "2026-10-01T20:08:33.037510+00:00",
+      "refresh_outcome": "checked_unchanged",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "validated",
+      "source_as_of_date": "2016-12-31",
+      "publication_date": null,
+      "disclosure_ready": true,
+      "analytical_ready": true,
+      "extraction_status": "validated",
+      "recency_basis": "observation_date",
+      "validation_errors": []
     },
     {
       "source_id": "nhai_press_release_index",
@@ -890,7 +1211,9 @@
         "title": "NHAI publications and press release index",
         "retrieved_at": "2026-03-11T05:17:32.818267+00:00",
         "license_terms": "Official publication metadata reuse as per NHAI terms of use.",
-        "official_flag": true
+        "official_flag": true,
+        "domain": "nhai.gov.in",
+        "url": "https://www.nhai.gov.in/en/press-release"
       },
       "citations": {
         "permanent_identifier": "nhai_press_release_index",
@@ -902,6 +1225,7 @@
         "output_files": [
           {
             "path": "data/processed/nhai_press_release_index.parquet",
+            "format": "parquet",
             "sha256": "69d23b91008e49d74ea483be75b4b6f840ebcdb0737ae1cedb1cde22000e9157"
           }
         ],
@@ -921,16 +1245,35 @@
       },
       "retrieved_at": "2026-03-11T05:17:32.818626+00:00",
       "completeness_score": 0.62,
-      "recency_score": 0.62,
+      "recency_score": 0.25,
       "provenance_score": 0.527,
       "consistency_score": 0.62,
       "overall_confidence_badge": "Low",
       "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
         "Schema/range checks showed potential consistency issues",
         "Use for trend and risk ranking, not precise governance decisions",
-        "Metadata-only path; does not contain source metric values."
+        "Metadata-only path; does not contain source metric values.",
+        "Observation date is unavailable; collection time is not data freshness",
+        "Document discovery is not validated financial extraction"
       ],
-      "output_table_path": "data/processed/nhai_press_release_index.parquet"
+      "output_table_path": "data/processed/nhai_press_release_index.parquet",
+      "refresh_error": "No validated observations retrieved",
+      "data_checksum": "dc12a92e398d8d4414dc4a1a9876bab5f9c74ce6c46c55abd9072d42ac6254d3",
+      "last_checked_at": "2026-10-01T20:09:56.503402+00:00",
+      "refresh_outcome": "metadata_only",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "document_metadata",
+      "source_as_of_date": null,
+      "publication_date": null,
+      "disclosure_ready": false,
+      "analytical_ready": false,
+      "extraction_status": "fetched",
+      "recency_basis": "unknown",
+      "validation_errors": []
     },
     {
       "source_id": "ncrb_road_accidents_state_year",
@@ -943,7 +1286,9 @@
         "title": "Road accident state and year summary tables",
         "retrieved_at": "2026-03-11T05:17:32.830539+00:00",
         "license_terms": "NCRB publication terms. Use only published tables and cite report/table numbers.",
-        "official_flag": true
+        "official_flag": true,
+        "domain": "ncrb.gov.in",
+        "url": "https://ncrb.gov.in/en/road-accidents-statistics"
       },
       "citations": {
         "permanent_identifier": "year and report table page numbers",
@@ -960,6 +1305,7 @@
         "output_files": [
           {
             "path": "data/processed/ncrb_road_accidents_state_year.parquet",
+            "format": "parquet",
             "sha256": "2a38f93d77363ca9ef3d14f92ef95017f3155f6e34630981e9162f0ff29704c2"
           }
         ],
@@ -981,9 +1327,29 @@
       "recency_score": 0.98,
       "provenance_score": 0.98,
       "consistency_score": 0.98,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/ncrb_road_accidents_state_year.parquet"
+      "overall_confidence_badge": "Low",
+      "overall_confidence_reason": [
+        "Not eligible for measured analyst calculations",
+        "Document discovery is not validated financial extraction"
+      ],
+      "output_table_path": "data/processed/ncrb_road_accidents_state_year.parquet",
+      "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
+      "data_checksum": "96c58d768edd6451762d383f3f36adf8c84dda4f476acdf60b28eaba85887457",
+      "last_checked_at": "2026-10-01T20:09:56.513285+00:00",
+      "refresh_outcome": "manual_evidence_required",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "unverified",
+      "source_as_of_date": "2025-12-31",
+      "publication_date": null,
+      "disclosure_ready": false,
+      "analytical_ready": false,
+      "extraction_status": "pending",
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date"
     },
     {
       "source_id": "highway_project_risk_and_access_panel",
@@ -997,7 +1363,8 @@
         "url": "",
         "retrieved_at": "2026-03-11T05:17:32.833320+00:00",
         "license_terms": "Model output for internal decision support only. Not an official measurement. Include uncertainty and confidence notes before policy use.",
-        "official_flag": false
+        "official_flag": false,
+        "domain": "bhai.local"
       },
       "citations": {
         "permanent_identifier": "model_signature+build_date",
@@ -1065,7 +1432,7 @@
       "retrieved_at": "2026-03-11T05:17:32.833320+00:00",
       "note": "Model outputs must be treated as estimates and scenario inputs, never as certified official facts.",
       "completeness_score": 0.5,
-      "recency_score": 0.5,
+      "recency_score": 0.25,
       "provenance_score": 0.3,
       "consistency_score": 0.5,
       "overall_confidence_badge": "Low",
@@ -1074,9 +1441,29 @@
         "Missingness is high; check source completeness",
         "Recency is stale against claimed update frequency",
         "Schema/range checks showed potential consistency issues",
-        "Use for trend and risk ranking, not precise governance decisions"
+        "Use for trend and risk ranking, not precise governance decisions",
+        "Observation date is unavailable; collection time is not data freshness",
+        "Not eligible for measured analyst calculations",
+        "Document discovery is not validated financial extraction"
       ],
-      "output_table_path": "data/processed/highway_project_risk_and_access_panel.parquet"
+      "output_table_path": "data/processed/highway_project_risk_and_access_panel.parquet",
+      "data_checksum": "1598884e476359c87a2bfe3e5b2853906359af5f76e1e88e976cdf420626bf19",
+      "last_successful_retrieval_at": "2026-10-01T20:09:57.160720+00:00",
+      "last_ingested_at": "2026-10-01T20:09:57.160720+00:00",
+      "last_checked_at": "2026-10-01T20:09:57.160720+00:00",
+      "refresh_outcome": "checked_unchanged",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "synthetic",
+      "source_as_of_date": null,
+      "publication_date": null,
+      "disclosure_ready": false,
+      "analytical_ready": false,
+      "extraction_status": "pending",
+      "recency_basis": "unknown",
+      "validation_errors": []
     },
     {
       "source_id": "parliament_qa_highway_queries",
@@ -1090,7 +1477,8 @@
         "url": "https://sansad.in/",
         "retrieved_at": "2026-03-11T05:17:35.798756+00:00",
         "license_terms": "Official parliament documentation; cite Q&A number and session/session year in methodology.",
-        "official_flag": true
+        "official_flag": true,
+        "domain": "sansad.in"
       },
       "citations": {
         "permanent_identifier": "question number + session year",
@@ -1108,6 +1496,7 @@
         "output_files": [
           {
             "path": "data/processed/parliament_qa_highway_queries.parquet",
+            "format": "parquet",
             "sha256": "cb5002d2d98f005e31a66945162b3317cec7d1f70e79d5b3686dab99d7e0a938"
           }
         ],
@@ -1131,9 +1520,29 @@
       "recency_score": 0.98,
       "provenance_score": 0.833,
       "consistency_score": 0.98,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/parliament_qa_highway_queries.parquet"
+      "overall_confidence_badge": "Low",
+      "overall_confidence_reason": [
+        "Not eligible for measured analyst calculations",
+        "Document discovery is not validated financial extraction"
+      ],
+      "output_table_path": "data/processed/parliament_qa_highway_queries.parquet",
+      "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
+      "data_checksum": "99927f4c5ff4af19e26c6dff0b3f6ff9ffe9b2c52df75f3b62100c5c90f27ee7",
+      "last_checked_at": "2026-10-01T20:10:06.693681+00:00",
+      "refresh_outcome": "manual_evidence_required",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "unverified",
+      "source_as_of_date": "2025-12-31",
+      "publication_date": null,
+      "disclosure_ready": false,
+      "analytical_ready": false,
+      "extraction_status": "pending",
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date"
     },
     {
       "source_id": "rbi_mospi_macro_indicators",
@@ -1147,7 +1556,8 @@
         "url": "https://www.rbi.org.in/Scripts/{}",
         "retrieved_at": "2026-03-11T05:17:35.808015+00:00",
         "license_terms": "Official statistical products; confirm redistribution terms in portal.",
-        "official_flag": true
+        "official_flag": true,
+        "domain": "rbi.org.in"
       },
       "citations": {
         "permanent_identifier": "official indicator code + release month",
@@ -1165,6 +1575,7 @@
         "output_files": [
           {
             "path": "data/processed/rbi_mospi_macro_indicators.parquet",
+            "format": "parquet",
             "sha256": "612d5e6d0b739fdb58ba8f84741806a767824bbce937f9692ad6f71d3415ea3f"
           }
         ],
@@ -1184,12 +1595,33 @@
       },
       "retrieved_at": "2026-03-11T05:17:35.808204+00:00",
       "completeness_score": 0.98,
-      "recency_score": 0.98,
+      "recency_score": 0.25,
       "provenance_score": 0.98,
       "consistency_score": 0.98,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/rbi_mospi_macro_indicators.parquet"
+      "overall_confidence_badge": "Low",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Not eligible for measured analyst calculations",
+        "Document discovery is not validated financial extraction"
+      ],
+      "output_table_path": "data/processed/rbi_mospi_macro_indicators.parquet",
+      "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
+      "data_checksum": "0babd8a82e56f03b0cbafe1247d7373003c298e4f6b33a7f881d4b5cf4c7a08b",
+      "last_checked_at": "2026-10-01T20:10:06.726899+00:00",
+      "refresh_outcome": "manual_evidence_required",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "unverified",
+      "source_as_of_date": "2026-12-31",
+      "publication_date": null,
+      "disclosure_ready": false,
+      "analytical_ready": false,
+      "extraction_status": "pending",
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date"
     },
     {
       "source_id": "morh_procurement_awards",
@@ -1203,7 +1635,8 @@
         "url": "https://eprocure.gov.in",
         "retrieved_at": "2026-03-11T05:17:35.811480+00:00",
         "license_terms": "EProcurement portal terms and bidder-facing reuse restrictions.",
-        "official_flag": true
+        "official_flag": true,
+        "domain": "eprocure.gov.in"
       },
       "citations": {
         "permanent_identifier": "notice number and award order id",
@@ -1221,6 +1654,7 @@
         "output_files": [
           {
             "path": "data/processed/morh_procurement_awards.parquet",
+            "format": "parquet",
             "sha256": "f7785046699b0633a7de679d48a9445be69ab1baf2780bf02b797c8e0cc2d140"
           }
         ],
@@ -1241,12 +1675,33 @@
       },
       "retrieved_at": "2026-03-11T05:17:35.811480+00:00",
       "completeness_score": 0.909,
-      "recency_score": 0.98,
+      "recency_score": 0.2,
       "provenance_score": 0.833,
       "consistency_score": 0.98,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/morh_procurement_awards.parquet"
+      "overall_confidence_badge": "Low",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Not eligible for measured analyst calculations",
+        "Document discovery is not validated financial extraction"
+      ],
+      "output_table_path": "data/processed/morh_procurement_awards.parquet",
+      "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
+      "data_checksum": "255386f168077c123f70388692b72603ce6456fdfd987f071d85d9070b7d7032",
+      "last_checked_at": "2026-10-01T20:29:44.030852+00:00",
+      "refresh_outcome": "restricted",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "unverified",
+      "source_as_of_date": "2025-12-31",
+      "publication_date": null,
+      "disclosure_ready": false,
+      "analytical_ready": false,
+      "extraction_status": "pending",
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date"
     },
     {
       "source_id": "morh_contractor_disclosures",
@@ -1260,7 +1715,8 @@
         "url": "https://www.nhai.gov.in/en/contractor-disclosures",
         "retrieved_at": "2026-03-11T05:17:35.817631+00:00",
         "license_terms": "Use official releases and disclosures only; verify reuse permissions in associated notices.",
-        "official_flag": true
+        "official_flag": true,
+        "domain": "nhai.gov.in"
       },
       "citations": {
         "permanent_identifier": "notice/award order id and publication date",
@@ -1278,6 +1734,7 @@
         "output_files": [
           {
             "path": "data/processed/morh_contractor_disclosures.parquet",
+            "format": "parquet",
             "sha256": "4c4da604d82d99bf2473f75acc6594cbcde94c31ff0b173a07b54cb1d6fe70f6"
           }
         ],
@@ -1302,9 +1759,29 @@
       "recency_score": 0.98,
       "provenance_score": 0.833,
       "consistency_score": 0.98,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/morh_contractor_disclosures.parquet"
+      "overall_confidence_badge": "Low",
+      "overall_confidence_reason": [
+        "Not eligible for measured analyst calculations",
+        "Document discovery is not validated financial extraction"
+      ],
+      "output_table_path": "data/processed/morh_contractor_disclosures.parquet",
+      "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
+      "data_checksum": "f60dfd6c412eec5eb39100ccd13b0b188da130b47b348f67baa12cff886a27ff",
+      "last_checked_at": "2026-10-01T20:29:44.082882+00:00",
+      "refresh_outcome": "restricted",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "unverified",
+      "source_as_of_date": "2025-12-31",
+      "publication_date": null,
+      "disclosure_ready": false,
+      "analytical_ready": false,
+      "extraction_status": "pending",
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date"
     },
     {
       "source_id": "morh_arbitration_claims",
@@ -1318,7 +1795,8 @@
         "url": "https://morth.nic.in/arbitration-and-claims",
         "retrieved_at": "2026-03-11T05:17:35.823747+00:00",
         "license_terms": "Use only official releases, tribunal disclosures, and ministry-level replies.",
-        "official_flag": true
+        "official_flag": true,
+        "domain": "morth.nic.in"
       },
       "citations": {
         "permanent_identifier": "order/award/case identifier and publication note",
@@ -1336,6 +1814,7 @@
         "output_files": [
           {
             "path": "data/processed/morh_arbitration_claims.parquet",
+            "format": "parquet",
             "sha256": "d68c2bd2b02fcb881c5462410ef3fdc34bf7cfc35f2d14e800baa67d66a6fdf6"
           }
         ],
@@ -1360,9 +1839,29 @@
       "recency_score": 0.98,
       "provenance_score": 0.833,
       "consistency_score": 0.98,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/morh_arbitration_claims.parquet"
+      "overall_confidence_badge": "Low",
+      "overall_confidence_reason": [
+        "Not eligible for measured analyst calculations",
+        "Document discovery is not validated financial extraction"
+      ],
+      "output_table_path": "data/processed/morh_arbitration_claims.parquet",
+      "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
+      "data_checksum": "cdb56af7237c1d1dba24bc3226db7f0b18e430058ff477d2b4e12fe287c649a1",
+      "last_checked_at": "2026-10-01T20:29:44.098520+00:00",
+      "refresh_outcome": "restricted",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "unverified",
+      "source_as_of_date": "2025-12-31",
+      "publication_date": null,
+      "disclosure_ready": false,
+      "analytical_ready": false,
+      "extraction_status": "pending",
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date"
     },
     {
       "source_id": "ncrb_toll_fastag_claims",
@@ -1376,7 +1875,8 @@
         "url": "https://fto.gov.in/api/toll-fastag",
         "retrieved_at": "2026-03-11T05:17:35.830438+00:00",
         "license_terms": "Portal specific API terms. Verify if telemetry fields are aggregated only.",
-        "official_flag": true
+        "official_flag": true,
+        "domain": "fto.gov.in"
       },
       "citations": {
         "permanent_identifier": "API endpoint version and response schema",
@@ -1394,6 +1894,7 @@
         "output_files": [
           {
             "path": "data/processed/ncrb_toll_fastag_claims.parquet",
+            "format": "parquet",
             "sha256": "ced5179e1b0d278ef56fd0c2e66e39a176c9868f1963a7512ccf61791a1b255e"
           }
         ],
@@ -1413,12 +1914,36 @@
       },
       "retrieved_at": "2026-03-11T05:17:35.830438+00:00",
       "completeness_score": 0.98,
-      "recency_score": 0.98,
+      "recency_score": 0.2,
       "provenance_score": 0.6859999999999999,
-      "consistency_score": 0.98,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/ncrb_toll_fastag_claims.parquet"
+      "consistency_score": 0.75,
+      "overall_confidence_badge": "Low",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Million-scale metric is labelled as an unscaled count",
+        "Not eligible for measured analyst calculations",
+        "Document discovery is not validated financial extraction"
+      ],
+      "output_table_path": "data/processed/ncrb_toll_fastag_claims.parquet",
+      "refresh_error": "Million-scale metric is labelled as an unscaled count",
+      "data_checksum": "6d6850811b134df363baa66698fb5b191623e27185774490dd6385e28407f0f8",
+      "last_checked_at": "2026-10-01T20:29:44.113853+00:00",
+      "refresh_outcome": "restricted",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "unverified",
+      "source_as_of_date": "2025-12-31",
+      "publication_date": null,
+      "disclosure_ready": false,
+      "analytical_ready": false,
+      "extraction_status": "pending",
+      "recency_basis": "observation_date",
+      "validation_errors": [
+        "Million-scale metric is labelled as an unscaled count"
+      ],
+      "quarantine_reason": "Million-scale metric is labelled as an unscaled count"
     },
     {
       "source_id": "quality_maintenance_indicators",
@@ -1432,7 +1957,8 @@
         "url": "https://overpass-api.de/api/interpreter",
         "retrieved_at": "2026-03-11T05:17:35.836220+00:00",
         "license_terms": "OpenStreetMap ODbL terms; geometry/proxy use with attribution and separation from official metrics.",
-        "official_flag": false
+        "official_flag": false,
+        "domain": "openstreetmap.org"
       },
       "citations": {
         "permanent_identifier": "Overpass query id or source timestamp",
@@ -1450,6 +1976,7 @@
         "output_files": [
           {
             "path": "data/processed/quality_maintenance_indicators.parquet",
+            "format": "parquet",
             "sha256": "e8701a34bfccc3acacb0c2d9f1bf4ac4dad22924bb0b47771c04af60a89558f0"
           }
         ],
@@ -1469,12 +1996,36 @@
       },
       "retrieved_at": "2026-03-11T05:17:35.836220+00:00",
       "completeness_score": 0.98,
-      "recency_score": 0.98,
+      "recency_score": 0.2,
       "provenance_score": 0.588,
-      "consistency_score": 0.98,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/quality_maintenance_indicators.parquet"
+      "consistency_score": 0.75,
+      "overall_confidence_badge": "Low",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Unsupported roughness unit km_per_km",
+        "Not eligible for measured analyst calculations",
+        "Document discovery is not validated financial extraction"
+      ],
+      "output_table_path": "data/processed/quality_maintenance_indicators.parquet",
+      "refresh_error": "Unsupported roughness unit km_per_km",
+      "data_checksum": "92a7af924750b51381e4cb92a9aa4385a7c3b453df7e6ad2171329ec4ab8d25b",
+      "last_checked_at": "2026-10-01T20:10:12.926382+00:00",
+      "refresh_outcome": "manual_evidence_required",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "unverified",
+      "source_as_of_date": "2025-12-31",
+      "publication_date": null,
+      "disclosure_ready": false,
+      "analytical_ready": false,
+      "extraction_status": "pending",
+      "recency_basis": "observation_date",
+      "validation_errors": [
+        "Unsupported roughness unit km_per_km"
+      ],
+      "quarantine_reason": "Unsupported roughness unit km_per_km"
     },
     {
       "source_id": "viirs_nightlights_proxy",
@@ -1488,7 +2039,8 @@
         "url": "https://earthdata.nasa.gov/",
         "retrieved_at": "2026-03-11T05:17:35.842099+00:00",
         "license_terms": "Use NASA VIIRS proxy dataset under official redistribution terms; separate from measured infrastructure condition metrics.",
-        "official_flag": false
+        "official_flag": false,
+        "domain": "earthdata.nasa.gov"
       },
       "citations": {
         "permanent_identifier": "official nightlight scene id or annual product release",
@@ -1506,6 +2058,7 @@
         "output_files": [
           {
             "path": "data/processed/viirs_nightlights_proxy.parquet",
+            "format": "parquet",
             "sha256": "86c710f6a5871689b57b7607184e5b539deedbb68370d5c8b3d45230c7174955"
           }
         ],
@@ -1528,65 +2081,29 @@
       "recency_score": 0.98,
       "provenance_score": 0.588,
       "consistency_score": 0.98,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/viirs_nightlights_proxy.parquet"
-    },
-    {
-      "source_id": "correlation_matrix",
-      "connector": "correlation_scoring",
-      "version": "0.1.0",
-      "status": "generated",
-      "output_table_path": "data/processed/correlation_matrix.parquet",
-      "metric_category": "model_output",
-      "source": {
-        "publisher": "Bharat Highway internal correlation engine",
-        "title": "Model-derived pairwise correlation matrix (state/year join)",
-        "retrieved_at": "2026-03-11T05:17:39.327105+00:00",
-        "official_flag": false,
-        "license_terms": "Model output for analysis only. Not an official policy statement."
-      },
-      "citations": {
-        "permanent_identifier": "correlation_matrix_v1",
-        "anchor": "derived_pairwise_pearson_state_year",
-        "note": "Derived from available numeric metrics across official measured and approved proxy inputs."
-      },
-      "manifest": {
-        "raw_files": [],
-        "output_files": [
-          {
-            "path": "data/processed/correlation_matrix.parquet",
-            "format": "parquet",
-            "sha256": "63491d14e18f16342bfe41dd9727b50d341eb0574b109e9cea39d8b259cb37e4"
-          }
-        ],
-        "row_count": 190,
-        "columns": [
-          "metric_a",
-          "metric_b",
-          "source_a",
-          "source_b",
-          "correlation",
-          "overlap_records",
-          "year_min",
-          "year_max",
-          "created_at",
-          "method"
-        ]
-      },
-      "retrieved_at": "2026-03-11T05:17:39.327338+00:00",
-      "completeness_score": 0.5,
-      "recency_score": 0.5,
-      "provenance_score": 0.3,
-      "consistency_score": 0.5,
       "overall_confidence_badge": "Low",
       "overall_confidence_reason": [
-        "Low provenance confidence (source reliability category)",
-        "Missingness is high; check source completeness",
-        "Recency is stale against claimed update frequency",
-        "Schema/range checks showed potential consistency issues",
-        "Use for trend and risk ranking, not precise governance decisions"
-      ]
+        "Not eligible for measured analyst calculations",
+        "Document discovery is not validated financial extraction"
+      ],
+      "output_table_path": "data/processed/viirs_nightlights_proxy.parquet",
+      "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
+      "data_checksum": "eef1e0d187ca5cb8d2b9e61bd18bb9152523ed056ed265e5913bca44424a2874",
+      "last_checked_at": "2026-10-01T20:10:12.936977+00:00",
+      "refresh_outcome": "manual_evidence_required",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "unverified",
+      "source_as_of_date": "2025-12-31",
+      "publication_date": null,
+      "disclosure_ready": false,
+      "analytical_ready": false,
+      "extraction_status": "pending",
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date"
     },
     {
       "source_id": "nhai_annual_report_documents",
@@ -1597,11 +2114,13 @@
       "source": {
         "publisher": "National Highways Authority of India (NHAI)",
         "title": "NHAI annual reports and related annual PDF publication documents",
-        "url": "https://nhai.gov.in/en/press-release",
-        "retrieved_at": "2026-03-13T12:18:49.276757+00:00",
+        "url": "https://nhai.gov.in/en/annual-report",
+        "retrieved_at": "2026-10-01T20:08:37.012399+00:00",
         "license_terms": "Official publication on NHAI website; reuse subject to official publication terms.",
         "official_flag": true,
-        "domain": "nhai.gov.in"
+        "domain": "nhai.gov.in",
+        "observation_date_unknown": true,
+        "publication_date_unknown": true
       },
       "citations": {
         "permanent_identifier": "NHAI annual report index and policy/circular feeds",
@@ -1611,122 +2130,122 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_121922.pdf",
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200907.pdf",
             "sha256": "75eb02573bb4b7927c88b495432e820baa7e6f603f78e3b09afd3d6395a429e1",
             "size_bytes": 4902080
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_121923.pdf",
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200908.pdf",
             "sha256": "f4b1ffed318abe534ae0e80eb7fa73054582640c43ba96efa1eb304324da6142",
             "size_bytes": 7701522
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_121924.pdf",
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200909.pdf",
             "sha256": "c5b3eab0eddbc4ef6884b3fefbe6eba2ec2349a37641715677f69f99c097e5f1",
             "size_bytes": 8813655
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_121928.pdf",
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200911.pdf",
             "sha256": "6a3ca246d0cc9f30c1a1e797d4d5db7695c6508658d4cc9e1da4d624c62c4ec6",
             "size_bytes": 49767794
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_121929.pdf",
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200912.pdf",
             "sha256": "28c9d48c2c5f32ad7d04ce4ce6ef7de831fdff2fe31eacab553207c94718a3d9",
             "size_bytes": 3258963
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_121930.pdf",
-            "sha256": "63893f7a1e15b679907228a8110065509c3a95b3e3293aeb3618fa7fca04b8c0",
-            "size_bytes": 3548635
-          },
-          {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_121933.pdf",
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200913.pdf",
             "sha256": "0adfb358c751c7315b964fe464206c1df88bbf6b2df81c60a96a20cfaaeefad1",
             "size_bytes": 5390390
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_121934.pdf",
-            "sha256": "4522a449d83ea2ea9c78c084b708796cbdd59a5b7b1c5764510714d96fb76817",
-            "size_bytes": 4046884
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200914.pdf",
+            "sha256": "787368f5ea0eaa37afe1bbc8c173beaba4c13220b58866719abc4259c0f8a5d3",
+            "size_bytes": 4183657
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_121935.pdf",
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200915.pdf",
             "sha256": "f6197a636fa693770e11cad74c3d10987c4cce8d981c811593bb1040d777c930",
             "size_bytes": 1864993
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_121936.pdf",
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200916.pdf",
+            "sha256": "b98684054f57dd09540ea4e7534c39b223d5a55c1833d80a43d93055f5f81d8b",
+            "size_bytes": 5919147
+          },
+          {
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200917.pdf",
             "sha256": "87136cb4feb8f05d13f6b43c0ae4f6a1dfd23f281e6fc8424ff1608c5c304700",
             "size_bytes": 1480206
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_121946.pdf",
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200922.pdf",
             "sha256": "95f9ffb2dffd95500bf7b1e75b94c7cc25a176ad92c9ec1bfccd16ea3a2b10c6",
             "size_bytes": 127281791
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_122018.pdf",
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200938.pdf",
             "sha256": "10ae66d3638a7e8baa402a05d2891c0ffa080c816f961ef45637a5819fa4bf0d",
             "size_bytes": 431085437
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_122019.pdf",
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200939.pdf",
             "sha256": "5682a6a2621b1095c403bd4d7527c645f3f4da01917ca35bf2a35b8d8c1ff514",
             "size_bytes": 6237481
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_122024.pdf",
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200943.pdf",
             "sha256": "b573c890b4e9fd2c882e417b978568202b8afb43a2359d92aeff74b2a35e8bcc",
             "size_bytes": 66679781
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_122025.pdf",
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200944.pdf",
             "sha256": "f02c8ad106a0bdde937556544e58ce13a86ff003e65b48c0a477c8735f61a0f0",
             "size_bytes": 4206920
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_122028.pdf",
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200947.pdf",
             "sha256": "23ffb2186e02de02417f4b0e9884d1be0a8565ba2b399844b9814d981503fb5f",
             "size_bytes": 43960903
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_122029.pdf",
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200948.pdf",
             "sha256": "ccdcb092926cf10ebbcc729a6ec6b715c90550304a43059e0163496789722fb3",
             "size_bytes": 15587343
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_122031.pdf",
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200949.pdf",
+            "sha256": "eb4de1fc217773211aa6463959d7bb3039c2ac4db27cbefa427f9d89fa54ac9f",
+            "size_bytes": 15506556
+          },
+          {
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200950.pdf",
             "sha256": "6573a84bf31bf42e64f7c1df8f056f4ebffaaa9a545b3959b57e793826fef997",
             "size_bytes": 5003251
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_122033.pdf",
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200951.pdf",
             "sha256": "9ad55501c39ecf1b7cb33d84234962e19364a101088c4653d0b39d314134535a",
             "size_bytes": 13430589
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_122034.pdf",
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200952.pdf",
             "sha256": "98718e29859372f740d85c2c0a55b844183fe1439434922678632b53d4a8dc8d",
             "size_bytes": 7736504
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_122035.pdf",
-            "sha256": "050d780c1eb650c37ef0993e1e686445d2aa2e6fe39f7efd498643a705f13d1b",
-            "size_bytes": 15900572
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200953.pdf",
+            "sha256": "5544f54ae9cf4f3e92031f0df3b99ba167da57ca83d49542c894233d4184fa5e",
+            "size_bytes": 2295533
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_122036.pdf",
-            "sha256": "3fa58b73cbe9da608fb98716bff3620ee34f8067c22e91040e439afe820f64d0",
-            "size_bytes": 764480
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200954.pdf",
+            "sha256": "7271c28affe7fff26b151dacdff4848604b843d154c9c730688a9ff954efe8fd",
+            "size_bytes": 524544
           },
           {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_122037.pdf",
-            "sha256": "5a2ea230ffaeb804a847c82110f193dc087a0075bf91c0d791435e9a67b2886a",
-            "size_bytes": 580961
-          },
-          {
-            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20260313_122038.pdf",
+            "path": "data/raw/nhai_annual_report_documents/nhai_annual_report_documents/raw_20261001_200955.pdf",
             "sha256": "5a0a8ffd9e5a46fe17f2878f517c8bac9dd75a0e074fc8016c12d53e72d5719c",
             "size_bytes": 2749323
           }
@@ -1735,7 +2254,7 @@
           {
             "path": "data/processed/nhai_annual_report_documents.parquet",
             "format": "parquet",
-            "sha256": "231ee13efc7922304cb6dd196c46606657f6ac0f0421a249ebc37cbedef47bc5"
+            "sha256": "7b239cf5c7784b37eccf86026764e58a94c71463b27ba253c97f8e97acdae06f"
           }
         ],
         "row_count": 29,
@@ -1756,61 +2275,36 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-13T12:18:49.276757+00:00",
-      "completeness_score": 0.953,
-      "recency_score": 1.0,
+      "retrieved_at": "2026-10-01T20:08:37.012399+00:00",
+      "completeness_score": 0.882,
+      "recency_score": 0.25,
       "provenance_score": 0.85,
       "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
+      "overall_confidence_badge": "Low",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Observation date is unavailable; collection time is not data freshness",
+        "Document discovery is not validated financial extraction"
+      ],
+      "source_as_of_date": null,
+      "recency_basis": "unknown",
+      "validation_errors": [],
       "output_table_path": "data/processed/nhai_annual_report_documents.parquet",
-      "extraction_quality": {
-        "generated_at": "2026-03-13T12:18:48.699688+00:00",
-        "quality": {
-          "avg_confidence": 0.9128939895882632,
-          "min_confidence": 0.0,
-          "max_confidence": 1.0,
-          "low_confidence_rows": 9,
-          "low_confidence_threshold": 0.45
-        },
-        "method_mix": {
-          "table": {
-            "count": 6159,
-            "share": 0.7287032654992901
-          },
-          "text": {
-            "count": 2284,
-            "share": 0.2702318977756744
-          },
-          "failed": {
-            "count": 8,
-            "share": 0.000946521533364884
-          },
-          "error": {
-            "count": 1,
-            "share": 0.0001183151916706105
-          }
-        },
-        "parser_environment": {
-          "camelot": false,
-          "pdfplumber": true,
-          "tabula": false,
-          "tesseract": false,
-          "pdftotext": true,
-          "pdftoppm": true
-        },
-        "source_parquet": "data/processed/nhai_annual_report_documents.parquet",
-        "quality_report_path": "data/processed/nhai_annual_report_tables/quality_report.json",
-        "extraction_manifest_path": "data/processed/nhai_annual_report_tables/extraction_manifest.json",
-        "rows_merged": 8455
+      "data_checksum": "b7d85f29660d1ccdf1ee6d5ebba642ff090e213a204c322687720d22fae4bab8",
+      "data_changed_at": "2026-10-01T20:08:37.009417+00:00",
+      "last_successful_retrieval_at": "2026-10-01T20:08:37.009417+00:00",
+      "last_ingested_at": "2026-10-01T20:08:37.009417+00:00",
+      "last_checked_at": "2026-10-01T20:08:37.009417+00:00",
+      "refresh_outcome": "updated",
+      "analytical_scope": {
+        "observation_date_unknown": true
       },
-      "extraction_quality_reference": {
-        "quality_report_path": "data/processed/nhai_annual_report_tables/quality_report.json",
-        "extraction_manifest_path": "data/processed/nhai_annual_report_tables/extraction_manifest.json",
-        "generated_at": "2026-03-13T12:18:48.699688+00:00",
-        "source_parquet": "data/processed/nhai_annual_report_documents.parquet"
-      },
-      "extraction_quality_score": 0.913
+      "evidence_status": "document_metadata",
+      "publication_date": null,
+      "disclosure_ready": false,
+      "analytical_ready": false,
+      "extraction_status": "checksum_mismatch",
+      "last_quality_check_at": "2026-10-01T21:07:07.116048+00:00"
     },
     {
       "source_id": "nhai_audited_results_pdf",
@@ -1820,9 +2314,9 @@
       "metric_category": "official_measured",
       "source": {
         "publisher": "National Highways Authority of India (NHAI)",
-        "title": "NHAI audited financial results (SEBI format), across all available years",
+        "title": "NHAI audited financial results (SEBI format), quarter and year ended 31 March 2024",
         "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
-        "retrieved_at": "2026-03-13T12:20:39.401433+00:00",
+        "retrieved_at": "2026-10-01T20:08:33.763091+00:00",
         "license_terms": "Official publication on NHAI website; reuse subject to official publication terms.",
         "official_flag": true,
         "domain": "nhai.gov.in"
@@ -1830,12 +2324,18 @@
       "citations": {
         "permanent_identifier": "NHAI audited results annual PDFs from NHAI mix_file archive",
         "anchor": "discovery:https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
-        "note": "Official NHAI document discovery and ingestion succeeded."
+        "note": "Official NHAI document discovery and ingestion succeeded.",
+        "primary_reference": {
+          "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
+          "sha256": "3e782fa352efdebc326e8b3f2f539690dd8784120e865855998b04b05548f9ad",
+          "table_page": 1,
+          "evidence_metadata_path": "data/raw/manual/evidence/nhai_audited_results_pdf.json"
+        }
       },
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/nhai_audited_results_pdf/nhai_audited_results_pdf/raw_20260313_122042.pdf",
+            "path": "data/raw/nhai_audited_results_pdf/nhai_audited_results_pdf/raw_20261001_200836.pdf",
             "sha256": "3e782fa352efdebc326e8b3f2f539690dd8784120e865855998b04b05548f9ad",
             "size_bytes": 1733398
           }
@@ -1844,7 +2344,7 @@
           {
             "path": "data/processed/nhai_audited_results_pdf.parquet",
             "format": "parquet",
-            "sha256": "b4d492927e84375a77b613c6bb40515c59e51d06983c93c9590957f86459171b"
+            "sha256": "5ca2267ca0110f4ea45329651ad1167219a532ace8877ae5660de29dcdc9bd8b"
           }
         ],
         "row_count": 1,
@@ -1865,14 +2365,35 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-13T12:20:39.401433+00:00",
-      "completeness_score": 0.857,
-      "recency_score": 1.0,
+      "retrieved_at": "2026-10-01T20:08:33.763091+00:00",
+      "completeness_score": 0.786,
+      "recency_score": 0.4,
       "provenance_score": 0.85,
       "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/nhai_audited_results_pdf.parquet"
+      "overall_confidence_badge": "Low",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Document discovery is not validated financial extraction"
+      ],
+      "source_as_of_date": "2024-03-31",
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "output_table_path": "data/processed/nhai_audited_results_pdf.parquet",
+      "data_checksum": "337ffba7cc00de91c995a8287c01c6f57e872e816c092f0a2f2352ac88b39340",
+      "data_changed_at": "2026-10-01T20:08:33.760105+00:00",
+      "last_successful_retrieval_at": "2026-10-01T20:08:33.760105+00:00",
+      "last_ingested_at": "2026-10-01T20:08:33.760105+00:00",
+      "last_checked_at": "2026-10-01T20:08:33.760105+00:00",
+      "refresh_outcome": "updated",
+      "analytical_scope": {
+        "source_as_of_date": "2024-03-31"
+      },
+      "evidence_status": "document_metadata",
+      "publication_date": null,
+      "disclosure_ready": false,
+      "analytical_ready": false,
+      "extraction_status": "fetched",
+      "last_quality_check_at": "2026-10-01T20:53:56.656002+00:00"
     },
     {
       "source_id": "data_gov_in_nhai_statewise_nh_project_status_2024_25",
@@ -1881,8 +2402,8 @@
       "status": "ok",
       "metric_category": "official_measured",
       "source": {
-        "publisher": "National Highways Authority of India (NHAI)",
-        "title": "Northeast subset NH project status (ongoing, completed, approved), as on March 2024",
+        "publisher": "Ministry of Road Transport and Highways (MoRTH) / Parliament Secretariat",
+        "title": "Four-state Northeast NH project status and FY2024-25 YTD completions, reported 27 November 2024",
         "domain": "data.gov.in",
         "url": "https://www.data.gov.in/resource/state-wise-details-national-highway-nh-projects-under-construction-completed-approved-yet",
         "retrieval_method": "direct download",
@@ -1894,7 +2415,13 @@
       "citations": {
         "permanent_identifier": "nid=603577044 (resource page) / file RS_Session_266_AU_210_A_to_B_i.csv",
         "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_266_AU_210_A_to_B_i.csv",
-        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic.",
+        "primary_reference": {
+          "url": "https://sansad.in/getFile/annex/266/AU210_JMm1YS.pdf?source=pqars",
+          "sha256": "1c344b826ce5d0d529a645b20d936affe6b8bf9de4587c0306473a6722a7d508",
+          "table_page": 1,
+          "evidence_metadata_path": "data/raw/manual/evidence/data_gov_in_nhai_statewise_nh_project_status_2024_25.json"
+        }
       },
       "manifest": {
         "raw_files": [
@@ -1933,12 +2460,30 @@
       },
       "retrieved_at": "2026-03-15T08:36:20.724922+00:00",
       "completeness_score": 1.0,
-      "recency_score": 1.0,
+      "recency_score": 0.7,
       "provenance_score": 0.85,
       "consistency_score": 1.0,
       "overall_confidence_badge": "High",
       "overall_confidence_reason": [],
-      "output_table_path": "data/processed/data_gov_in_nhai_statewise_nh_project_status_2024_25.parquet"
+      "output_table_path": "data/processed/data_gov_in_nhai_statewise_nh_project_status_2024_25.parquet",
+      "data_checksum": "c7f9767093fe4eaec101ad5360359aef5044b9a638d8017aa783549e10312ad7",
+      "last_successful_retrieval_at": "2026-10-01T20:08:26.630374+00:00",
+      "last_ingested_at": "2026-10-01T20:08:26.630374+00:00",
+      "last_checked_at": "2026-10-01T20:08:26.630374+00:00",
+      "refresh_outcome": "checked_unchanged",
+      "analytical_scope": {
+        "entity_type": "state_aggregate",
+        "source_as_of_date": "2024-11-27"
+      },
+      "evidence_status": "validated",
+      "source_as_of_date": "2024-11-27",
+      "publication_date": "2024-11-27",
+      "disclosure_ready": true,
+      "analytical_ready": true,
+      "extraction_status": "validated",
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "last_quality_check_at": "2026-10-01T20:53:56.652709+00:00"
     },
     {
       "source_id": "data_gov_in_nhai_stateut_project_delay_status_2024",
@@ -1992,12 +2537,33 @@
       },
       "retrieved_at": "2026-03-15T08:36:21.210347+00:00",
       "completeness_score": 1.0,
-      "recency_score": 1.0,
+      "recency_score": 0.4,
       "provenance_score": 1.0,
       "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/data_gov_in_nhai_stateut_project_delay_status_2024.parquet"
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency"
+      ],
+      "output_table_path": "data/processed/data_gov_in_nhai_stateut_project_delay_status_2024.parquet",
+      "data_checksum": "43828e52b648a8192b80a2abc5dc1ffb450d2e0318266527541bf1bb76700c27",
+      "last_successful_retrieval_at": "2026-10-01T20:08:28.025017+00:00",
+      "last_ingested_at": "2026-10-01T20:08:28.025017+00:00",
+      "last_checked_at": "2026-10-01T20:08:28.025017+00:00",
+      "refresh_outcome": "checked_unchanged",
+      "analytical_scope": {
+        "agency": "MoRTH",
+        "entity_type": "state_ut",
+        "road_class": "National Highway",
+        "source_as_of_date": "2024-03-31"
+      },
+      "evidence_status": "validated",
+      "source_as_of_date": "2024-03-31",
+      "publication_date": null,
+      "disclosure_ready": true,
+      "analytical_ready": true,
+      "extraction_status": "validated",
+      "recency_basis": "observation_date",
+      "validation_errors": []
     },
     {
       "source_id": "data_gov_in_nh_fatalities_injuries_state_year",
@@ -2055,12 +2621,32 @@
       },
       "retrieved_at": "2026-03-16T08:52:19.992556+00:00",
       "completeness_score": 0.996,
-      "recency_score": 1.0,
+      "recency_score": 0.4,
       "provenance_score": 1.0,
       "consistency_score": 1.0,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/data_gov_in_nh_fatalities_injuries_state_year.parquet"
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency"
+      ],
+      "output_table_path": "data/processed/data_gov_in_nh_fatalities_injuries_state_year.parquet",
+      "data_checksum": "78773d68a17aed9ffad3fe11b997e1cfffa1f91c7b0a60a03c3569e82f3d2500",
+      "last_successful_retrieval_at": "2026-10-01T20:09:56.524569+00:00",
+      "last_ingested_at": "2026-10-01T20:09:56.524569+00:00",
+      "last_checked_at": "2026-10-01T20:09:56.524569+00:00",
+      "refresh_outcome": "checked_unchanged",
+      "analytical_scope": {
+        "agency": "MoRTH",
+        "entity_type": "state_ut",
+        "road_class": "National Highway including expressways"
+      },
+      "evidence_status": "validated",
+      "source_as_of_date": "2022-12-31",
+      "publication_date": null,
+      "disclosure_ready": true,
+      "analytical_ready": true,
+      "extraction_status": "validated",
+      "recency_basis": "observation_date",
+      "validation_errors": []
     },
     {
       "source_id": "parliament_qa_nh_blackspots_state",
@@ -2074,7 +2660,8 @@
         "url": "https://sansad.in/getFile/loksabhaquestions/annex/1714/AU3188.pdf?source=pqals",
         "retrieved_at": "2026-03-16T08:52:20.431774+00:00",
         "license_terms": "Official Parliament Q&A documentation; cite question number, session, annexure, and answer date.",
-        "official_flag": true
+        "official_flag": true,
+        "domain": "sansad.in"
       },
       "citations": {
         "permanent_identifier": "Lok Sabha UQ 3188 answered 2023-12-21 annexure",
@@ -2092,6 +2679,7 @@
         "output_files": [
           {
             "path": "data/processed/parliament_qa_nh_blackspots_state.parquet",
+            "format": "parquet",
             "sha256": "252753bb20c50b195075b97a9374c89065f81f9b89aa553ff68ddfaa61bdb502"
           }
         ],
@@ -2116,12 +2704,32 @@
       },
       "retrieved_at": "2026-03-16T08:52:20.431774+00:00",
       "completeness_score": 0.98,
-      "recency_score": 0.98,
+      "recency_score": 0.2,
       "provenance_score": 0.98,
       "consistency_score": 0.98,
-      "overall_confidence_badge": "High",
-      "overall_confidence_reason": [],
-      "output_table_path": "data/processed/parliament_qa_nh_blackspots_state.parquet"
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency"
+      ],
+      "output_table_path": "data/processed/parliament_qa_nh_blackspots_state.parquet",
+      "data_checksum": "406b27770ee6541bb6624b87a8536ba815fedb4f0657a48f13a2563e4cdd5afd",
+      "last_successful_retrieval_at": "2026-03-16T08:52:20.431774+00:00",
+      "last_ingested_at": "2026-10-01T20:10:06.704312+00:00",
+      "last_checked_at": "2026-10-01T20:10:06.704312+00:00",
+      "refresh_outcome": "checked_unchanged",
+      "analytical_scope": {
+        "agency": "MoRTH",
+        "entity_type": "state_ut",
+        "road_class": "National Highway"
+      },
+      "evidence_status": "validated_curated",
+      "source_as_of_date": "2020-12-31",
+      "publication_date": null,
+      "disclosure_ready": true,
+      "analytical_ready": true,
+      "extraction_status": "validated",
+      "recency_basis": "observation_date",
+      "validation_errors": []
     },
     {
       "source_id": "morth_annual_report_pdf",
@@ -2133,9 +2741,10 @@
         "publisher": "Ministry of Road Transport and Highways (MoRTH)",
         "title": "MoRTH Annual Report 2024-25 curated appendix snapshot (Appendix 2/3/5)",
         "url": "https://morth.nic.in/annual-report",
-        "retrieved_at": "2026-03-16T08:52:20.439277+00:00",
+        "retrieved_at": "2026-10-01T20:08:33.695700+00:00",
         "license_terms": "Open publication on morth.gov.in; verify page-level reuse permissions in the PDF footer or Gazette notice",
-        "official_flag": true
+        "official_flag": true,
+        "domain": "morth.nic.in"
       },
       "citations": {
         "permanent_identifier": "annual report year + section/table identifier",
@@ -2146,28 +2755,20 @@
         "raw_files": [
           {
             "path": "data/raw/manual/morth_annual_report_pdf.csv",
-            "sha256": "57fea310633ccc5dc5668ff04b570d37671099483e6152be7e02ddb8a0298b03",
-            "size_bytes": 15048
-          },
-          {
-            "path": "data/raw/manual/morth_annual_report_pdf.pdf",
-            "sha256": "59f3693bddda349aef2e87c4c344bca7d7028167e6e12d840468e8bc67624251",
-            "size_bytes": 19474671
+            "sha256": "b6aac2ab2eeecf2d2d906912b3fd075ef1fb3ee13a488529c859a48aa01f787e",
+            "size_bytes": 14892
           },
           {
             "path": "data/raw/manual/morth_annual_report_pdf_validation_2025.csv",
-            "sha256": "2a1e098378c759de38f7891c1d9f877b09b7517fee78b55d97b1f065f5b95d18",
-            "size_bytes": 5386
+            "sha256": "3cb2db00484ba2d15122d2fecf30cae0f024cb1274ffc821c7f572700f897ec0",
+            "size_bytes": 5350
           }
         ],
         "output_files": [
           {
             "path": "data/processed/morth_annual_report_pdf.parquet",
-            "sha256": "715380efec9222b63d924a0a69e60a1b6c80b47820a161e9491591a0b9a397c0"
-          },
-          {
-            "path": "data/processed/morth_annual_report_pdf_validation.json",
-            "sha256": "af85226ba77450d34d81f585b3b11c1e92d876f1fd7c29481897235288bb811c"
+            "format": "parquet",
+            "sha256": "2c393d25fe052cd437b6e44f4a901becb58e8b17b5a9d0e1f675e509e6469bfd"
           }
         ],
         "row_count": 155,
@@ -2184,10 +2785,11 @@
           "source_id",
           "metric_category",
           "dataset_source",
+          "analytical_eligible",
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-16T08:52:20.439277+00:00",
+      "retrieved_at": "2026-10-01T20:08:33.695700+00:00",
       "source_as_of_date": "2024-12-31",
       "validation_sources": [
         {
@@ -2204,13 +2806,32 @@
         }
       ],
       "validation_report_path": "data/processed/morth_annual_report_pdf_validation.json",
-      "completeness_score": 0.918,
-      "recency_score": 0.98,
+      "completeness_score": 0.924,
+      "recency_score": 0.7,
       "provenance_score": 0.833,
       "consistency_score": 0.98,
       "overall_confidence_badge": "High",
       "overall_confidence_reason": [],
-      "output_table_path": "data/processed/morth_annual_report_pdf.parquet"
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "output_table_path": "data/processed/morth_annual_report_pdf.parquet",
+      "data_checksum": "8f3b692f1db08cfc6329eb47f0b09f60e21bf8a790acae764951a1674c77a434",
+      "data_changed_at": "2026-10-01T20:08:33.692284+00:00",
+      "last_successful_retrieval_at": "2026-03-16T08:52:20.439277+00:00",
+      "last_ingested_at": "2026-10-01T20:08:33.692284+00:00",
+      "last_checked_at": "2026-10-01T20:08:33.692284+00:00",
+      "refresh_outcome": "updated",
+      "analytical_scope": {
+        "agency": "MoRTH",
+        "entity_type": "state_ut",
+        "road_class": "Mixed NH and State Roads programmes",
+        "scope_note": "NH network stock and CRIF allocations are separate metrics; CRIF state roads are not exclusively State Highways."
+      },
+      "evidence_status": "validated_curated",
+      "publication_date": null,
+      "disclosure_ready": true,
+      "analytical_ready": true,
+      "extraction_status": "validated"
     },
     {
       "source_id": "nhai_constructed_length_series_official",
@@ -2222,12 +2843,13 @@
         "publisher": "National Highways Authority of India (NHAI) / Parliament Secretariat",
         "title": "Curated year-wise NHAI constructed NH length series",
         "url": "https://nhai.gov.in/nhai/sites/default/files/2025-09/NHAI-Annual_Report_2023-24_English.pdf",
-        "retrieved_at": "2026-03-16T15:08:34.216622+00:00",
+        "retrieved_at": "2026-10-01T20:08:31.190674+00:00",
         "license_terms": "Official public documents; cite annual report section, press release date, and parliamentary question/answer date.",
-        "official_flag": true
+        "official_flag": true,
+        "domain": "nhai.gov.in"
       },
       "citations": {
-        "permanent_identifier": "NHAI Annual Report 2023-24 section 8.1 + NHAI press release 2025-04-02 + Rajya Sabha UQ 2037 answered 2025-12-17",
+        "permanent_identifier": "NHAI Annual Report2023-24 section8.1 + NHAI press release2025-04-02 + PIB PRID2247870,2026-04-01",
         "anchor": "official_q_and_a_session_index",
         "note": "Parliament Q&A snapshot CSV imported through approved manual artifact."
       },
@@ -2235,14 +2857,15 @@
         "raw_files": [
           {
             "path": "data/raw/manual/nhai_constructed_length_series_official.csv",
-            "sha256": "8e7983d0792ac6362f36ba1bbeed918708de7e51262b11b372b10f861a3adb97",
-            "size_bytes": 4225
+            "sha256": "83b77ec93f8862fdf7f14c56b4da544fb7be662bff2cf31d707131eb5af4850f",
+            "size_bytes": 4242
           }
         ],
         "output_files": [
           {
             "path": "data/processed/nhai_constructed_length_series_official.parquet",
-            "sha256": "f9ee1ec4f1bb087c4f962969a7d1d573cb1dac1834f57eb6332afc2b0203794d"
+            "format": "parquet",
+            "sha256": "3ed9709b72647c0c52661b4bf80ececbd8d4fa4280e289c8c264c8d060cc0fe1"
           }
         ],
         "row_count": 12,
@@ -2265,14 +2888,35 @@
           "retrieved_at"
         ]
       },
-      "retrieved_at": "2026-03-16T15:08:34.216622+00:00",
+      "retrieved_at": "2026-10-01T20:08:31.190674+00:00",
       "completeness_score": 0.98,
       "recency_score": 0.98,
       "provenance_score": 0.98,
       "consistency_score": 0.98,
       "overall_confidence_badge": "High",
       "overall_confidence_reason": [],
-      "output_table_path": "data/processed/nhai_constructed_length_series_official.parquet"
+      "source_as_of_date": "2026-03-31",
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "output_table_path": "data/processed/nhai_constructed_length_series_official.parquet",
+      "data_checksum": "60eb9656f4ba07adc48dfc0b057435987a03e0b6b68daa954d45b80eabf948db",
+      "data_changed_at": "2026-10-01T20:08:31.187397+00:00",
+      "last_successful_retrieval_at": "2026-03-16T15:08:34.216622+00:00",
+      "last_ingested_at": "2026-10-01T20:08:31.187397+00:00",
+      "last_checked_at": "2026-10-01T20:08:31.187397+00:00",
+      "refresh_outcome": "updated",
+      "analytical_scope": {
+        "agency": "NHAI",
+        "entity_type": "agency",
+        "entity_id": "nhai",
+        "road_class": "National Highway",
+        "scope_note": "NHAI-only annual construction flow; not national network stock."
+      },
+      "evidence_status": "validated_curated",
+      "publication_date": null,
+      "disclosure_ready": true,
+      "analytical_ready": true,
+      "extraction_status": "validated"
     },
     {
       "source_id": "data_gov_in_gsdp_stateut_current_prices_2017_23",
@@ -2348,12 +2992,2205 @@
       },
       "retrieved_at": "2026-03-26T15:42:20.001770+00:00",
       "completeness_score": 0.907,
-      "recency_score": 1.0,
+      "recency_score": 0.4,
       "provenance_score": 1.0,
       "consistency_score": 1.0,
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency"
+      ],
+      "output_table_path": "data/processed/data_gov_in_gsdp_stateut_current_prices_2017_23.parquet",
+      "data_checksum": "a7dc399267d7ceb23c7011ecb440866a1502b9eda86e4a5320c18740c379ad2a",
+      "last_successful_retrieval_at": "2026-10-01T20:10:06.737943+00:00",
+      "last_ingested_at": "2026-10-01T20:10:06.737943+00:00",
+      "last_checked_at": "2026-10-01T20:10:06.737943+00:00",
+      "refresh_outcome": "checked_unchanged",
+      "analytical_scope": {
+        "road_class": "unspecified",
+        "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+      },
+      "evidence_status": "validated",
+      "source_as_of_date": "2023-03-31",
+      "publication_date": null,
+      "disclosure_ready": true,
+      "analytical_ready": true,
+      "extraction_status": "validated",
+      "recency_basis": "observation_date",
+      "validation_errors": []
+    },
+    {
+      "source_id": "union_budget_morth_demand86",
+      "connector": "primary_disclosures",
+      "version": "1.0.0",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "refresh_outcome": "updated",
+      "last_checked_at": "2026-10-01T20:10:12.945500+00:00",
+      "last_successful_retrieval_at": "2026-10-01T20:10:12.947756+00:00",
+      "data_changed_at": "2026-10-01T20:10:12.945500+00:00",
+      "publication_date": "2026-02-01",
+      "source_as_of_date": "2026-02-01",
+      "analytical_ready": true,
+      "evidence_status": "verified",
+      "disclosure_ready": true,
+      "extraction_status": "validated",
+      "skip_reason": "",
+      "source": {
+        "publisher": "Ministry of Finance / MoRTH",
+        "title": "Union Budget2026-27 Demand86: actual/BE/RE financial allocations",
+        "url": "https://www.indiabudget.gov.in/doc/eb/sbe86.pdf",
+        "retrieved_at": "2026-10-01T19:28:45.439777+00:00",
+        "official_flag": true,
+        "publisher_type": "government",
+        "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+        "domain": "www.indiabudget.gov.in"
+      },
+      "citations": {
+        "permanent_identifier": "union_budget_morth_demand86",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": ""
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/evidence/union_budget_morth_demand86.json",
+            "sha256": "68339b3b982a362d49d3a9844de40914e939dbfa383c178d17c7003891b60c6a",
+            "size_bytes": 768
+          },
+          {
+            "path": "data/raw/primary_disclosures/union_budget_morth_demand86/document.pdf",
+            "sha256": "b65b89fd24ce782082b314927e595d92dfb10eaa73a3c4c0f211ce0ed7a0fc08",
+            "size_bytes": 366442
+          },
+          {
+            "path": "data/raw/manual/union_budget_morth_demand86.csv",
+            "sha256": "7feab9444d19f3b3d26195b8b76c27b59ecac408f1721548b747b040937944ad",
+            "size_bytes": 25479
+          }
+        ],
+        "source_documents": [
+          {
+            "url": "https://www.indiabudget.gov.in/doc/eb/sbe86.pdf",
+            "relative_path": "primary_disclosures/union_budget_morth_demand86/document.pdf",
+            "sha256": "b65b89fd24ce782082b314927e595d92dfb10eaa73a3c4c0f211ce0ed7a0fc08",
+            "size_bytes": 366442
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/union_budget_morth_demand86.parquet",
+            "format": "parquet",
+            "sha256": "17e478957ed90135c7649428fd1bee55e281ad6f28813253ca040f03f8a7804e"
+          }
+        ],
+        "row_count": 40,
+        "columns": [
+          "entity_id",
+          "entity_name",
+          "entity_type",
+          "agency",
+          "state",
+          "road_class",
+          "metric",
+          "value",
+          "unit",
+          "original_value",
+          "original_unit",
+          "period_start",
+          "period_end",
+          "period_basis",
+          "estimate_type",
+          "statement_basis",
+          "data_as_of",
+          "published_at",
+          "source_id",
+          "citation_url",
+          "table_page",
+          "evidence_class",
+          "analytical_eligible",
+          "source_document_sha256",
+          "notes",
+          "entity",
+          "year",
+          "metric_name",
+          "metric_value",
+          "metric_category",
+          "source_type",
+          "asset_id",
+          "project_name",
+          "nh_number",
+          "project_stage",
+          "scheduled_completion_date",
+          "likely_completion_date",
+          "actual_completion_date",
+          "comparison_group",
+          "asset_owner_id",
+          "implementing_agency_id",
+          "operator_id",
+          "concessionaire_id",
+          "financing_entity_id",
+          "contractor_name"
+        ]
+      },
+      "retrieved_at": "2026-10-01T19:28:45.439777+00:00",
+      "semantic_rechecks": [],
+      "completeness_score": 0.98,
+      "recency_score": 0.98,
+      "provenance_score": 0.98,
+      "consistency_score": 0.98,
       "overall_confidence_badge": "High",
       "overall_confidence_reason": [],
-      "output_table_path": "data/processed/data_gov_in_gsdp_stateut_current_prices_2017_23.parquet"
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "output_table_path": "data/processed/union_budget_morth_demand86.parquet",
+      "data_checksum": "28e21aef6f40ce416a3eef92b1d271adc665ea2ae85626badc5f87b3b15445d3",
+      "last_ingested_at": "2026-10-01T20:10:12.945500+00:00",
+      "analytical_scope": {
+        "source_as_of_date": "2026-02-01",
+        "publisher_type": "government"
+      }
+    },
+    {
+      "source_id": "union_budget_highway_outcomes",
+      "connector": "primary_disclosures",
+      "version": "1.0.0",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "refresh_outcome": "updated",
+      "last_checked_at": "2026-10-01T20:10:13.059150+00:00",
+      "last_successful_retrieval_at": "2026-10-01T20:10:13.062066+00:00",
+      "data_changed_at": "2026-10-01T20:10:13.059150+00:00",
+      "publication_date": "2026-02-01",
+      "source_as_of_date": "2026-02-01",
+      "analytical_ready": false,
+      "evidence_status": "verified",
+      "disclosure_ready": true,
+      "extraction_status": "validated",
+      "skip_reason": "",
+      "source": {
+        "publisher": "Ministry of Finance / MoRTH",
+        "title": "Output Outcome Monitoring Framework2026-27: Road Wing indicators",
+        "url": "https://www.indiabudget.gov.in/doc/OutcomeBudgetE2026_2027.pdf",
+        "retrieved_at": "2026-10-01T19:28:45.546713+00:00",
+        "official_flag": true,
+        "publisher_type": "government",
+        "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+        "domain": "www.indiabudget.gov.in"
+      },
+      "citations": {
+        "permanent_identifier": "union_budget_highway_outcomes",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": ""
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/evidence/union_budget_highway_outcomes.json",
+            "sha256": "b7f7bdf6343e267fb04dbc5e36e4d98a267f527638b975acf6309aafee47c153",
+            "size_bytes": 788
+          },
+          {
+            "path": "data/raw/primary_disclosures/union_budget_highway_outcomes/document.pdf",
+            "sha256": "e3535b4c027fa3c6b4f1236aa198d612fcb076a54d2d1ec8b2e2d1e712437039",
+            "size_bytes": 3099218
+          },
+          {
+            "path": "data/raw/manual/union_budget_highway_outcomes.csv",
+            "sha256": "03f99965e45bd9d5d90c977dc4ac3fbcd09a99972f5146a58b10d6eb73d2775f",
+            "size_bytes": 8057
+          }
+        ],
+        "source_documents": [
+          {
+            "url": "https://www.indiabudget.gov.in/doc/OutcomeBudgetE2026_2027.pdf",
+            "relative_path": "primary_disclosures/union_budget_highway_outcomes/document.pdf",
+            "sha256": "e3535b4c027fa3c6b4f1236aa198d612fcb076a54d2d1ec8b2e2d1e712437039",
+            "size_bytes": 3099218
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/union_budget_highway_outcomes.parquet",
+            "format": "parquet",
+            "sha256": "dce386a44f0aea1f7708258f7dcf64d4cb405b38070d6a8cf35c6d0baa80d24e"
+          }
+        ],
+        "row_count": 12,
+        "columns": [
+          "entity_id",
+          "entity_name",
+          "entity_type",
+          "agency",
+          "state",
+          "road_class",
+          "metric",
+          "value",
+          "unit",
+          "original_value",
+          "original_unit",
+          "period_start",
+          "period_end",
+          "period_basis",
+          "estimate_type",
+          "statement_basis",
+          "data_as_of",
+          "published_at",
+          "source_id",
+          "citation_url",
+          "table_page",
+          "evidence_class",
+          "analytical_eligible",
+          "source_document_sha256",
+          "notes",
+          "entity",
+          "year",
+          "metric_name",
+          "metric_value",
+          "metric_category",
+          "source_type",
+          "asset_id",
+          "project_name",
+          "nh_number",
+          "project_stage",
+          "scheduled_completion_date",
+          "likely_completion_date",
+          "actual_completion_date",
+          "comparison_group",
+          "asset_owner_id",
+          "implementing_agency_id",
+          "operator_id",
+          "concessionaire_id",
+          "financing_entity_id",
+          "contractor_name"
+        ]
+      },
+      "retrieved_at": "2026-10-01T19:28:45.546713+00:00",
+      "semantic_rechecks": [],
+      "output_table_path": "data/processed/union_budget_highway_outcomes.parquet",
+      "data_checksum": "9e439aaa8334cb46ee45c34faeb18016ed5f3193ea29890d889ed7951f2ae5f6",
+      "last_ingested_at": "2026-10-01T20:10:13.059150+00:00",
+      "analytical_scope": {
+        "source_as_of_date": "2026-02-01",
+        "publisher_type": "government"
+      },
+      "completeness_score": 0.98,
+      "recency_score": 0.98,
+      "provenance_score": 0.98,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "recency_basis": "observation_date",
+      "validation_errors": []
+    },
+    {
+      "source_id": "nhit_quarterly_operations_finance",
+      "connector": "primary_disclosures",
+      "version": "1.0.0",
+      "status": "manual_ingest",
+      "metric_category": "issuer_disclosed",
+      "refresh_outcome": "updated",
+      "last_checked_at": "2026-10-01T20:10:13.254546+00:00",
+      "last_successful_retrieval_at": "2026-10-01T20:10:13.257451+00:00",
+      "data_changed_at": "2026-10-01T20:10:13.254546+00:00",
+      "publication_date": "2026-08-31",
+      "source_as_of_date": "2026-06-30",
+      "analytical_ready": true,
+      "evidence_status": "verified",
+      "disclosure_ready": true,
+      "extraction_status": "validated",
+      "skip_reason": "",
+      "source": {
+        "publisher": "National Highways Infra Trust",
+        "title": "NHIT Investor Presentation June2026: Q1FY27 finances and asset traffic",
+        "url": "https://nhit.co.in/pdf/investor-presentations/Investor%20Presentation%20June%202026.pdf",
+        "retrieved_at": "2026-10-01T19:28:46.101037+00:00",
+        "official_flag": false,
+        "publisher_type": "issuer",
+        "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+        "domain": "nhit.co.in"
+      },
+      "citations": {
+        "permanent_identifier": "nhit_quarterly_operations_finance",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": ""
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/evidence/nhit_quarterly_operations_finance.json",
+            "sha256": "e604a66ceffed58b03a67eed07f8854a01444160710ae4b839b4090166e43a5f",
+            "size_bytes": 822
+          },
+          {
+            "path": "data/raw/primary_disclosures/nhit_quarterly_operations_finance/document.pdf",
+            "sha256": "da8176d700cfc2e88e991e2a71e0a78d92d3397a519a7f13b240808a55db65f1",
+            "size_bytes": 3410545
+          },
+          {
+            "path": "data/raw/manual/nhit_quarterly_operations_finance.csv",
+            "sha256": "4e6155f121b479c3ffbc91d680ab06befe890a142cc6d8902c99fc2e5a4507f5",
+            "size_bytes": 87257
+          }
+        ],
+        "source_documents": [
+          {
+            "url": "https://nhit.co.in/pdf/investor-presentations/Investor%20Presentation%20June%202026.pdf",
+            "relative_path": "primary_disclosures/nhit_quarterly_operations_finance/document.pdf",
+            "sha256": "da8176d700cfc2e88e991e2a71e0a78d92d3397a519a7f13b240808a55db65f1",
+            "size_bytes": 3410545
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/nhit_quarterly_operations_finance.parquet",
+            "format": "parquet",
+            "sha256": "9a38f34bb53f652f770180f531ea0ac38216a612794e0fa114ee009803b7e8d4"
+          }
+        ],
+        "row_count": 117,
+        "columns": [
+          "entity_id",
+          "entity_name",
+          "entity_type",
+          "agency",
+          "state",
+          "road_class",
+          "metric",
+          "value",
+          "unit",
+          "original_value",
+          "original_unit",
+          "period_start",
+          "period_end",
+          "period_basis",
+          "estimate_type",
+          "statement_basis",
+          "data_as_of",
+          "published_at",
+          "source_id",
+          "citation_url",
+          "table_page",
+          "evidence_class",
+          "analytical_eligible",
+          "source_document_sha256",
+          "notes",
+          "entity",
+          "year",
+          "metric_name",
+          "metric_value",
+          "metric_category",
+          "source_type",
+          "asset_id",
+          "project_name",
+          "nh_number",
+          "project_stage",
+          "scheduled_completion_date",
+          "likely_completion_date",
+          "actual_completion_date",
+          "comparison_group",
+          "asset_owner_id",
+          "implementing_agency_id",
+          "operator_id",
+          "concessionaire_id",
+          "financing_entity_id",
+          "contractor_name"
+        ]
+      },
+      "retrieved_at": "2026-10-01T19:28:46.101037+00:00",
+      "semantic_rechecks": [],
+      "completeness_score": 0.98,
+      "recency_score": 0.7,
+      "provenance_score": 0.49,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [],
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "output_table_path": "data/processed/nhit_quarterly_operations_finance.parquet",
+      "data_checksum": "f70d628fe9c3cbabb918928f9bf7a82309db4c66f786bbcb087820069b2f352f",
+      "last_ingested_at": "2026-10-01T20:10:13.254546+00:00",
+      "analytical_scope": {
+        "source_as_of_date": "2026-06-30",
+        "publisher_type": "issuer"
+      }
+    },
+    {
+      "source_id": "nhit_quarterly_financial_filings",
+      "connector": "primary_disclosures",
+      "version": "1.0.0",
+      "status": "manual_ingest",
+      "metric_category": "issuer_disclosed",
+      "refresh_outcome": "updated",
+      "last_checked_at": "2026-10-01T20:10:13.820434+00:00",
+      "last_successful_retrieval_at": "2026-10-01T20:10:13.823730+00:00",
+      "data_changed_at": "2026-10-01T20:10:13.820434+00:00",
+      "publication_date": "2026-08-07",
+      "source_as_of_date": "2026-06-30",
+      "analytical_ready": true,
+      "evidence_status": "verified",
+      "disclosure_ready": true,
+      "extraction_status": "validated",
+      "skip_reason": "",
+      "source": {
+        "publisher": "National Highways Infra Trust",
+        "title": "NHIT Board Outcome7August2026: distribution/NAV and quarterly results",
+        "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/BM%20Outcome%2007082026%20F.pdf",
+        "retrieved_at": "2026-10-01T19:28:46.194237+00:00",
+        "official_flag": false,
+        "publisher_type": "issuer",
+        "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+        "domain": "nhit.co.in"
+      },
+      "citations": {
+        "permanent_identifier": "nhit_quarterly_financial_filings",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "Board text validated. Annexure I scanned statement pages remain quarantined; no unvalidated OCR accounting lines entered."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/evidence/nhit_quarterly_financial_filings.json",
+            "sha256": "182fcf32261fa46e19c99d6a7793df72ef2d0b490483d2fb10425c719f920068",
+            "size_bytes": 938
+          },
+          {
+            "path": "data/raw/primary_disclosures/nhit_quarterly_financial_filings/document.pdf",
+            "sha256": "2b8d33b472e4f84eef04f951d477bb85199095d1c1d8df52e8238b212a1b9d0b",
+            "size_bytes": 5869520
+          },
+          {
+            "path": "data/raw/manual/nhit_quarterly_financial_filings.csv",
+            "sha256": "1ff5fc4dd1990c00a30373554805d952ed5a915af92566d6d7356e6e167205fc",
+            "size_bytes": 4118
+          }
+        ],
+        "source_documents": [
+          {
+            "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/BM%20Outcome%2007082026%20F.pdf",
+            "relative_path": "primary_disclosures/nhit_quarterly_financial_filings/document.pdf",
+            "sha256": "2b8d33b472e4f84eef04f951d477bb85199095d1c1d8df52e8238b212a1b9d0b",
+            "size_bytes": 5869520
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/nhit_quarterly_financial_filings.parquet",
+            "format": "parquet",
+            "sha256": "356453d78207f072421cfd4d558762b7b9095e5ad5216a7e91c6dcb12296b267"
+          }
+        ],
+        "row_count": 6,
+        "columns": [
+          "entity_id",
+          "entity_name",
+          "entity_type",
+          "agency",
+          "state",
+          "road_class",
+          "metric",
+          "value",
+          "unit",
+          "original_value",
+          "original_unit",
+          "period_start",
+          "period_end",
+          "period_basis",
+          "estimate_type",
+          "statement_basis",
+          "data_as_of",
+          "published_at",
+          "source_id",
+          "citation_url",
+          "table_page",
+          "evidence_class",
+          "analytical_eligible",
+          "source_document_sha256",
+          "notes",
+          "entity",
+          "year",
+          "metric_name",
+          "metric_value",
+          "metric_category",
+          "source_type",
+          "asset_id",
+          "project_name",
+          "nh_number",
+          "project_stage",
+          "scheduled_completion_date",
+          "likely_completion_date",
+          "actual_completion_date",
+          "comparison_group",
+          "asset_owner_id",
+          "implementing_agency_id",
+          "operator_id",
+          "concessionaire_id",
+          "financing_entity_id",
+          "contractor_name"
+        ]
+      },
+      "retrieved_at": "2026-10-01T19:28:46.194237+00:00",
+      "semantic_rechecks": [],
+      "completeness_score": 0.98,
+      "recency_score": 0.7,
+      "provenance_score": 0.49,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [],
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "output_table_path": "data/processed/nhit_quarterly_financial_filings.parquet",
+      "data_checksum": "15aecbf491c9dcee53a8b8568a75bb9c19b8383a6bc0902d5343bbdd344bfce0",
+      "last_ingested_at": "2026-10-01T20:10:13.820434+00:00",
+      "analytical_scope": {
+        "source_as_of_date": "2026-06-30",
+        "publisher_type": "issuer"
+      }
+    },
+    {
+      "source_id": "nhit_asset_valuation_assumptions",
+      "connector": "primary_disclosures",
+      "version": "1.0.0",
+      "status": "manual_ingest",
+      "metric_category": "issuer_disclosed",
+      "refresh_outcome": "updated",
+      "last_checked_at": "2026-10-01T20:10:14.481041+00:00",
+      "last_successful_retrieval_at": "2026-10-01T20:10:14.484096+00:00",
+      "data_changed_at": "2026-10-01T20:10:14.481041+00:00",
+      "publication_date": "2026-08-07",
+      "source_as_of_date": "2026-06-30",
+      "analytical_ready": true,
+      "evidence_status": "verified",
+      "disclosure_ready": true,
+      "extraction_status": "validated",
+      "skip_reason": "",
+      "source": {
+        "publisher": "National Highways Infra Trust / Ernst & Young Merchant Banking Services LLP",
+        "title": "NHIT Valuation Report asof30June2026: concessions, portfolio, WACC",
+        "url": "https://nhit.co.in/pdf/valuation-report/Valuation%20Report%20F_08_08_26.pdf",
+        "retrieved_at": "2026-10-01T19:28:46.272467+00:00",
+        "official_flag": false,
+        "publisher_type": "issuer",
+        "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+        "domain": "nhit.co.in"
+      },
+      "citations": {
+        "permanent_identifier": "nhit_asset_valuation_assumptions",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": ""
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/evidence/nhit_asset_valuation_assumptions.json",
+            "sha256": "83a9d28782c5f08f6be7029d93cbd796f1a3364a68388315859cd654e164bf96",
+            "size_bytes": 807
+          },
+          {
+            "path": "data/raw/primary_disclosures/nhit_asset_valuation_assumptions/document.pdf",
+            "sha256": "6df526244e98e9eaa56e6f0f44de160ffbb774bfe334159fd2885fdb606a7e92",
+            "size_bytes": 5622960
+          },
+          {
+            "path": "data/raw/manual/nhit_asset_valuation_assumptions.csv",
+            "sha256": "5137d035db0c318334e5ba294386fc6365025c3f893509758096b2b22e4ebb0e",
+            "size_bytes": 12494
+          }
+        ],
+        "source_documents": [
+          {
+            "url": "https://nhit.co.in/pdf/valuation-report/Valuation%20Report%20F_08_08_26.pdf",
+            "relative_path": "primary_disclosures/nhit_asset_valuation_assumptions/document.pdf",
+            "sha256": "6df526244e98e9eaa56e6f0f44de160ffbb774bfe334159fd2885fdb606a7e92",
+            "size_bytes": 5622960
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/nhit_asset_valuation_assumptions.parquet",
+            "format": "parquet",
+            "sha256": "1d21b46138ed4896162b4649e35753b9c0879e5b9bd9e564cbff0c960f15d93b"
+          }
+        ],
+        "row_count": 17,
+        "columns": [
+          "entity_id",
+          "entity_name",
+          "entity_type",
+          "agency",
+          "state",
+          "road_class",
+          "metric",
+          "value",
+          "unit",
+          "original_value",
+          "original_unit",
+          "period_start",
+          "period_end",
+          "period_basis",
+          "estimate_type",
+          "statement_basis",
+          "data_as_of",
+          "published_at",
+          "source_id",
+          "citation_url",
+          "table_page",
+          "evidence_class",
+          "analytical_eligible",
+          "source_document_sha256",
+          "notes",
+          "entity",
+          "year",
+          "metric_name",
+          "metric_value",
+          "metric_category",
+          "source_type",
+          "asset_id",
+          "project_name",
+          "nh_number",
+          "project_stage",
+          "scheduled_completion_date",
+          "likely_completion_date",
+          "actual_completion_date",
+          "comparison_group",
+          "asset_owner_id",
+          "implementing_agency_id",
+          "operator_id",
+          "concessionaire_id",
+          "financing_entity_id",
+          "contractor_name"
+        ]
+      },
+      "retrieved_at": "2026-10-01T19:28:46.272467+00:00",
+      "semantic_rechecks": [],
+      "completeness_score": 0.98,
+      "recency_score": 0.7,
+      "provenance_score": 0.49,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [],
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "output_table_path": "data/processed/nhit_asset_valuation_assumptions.parquet",
+      "data_checksum": "9ebb5099e556747fad28863d5c4fd5010b95c8fa51350da03da89bd034cbc1f0",
+      "last_ingested_at": "2026-10-01T20:10:14.481041+00:00",
+      "analytical_scope": {
+        "source_as_of_date": "2026-06-30",
+        "publisher_type": "issuer"
+      }
+    },
+    {
+      "source_id": "nhit_annual_report",
+      "connector": "primary_disclosures",
+      "version": "1.0.0",
+      "status": "manual_ingest",
+      "metric_category": "issuer_disclosed",
+      "refresh_outcome": "updated",
+      "last_checked_at": "2026-10-01T20:51:37.149625+00:00",
+      "last_successful_retrieval_at": "2026-10-01T19:28:59.062600+00:00",
+      "data_changed_at": "2026-10-01T20:51:37.149625+00:00",
+      "publication_date": null,
+      "source_as_of_date": "2026-03-31",
+      "analytical_ready": true,
+      "evidence_status": "verified",
+      "disclosure_ready": true,
+      "extraction_status": "validated",
+      "skip_reason": "",
+      "source": {
+        "publisher": "National Highways Infra Trust",
+        "title": "NHIT Annual Report2025-26: audited consolidated finances and debt maturity",
+        "url": "https://nhit.co.in/pdf/annual-report/NHIT_Annual%20Report%20FY%202025-26.pdf",
+        "retrieved_at": "2026-10-01T19:28:59.062600+00:00",
+        "official_flag": false,
+        "publisher_type": "issuer",
+        "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+        "domain": "nhit.co.in"
+      },
+      "citations": {
+        "permanent_identifier": "nhit_annual_report",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "Audited consolidated balance sheet/P&L and financial-risk debt maturity note extracted and unit-checked. Eight NCD/zero-coupon bond <1year and1-3year source dashes on physicalp205 are nonnumeric and omitted, not converted to zero. Numeric debt-overview totals remain separately sourced. Issuer SPV operating overview is separately labelled approximate; publication day not asserted."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/evidence/nhit_annual_report.json",
+            "sha256": "7de8e1296abe2b9e2b9dc3dd189ae620e33267edf5e8dffe301b58a7fccaec60",
+            "size_bytes": 1219
+          },
+          {
+            "path": "data/raw/primary_disclosures/nhit_annual_report/document.pdf",
+            "sha256": "e3f4ef047898465a34c8fa72fca6dcfea44596ec5e7fe2210118e343be465997",
+            "size_bytes": 63634629
+          },
+          {
+            "path": "data/raw/manual/nhit_annual_report.csv",
+            "sha256": "9a860c1766e2c8ddbbec279da23516c42f063c3a2fbbb09b57b9ca44e7b4370c",
+            "size_bytes": 48348
+          }
+        ],
+        "source_documents": [
+          {
+            "url": "https://nhit.co.in/pdf/annual-report/NHIT_Annual%20Report%20FY%202025-26.pdf",
+            "relative_path": "primary_disclosures/nhit_annual_report/document.pdf",
+            "sha256": "e3f4ef047898465a34c8fa72fca6dcfea44596ec5e7fe2210118e343be465997",
+            "size_bytes": 63634629
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/nhit_annual_report.parquet",
+            "format": "parquet",
+            "sha256": "a6ff5b47aefeffd659827e56aa5bcb6603607540ad7dbeb45c5cfdd437497ef1"
+          }
+        ],
+        "row_count": 62,
+        "columns": [
+          "entity_id",
+          "entity_name",
+          "entity_type",
+          "agency",
+          "state",
+          "road_class",
+          "metric",
+          "value",
+          "unit",
+          "original_value",
+          "original_unit",
+          "period_start",
+          "period_end",
+          "period_basis",
+          "estimate_type",
+          "statement_basis",
+          "data_as_of",
+          "published_at",
+          "source_id",
+          "citation_url",
+          "table_page",
+          "evidence_class",
+          "analytical_eligible",
+          "source_document_sha256",
+          "notes",
+          "entity",
+          "year",
+          "metric_name",
+          "metric_value",
+          "metric_category",
+          "source_type",
+          "asset_id",
+          "project_name",
+          "nh_number",
+          "project_stage",
+          "scheduled_completion_date",
+          "likely_completion_date",
+          "actual_completion_date",
+          "comparison_group",
+          "asset_owner_id",
+          "implementing_agency_id",
+          "operator_id",
+          "concessionaire_id",
+          "financing_entity_id",
+          "contractor_name"
+        ]
+      },
+      "retrieved_at": "2026-10-01T19:28:59.062600+00:00",
+      "semantic_rechecks": [],
+      "completeness_score": 0.98,
+      "recency_score": 0.98,
+      "provenance_score": 0.49,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "output_table_path": "data/processed/nhit_annual_report.parquet",
+      "data_checksum": "8e5c4d3ce6da294541b8c5ca760fd0250b833ae16d6ccd1422c724486b5b203b",
+      "last_ingested_at": "2026-10-01T20:51:37.149625+00:00",
+      "analytical_scope": {
+        "source_as_of_date": "2026-03-31",
+        "publisher_type": "issuer"
+      }
+    },
+    {
+      "source_id": "nhidcl_monthly_project_progress",
+      "connector": "primary_disclosures",
+      "version": "1.0.0",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "refresh_outcome": "updated",
+      "last_checked_at": "2026-10-01T20:17:36.105278+00:00",
+      "last_successful_retrieval_at": "2026-10-01T20:10:18.482229+00:00",
+      "data_changed_at": "2026-10-01T20:17:36.105278+00:00",
+      "publication_date": null,
+      "source_as_of_date": "2026-08-31",
+      "analytical_ready": true,
+      "evidence_status": "verified",
+      "disclosure_ready": true,
+      "extraction_status": "validated",
+      "skip_reason": "",
+      "source": {
+        "publisher": "National Highways and Infrastructure Development Corporation Ltd.",
+        "title": "NHIDCL completed/ongoing project status PMP31August2026",
+        "url": "https://www.nhidcl.com/sites/default/files/2026-09/nhidcl-completed_and_ongoing_projects_status_per_pmp_data_lake_portal_31-08-2026.pdf",
+        "retrieved_at": "2026-10-01T19:28:49.064739+00:00",
+        "official_flag": true,
+        "publisher_type": "government",
+        "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+        "domain": "www.nhidcl.com"
+      },
+      "citations": {
+        "permanent_identifier": "nhidcl_monthly_project_progress",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "410 detail projects; do not sum to page1 summary: summary has a narrower stage/agency classification. Emails excluded. State/UT canonicalization preserves original RO/MMLP labels in row notes."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/evidence/nhidcl_monthly_project_progress.json",
+            "sha256": "93040e0c3a5ea9d810238b68ab82cf6793d5f13e6e43a274eec1f4470d47d8e2",
+            "size_bytes": 1058
+          },
+          {
+            "path": "data/raw/primary_disclosures/nhidcl_monthly_project_progress/document.pdf",
+            "sha256": "8d651f90b0d4a1410cabf2e74b8fa4338936fc6b8e468541590c44ad3d2038f3",
+            "size_bytes": 687834
+          },
+          {
+            "path": "data/raw/manual/nhidcl_monthly_project_progress.csv",
+            "sha256": "a22286bfa7415ae1d1ce720909382a0605ca47fe2616be39816935bc8f6e6993",
+            "size_bytes": 4006094
+          }
+        ],
+        "source_documents": [
+          {
+            "url": "https://www.nhidcl.com/sites/default/files/2026-09/nhidcl-completed_and_ongoing_projects_status_per_pmp_data_lake_portal_31-08-2026.pdf",
+            "relative_path": "primary_disclosures/nhidcl_monthly_project_progress/document.pdf",
+            "sha256": "8d651f90b0d4a1410cabf2e74b8fa4338936fc6b8e468541590c44ad3d2038f3",
+            "size_bytes": 687834
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/nhidcl_monthly_project_progress.parquet",
+            "format": "parquet",
+            "sha256": "827c9fc3a41ab8905d168940457947ace00adf465f2c6a1e93d5cb8f7f487064"
+          }
+        ],
+        "row_count": 2384,
+        "columns": [
+          "entity_id",
+          "entity_name",
+          "entity_type",
+          "agency",
+          "state",
+          "road_class",
+          "metric",
+          "value",
+          "unit",
+          "original_value",
+          "original_unit",
+          "period_start",
+          "period_end",
+          "period_basis",
+          "estimate_type",
+          "statement_basis",
+          "data_as_of",
+          "published_at",
+          "source_id",
+          "citation_url",
+          "table_page",
+          "evidence_class",
+          "analytical_eligible",
+          "source_document_sha256",
+          "notes",
+          "entity",
+          "year",
+          "metric_name",
+          "metric_value",
+          "metric_category",
+          "source_type",
+          "asset_id",
+          "project_name",
+          "nh_number",
+          "project_stage",
+          "scheduled_completion_date",
+          "likely_completion_date",
+          "actual_completion_date",
+          "comparison_group",
+          "asset_owner_id",
+          "implementing_agency_id",
+          "operator_id",
+          "concessionaire_id",
+          "financing_entity_id",
+          "contractor_name"
+        ]
+      },
+      "retrieved_at": "2026-10-01T19:28:49.064739+00:00",
+      "semantic_rechecks": [],
+      "completeness_score": 0.98,
+      "recency_score": 0.7,
+      "provenance_score": 0.98,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "output_table_path": "data/processed/nhidcl_monthly_project_progress.parquet",
+      "data_checksum": "35baa131215669dfdedc055348559dfe28ccbb5d59d4890e92af829fbe8e9594",
+      "last_ingested_at": "2026-10-01T20:17:36.105278+00:00",
+      "analytical_scope": {
+        "source_as_of_date": "2026-08-31",
+        "publisher_type": "government"
+      }
+    },
+    {
+      "source_id": "parliament_nhai_debt_tot_invit",
+      "connector": "primary_disclosures",
+      "version": "1.0.0",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "refresh_outcome": "updated",
+      "last_checked_at": "2026-10-01T20:10:20.723904+00:00",
+      "last_successful_retrieval_at": "2026-10-01T20:10:20.726889+00:00",
+      "data_changed_at": "2026-10-01T20:10:20.723904+00:00",
+      "publication_date": "2026-02-05",
+      "source_as_of_date": "2025-12-31",
+      "analytical_ready": true,
+      "evidence_status": "verified",
+      "disclosure_ready": true,
+      "extraction_status": "validated",
+      "skip_reason": "",
+      "source": {
+        "publisher": "MoRTH / Parliament Secretariat",
+        "title": "Lok SabhaUQ963: NHAI debt and TOT/InvIT receipts",
+        "url": "https://sansad.in/getFile/loksabhaquestions/annex/187/AU963_8iM1pC.pdf?source=pqals",
+        "retrieved_at": "2026-10-01T19:28:46.561911+00:00",
+        "official_flag": true,
+        "publisher_type": "government",
+        "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+        "domain": "sansad.in"
+      },
+      "citations": {
+        "permanent_identifier": "parliament_nhai_debt_tot_invit",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": ""
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/evidence/parliament_nhai_debt_tot_invit.json",
+            "sha256": "108212f04e066a5458664a97f55539dfa47c84e2eb4e52e159691acea69f8de8",
+            "size_bytes": 810
+          },
+          {
+            "path": "data/raw/primary_disclosures/parliament_nhai_debt_tot_invit/document.pdf",
+            "sha256": "a8fc9ba166a457d2644c4d9defd18e860b680de96cad1b7daeca489813e7efc7",
+            "size_bytes": 191392
+          },
+          {
+            "path": "data/raw/manual/parliament_nhai_debt_tot_invit.csv",
+            "sha256": "640a69ce016a192de84012c27330dde336a4aa21274c45090b3b6bebdcff2456",
+            "size_bytes": 25324
+          }
+        ],
+        "source_documents": [
+          {
+            "url": "https://sansad.in/getFile/loksabhaquestions/annex/187/AU963_8iM1pC.pdf?source=pqals",
+            "relative_path": "primary_disclosures/parliament_nhai_debt_tot_invit/document.pdf",
+            "sha256": "a8fc9ba166a457d2644c4d9defd18e860b680de96cad1b7daeca489813e7efc7",
+            "size_bytes": 191392
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/parliament_nhai_debt_tot_invit.parquet",
+            "format": "parquet",
+            "sha256": "49aa06b8fb7676d027e8469a457c176de34bb8b0965f14afe99d4f2e5608963d"
+          }
+        ],
+        "row_count": 33,
+        "columns": [
+          "entity_id",
+          "entity_name",
+          "entity_type",
+          "agency",
+          "state",
+          "road_class",
+          "metric",
+          "value",
+          "unit",
+          "original_value",
+          "original_unit",
+          "period_start",
+          "period_end",
+          "period_basis",
+          "estimate_type",
+          "statement_basis",
+          "data_as_of",
+          "published_at",
+          "source_id",
+          "citation_url",
+          "table_page",
+          "evidence_class",
+          "analytical_eligible",
+          "source_document_sha256",
+          "notes",
+          "entity",
+          "year",
+          "metric_name",
+          "metric_value",
+          "metric_category",
+          "source_type",
+          "asset_id",
+          "project_name",
+          "nh_number",
+          "project_stage",
+          "scheduled_completion_date",
+          "likely_completion_date",
+          "actual_completion_date",
+          "comparison_group",
+          "asset_owner_id",
+          "implementing_agency_id",
+          "operator_id",
+          "concessionaire_id",
+          "financing_entity_id",
+          "contractor_name"
+        ]
+      },
+      "retrieved_at": "2026-10-01T19:28:46.561911+00:00",
+      "semantic_rechecks": [],
+      "completeness_score": 0.98,
+      "recency_score": 0.98,
+      "provenance_score": 0.98,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "output_table_path": "data/processed/parliament_nhai_debt_tot_invit.parquet",
+      "data_checksum": "6056a82d540394e5989cb152e74b7868ab626499cee9b4096085b0ba79cbbb6e",
+      "last_ingested_at": "2026-10-01T20:10:20.723904+00:00",
+      "analytical_scope": {
+        "source_as_of_date": "2025-12-31",
+        "publisher_type": "government"
+      }
+    },
+    {
+      "source_id": "nhai_monetisation_transactions",
+      "connector": "primary_disclosures",
+      "version": "1.0.0",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "refresh_outcome": "updated",
+      "last_checked_at": "2026-10-01T20:10:21.085166+00:00",
+      "last_successful_retrieval_at": "2026-10-01T20:05:45.232974+00:00",
+      "data_changed_at": "2026-10-01T20:10:21.085166+00:00",
+      "publication_date": "2026-03-30",
+      "source_as_of_date": "2026-03-30",
+      "analytical_ready": true,
+      "evidence_status": "verified",
+      "disclosure_ready": true,
+      "extraction_status": "validated",
+      "skip_reason": "",
+      "source": {
+        "publisher": "Press Information Bureau / MoRTH",
+        "title": "NHAI asset monetisation progress and InvIT5/TOT18 transactions",
+        "url": "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2247011&lang=2&reg=48",
+        "retrieved_at": "2026-10-01T19:28:46.585482+00:00",
+        "official_flag": true,
+        "publisher_type": "government",
+        "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+        "domain": "www.pib.gov.in"
+      },
+      "citations": {
+        "permanent_identifier": "nhai_monetisation_transactions",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "PIB release30March2026 reports FY25-26 progress before year end; target30000crore is not actual."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/evidence/nhai_monetisation_transactions.json",
+            "sha256": "37bd7d42e5c7cc9bd15e9a0fb1b32a9a51e19b089446d124915e030d73ff01cf",
+            "size_bytes": 1001
+          },
+          {
+            "path": "data/raw/primary_disclosures/nhai_monetisation_transactions/document.html",
+            "sha256": "c2ff31f3a1530bee63a9fd061d31366ad69abfce3869ba5ecbe62e041049a683",
+            "size_bytes": 90217
+          },
+          {
+            "path": "data/raw/manual/nhai_monetisation_transactions.csv",
+            "sha256": "c131c905a2a68e860cd8b10451f1e75f5556208fe7572c9165312003aab77917",
+            "size_bytes": 5151
+          }
+        ],
+        "source_documents": [
+          {
+            "url": "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2247011&lang=2&reg=48",
+            "relative_path": "primary_disclosures/nhai_monetisation_transactions/document.html",
+            "sha256": "c2ff31f3a1530bee63a9fd061d31366ad69abfce3869ba5ecbe62e041049a683",
+            "size_bytes": 90217,
+            "semantic_document_sha256": "1c0d94d382ddc7a0dfb13a87259a0e55fa95836388b2a84cbefa74cbfaf20bf9"
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/nhai_monetisation_transactions.parquet",
+            "format": "parquet",
+            "sha256": "c0630800289457a7aed7b8adf51d3d0a65f81ce6113763b49b9e673d44ec5738"
+          }
+        ],
+        "row_count": 6,
+        "columns": [
+          "entity_id",
+          "entity_name",
+          "entity_type",
+          "agency",
+          "state",
+          "road_class",
+          "metric",
+          "value",
+          "unit",
+          "original_value",
+          "original_unit",
+          "period_start",
+          "period_end",
+          "period_basis",
+          "estimate_type",
+          "statement_basis",
+          "data_as_of",
+          "published_at",
+          "source_id",
+          "citation_url",
+          "table_page",
+          "evidence_class",
+          "analytical_eligible",
+          "source_document_sha256",
+          "notes",
+          "entity",
+          "year",
+          "metric_name",
+          "metric_value",
+          "metric_category",
+          "source_type",
+          "asset_id",
+          "project_name",
+          "nh_number",
+          "project_stage",
+          "scheduled_completion_date",
+          "likely_completion_date",
+          "actual_completion_date",
+          "comparison_group",
+          "asset_owner_id",
+          "implementing_agency_id",
+          "operator_id",
+          "concessionaire_id",
+          "financing_entity_id",
+          "contractor_name"
+        ]
+      },
+      "retrieved_at": "2026-10-01T19:28:46.585482+00:00",
+      "semantic_rechecks": [],
+      "completeness_score": 0.98,
+      "recency_score": 0.98,
+      "provenance_score": 0.98,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "output_table_path": "data/processed/nhai_monetisation_transactions.parquet",
+      "data_checksum": "ebb2ca71f6afe7282de0660072ae0f390141764eb1b54354afbee3ebf3eb3a7a",
+      "last_ingested_at": "2026-10-01T20:10:21.085166+00:00",
+      "analytical_scope": {
+        "source_as_of_date": "2026-03-30",
+        "publisher_type": "government"
+      }
+    },
+    {
+      "source_id": "npci_netc_monthly_statistics",
+      "status": "manual_gap",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "National Payments Corporation of India",
+        "title": "NPCI NETC monthly product statistics",
+        "url": "https://www.npci.org.in/product/netc/product-statistics",
+        "official_flag": false,
+        "publisher_type": "payment_system",
+        "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+        "domain": "www.npci.org.in"
+      },
+      "citations": {
+        "permanent_identifier": "npci_netc_monthly_statistics",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "HTTP403/JS restricted primary page; governed manual snapshot required; no invented API or search-result numerical facts."
+      },
+      "manifest": {
+        "raw_files": [],
+        "row_count": 0,
+        "columns": [
+          "entity_id",
+          "entity_name",
+          "entity_type",
+          "agency",
+          "state",
+          "road_class",
+          "metric",
+          "value",
+          "unit",
+          "original_value",
+          "original_unit",
+          "period_start",
+          "period_end",
+          "period_basis",
+          "estimate_type",
+          "statement_basis",
+          "data_as_of",
+          "published_at",
+          "source_id",
+          "citation_url",
+          "table_page",
+          "evidence_class",
+          "analytical_eligible",
+          "source_document_sha256",
+          "notes",
+          "entity",
+          "year",
+          "metric_name",
+          "metric_value",
+          "metric_category",
+          "source_type",
+          "asset_id",
+          "project_name",
+          "nh_number",
+          "project_stage",
+          "scheduled_completion_date",
+          "likely_completion_date",
+          "actual_completion_date",
+          "comparison_group",
+          "asset_owner_id",
+          "implementing_agency_id",
+          "operator_id",
+          "concessionaire_id",
+          "financing_entity_id",
+          "contractor_name"
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/npci_netc_monthly_statistics.parquet",
+            "format": "parquet",
+            "sha256": "f4f94eac01503b05db3e2395aa8d84de7c2d2014378bf33d352945166cb7552c"
+          }
+        ]
+      },
+      "output_table_path": "data/processed/npci_netc_monthly_statistics.parquet",
+      "connector": "primary_disclosures",
+      "version": "1.0.0",
+      "refresh_outcome": "restricted",
+      "last_checked_at": "2026-10-01T20:17:36.371592+00:00",
+      "data_changed_at": null,
+      "publication_date": null,
+      "source_as_of_date": null,
+      "analytical_ready": false,
+      "evidence_status": "unavailable",
+      "disclosure_ready": false,
+      "extraction_status": "evidence_gap",
+      "skip_reason": "HTTP403/JS restricted primary page; governed manual snapshot required; no invented API or search-result numerical facts.",
+      "semantic_rechecks": [],
+      "refresh_error": "HTTP403/JS restricted primary page; governed manual snapshot required; no invented API or search-result numerical facts.",
+      "data_checksum": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "analytical_scope": {
+        "source_as_of_date": null,
+        "publisher_type": "payment_system"
+      },
+      "completeness_score": 0.0,
+      "recency_score": 0.25,
+      "provenance_score": 0.3,
+      "consistency_score": 0.3,
+      "overall_confidence_badge": "Low",
+      "overall_confidence_reason": [
+        "Low provenance confidence (source reliability category)",
+        "Missingness is high; check source completeness",
+        "Recency is stale against claimed update frequency",
+        "Schema/range checks showed potential consistency issues",
+        "Use for trend and risk ranking, not precise governance decisions",
+        "Observation date is unavailable; collection time is not data freshness",
+        "Not eligible for measured analyst calculations"
+      ],
+      "recency_basis": "unknown",
+      "validation_errors": []
+    },
+    {
+      "source_id": "rbi_state_road_finances",
+      "connector": "primary_disclosures",
+      "version": "1.0.0",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-10-01T20:12:43.564983+00:00",
+      "last_successful_retrieval_at": "2026-10-01T19:28:49.237144+00:00",
+      "data_changed_at": "2026-10-01T20:12:43.099018+00:00",
+      "publication_date": "2026-01-23",
+      "source_as_of_date": "2026-01-23",
+      "analytical_ready": true,
+      "evidence_status": "verified",
+      "disclosure_ready": true,
+      "extraction_status": "validated",
+      "skip_reason": "",
+      "source": {
+        "publisher": "Reserve Bank of India",
+        "title": "State Finances: A Study of Budgets of2025-26, AppendicesII/IV Roads and Bridges",
+        "url": "https://rbidocs.rbi.org.in/rdocs/Publications/PDFs/0SF23012026877D47254C4F4B0793B2C38F05FB7EC5.PDF",
+        "retrieved_at": "2026-10-01T19:28:49.237144+00:00",
+        "official_flag": true,
+        "publisher_type": "government",
+        "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+        "domain": "rbidocs.rbi.org.in"
+      },
+      "citations": {
+        "permanent_identifier": "rbi_state_road_finances",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "Goa revenue Roads and Bridges rows contain dashes, left absent rather than invented zero. Road-corporation debt/guarantees and corridor attribution not inferred from state-government aggregates. Statements19/28 add1050all-sector state-government liabilities/guarantees, distinct from roads budgets and corporation finance."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/evidence/rbi_state_road_finances.json",
+            "sha256": "e39e2677fec09949f1fbc1e95dd610da2986c0f4b26c68d099a3694d32f75f07",
+            "size_bytes": 1136
+          },
+          {
+            "path": "data/raw/primary_disclosures/rbi_state_road_finances/document.pdf",
+            "sha256": "0da62779a6cb5441149e0de4bad024d4d63c449dab564f821fdd307ea3e4fc77",
+            "size_bytes": 3616815
+          },
+          {
+            "path": "data/raw/manual/rbi_state_road_finances.csv",
+            "sha256": "3fd2c72511598067bbdad943c128fbb4de667cb887de1c10cfd4db04b9a1c952",
+            "size_bytes": 1225356
+          }
+        ],
+        "source_documents": [
+          {
+            "url": "https://rbidocs.rbi.org.in/rdocs/Publications/PDFs/0SF23012026877D47254C4F4B0793B2C38F05FB7EC5.PDF",
+            "relative_path": "primary_disclosures/rbi_state_road_finances/document.pdf",
+            "sha256": "0da62779a6cb5441149e0de4bad024d4d63c449dab564f821fdd307ea3e4fc77",
+            "size_bytes": 3616815
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/rbi_state_road_finances.parquet",
+            "format": "parquet",
+            "sha256": "584f3b87ca001f5f0c27c57cc37a5ff546414881b342b16a5fe612010cca1a9c"
+          }
+        ],
+        "row_count": 1302,
+        "columns": [
+          "entity_id",
+          "entity_name",
+          "entity_type",
+          "agency",
+          "state",
+          "road_class",
+          "metric",
+          "value",
+          "unit",
+          "original_value",
+          "original_unit",
+          "period_start",
+          "period_end",
+          "period_basis",
+          "estimate_type",
+          "statement_basis",
+          "data_as_of",
+          "published_at",
+          "source_id",
+          "citation_url",
+          "table_page",
+          "evidence_class",
+          "analytical_eligible",
+          "source_document_sha256",
+          "notes",
+          "entity",
+          "year",
+          "metric_name",
+          "metric_value",
+          "metric_category",
+          "source_type",
+          "asset_id",
+          "project_name",
+          "nh_number",
+          "project_stage",
+          "scheduled_completion_date",
+          "likely_completion_date",
+          "actual_completion_date",
+          "comparison_group",
+          "asset_owner_id",
+          "implementing_agency_id",
+          "operator_id",
+          "concessionaire_id",
+          "financing_entity_id",
+          "contractor_name"
+        ]
+      },
+      "retrieved_at": "2026-10-01T19:28:49.237144+00:00",
+      "semantic_rechecks": [],
+      "completeness_score": 0.98,
+      "recency_score": 0.98,
+      "provenance_score": 0.98,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "High",
+      "overall_confidence_reason": [],
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "output_table_path": "data/processed/rbi_state_road_finances.parquet",
+      "data_checksum": "2bb97263f69a4054fa0f797b7b28f4d8fdd803d7e82fcbcc0f017acda10b12c6",
+      "last_ingested_at": "2026-10-01T20:12:43.099018+00:00",
+      "analytical_scope": {
+        "source_as_of_date": "2026-01-23",
+        "publisher_type": "government"
+      },
+      "refresh_error": "Response is not a PDF"
+    },
+    {
+      "source_id": "cag_bharatmala_performance_audit",
+      "connector": "primary_disclosures",
+      "version": "1.0.0",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "refresh_outcome": "updated",
+      "last_checked_at": "2026-10-01T20:10:21.281214+00:00",
+      "last_successful_retrieval_at": "2026-10-01T20:10:21.285334+00:00",
+      "data_changed_at": "2026-10-01T20:10:21.281214+00:00",
+      "publication_date": null,
+      "source_as_of_date": "2023-03-31",
+      "analytical_ready": true,
+      "evidence_status": "verified",
+      "disclosure_ready": true,
+      "extraction_status": "validated",
+      "skip_reason": "",
+      "source": {
+        "publisher": "Comptroller and Auditor General of India",
+        "title": "CAG Report19of2023: Bharatmala PhaseI performance audit",
+        "url": "https://saiindia.gov.in/webroot/uploads/download_audit_report/2023/Report-No.-19-of-203--Bharatmala-English-064d5db7bc63c20.06754442.pdf",
+        "retrieved_at": "2026-10-01T19:28:51.317541+00:00",
+        "official_flag": true,
+        "publisher_type": "government",
+        "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+        "domain": "saiindia.gov.in"
+      },
+      "citations": {
+        "permanent_identifier": "cag_bharatmala_performance_audit",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": ""
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/evidence/cag_bharatmala_performance_audit.json",
+            "sha256": "de7c2ac86e79f49b14b5af14994e09317460c1ad5b1eccab97cb49864602273e",
+            "size_bytes": 867
+          },
+          {
+            "path": "data/raw/primary_disclosures/cag_bharatmala_performance_audit/document.pdf",
+            "sha256": "bfeaffbdc6ba8d52a6c0b08d5805c2c5d61d58ebf3a03cd3d1a605a67b2609d5",
+            "size_bytes": 8105572
+          },
+          {
+            "path": "data/raw/manual/cag_bharatmala_performance_audit.csv",
+            "sha256": "4a0f5c27922e9640e702df0feb209a924a218b1662053782eee4d6c36f23e06c",
+            "size_bytes": 5441
+          }
+        ],
+        "source_documents": [
+          {
+            "url": "https://saiindia.gov.in/webroot/uploads/download_audit_report/2023/Report-No.-19-of-203--Bharatmala-English-064d5db7bc63c20.06754442.pdf",
+            "relative_path": "primary_disclosures/cag_bharatmala_performance_audit/document.pdf",
+            "sha256": "bfeaffbdc6ba8d52a6c0b08d5805c2c5d61d58ebf3a03cd3d1a605a67b2609d5",
+            "size_bytes": 8105572
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/cag_bharatmala_performance_audit.parquet",
+            "format": "parquet",
+            "sha256": "abb8caf8c87268cd8c4753bd6d3af4ee288452fe3ae2b357b0202593293ae30e"
+          }
+        ],
+        "row_count": 6,
+        "columns": [
+          "entity_id",
+          "entity_name",
+          "entity_type",
+          "agency",
+          "state",
+          "road_class",
+          "metric",
+          "value",
+          "unit",
+          "original_value",
+          "original_unit",
+          "period_start",
+          "period_end",
+          "period_basis",
+          "estimate_type",
+          "statement_basis",
+          "data_as_of",
+          "published_at",
+          "source_id",
+          "citation_url",
+          "table_page",
+          "evidence_class",
+          "analytical_eligible",
+          "source_document_sha256",
+          "notes",
+          "entity",
+          "year",
+          "metric_name",
+          "metric_value",
+          "metric_category",
+          "source_type",
+          "asset_id",
+          "project_name",
+          "nh_number",
+          "project_stage",
+          "scheduled_completion_date",
+          "likely_completion_date",
+          "actual_completion_date",
+          "comparison_group",
+          "asset_owner_id",
+          "implementing_agency_id",
+          "operator_id",
+          "concessionaire_id",
+          "financing_entity_id",
+          "contractor_name"
+        ]
+      },
+      "retrieved_at": "2026-10-01T19:28:51.317541+00:00",
+      "semantic_rechecks": [],
+      "completeness_score": 0.98,
+      "recency_score": 0.4,
+      "provenance_score": 0.98,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency"
+      ],
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "output_table_path": "data/processed/cag_bharatmala_performance_audit.parquet",
+      "data_checksum": "befca65b36e9ce24a1b857ff30fbabe658b32cc8c68b75609d442e11193f246e",
+      "last_ingested_at": "2026-10-01T20:10:21.281214+00:00",
+      "analytical_scope": {
+        "source_as_of_date": "2023-03-31",
+        "publisher_type": "government"
+      }
+    },
+    {
+      "source_id": "morth_state_highway_network",
+      "connector": "primary_disclosures",
+      "version": "1.0.0",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "refresh_outcome": "updated",
+      "last_checked_at": "2026-10-01T20:10:23.253136+00:00",
+      "last_successful_retrieval_at": "2026-10-01T20:10:23.256737+00:00",
+      "data_changed_at": "2026-10-01T20:10:23.253136+00:00",
+      "publication_date": null,
+      "source_as_of_date": "2022-03-31",
+      "analytical_ready": true,
+      "evidence_status": "verified",
+      "disclosure_ready": true,
+      "extraction_status": "validated",
+      "skip_reason": "",
+      "source": {
+        "publisher": "MoRTH Transport Research Wing / StatePWDs",
+        "title": "Basic Road Statistics2020-21&2021-22: state highway network Annexure2.3.2",
+        "url": "https://morth.gov.in/backend/documents/uploaded/1781850176_EDsilQvsKL.pdf",
+        "retrieved_at": "2026-10-01T19:28:52.082854+00:00",
+        "official_flag": true,
+        "publisher_type": "government",
+        "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+        "domain": "morth.gov.in"
+      },
+      "citations": {
+        "permanent_identifier": "morth_state_highway_network",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "SH network all states/UTs, older per-state footnotes preserved; Arunachal and inconsistent published total quarantined. NH stock is separately covered by existing MoRTH source; no duplicate NH series created."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/evidence/morth_state_highway_network.json",
+            "sha256": "54d2a09edf7a85928b74c940be3646bdaaeeb1799039ec1e97dc2603893949e2",
+            "size_bytes": 1003
+          },
+          {
+            "path": "data/raw/primary_disclosures/morth_state_highway_network/document.pdf",
+            "sha256": "3288df12fb15571bfcdbcd388befe36e2cf7fdc07bf794024906e242fda73a9a",
+            "size_bytes": 9147734
+          },
+          {
+            "path": "data/raw/manual/morth_state_highway_network.csv",
+            "sha256": "16e41b292a79c8d3e1e0537efe109f402ca936cf7caf196fa87c2a53f835b7f8",
+            "size_bytes": 61422
+          }
+        ],
+        "source_documents": [
+          {
+            "url": "https://morth.gov.in/backend/documents/uploaded/1781850176_EDsilQvsKL.pdf",
+            "relative_path": "primary_disclosures/morth_state_highway_network/document.pdf",
+            "sha256": "3288df12fb15571bfcdbcd388befe36e2cf7fdc07bf794024906e242fda73a9a",
+            "size_bytes": 9147734
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/morth_state_highway_network.parquet",
+            "format": "parquet",
+            "sha256": "d4ff72cb698bf38de9088fdf9b0d299cc8d3f45eaab65a69380848e6185b3916"
+          }
+        ],
+        "row_count": 75,
+        "columns": [
+          "entity_id",
+          "entity_name",
+          "entity_type",
+          "agency",
+          "state",
+          "road_class",
+          "metric",
+          "value",
+          "unit",
+          "original_value",
+          "original_unit",
+          "period_start",
+          "period_end",
+          "period_basis",
+          "estimate_type",
+          "statement_basis",
+          "data_as_of",
+          "published_at",
+          "source_id",
+          "citation_url",
+          "table_page",
+          "evidence_class",
+          "analytical_eligible",
+          "source_document_sha256",
+          "notes",
+          "entity",
+          "year",
+          "metric_name",
+          "metric_value",
+          "metric_category",
+          "source_type",
+          "asset_id",
+          "project_name",
+          "nh_number",
+          "project_stage",
+          "scheduled_completion_date",
+          "likely_completion_date",
+          "actual_completion_date",
+          "comparison_group",
+          "asset_owner_id",
+          "implementing_agency_id",
+          "operator_id",
+          "concessionaire_id",
+          "financing_entity_id",
+          "contractor_name"
+        ]
+      },
+      "retrieved_at": "2026-10-01T19:28:52.082854+00:00",
+      "semantic_rechecks": [],
+      "completeness_score": 0.98,
+      "recency_score": 0.2,
+      "provenance_score": 0.98,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency"
+      ],
+      "recency_basis": "observation_date",
+      "validation_errors": [],
+      "output_table_path": "data/processed/morth_state_highway_network.parquet",
+      "data_checksum": "4801c27240f995ffdb0793966e1730aa9a7aa238e301c6a1ba59d55411651f2f",
+      "last_ingested_at": "2026-10-01T20:10:23.253136+00:00",
+      "analytical_scope": {
+        "source_as_of_date": "2022-03-31",
+        "publisher_type": "government"
+      }
+    },
+    {
+      "source_id": "upeida_expressway_projects",
+      "connector": "primary_disclosures",
+      "version": "1.0.0",
+      "status": "manual_ingest",
+      "metric_category": "official_measured",
+      "refresh_outcome": "updated",
+      "last_checked_at": "2026-10-01T20:10:25.306552+00:00",
+      "last_successful_retrieval_at": "2026-10-01T19:49:37.207385+00:00",
+      "data_changed_at": "2026-10-01T20:10:25.306552+00:00",
+      "publication_date": null,
+      "source_as_of_date": null,
+      "analytical_ready": false,
+      "evidence_status": "verified",
+      "disclosure_ready": true,
+      "extraction_status": "validated",
+      "skip_reason": "",
+      "source": {
+        "publisher": "Uttar Pradesh Expressways Industrial Development Authority",
+        "title": "UPEIDA Ganga/Agra-Lucknow expressway project and award grant disclosures",
+        "url": "https://upeida.up.gov.in/en/page/ganga-expressway",
+        "retrieved_at": "2026-10-01T19:49:37.207385+00:00",
+        "official_flag": true,
+        "publisher_type": "government",
+        "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+        "domain": "upeida.up.gov.in"
+      },
+      "citations": {
+        "permanent_identifier": "upeida_expressway_projects",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "TLS-verified macOS curl retrieved historical project/grant HTML; source publication/observation dates undisclosed, figures quarantined from dated rankings. Current Ganga progress PDF URL unavailable; no progress actuals claimed."
+      },
+      "manifest": {
+        "raw_files": [
+          {
+            "path": "data/raw/manual/evidence/upeida_expressway_projects.json",
+            "sha256": "b31b64b9ef954bfbdf1e601ea3ebbf01eb21124c2b889888bb0614d7e47cff46",
+            "size_bytes": 1282
+          },
+          {
+            "path": "data/raw/primary_disclosures/upeida_expressway_projects/document.html",
+            "sha256": "b42ffae976f8e33384f83f4d34ebb63a80f950e8d235a5eb76067c4b795d3e0a",
+            "size_bytes": 80529
+          },
+          {
+            "path": "data/raw/primary_disclosures/upeida_expressway_projects/agra-lucknow.html",
+            "sha256": "251f5a62bfe6f859d0a900b211aec95d77bd77d4633cb55d893e9337fa41f51a",
+            "size_bytes": 41332
+          },
+          {
+            "path": "data/raw/manual/upeida_expressway_projects.csv",
+            "sha256": "9143e86cd21b8ba5db762d19630ebedcfc342cce7dfd561c34f81a91b5124fc7",
+            "size_bytes": 6206
+          }
+        ],
+        "source_documents": [
+          {
+            "url": "https://upeida.up.gov.in/en/page/ganga-expressway",
+            "relative_path": "primary_disclosures/upeida_expressway_projects/document.html",
+            "sha256": "b42ffae976f8e33384f83f4d34ebb63a80f950e8d235a5eb76067c4b795d3e0a",
+            "size_bytes": 80529
+          },
+          {
+            "url": "https://upeida.up.gov.in/en/page/agra-lucknow-expressway",
+            "relative_path": "primary_disclosures/upeida_expressway_projects/agra-lucknow.html",
+            "sha256": "251f5a62bfe6f859d0a900b211aec95d77bd77d4633cb55d893e9337fa41f51a",
+            "size_bytes": 41332
+          }
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/upeida_expressway_projects.parquet",
+            "format": "parquet",
+            "sha256": "bcb90bb106a6311fe5bf738d5df0b078640bf5d0770965926e6ff6277bf75807"
+          }
+        ],
+        "row_count": 8,
+        "columns": [
+          "entity_id",
+          "entity_name",
+          "entity_type",
+          "agency",
+          "state",
+          "road_class",
+          "metric",
+          "value",
+          "unit",
+          "original_value",
+          "original_unit",
+          "period_start",
+          "period_end",
+          "period_basis",
+          "estimate_type",
+          "statement_basis",
+          "data_as_of",
+          "published_at",
+          "source_id",
+          "citation_url",
+          "table_page",
+          "evidence_class",
+          "analytical_eligible",
+          "source_document_sha256",
+          "notes",
+          "entity",
+          "year",
+          "metric_name",
+          "metric_value",
+          "metric_category",
+          "source_type",
+          "asset_id",
+          "project_name",
+          "nh_number",
+          "project_stage",
+          "scheduled_completion_date",
+          "likely_completion_date",
+          "actual_completion_date",
+          "comparison_group",
+          "asset_owner_id",
+          "implementing_agency_id",
+          "operator_id",
+          "concessionaire_id",
+          "financing_entity_id",
+          "contractor_name"
+        ]
+      },
+      "retrieved_at": "2026-10-01T19:49:37.207385+00:00",
+      "semantic_rechecks": [],
+      "output_table_path": "data/processed/upeida_expressway_projects.parquet",
+      "data_checksum": "1ab031c517279e3d403c55751301c6ffad3e7b2e927f2656fdc92d7517ed2395",
+      "last_ingested_at": "2026-10-01T20:10:25.306552+00:00",
+      "analytical_scope": {
+        "source_as_of_date": null,
+        "publisher_type": "government"
+      },
+      "completeness_score": 0.98,
+      "recency_score": 0.25,
+      "provenance_score": 0.98,
+      "consistency_score": 0.98,
+      "overall_confidence_badge": "Med",
+      "overall_confidence_reason": [
+        "Recency is stale against claimed update frequency",
+        "Observation date is unavailable; collection time is not data freshness"
+      ],
+      "recency_basis": "unknown",
+      "validation_errors": [],
+      "last_quality_check_at": "2026-10-01T20:33:26.179909+00:00"
+    },
+    {
+      "source_id": "msrdc_financial_disclosures",
+      "status": "manual_gap",
+      "metric_category": "issuer_disclosed",
+      "source": {
+        "publisher": "Maharashtra State Road Development Corporation Ltd.",
+        "title": "MSRDC annual reports, bond information and subsidiary audited financials",
+        "url": "https://msrdc.in/1262/Annual-Reports-and-Details-of-Bonds?format=print",
+        "official_flag": false,
+        "publisher_type": "issuer",
+        "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+        "domain": "msrdc.in"
+      },
+      "citations": {
+        "permanent_identifier": "msrdc_financial_disclosures",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "Public index/subsidiary FY23-24 filings identified; primary download timed out. Parent standalone latest visible FY18-19, not FY23-24. No statement facts without retrieved PDF."
+      },
+      "manifest": {
+        "raw_files": [],
+        "row_count": 0,
+        "columns": [
+          "entity_id",
+          "entity_name",
+          "entity_type",
+          "agency",
+          "state",
+          "road_class",
+          "metric",
+          "value",
+          "unit",
+          "original_value",
+          "original_unit",
+          "period_start",
+          "period_end",
+          "period_basis",
+          "estimate_type",
+          "statement_basis",
+          "data_as_of",
+          "published_at",
+          "source_id",
+          "citation_url",
+          "table_page",
+          "evidence_class",
+          "analytical_eligible",
+          "source_document_sha256",
+          "notes",
+          "entity",
+          "year",
+          "metric_name",
+          "metric_value",
+          "metric_category",
+          "source_type",
+          "asset_id",
+          "project_name",
+          "nh_number",
+          "project_stage",
+          "scheduled_completion_date",
+          "likely_completion_date",
+          "actual_completion_date",
+          "comparison_group",
+          "asset_owner_id",
+          "implementing_agency_id",
+          "operator_id",
+          "concessionaire_id",
+          "financing_entity_id",
+          "contractor_name"
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/msrdc_financial_disclosures.parquet",
+            "format": "parquet",
+            "sha256": "f4f94eac01503b05db3e2395aa8d84de7c2d2014378bf33d352945166cb7552c"
+          }
+        ]
+      },
+      "output_table_path": "data/processed/msrdc_financial_disclosures.parquet",
+      "connector": "primary_disclosures",
+      "version": "1.0.0",
+      "refresh_outcome": "manual_evidence_required",
+      "last_checked_at": "2026-10-01T20:10:25.333873+00:00",
+      "data_changed_at": null,
+      "publication_date": null,
+      "source_as_of_date": null,
+      "analytical_ready": false,
+      "evidence_status": "unavailable",
+      "disclosure_ready": false,
+      "extraction_status": "evidence_gap",
+      "skip_reason": "Public index/subsidiary FY23-24 filings identified; primary download timed out. Parent standalone latest visible FY18-19, not FY23-24. No statement facts without retrieved PDF.",
+      "semantic_rechecks": [],
+      "refresh_error": "Public index/subsidiary FY23-24 filings identified; primary download timed out. Parent standalone latest visible FY18-19, not FY23-24. No statement facts without retrieved PDF.",
+      "data_checksum": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "analytical_scope": {
+        "source_as_of_date": null,
+        "publisher_type": "issuer"
+      },
+      "completeness_score": 0.0,
+      "recency_score": 0.25,
+      "provenance_score": 0.3,
+      "consistency_score": 0.3,
+      "overall_confidence_badge": "Low",
+      "overall_confidence_reason": [
+        "Low provenance confidence (source reliability category)",
+        "Missingness is high; check source completeness",
+        "Recency is stale against claimed update frequency",
+        "Schema/range checks showed potential consistency issues",
+        "Use for trend and risk ranking, not precise governance decisions",
+        "Observation date is unavailable; collection time is not data freshness",
+        "Not eligible for measured analyst calculations"
+      ],
+      "recency_basis": "unknown",
+      "validation_errors": []
+    },
+    {
+      "source_id": "adb_state_road_projects",
+      "status": "manual_gap",
+      "metric_category": "official_measured",
+      "source": {
+        "publisher": "Asian Development Bank",
+        "title": "ADB Maharashtra State Road Improvement Project52298-001",
+        "url": "https://www.adb.org/projects/52298-001/main",
+        "official_flag": false,
+        "publisher_type": "multilateral",
+        "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+        "domain": "www.adb.org"
+      },
+      "citations": {
+        "permanent_identifier": "adb_state_road_projects",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "Official project52298-001 primary page HTTP403; financial statement April2024-May2025 disclosed in index; no unretrieved numerical facts."
+      },
+      "manifest": {
+        "raw_files": [],
+        "row_count": 0,
+        "columns": [
+          "entity_id",
+          "entity_name",
+          "entity_type",
+          "agency",
+          "state",
+          "road_class",
+          "metric",
+          "value",
+          "unit",
+          "original_value",
+          "original_unit",
+          "period_start",
+          "period_end",
+          "period_basis",
+          "estimate_type",
+          "statement_basis",
+          "data_as_of",
+          "published_at",
+          "source_id",
+          "citation_url",
+          "table_page",
+          "evidence_class",
+          "analytical_eligible",
+          "source_document_sha256",
+          "notes",
+          "entity",
+          "year",
+          "metric_name",
+          "metric_value",
+          "metric_category",
+          "source_type",
+          "asset_id",
+          "project_name",
+          "nh_number",
+          "project_stage",
+          "scheduled_completion_date",
+          "likely_completion_date",
+          "actual_completion_date",
+          "comparison_group",
+          "asset_owner_id",
+          "implementing_agency_id",
+          "operator_id",
+          "concessionaire_id",
+          "financing_entity_id",
+          "contractor_name"
+        ],
+        "output_files": [
+          {
+            "path": "data/processed/adb_state_road_projects.parquet",
+            "format": "parquet",
+            "sha256": "f4f94eac01503b05db3e2395aa8d84de7c2d2014378bf33d352945166cb7552c"
+          }
+        ]
+      },
+      "output_table_path": "data/processed/adb_state_road_projects.parquet",
+      "connector": "primary_disclosures",
+      "version": "1.0.0",
+      "refresh_outcome": "restricted",
+      "last_checked_at": "2026-10-01T20:17:36.386717+00:00",
+      "data_changed_at": null,
+      "publication_date": null,
+      "source_as_of_date": null,
+      "analytical_ready": false,
+      "evidence_status": "unavailable",
+      "disclosure_ready": false,
+      "extraction_status": "evidence_gap",
+      "skip_reason": "Official project52298-001 primary page HTTP403; financial statement April2024-May2025 disclosed in index; no unretrieved numerical facts.",
+      "semantic_rechecks": [],
+      "refresh_error": "Official project52298-001 primary page HTTP403; financial statement April2024-May2025 disclosed in index; no unretrieved numerical facts.",
+      "data_checksum": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "analytical_scope": {
+        "source_as_of_date": null,
+        "publisher_type": "multilateral"
+      },
+      "completeness_score": 0.0,
+      "recency_score": 0.25,
+      "provenance_score": 0.3,
+      "consistency_score": 0.3,
+      "overall_confidence_badge": "Low",
+      "overall_confidence_reason": [
+        "Low provenance confidence (source reliability category)",
+        "Missingness is high; check source completeness",
+        "Recency is stale against claimed update frequency",
+        "Schema/range checks showed potential consistency issues",
+        "Use for trend and risk ranking, not precise governance decisions",
+        "Observation date is unavailable; collection time is not data freshness",
+        "Not eligible for measured analyst calculations"
+      ],
+      "recency_basis": "unknown",
+      "validation_errors": []
+    },
+    {
+      "source_id": "correlation_matrix",
+      "connector": "correlation_scoring",
+      "version": "0.2.0",
+      "status": "generated",
+      "output_table_path": "data/processed/correlation_matrix.parquet",
+      "metric_category": "model_output",
+      "evidence_status": "derived_analysis",
+      "analytical_ready": false,
+      "disclosure_ready": false,
+      "extraction_status": "validated",
+      "refresh_outcome": "model_generated",
+      "last_checked_at": "2026-10-01T20:22:53.597999+00:00",
+      "source": {
+        "publisher": "Bharat Highway correlation engine",
+        "title": "Approved descriptive comparisons",
+        "retrieved_at": "2026-10-01T20:22:53.597999+00:00",
+        "official_flag": false,
+        "license_terms": "Derived descriptive analysis; use input source licences."
+      },
+      "citations": {
+        "permanent_identifier": "correlation_matrix_v2",
+        "anchor": "data/manifests/correlation_diagnostics.json",
+        "note": "Approved compatible input pairs with overlap and coverage diagnostics; no causal claim."
+      },
+      "derivation_inputs": [
+        {
+          "source_id": "data_gov_in_nhai_stateut_project_delay_status_2024",
+          "data_checksum": "43828e52b648a8192b80a2abc5dc1ffb450d2e0318266527541bf1bb76700c27",
+          "output_files": [
+            {
+              "path": "data/processed/data_gov_in_nhai_stateut_project_delay_status_2024.parquet",
+              "format": "parquet",
+              "sha256": "6e1ee687a60676c72afa286d7ca219e8c24de3a13beaa7c534cf6fe680279092"
+            }
+          ]
+        },
+        {
+          "source_id": "data_gov_in_nh_fatalities_injuries_state_year",
+          "data_checksum": "78773d68a17aed9ffad3fe11b997e1cfffa1f91c7b0a60a03c3569e82f3d2500",
+          "output_files": [
+            {
+              "path": "data/processed/data_gov_in_nh_fatalities_injuries_state_year.parquet",
+              "format": "parquet",
+              "sha256": "0a8af39094f72e7050fd36cc765f0aa859e974e9e56f46bf6922bbcda9078a1c"
+            }
+          ]
+        }
+      ],
+      "diagnostics_path": "data/manifests/correlation_diagnostics.json",
+      "manifest": {
+        "raw_files": [],
+        "output_files": [
+          {
+            "path": "data/processed/correlation_matrix.parquet",
+            "format": "parquet",
+            "sha256": "70409c1de5bf0150348b15897b83580f188447cf9799575062abbf138dec0958"
+          }
+        ],
+        "row_count": 2,
+        "columns": [
+          "metric_a",
+          "metric_b",
+          "source_a",
+          "source_b",
+          "correlation",
+          "spearman",
+          "overlap_records",
+          "entity_count",
+          "period_count",
+          "coverage_a",
+          "coverage_b",
+          "year_min",
+          "year_max",
+          "created_at",
+          "method",
+          "scope",
+          "interpretation"
+        ]
+      },
+      "retrieved_at": "2026-10-01T20:22:53.597999+00:00",
+      "completeness_score": 0.5,
+      "recency_score": 0.25,
+      "provenance_score": 0.3,
+      "consistency_score": 0.5,
+      "overall_confidence_badge": "Low",
+      "overall_confidence_reason": [
+        "Low provenance confidence (source reliability category)",
+        "Missingness is high; check source completeness",
+        "Recency is stale against claimed update frequency",
+        "Schema/range checks showed potential consistency issues",
+        "Use for trend and risk ranking, not precise governance decisions",
+        "Observation date is unavailable; collection time is not data freshness"
+      ],
+      "source_as_of_date": null,
+      "recency_basis": "unknown",
+      "validation_errors": []
     }
   ]
 }

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import html
 import re
 from datetime import datetime, timezone
 from pathlib import Path
@@ -243,6 +244,13 @@ class NHAIAnnualDocumentsConnector:
         if isinstance(value, str):
             for match in self.PDF_LINK_RE.findall(value):
                 found.add(self._normalize_url(match))
+            if base_url:
+                # Resolve links actually present in the official index rather
+                # than generating archive filenames from a year range.
+                for href in re.findall(r"href\s*=\s*[\"']([^\"']+)[\"']", value, flags=re.IGNORECASE):
+                    link = urljoin(base_url, html.unescape(href))
+                    if urlsplit(link).path.lower().endswith(".pdf"):
+                        found.add(self._normalize_url(link))
             return found
 
         if isinstance(value, (list, tuple, set)):
@@ -327,7 +335,7 @@ class NHAIAnnualDocumentsConnector:
             pass
         return df
 
-    def _discover_candidates_from_api(self, endpoint: str, source: Dict[str, Any], terms: list[str]) -> list[Dict[str, Any]]:
+    def _discover_candidates_from_api(self, endpoint: str, source: Dict[str, Any], terms: list[str], *, require_annual_report: bool = True) -> list[Dict[str, Any]]:
         candidates: list[Dict[str, Any]] = []
         pages = int(source.get("discovery_pages", 4))
         page_size = int(source.get("discovery_page_size", 200))
@@ -409,7 +417,7 @@ class NHAIAnnualDocumentsConnector:
                         continue
                     if not self._is_allowed_document_url(normalized_url):
                         continue
-                    if self._annual_report_score(title, normalized_url, source_hint=item) < 0.4:
+                    if require_annual_report and self._annual_report_score(title, normalized_url, source_hint=item) < 0.4:
                         continue
                     if not self._probe_pdf_url(normalized_url):
                         continue
@@ -438,36 +446,17 @@ class NHAIAnnualDocumentsConnector:
                 candidates.append({"title": source.get("dataset_title", ""), "document_url": url, "source_hint": "inventory_hint"})
                 seen_urls.add(url)
 
-        base = source.get("annual_document_url_prefix") or "https://nhai.gov.in/nhai/sites/default/files/mix_file/"
-        configured_years = source.get("financial_years")
-        if isinstance(configured_years, (list, tuple)) and configured_years:
-            year_candidates = list(configured_years)
-        else:
-            start_year = int(source.get("start_year", 2015))
-            end_year = int(source.get("end_year", datetime.now().year))
-            year_candidates = [f"{year}-{(year + 1) % 100:02d}" for year in range(start_year, end_year + 1)]
-
-        for year_value in year_candidates:
-            match = self.FINANCIAL_YEAR_RE.match(f"{year_value}".replace("-", "-"))
-            if not match:
-                continue
-            filename = source.get(
-                "annual_filename_template",
-                "Audited_Results_{year}(SEBI_Format).pdf",
-            )
-            filename = filename.format(year=year_value)
-            url = self._normalize_url(f"{base.rstrip('/')}/{filename}")
-            if url in seen_urls:
-                continue
-            if self._is_allowed_document_url(url) and self._probe_pdf_url(url):
-                candidates.append(
-                    {
-                        "title": f"{source.get('dataset_title', 'NHAI audited results')} {year_value}",
-                        "document_url": url,
-                        "source_hint": "financial_year_pattern",
-                    }
-                )
+        for endpoint in self._safe_url_list(source.get("discovery_endpoints")):
+            for candidate in self._discover_candidates_from_api(endpoint, source, ["audited", "financial results"], require_annual_report=False):
+                url = candidate["document_url"]
+                if url not in seen_urls:
+                    seen_urls.add(url)
+                    candidates.append(candidate)
+        for candidate in self._discover_candidates_from_index(source, require_annual_report=False):
+            url = candidate["document_url"]
+            if url not in seen_urls:
                 seen_urls.add(url)
+                candidates.append(candidate)
 
         return candidates
 
@@ -484,13 +473,7 @@ class NHAIAnnualDocumentsConnector:
                     if self._annual_report_score(source.get("dataset_title", ""), url, source_hint="inventory_hint") >= 0.4 and self._probe_pdf_url(url):
                         discovered.append({"title": source.get("dataset_title", ""), "document_url": url, "source_hint": "inventory_hint"})
 
-        endpoints = source.get(
-            "discovery_endpoints",
-            [
-                "https://nhai.gov.in/nhai/api/policycirculars",
-                "https://nhai.gov.in/nhai/api/press-release",
-            ],
-        )
+        endpoints = self._safe_url_list(source.get("discovery_endpoints"))
         terms = ["annual report", "annual reports", "annual", "finance", "audited", "performance", "annual report 202"]
         for endpoint in endpoints:
             for item in self._discover_candidates_from_api(str(endpoint), source, terms):
@@ -498,29 +481,33 @@ class NHAIAnnualDocumentsConnector:
                 if not url.lower().endswith(".pdf") or url in seen_urls:
                     continue
                 seen_urls.add(url)
-                if self._probe_pdf_url(url):
-                    discovered.append(item)
+                discovered.append(item)  # API discovery already verified the PDF.
 
+        for candidate in self._discover_candidates_from_index(source, require_annual_report=True):
+            url = candidate["document_url"]
+            if url.lower() not in seen_urls:
+                seen_urls.add(url.lower())
+                discovered.append(candidate)
+        return discovered
+
+    def _discover_candidates_from_index(self, source: Dict[str, Any], *, require_annual_report: bool) -> list[Dict[str, Any]]:
+        discovered: list[Dict[str, Any]] = []
         page = source.get("resource_page_url") or source.get("url")
-        if page and self._is_allowed_document_url(page):
+        if page and self._is_allowed_document_url(page) and not urlsplit(page).path.lower().endswith(".pdf"):
             try:
                 response = requests.get(page, timeout=25, headers={"user-agent": "BHAI-research-scan/0.3"})
                 if not sanitize_public_http_url(response.url or page, allowed_host_suffixes={ALLOWED_HOST_SUFFIX}):
                     return discovered
                 if response.ok:
-                    for link in self._collect_urls(response.text):
+                    for link in self._collect_urls(response.text, base_url=response.url or page):
                         normalized_link = self._normalize_url(link)
                         if not normalized_link.lower().endswith(".pdf"):
                             continue
                         if not self._is_allowed_document_url(normalized_link):
                             continue
-                        if self._annual_report_score(source.get("dataset_title", ""), normalized_link, source_hint=page) < 0.4:
-                            continue
-                        key = normalized_link.lower()
-                        if key in seen_urls:
+                        if require_annual_report and self._annual_report_score(source.get("dataset_title", ""), normalized_link, source_hint=page) < 0.4:
                             continue
                         if self._probe_pdf_url(normalized_link):
-                            seen_urls.add(key)
                             discovered.append({"title": source.get("dataset_title", ""), "document_url": normalized_link, "source_hint": page})
             except Exception:
                 pass
@@ -568,28 +555,46 @@ class NHAIAnnualDocumentsConnector:
             return False
 
     @staticmethod
+    def _parse_publication_date(page_text: str) -> str | None:
+        # Report years, accounting cutoffs and dates elsewhere on the cover
+        # are not publication dates. Require an explicit label and full date.
+        label = r"\b(?:published\s+on|date\s+of\s+publication)\s*[:\-]?\s*"
+        full_date = (r"(?:\d{4}-\d{1,2}-\d{1,2}|\d{1,2}[-/]\d{1,2}[-/]\d{4}|"
+                     r"\d{1,2}\s+[A-Za-z]+\s+\d{4}|[A-Za-z]+\s+\d{1,2},?\s+\d{4})\b")
+        formats = ("%Y-%m-%d", "%d-%m-%Y", "%d/%m/%Y", "%d %B %Y", "%d %b %Y",
+                   "%B %d, %Y", "%b %d, %Y", "%B %d %Y", "%b %d %Y")
+        for match in re.finditer(label + "(" + full_date + ")", page_text, flags=re.IGNORECASE):
+            token = re.sub(r"\s+", " ", match.group(1)).strip()
+            for fmt in formats:
+                try:
+                    return datetime.strptime(token, fmt).date().isoformat()
+                except ValueError:
+                    continue
+        return None
+
+    @staticmethod
     def _pdf_metadata(path: Path) -> tuple[str | None, str | None]:
         try:
             reader = PdfReader(str(path))
             page_text = "\n".join((page.extract_text() or "") for page in reader.pages[:2])
-            return NHAIAnnualDocumentsConnector._parse_date_hint(page_text), page_text
+            return NHAIAnnualDocumentsConnector._parse_publication_date(page_text), page_text
         except Exception:
             return None, None
 
     def _extract_candidate_as_of(self, source: Dict[str, Any], candidate: Dict[str, Any], headers: dict[str, str], pdf_text: str | None) -> str | None:
+        # HTTP Date and Last-Modified describe delivery/publication, not the
+        # period measured by a report. Do not change observations on each fetch.
         hints = [
             candidate.get("as_of"),
+            candidate.get("source_as_of_date"),
             source.get("as_of"),
-            source.get("publication_date"),
-            source.get("date"),
-            headers.get("Last-Modified"),
-            headers.get("Date"),
+            source.get("source_as_of_date"),
         ]
         for hint in hints:
             parsed = self._parse_date_hint(hint)
             if parsed:
                 return parsed
-        return self._parse_date_hint(candidate.get("title")) or self._parse_date_hint(pdf_text)
+        return None
 
     def _row_from_candidate(
         self,
@@ -621,8 +626,6 @@ class NHAIAnnualDocumentsConnector:
         raw_pdf = self._write_raw_response(raw_root / source_id, source_id, response.content, ".pdf")
         publication_date, pdf_text = self._pdf_metadata(raw_pdf)
         as_of = self._extract_candidate_as_of(source, candidate, response.headers, pdf_text)
-        if not as_of:
-            as_of = publication_date
 
         title = self._safe_text(candidate.get("title", "")) or raw_pdf.name
         doc_year = (

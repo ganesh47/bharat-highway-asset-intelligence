@@ -425,12 +425,36 @@ async function countRows(conn, sourcePath) {
   return Number(rows[0]?.row_count || 0);
 }
 
-function num(value, fallback = 0) {
+function num(value, fallback = null) {
+  if (value == null || (typeof value === 'string' && !value.trim())) return fallback;
   const n = Number(value);
   return Number.isFinite(n) ? n : fallback;
 }
 
+function completeSum(values) {
+  const observed = values.map((value) => num(value));
+  return observed.length && observed.every(Number.isFinite) ? observed.reduce((sum, value) => sum + value, 0) : null;
+}
+
+function statePortfolioObservation(row) {
+  return {
+    state: row.state,
+    projects: num(row.number_of_nh_projects),
+    length_km: num(row.length_in_km ?? row.length__in_km_),
+    capital_outlay: num(row.capital_outlay__rs_in_cr_for_the_years_2020_to_2024
+      ?? row.capital_outlay___rs_in_cr__for_the_years_2020_to_2024),
+  };
+}
+
+function unrectifiedShare(blackspots, rectified) {
+  const total = num(blackspots);
+  const completed = num(rectified);
+  return Number.isFinite(total) && total > 0 && Number.isFinite(completed) && completed >= 0 && completed <= total
+    ? (total - completed) / total * 100 : null;
+}
+
 function fmtNum(value, options = {}) {
+  if (value == null || (typeof value === 'string' && !value.trim())) return 'N/A';
   const n = Number(value);
   if (!Number.isFinite(n)) {
     return 'N/A';
@@ -521,9 +545,6 @@ function extractDateCandidatesFromRow(row) {
     'date',
     'time',
     'timestamp',
-    'created_at',
-    'updated_at',
-    'retrieved_at',
     'as_of',
     'asof',
     'as-of',
@@ -541,6 +562,8 @@ function extractDateCandidatesFromRow(row) {
   ];
   const candidatePattern = /(date|time|timestamp|year|period|month|snapshot|as[_-]of|effective|publication|release|quarter|fy|observ|time)/i;
 
+  const explicit = ['data_as_of', 'source_as_of_date', 'source_as_of', 'snapshot_date'].map((key) => parseDateValue(row[key])).filter(Boolean);
+  if (explicit.length) return explicit;
   const dates = [];
   dateValueHints.forEach((key) => {
     const value = row[key];
@@ -551,6 +574,7 @@ function extractDateCandidatesFromRow(row) {
   });
 
   Object.entries(row).forEach(([key, value]) => {
+    if (/^(retrieved_at|created_at|updated_at|timestamp)$/i.test(key)) return;
     if (candidatePattern.test(key) || key === 'period' || key === 'label' || key === 'source') {
       const parsed = parseDateValue(value);
       if (parsed) {
@@ -586,7 +610,7 @@ function latestDateFromCatalog(catalog, sourceIds = []) {
   const dates = (sourceIds || [])
     .map((sourceId) => catalog?.[sourceId])
     .filter(Boolean)
-    .map((entry) => formatDateOnly(entry.retrieved_at) || formatDateOnly(entry.source?.retrieved_at))
+    .map((entry) => formatDateOnly(entry.source_as_of_date || entry.data_as_of))
     .filter(Boolean);
 
   if (!dates.length) {
@@ -649,12 +673,22 @@ function safeLabel(v) {
   return String(v || 'Unknown');
 }
 
+const STATE_ALIASES = {
+  'orissa': 'odisha', 'uttaranchal': 'uttarakhand', 'pondicherry': 'puducherry',
+  'nct of delhi': 'delhi', 'national capital territory of delhi': 'delhi',
+  'andaman nicobar islands': 'andaman and nicobar islands',
+  'andaman nicobar': 'andaman and nicobar islands',
+  'jammu kashmir': 'jammu and kashmir',
+  'dadra nagar haveli and daman diu': 'dadra and nagar haveli and daman and diu',
+};
+
 function normalizeState(value) {
-  return String(value || '')
+  const key = String(value || '')
     .trim()
     .toLowerCase()
     .replace(/[^a-z0-9 ]/g, '')
     .replace(/\s+/g, ' ');
+  return STATE_ALIASES[key] || key;
 }
 
 function toYearNumeric(value) {
@@ -688,13 +722,42 @@ function pickByMetric(rows, predicate) {
 
 function sourceTypeTag(item) {
   const category = String(item?.metric_category || item?.source_type || item?.source?.source_type || '').toLowerCase();
-  if (item?.source?.official_flag === false || category.includes('proxy')) {
-    return ['Proxy-derived', 'proxy'];
-  }
-  if (category.includes('model')) {
-    return ['Model outputs', 'model'];
-  }
+  const evidence = String(item?.evidence_class || item?.source?.evidence_class || '').toLowerCase();
+  if (category.includes('model')) return ['Model outputs', 'model'];
+  if (category.includes('proxy')) return ['Proxy-derived', 'proxy'];
+  if (category.includes('issuer') || evidence.includes('issuer') || evidence.includes('valuation')) return ['Issuer disclosure', 'issuer'];
+  if (item?.source?.official_flag === false) return ['Proxy-derived', 'proxy'];
   return ['Official measured', 'official'];
+}
+
+function analyticalReady(item) {
+  if (item && sourceTypeTag(item)[1] === 'model') return false;
+  if (!item || item.analytical_ready === false || item.analytical_eligible === false) return false;
+  if (['unverified', 'unavailable', 'metadata_only', 'discovery_only'].includes(item.evidence_status)) return false;
+  if (['disabled', 'stubs_disabled', 'metadata_only', 'candidate_ready', 'stubbed_manual_gap'].includes(item.status)) return false;
+  if (['nhai_annual_report_documents', 'nhai_audited_results_pdf', 'nhai_press_release_index'].includes(item.source_id)) return item.analytical_ready === true;
+  return Number(item.manifest?.row_count || 0) > 0;
+}
+
+function disclosureReady(item) {
+  if (!item || !['official', 'issuer'].includes(sourceTypeTag(item)[1])) return false;
+  if (item.disclosure_ready === true) return true;
+  return item.evidence_status === 'verified' && item.extraction_status === 'validated' && Number(item.manifest?.row_count || 0) > 0;
+}
+
+function matchesSourceFilter(item, filter) {
+  const kind = sourceTypeTag(item)[1];
+  if (filter === 'all') return true;
+  if (filter === 'analyst') return ['official', 'issuer'].includes(kind) && (analyticalReady(item) || disclosureReady(item));
+  return kind === filter;
+}
+
+function readinessLabel(item) {
+  if (item?.refresh_outcome === 'failed_preserved') return 'Refresh failed · previous evidence retained';
+  if (analyticalReady(item)) return 'Validated analytical evidence';
+  if (disclosureReady(item)) return 'Validated disclosure · estimates or undated context excluded from measured calculations';
+  if (item?.manifest?.row_count > 0) return 'Document or unverified snapshot · excluded from analyst calculations';
+  return `Unavailable · ${item?.skip_reason || item?.evidence_status || item?.status || 'no validated observations'}`;
 }
 
 function confidenceFromSources(entries) {
@@ -706,7 +769,7 @@ function confidenceFromSources(entries) {
     };
   }
 
-  let minScore = 1;
+  let minScore = 3;
   const reasons = new Set();
   entries.forEach((entry) => {
     const badge = String(entry?.overall_confidence_badge || 'Low').toLowerCase();
@@ -1054,14 +1117,7 @@ function MultiLineChart({
     points: (layer.points || []).filter((point) => Number.isFinite(num(point.x)) && Number.isFinite(num(point.y))).sort((a, b) => num(a.x) - num(b.x)),
   }));
   const allSeries = normalizedLayers.flatMap((layer) => layer.points || []);
-  if (!allSeries.length) {
-    return React.createElement(
-      'div',
-      { className: 'card insight-chart' },
-      React.createElement('div', { className: 'chart-title' }, title),
-      React.createElement('div', { className: 'chart-meta' }, chartMetaText(description || 'No records available.', asOfDate))
-    );
-  }
+
 
   const xExtent = {
     min: Math.min(...allSeries.map((item) => num(item.x))),
@@ -1264,6 +1320,15 @@ function MultiLineChart({
     return bestDist <= 1200 ? best : null;
   };
 
+  if (!allSeries.length) {
+    return React.createElement(
+      'div',
+      { className: 'card insight-chart' },
+      React.createElement('div', { className: 'chart-title' }, title),
+      React.createElement('div', { className: 'chart-meta' }, chartMetaText(description || 'No records available.', asOfDate))
+    );
+  }
+
   return React.createElement('div', { className: 'card insight-chart' },
     React.createElement('div', { className: 'source-line' },
       React.createElement('div', { className: 'chart-title' }, title),
@@ -1323,6 +1388,7 @@ function HorizontalBars({ title, rows, xLabel, yLabel, confidence, onHover, tool
     ),
     React.createElement('div', { className: 'chart-meta' }, chartMetaText(`${xLabel || ''} by ${yLabel || 'category'}`, asOfDate)),
     React.createElement('div', { className: 'bars' },
+      top.length ? null : React.createElement('p', { role: 'status', className: 'insight-note' }, 'No records available for this selection. Missing values are not zero.'),
       ...top.map((row) => {
         const width = Math.round((num(row.value) / max) * 100);
         return React.createElement('div', { key: row.label, className: 'bar-row' },
@@ -1484,14 +1550,15 @@ function StackedStateStatus({
       state: safeLabel(row.state),
       segments: segments.map((segment) => ({
         ...segment,
-        value: Math.max(0, num(row[segment.key], 0)),
+        value: num(row[segment.key]),
       })),
     }))
     .map((row) => ({
       ...row,
-      total: row.segments.reduce((acc, segment) => acc + segment.value, 0),
+      total: completeSum(row.segments.map((segment) => segment.value)),
     }))
-    .filter((row) => row.state && row.state !== 'Unknown' && row.total > 0);
+    .filter((row) => row.state && row.state !== 'Unknown' && Number.isFinite(row.total)
+      && row.segments.every((segment) => segment.value >= 0));
 
   const max = Math.max(...cleaned.map((row) => row.total), 1);
   const ordered = cleaned.sort((a, b) => b.total - a.total);
@@ -1512,6 +1579,7 @@ function StackedStateStatus({
       ))
     ),
     React.createElement('div', { className: 'bars' },
+      ordered.length ? null : React.createElement('p', { role: 'status', className: 'insight-note' }, 'No records available for this selection. Omitted geographies are not assigned zero.'),
       ...ordered.map((row) => {
         const barSegments = row.segments.map((segment) => ({
           ...segment,
@@ -1579,14 +1647,7 @@ function ScatterChart({
       ? [{ key: 'radius', label: `Bubble size: ${radiusLabel}`, swatchColor: '#a0182d' }]
       : []),
   ];
-  if (!points.length) {
-    return React.createElement(
-      'div',
-      { className: 'card insight-chart' },
-      React.createElement('div', { className: 'chart-title' }, title),
-      React.createElement('div', { className: 'chart-meta' }, chartMetaText(metaText || 'No scatter points.', asOfDate))
-    );
-  }
+
 
   const width = 980;
   const computedHeight = Number.isFinite(num(chartHeight))
@@ -1609,9 +1670,10 @@ function ScatterChart({
   const yMax = yRange.max;
   const xAxisTicks = axisTicks(xMin, xMax, 6);
   const yAxisTicks = axisTicks(yMin, yMax, 5);
-  const rMin = Math.min(...points.map((p) => num(p.radius) || 3));
-  const rMax = Math.max(...points.map((p) => num(p.radius) || 3));
-  const radiusScale = (v) => clamp(((num(v) - rMin) / (rMax - rMin || 1)) * 7 + 3, 3, 12);
+  const observedRadii = points.map((point) => num(point.radius)).filter(Number.isFinite);
+  const rMin = observedRadii.length ? Math.min(...observedRadii) : 0;
+  const rMax = observedRadii.length ? Math.max(...observedRadii) : 0;
+  const radiusScale = (value) => Number.isFinite(num(value)) ? clamp(((num(value) - rMin) / (rMax - rMin || 1)) * 7 + 3, 3, 12) : 3;
   const chartRef = useRef(null);
   const [scatterResizeTick, setScatterResizeTick] = useState(0);
 
@@ -1693,10 +1755,10 @@ function ScatterChart({
     points.forEach((point) => {
       const x = xScale(point.x) * scaleX;
       const y = yScale(point.y) * scaleY;
-      const radius = radiusScale(point.radius || 1);
+      const radius = radiusScale(point.radius);
       ctx.beginPath();
       ctx.arc(x, y, radius, 0, Math.PI * 2);
-      ctx.fillStyle = point.radius ? '#a0182d' : '#2f5f99';
+      ctx.fillStyle = Number.isFinite(num(point.radius)) ? '#a0182d' : '#2f5f99';
       ctx.fill();
     });
 
@@ -1762,6 +1824,15 @@ function ScatterChart({
     });
     return bestDist <= 1100 ? best : null;
   };
+
+  if (!points.length) {
+    return React.createElement(
+      'div',
+      { className: 'card insight-chart' },
+      React.createElement('div', { className: 'chart-title' }, title),
+      React.createElement('div', { className: 'chart-meta' }, chartMetaText(metaText || 'No scatter points.', asOfDate))
+    );
+  }
 
   return React.createElement('div', { className: 'card insight-chart' },
     React.createElement('div', { className: 'source-line' },
@@ -1843,7 +1914,7 @@ function MetricCard({ item, rowCount, sourceFilter }) {
   const temporaryLicense = String(license || '').slice(0, 160);
   const permanentIdentifier = citation.permanent_identifier || source.permanent_identifier_hint || 'N/A';
   const anchor = citation.anchor || 'pending';
-  const isVisible = sourceFilter === 'all' || String(kind) === sourceFilter;
+  const isVisible = matchesSourceFilter(item, sourceFilter);
   if (!isVisible) return null;
 
   return React.createElement(
@@ -1861,12 +1932,13 @@ function MetricCard({ item, rowCount, sourceFilter }) {
     React.createElement('h3', null, source.title || item.source_id),
     React.createElement('div', { className: `source-type ${kind}` }, label),
     React.createElement('div', { className: 'metric-meta' }, `Rows in parquet: ${rowCount}`),
-    React.createElement('div', { className: 'metric-meta' }, `Primary source: ${primarySource}`),
+    React.createElement('div', { className: 'metric-meta' }, 'Primary source: ', source.url ? React.createElement('a', { href: source.url, target: '_blank', rel: 'noreferrer' }, primarySource) : primarySource),
     React.createElement('div', { className: 'metric-meta' }, `Retrieval date: ${retrievalDate}`),
     React.createElement('div', { className: 'metric-meta' }, `Permanent identifier: ${permanentIdentifier}`),
     React.createElement('div', { className: 'metric-meta' }, `Citation anchor: ${anchor}`),
     React.createElement('div', { className: 'metric-meta' }, `License: ${temporaryLicense}`),
-    React.createElement('div', { className: `status ${item.skip_reason ? 'warn' : 'success'}` }, item.skip_reason ? `Skipped: ${item.skip_reason}` : 'Ready')
+    React.createElement('div', { className: 'metric-meta' }, `Data as of: ${item.source_as_of_date || item.data_as_of || 'See observation periods; retrieval is not an observation date'}`),
+    React.createElement('div', { className: `status ${analyticalReady(item) ? 'success' : 'warn'}` }, readinessLabel(item))
   );
 }
 
@@ -1885,7 +1957,7 @@ function OntologyPanel({ catalog }) {
     'section',
     { className: 'card' },
     React.createElement('h2', null, 'Ontology & Provenance Coverage'),
-    React.createElement('p', { className: 'metric-meta' }, 'Entity references are inferred from canonical manifest columns and source titles. Use this to quickly confirm what each story can be grounded against.'),
+    React.createElement('p', { className: 'metric-meta' }, 'Schema coverage from canonical manifest columns and source titles. Co-occurring columns do not validate a join, asset ownership or observed location.'),
     React.createElement(
       'div',
       { className: 'ontology' },
@@ -1917,44 +1989,54 @@ function OntologyPanel({ catalog }) {
   );
 }
 
-function CoverageCards({ catalog, rowCounts }) {
-  const officialCount = Object.values(catalog).filter((entry) => sourceTypeTag(entry)[1] === 'official').length;
-  const proxyCount = Object.values(catalog).filter((entry) => sourceTypeTag(entry)[1] === 'proxy').length;
-  const modelCount = Object.values(catalog).filter((entry) => sourceTypeTag(entry)[1] === 'model').length;
-  const rowTotal = Object.values(rowCounts).reduce((acc, value) => acc + (Number(value) || 0), 0);
-
-  return React.createElement(
-    'section',
-    { className: 'summary' },
-    React.createElement('div', { className: 'card' }, `Official measured sources: ${officialCount}`),
-    React.createElement('div', { className: 'card' }, `Proxy-derived signals: ${proxyCount}`),
-    React.createElement('div', { className: 'card' }, `Model output signals: ${modelCount}`),
-    React.createElement('div', { className: 'card' }, `Catalog entries: ${Object.keys(catalog).length}`),
-    React.createElement('div', { className: 'card' }, `Ingested rows: ${rowTotal.toLocaleString()}`)
+function CoverageCards({ catalog, rowCounts, disclosureRows = [] }) {
+  const entries = Object.values(catalog);
+  const count = (kind) => entries.filter((entry) => sourceTypeTag(entry)[1] === kind && analyticalReady(entry)).length;
+  const eligibleCounts = {};
+  disclosureRows.filter((row) => disclosureMeasured(row, catalog)).forEach((row) => { eligibleCounts[row.source_id] = (eligibleCounts[row.source_id] || 0) + 1; });
+  const evidenceRows = entries.filter((entry) => ['official', 'issuer'].includes(sourceTypeTag(entry)[1]) && analyticalReady(entry))
+    .reduce((sum, entry) => sum + (entry.manifest?.columns?.includes('analytical_eligible') ? (eligibleCounts[entry.source_id] || 0) : (Number(rowCounts[entry.source_id]) || 0)), 0);
+  const modelRows = entries.filter((entry) => sourceTypeTag(entry)[1] === 'model')
+    .reduce((sum, entry) => sum + (Number(rowCounts[entry.source_id]) || 0), 0);
+  return React.createElement('section', { className: 'summary', 'aria-label': 'Validated evidence coverage' },
+    React.createElement('div', { className: 'card' }, `Official measured sources: ${count('official')} validated`),
+    React.createElement('div', { className: 'card' }, `Issuer disclosures: ${count('issuer')} validated`),
+    React.createElement('div', { className: 'card' }, `Proxy-derived signals: ${entries.filter((entry) => sourceTypeTag(entry)[1] === 'proxy').length}`),
+    React.createElement('div', { className: 'card' }, `Model output signals: ${entries.filter((entry) => sourceTypeTag(entry)[1] === 'model').length} · excluded by default`),
+    React.createElement('div', { className: 'card' }, `Measured evidence rows: ${evidenceRows.toLocaleString('en-IN')}`),
+    React.createElement('div', { className: 'card' }, `Catalog entries: ${entries.length} · ${modelRows.toLocaleString('en-IN')} model rows excluded`)
   );
 }
 
 function QualityBreakdown({ catalog }) {
-  const official = [];
-  const proxy = [];
-  const model = [];
-  Object.values(catalog || {}).forEach((item) => {
-    const tag = sourceTypeTag(item)[1];
-    if (tag === 'official') official.push(item);
-    else if (tag === 'proxy') proxy.push(item);
-    else model.push(item);
-  });
-
+  const entries = Object.values(catalog || {});
   return React.createElement('div', { className: 'card chart' },
-    React.createElement('h2', null, 'Coverage by Type'),
-    React.createElement(
-      'div',
-      { className: 'coverage-grid' },
-      React.createElement('div', { className: 'coverage-cell' }, `Official measured: ${official.length}`),
-      React.createElement('div', { className: 'coverage-cell' }, `Proxy-derived: ${proxy.length}`),
-      React.createElement('div', { className: 'coverage-cell' }, `Model outputs: ${model.length}`)
-    )
+    React.createElement('h2', null, 'Evidence readiness'),
+    React.createElement('div', { className: 'coverage-grid' },
+      React.createElement('div', { className: 'coverage-cell' }, `Validated measured sources: ${entries.filter(analyticalReady).length}`),
+      React.createElement('div', { className: 'coverage-cell' }, `Other validated disclosures: ${entries.filter((entry) => disclosureReady(entry) && !analyticalReady(entry)).length}`),
+      React.createElement('div', { className: 'coverage-cell' }, `Unavailable or unverified: ${entries.filter((entry) => !analyticalReady(entry) && !disclosureReady(entry)).length}`)
+    ),
+    React.createElement('p', { className: 'insight-note' }, 'Source credibility, extraction quality, observation age and analytical coverage are separate. A document download is not an extracted financial observation.')
   );
+}
+
+function elementText(element) {
+  if (element == null || typeof element === 'boolean') return '';
+  if (typeof element === 'string' || typeof element === 'number') return String(element);
+  if (Array.isArray(element)) return element.map(elementText).join(' ');
+  return elementText(element.props?.children);
+}
+
+function LegacyChartGroup({ sourceFilter, chartScale, children }) {
+  const selected = React.Children.toArray(children).filter((child) => {
+    if (child.type === ChartTooltip) return true;
+    const title = String(child.props?.title || elementText(child));
+    const kind = /Synthetic Risk|Project Economics.*Model Panel/.test(title) ? 'model' : 'official';
+    return sourceFilter === 'all' || (sourceFilter === 'analyst' && kind === 'official') || sourceFilter === kind;
+  });
+  if (!selected.some((child) => child.type !== ChartTooltip)) return null;
+  return React.createElement('section', { className: 'chart-grid', 'data-size': chartScale, 'aria-label': 'Highway context charts' }, ...selected);
 }
 
 function toTopStates(analyticsRows, selectedState) {
@@ -1969,9 +2051,249 @@ function isAggregateStateLabel(value) {
   return key === 'total' || key === 'india' || key === 'all india' || key.startsWith('all ') || key === 'all';
 }
 
+const DISCLOSURE_SOURCE_IDS = [
+  'union_budget_morth_demand86', 'union_budget_highway_outcomes',
+  'nhit_quarterly_operations_finance', 'nhit_quarterly_financial_filings',
+  'nhit_asset_valuation_assumptions', 'nhit_annual_report',
+  'nhidcl_monthly_project_progress', 'parliament_nhai_debt_tot_invit',
+  'nhai_monetisation_transactions', 'npci_netc_monthly_statistics',
+  'rbi_state_road_finances', 'cag_bharatmala_performance_audit',
+  'morth_state_highway_network', 'upeida_expressway_projects',
+  'msrdc_financial_disclosures', 'adb_state_road_projects',
+];
+
+const ANALYST_THEMES = [
+  { id: 'funding', title: 'Funding & outcomes', note: 'BE and RE are estimates; actual and YTD observations have separate cutoffs. Gross, net and recoveries are separate lines. Funding utilisation does not measure construction progress.' },
+  { id: 'debt', title: 'Debt & repayments', note: 'NHAI, state corporations, concession SPVs and InvIT trusts have distinct balance sheets. DSCR is shown only when disclosed by the issuer. State government debt and guarantees cover all sectors; guarantees are contingent exposures and are not added to debt or attributed to road corporations. Disclosed contractual maturity buckets are separate from carrying-value debt balances. NHAI and NHIT are different obligors; undisclosed repayment schedules are unavailable, not zero.' },
+  { id: 'toll', title: 'Toll & traffic', note: 'NETC payments cover a national payment network; they are not NHAI-only traffic or unique vehicles. Issuer traffic in PCU, toll receipts and payment transactions are separate metrics. Acquisition, annual-pass and reporting exclusions can break comparability.' },
+  { id: 'monetisation', title: 'TOT & InvIT', note: 'Concession values, realised proceeds, enterprise valuations and distributions have different meanings. Valuations are estimates. Failed or unawarded bundles are not completed sales. DPU may include interest, dividend or capital repayment.' },
+  { id: 'network', title: 'NH & SH networks', note: 'Network stock, constructed length and project length are separate measures. State Highways and state expressways remain distinct from National Highways. Published all-state tables may contain older observation dates by state; ownership is not inferred from location.' },
+  { id: 'state_finance', title: 'State road spending', note: 'RBI Roads and Bridges expenditure covers a wider function than State Highways. Compare the same fiscal year, estimate type and unit. State government finances and corporation accounts are separate entities; no double-counted national total is computed.' },
+  { id: 'delivery', title: 'Project delivery', note: 'Reported physical and financial progress, project dates and costs retain agency, project identity and snapshot date. Bridges measured in numbers are excluded from cost per kilometre. Audit samples and multilateral project portfolios are not national project censuses.' },
+];
+
+function disclosureTheme(row) {
+  const metric = String(row.metric || '');
+  if (/^roads_bridges_/.test(metric)) return 'state_finance';
+  if (/^(nh|sh)_(network|surfaced)_/.test(metric)) return 'network';
+  if (/^budget_|^target_/.test(metric)) return 'funding';
+  if (/debt|borrowings|guarantees|repayment|maturity|finance_charges|dscr|cash_equivalents|total_assets|total_liabilities|equity/.test(metric)) return 'debt';
+  if (/tot_|invit_|monetisation|enterprise_value|wacc|distribution|nav_|unit_value|concession_asset|units_outstanding|portfolio_/.test(metric)) return 'monetisation';
+  if (/traffic|toll|netc|transactions|tags_/.test(metric)) return 'toll';
+  if (/project|progress|constructed|sanctioned|awarded|delay|completion|audit/.test(metric)) return 'delivery';
+  if (/revenue_operations|ebitda|pat_|income|profit|expenses|depreciation|government_grant/.test(metric)) return 'monetisation';
+  return 'delivery';
+}
+
+function humanMetric(metric) {
+  return String(metric || 'Unknown metric')
+    .replace(/_inr_crore$/, '').replace(/_per_unit_inr$/, ' per unit')
+    .replace(/_percent$/, '').replace(/_ratio$/, '').replace(/_km$/, '')
+    .replace(/_/g, ' ').replace(/\b(nhai|nhit|nh|sh|tot|invit|pcu|netc|ebitda|dscr|be|re)\b/gi, (word) => word.toUpperCase());
+}
+
+function unitLabel(unit) {
+  const labels = { inr_crore: '₹ crore', 'INR crore': '₹ crore', INR_crore: '₹ crore', crore: '₹ crore', inr: '₹', inr_per_unit: '₹ / unit', INR_per_unit: '₹ / unit', percent: '%', percentage: '%', km: 'km', ratio: 'ratio', pcu: 'PCU', PCU: 'PCU', million: 'million', days: 'days', count: 'count' };
+  return labels[unit] || String(unit || 'unit not disclosed');
+}
+
+function periodLabel(row) {
+  if (!row.period_start && !row.period_end) return row.data_as_of ? `Snapshot ${row.data_as_of}` : 'Period not disclosed';
+  return `${row.period_start || '?'} → ${row.period_end || '?'} (${row.period_basis || 'basis not disclosed'})`;
+}
+
+function validCitation(url) {
+  try { const parsed = new URL(url); return ['https:', 'http:'].includes(parsed.protocol) ? parsed.href : ''; } catch { return ''; }
+}
+
+function disclosureEligible(row, catalog) {
+  if (![true, 1, 'true'].includes(row.analytical_eligible)) return false;
+  return Number.isFinite(num(row.value)) && analyticalReady(catalog[row.source_id]) && !!validCitation(row.citation_url);
+}
+
+function disclosureMeasured(row, catalog) {
+  return disclosureEligible(row, catalog)
+    && ['actual', 'YTD'].includes(row.estimate_type)
+    && ['official_measured', 'issuer_disclosure', 'audit_finding'].includes(row.evidence_class);
+}
+
+function disclosureVisible(row, catalog, includeUndated = false) {
+  if (!Number.isFinite(num(row.value)) || !validCitation(row.citation_url)) return false;
+  if (!analyticalReady(catalog[row.source_id]) && !disclosureReady(catalog[row.source_id])) return false;
+  if (!row.data_as_of && !includeUndated) return false;
+  return true;
+}
+
+function csvText(rows, columns) {
+  const cell = (value) => {
+    let text = value == null ? '' : String(value);
+    // Do not turn source text into executable spreadsheet formulas on export.
+    if (typeof value !== 'number' && /^[=+@-]/.test(text)) text = `'${text}`;
+    return `"${text.replace(/"/g, '""')}"`;
+  };
+  return '\uFEFF' + [columns.map(cell).join(','), ...rows.map((row) => columns.map((key) => cell(row[key])).join(','))].join('\r\n');
+}
+
+function downloadDisclosureCSV(rows, name) {
+  const columns = ['entity_id', 'entity_name', 'entity_type', 'agency', 'state', 'road_class', 'metric', 'value', 'unit', 'original_value', 'original_unit', 'period_start', 'period_end', 'period_basis', 'estimate_type', 'statement_basis', 'data_as_of', 'published_at', 'evidence_class', 'source_id', 'citation_url', 'table_page', 'source_document_sha256', 'analytical_eligible', 'asset_owner', 'asset_owner_id', 'implementing_agency', 'operator', 'operator_id', 'concessionaire', 'concessionaire_id', 'financing_entity', 'financing_entity_id', 'contract_mode', 'lanes', 'notes'];
+  const url = URL.createObjectURL(new Blob([csvText(rows, columns)], { type: 'text/csv;charset=utf-8;' }));
+  const link = document.createElement('a'); link.href = url; link.download = `bharat-highway-${name}.csv`; link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function deriveDisclosureInsights(rows) {
+  const baseKey = (row) => ['entity_id', 'entity_type', 'agency', 'state', 'road_class', 'period_start', 'period_end', 'period_basis', 'statement_basis', 'source_id'].map((key) => row[key] || '').join('::');
+  const groups = new Map();
+  rows.forEach((row) => { const key = baseKey(row); groups.set(key, [...(groups.get(key) || []), row]); });
+  const insights = [];
+  const croreUnit = (row) => ['inr_crore', 'INR crore', 'INR_crore', 'crore', '₹ crore'].includes(row.unit);
+  for (const facts of groups.values()) {
+    const unique = (metric) => { const found = facts.filter((row) => row.metric === metric); return found.length === 1 ? found[0] : null; };
+    for (const [metric, lengthMetric, label] of [['sanctioned_cost_inr_crore', 'project_length_km', 'Sanctioned cost per project km'], ['awarded_cost_inr_crore', 'project_length_km', 'Awarded cost per project km'], ['project_cost_excluding_land_inr_crore', 'project_length_km', 'Disclosed cost excluding land per project km'], ['tot_concession_value_inr_crore', 'tot_portfolio_length_km', 'TOT concession value per route km'], ['invit_concession_value_inr_crore', 'invit_portfolio_length_km', 'InvIT concession value per route km']]) {
+      const length = unique(lengthMetric);
+      const cost = unique(metric);
+      if (!cost || !length || num(cost.value) < 0 || !croreUnit(cost) || length.unit !== 'km' || num(length.value) <= 0 || cost.data_as_of !== length.data_as_of || cost.estimate_type !== length.estimate_type || cost.evidence_class !== length.evidence_class) continue;
+      insights.push({ label, value: cost.value / length.value, unit: '₹ crore / km', numerator: cost, denominator: length, method: `${humanMetric(cost.metric)} ÷ ${humanMetric(length.metric)}, same entity, source, period and cutoff. Route length is not lane length; no lane/terrain adjustment or investment return is inferred.` });
+    }
+    const physical = unique('physical_progress_percent');
+    const financial = unique('financial_progress_percent');
+    if (physical && financial && physical.unit === financial.unit && ['percent', '%'].includes(physical.unit)
+      && physical.data_as_of === financial.data_as_of && physical.estimate_type === financial.estimate_type && physical.evidence_class === financial.evidence_class
+      && [physical.value, financial.value].every((value) => Number.isFinite(value) && value >= 0 && value <= 100)) {
+      insights.push({ label: 'Physical minus financial progress', value: physical.value - financial.value, unit: 'percentage points', numerator: physical, denominator: financial, method: 'Physical progress minus financial progress at the same project snapshot. A gap is an observed accounting/execution difference, not a forecast of delay.' });
+    }
+    for (const actual of facts.filter((row) => row.metric.startsWith('budget_') && row.estimate_type === 'actual')) {
+      const budget = facts.filter((row) => row.metric === actual.metric && row.estimate_type === 'BE');
+      if (facts.filter((row) => row.metric === actual.metric && row.estimate_type === 'actual').length !== 1 || budget.length !== 1 || actual.data_as_of !== budget[0].data_as_of || !['official_measured', 'issuer_disclosure'].includes(actual.evidence_class) || !['official_measured', 'issuer_disclosure', 'target'].includes(budget[0].evidence_class) || budget[0].unit !== actual.unit || num(budget[0].value) <= 0 || !actual.period_end || !actual.data_as_of || actual.data_as_of < actual.period_end) continue;
+      insights.push({ label: 'Actual expenditure / original BE', value: actual.value / budget[0].value * 100, unit: '%', numerator: actual, denominator: budget[0], method: 'Full-period actual divided by original BE for the same budget line, entity, fiscal period, accounting basis and source. YTD and RE are excluded; this does not measure physical completion.' });
+    }
+  }
+  return insights;
+}
+
+function analystHighlights(rows) {
+  const selections = [
+    ['NHAI debt snapshot', 'parliament_nhai_debt_tot_invit', 'debt_outstanding_inr_crore'],
+    ['NHIT disclosed DSCR', 'nhit_quarterly_operations_finance', 'dscr_ratio'],
+    ['Realised monetisation', 'nhai_monetisation_transactions', 'monetisation_realised_inr_crore'],
+  ];
+  return selections.map(([label, source, metric]) => {
+    const candidates = rows.filter((row) => row.source_id === source && row.metric === metric)
+      .sort((a, b) => String(b.data_as_of || b.period_end || '').localeCompare(String(a.data_as_of || a.period_end || '')));
+    return { label, row: candidates[0] };
+  });
+}
+
+function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter }) {
+  const [theme, setTheme] = useState('funding');
+  const [agency, setAgency] = useState('All');
+  const [roadClass, setRoadClass] = useState('All');
+  const [period, setPeriod] = useState('All');
+  const [estimate, setEstimate] = useState('All');
+  const [evidence, setEvidence] = useState('All');
+  const [metric, setMetric] = useState('All');
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(0);
+  const disclosedRows = rows.filter((row) => disclosureVisible(row, catalog, evidence === 'undated_context'));
+  const evidenceRows = disclosedRows.filter((row) => {
+    const item = catalog[row.source_id];
+    return matchesSourceFilter(item, sourceFilter)
+      && (selectedState === 'All' || normalizeState(row.state) === normalizeState(selectedState));
+  });
+  const themed = evidenceRows.filter((row) => disclosureTheme(row) === theme);
+  const options = (key) => [...new Set(themed.map((row) => String(row[key] || '')).filter(Boolean))].sort();
+  const periodOptions = [...new Set(themed.map(periodLabel))].sort();
+  const filtered = themed.filter((row) => (agency === 'All' || row.agency === agency)
+    && (roadClass === 'All' || row.road_class === roadClass)
+    && (period === 'All' || periodLabel(row) === period)
+    && (estimate === 'All' || row.estimate_type === estimate)
+    && (evidence === 'All' || (evidence === 'undated_context' ? !row.data_as_of : row.evidence_class === evidence))
+    && (metric === 'All' || row.metric === metric)
+    && (!search || `${row.entity_id} ${row.entity_type} ${row.entity_name || ''} ${row.project_name || ''}`.toLowerCase().includes(search.toLowerCase())));
+  const ratioRows = themed.filter((row) => (agency === 'All' || row.agency === agency) && (roadClass === 'All' || row.road_class === roadClass) && (period === 'All' || periodLabel(row) === period) && (estimate === 'All' || row.estimate_type === estimate) && (evidence === 'All' || (evidence === 'undated_context' ? !row.data_as_of : row.evidence_class === evidence)) && (!search || `${row.entity_id} ${row.entity_name || ''}`.toLowerCase().includes(search.toLowerCase())));
+  const derived = deriveDisclosureInsights(ratioRows.filter((row) => disclosureEligible(row, catalog)));
+  const ordered = [...filtered].sort((a, b) => String(b.period_end || b.data_as_of || '').localeCompare(String(a.period_end || a.data_as_of || ''))
+    || String(a.agency).localeCompare(String(b.agency)) || String(a.entity_id).localeCompare(String(b.entity_id)) || String(a.metric).localeCompare(String(b.metric)));
+  const pageSize = 50;
+  const pageCount = Math.max(1, Math.ceil(ordered.length / pageSize));
+  const activePage = Math.min(page, pageCount - 1);
+  const visible = ordered.slice(activePage * pageSize, (activePage + 1) * pageSize);
+  const activeTheme = ANALYST_THEMES.find((item) => item.id === theme);
+  const maturityAvailable = filtered.some((row) => row.metric.startsWith('debt_maturity_'));
+  const gaps = Object.values(catalog).filter((item) => sourceTypeTag(item)[1] !== 'model' && !analyticalReady(item) && !disclosureReady(item));
+  const select = (label, value, setter, values, display = (value) => value) => React.createElement('label', { className: 'analyst-filter', key: label }, label,
+    React.createElement('select', { value, 'aria-label': label, onChange: (event) => { setter(event.target.value); setPage(0); } },
+      React.createElement('option', { value: 'All' }, `All ${label.toLowerCase()}`),
+      ...values.map((entry) => React.createElement('option', { value: entry, key: entry }, display(entry)))));
+  const changeTheme = (id) => { setTheme(id); setAgency('All'); setRoadClass('All'); setPeriod('All'); setEstimate('All'); setEvidence('All'); setMetric('All'); setSearch(''); setPage(0); };
+  const highlights = analystHighlights(evidenceRows.filter((row) => disclosureMeasured(row, catalog)));
+  return React.createElement('section', { className: 'analyst-console', 'aria-labelledby': 'analyst-title', 'data-evidence-view': sourceFilter },
+    React.createElement('div', { className: 'source-line' }, React.createElement('h2', { id: 'analyst-title' }, 'Finance & infrastructure disclosures'),
+      React.createElement('div', { className: 'evidence-links' },
+        React.createElement('a', { href: candidateAssetPaths('methodology.html')[0] }, 'Definitions & comparability'),
+        React.createElement('a', { href: candidateAssetPaths('data/manifests/catalog.json')[0].replace('data/manifests/catalog.json', 'research/coverage_matrix.md'), download: 'highway-source-state-coverage.md' }, 'Download source & state coverage'),
+        React.createElement('a', { href: candidateAssetPaths('data/manifests/catalog.json')[0].replace('data/manifests/catalog.json', 'research/source_inventory.json'), download: 'highway-source-inventory.json' }, 'Source inventory'))),
+    React.createElement('p', { className: 'analyst-intro' }, 'National and State Highways, state expressways and financing entities. Every observation retains its unit, period, agency and primary citation. No national total is inferred from overlapping portfolios.'),
+    React.createElement('div', { className: 'analyst-highlights' }, ...highlights.map(({ label, row }) => React.createElement('article', { className: 'card analyst-highlight', key: label },
+      React.createElement('h3', null, label),
+      React.createElement('strong', null, row ? `${fmtNum(row.value, { compact: false })} ${unitLabel(row.unit)}` : 'Unavailable for this selection'),
+      row ? React.createElement('p', { className: 'insight-note' }, `${row.agency} · ${row.entity_id} · ${row.statement_basis || 'basis not disclosed'} · ${row.estimate_type} · as of ${row.data_as_of || row.period_end || 'date not disclosed'}`) : null,
+      row ? React.createElement('a', { href: validCitation(row.citation_url), target: '_blank', rel: 'noreferrer' }, `Source · ${row.table_page || 'document'}`) : null))),
+    React.createElement('div', { className: 'analyst-tabs', role: 'group', 'aria-label': 'Analyst themes' }, ...ANALYST_THEMES.map((item) => React.createElement('button', {
+      key: item.id, type: 'button', className: theme === item.id ? 'active' : '', 'aria-pressed': theme === item.id,
+      onClick: () => changeTheme(item.id),
+    }, `${item.title} (${evidenceRows.filter((row) => disclosureTheme(row) === item.id).length})`))),
+    React.createElement('article', { className: 'card analyst-evidence-panel', 'data-theme': theme },
+      React.createElement('div', { className: 'source-line' }, React.createElement('h3', null, activeTheme.title),
+        React.createElement('button', { type: 'button', disabled: !ordered.length, onClick: () => downloadDisclosureCSV(ordered, theme), 'aria-label': 'Download filtered evidence CSV' }, 'Download CSV')),
+      React.createElement('p', { className: 'insight-note', id: 'analyst-comparability' }, activeTheme.note),
+      theme === 'debt' ? React.createElement('p', { className: 'insight-note', role: 'status' }, maturityAvailable ? 'Disclosed debt maturity buckets are available for this selection. Read the instrument, statement basis and original units; contractual undiscounted obligations are not the same as balance-sheet carrying values.' : 'No validated debt maturity schedule for this selection. Undisclosed principal repayments and maturity buckets are unavailable, not zero.') : null,
+      React.createElement('div', { className: 'analyst-filters', 'aria-label': 'Disclosure filters' },
+        select('Agency', agency, setAgency, options('agency')),
+        select('Road class', roadClass, setRoadClass, options('road_class')),
+        select('Reporting period', period, setPeriod, periodOptions),
+        select('Estimate type', estimate, setEstimate, options('estimate_type')),
+        select('Evidence class', evidence, setEvidence, [...options('evidence_class'), ...(rows.some((row) => disclosureTheme(row) === theme && !row.data_as_of && disclosureVisible(row, catalog, true)) ? ['undated_context'] : [])], (value) => value === 'undated_context' ? 'Undated context only' : value.replace(/_/g, ' ')),
+        select('Metric', metric, setMetric, options('metric'), humanMetric),
+        React.createElement('label', { className: 'analyst-filter' }, 'Entity search', React.createElement('input', { type: 'search', value: search, 'aria-label': 'Entity search', placeholder: 'Project, bundle, SPV or authority', onChange: (event) => { setSearch(event.target.value); setPage(0); } }))),
+      ['funding', 'delivery', 'monetisation'].includes(theme) ? React.createElement('details', { className: 'comparable-insights' },
+        React.createElement('summary', null, `Comparable calculations (${derived.length}) · matched scope and units`),
+        derived.length ? derived.slice(0, 100).map((item, index) => React.createElement('p', { key: index },
+          React.createElement('strong', null, `${item.numerator.entity_name || item.numerator.entity_id}: ${item.label} ${fmtNum(item.value, { compact: false })} ${item.unit}`),
+          React.createElement('small', null, ` ${periodLabel(item.numerator)} · as of ${item.numerator.data_as_of}. ${item.method} Numerator notes: ${item.numerator.notes || 'Land inclusion, lanes and contract mode not disclosed in the extract; verify the source.'} Denominator notes: ${item.denominator.notes || 'Verify source length definition.'} `),
+          React.createElement('a', { href: validCitation(item.numerator.citation_url), target: '_blank', rel: 'noreferrer' }, `Numerator · ${item.numerator.table_page}`), ' / ',
+          React.createElement('a', { href: validCitation(item.denominator.citation_url), target: '_blank', rel: 'noreferrer' }, `Denominator · ${item.denominator.table_page}`)))
+          : React.createElement('p', { className: 'insight-note' }, 'No disclosed compatible numerator/denominator pair for this selection. Calculations require the same entity, agency, period, accounting basis and source; cost/km also requires kilometre units and the same cutoff. Missing pairs are not inferred.')) : null,
+      React.createElement('p', { className: 'metric-meta', role: 'status', 'aria-live': 'polite' }, `${ordered.length.toLocaleString('en-IN')} observations · ${new Set(ordered.map((row) => row.source_id)).size} sources · ${new Set(ordered.map((row) => normalizeState(row.state)).filter((state) => state && !isAggregateStateLabel(state))).size} State/UT locations. Missing or omitted evidence is not zero.`),
+      ordered.length ? React.createElement('div', { className: 'evidence-table-wrap', tabIndex: 0, role: 'region', 'aria-label': 'Scrollable disclosure evidence table' },
+        React.createElement('table', { className: 'evidence-table', 'aria-describedby': 'analyst-comparability' },
+          React.createElement('caption', null, `${activeTheme.title}: rows ${activePage * pageSize + 1}–${Math.min((activePage + 1) * pageSize, ordered.length)} of ${ordered.length}. CSV includes all filtered rows and original units.`),
+          React.createElement('thead', null, React.createElement('tr', null, ...['Entity / agency', 'State / road class', 'Metric', 'Value / unit', 'Period / estimate / basis', 'Observation / publication', 'Evidence / source'].map((title) => React.createElement('th', { key: title, scope: 'col' }, title)))),
+          React.createElement('tbody', null, ...visible.map((row, index) => React.createElement('tr', { key: `${row.source_id}:${row.entity_id}:${row.metric}:${index}`, 'data-evidence-class': row.evidence_class },
+            React.createElement('td', null, React.createElement('strong', null, row.entity_name || row.project_name || row.entity_id), React.createElement('small', null, `${row.agency} · ${row.entity_type || 'entity type not disclosed'}`)),
+            React.createElement('td', null, row.state || 'National / portfolio', React.createElement('small', null, row.road_class || 'Classification not disclosed')),
+            React.createElement('td', null, humanMetric(row.metric)),
+            React.createElement('td', { className: 'evidence-number' }, `${fmtNum(row.value, { compact: false })} ${unitLabel(row.unit)}`, React.createElement('small', null, `Original: ${typeof row.original_value === 'number' ? fmtNum(row.original_value, { compact: false }) : String(row.original_value ?? 'not disclosed')} ${row.original_unit || row.unit}`)),
+            React.createElement('td', null, periodLabel(row), React.createElement('small', null, `${row.estimate_type || 'estimate not disclosed'} · ${row.statement_basis || 'statement basis not disclosed'}`)),
+            React.createElement('td', null, `As of: ${row.data_as_of || 'not disclosed'}`, React.createElement('small', null, `Published: ${row.published_at || 'not disclosed'}`)),
+            React.createElement('td', null, String(row.evidence_class || '').replace(/_/g, ' '),
+              !disclosureMeasured(row, catalog) ? React.createElement('small', { className: 'nonmeasured-evidence' }, !row.data_as_of ? 'Undated context · excluded from measured calculations' : ['BE', 'RE'].includes(row.estimate_type) && disclosureEligible(row, catalog) ? 'Budget estimate · excluded from measured totals; only matched budget comparisons may use it' : 'Estimate / context · excluded from measured calculations') : null, React.createElement('small', null,
+              React.createElement('a', { href: validCitation(row.citation_url), target: '_blank', rel: 'noreferrer', 'aria-label': `Primary source for ${humanMetric(row.metric)} at ${row.entity_id}` }, `${row.source_id} · ${row.table_page || 'document'}`), row.notes ? React.createElement('small', null, row.notes) : null)))))))
+        : React.createElement('p', { className: 'unavailable-evidence', role: 'status' }, 'No validated observations for these filters. Change the selection or inspect the evidence gaps below. Undisclosed values and omitted states are not assigned zero.'),
+      React.createElement('div', { className: 'evidence-pagination' }, React.createElement('button', { type: 'button', disabled: activePage === 0, onClick: () => setPage(Math.max(0, activePage - 1)) }, 'Previous'),
+        React.createElement('span', null, `Page ${activePage + 1} of ${pageCount}`), React.createElement('button', { type: 'button', disabled: activePage >= pageCount - 1, onClick: () => setPage(activePage + 1) }, 'Next'))),
+    React.createElement('details', { className: 'card evidence-gaps' }, React.createElement('summary', null, `Evidence gaps (${gaps.length}) · unavailable sources and extraction limits`),
+      React.createElement('p', { className: 'insight-note' }, 'Restricted, unavailable, oversized or unvalidated documents stay visible in the inventory. Document presence and successful HTTP retrieval do not establish usable financial facts.'),
+      ...gaps.map((item) => React.createElement('p', { key: item.source_id }, React.createElement('strong', null, item.source?.title || item.source_id), ' — ', readinessLabel(item),
+        React.createElement('small', null, ` ${item.refresh_error || item.note || item.skip_reason || ''} Last checked: ${item.last_checked_at || item.retrieved_at || 'unknown'}. `),
+        validCitation(item.source?.url) ? React.createElement('a', { href: validCitation(item.source.url), target: '_blank', rel: 'noreferrer' }, 'Primary source') : null)))
+  );
+}
+
 async function loadAnalyticCatalog(conn, catalog) {
   const fetchById = async (sourceId, queryFactory) => {
     const manifest = catalog[sourceId];
+    if (sourceTypeTag(manifest)[1] !== 'model' && !analyticalReady(manifest) && !disclosureReady(manifest)) return [];
     const sourcePath = manifest?.output_table_path || `data/processed/${sourceId}.parquet`;
     try {
       return await queryParquetRows(conn, sourcePath, queryFactory);
@@ -2001,14 +2323,12 @@ async function loadAnalyticCatalog(conn, catalog) {
       year_label: row['year-wise'] || row.year_wise || row.year || row.year_label,
       allocation_total:
         row['allocation/target_-_total']
-        || row.allocation_target___total
-        || row.allocation_target___budgetary
-        || 0,
+        ?? row.allocation_target___total
+        ?? null,
       expenditure_total:
         row['expenditure/release_of_funds/actuals_-_total']
-        || row.expenditure_release_of_funds_actuals___total
-        || row.expenditure_release_of_funds_actuals___budgetary
-        || 0,
+        ?? row.expenditure_release_of_funds_actuals___total
+        ?? null,
     }));
 
   const rawStatePortfolioRows = await fetchById('data_gov_in_nhai_state_projects_api', (alias) => `
@@ -2018,26 +2338,17 @@ async function loadAnalyticCatalog(conn, catalog) {
   const rawStateUTRows = await fetchById('data_gov_in_nhai_stateut_length_constructed_2019_24', (alias) => `
     SELECT
       CAST("state/ut" AS VARCHAR) AS state,
-      COALESCE(CAST("length_constructed_km._2019-20" AS DOUBLE), 0)
-      + COALESCE(CAST("length_constructed_km._2020-21" AS DOUBLE), 0)
-      + COALESCE(CAST("length_constructed_km._2021-22" AS DOUBLE), 0)
-      + COALESCE(CAST("length_constructed_km._2022-23" AS DOUBLE), 0)
-      + COALESCE(CAST("length_constructed_km._2023-24" AS DOUBLE), 0) AS length_km
+      CAST("length_constructed_km._2019-20" AS DOUBLE) AS annual_2019_20,
+      CAST("length_constructed_km._2020-21" AS DOUBLE) AS annual_2020_21,
+      CAST("length_constructed_km._2021-22" AS DOUBLE) AS annual_2021_22,
+      CAST("length_constructed_km._2022-23" AS DOUBLE) AS annual_2022_23,
+      CAST("length_constructed_km._2023-24" AS DOUBLE) AS annual_2023_24
     FROM read_parquet('${alias}')
     WHERE "state/ut" IS NOT NULL
   `);
   const statePortfolio = rawStatePortfolioRows
     .filter((row) => row)
-    .map((row) => ({
-      state: row.state,
-      projects: num(row.number_of_nh_projects || row['number_of_nh_projects'] || 0),
-      length_km: num(row.length_in_km || row.length__in_km_ || 0),
-      capital_outlay: num(
-        row['capital_outlay__rs_in_cr_for_the_years_2020_to_2024']
-        || row['capital_outlay___rs_in_cr__for_the_years_2020_to_2024']
-        || 0
-      ),
-    }))
+    .map(statePortfolioObservation)
     .filter((row) => row.state && !isAggregateStateLabel(normalizeState(row.state)));
 
   const stateProjectDelays = await fetchById('data_gov_in_nhai_stateut_project_delay_status_2024', (alias) => `
@@ -2172,14 +2483,14 @@ async function loadAnalyticCatalog(conn, catalog) {
   const morthSourcePath = catalog?.morth_annual_report_pdf?.output_table_path || 'data/processed/morth_annual_report_pdf.parquet';
   let morthAppendix = [];
   try {
-    const morthRows = await queryParquetRows(conn, morthSourcePath, (alias) => `
+    const morthRows = analyticalReady(catalog.morth_annual_report_pdf) ? await queryParquetRows(conn, morthSourcePath, (alias) => `
       SELECT
         CAST("state" AS VARCHAR) AS state,
         CAST("year" AS VARCHAR) AS year,
         CAST("metric_name" AS VARCHAR) AS metric_name,
         CAST("metric_value" AS VARCHAR) AS metric_value
       FROM read_parquet('${alias}')
-    `);
+    `) : [];
     morthAppendix = pickByMetric(morthRows, (metricName) => [
       'appendix2_statewise_nh_count',
       'appendix2_statewise_nh_length_km',
@@ -2228,7 +2539,7 @@ async function loadAnalyticCatalog(conn, catalog) {
     .map((row) => ({
       state: row.state,
       projects: null,
-      length: num(row.length_km),
+      length: completeSum([row.annual_2019_20, row.annual_2020_21, row.annual_2021_22, row.annual_2022_23, row.annual_2023_24]),
       capital: null,
       source: 'data_gov_in_nhai_stateut_length_constructed_2019_24',
     }))
@@ -2237,7 +2548,7 @@ async function loadAnalyticCatalog(conn, catalog) {
   const stateStatusRows = stateProjectDelays
     .map((row) => ({
       state: row.state,
-      active_projects: Math.max(0, num(row.total_projects) - num(row.delayed_projects)),
+      active_projects: Number.isFinite(num(row.total_projects)) && Number.isFinite(num(row.delayed_projects)) ? Math.max(0, num(row.total_projects) - num(row.delayed_projects)) : null,
       delayed_projects: num(row.delayed_projects),
       total_projects: num(row.total_projects),
       source: 'data_gov_in_nhai_stateut_project_delay_status_2024',
@@ -2259,7 +2570,7 @@ async function loadAnalyticCatalog(conn, catalog) {
       total_killed: num(row.total_killed),
       fatal_crashes: num(row.fatal_crashes),
       total_injured: num(row.total_injured),
-      source: 'ncrb_road_accidents_state_year',
+      source: 'data_gov_in_nh_fatalities_injuries_state_year',
     }))
     .filter((row) => row.state);
 
@@ -2267,8 +2578,8 @@ async function loadAnalyticCatalog(conn, catalog) {
     .map((row) => ({
       state: row.state,
       year: num(row.year),
-      safety_risk: num(row.fatal_crashes) || num(row.total_killed),
-        source: 'ncrb_road_accidents_state_year',
+      safety_risk: num(row.total_killed),
+        source: 'data_gov_in_nh_fatalities_injuries_state_year',
     }))
     .filter((row) => row.state && Number.isFinite(row.year) && Number.isFinite(row.safety_risk));
 
@@ -2280,7 +2591,7 @@ async function loadAnalyticCatalog(conn, catalog) {
       nh_injuries: num(row.total_injured),
       source: 'data_gov_in_nh_fatalities_injuries_state_year',
     }))
-    .filter((row) => row.state && Number.isFinite(row.year) && Number.isFinite(row.nh_fatalities));
+    .filter((row) => row.state && !isAggregateStateLabel(row.state) && Number.isFinite(row.year) && Number.isFinite(row.nh_fatalities));
 
   const gsdpRows = gsdp
     .map((row) => {
@@ -2442,34 +2753,9 @@ async function loadAnalyticCatalog(conn, catalog) {
     .map((row) => ({ state: row.state, value: num(row.metric_value), source: 'morth_annual_report_pdf' }))
     .filter((row) => Number.isFinite(row.value));
 
-  const portfolioRowsByState = new Map();
-  portfolioRows.forEach((row) => {
-    const key = normalizeState(row.state);
-    if (key && !isAggregateStateLabel(key) && Number.isFinite(row.length)) {
-      portfolioRowsByState.set(key, row);
-    }
-  });
-  morthAppendix2LengthRows.forEach((row) => {
-    const key = normalizeState(row.state);
-    if (!key || Number.isNaN(row.value) || isAggregateStateLabel(key) || portfolioRowsByState.has(key)) {
-      return;
-    }
-    portfolioRowsByState.set(key, {
-      state: row.state,
-      projects: null,
-      length: row.value,
-      capital: null,
-      source: 'morth_annual_report_pdf',
-    });
-  });
-  stateUTRows.forEach((row) => {
-    const key = normalizeState(row.state);
-    if (!key || Number.isNaN(row.length) || isAggregateStateLabel(key) || portfolioRowsByState.has(key)) {
-      return;
-    }
-    portfolioRowsByState.set(key, row);
-  });
-  const mergedPortfolioRows = Array.from(portfolioRowsByState.values());
+  const mergedPortfolioRows = morthAppendix2LengthRows
+    .filter((row) => !isAggregateStateLabel(row.state))
+    .map((row) => ({ state: row.state, projects: null, length: row.value, capital: null, source: 'morth_annual_report_pdf' }));
 
   const morthCrifRows = morthAppendix
     .filter((row) => row.metric_name && row.metric_name.startsWith('appendix3_crif'))
@@ -2533,13 +2819,22 @@ async function loadAnalyticCatalog(conn, catalog) {
         nh_blackspot_accidents: num(row.nh_blackspot_accidents),
         nh_length_km: nhLengthKm,
         nh_blackspots_per_1000km: (blackspots / nhLengthKm) * 1000,
-        nh_unrectified_blackspot_share_pct: ((Math.max(0, blackspots - rectified)) / blackspots) * 100,
+        nh_unrectified_blackspot_share_pct: unrectifiedShare(blackspots, rectified),
         source: 'parliament_qa_nh_blackspots_state',
       };
     })
     .filter(Boolean);
 
+  const disclosureRows = [];
+  for (const entry of Object.values(catalog)) {
+    const columns = entry.manifest?.columns || [];
+    if (!DISCLOSURE_SOURCE_IDS.includes(entry.source_id) && !(columns.includes('metric') && columns.includes('value') && columns.includes('evidence_class'))) continue;
+    const observations = await fetchById(entry.source_id, (alias) => `SELECT * FROM read_parquet('${alias}')`);
+    observations.forEach((row) => disclosureRows.push({ ...row, source_id: row.source_id || entry.source_id, value: num(row.value), original_value: row.original_value }));
+  }
+
   const stateList = new Set();
+  disclosureRows.forEach((row) => { if (row.state) stateList.add(row.state); });
   portfolioRows.forEach((row) => stateList.add(row.state));
   stateUTRows.forEach((row) => stateList.add(row.state));
   stateStatusRows.forEach((row) => stateList.add(row.state));
@@ -2553,6 +2848,7 @@ async function loadAnalyticCatalog(conn, catalog) {
   morthAppendix2LengthRows.forEach((row) => stateList.add(row.state));
   morthPermitRows.forEach((row) => stateList.add(row.state));
   return {
+    disclosureRows,
     growthRows,
     financeRows,
     portfolioRows: mergedPortfolioRows,
@@ -2585,7 +2881,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [analyticsLoading, setAnalyticsLoading] = useState(true);
   const [error, setError] = useState('');
-  const [sourceFilter, setSourceFilter] = useState('all');
+  const [sourceFilter, setSourceFilter] = useState('analyst');
   const [chartScale, setChartScale] = useState('normal');
   const [selectedState, setSelectedState] = useState('All');
   const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0, text: '' });
@@ -2691,7 +2987,8 @@ function App() {
     };
   }, [analytics, selectedState]);
 
-  const activeStateList = (analytics?.portfolioRows || [])
+  const activeStateList = (analytics?.disclosureRows || [])
+    .concat(analytics?.portfolioRows || [])
     .concat(analytics?.stateStatusRows || [])
     .concat(analytics?.accidentRows || [])
     .concat(analytics?.officialSafetyTrendRows || [])
@@ -2705,7 +3002,7 @@ function App() {
     .concat(analytics?.morthPermitRows || [])
     .filter((row) => row?.state && !isAggregateStateLabel(row.state))
     .map((row) => row.state)
-    .filter((value, index, array) => array.indexOf(value) === index)
+    .filter((value, index, array) => array.findIndex((other) => normalizeState(other) === normalizeState(value)) === index)
     .sort();
 
   useEffect(() => {
@@ -2768,50 +3065,15 @@ function App() {
   const portfolioBars = (filteredStateRows?.portfolioRows || analytics?.portfolioRows || [])
     .map((row) => ({ label: row.state, value: row.length }))
     .filter((item) => Number.isFinite(num(item.value)));
-  const statusSeedRows = (filteredStateRows?.portfolioRows || analytics?.portfolioRows || [])
-    .concat(filteredStateRows?.morthAppendix2LengthRows || analytics?.morthAppendix2LengthRows || [])
-    .concat(filteredStateRows?.accidentRows || analytics?.accidentRows || []);
-  const statusStateSeed = new Map();
-  statusSeedRows.forEach((row) => {
-    const key = normalizeState(row.state);
-    if (key && !statusStateSeed.has(key)) {
-      statusStateSeed.set(key, safeLabel(row.state));
-    }
-  });
-  const statusLookup = new Map(
-    (filteredStateRows?.stateStatusRows || analytics?.stateStatusRows || [])
-      .filter((row) => row.state)
-      .map((row) => [normalizeState(row.state), row])
-  );
-  const statusBars = Array.from(statusStateSeed.entries())
-    .map(([key, state]) => statusLookup.get(key) || {
-      state,
-      active_projects: 0,
-      delayed_projects: 0,
-    })
-    .map((row) => ({
-      state: row.state,
-      active_projects: num(row.active_projects),
-      delayed_projects: num(row.delayed_projects),
-    }))
-    .sort((a, b) => {
-      const aTotal = a.active_projects + a.delayed_projects;
-      const bTotal = b.active_projects + b.delayed_projects;
-      return bTotal - aTotal;
-    });
+  const statusBars = (filteredStateRows?.stateStatusRows || analytics?.stateStatusRows || [])
+    .map((row) => ({ state: row.state, active_projects: num(row.active_projects), delayed_projects: num(row.delayed_projects) }))
+    .filter((row) => Number.isFinite(row.active_projects) && Number.isFinite(row.delayed_projects))
+    .sort((a, b) => (b.active_projects + b.delayed_projects) - (a.active_projects + a.delayed_projects));
 
   const filteredModelSummaryRows = filteredStateRows?.modelByStateSummary || analytics?.modelByStateSummary || [];
   const filteredModelRiskRows = filteredStateRows?.modelStateRisk || analytics?.modelStateRisk || [];
   const filteredAccidentTrendRows = filteredStateRows?.accidentTrendRows || analytics?.accidentTrendRows || [];
-  const modelRiskLookup = new Map();
-  filteredModelRiskRows.forEach((row) => {
-    modelRiskLookup.set(`${normalizeState(row.state)}::${num(row.year)}`, row);
-  });
-  const mergedModelRiskRows = [
-    ...filteredModelRiskRows,
-    ...filteredAccidentTrendRows
-      .filter((row) => !modelRiskLookup.has(`${normalizeState(row.state)}::${num(row.year)}`)),
-  ];
+  const mergedModelRiskRows = filteredModelRiskRows;
 
   const nhFatalityBurdenBars = (filteredStateRows?.nhFatalityBurdenRows || analytics?.nhFatalityBurdenRows || [])
     .map((row) => ({
@@ -2851,7 +3113,7 @@ function App() {
   const officialSafetyLines = officialSafetyFocusStates
     .map((state) => {
       const points = safetyTrendSeedRows
-        .filter((row) => row.state === state)
+        .filter((row) => normalizeState(row.state) === normalizeState(state))
         .sort((a, b) => num(a.year) - num(b.year))
         .map((row) => ({
           x: num(row.year),
@@ -2899,8 +3161,8 @@ function App() {
           state: row.state,
           x: num(row.gsdp_current_price),
           y: nhLengthKm,
-          radius: Math.max(1, num(delay?.delayed_projects)),
-          modelConfidence: `Latest GSDP year: ${row.gsdp_year} • Delayed NH projects: ${fmtNum(delay?.delayed_projects || 0)}`,
+          radius: num(delay?.delayed_projects),
+          modelConfidence: `Latest GSDP year: ${row.gsdp_year} • Delayed NH projects: ${fmtNum(delay?.delayed_projects)}`,
           gsdp_year: row.gsdp_year,
           delayed_projects: num(delay?.delayed_projects),
         };
@@ -2963,9 +3225,9 @@ function App() {
 
   const modelCostRows = (filteredModelSummaryRows || []).map((row) => ({
     label: row.state,
-    x: num(row.avg_land_acquisition_cost_cr) || 0,
-    y: num(row.avg_maintenance_cost_cr) || 0,
-    radius: num(row.avg_sanctioned_cost_cr) || 1,
+    x: num(row.avg_land_acquisition_cost_cr),
+    y: num(row.avg_maintenance_cost_cr),
+    radius: num(row.avg_sanctioned_cost_cr),
   })).filter((r) => Number.isFinite(r.x) && Number.isFinite(r.y));
 
   const morthCrifAllocationSeries = (analytics?.morthCrifRows || [])
@@ -2994,17 +3256,15 @@ function App() {
       const stateCount = num((filteredStateRows?.morthAppendix2CountRows || analytics?.morthAppendix2CountRows || []).find((item) => normalizeState(item.state) === key)?.value);
       return {
         state: row.state,
-        x: num((analytics?.morthNHLengthByState || {})[key]) || 0,
+        x: num((analytics?.morthNHLengthByState || {})[key]),
         y: row.value,
-        radius: stateCount || 4,
-        modelConfidence: stateCount ? `NH count: ${stateCount}` : 'official',
+        radius: stateCount,
+        modelConfidence: `NH count: ${fmtNum(stateCount)}`,
       };
     })
     .filter((row) => Number.isFinite(row.x) && Number.isFinite(row.y));
 
-  const portfolioConfidence = confidenceFromSources(
-    Object.values(catalog).filter((item) => ['data_gov_in_nhai_state_projects_api', 'data_gov_in_nhai_stateut_length_constructed_2019_24', 'data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026', 'data_gov_in_nhai_projects_api'].includes(item.source_id))
-  );
+  const portfolioConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'morth_annual_report_pdf'));
   const stateStatusConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'data_gov_in_nhai_stateut_project_delay_status_2024'));
   const growthConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'nhai_constructed_length_series_official'));
   const modelConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'highway_project_risk_and_access_panel'));
@@ -3017,11 +3277,11 @@ function App() {
       'header',
       null,
       React.createElement('h1', null, 'Bharat Highway Evidence Console'),
-      React.createElement('p', { className: 'subhead' }, `Official-first visual analytics for highways growth, safety, finance and project-risk planning. Every chart is tied to a source manifest with citations and confidence scoring.`),
-      React.createElement(SourceMetaFooter, { label: `All dashboards confidence floor: ${confidenceByAll.badge}`, confidence: confidenceByAll.badge }),
+      React.createElement('p', { className: 'subhead' }, 'Official and issuer evidence for highway construction, funding, debt, toll operations and asset monetisation. Observation periods and accounting entities remain separate; synthetic scenarios are excluded from the default analyst view.'),
+      React.createElement(SourceMetaFooter, { label: `Catalog confidence floor: ${confidenceByAll.badge} · chart badges use their contributing sources`, confidence: confidenceByAll.badge }),
       React.createElement(MethodologyBadge, { label: 'Why these badges?', href: methodologyUrl })
     ),
-    React.createElement(CoverageCards, { catalog, rowCounts }),
+    React.createElement(CoverageCards, { catalog, rowCounts, disclosureRows: analytics?.disclosureRows || [] }),
     React.createElement(
       'div',
       { className: 'toolbar' },
@@ -3039,6 +3299,8 @@ function App() {
       React.createElement(
         'div',
         { className: 'toggle-group' },
+        React.createElement('button', { type: 'button', className: `toggle ${sourceFilter === 'analyst' ? 'active' : ''}`, onClick: () => setSourceFilter('analyst') }, 'Analyst evidence'),
+        React.createElement('button', { type: 'button', className: `toggle ${sourceFilter === 'issuer' ? 'active' : ''}`, onClick: () => setSourceFilter('issuer') }, 'Issuer disclosures'),
         React.createElement('button', {
           type: 'button',
           className: `toggle ${sourceFilter === 'all' ? 'active' : ''}`,
@@ -3087,17 +3349,18 @@ function App() {
         }, 'Focus')
       )
     ),
+    React.createElement(DisclosureExplorer, { rows: analytics?.disclosureRows || [], catalog, selectedState, sourceFilter }),
     React.createElement(
       'section',
       { className: 'charts-grid' },
       React.createElement(QualityBreakdown, { catalog })
     ),
     React.createElement(
-      'section',
-      { className: 'chart-grid', 'data-size': chartScale },
+      LegacyChartGroup,
+      { sourceFilter, chartScale },
       React.createElement(MultiLineChart, {
         title: 'Growth Story: NHAI Constructed Length by Year',
-        description: 'Official NHAI-only construction series. Full-year totals run through FY 2024-25; current-year progress is shown separately when only provisional YTD evidence exists. Do not compare provisional YTD progress directly with full-year totals.',
+        description: 'Official NHAI-only construction series. Full-year and current-year evidence are labelled separately; current-year progress is shown separately when only provisional YTD evidence exists. Do not compare provisional YTD progress directly with full-year totals.',
         layers: [
           { key: 'final', name: 'Full-year official totals', points: growthFinalLineData },
           { key: 'provisional', name: 'Current-year progress (provisional)', points: growthProvisionalLineData },
@@ -3115,7 +3378,7 @@ function App() {
       React.createElement(ChartTooltip, { tooltip }),
       React.createElement(MultiLineChart, {
         title: 'Budget vs Expenditure (All Source Years)',
-        description: `Official budget and release movement (year-wise) from NHAI project finance dataset. Strong lag between allocation and actual release indicates pipeline pressure.`,
+        description: 'NH development and maintenance funds: allocation and expenditure have different accounting roles. FY 2024-25 expenditure is YTD through 31 January 2025; Others includes monetisation and project financing. A gap alone does not establish a delivery delay.',
         layers: [
           { key: 'allocation', name: 'Allocation total', points: allocationSeries },
           { key: 'expenditure', name: 'Expenditure total', points: expenditureSeries },
@@ -3131,11 +3394,12 @@ function App() {
       }),
       React.createElement(ChartTooltip, { tooltip }),
       React.createElement(HorizontalBars, {
-        title: 'State Portfolio: Total NH Length vs State',
+        title: 'State Portfolio: Total NH Network Length by State/UT',
         rows: portfolioBars,
         confidence: portfolioConfidence,
         onHover: setTooltip,
-        asOfDate: chartDates.portfolio,
+        asOfDate: catalog.morth_annual_report_pdf?.source_as_of_date || '',
+        tooltipLines: 'Total national-highway network stock from MoRTH Appendix 2. Project portfolio lengths and annual construction flows are separate measures and are not substituted here.',
         xLabel: 'Length (km)',
         yLabel: 'State',
       }),
@@ -3199,6 +3463,7 @@ function App() {
         title: 'State Project Mix (active vs delayed NH projects, official March 2024 snapshot)',
         rows: statusBars,
         confidence: stateStatusConfidence,
+        onHover: setTooltip,
         asOfDate: 'March 2024',
         segmentDefinitions: [
           { key: 'active_projects', label: 'Active without listed delay', color: '#2f5f99' },
@@ -3295,6 +3560,8 @@ function App() {
       }),
       React.createElement(ScatterChart, {
         title: 'Project Economics: Land Acquisition vs Maintenance (Model Panel)',
+        metaText: 'Synthetic demonstration only; values and assigned states are generated, not measured project economics.',
+        noteText: 'Excluded from default analyst evidence. Costs and locations are synthetic assumptions and cannot support investment comparisons.',
         rows: modelCostRows,
         confidence: modelConfidence,
         onHover: setTooltip,
@@ -3316,11 +3583,7 @@ function App() {
       analyticsLoading ? React.createElement('div', { className: 'card' }, 'Loading insight panels...') : null,
       React.createElement(OntologyPanel, { catalog }),
       ...Object.values(catalog)
-        .filter((item) => {
-          if (sourceFilter === 'all') return true;
-          const tag = sourceTypeTag(item)[1];
-          return tag === sourceFilter;
-        })
+        .filter((item) => matchesSourceFilter(item, sourceFilter))
         .map((item) =>
           React.createElement(MetricCard, {
             key: item.source_id,

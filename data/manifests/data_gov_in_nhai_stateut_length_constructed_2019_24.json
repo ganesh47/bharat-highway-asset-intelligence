@@ -53,10 +53,29 @@
   },
   "retrieved_at": "2026-03-11T05:17:08.857426+00:00",
   "completeness_score": 1.0,
-  "recency_score": 1.0,
+  "recency_score": 0.4,
   "provenance_score": 0.85,
   "consistency_score": 1.0,
-  "overall_confidence_badge": "High",
-  "overall_confidence_reason": [],
-  "output_table_path": "data/processed/data_gov_in_nhai_stateut_length_constructed_2019_24.parquet"
+  "overall_confidence_badge": "Med",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency"
+  ],
+  "output_table_path": "data/processed/data_gov_in_nhai_stateut_length_constructed_2019_24.parquet",
+  "data_checksum": "adaee1351c08a12702a25d8b75f11afd1a0644eb13884c49a869a6b7e2faaa4d",
+  "last_successful_retrieval_at": "2026-10-01T20:08:30.588139+00:00",
+  "last_ingested_at": "2026-10-01T20:08:30.588139+00:00",
+  "last_checked_at": "2026-10-01T20:08:30.588139+00:00",
+  "refresh_outcome": "checked_unchanged",
+  "analytical_scope": {
+    "road_class": "unspecified",
+    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+  },
+  "evidence_status": "validated",
+  "source_as_of_date": "2024-03-31",
+  "publication_date": null,
+  "disclosure_ready": true,
+  "analytical_ready": true,
+  "extraction_status": "validated",
+  "recency_basis": "observation_date",
+  "validation_errors": []
 }

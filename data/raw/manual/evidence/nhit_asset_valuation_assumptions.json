@@ -1,0 +1,19 @@
+{
+  "source_id": "nhit_asset_valuation_assumptions",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-01T19:28:46.272467+00:00",
+  "documents": [
+    {
+      "url": "https://nhit.co.in/pdf/valuation-report/Valuation%20Report%20F_08_08_26.pdf",
+      "relative_path": "primary_disclosures/nhit_asset_valuation_assumptions/document.pdf",
+      "sha256": "6df526244e98e9eaa56e6f0f44de160ffbb774bfe334159fd2885fdb606a7e92",
+      "size_bytes": 5622960
+    }
+  ],
+  "csv_sha256": "5137d035db0c318334e5ba294386fc6365025c3f893509758096b2b22e4ebb0e",
+  "extraction_status": "validated",
+  "row_count": 17,
+  "notes": "",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"
+}

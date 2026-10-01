@@ -10,7 +10,8 @@
     "url": "https://www.rbi.org.in/Scripts/{}",
     "retrieved_at": "2026-03-11T05:17:35.808015+00:00",
     "license_terms": "Official statistical products; confirm redistribution terms in portal.",
-    "official_flag": true
+    "official_flag": true,
+    "domain": "rbi.org.in"
   },
   "citations": {
     "permanent_identifier": "official indicator code + release month",
@@ -28,6 +29,7 @@
     "output_files": [
       {
         "path": "data/processed/rbi_mospi_macro_indicators.parquet",
+        "format": "parquet",
         "sha256": "612d5e6d0b739fdb58ba8f84741806a767824bbce937f9692ad6f71d3415ea3f"
       }
     ],
@@ -47,10 +49,31 @@
   },
   "retrieved_at": "2026-03-11T05:17:35.808204+00:00",
   "completeness_score": 0.98,
-  "recency_score": 0.98,
+  "recency_score": 0.25,
   "provenance_score": 0.98,
   "consistency_score": 0.98,
-  "overall_confidence_badge": "High",
-  "overall_confidence_reason": [],
-  "output_table_path": "data/processed/rbi_mospi_macro_indicators.parquet"
+  "overall_confidence_badge": "Low",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency",
+    "Not eligible for measured analyst calculations",
+    "Document discovery is not validated financial extraction"
+  ],
+  "output_table_path": "data/processed/rbi_mospi_macro_indicators.parquet",
+  "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
+  "data_checksum": "0babd8a82e56f03b0cbafe1247d7373003c298e4f6b33a7f881d4b5cf4c7a08b",
+  "last_checked_at": "2026-10-01T20:10:06.726899+00:00",
+  "refresh_outcome": "manual_evidence_required",
+  "analytical_scope": {
+    "road_class": "unspecified",
+    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+  },
+  "evidence_status": "unverified",
+  "source_as_of_date": "2026-12-31",
+  "publication_date": null,
+  "disclosure_ready": false,
+  "analytical_ready": false,
+  "extraction_status": "pending",
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date"
 }

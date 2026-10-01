@@ -16,6 +16,8 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from pipelines.morth_appendix_validation import compare_appendix2_to_reference, validate_appendix2_snapshot
+from pipelines.quality import semantic_errors
+from pipelines.ingest import REFRESH_OUTCOMES
 
 
 def _read_json(path: Path) -> Dict:
@@ -46,15 +48,15 @@ def _validate_entry(entry: Dict, manifest_root: Path, errors: List[str], warning
 
     manifest = manifest_root / f"{source_id}.json"
     if not manifest.exists():
-        warnings.append(f"Missing per-source manifest: {source_id}")
+        errors.append(f"Missing per-source manifest: {source_id}")
 
-    required_fields = ["source_id", "status", "metric_category", "source", "citations", "manifest", "overall_confidence_badge", "output_table_path"]
+    required_fields = ["source_id", "status", "metric_category", "source", "citations", "manifest", "overall_confidence_badge", "output_table_path", "analytical_ready", "disclosure_ready", "evidence_status", "extraction_status", "last_checked_at", "refresh_outcome"]
     for field in required_fields:
         if field not in entry:
             errors.append(f"Source {source_id} missing required catalog field: {field}")
 
     source_meta = entry.get("source", {})
-    for field in ["publisher", "license_terms", "retrieved_at"]:
+    for field in ["publisher", "license_terms"] + (["retrieved_at"] if entry.get("analytical_ready") else []):
         if not source_meta.get(field):
             warnings.append(f"Source {source_id} missing source.{field}")
 
@@ -69,14 +71,44 @@ def _validate_entry(entry: Dict, manifest_root: Path, errors: List[str], warning
     if entry.get("metric_category", "").startswith("proxy") and source_meta.get("official_flag") is not False:
         warnings.append(f"Proxy source {source_id} should keep source.official_flag=false")
 
-    if entry.get("metric_category") not in {"official_measured", "proxy_derived", "model_output"}:
-        warnings.append(f"Source {source_id} has non-standard metric_category: {entry.get('metric_category')}")
+    if entry.get("metric_category") not in {"official_measured", "issuer_disclosed", "proxy_derived", "model_output"}:
+        errors.append(f"Source {source_id} has non-standard metric_category: {entry.get('metric_category')}")
+    if entry.get("refresh_outcome") not in REFRESH_OUTCOMES:
+        errors.append(f"Source {source_id} has unknown refresh outcome: {entry.get('refresh_outcome')}")
+    if entry.get("analytical_ready") and entry.get("evidence_status") not in {"verified", "validated", "validated_primary", "validated_curated"}:
+        errors.append(f"Source {source_id} analytical readiness has no verified evidence")
+    if entry.get("disclosure_ready") and entry.get("evidence_status") not in {"verified", "validated", "validated_primary", "validated_curated"}:
+        errors.append(f"Source {source_id} disclosure readiness has no verified evidence")
+    if entry.get("metric_category") in {"proxy_derived", "model_output"} and entry.get("analytical_ready"):
+        errors.append(f"Source {source_id} proxy/synthetic values cannot enter measured analyst calculations")
 
     output_path = Path(entry.get("output_table_path")) if entry.get("output_table_path") else None
     if output_path and output_path.exists():
         output_size = output_path.stat().st_size
         if output_size <= 0:
             warnings.append(f"Source {source_id} output parquet is empty ({output_path})")
+        try:
+            frame = pd.read_parquet(output_path)
+            if len(frame) != entry.get("manifest", {}).get("row_count"):
+                errors.append(f"Source {source_id} manifest row count differs from parquet")
+            if list(frame.columns) != entry.get("manifest", {}).get("columns"):
+                errors.append(f"Source {source_id} manifest schema differs from parquet")
+            if entry.get("analytical_ready"):
+                errors.extend(f"Source {source_id}: {issue}" for issue in semantic_errors(frame, {"source_id": source_id}))
+            if {"entity_id", "citation_url", "source_document_sha256", "analytical_eligible"} <= set(frame.columns) and not frame.empty:
+                from pipelines.connectors.primary_disclosures import validate_facts
+                evidence_path = ROOT / "data/raw/manual/evidence" / f"{source_id}.json"
+                if not evidence_path.exists():
+                    errors.append(f"Source {source_id} has no evidence manifest for financial facts")
+                else:
+                    validate_facts(frame, source_id, _read_json(evidence_path))
+            if source_id == "correlation_matrix" and not frame.empty:
+                if (pd.to_numeric(frame["overlap_records"], errors="coerce") < 10).any():
+                    errors.append("Published correlation has fewer than ten compatible observations")
+                if not entry.get("derivation_inputs"):
+                    errors.append("Published correlation is missing input lineage")
+        except Exception as exc:
+            errors.append(f"Source {source_id} integrity validation failed: {exc}")
         if source_id == "data_gov_in_nhai_stateut_project_delay_status_2024":
             try:
                 df = pd.read_parquet(output_path)
@@ -452,16 +484,29 @@ def run(inventory_path: str, catalog_path: str, manifests_dir: str, fail_on_warn
         sid = entry.get("source_id")
         if not sid:
             continue
+        if sid in catalog_ids:
+            errors.append(f"Duplicate catalog source: {sid}")
         catalog_ids.add(sid)
         _validate_entry(entry, Path(manifests_dir), errors, warnings)
 
     missing = sorted(inventory_ids - catalog_ids)
     for sid in missing:
-        warnings.append(f"Inventory source missing from catalog: {sid}")
+        errors.append(f"Inventory source missing from catalog: {sid}")
 
     for sid in sorted(catalog_ids - inventory_ids):
         if sid != "correlation_matrix":
-            warnings.append(f"Catalog has non-inventory source: {sid}")
+            errors.append(f"Catalog has non-inventory source: {sid}")
+
+    machine_path = Path(inventory_path).with_suffix(".json")
+    machine_ids = {source.get("source_id") for source in _read_json(machine_path).get("sources", [])}
+    if machine_ids != inventory_ids:
+        errors.append("Machine source inventory does not match all human inventory source IDs")
+    refresh = _read_json(Path(manifests_dir) / "refresh_report.json")
+    refreshed = {source.get("source_id") for source in refresh.get("sources", [])}
+    if refreshed != inventory_ids:
+        errors.append("Refresh report must declare an explicit outcome for every registered source")
+    if refresh.get("registered_source_count") != len(inventory_ids):
+        errors.append("Refresh report registered source count differs from inventory")
 
     _validate_dashboard_semantics(errors, warnings)
     _validate_deploy_docs_and_workflow(errors, warnings)

@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from .loader import load_inventory
+from pipelines.common import read_json
 
 
 MANDATORY_THEMES = [
@@ -33,13 +34,16 @@ OFFICIAL_REMEDIATION = {
 }
 
 
-def detect_gaps(inventory: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    by_theme = {item.get("theme"): item for item in inventory if item.get("theme")}
+def detect_gaps(inventory: List[Dict[str, Any]], catalog: Dict[str, Any] | None = None) -> List[Dict[str, Any]]:
+    by_theme: Dict[str, list] = {}
+    for item in inventory:
+        by_theme.setdefault(item.get("theme", "unknown"), []).append(item)
+    catalog = catalog or {}
     gaps = []
 
     for theme in MANDATORY_THEMES:
-        source = by_theme.get(theme)
-        if not source:
+        sources = by_theme.get(theme, [])
+        if not sources:
             gaps.append(
                 {
                     "theme": theme,
@@ -50,16 +54,20 @@ def detect_gaps(inventory: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             )
             continue
 
-        if source.get("auth") in {"captcha", "restricted"} or source.get("allow_auto_fetch") is False:
+        blocked = [source for source in sources if source.get("auth") in {"captcha", "restricted"} or source.get("allow_auto_fetch") is False]
+        pending = [source for source in sources if source["source_id"] in catalog and catalog[source["source_id"]].get("analytical_ready") is not True]
+        affected = {source["source_id"] for source in blocked + pending}
+        if affected:
             gaps.append(
                 {
                     "theme": theme,
-                    "missing_reason": "Source exists but automated retrieval is restricted",
+                    "missing_reason": f"{len(affected)} of {len(sources)} sources require manual evidence, validated extraction, or restricted access; discovery is not analytical coverage",
+                    "source_ids": sorted(affected),
                     "suggested_official_avenues": OFFICIAL_REMEDIATION.get(
                         theme,
                         "Request official release channel access or place curated exports into data/raw/manual with provenance notes.",
                     ),
-                    "recommended_status": "manual_first",
+                    "recommended_status": "evidence_required",
                 }
             )
 
@@ -86,11 +94,16 @@ def write_gaps_markdown(gaps: List[Dict[str, Any]], out_path: str = "research/ga
                     f"  - Priority: {gap['recommended_status']}\n",
                 ]
             )
+            if gap.get("source_ids"):
+                lines.append(f"  - Sources: {', '.join(gap['source_ids'])}\n")
 
     lines.append("## Mandatory operating rules\n")
     lines.append("- Keep auto-fetch off for restricted/captcha sources.")
     lines.append("- Keep `research/source_inventory.yaml` as human approval gate.")
     lines.append("- Log connector capability and known limitations in the source notes.")
+    lines.append("- State-wise National Highway statistics do not establish State Highway coverage.")
+    lines.append("- Roads and Bridges expenditure covers a wider functional category than State Highways.")
+    lines.append("- Keep issuer accounts, government budgets, targets, valuations and historical audit samples distinct.")
 
     out = Path(out_path)
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -105,7 +118,8 @@ def main() -> None:
     args = parser.parse_args()
 
     inv = load_inventory(args.inventory)
-    gaps = detect_gaps(inv.sources)
+    catalog = {entry["source_id"]: entry for entry in read_json(Path("data/manifests/catalog.json")).get("datasets", [])}
+    gaps = detect_gaps(inv.sources, catalog)
     path = write_gaps_markdown(gaps, args.out)
     print(f"Wrote gap report: {path} ({len(gaps)} items)")
 

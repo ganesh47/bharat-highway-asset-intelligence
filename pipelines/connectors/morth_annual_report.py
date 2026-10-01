@@ -11,7 +11,7 @@ from pypdf import PdfReader
 from .base import ConnectorResult, ConnectorSpec
 from pipelines.common import ensure_dirs, sha256_for_file, write_json, write_parquet
 from pipelines.morth_appendix_validation import compare_appendix2_to_reference, validate_appendix2_snapshot
-from pipelines.quality import evaluate
+from pipelines.quality import evaluate, observed_row_mask
 
 
 class MoRTHAnnualReportConnector:
@@ -344,6 +344,7 @@ class MoRTHAnnualReportConnector:
             return pd.DataFrame()
 
         df = pd.DataFrame(rows)
+        df["analytical_eligible"] = observed_row_mask(df)
         df["source_id"] = source_id
         df["source_type"] = "official_measured"
         df["metric_category"] = "official_measured"
@@ -384,6 +385,7 @@ class MoRTHAnnualReportConnector:
             df["metric_category"] = "official_measured"
         if "dataset_source" not in df.columns:
             df["dataset_source"] = source.get("dataset_title")
+        df["analytical_eligible"] = observed_row_mask(df)
         df["retrieved_at"] = now
 
         manifest = {

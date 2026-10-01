@@ -1,0 +1,751 @@
+{
+  "source_id": "data_gov_in_nhai_projects_district_target_2023",
+  "evidence_status": "verified",
+  "evidence_class": "mixed_actual_target",
+  "analytical_eligible": false,
+  "publication_date": "2024-02-07",
+  "source_as_of_date": "2024-02-07",
+  "actual_completed_column_as_of": "2023-03-31",
+  "target_period": "FY2023-24",
+  "reference_document": {
+    "url": "https://sansad.in/getFile/annex/263/AS52.pdf?source=pqars",
+    "sha256": "ca3280b26827d35995e5a947cef02c34df1902111d25725d6bd60ecf583ecdb4",
+    "size_bytes": 148222,
+    "relative_path": "primary_disclosures/data_gov_in_nhai_projects_district_target_2023/reference.pdf",
+    "table_pages": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "title": "MoRTH Rajya Sabha starred question52, National Highways in Jharkhand",
+    "answered_on": "2024-02-07"
+  },
+  "compared_csv": {
+    "url": "https://www.data.gov.in/sites/default/files/RS_Session_263_AS_52_A_0.csv",
+    "sha256": "2793579e2f510ea5c6ad77a6d73b8a2efb41f14020bc9c88216acd694bf49f3a",
+    "columns": [
+      "Total Project Length (km)",
+      "Length (km) Completed Till 31-03-2023",
+      "Target (2023-24) (in km)"
+    ],
+    "row_count": 47,
+    "numeric_cells_matched": 125,
+    "nonnumeric_cells_preserved_as_NA": 16,
+    "comparison_rows": [
+      {
+        "table_page": 3,
+        "original_pdf_serial": "1",
+        "source_cells": [
+          "18.5",
+          "NIL",
+          "Nil"
+        ],
+        "csv_row_ordinal": 1,
+        "csv_cells": [
+          "18.5",
+          "NA",
+          "NA"
+        ]
+      },
+      {
+        "table_page": 3,
+        "original_pdf_serial": "2",
+        "source_cells": [
+          "31.00",
+          "28.6",
+          "2.4"
+        ],
+        "csv_row_ordinal": 2,
+        "csv_cells": [
+          "31",
+          "28.6",
+          "2.4"
+        ]
+      },
+      {
+        "table_page": 3,
+        "original_pdf_serial": "3.",
+        "source_cells": [
+          "44.00",
+          "42.36",
+          "1.64"
+        ],
+        "csv_row_ordinal": 3,
+        "csv_cells": [
+          "44",
+          "42.36",
+          "1.64"
+        ]
+      },
+      {
+        "table_page": 3,
+        "original_pdf_serial": "4",
+        "source_cells": [
+          "19.890",
+          "Nil",
+          "Nil"
+        ],
+        "csv_row_ordinal": 4,
+        "csv_cells": [
+          "19.89",
+          "NA",
+          "NA"
+        ]
+      },
+      {
+        "table_page": 3,
+        "original_pdf_serial": "5.",
+        "source_cells": [
+          "1.753",
+          "Nil",
+          "Nil"
+        ],
+        "csv_row_ordinal": 5,
+        "csv_cells": [
+          "1.753",
+          "NA",
+          "NA"
+        ]
+      },
+      {
+        "table_page": 3,
+        "original_pdf_serial": "6.",
+        "source_cells": [
+          "54.93",
+          "0",
+          "28"
+        ],
+        "csv_row_ordinal": 6,
+        "csv_cells": [
+          "54.93",
+          "0",
+          "28"
+        ]
+      },
+      {
+        "table_page": 3,
+        "original_pdf_serial": "7.",
+        "source_cells": [
+          "0.169",
+          "Bridge Work",
+          ""
+        ],
+        "csv_row_ordinal": 7,
+        "csv_cells": [
+          "0.169",
+          "NA",
+          "NA"
+        ]
+      },
+      {
+        "table_page": 3,
+        "original_pdf_serial": "8.",
+        "source_cells": [
+          "",
+          "Bridge work",
+          ""
+        ],
+        "csv_row_ordinal": 8,
+        "csv_cells": [
+          "NA",
+          "NA",
+          "NA"
+        ]
+      },
+      {
+        "table_page": 3,
+        "original_pdf_serial": "9.",
+        "source_cells": [
+          "40.56",
+          "0",
+          "0"
+        ],
+        "csv_row_ordinal": 9,
+        "csv_cells": [
+          "40.56",
+          "0",
+          "0"
+        ]
+      },
+      {
+        "table_page": 4,
+        "original_pdf_serial": "10.",
+        "source_cells": [
+          "24.50",
+          "12",
+          "12.5"
+        ],
+        "csv_row_ordinal": 10,
+        "csv_cells": [
+          "24.5",
+          "12",
+          "12.5"
+        ]
+      },
+      {
+        "table_page": 4,
+        "original_pdf_serial": "11.",
+        "source_cells": [
+          "78.31",
+          "0",
+          "0"
+        ],
+        "csv_row_ordinal": 11,
+        "csv_cells": [
+          "78.31",
+          "0",
+          "0"
+        ]
+      },
+      {
+        "table_page": 4,
+        "original_pdf_serial": "12.",
+        "source_cells": [
+          "1.18",
+          "0",
+          "0"
+        ],
+        "csv_row_ordinal": 12,
+        "csv_cells": [
+          "1.18",
+          "0",
+          "0"
+        ]
+      },
+      {
+        "table_page": 4,
+        "original_pdf_serial": "13.",
+        "source_cells": [
+          "1.47",
+          "Bridge Work",
+          "0"
+        ],
+        "csv_row_ordinal": 13,
+        "csv_cells": [
+          "1.47",
+          "NA",
+          "0"
+        ]
+      },
+      {
+        "table_page": 4,
+        "original_pdf_serial": "14.",
+        "source_cells": [
+          "1.80",
+          "0",
+          "0"
+        ],
+        "csv_row_ordinal": 14,
+        "csv_cells": [
+          "1.8",
+          "0",
+          "0"
+        ]
+      },
+      {
+        "table_page": 4,
+        "original_pdf_serial": "15.",
+        "source_cells": [
+          "44.00",
+          "39.54",
+          "4.46"
+        ],
+        "csv_row_ordinal": 15,
+        "csv_cells": [
+          "44",
+          "39.54",
+          "4.46"
+        ]
+      },
+      {
+        "table_page": 4,
+        "original_pdf_serial": "16.",
+        "source_cells": [
+          "41.80",
+          "39.80",
+          "2"
+        ],
+        "csv_row_ordinal": 16,
+        "csv_cells": [
+          "41.8",
+          "39.8",
+          "2"
+        ]
+      },
+      {
+        "table_page": 4,
+        "original_pdf_serial": "17.",
+        "source_cells": [
+          "1.8",
+          "---",
+          "0"
+        ],
+        "csv_row_ordinal": 17,
+        "csv_cells": [
+          "1.8",
+          "NA",
+          "0"
+        ]
+      },
+      {
+        "table_page": 4,
+        "original_pdf_serial": "18.",
+        "source_cells": [
+          "14.857",
+          "3",
+          "9.45"
+        ],
+        "csv_row_ordinal": 18,
+        "csv_cells": [
+          "14.857",
+          "3",
+          "9.45"
+        ]
+      },
+      {
+        "table_page": 4,
+        "original_pdf_serial": "19.",
+        "source_cells": [
+          "18.135",
+          "---",
+          "0"
+        ],
+        "csv_row_ordinal": 19,
+        "csv_cells": [
+          "18.135",
+          "NA",
+          "0"
+        ]
+      },
+      {
+        "table_page": 4,
+        "original_pdf_serial": "20.",
+        "source_cells": [
+          "15.66",
+          "--",
+          "--"
+        ],
+        "csv_row_ordinal": 20,
+        "csv_cells": [
+          "15.66",
+          "NA",
+          "NA"
+        ]
+      },
+      {
+        "table_page": 5,
+        "original_pdf_serial": "21.",
+        "source_cells": [
+          "27.05",
+          "24.00",
+          "3.05"
+        ],
+        "csv_row_ordinal": 21,
+        "csv_cells": [
+          "27.05",
+          "24",
+          "3.05"
+        ]
+      },
+      {
+        "table_page": 5,
+        "original_pdf_serial": "22.",
+        "source_cells": [
+          "10.35",
+          "8.55",
+          "1.8"
+        ],
+        "csv_row_ordinal": 22,
+        "csv_cells": [
+          "10.35",
+          "8.55",
+          "1.8"
+        ]
+      },
+      {
+        "table_page": 5,
+        "original_pdf_serial": "23",
+        "source_cells": [
+          "47.07",
+          "19",
+          "28.07"
+        ],
+        "csv_row_ordinal": 23,
+        "csv_cells": [
+          "47.07",
+          "19",
+          "28.07"
+        ]
+      },
+      {
+        "table_page": 5,
+        "original_pdf_serial": "24",
+        "source_cells": [
+          "20",
+          "14",
+          "6"
+        ],
+        "csv_row_ordinal": 24,
+        "csv_cells": [
+          "20",
+          "14",
+          "6"
+        ]
+      },
+      {
+        "table_page": 5,
+        "original_pdf_serial": "25",
+        "source_cells": [
+          "44",
+          "42",
+          "2"
+        ],
+        "csv_row_ordinal": 25,
+        "csv_cells": [
+          "44",
+          "42",
+          "2"
+        ]
+      },
+      {
+        "table_page": 5,
+        "original_pdf_serial": "26",
+        "source_cells": [
+          "42.72",
+          "8.70",
+          "34.01"
+        ],
+        "csv_row_ordinal": 26,
+        "csv_cells": [
+          "42.72",
+          "8.7",
+          "34.01"
+        ]
+      },
+      {
+        "table_page": 5,
+        "original_pdf_serial": null,
+        "source_cells": [
+          "10.20",
+          "0",
+          "0"
+        ],
+        "csv_row_ordinal": 27,
+        "csv_cells": [
+          "10.2",
+          "0",
+          "0"
+        ]
+      },
+      {
+        "table_page": 5,
+        "original_pdf_serial": "27",
+        "source_cells": [
+          "27.85",
+          "0",
+          "8.00"
+        ],
+        "csv_row_ordinal": 28,
+        "csv_cells": [
+          "27.85",
+          "0",
+          "8"
+        ]
+      },
+      {
+        "table_page": 5,
+        "original_pdf_serial": null,
+        "source_cells": [
+          "9.33",
+          "0",
+          "3.00"
+        ],
+        "csv_row_ordinal": 29,
+        "csv_cells": [
+          "9.33",
+          "0",
+          "3"
+        ]
+      },
+      {
+        "table_page": 5,
+        "original_pdf_serial": "28",
+        "source_cells": [
+          "23.17",
+          "0",
+          "5.00"
+        ],
+        "csv_row_ordinal": 30,
+        "csv_cells": [
+          "23.17",
+          "0",
+          "5"
+        ]
+      },
+      {
+        "table_page": 5,
+        "original_pdf_serial": "29",
+        "source_cells": [
+          "26.27",
+          "24.90",
+          "1.37"
+        ],
+        "csv_row_ordinal": 31,
+        "csv_cells": [
+          "26.27",
+          "24.9",
+          "1.37"
+        ]
+      },
+      {
+        "table_page": 5,
+        "original_pdf_serial": null,
+        "source_cells": [
+          "3.76",
+          "0",
+          "2.50"
+        ],
+        "csv_row_ordinal": 32,
+        "csv_cells": [
+          "3.76",
+          "0",
+          "2.5"
+        ]
+      },
+      {
+        "table_page": 5,
+        "original_pdf_serial": null,
+        "source_cells": [
+          "20.80",
+          "5.40",
+          "15.00"
+        ],
+        "csv_row_ordinal": 33,
+        "csv_cells": [
+          "20.8",
+          "5.4",
+          "15"
+        ]
+      },
+      {
+        "table_page": 5,
+        "original_pdf_serial": "30",
+        "source_cells": [
+          "42.37",
+          "17.00",
+          "25.77"
+        ],
+        "csv_row_ordinal": 34,
+        "csv_cells": [
+          "42.37",
+          "17",
+          "25.77"
+        ]
+      },
+      {
+        "table_page": 5,
+        "original_pdf_serial": "31",
+        "source_cells": [
+          "41.06",
+          "0",
+          "8.00"
+        ],
+        "csv_row_ordinal": 35,
+        "csv_cells": [
+          "41.06",
+          "0",
+          "8"
+        ]
+      },
+      {
+        "table_page": 5,
+        "original_pdf_serial": null,
+        "source_cells": [
+          "18.70",
+          "16.87",
+          "1.83"
+        ],
+        "csv_row_ordinal": 36,
+        "csv_cells": [
+          "18.7",
+          "16.87",
+          "1.83"
+        ]
+      },
+      {
+        "table_page": 6,
+        "original_pdf_serial": "32",
+        "source_cells": [
+          "4.03",
+          "3.63",
+          "0.40"
+        ],
+        "csv_row_ordinal": 37,
+        "csv_cells": [
+          "4.03",
+          "3.63",
+          "0.4"
+        ]
+      },
+      {
+        "table_page": 6,
+        "original_pdf_serial": null,
+        "source_cells": [
+          "49.00",
+          "0",
+          "10.00"
+        ],
+        "csv_row_ordinal": 38,
+        "csv_cells": [
+          "49",
+          "0",
+          "10"
+        ]
+      },
+      {
+        "table_page": 6,
+        "original_pdf_serial": null,
+        "source_cells": [
+          "29.73",
+          "22.00",
+          "7.27"
+        ],
+        "csv_row_ordinal": 39,
+        "csv_cells": [
+          "29.73",
+          "22",
+          "7.27"
+        ]
+      },
+      {
+        "table_page": 6,
+        "original_pdf_serial": "33",
+        "source_cells": [
+          "4.50",
+          "0",
+          "4.50"
+        ],
+        "csv_row_ordinal": 40,
+        "csv_cells": [
+          "4.5",
+          "0",
+          "4.5"
+        ]
+      },
+      {
+        "table_page": 6,
+        "original_pdf_serial": "34",
+        "source_cells": [
+          "59.66",
+          "47.17",
+          "12.49"
+        ],
+        "csv_row_ordinal": 41,
+        "csv_cells": [
+          "59.66",
+          "47.17",
+          "12.49"
+        ]
+      },
+      {
+        "table_page": 6,
+        "original_pdf_serial": null,
+        "source_cells": [
+          "5.30",
+          "4.00",
+          "1.50"
+        ],
+        "csv_row_ordinal": 42,
+        "csv_cells": [
+          "5.3",
+          "4",
+          "1.5"
+        ]
+      },
+      {
+        "table_page": 6,
+        "original_pdf_serial": "35",
+        "source_cells": [
+          "22.20",
+          "21.95",
+          "0.25"
+        ],
+        "csv_row_ordinal": 43,
+        "csv_cells": [
+          "22.2",
+          "21.95",
+          "0.25"
+        ]
+      },
+      {
+        "table_page": 6,
+        "original_pdf_serial": "36",
+        "source_cells": [
+          "47.07",
+          "0",
+          "10.00"
+        ],
+        "csv_row_ordinal": 44,
+        "csv_cells": [
+          "47.07",
+          "0",
+          "10"
+        ]
+      },
+      {
+        "table_page": 6,
+        "original_pdf_serial": "37",
+        "source_cells": [
+          "4.76",
+          "0",
+          "1.00"
+        ],
+        "csv_row_ordinal": 45,
+        "csv_cells": [
+          "4.76",
+          "0",
+          "1"
+        ]
+      },
+      {
+        "table_page": 6,
+        "original_pdf_serial": null,
+        "source_cells": [
+          "25.57",
+          "0",
+          "2.00"
+        ],
+        "csv_row_ordinal": 46,
+        "csv_cells": [
+          "25.57",
+          "0",
+          "2"
+        ]
+      },
+      {
+        "table_page": 6,
+        "original_pdf_serial": "38",
+        "source_cells": [
+          "20.21",
+          "0",
+          "2.00"
+        ],
+        "csv_row_ordinal": 47,
+        "csv_cells": [
+          "20.21",
+          "0",
+          "2"
+        ]
+      }
+    ],
+    "comparison": "All numeric annexure cells match; original nonnumeric tokens map to OGD NA and are not converted to zero. CSV renumbers district subproject rows."
+  },
+  "limitations": [
+    "Jharkhand only; no all-state project completeness claim",
+    "Actualcompleted cutoff31Mar2023 differs from answer cutoff7Feb2024 and FY23-24targetperiod",
+    "Mixed actual/target dataset excluded from measured arithmetic pending column-level normalization",
+    "CSV NA includes PDF NIL,dash,blank and BridgeWork tokens; their source tokens are preserved in this evidence"
+  ],
+  "retrieved_at": "2026-10-01T20:49:06.965897+00:00"
+}

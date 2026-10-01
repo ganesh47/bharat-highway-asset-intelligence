@@ -9,7 +9,9 @@
     "title": "NHAI publications and press release index",
     "retrieved_at": "2026-03-11T05:17:32.818267+00:00",
     "license_terms": "Official publication metadata reuse as per NHAI terms of use.",
-    "official_flag": true
+    "official_flag": true,
+    "domain": "nhai.gov.in",
+    "url": "https://www.nhai.gov.in/en/press-release"
   },
   "citations": {
     "permanent_identifier": "nhai_press_release_index",
@@ -21,6 +23,7 @@
     "output_files": [
       {
         "path": "data/processed/nhai_press_release_index.parquet",
+        "format": "parquet",
         "sha256": "69d23b91008e49d74ea483be75b4b6f840ebcdb0737ae1cedb1cde22000e9157"
       }
     ],
@@ -40,14 +43,33 @@
   },
   "retrieved_at": "2026-03-11T05:17:32.818626+00:00",
   "completeness_score": 0.62,
-  "recency_score": 0.62,
+  "recency_score": 0.25,
   "provenance_score": 0.527,
   "consistency_score": 0.62,
   "overall_confidence_badge": "Low",
   "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency",
     "Schema/range checks showed potential consistency issues",
     "Use for trend and risk ranking, not precise governance decisions",
-    "Metadata-only path; does not contain source metric values."
+    "Metadata-only path; does not contain source metric values.",
+    "Observation date is unavailable; collection time is not data freshness",
+    "Document discovery is not validated financial extraction"
   ],
-  "output_table_path": "data/processed/nhai_press_release_index.parquet"
+  "output_table_path": "data/processed/nhai_press_release_index.parquet",
+  "refresh_error": "No validated observations retrieved",
+  "data_checksum": "dc12a92e398d8d4414dc4a1a9876bab5f9c74ce6c46c55abd9072d42ac6254d3",
+  "last_checked_at": "2026-10-01T20:09:56.503402+00:00",
+  "refresh_outcome": "metadata_only",
+  "analytical_scope": {
+    "road_class": "unspecified",
+    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+  },
+  "evidence_status": "document_metadata",
+  "source_as_of_date": null,
+  "publication_date": null,
+  "disclosure_ready": false,
+  "analytical_ready": false,
+  "extraction_status": "fetched",
+  "recency_basis": "unknown",
+  "validation_errors": []
 }

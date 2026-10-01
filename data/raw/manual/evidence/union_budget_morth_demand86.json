@@ -1,0 +1,19 @@
+{
+  "source_id": "union_budget_morth_demand86",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-01T19:28:45.439777+00:00",
+  "documents": [
+    {
+      "url": "https://www.indiabudget.gov.in/doc/eb/sbe86.pdf",
+      "relative_path": "primary_disclosures/union_budget_morth_demand86/document.pdf",
+      "sha256": "b65b89fd24ce782082b314927e595d92dfb10eaa73a3c4c0f211ce0ed7a0fc08",
+      "size_bytes": 366442
+    }
+  ],
+  "csv_sha256": "7feab9444d19f3b3d26195b8b76c27b59ecac408f1721548b747b040937944ad",
+  "extraction_status": "validated",
+  "row_count": 40,
+  "notes": "",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"
+}

@@ -1,0 +1,132 @@
+{
+  "source_id": "union_budget_morth_demand86",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "refresh_outcome": "updated",
+  "last_checked_at": "2026-10-01T20:10:12.945500+00:00",
+  "last_successful_retrieval_at": "2026-10-01T20:10:12.947756+00:00",
+  "data_changed_at": "2026-10-01T20:10:12.945500+00:00",
+  "publication_date": "2026-02-01",
+  "source_as_of_date": "2026-02-01",
+  "analytical_ready": true,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "",
+  "source": {
+    "publisher": "Ministry of Finance / MoRTH",
+    "title": "Union Budget2026-27 Demand86: actual/BE/RE financial allocations",
+    "url": "https://www.indiabudget.gov.in/doc/eb/sbe86.pdf",
+    "retrieved_at": "2026-10-01T19:28:45.439777+00:00",
+    "official_flag": true,
+    "publisher_type": "government",
+    "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+    "domain": "www.indiabudget.gov.in"
+  },
+  "citations": {
+    "permanent_identifier": "union_budget_morth_demand86",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": ""
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/evidence/union_budget_morth_demand86.json",
+        "sha256": "68339b3b982a362d49d3a9844de40914e939dbfa383c178d17c7003891b60c6a",
+        "size_bytes": 768
+      },
+      {
+        "path": "data/raw/primary_disclosures/union_budget_morth_demand86/document.pdf",
+        "sha256": "b65b89fd24ce782082b314927e595d92dfb10eaa73a3c4c0f211ce0ed7a0fc08",
+        "size_bytes": 366442
+      },
+      {
+        "path": "data/raw/manual/union_budget_morth_demand86.csv",
+        "sha256": "7feab9444d19f3b3d26195b8b76c27b59ecac408f1721548b747b040937944ad",
+        "size_bytes": 25479
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://www.indiabudget.gov.in/doc/eb/sbe86.pdf",
+        "relative_path": "primary_disclosures/union_budget_morth_demand86/document.pdf",
+        "sha256": "b65b89fd24ce782082b314927e595d92dfb10eaa73a3c4c0f211ce0ed7a0fc08",
+        "size_bytes": 366442
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/union_budget_morth_demand86.parquet",
+        "format": "parquet",
+        "sha256": "17e478957ed90135c7649428fd1bee55e281ad6f28813253ca040f03f8a7804e"
+      }
+    ],
+    "row_count": 40,
+    "columns": [
+      "entity_id",
+      "entity_name",
+      "entity_type",
+      "agency",
+      "state",
+      "road_class",
+      "metric",
+      "value",
+      "unit",
+      "original_value",
+      "original_unit",
+      "period_start",
+      "period_end",
+      "period_basis",
+      "estimate_type",
+      "statement_basis",
+      "data_as_of",
+      "published_at",
+      "source_id",
+      "citation_url",
+      "table_page",
+      "evidence_class",
+      "analytical_eligible",
+      "source_document_sha256",
+      "notes",
+      "entity",
+      "year",
+      "metric_name",
+      "metric_value",
+      "metric_category",
+      "source_type",
+      "asset_id",
+      "project_name",
+      "nh_number",
+      "project_stage",
+      "scheduled_completion_date",
+      "likely_completion_date",
+      "actual_completion_date",
+      "comparison_group",
+      "asset_owner_id",
+      "implementing_agency_id",
+      "operator_id",
+      "concessionaire_id",
+      "financing_entity_id",
+      "contractor_name"
+    ]
+  },
+  "retrieved_at": "2026-10-01T19:28:45.439777+00:00",
+  "semantic_rechecks": [],
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/union_budget_morth_demand86.parquet",
+  "data_checksum": "28e21aef6f40ce416a3eef92b1d271adc665ea2ae85626badc5f87b3b15445d3",
+  "last_ingested_at": "2026-10-01T20:10:12.945500+00:00",
+  "analytical_scope": {
+    "source_as_of_date": "2026-02-01",
+    "publisher_type": "government"
+  }
+}

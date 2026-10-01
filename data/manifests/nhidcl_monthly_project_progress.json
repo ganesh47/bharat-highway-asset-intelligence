@@ -1,0 +1,132 @@
+{
+  "source_id": "nhidcl_monthly_project_progress",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "refresh_outcome": "updated",
+  "last_checked_at": "2026-10-01T20:17:36.105278+00:00",
+  "last_successful_retrieval_at": "2026-10-01T20:10:18.482229+00:00",
+  "data_changed_at": "2026-10-01T20:17:36.105278+00:00",
+  "publication_date": null,
+  "source_as_of_date": "2026-08-31",
+  "analytical_ready": true,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "",
+  "source": {
+    "publisher": "National Highways and Infrastructure Development Corporation Ltd.",
+    "title": "NHIDCL completed/ongoing project status PMP31August2026",
+    "url": "https://www.nhidcl.com/sites/default/files/2026-09/nhidcl-completed_and_ongoing_projects_status_per_pmp_data_lake_portal_31-08-2026.pdf",
+    "retrieved_at": "2026-10-01T19:28:49.064739+00:00",
+    "official_flag": true,
+    "publisher_type": "government",
+    "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+    "domain": "www.nhidcl.com"
+  },
+  "citations": {
+    "permanent_identifier": "nhidcl_monthly_project_progress",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "410 detail projects; do not sum to page1 summary: summary has a narrower stage/agency classification. Emails excluded. State/UT canonicalization preserves original RO/MMLP labels in row notes."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/evidence/nhidcl_monthly_project_progress.json",
+        "sha256": "93040e0c3a5ea9d810238b68ab82cf6793d5f13e6e43a274eec1f4470d47d8e2",
+        "size_bytes": 1058
+      },
+      {
+        "path": "data/raw/primary_disclosures/nhidcl_monthly_project_progress/document.pdf",
+        "sha256": "8d651f90b0d4a1410cabf2e74b8fa4338936fc6b8e468541590c44ad3d2038f3",
+        "size_bytes": 687834
+      },
+      {
+        "path": "data/raw/manual/nhidcl_monthly_project_progress.csv",
+        "sha256": "a22286bfa7415ae1d1ce720909382a0605ca47fe2616be39816935bc8f6e6993",
+        "size_bytes": 4006094
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://www.nhidcl.com/sites/default/files/2026-09/nhidcl-completed_and_ongoing_projects_status_per_pmp_data_lake_portal_31-08-2026.pdf",
+        "relative_path": "primary_disclosures/nhidcl_monthly_project_progress/document.pdf",
+        "sha256": "8d651f90b0d4a1410cabf2e74b8fa4338936fc6b8e468541590c44ad3d2038f3",
+        "size_bytes": 687834
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/nhidcl_monthly_project_progress.parquet",
+        "format": "parquet",
+        "sha256": "827c9fc3a41ab8905d168940457947ace00adf465f2c6a1e93d5cb8f7f487064"
+      }
+    ],
+    "row_count": 2384,
+    "columns": [
+      "entity_id",
+      "entity_name",
+      "entity_type",
+      "agency",
+      "state",
+      "road_class",
+      "metric",
+      "value",
+      "unit",
+      "original_value",
+      "original_unit",
+      "period_start",
+      "period_end",
+      "period_basis",
+      "estimate_type",
+      "statement_basis",
+      "data_as_of",
+      "published_at",
+      "source_id",
+      "citation_url",
+      "table_page",
+      "evidence_class",
+      "analytical_eligible",
+      "source_document_sha256",
+      "notes",
+      "entity",
+      "year",
+      "metric_name",
+      "metric_value",
+      "metric_category",
+      "source_type",
+      "asset_id",
+      "project_name",
+      "nh_number",
+      "project_stage",
+      "scheduled_completion_date",
+      "likely_completion_date",
+      "actual_completion_date",
+      "comparison_group",
+      "asset_owner_id",
+      "implementing_agency_id",
+      "operator_id",
+      "concessionaire_id",
+      "financing_entity_id",
+      "contractor_name"
+    ]
+  },
+  "retrieved_at": "2026-10-01T19:28:49.064739+00:00",
+  "semantic_rechecks": [],
+  "completeness_score": 0.98,
+  "recency_score": 0.7,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/nhidcl_monthly_project_progress.parquet",
+  "data_checksum": "35baa131215669dfdedc055348559dfe28ccbb5d59d4890e92af829fbe8e9594",
+  "last_ingested_at": "2026-10-01T20:17:36.105278+00:00",
+  "analytical_scope": {
+    "source_as_of_date": "2026-08-31",
+    "publisher_type": "government"
+  }
+}

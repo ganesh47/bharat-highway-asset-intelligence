@@ -10,7 +10,8 @@
     "url": "https://sansad.in/getFile/loksabhaquestions/annex/1714/AU3188.pdf?source=pqals",
     "retrieved_at": "2026-03-16T08:52:20.431774+00:00",
     "license_terms": "Official Parliament Q&A documentation; cite question number, session, annexure, and answer date.",
-    "official_flag": true
+    "official_flag": true,
+    "domain": "sansad.in"
   },
   "citations": {
     "permanent_identifier": "Lok Sabha UQ 3188 answered 2023-12-21 annexure",
@@ -28,6 +29,7 @@
     "output_files": [
       {
         "path": "data/processed/parliament_qa_nh_blackspots_state.parquet",
+        "format": "parquet",
         "sha256": "252753bb20c50b195075b97a9374c89065f81f9b89aa553ff68ddfaa61bdb502"
       }
     ],
@@ -52,10 +54,30 @@
   },
   "retrieved_at": "2026-03-16T08:52:20.431774+00:00",
   "completeness_score": 0.98,
-  "recency_score": 0.98,
+  "recency_score": 0.2,
   "provenance_score": 0.98,
   "consistency_score": 0.98,
-  "overall_confidence_badge": "High",
-  "overall_confidence_reason": [],
-  "output_table_path": "data/processed/parliament_qa_nh_blackspots_state.parquet"
+  "overall_confidence_badge": "Med",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency"
+  ],
+  "output_table_path": "data/processed/parliament_qa_nh_blackspots_state.parquet",
+  "data_checksum": "406b27770ee6541bb6624b87a8536ba815fedb4f0657a48f13a2563e4cdd5afd",
+  "last_successful_retrieval_at": "2026-03-16T08:52:20.431774+00:00",
+  "last_ingested_at": "2026-10-01T20:10:06.704312+00:00",
+  "last_checked_at": "2026-10-01T20:10:06.704312+00:00",
+  "refresh_outcome": "checked_unchanged",
+  "analytical_scope": {
+    "agency": "MoRTH",
+    "entity_type": "state_ut",
+    "road_class": "National Highway"
+  },
+  "evidence_status": "validated_curated",
+  "source_as_of_date": "2020-12-31",
+  "publication_date": null,
+  "disclosure_ready": true,
+  "analytical_ready": true,
+  "extraction_status": "validated",
+  "recency_basis": "observation_date",
+  "validation_errors": []
 }

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -9,7 +10,10 @@ from typing import Any
 
 import pandas as pd
 
-import nhai_annual_report_extractor as extractor
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+from scripts import nhai_annual_report_extractor as extractor
 
 
 def _load_json(path: Path) -> dict[str, Any]:
@@ -78,6 +82,10 @@ def _expected_shard_documents(source_parquet: Path, total_shards: int) -> dict[i
 def _validate_shard_manifests(manifests: list[dict[str, Any]], source_parquet: Path, allow_incomplete: bool) -> dict[str, Any]:
     if not manifests:
         raise SystemExit("No shard manifests found.")
+
+    source_checksum = extractor._checksum(source_parquet.read_bytes())
+    if any(m.get("source_parquet_sha256") != source_checksum for m in manifests):
+        raise SystemExit("OCR shard input checksum does not match the source parquet.")
 
     totals = {int(m.get("shard", {}).get("total_shards", 0)) for m in manifests}
     if len(totals) != 1:
@@ -178,17 +186,21 @@ def _merge_yearly_datasets(manifests: list[dict[str, Any]], output_root: Path) -
     for year in sorted(by_year.keys(), key=extractor._coerce_year):
         df = pd.concat(by_year[year], ignore_index=True) if by_year[year] else pd.DataFrame(columns=extractor.CANONICAL_COLUMNS)
         df = extractor._coerce_frame(df)
+        out_path = yearly_root / f"nhai_annual_report_{year}.parquet"
+        previous = pd.read_parquet(out_path) if out_path.exists() else pd.DataFrame()
+        df, retained = extractor.preserve_failed_documents(df, previous)
         df = df.drop_duplicates(subset=extractor.CANONICAL_COLUMNS, keep="first")
         df = extractor._sort_output_frame(df)
         df["row_index"] = range(len(df))
-        out_path = yearly_root / f"nhai_annual_report_{year}.parquet"
         df["lineage_output_file"] = str(out_path)
-        df.to_parquet(out_path, index=False)
+        from pipelines.common import write_parquet
+        write_parquet(df, out_path)
         docs = _sort_source_documents(by_year_sources[year])
         yearly_manifest[year] = {
             "source_document_url": docs[0]["source_document_url"] if len(docs) == 1 else "",
             "source_document_title": docs[0]["source_document_title"] if len(docs) == 1 else "",
             "source_documents": docs,
+            "document_refresh_outcomes": retained,
             "document_count": len(docs),
             "output_path": str(out_path),
             "rows": int(len(df)),
@@ -217,28 +229,35 @@ def main() -> None:
     output_root = Path(args.output_root)
     canonical_output = Path(args.canonical_output)
     quality_output = Path(args.quality_report_output)
+    previous_canonical = pd.read_parquet(canonical_output) if canonical_output.exists() else pd.DataFrame()
 
     manifest_paths = _shard_manifest_paths(shards_root)
     manifests = [{**_load_json(path), "__manifest_path": str(path)} for path in manifest_paths]
     validation = _validate_shard_manifests(manifests, source_parquet, allow_incomplete=args.allow_incomplete)
 
     yearly_manifest, all_frames = _merge_yearly_datasets(manifests, output_root)
-    canonical_df, canonical_summary = extractor.build_canonical(output_root, canonical_output)
+    canonical_df, canonical_summary = extractor.build_canonical(output_root, canonical_output, write_output=False)
+    canonical_df, retention = extractor.preserve_failed_documents(canonical_df, previous_canonical)
     if not canonical_df.empty:
         canonical_df = extractor._coerce_frame(canonical_df)
         canonical_df = extractor._sort_output_frame(canonical_df)
+        from pipelines.common import write_parquet
+        write_parquet(canonical_df, canonical_output)
+        canonical_summary["sha256"] = extractor._checksum(canonical_output.read_bytes())
 
     all_df = pd.concat(all_frames, ignore_index=True) if all_frames else pd.DataFrame(columns=extractor.CANONICAL_COLUMNS)
     all_df = extractor._coerce_frame(all_df)
     all_df = all_df.drop_duplicates(subset=extractor.CANONICAL_COLUMNS, keep="first")
     all_df = extractor._sort_output_frame(all_df)
     quality = extractor.build_quality_report(
-        all_df,
+        canonical_df,
         canonical_summary,
         yearly_manifest,
         quality_output,
         validation["parser_environment"],
     )
+    quality["source_parquet_sha256"] = extractor._checksum(source_parquet.read_bytes())
+    extractor._write_json(quality_output, quality)
 
     parser_metrics: dict[str, int] = defaultdict(int)
     parallel_errors: list[dict[str, Any]] = []
@@ -249,12 +268,14 @@ def main() -> None:
 
     merged_manifest = {
         "source_parquet": manifests[0].get("source_parquet", ""),
+        "source_parquet_sha256": extractor._checksum(source_parquet.read_bytes()),
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "rows_input": validation["document_key_count"],
         "parser_environment": validation["parser_environment"],
         "parallel_workers": sum(int(m.get("parallel_workers", 1)) for m in manifests),
         "parallel_order_strategy": "doc_index_modulo_total_shards",
         "parallel_errors": parallel_errors,
+        "document_refresh_outcomes": retention + [outcome for payload in yearly_manifest.values() for outcome in payload.get("document_refresh_outcomes", [])],
         "yearly_datasets": yearly_manifest,
         "parser_metrics": dict(parser_metrics),
         "canonical": canonical_summary,

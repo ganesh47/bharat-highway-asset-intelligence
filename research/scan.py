@@ -14,12 +14,13 @@ import requests
 
 from .loader import load_inventory, write_machine_inventory
 from pipelines.url_safety import collect_allowed_hosts_from_source, sanitize_public_http_url
+from pipelines.common import read_json, write_json
 
 
 DEFAULT_HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (compatible; BHAI-research-scan/0.2; +https://example.local/official-first-scan)"
-    )
+    # Match the documented connector identity. A placeholder browser identity
+    # with an example.local contact caused 403s for accessible public exports.
+    "User-Agent": "BHAI-research-scan/0.2",
 }
 
 
@@ -43,14 +44,14 @@ def _safe_url(item: Dict[str, Any]) -> str | None:
 
 
 def _safe_url_list(item: Dict[str, Any]) -> list[str]:
-    raw = item.get("resource_file_urls")
-    if not raw:
-        return []
-    if isinstance(raw, str):
-        return [raw]
-    if isinstance(raw, (tuple, list, set)):
-        return [str(value) for value in raw if value]
-    return []
+    urls = []
+    for key in ("resource_file_urls", "discovery_endpoints"):
+        raw = item.get(key)
+        if isinstance(raw, str):
+            urls.append(raw)
+        elif isinstance(raw, (tuple, list, set)):
+            urls.extend(str(value) for value in raw if value)
+    return urls
 
 
 def _robots_allowed(url: str, allowed_hosts: set[str]) -> Dict[str, Any]:
@@ -97,14 +98,17 @@ def _http_probe(url: str, allowed_hosts: set[str], timeout: int = 20) -> Dict[st
         "etag": None,
         "last_modified": None,
         "error": None,
+        "request_attempted": False,
     }
     safe_url = sanitize_public_http_url(url, allowed_hosts=allowed_hosts)
     if not safe_url:
         status["error"] = "unsafe_url"
         return status
 
+    resp = None
     try:
-        resp = requests.get(safe_url, headers=DEFAULT_HEADERS, timeout=timeout, allow_redirects=True)
+        status["request_attempted"] = True
+        resp = requests.get(safe_url, headers=DEFAULT_HEADERS, timeout=timeout, allow_redirects=True, stream=True)
         if not sanitize_public_http_url(resp.url or safe_url, allowed_hosts=allowed_hosts):
             status["error"] = "unsafe_redirect_url"
             return status
@@ -115,6 +119,9 @@ def _http_probe(url: str, allowed_hosts: set[str], timeout: int = 20) -> Dict[st
         status["status_ok"] = 200 <= resp.status_code < 400
     except requests.RequestException as exc:
         status["error"] = str(exc)
+    finally:
+        if resp is not None:
+            resp.close()
     return status
 
 
@@ -132,10 +139,24 @@ def _scan_item(item: Dict[str, Any]) -> Dict[str, Any]:
             "last_modified": None,
             "last-modified": None,
             "scan_error": None,
+            "scan_status": "unavailable",
+            "endpoint_checks": [],
         }
     )
 
     allowed_hosts = collect_allowed_hosts_from_source(item)
+    if item.get("retrieval_method") == "model_generation":
+        result["scan_status"] = "model_generated"
+        result["scan_error"] = "local_model_no_remote_endpoint"
+        return result
+    if item.get("auth") in {"captcha", "restricted"}:
+        result["scan_status"] = "restricted"
+        result["scan_error"] = f"auto_fetch_skipped_auth={item.get('auth')}"
+        return result
+    if not item.get("allow_auto_fetch"):
+        result["scan_status"] = "manual_evidence_required"
+        result["scan_error"] = "auto_fetch_disabled_in_inventory"
+        return result
     url = _safe_url(item)
     if not url:
         result["status_ok"] = False
@@ -143,14 +164,8 @@ def _scan_item(item: Dict[str, Any]) -> Dict[str, Any]:
         return result
     if not sanitize_public_http_url(url, allowed_hosts=allowed_hosts):
         result["scan_error"] = "invalid_or_unsafe_url"
-        return result
-
-    if item.get("auth") in {"captcha", "restricted"}:
-        result["scan_error"] = f"auto_fetch_skipped_auth={item.get('auth')}"
-        return result
-
-    if not item.get("allow_auto_fetch"):
-        result["scan_error"] = "auto_fetch_disabled_in_inventory"
+        result["endpoint_checks"].append({"url": url, "status_ok": False, "http_status": None,
+                                          "error": "invalid_or_unsafe_url", "request_attempted": False})
         return result
 
     candidates = _safe_url_list(item)
@@ -161,30 +176,37 @@ def _scan_item(item: Dict[str, Any]) -> Dict[str, Any]:
         result["scan_error"] = "missing_or_unresolved_url"
         return result
 
-    for candidate in candidates:
+    successful_probe = None
+    last_probe = None
+    for candidate in dict.fromkeys(candidates):
         safe_candidate = sanitize_public_http_url(candidate, allowed_hosts=allowed_hosts)
         if not safe_candidate:
             result["scan_error"] = "invalid_or_unsafe_url"
+            result["endpoint_checks"].append({"url": candidate, "status_ok": False, "http_status": None,
+                                              "error": "invalid_or_unsafe_url", "request_attempted": False})
             continue
         robots = _robots_allowed(safe_candidate, allowed_hosts)
         if not robots.get("allowed"):
             reason = robots.get("reason")
             if reason and reason.startswith("robots_fetch"):
                 # best-effort probe for transient robots failures; keep strict on explicit disallow.
-                result.update(_http_probe(safe_candidate, allowed_hosts))
+                probe = _http_probe(safe_candidate, allowed_hosts)
+                result["endpoint_checks"].append({"url": safe_candidate, **probe, "robots_warning": reason})
+                last_probe = probe
                 result["crawl_delay_seconds"] = robots.get("crawl_delay")
                 result["scan_error"] = reason
                 if result.get("last_modified"):
                     result["last-modified"] = result["last_modified"]
-                if result.get("status_ok"):
-                    result["scanned_url"] = safe_candidate
-                    return result
+                if probe.get("status_ok") and successful_probe is None:
+                    successful_probe = probe | {"scanned_url": safe_candidate}
                 continue
-
+            result["scan_error"] = reason
+            result["endpoint_checks"].append({"url": safe_candidate, "status_ok": False, "http_status": None, "error": reason, "request_attempted": False})
             continue
 
         probe = _http_probe(safe_candidate, allowed_hosts)
-        result.update(probe)
+        result["endpoint_checks"].append({"url": safe_candidate, **probe})
+        last_probe = probe
         result["crawl_delay_seconds"] = robots.get("crawl_delay")
         result["scanned_url"] = safe_candidate
         if result.get("last_modified"):
@@ -194,7 +216,19 @@ def _scan_item(item: Dict[str, Any]) -> Dict[str, Any]:
             result["scan_error"] = probe["error"]
             continue
 
+        if probe.get("status_ok") and successful_probe is None:
+            successful_probe = probe | {"scanned_url": safe_candidate}
+
+    if successful_probe:
+        result.update(successful_probe)
+        result["scan_status"] = "available"
+        result["scan_error"] = None
+        result["last-modified"] = result.get("last_modified")
         return result
+    if last_probe:
+        result.update(last_probe)
+    if result.get("scan_error") == "disallowed_by_robots":
+        result["scan_status"] = "restricted_by_robots"
 
     result["scan_error"] = result.get("scan_error") or "candidate_probe_failed"
     return result
@@ -204,8 +238,17 @@ def run_scan(inventory_path: str = "research/source_inventory.yaml", out_path: s
     inventory = load_inventory(inventory_path)
     results: List[Dict[str, Any]] = []
 
+    manifest_root = Path("data/manifests")
     for item in inventory.sources:
         scanned = _scan_item(item)
+        manifest_path = manifest_root / f"{item['source_id']}.json"
+        if manifest_path.exists():
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            scanned["analytical_ready"] = manifest.get("analytical_ready", False)
+            scanned["disclosure_ready"] = manifest.get("disclosure_ready", False)
+            scanned["evidence_status"] = manifest.get("evidence_status", "unverified")
+            scanned["extraction_status"] = manifest.get("extraction_status", "unknown")
+            scanned["observation_as_of"] = manifest.get("source_as_of_date")
         results.append(scanned)
 
         delay = scanned.get("crawl_delay_seconds") or min_delay
@@ -216,17 +259,58 @@ def run_scan(inventory_path: str = "research/source_inventory.yaml", out_path: s
     return results
 
 
+def sync_catalog_metadata(inventory_path: str = "research/source_inventory.yaml",
+                          out_path: str = "research/source_inventory.json",
+                          catalog_path: str = "data/manifests/catalog.json") -> List[Dict[str, Any]]:
+    """Synchronize publication readiness without altering endpoint check evidence."""
+    inventory = load_inventory(inventory_path)
+    payload = read_json(Path(out_path))
+    results = payload.get("sources", [])
+    definitions = {source["source_id"]: source for source in inventory.sources}
+    expected_ids = set(definitions)
+    scanned_ids = [source.get("source_id") for source in results]
+    if len(scanned_ids) != len(set(scanned_ids)) or set(scanned_ids) != expected_ids:
+        raise ValueError("Machine inventory source IDs differ from the registered inventory; run the source scan first")
+    entries = {entry["source_id"]: entry for entry in read_json(Path(catalog_path)).get("datasets", [])}
+    if expected_ids - entries.keys():
+        raise ValueError(f"Published catalog missing registered sources: {sorted(expected_ids - entries.keys())}")
+    for result in results:
+        # Definition changes (auth/publisher/licence/approved URLs) are
+        # authoritative; old probe evidence continues to name its actual URL.
+        probe_keys = {"last_checked_at", "status_ok", "http_status", "content_type", "etag",
+                      "last_modified", "last-modified", "scan_error", "scan_status",
+                      "endpoint_checks", "scanned_url", "crawl_delay_seconds"}
+        probe = {key: result[key] for key in probe_keys if key in result}
+        result.update(definitions[result["source_id"]])
+        result.update(probe)
+        entry = entries[result["source_id"]]
+        result.update(analytical_ready=entry.get("analytical_ready", False),
+                      disclosure_ready=entry.get("disclosure_ready", False),
+                      evidence_status=entry.get("evidence_status", "unverified"),
+                      extraction_status=entry.get("extraction_status", "unknown"),
+                      observation_as_of=entry.get("source_as_of_date"),
+                      publication_date=entry.get("publication_date"),
+                      refresh_outcome=entry.get("refresh_outcome"),
+                      refresh_error=entry.get("refresh_error"),
+                      last_refresh_checked_at=entry.get("last_checked_at"))
+    payload["catalog_synced_at"] = datetime.now(timezone.utc).isoformat()
+    write_json(payload, Path(out_path))
+    return results
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run official source inventory scan")
     parser.add_argument("--inventory", default="research/source_inventory.yaml")
     parser.add_argument("--out", default="research/source_inventory.json")
     parser.add_argument("--min-delay", type=float, default=1.0)
+    parser.add_argument("--sync-catalog", action="store_true", help="Update readiness from the published catalog without network requests")
+    parser.add_argument("--catalog", default="data/manifests/catalog.json")
     args = parser.parse_args()
-    results = run_scan(args.inventory, args.out, args.min_delay)
+    results = sync_catalog_metadata(args.inventory, args.out, args.catalog) if args.sync_catalog else run_scan(args.inventory, args.out, args.min_delay)
 
     ok = sum(1 for item in results if item.get("status_ok"))
     total = len(results)
-    print(json.dumps({"status": "done", "checked": total, "ok": ok, "out": str(Path(args.out))}, indent=2))
+    print(json.dumps({"status": "catalog_synced" if args.sync_catalog else "done", "checked": total, "ok": ok, "out": str(Path(args.out))}, indent=2))
 
 
 if __name__ == "__main__":

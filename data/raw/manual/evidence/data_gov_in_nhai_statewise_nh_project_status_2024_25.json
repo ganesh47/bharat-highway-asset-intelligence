@@ -1,0 +1,96 @@
+{
+  "source_id": "data_gov_in_nhai_statewise_nh_project_status_2024_25",
+  "evidence_status": "verified",
+  "publication_date": "2024-11-27",
+  "source_as_of_date": "2024-11-27",
+  "cutoff_basis": "MoRTH parliamentary answer date; the table gives no separate earlier observation date",
+  "reference_document": {
+    "url": "https://sansad.in/getFile/annex/266/AU210_JMm1YS.pdf?source=pqars",
+    "sha256": "1c344b826ce5d0d529a645b20d936affe6b8bf9de4587c0306473a6722a7d508",
+    "size_bytes": 198635,
+    "relative_path": "primary_disclosures/data_gov_in_nhai_statewise_nh_project_status_2024_25/reference.pdf",
+    "table_page": 1,
+    "title": "MoRTH Rajya Sabha unstarred question210, National Highway Projects in the Northeastern States",
+    "answered_on": "2024-11-27"
+  },
+  "compared_csv": {
+    "url": "https://www.data.gov.in/sites/default/files/RS_Session_266_AU_210_A_to_B_i.csv",
+    "sha256": "bb70bd6d0b4df4a41d71bfe6213702ed6ae4524edd29171ef17c9709ed37f643",
+    "columns": [
+      "Details of under construction Projects - Number",
+      "Details of under construction Projects - Length (Kilometer)",
+      "Details of under construction Projects - Cost (Rs in Crore)",
+      "Details of Projects completed during 2024-25 - Number",
+      "Details of Projects completed during 2024-25 - Length (Kilometer)",
+      "Details of Projects completed during 2024-25 - Cost (Rs in Crore)",
+      "Details of Projects approved but yet to be commenced - Number",
+      "Details of Projects approved but yet to be commenced - Length (Kilometer)",
+      "Details of Projects approved but yet to be commenced - Cost (Rs in Crore)"
+    ],
+    "rows": {
+      "Arunachal Pradesh": [
+        33,
+        604,
+        7828,
+        3,
+        53,
+        471,
+        35,
+        1238,
+        27344
+      ],
+      "Nagaland": [
+        34,
+        713,
+        9502,
+        1,
+        23,
+        365,
+        0,
+        0,
+        0
+      ],
+      "Manipur": [
+        35,
+        753,
+        10355,
+        3,
+        26,
+        188,
+        5,
+        115,
+        1717
+      ],
+      "Tripura": [
+        16,
+        302,
+        7098,
+        1,
+        9,
+        5,
+        1,
+        36,
+        727
+      ],
+      "Total": [
+        118,
+        2372,
+        34783,
+        8,
+        111,
+        1029,
+        41,
+        1389,
+        29788
+      ]
+    },
+    "comparison": "All45 numeric cells in the four-state and reported Total rows match the primary PDF"
+  },
+  "limitations": [
+    "FY2024-25 completions are year-to-date, not full-year actuals",
+    "Under-construction/approved project cost is not spending or debt",
+    "Only Arunachal Pradesh, Nagaland, Manipur and Tripura; reported Total is not all-India",
+    "Explicit Nagaland approved zeros are numerical0 in the source, not converted blanks"
+  ],
+  "retrieved_at": "2026-10-01T20:39:39.439105+00:00"
+}

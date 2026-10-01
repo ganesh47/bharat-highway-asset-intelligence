@@ -61,10 +61,29 @@
   },
   "retrieved_at": "2026-03-11T05:17:09.276082+00:00",
   "completeness_score": 0.984,
-  "recency_score": 1.0,
+  "recency_score": 0.2,
   "provenance_score": 0.85,
   "consistency_score": 1.0,
-  "overall_confidence_badge": "High",
-  "overall_confidence_reason": [],
-  "output_table_path": "data/processed/data_gov_in_road_fatal_accidents_2003_2016.parquet"
+  "overall_confidence_badge": "Med",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency"
+  ],
+  "output_table_path": "data/processed/data_gov_in_road_fatal_accidents_2003_2016.parquet",
+  "data_checksum": "1a8bb3415b763891f8849f6ca171c1623148286bc13b7e4c10c82f349859d258",
+  "last_successful_retrieval_at": "2026-10-01T20:08:33.037510+00:00",
+  "last_ingested_at": "2026-10-01T20:08:33.037510+00:00",
+  "last_checked_at": "2026-10-01T20:08:33.037510+00:00",
+  "refresh_outcome": "checked_unchanged",
+  "analytical_scope": {
+    "road_class": "unspecified",
+    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+  },
+  "evidence_status": "validated",
+  "source_as_of_date": "2016-12-31",
+  "publication_date": null,
+  "disclosure_ready": true,
+  "analytical_ready": true,
+  "extraction_status": "validated",
+  "recency_basis": "observation_date",
+  "validation_errors": []
 }

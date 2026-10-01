@@ -10,7 +10,8 @@
     "url": "https://fto.gov.in/api/toll-fastag",
     "retrieved_at": "2026-03-11T05:17:35.830438+00:00",
     "license_terms": "Portal specific API terms. Verify if telemetry fields are aggregated only.",
-    "official_flag": true
+    "official_flag": true,
+    "domain": "fto.gov.in"
   },
   "citations": {
     "permanent_identifier": "API endpoint version and response schema",
@@ -28,6 +29,7 @@
     "output_files": [
       {
         "path": "data/processed/ncrb_toll_fastag_claims.parquet",
+        "format": "parquet",
         "sha256": "ced5179e1b0d278ef56fd0c2e66e39a176c9868f1963a7512ccf61791a1b255e"
       }
     ],
@@ -47,10 +49,34 @@
   },
   "retrieved_at": "2026-03-11T05:17:35.830438+00:00",
   "completeness_score": 0.98,
-  "recency_score": 0.98,
+  "recency_score": 0.2,
   "provenance_score": 0.6859999999999999,
-  "consistency_score": 0.98,
-  "overall_confidence_badge": "High",
-  "overall_confidence_reason": [],
-  "output_table_path": "data/processed/ncrb_toll_fastag_claims.parquet"
+  "consistency_score": 0.75,
+  "overall_confidence_badge": "Low",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency",
+    "Million-scale metric is labelled as an unscaled count",
+    "Not eligible for measured analyst calculations",
+    "Document discovery is not validated financial extraction"
+  ],
+  "output_table_path": "data/processed/ncrb_toll_fastag_claims.parquet",
+  "refresh_error": "Million-scale metric is labelled as an unscaled count",
+  "data_checksum": "6d6850811b134df363baa66698fb5b191623e27185774490dd6385e28407f0f8",
+  "last_checked_at": "2026-10-01T20:29:44.113853+00:00",
+  "refresh_outcome": "restricted",
+  "analytical_scope": {
+    "road_class": "unspecified",
+    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+  },
+  "evidence_status": "unverified",
+  "source_as_of_date": "2025-12-31",
+  "publication_date": null,
+  "disclosure_ready": false,
+  "analytical_ready": false,
+  "extraction_status": "pending",
+  "recency_basis": "observation_date",
+  "validation_errors": [
+    "Million-scale metric is labelled as an unscaled count"
+  ],
+  "quarantine_reason": "Million-scale metric is labelled as an unscaled count"
 }

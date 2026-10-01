@@ -1,0 +1,132 @@
+{
+  "source_id": "nhit_annual_report",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "issuer_disclosed",
+  "refresh_outcome": "updated",
+  "last_checked_at": "2026-10-01T20:51:37.149625+00:00",
+  "last_successful_retrieval_at": "2026-10-01T19:28:59.062600+00:00",
+  "data_changed_at": "2026-10-01T20:51:37.149625+00:00",
+  "publication_date": null,
+  "source_as_of_date": "2026-03-31",
+  "analytical_ready": true,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "",
+  "source": {
+    "publisher": "National Highways Infra Trust",
+    "title": "NHIT Annual Report2025-26: audited consolidated finances and debt maturity",
+    "url": "https://nhit.co.in/pdf/annual-report/NHIT_Annual%20Report%20FY%202025-26.pdf",
+    "retrieved_at": "2026-10-01T19:28:59.062600+00:00",
+    "official_flag": false,
+    "publisher_type": "issuer",
+    "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+    "domain": "nhit.co.in"
+  },
+  "citations": {
+    "permanent_identifier": "nhit_annual_report",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "Audited consolidated balance sheet/P&L and financial-risk debt maturity note extracted and unit-checked. Eight NCD/zero-coupon bond <1year and1-3year source dashes on physicalp205 are nonnumeric and omitted, not converted to zero. Numeric debt-overview totals remain separately sourced. Issuer SPV operating overview is separately labelled approximate; publication day not asserted."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/evidence/nhit_annual_report.json",
+        "sha256": "7de8e1296abe2b9e2b9dc3dd189ae620e33267edf5e8dffe301b58a7fccaec60",
+        "size_bytes": 1219
+      },
+      {
+        "path": "data/raw/primary_disclosures/nhit_annual_report/document.pdf",
+        "sha256": "e3f4ef047898465a34c8fa72fca6dcfea44596ec5e7fe2210118e343be465997",
+        "size_bytes": 63634629
+      },
+      {
+        "path": "data/raw/manual/nhit_annual_report.csv",
+        "sha256": "9a860c1766e2c8ddbbec279da23516c42f063c3a2fbbb09b57b9ca44e7b4370c",
+        "size_bytes": 48348
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://nhit.co.in/pdf/annual-report/NHIT_Annual%20Report%20FY%202025-26.pdf",
+        "relative_path": "primary_disclosures/nhit_annual_report/document.pdf",
+        "sha256": "e3f4ef047898465a34c8fa72fca6dcfea44596ec5e7fe2210118e343be465997",
+        "size_bytes": 63634629
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/nhit_annual_report.parquet",
+        "format": "parquet",
+        "sha256": "a6ff5b47aefeffd659827e56aa5bcb6603607540ad7dbeb45c5cfdd437497ef1"
+      }
+    ],
+    "row_count": 62,
+    "columns": [
+      "entity_id",
+      "entity_name",
+      "entity_type",
+      "agency",
+      "state",
+      "road_class",
+      "metric",
+      "value",
+      "unit",
+      "original_value",
+      "original_unit",
+      "period_start",
+      "period_end",
+      "period_basis",
+      "estimate_type",
+      "statement_basis",
+      "data_as_of",
+      "published_at",
+      "source_id",
+      "citation_url",
+      "table_page",
+      "evidence_class",
+      "analytical_eligible",
+      "source_document_sha256",
+      "notes",
+      "entity",
+      "year",
+      "metric_name",
+      "metric_value",
+      "metric_category",
+      "source_type",
+      "asset_id",
+      "project_name",
+      "nh_number",
+      "project_stage",
+      "scheduled_completion_date",
+      "likely_completion_date",
+      "actual_completion_date",
+      "comparison_group",
+      "asset_owner_id",
+      "implementing_agency_id",
+      "operator_id",
+      "concessionaire_id",
+      "financing_entity_id",
+      "contractor_name"
+    ]
+  },
+  "retrieved_at": "2026-10-01T19:28:59.062600+00:00",
+  "semantic_rechecks": [],
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.49,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/nhit_annual_report.parquet",
+  "data_checksum": "8e5c4d3ce6da294541b8c5ca760fd0250b833ae16d6ccd1422c724486b5b203b",
+  "last_ingested_at": "2026-10-01T20:51:37.149625+00:00",
+  "analytical_scope": {
+    "source_as_of_date": "2026-03-31",
+    "publisher_type": "issuer"
+  }
+}

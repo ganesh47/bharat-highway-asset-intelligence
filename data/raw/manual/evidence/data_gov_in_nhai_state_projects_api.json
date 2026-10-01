@@ -1,0 +1,76 @@
+{
+  "source_id": "data_gov_in_nhai_state_projects_api",
+  "evidence_status": "verified",
+  "evidence_class": "target",
+  "analytical_eligible": false,
+  "source_as_of_date": null,
+  "publication_date": "2021-12-23",
+  "publication_date_basis": "OGD resource embedded published_date1640274379; not original parliamentary answer date",
+  "reference_document": {
+    "url": "https://www.data.gov.in/resource/state-wise-number-nh-and-road-projects-relating-are-included-national-infrastructure",
+    "sha256": "2a8166c46e56457603daa0048acba207646f2534f48c33b739890e9b9737caf9",
+    "relative_path": "primary_disclosures/data_gov_in_nhai_state_projects_api/reference.html",
+    "size_bytes": 1015513,
+    "title": "State-wise Number of NH and Road Projects relating that are included in National Infrastructure Pipeline and the Capital Outlay for these Projects for the years2020to2024",
+    "original_source_label": "Rajya SabhaSession253 unstarred question2230",
+    "original_answer_date": null,
+    "resource_published_date_unix": 1640274379,
+    "resource_updated_date": "2022-01-28"
+  },
+  "compared_csv": {
+    "url": "https://data.gov.in/sites/default/files/dataurl08122021/RS_Session_253_AU2230.C.csv",
+    "sha256": "65b482de972b3afab75ae44b362d10b932dfa1e2e901db752c5d86d7245fdd07",
+    "column_labels": [
+      "Sl. No.",
+      "State",
+      "Number of NH Projects",
+      "Length (in Km)",
+      "Capital outlay ( Rs in Cr) for the years 2020 to 2024"
+    ],
+    "rows": [
+      {
+        "Sl. No.": 1,
+        "State": "Uttar Pradesh",
+        "Number of NH Projects": 111,
+        "Length (in Km)": 5997,
+        "Capital outlay ( Rs in Cr) for the years 2020 to 2024": 92433
+      },
+      {
+        "Sl. No.": 2,
+        "State": "Tamil Nadu",
+        "Number of NH Projects": 102,
+        "Length (in Km)": 5279,
+        "Capital outlay ( Rs in Cr) for the years 2020 to 2024": 117061
+      },
+      {
+        "Sl. No.": 3,
+        "State": "Kerala",
+        "Number of NH Projects": 44,
+        "Length (in Km)": 1448,
+        "Capital outlay ( Rs in Cr) for the years 2020 to 2024": 61567
+      },
+      {
+        "Sl. No.": 4,
+        "State": "West Bengal",
+        "Number of NH Projects": 57,
+        "Length (in Km)": 2148,
+        "Capital outlay ( Rs in Cr) for the years 2020 to 2024": 36752
+      },
+      {
+        "Sl. No.": 5,
+        "State": "Assam",
+        "Number of NH Projects": 116,
+        "Length (in Km)": 4819,
+        "Capital outlay ( Rs in Cr) for the years 2020 to 2024": 76628
+      }
+    ],
+    "comparison": "Primary OGD page identifies this exact attached CSV and describes NIP pipeline capital outlay. Original parliamentary PDF not retrieved."
+  },
+  "limitations": [
+    "Five-state subset, not all-India",
+    "Capital outlay is planned pipeline investment for2020-2024, not actual spending",
+    "2024end-year is plan horizon, not observation date",
+    "Original parliamentary observation/answer date unverified; do not infer from file directory or plan end-year"
+  ],
+  "retrieved_at": "2026-10-01T20:42:27.713662+00:00"
+}

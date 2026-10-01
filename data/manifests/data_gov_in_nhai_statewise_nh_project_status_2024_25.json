@@ -5,8 +5,8 @@
   "status": "ok",
   "metric_category": "official_measured",
   "source": {
-    "publisher": "National Highways Authority of India (NHAI)",
-    "title": "Northeast subset NH project status (ongoing, completed, approved), as on March 2024",
+    "publisher": "Ministry of Road Transport and Highways (MoRTH) / Parliament Secretariat",
+    "title": "Four-state Northeast NH project status and FY2024-25 YTD completions, reported 27 November 2024",
     "domain": "data.gov.in",
     "url": "https://www.data.gov.in/resource/state-wise-details-national-highway-nh-projects-under-construction-completed-approved-yet",
     "retrieval_method": "direct download",
@@ -18,7 +18,13 @@
   "citations": {
     "permanent_identifier": "nid=603577044 (resource page) / file RS_Session_266_AU_210_A_to_B_i.csv",
     "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_266_AU_210_A_to_B_i.csv",
-    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic.",
+    "primary_reference": {
+      "url": "https://sansad.in/getFile/annex/266/AU210_JMm1YS.pdf?source=pqars",
+      "sha256": "1c344b826ce5d0d529a645b20d936affe6b8bf9de4587c0306473a6722a7d508",
+      "table_page": 1,
+      "evidence_metadata_path": "data/raw/manual/evidence/data_gov_in_nhai_statewise_nh_project_status_2024_25.json"
+    }
   },
   "manifest": {
     "raw_files": [
@@ -57,10 +63,28 @@
   },
   "retrieved_at": "2026-03-15T08:36:20.724922+00:00",
   "completeness_score": 1.0,
-  "recency_score": 1.0,
+  "recency_score": 0.7,
   "provenance_score": 0.85,
   "consistency_score": 1.0,
   "overall_confidence_badge": "High",
   "overall_confidence_reason": [],
-  "output_table_path": "data/processed/data_gov_in_nhai_statewise_nh_project_status_2024_25.parquet"
+  "output_table_path": "data/processed/data_gov_in_nhai_statewise_nh_project_status_2024_25.parquet",
+  "data_checksum": "c7f9767093fe4eaec101ad5360359aef5044b9a638d8017aa783549e10312ad7",
+  "last_successful_retrieval_at": "2026-10-01T20:08:26.630374+00:00",
+  "last_ingested_at": "2026-10-01T20:08:26.630374+00:00",
+  "last_checked_at": "2026-10-01T20:08:26.630374+00:00",
+  "refresh_outcome": "checked_unchanged",
+  "analytical_scope": {
+    "entity_type": "state_aggregate",
+    "source_as_of_date": "2024-11-27"
+  },
+  "evidence_status": "validated",
+  "source_as_of_date": "2024-11-27",
+  "publication_date": "2024-11-27",
+  "disclosure_ready": true,
+  "analytical_ready": true,
+  "extraction_status": "validated",
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "last_quality_check_at": "2026-10-01T20:53:56.652709+00:00"
 }

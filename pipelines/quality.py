@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 from typing import Dict, Any
+import re
 
 import pandas as pd
 
@@ -26,7 +27,208 @@ STATUS_CONFIDENCE = {
     "disabled": 0.22,
     "stubbed_manual_gap": 0.34,
     "candidate_ready": 0.44,
+    "generated": 0.5,
+    "validated": 1.0,
+    "gap": 0.25,
+    "failed": 0.2,
+    "quarantined": 0.2,
 }
+
+CURATED_MANUAL_SOURCES = {
+    "morth_annual_report_pdf", "parliament_qa_nh_blackspots_state",
+    "nhai_constructed_length_series_official",
+}
+DOCUMENT_SOURCES = {"nhai_annual_report_documents", "nhai_audited_results_pdf", "nhai_press_release_index"}
+
+
+def observed_row_mask(df: pd.DataFrame) -> pd.Series:
+    """Recognize an explicit observation date or a reported row period."""
+    if {"data_as_of", "source_document_sha256"} <= set(df.columns):
+        # Primary records explicitly distinguish the cutoff from a reporting
+        # year, publication date, target period and compatibility aliases.
+        return pd.to_datetime(df["data_as_of"], errors="coerce", utc=True).notna()
+    known = pd.Series(False, index=df.index)
+    for column in ("source_as_of_date", "data_as_of", "as_of_date", "observation_date", "period_end"):
+        if column in df:
+            known |= pd.to_datetime(df[column], errors="coerce", utc=True).notna()
+    for column in ("period", "financial_year", "reporting_period", "year_wise", "year", "report_year"):
+        if column in df:
+            known |= df[column].fillna("").astype(str).str.strip().str.fullmatch(r"(?:FY\s*)?(?:19|20)\d{2}(?:[-/](?:\d{2}|\d{4})|\.0)?")
+    return known
+
+
+def observation_date(df: pd.DataFrame, item: Dict[str, Any]) -> str | None:
+    """Observation dates stay independent of publication and download dates."""
+    if {"data_as_of", "source_document_sha256"} <= set(df.columns):
+        dates = pd.to_datetime(df["data_as_of"], utc=True, errors="coerce").dropna()
+        # An explicit unknown must also clear a previously inferred catalog
+        # date; neither the legacy year nor an inherited manifest can fill it.
+        return dates.max().date().isoformat() if not dates.empty else None
+    if item.get("observation_date_unknown") is True:
+        return None
+    non_measured_class = item.get("evidence_class") in {"target", "forecast", "valuation_estimate"}
+    for key in ("source_as_of_date", "data_as_of", "as_of_date", "observation_date", "period_end"):
+        if key == "period_end" and non_measured_class:
+            continue
+        value = item.get(key)
+        if value:
+            parsed = pd.to_datetime(value, utc=True, errors="coerce")
+            if pd.notna(parsed):
+                return parsed.date().isoformat()
+        if key in df.columns:
+            dates = pd.to_datetime(df[key], utc=True, errors="coerce").dropna()
+            if not dates.empty:
+                return dates.max().date().isoformat()
+    if non_measured_class:
+        return None  # A planned period is not an observed cutoff.
+    years = []
+    # Use observed periods only; claimed inventory coverage is not observation evidence.
+    for col in ("period", "financial_year", "reporting_period", "year_wise", "year", "report_year"):
+        if col in df.columns:
+            for value in df[col].dropna().astype(str):
+                fiscal = re.fullmatch(r"(?:FY\s*)?((?:19|20)\d{2})[-/](\d{2}|\d{4})(?:\s.*)?", value.strip())
+                if fiscal:
+                    end = int(fiscal.group(2))
+                    if end < 100:
+                        end = (int(fiscal.group(1)) // 100) * 100 + end
+                    years.append(f"{end}-03-31")
+                elif re.fullmatch(r"(?:19|20)\d{2}(?:\.0)?", value.strip()):
+                    years.append(f"{int(float(value))}-12-31")
+    for col in df.columns:
+        # Wide tables have a year in the measured column name, not a row year.
+        fiscal = re.findall(r"((?:19|20)\d{2})[-/](\d{2})", col)
+        calendar = re.findall(r"(?:^|_)((?:19|20)\d{2})(?:$|_)", col)
+        if fiscal:
+            for start, end in fiscal:
+                years.append(f"{(int(start) // 100) * 100 + int(end)}-03-31")
+        elif calendar:
+            years.extend(f"{year}-12-31" for year in calendar)
+    return max(years) if years else None
+
+
+def evidence_status(df: pd.DataFrame, source: Dict[str, Any], manifest: Dict[str, Any]) -> str:
+    if manifest.get("metric_category") == "model_output":
+        return "synthetic"
+    if manifest.get("status") == "metadata_only" or source.get("source_id") in DOCUMENT_SOURCES:
+        return "document_metadata"
+    if df.empty or manifest.get("status") in {"gap", "manual_gap", "failed", "disabled", "stubs_disabled", "not_mapped", "stubbed_manual_gap"}:
+        return "unavailable"
+    declared = manifest.get("evidence_status")
+    if declared in {"validated", "verified", "validated_primary", "validated_curated"}:
+        return declared
+    if manifest.get("status") == "manual_ingest":
+        required = {"citation_anchor", "source_as_of_date", "document_section"}
+        if source.get("source_id") == "morth_annual_report_pdf":
+            # This audited curated snapshot combines dated NH stock, CRIF
+            # fiscal rows and an undated permit table. Keep the latter readable
+            # without qualifying it as a measured observation.
+            required.discard("source_as_of_date")
+            known = observed_row_mask(df)
+            if "analytical_eligible" not in df or not known.any():
+                return "unverified"
+            if (df["analytical_eligible"].fillna(False).eq(True) & ~known).any():
+                return "unverified"
+        if source.get("source_id") not in CURATED_MANUAL_SOURCES:
+            required.add("source_url")
+        if not required <= set(df.columns):
+            return "unverified"
+        if df[list(required)].isna().any().any() or df[list(required)].astype(str).apply(lambda s: s.str.strip().eq("")).any().any():
+            return "unverified"
+        if "source_url" in required and not df["source_url"].astype(str).str.match(r"https?://").all():
+            return "unverified"
+        return "validated_curated"
+    if manifest.get("status") in {"ok", "automated", "validated"} and manifest.get("manifest", {}).get("raw_files"):
+        return "validated"
+    return "unverified"
+
+
+def semantic_errors(df: pd.DataFrame, source: Dict[str, Any]) -> list[str]:
+    """Publication constraints; discovery success cannot override invalid measurements."""
+    if df.empty:
+        return []
+    errors: list[str] = []
+    contract = source.get("schema_contract") or {}
+    required = contract.get("required_columns", source.get("required_columns", []))
+    missing = set(required) - set(df.columns)
+    if missing:
+        errors.append(f"Missing required columns: {sorted(missing)}")
+    nonnegative = set(contract.get("numeric_nonnegative", source.get("numeric_nonnegative", [])))
+    for col in df.columns:
+        if pd.api.types.is_numeric_dtype(df[col]) and any(token in col.lower() for token in ("length", "cost", "expenditure", "fatalit", "killed", "injur", "accident", "blackspot", "km_constructed")):
+            nonnegative.add(col)
+    for col in sorted(nonnegative):
+        if col not in df:
+            errors.append(f"Missing nonnegative measure: {col}")
+        elif (pd.to_numeric(df[col], errors="coerce") < 0).any():
+            errors.append(f"Negative values in {col}")
+    for col in df.columns:
+        if "progress" in col.lower() and any(token in col.lower() for token in ("pct", "percent")):
+            values = pd.to_numeric(df[col], errors="coerce")
+            if ((values < 0) | (values > 100)).any():
+                errors.append(f"Progress outside 0–100 in {col}")
+    keys = contract.get("unique_key", [])
+    if keys and set(keys) <= set(df.columns) and df.duplicated(subset=keys).any():
+        errors.append(f"Duplicate observations for {keys}")
+    if source.get("source_id") == "morth_annual_report_pdf":
+        from pipelines.morth_appendix_validation import validate_appendix2_snapshot
+        errors.extend(validate_appendix2_snapshot(df).errors)
+    if source.get("source_id") == "nhai_constructed_length_series_official":
+        if "series_scope" not in df or set(df["series_scope"].dropna()) != {"NHAI-only"}:
+            errors.append("Construction series must remain NHAI-only")
+        if "period" not in df or df["period"].duplicated().any():
+            errors.append("Construction series requires unique periods")
+    sid = source.get("source_id")
+    if sid in {"data_gov_in_nh_fatalities_injuries_state_year", "data_gov_in_nhai_stateut_project_delay_status_2024", "data_gov_in_gsdp_stateut_current_prices_2017_23", "parliament_qa_nh_blackspots_state"}:
+        state_col = next((col for col in ("states/ut", "state/ut", "state_ut", "state", "states_ut") if col in df), None)
+        if state_col is None:
+            errors.append("Missing State/UT identity column")
+        else:
+            core = df.loc[~df[state_col].astype(str).str.strip().str.lower().isin({"total", "india", "all india"})]
+            minimum = 35 if sid == "data_gov_in_nh_fatalities_injuries_state_year" else 30
+            if core[state_col].nunique() < minimum:
+                errors.append(f"Insufficient State/UT coverage: expected at least {minimum}")
+            if core[state_col].duplicated().any():
+                errors.append("Duplicate State/UT observations")
+            if sid == "data_gov_in_nh_fatalities_injuries_state_year":
+                for metric in ("fatalities", "injuries"):
+                    for year in (2020, 2021, 2022):
+                        column = next((col for col in core if metric[:-3] in col.lower() and str(year) in col), None)
+                        if column is None:
+                            errors.append(f"Missing {metric} {year} observations")
+                            continue
+                        values = pd.to_numeric(core[column], errors="coerce")
+                        missing_states = set(core.loc[values.isna(), state_col].astype(str))
+                        allowed_missing = {"Ladakh"} if year == 2020 else set()
+                        if missing_states - allowed_missing:
+                            errors.append(f"Missing/non-numeric {metric} {year} for {sorted(missing_states - allowed_missing)}")
+            if sid == "data_gov_in_nhai_stateut_project_delay_status_2024":
+                for col in ("number_of_projects", "number_of_delayed_projects"):
+                    if col not in core or pd.to_numeric(core[col], errors="coerce").isna().any():
+                        errors.append(f"Missing/non-numeric {col}")
+                if {"number_of_projects", "number_of_delayed_projects"} <= set(core) and (pd.to_numeric(core["number_of_delayed_projects"], errors="coerce") > pd.to_numeric(core["number_of_projects"], errors="coerce")).any():
+                    errors.append("Delayed projects exceed reported total projects")
+            if sid == "parliament_qa_nh_blackspots_state":
+                for col in ("nh_blackspots", "nh_blackspot_accidents", "nh_blackspot_fatalities", "rectified_blackspots"):
+                    if col not in core or pd.to_numeric(core[col], errors="coerce").isna().any():
+                        errors.append(f"Missing/non-numeric {col}")
+                if {"nh_blackspots", "rectified_blackspots"} <= set(core) and (pd.to_numeric(core["rectified_blackspots"], errors="coerce") > pd.to_numeric(core["nh_blackspots"], errors="coerce")).any():
+                    errors.append("Rectified blackspots exceed reported blackspots")
+            if sid == "data_gov_in_gsdp_stateut_current_prices_2017_23":
+                columns = [col for col in core if "gross_state_domestic_product" in col and "current_prices" in col]
+                if len(columns) < 6:
+                    errors.append("Missing GSDP year coverage")
+                elif core[columns].apply(lambda values: pd.to_numeric(values.astype(str).str.replace(",", "", regex=False), errors="coerce")).isna().all(axis=1).any():
+                    errors.append("GSDP State/UT row has no numerical observation")
+    if {"metric_name", "metric_value", "unit"} <= set(df.columns):
+        values = pd.to_numeric(df["metric_value"], errors="coerce")
+        if values.isna().any():
+            errors.append("Non-numeric metric values")
+        units = df["unit"].astype(str).str.strip().str.lower()
+        if units.eq("km_per_km").any():
+            errors.append("Unsupported roughness unit km_per_km")
+        if df["metric_name"].astype(str).str.contains("million", case=False).any() and (df["metric_name"].astype(str).str.contains("million", case=False) & units.eq("count")).any():
+            errors.append("Million-scale metric is labelled as an unscaled count")
+    return list(dict.fromkeys(errors))
 
 
 def _status_factor(item: Dict[str, Any]) -> float:
@@ -61,12 +263,16 @@ def recency_score(last_updated: str | None, update_frequency: str | None) -> flo
         return 0.25
     try:
         parsed = datetime.fromisoformat(last_updated.replace("Z", "+00:00"))
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=timezone.utc)
     except Exception:
         return 0.25
 
     freq_days = FREQ_TO_DAYS.get((update_frequency or "unknown").lower(), 365)
     age = datetime.now(timezone.utc).replace(tzinfo=timezone.utc) - parsed
     age_days = age.total_seconds() / 86400
+    if age_days < -1:
+        return 0.25
 
     if age_days <= freq_days:
         return 1.0
@@ -229,9 +435,11 @@ def confidence_badge(scores: Dict[str, float]) -> tuple[str, list[str]]:
 
 def evaluate(df, item: Dict[str, Any]) -> Dict[str, Any]:
     c = completeness_score(df)
-    r = recency_score(item.get("retrieved_at"), item.get("update_frequency"))
+    observed_at = observation_date(df, item)
+    r = recency_score(observed_at, item.get("update_frequency"))
     p = provenance_score(item)
-    cs = consistency_score(df)
+    failures = semantic_errors(df, item)
+    cs = max(0.0, consistency_score(df, item.get("numeric_nonnegative")) - min(0.8, 0.25 * len(failures)))
     extraction_summary = _extract_extraction_quality(item)
     extraction_score, extraction_reasons = _extraction_confidence_factor(extraction_summary)
     status_factor = _status_factor(item)
@@ -258,6 +466,19 @@ def evaluate(df, item: Dict[str, Any]) -> Dict[str, Any]:
         reasons = reasons + [reason_from_status]
     if extraction_reasons:
         reasons = reasons + [reason for reason in extraction_reasons if reason not in reasons]
+    reasons.extend(failures)
+    if not observed_at:
+        reasons.append("Observation date is unavailable; collection time is not data freshness")
+    if item.get("evidence_status") in {"unverified", "unavailable", "synthetic"} or failures:
+        badge = "Low"
+        reasons.append("Not eligible for measured analyst calculations")
+    if item.get("extraction_status") in {"discovered", "fetched", "pending", "checksum_mismatch"}:
+        badge = "Low"
+        reasons.append("Document discovery is not validated financial extraction")
+    if item.get("extraction_status") == "extracted_with_retained_documents":
+        reasons.append("Some PDFs failed this refresh; prior extracted rows were retained with document lineage")
+    if item.get("analytical_eligible") is False or item.get("evidence_class") in {"target", "forecast", "valuation_estimate"}:
+        reasons.append("Planned/estimated disclosure is readable evidence and excluded from measured calculations")
 
     output = {
         "completeness_score": c,
@@ -266,6 +487,9 @@ def evaluate(df, item: Dict[str, Any]) -> Dict[str, Any]:
         "consistency_score": cs,
         "overall_confidence_badge": badge,
         "overall_confidence_reason": reasons,
+        "source_as_of_date": observed_at,
+        "recency_basis": "observation_date" if observed_at else "unknown",
+        "validation_errors": failures,
     }
     if extraction_summary:
         output["extraction_quality_score"] = extraction_score

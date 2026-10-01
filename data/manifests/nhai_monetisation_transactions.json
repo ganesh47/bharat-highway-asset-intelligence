@@ -1,0 +1,133 @@
+{
+  "source_id": "nhai_monetisation_transactions",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "refresh_outcome": "updated",
+  "last_checked_at": "2026-10-01T20:10:21.085166+00:00",
+  "last_successful_retrieval_at": "2026-10-01T20:05:45.232974+00:00",
+  "data_changed_at": "2026-10-01T20:10:21.085166+00:00",
+  "publication_date": "2026-03-30",
+  "source_as_of_date": "2026-03-30",
+  "analytical_ready": true,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "",
+  "source": {
+    "publisher": "Press Information Bureau / MoRTH",
+    "title": "NHAI asset monetisation progress and InvIT5/TOT18 transactions",
+    "url": "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2247011&lang=2&reg=48",
+    "retrieved_at": "2026-10-01T19:28:46.585482+00:00",
+    "official_flag": true,
+    "publisher_type": "government",
+    "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+    "domain": "www.pib.gov.in"
+  },
+  "citations": {
+    "permanent_identifier": "nhai_monetisation_transactions",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "PIB release30March2026 reports FY25-26 progress before year end; target30000crore is not actual."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/evidence/nhai_monetisation_transactions.json",
+        "sha256": "37bd7d42e5c7cc9bd15e9a0fb1b32a9a51e19b089446d124915e030d73ff01cf",
+        "size_bytes": 1001
+      },
+      {
+        "path": "data/raw/primary_disclosures/nhai_monetisation_transactions/document.html",
+        "sha256": "c2ff31f3a1530bee63a9fd061d31366ad69abfce3869ba5ecbe62e041049a683",
+        "size_bytes": 90217
+      },
+      {
+        "path": "data/raw/manual/nhai_monetisation_transactions.csv",
+        "sha256": "c131c905a2a68e860cd8b10451f1e75f5556208fe7572c9165312003aab77917",
+        "size_bytes": 5151
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2247011&lang=2&reg=48",
+        "relative_path": "primary_disclosures/nhai_monetisation_transactions/document.html",
+        "sha256": "c2ff31f3a1530bee63a9fd061d31366ad69abfce3869ba5ecbe62e041049a683",
+        "size_bytes": 90217,
+        "semantic_document_sha256": "1c0d94d382ddc7a0dfb13a87259a0e55fa95836388b2a84cbefa74cbfaf20bf9"
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/nhai_monetisation_transactions.parquet",
+        "format": "parquet",
+        "sha256": "c0630800289457a7aed7b8adf51d3d0a65f81ce6113763b49b9e673d44ec5738"
+      }
+    ],
+    "row_count": 6,
+    "columns": [
+      "entity_id",
+      "entity_name",
+      "entity_type",
+      "agency",
+      "state",
+      "road_class",
+      "metric",
+      "value",
+      "unit",
+      "original_value",
+      "original_unit",
+      "period_start",
+      "period_end",
+      "period_basis",
+      "estimate_type",
+      "statement_basis",
+      "data_as_of",
+      "published_at",
+      "source_id",
+      "citation_url",
+      "table_page",
+      "evidence_class",
+      "analytical_eligible",
+      "source_document_sha256",
+      "notes",
+      "entity",
+      "year",
+      "metric_name",
+      "metric_value",
+      "metric_category",
+      "source_type",
+      "asset_id",
+      "project_name",
+      "nh_number",
+      "project_stage",
+      "scheduled_completion_date",
+      "likely_completion_date",
+      "actual_completion_date",
+      "comparison_group",
+      "asset_owner_id",
+      "implementing_agency_id",
+      "operator_id",
+      "concessionaire_id",
+      "financing_entity_id",
+      "contractor_name"
+    ]
+  },
+  "retrieved_at": "2026-10-01T19:28:46.585482+00:00",
+  "semantic_rechecks": [],
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/nhai_monetisation_transactions.parquet",
+  "data_checksum": "ebb2ca71f6afe7282de0660072ae0f390141764eb1b54354afbee3ebf3eb3a7a",
+  "last_ingested_at": "2026-10-01T20:10:21.085166+00:00",
+  "analytical_scope": {
+    "source_as_of_date": "2026-03-30",
+    "publisher_type": "government"
+  }
+}

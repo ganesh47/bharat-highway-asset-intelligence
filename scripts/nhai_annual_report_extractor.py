@@ -8,11 +8,17 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
+
+# Direct execution puts scripts/ on sys.path; pipeline imports need the repository.
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 import pandas as pd
 import requests
@@ -755,6 +761,15 @@ def _extract_rows_for_pdf(url: str, source_row: pd.Series, output_root: Path) ->
     parser_env = _parser_environment()
 
     payload, download_error = _download_pdf(url)
+    if payload is not None:
+        expected_checksum = str(source_row.get("document_checksum") or "")
+        actual_checksum = _checksum(payload)
+        if not re.fullmatch(r"[0-9a-f]{64}", expected_checksum):
+            download_error = "missing_validated_document_checksum"
+            payload = None
+        elif actual_checksum != expected_checksum:
+            download_error = f"document_checksum_mismatch: validated={expected_checksum}; downloaded={actual_checksum}"
+            payload = None
     if payload is None:
         return [
             {
@@ -781,7 +796,7 @@ def _extract_rows_for_pdf(url: str, source_row: pd.Series, output_root: Path) ->
                 "record_type": "extraction_error",
                 "metric_category": "official_measured",
                 "metric_name": "document_download_failed",
-                "metric_value_numeric": 0.0,
+                "metric_value_numeric": None,
                 "metric_value_text": str(download_error),
                 "metric_unit": "binary",
                 "extraction_method": "error",
@@ -1003,7 +1018,7 @@ def _extract_rows_for_pdf(url: str, source_row: pd.Series, output_root: Path) ->
                 "record_type": "no_rows",
                 "metric_category": "official_measured",
                 "metric_name": "no_extractable_rows",
-                "metric_value_numeric": 0.0,
+                "metric_value_numeric": None,
                 "metric_value_text": "no_rows",
                 "metric_unit": "binary",
                 "extraction_method": "failed",
@@ -1159,7 +1174,7 @@ def _error_result(payload: dict[str, Any], error_text: str) -> dict[str, Any]:
                 "record_type": "extraction_error",
                 "metric_category": "official_measured",
                 "metric_name": "document_extraction_failed",
-                "metric_value_numeric": 0.0,
+                "metric_value_numeric": None,
                 "metric_value_text": error_text,
                 "metric_unit": "binary",
                 "extraction_method": "error",
@@ -1205,7 +1220,29 @@ def _extract_one_document(payload: dict[str, Any], output_root: str) -> dict[str
     }
 
 
-def build_canonical(yearly_root: Path, canonical_path: Path) -> tuple[pd.DataFrame, dict[str, Any]]:
+def preserve_failed_documents(candidate: pd.DataFrame, previous: pd.DataFrame) -> tuple[pd.DataFrame, list[dict[str, Any]]]:
+    """Keep historical rows with document hashes when a document cannot be re-extracted."""
+    if candidate.empty or previous.empty:
+        return candidate, []
+    candidate, previous = _coerce_frame(candidate), _coerce_frame(previous)
+    retained = []
+    for url, rows in candidate.groupby("source_document_url", dropna=False):
+        failed = (rows["extraction_method"].isin(["error", "failed"])
+                  | rows["record_type"].isin(["error", "extraction_error", "no_rows"])).all()
+        if not failed or not isinstance(url, str) or not url:
+            continue
+        old = previous[previous["source_document_url"].eq(url)
+                       & previous["source_document_sha256"].fillna("").str.fullmatch(r"[0-9a-f]{64}")
+                       & ~previous["extraction_method"].isin(["error", "failed"])]
+        if old.empty:
+            continue
+        retained.append({"source_document_url": url, "outcome": "retained_after_failure",
+                         "rows": len(old), "error": "; ".join(rows["metric_value_text"].dropna().astype(str).unique())})
+        candidate = pd.concat([candidate[~candidate["source_document_url"].eq(url)], old], ignore_index=True)
+    return candidate, retained
+
+
+def build_canonical(yearly_root: Path, canonical_path: Path, write_output: bool = True) -> tuple[pd.DataFrame, dict[str, Any]]:
     yearly_files = sorted((yearly_root / "yearly").glob("nhai_annual_report_*.parquet"))
     if not yearly_files:
         return pd.DataFrame(), {
@@ -1256,7 +1293,7 @@ def build_canonical(yearly_root: Path, canonical_path: Path) -> tuple[pd.DataFra
             skipped.append({"path": path.name, "status": "read_error", "reason": str(exc), "rows": entry["rows"]})
 
     merged = pd.concat(rows, ignore_index=True) if rows else pd.DataFrame()
-    if not merged.empty:
+    if not merged.empty and write_output:
         merged.to_parquet(canonical_path, index=False)
 
     return merged, {
@@ -1391,6 +1428,7 @@ def main() -> None:
     yearly_root = run_output_root / "yearly"
     _safe_path(run_canonical_path)
     yearly_root.mkdir(parents=True, exist_ok=True)
+    previous_canonical = pd.read_parquet(run_canonical_path) if run_canonical_path.exists() else pd.DataFrame()
 
     source_df = pd.read_parquet(source_path)
     annual_rows = _filter_annual_rows(source_df)
@@ -1404,6 +1442,7 @@ def main() -> None:
 
     manifest: dict[str, Any] = {
         "source_parquet": str(source_path),
+        "source_parquet_sha256": _checksum(source_path.read_bytes()),
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "rows_input": int(len(annual_rows)),
         "parser_environment": _parser_environment(),
@@ -1479,11 +1518,14 @@ def main() -> None:
     for year in sorted(yearly_frames.keys(), key=_coerce_year):
         row_df = pd.concat(yearly_frames[year], ignore_index=True) if yearly_frames[year] else pd.DataFrame(columns=CANONICAL_COLUMNS)
         row_df = _coerce_frame(row_df)
+        out_path = yearly_root / f"nhai_annual_report_{year}.parquet"
+        previous = pd.read_parquet(out_path) if out_path.exists() else pd.DataFrame()
+        row_df, retained = preserve_failed_documents(row_df, previous)
         row_df = _sort_output_frame(row_df)
         row_df["row_index"] = range(len(row_df))
-        out_path = yearly_root / f"nhai_annual_report_{year}.parquet"
         row_df["lineage_output_file"] = str(out_path)
-        row_df.to_parquet(out_path, index=False)
+        from pipelines.common import write_parquet
+        write_parquet(row_df, out_path)
         source_entries = sorted(
             yearly_sources[year],
             key=lambda item: (int(item.get("doc_index", 0)), str(item.get("source_document_url", ""))),
@@ -1492,6 +1534,7 @@ def main() -> None:
             "source_document_url": source_entries[0]["source_document_url"] if len(source_entries) == 1 else "",
             "source_document_title": source_entries[0]["source_document_title"] if len(source_entries) == 1 else "",
             "source_documents": source_entries,
+            "document_refresh_outcomes": retained,
             "document_count": len(source_entries),
             "output_path": str(out_path),
             "rows": int(len(row_df)),
@@ -1505,17 +1548,24 @@ def main() -> None:
         all_frames.append(row_df)
 
     # canonicalization across yearly files (schema compatibility)
-    canonical_df, canonical_summary = build_canonical(run_output_root, run_canonical_path)
+    canonical_df, canonical_summary = build_canonical(run_output_root, run_canonical_path, write_output=False)
+    canonical_df, retention = preserve_failed_documents(canonical_df, previous_canonical)
+    manifest["document_refresh_outcomes"] = retention + [outcome for payload in manifest["yearly_datasets"].values() for outcome in payload.get("document_refresh_outcomes", [])]
     if not canonical_df.empty:
         canonical_df = canonical_df.copy()
         for col in CANONICAL_COLUMNS:
             if col not in canonical_df.columns:
                 canonical_df[col] = None
         canonical_df = canonical_df[CANONICAL_COLUMNS]
+        from pipelines.common import write_parquet
+        write_parquet(canonical_df, run_canonical_path)
+        canonical_summary["sha256"] = _checksum(run_canonical_path.read_bytes())
 
     all_df = pd.concat(all_frames, ignore_index=True) if all_frames else pd.DataFrame(columns=CANONICAL_COLUMNS)
     all_df = _sort_output_frame(_coerce_frame(all_df))
-    quality = build_quality_report(all_df, canonical_summary, manifest["yearly_datasets"], run_quality_path, manifest["parser_environment"])
+    quality = build_quality_report(canonical_df, canonical_summary, manifest["yearly_datasets"], run_quality_path, manifest["parser_environment"])
+    quality["source_parquet_sha256"] = manifest["source_parquet_sha256"]
+    _write_json(run_quality_path, quality)
 
     manifest["canonical"] = canonical_summary
     manifest["quality"] = quality["quality"]

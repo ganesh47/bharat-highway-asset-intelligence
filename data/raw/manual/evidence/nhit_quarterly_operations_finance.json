@@ -1,0 +1,19 @@
+{
+  "source_id": "nhit_quarterly_operations_finance",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-01T19:28:46.101037+00:00",
+  "documents": [
+    {
+      "url": "https://nhit.co.in/pdf/investor-presentations/Investor%20Presentation%20June%202026.pdf",
+      "relative_path": "primary_disclosures/nhit_quarterly_operations_finance/document.pdf",
+      "sha256": "da8176d700cfc2e88e991e2a71e0a78d92d3397a519a7f13b240808a55db65f1",
+      "size_bytes": 3410545
+    }
+  ],
+  "csv_sha256": "4e6155f121b479c3ffbc91d680ab06befe890a142cc6d8902c99fc2e5a4507f5",
+  "extraction_status": "validated",
+  "row_count": 117,
+  "notes": "",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"
+}

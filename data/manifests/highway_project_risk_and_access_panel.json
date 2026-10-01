@@ -10,7 +10,8 @@
     "url": "",
     "retrieved_at": "2026-03-11T05:17:32.833320+00:00",
     "license_terms": "Model output for internal decision support only. Not an official measurement. Include uncertainty and confidence notes before policy use.",
-    "official_flag": false
+    "official_flag": false,
+    "domain": "bhai.local"
   },
   "citations": {
     "permanent_identifier": "model_signature+build_date",
@@ -78,7 +79,7 @@
   "retrieved_at": "2026-03-11T05:17:32.833320+00:00",
   "note": "Model outputs must be treated as estimates and scenario inputs, never as certified official facts.",
   "completeness_score": 0.5,
-  "recency_score": 0.5,
+  "recency_score": 0.25,
   "provenance_score": 0.3,
   "consistency_score": 0.5,
   "overall_confidence_badge": "Low",
@@ -87,7 +88,27 @@
     "Missingness is high; check source completeness",
     "Recency is stale against claimed update frequency",
     "Schema/range checks showed potential consistency issues",
-    "Use for trend and risk ranking, not precise governance decisions"
+    "Use for trend and risk ranking, not precise governance decisions",
+    "Observation date is unavailable; collection time is not data freshness",
+    "Not eligible for measured analyst calculations",
+    "Document discovery is not validated financial extraction"
   ],
-  "output_table_path": "data/processed/highway_project_risk_and_access_panel.parquet"
+  "output_table_path": "data/processed/highway_project_risk_and_access_panel.parquet",
+  "data_checksum": "1598884e476359c87a2bfe3e5b2853906359af5f76e1e88e976cdf420626bf19",
+  "last_successful_retrieval_at": "2026-10-01T20:09:57.160720+00:00",
+  "last_ingested_at": "2026-10-01T20:09:57.160720+00:00",
+  "last_checked_at": "2026-10-01T20:09:57.160720+00:00",
+  "refresh_outcome": "checked_unchanged",
+  "analytical_scope": {
+    "road_class": "unspecified",
+    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+  },
+  "evidence_status": "synthetic",
+  "source_as_of_date": null,
+  "publication_date": null,
+  "disclosure_ready": false,
+  "analytical_ready": false,
+  "extraction_status": "pending",
+  "recency_basis": "unknown",
+  "validation_errors": []
 }

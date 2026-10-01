@@ -10,7 +10,8 @@
     "url": "https://overpass-api.de/api/interpreter",
     "retrieved_at": "2026-03-11T05:17:35.836220+00:00",
     "license_terms": "OpenStreetMap ODbL terms; geometry/proxy use with attribution and separation from official metrics.",
-    "official_flag": false
+    "official_flag": false,
+    "domain": "openstreetmap.org"
   },
   "citations": {
     "permanent_identifier": "Overpass query id or source timestamp",
@@ -28,6 +29,7 @@
     "output_files": [
       {
         "path": "data/processed/quality_maintenance_indicators.parquet",
+        "format": "parquet",
         "sha256": "e8701a34bfccc3acacb0c2d9f1bf4ac4dad22924bb0b47771c04af60a89558f0"
       }
     ],
@@ -47,10 +49,34 @@
   },
   "retrieved_at": "2026-03-11T05:17:35.836220+00:00",
   "completeness_score": 0.98,
-  "recency_score": 0.98,
+  "recency_score": 0.2,
   "provenance_score": 0.588,
-  "consistency_score": 0.98,
-  "overall_confidence_badge": "High",
-  "overall_confidence_reason": [],
-  "output_table_path": "data/processed/quality_maintenance_indicators.parquet"
+  "consistency_score": 0.75,
+  "overall_confidence_badge": "Low",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency",
+    "Unsupported roughness unit km_per_km",
+    "Not eligible for measured analyst calculations",
+    "Document discovery is not validated financial extraction"
+  ],
+  "output_table_path": "data/processed/quality_maintenance_indicators.parquet",
+  "refresh_error": "Unsupported roughness unit km_per_km",
+  "data_checksum": "92a7af924750b51381e4cb92a9aa4385a7c3b453df7e6ad2171329ec4ab8d25b",
+  "last_checked_at": "2026-10-01T20:10:12.926382+00:00",
+  "refresh_outcome": "manual_evidence_required",
+  "analytical_scope": {
+    "road_class": "unspecified",
+    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+  },
+  "evidence_status": "unverified",
+  "source_as_of_date": "2025-12-31",
+  "publication_date": null,
+  "disclosure_ready": false,
+  "analytical_ready": false,
+  "extraction_status": "pending",
+  "recency_basis": "observation_date",
+  "validation_errors": [
+    "Unsupported roughness unit km_per_km"
+  ],
+  "quarantine_reason": "Unsupported roughness unit km_per_km"
 }

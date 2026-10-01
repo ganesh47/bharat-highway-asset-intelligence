@@ -32,20 +32,20 @@
       {
         "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
         "format": "parquet",
-        "sha256": "46ad0339a990c24b804e1f256fa17fe0ee646adbbf298558d4b67e5a53b4d43a"
+        "sha256": "a1fa78fbc8a4d44b880da3448c8158e29256b818c05fd170ba12fe4a4f200a20"
       }
     ],
     "row_count": 6,
     "columns": [
-      "year_wise",
-      "allocation_target___budgetary",
-      "allocation_target___iebr_target",
-      "allocation_target___others",
-      "allocation_target___total",
-      "expenditure_release_of_funds_actuals___budgetary",
-      "expenditure_release_of_funds_actuals___iebr_actual",
-      "expenditure_release_of_funds_actuals___others",
-      "expenditure_release_of_funds_actuals___total",
+      "year-wise",
+      "allocation/target_-_budgetary",
+      "allocation/target_-_iebr_target",
+      "allocation/target_-_others",
+      "allocation/target_-_total",
+      "expenditure/release_of_funds/actuals_-_budgetary",
+      "expenditure/release_of_funds/actuals_-_iebr_actual",
+      "expenditure/release_of_funds/actuals_-_others",
+      "expenditure/release_of_funds/actuals_-_total",
       "source_type",
       "source_id",
       "metric_category",
@@ -55,10 +55,33 @@
   },
   "retrieved_at": "2026-03-11T05:17:07.362507+00:00",
   "completeness_score": 0.976,
-  "recency_score": 1.0,
+  "recency_score": 0.2,
   "provenance_score": 1.0,
   "consistency_score": 1.0,
-  "overall_confidence_badge": "High",
-  "overall_confidence_reason": [],
-  "output_table_path": "data/processed/data_gov_in_nhai_project_finance_api.parquet"
+  "overall_confidence_badge": "Med",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency"
+  ],
+  "output_table_path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
+  "data_checksum": "6ff6a1a12bf17f463251ba4ab1da0cab4bed42257d0d77cecc889acc750a4582",
+  "last_successful_retrieval_at": "2026-10-01T20:08:24.579304+00:00",
+  "last_ingested_at": "2026-10-01T20:08:24.579304+00:00",
+  "last_checked_at": "2026-10-01T20:08:24.579304+00:00",
+  "refresh_outcome": "checked_unchanged",
+  "analytical_scope": {
+    "agency": "MoRTH",
+    "entity_type": "programme",
+    "entity_id": "nh-development-maintenance-pm-gatishakti",
+    "road_class": "National Highway",
+    "scope_note": "NH development and maintenance funding; not NHAI standalone accounts. FY2024-25 is through 31 January 2025.",
+    "source_as_of_date": "2025-01-31"
+  },
+  "evidence_status": "validated",
+  "source_as_of_date": "2025-01-31",
+  "publication_date": null,
+  "disclosure_ready": true,
+  "analytical_ready": true,
+  "extraction_status": "validated",
+  "recency_basis": "observation_date",
+  "validation_errors": []
 }
