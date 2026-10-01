@@ -253,6 +253,7 @@ jobs:
 
   cd_smoke:
     name: Playwright CD smoke check
+    if: (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == github.repository && contains(fromJSON('["push","schedule","workflow_dispatch"]'), github.event.workflow_run.event))
     needs:
       - deploy
     runs-on: ubuntu-latest
@@ -262,10 +263,15 @@ jobs:
       DEPLOY_PAGE_URL: ${{ needs.deploy.outputs.page_url }}
       DEPLOY_BUNDLE_SHA256: ${{ needs.deploy.outputs.bundle_sha256 }}
     steps:
-      - name: Checkout
+      - name: Checkout validated main research revision
+        if: github.event_name == 'workflow_run'
         uses: actions/checkout@v6
         with:
-          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Checkout manual main deployment
+        if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+        uses: actions/checkout@v6
 
       - name: Setup Python
         uses: actions/setup-python@v6

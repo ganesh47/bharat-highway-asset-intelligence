@@ -78,6 +78,29 @@ class ResearchDeliveryTests(unittest.TestCase):
             with self.subTest(ocr=ocr, ingest=ingest, refresh=refresh):
                 self.assertEqual(eval(expression, {"__builtins__": {}}), allowed)
 
+    def test_cd_browser_job_rejects_untrusted_revisions_and_accepts_schedules(self):
+        workflow = yaml.safe_load((ROOT / ".github/workflows/github-pages.yml").read_text())
+        condition = workflow["jobs"]["cd_smoke"]["if"]
+        cases = [
+            ("workflow_dispatch", "refs/heads/main", "", "", "", "", True),
+            ("workflow_dispatch", "refs/heads/feature", "", "", "", "", False),
+            ("workflow_run", "refs/heads/main", "success", "main", "trusted/repo", "schedule", True),
+            ("workflow_run", "refs/heads/main", "success", "main", "attacker/repo", "push", False),
+            ("workflow_run", "refs/heads/main", "success", "feature", "trusted/repo", "push", False),
+            ("workflow_run", "refs/heads/main", "failure", "main", "trusted/repo", "schedule", False),
+        ]
+        for event, ref, conclusion, branch, repository, trigger, allowed in cases:
+            expression = condition.replace("&&", "and").replace("||", "or")
+            expression = expression.replace('contains(fromJSON(\'["push","schedule","workflow_dispatch"]\'), github.event.workflow_run.event)', repr(trigger in {"push", "schedule", "workflow_dispatch"}))
+            for key, value in [("github.event.workflow_run.head_repository.full_name", repository),
+                               ("github.event.workflow_run.head_branch", branch),
+                               ("github.event.workflow_run.conclusion", conclusion),
+                               ("github.event_name", event), ("github.ref", ref),
+                               ("github.repository", "trusted/repo")]:
+                expression = expression.replace(key, repr(value))
+            with self.subTest(event=event, ref=ref, repository=repository, trigger=trigger):
+                self.assertEqual(eval(expression, {"__builtins__": {}}), allowed)
+
     def test_ocr_merge_rejects_shards_from_other_source_bytes(self):
         with tempfile.TemporaryDirectory() as directory:
             source = Path(directory) / "source.parquet"
