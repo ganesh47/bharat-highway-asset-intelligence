@@ -1,0 +1,44 @@
+{
+  "source_url": "https://www.npci.org.in/product/netc/product-statistics",
+  "captured_at": "2026-10-01T21:49:22+00:00",
+  "capture_method": "Manual browser review of rendered official NETC FASTag Statistics table; selected reporting years and scrolled to load all twelve prior-year rows. This is a governed rendered-table snapshot, not publisher PDF bytes.",
+  "publication_date": null,
+  "observation_cutoff": "2026-08-31",
+  "headings": ["Month", "No. of Banks Live on NETC", "Tag Issuance (In Nos. BTD)", "Volume (In Mn.) MTD", "Amount (In Cr) MTD"],
+  "published_exclusions": "Annual pass and Maharashtra Electric Vehicle exempted data is not included in the NETC transaction data.",
+  "reporting_years": [
+    {
+      "selected_year": "2026-27",
+      "rows": [
+        ["August-2026", "40", "12,90,85,045", "351.00", "7,185.03"],
+        ["July-2026", "40", "12,77,83,181", "347.35", "7,142.99"],
+        ["June-2026", "40", "12,65,08,685", "361.76", "7,214.76"],
+        ["May-2026", "40", "12,51,75,431", "375.23", "7,308.07"],
+        ["April-2026", "40", "12,37,72,095", "358.08", "7,024.61"]
+      ]
+    },
+    {
+      "selected_year": "2025-26",
+      "rows": [
+        ["March-2026", "40", "122,452,408", "363.76", "7,193.25"],
+        ["February-2026", "40", "12,12,03,946", "350.43", "6,924.57"],
+        ["January-2026", "40", "11,99,93,809", "373.41", "7,232.19"],
+        ["December-2025", "40", "118,668,479", "383.68", "7,385.04"],
+        ["November-2025", "40", "11,74,00,975", "369.40", "7,046.40"],
+        ["October-2025", "40", "116,105,838", "360.94", "6,685.63"],
+        ["September-2025", "40", "11,46,99,272", "332.75", "6,421.48"],
+        ["August-2025", "39", "11,36,06,570", "370.67", "6,661.00"],
+        ["July-2025", "39", "11,23,51,689", "370.60", "6,669.12"],
+        ["June-2025", "39", "11,11,21,787", "386.28", "6,793.40"],
+        ["May-2025", "39", "10,98,52,901", "404.43", "7,087.16"],
+        ["April-2025", "38", "10,85,44,984", "382.58", "6,801.37"]
+      ]
+    }
+  ],
+  "limitations": [
+    "Monthly payment transactions and scheme payment amounts are not NHAI toll receipts, vehicle counts, PCU traffic or corridor revenue.",
+    "Observation dates are month ends; capture date is retrieval only. September 2026 was not yet displayed.",
+    "Published exclusion wording is retained as displayed. Cross-period definition changes require review before comparisons.",
+    "Bank-live and cumulative tag-issuance columns are retained for source verification but are not extracted as flows."
+  ]
+}

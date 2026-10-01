@@ -7,6 +7,7 @@ The snapshot builder is deliberately explicit about pages, units and scope.
 from __future__ import annotations
 
 import argparse
+import calendar
 import csv
 import hashlib
 from html import unescape
@@ -63,6 +64,9 @@ SOURCE_IDS = tuple(DOCUMENTS)
 HTML_SOURCES = {"nhai_monetisation_transactions", "npci_netc_monthly_statistics", "upeida_expressway_projects", "msrdc_financial_disclosures", "adb_state_road_projects"}
 HTML_RECHECK_SOURCES = {"nhai_monetisation_transactions"}
 RESEARCH_CUTOFF = "2026-10-02"
+NETC_SOURCE_ID = "npci_netc_monthly_statistics"
+NETC_RENDERED_SNAPSHOT = Path("manual/evidence/npci_netc_rendered_snapshot_2026-10-02.json")
+RENDERED_SNAPSHOT_KIND = "governed_rendered_table_snapshot"
 
 
 def document_path(raw_root: Path, source_id: str) -> Path:
@@ -143,6 +147,11 @@ def validate_facts(df: pd.DataFrame, source_id: str, evidence: dict[str, Any]) -
         factor = conversions.get(row["original_unit"])
         if factor is None or not math.isclose(row["value"], row["original_value"] * factor, rel_tol=1e-9, abs_tol=1e-8):
             raise ValueError("Invalid monetary unit conversion")
+    transactions = df["unit"].eq("transactions") | df["original_unit"].eq("million transactions") | df["metric"].eq("netc_payment_transactions")
+    for _, row in df[transactions].iterrows():
+        factor = {"transactions": 1.0, "million transactions": 1_000_000.0}.get(row["original_unit"])
+        if row["unit"] != "transactions" or factor is None or not math.isclose(row["value"], row["original_value"] * factor, rel_tol=1e-9, abs_tol=1e-8):
+            raise ValueError("Invalid transaction unit conversion")
     df["analytical_eligible"] = df["analytical_eligible"].map(lambda value: str(value).lower() == "true")
     if df.duplicated(["source_id","entity_id","metric","period_start","period_end","estimate_type","statement_basis"]).any():
         raise ValueError("Duplicate scoped numerical facts")
@@ -186,6 +195,8 @@ class PrimaryDisclosuresConnector:
                 # If restored, the archived primary document must match the extract.
                 for document in evidence.get("documents", []):
                     path = raw_root / document["relative_path"]
+                    if document.get("artifact_kind") == RENDERED_SNAPSHOT_KIND and not path.is_file():
+                        raise ValueError("Governed rendered snapshot missing")
                     if path.exists():
                         if sha256_for_file(path) != document["sha256"]:
                             raise ValueError("Primary document changed; re-extraction required")
@@ -194,6 +205,10 @@ class PrimaryDisclosuresConnector:
                 # cannot overwrite the archived document behind validated rows.
                 if source.get("allow_auto_fetch") and os.environ.get("BHAI_PRIMARY_REMOTE_CHECK", "1") != "0":
                     for document in evidence.get("documents", []):
+                        if document.get("artifact_kind") == RENDERED_SNAPSHOT_KIND:
+                            # The pinned bytes are a governed local capture, not
+                            # the publisher response at the cited page URL.
+                            continue
                         pinned = raw_root / document["relative_path"]
                         candidate = pinned.with_name("candidate" + pinned.suffix)
                         check_path = pinned.parent / "remote_check.json"
@@ -315,6 +330,8 @@ class SnapshotBuilder:
         original_value = float(value)
         if unit == "INR crore":
             value *= {"INR crore": 1, "INR lakh": .01, "INR million": .1}[original_unit]
+        elif unit == "transactions":
+            value *= {"transactions": 1, "million transactions": 1_000_000}[original_unit]
         doc = self.documents[sid][document_index]
         row = {column: "" for column in FACT_COLUMNS}
         row.update(entity_id=entity_id or identifier(agency), entity_name=entity_name or agency, entity_type=entity_type, agency=agency, state=state, road_class=road_class, metric=metric, value=float(value), unit=unit, original_value=original_value, original_unit=original_unit, period_start=start, period_end=end, period_basis=basis, estimate_type=estimate, statement_basis=statement, data_as_of=asof or end, published_at=published, source_id=sid, citation_url=doc["url"], table_page=str(page), evidence_class=evidence, analytical_eligible=eligible, source_document_sha256=doc["sha256"], notes=notes, entity=entity_name or agency, year=int((end or asof or RESEARCH_CUTOFF)[:4]), metric_name=metric, metric_value=float(value), metric_category="issuer_disclosed" if sid.startswith("nhit_") else "official_measured", source_type="issuer" if sid.startswith("nhit_") else "official", comparison_group=f"{statement}|{road_class}")
@@ -567,6 +584,55 @@ class SnapshotBuilder:
         self.fact(sid,"sh_network_length_km",193740,"km","PDF p164; Annexure 2.3.2 published Total",agency="State PWDs",entity_id="brs_published_total",entity_name="BRS published SH total",entity_type="published_total",road_class="State Highway",end="2022-03-31",basis="stock",asof="2022-03-31",statement="BRS_Annexure_2_3_2",eligible=False,notes="Published total193740km; state rows sum193741km; aggregate quarantined and not reconciled artificially.")
         self.notes[sid]="SH network all states/UTs, older per-state footnotes preserved; Arunachal and inconsistent published total quarantined. NH stock is separately covered by existing MoRTH source; no duplicate NH series created."
 
+    def netc_manual_snapshot(self) -> None:
+        """Extract only monthly flows from the governed rendered official table."""
+        sid = NETC_SOURCE_ID
+        path = self.raw_root / NETC_RENDERED_SNAPSHOT
+        if not path.exists():
+            self.notes[sid] = "HTTP403/JS restricted primary page; governed rendered-table snapshot required; no invented API or numerical facts."
+            return
+        snapshot = json.loads(path.read_text())
+        expected_headings = ["Month", "No. of Banks Live on NETC", "Tag Issuance (In Nos. BTD)", "Volume (In Mn.) MTD", "Amount (In Cr) MTD"]
+        if snapshot.get("source_url") != DOCUMENTS[sid] or snapshot.get("headings") != expected_headings:
+            raise ValueError("NETC snapshot source/headings changed; manual review required")
+        captured = datetime.fromisoformat(snapshot["captured_at"])
+        if captured.utcoffset() is None or not snapshot.get("capture_method") or not snapshot.get("published_exclusions"):
+            raise ValueError("NETC rendered snapshot requires dated capture provenance and exclusions")
+        if snapshot.get("publication_date") is not None:
+            raise ValueError("NETC publication date is undisclosed in this capture")
+        documents = []
+        seen = set()
+        for reporting_year in snapshot["reporting_years"]:
+            for raw in reporting_year["rows"]:
+                if len(raw) != 5:
+                    raise ValueError("NETC rendered row must retain all five source cells")
+                month = datetime.strptime(raw[0], "%B-%Y").date()
+                end = month.replace(day=calendar.monthrange(month.year, month.month)[1]).isoformat()
+                fiscal_start = month.year if month.month >= 4 else month.year - 1
+                if reporting_year["selected_year"] != f"{fiscal_start}-{(fiscal_start+1)%100:02d}" or end in seen:
+                    raise ValueError("NETC reporting-year/month mismatch or duplicate month")
+                seen.add(end)
+                volume, amount = number(raw[3]), number(raw[4])
+                if not all(math.isfinite(value) and value >= 0 for value in (volume, amount)):
+                    raise ValueError("NETC monthly flows require finite nonnegative source values")
+                documents.append((reporting_year["selected_year"], raw, month.isoformat(), end, volume, amount))
+        if len(documents) != 17 or max(seen) != snapshot["observation_cutoff"] or min(seen) != "2025-04-30":
+            raise ValueError("NETC governed capture must cover April2025-August2026 with seventeen monthly rows")
+        # The dated local JSON is the reproducibility artifact. Its hash never
+        # purports to be a checksum of publisher HTML/PDF response bytes.
+        self.documents[sid] = []
+        self.rows[sid] = []
+        self.pin(sid, path=path, url=snapshot["source_url"])
+        self.documents[sid][0].update(artifact_kind=RENDERED_SNAPSHOT_KIND, checksum_scope="Local governed rendered-table JSON, not publisher HTML/PDF bytes", capture_method=snapshot["capture_method"], captured_at=snapshot["captured_at"], publisher_document_checksum_available=False)
+        scope = "NETC payment transactions and scheme payment amounts are not NHAI toll receipts, vehicle counts, PCU traffic or corridor revenue."
+        exclusions = snapshot["published_exclusions"]
+        for selected_year, raw, start, end, volume, amount in documents:
+            attrs = dict(entity_id="NPCI_NETC", entity_name="NPCI NETC payment network", entity_type="payment_network", agency="NPCI", road_class="NETC network (multiple road classes)", start=start, end=end, basis="calendar_month", asof=end, statement="NETC_payment_statistics", published="", notes=f"{scope} Published exclusions: {exclusions} Local source hash pins governed rendered-table JSON, not publisher PDF bytes. Raw volume '{raw[3]}' million transactions; raw amount '{raw[4]}' INR crore; reporting year {selected_year}. Bank-live and cumulative tag issuance are retained in the capture and not extracted as flows.")
+            anchor = f"Rendered NETC FASTag Statistics; reporting year {selected_year}; row {raw[0]}"
+            self.fact(sid, "netc_payment_transactions", volume, "transactions", anchor + "; Volume (In Mn.) MTD", original_unit="million transactions", **attrs)
+            self.fact(sid, "netc_payment_amount_inr_crore", amount, "INR crore", anchor + "; Amount (In Cr) MTD", **attrs)
+        self.notes[sid] = f"Governed manual browser capture of seventeen official monthly rows, April2025-August2026, captured{snapshot['captured_at']}. Publication date undisclosed. {scope} Published exclusions: {exclusions} Document SHA256 pins local rendered JSON, not publisher response bytes; future months require a new reviewed capture."
+
     def finish(self, source_ids: tuple[str, ...] = SOURCE_IDS) -> None:
         manual=self.raw_root/"manual"; (manual/"evidence").mkdir(parents=True,exist_ok=True)
         for sid in source_ids:
@@ -574,8 +640,10 @@ class SnapshotBuilder:
             path=manual/f"{sid}.csv"
             with path.open("w",newline="") as stream:
                 writer=csv.DictWriter(stream,fieldnames=FACT_COLUMNS,lineterminator="\n");writer.writeheader();writer.writerows(rows)
-            retrieval_times=[datetime.fromtimestamp((self.raw_root/doc["relative_path"]).stat().st_mtime,timezone.utc).isoformat() for doc in self.documents[sid]]
+            retrieval_times=[doc.get("captured_at") or datetime.fromtimestamp((self.raw_root/doc["relative_path"]).stat().st_mtime,timezone.utc).isoformat() for doc in self.documents[sid]]
             evidence={"source_id":sid,"research_cutoff":RESEARCH_CUTOFF,"retrieved_at":max(retrieval_times) if retrieval_times else None,"last_checked_at":datetime.now(timezone.utc).isoformat(),"documents":self.documents[sid],"csv_sha256":sha256_for_file(path),"extraction_status":"validated" if rows else "evidence_gap","row_count":len(rows),"notes":self.notes.get(sid,""),"gap_reason":"" if rows else self.notes.get(sid,"No verified extract available; source remains a visible gap."),"transformation":"pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"}
+            if any(doc.get("artifact_kind") == RENDERED_SNAPSHOT_KIND for doc in self.documents[sid]):
+                evidence["transformation"] = "SnapshotBuilder.netc_manual_snapshot; original million transactions multiplied by1,000,000; INR crore unchanged; rendered table row/heading anchors; document hash pins governed local JSON rather than publisher response bytes."
             if rows:
                 validate_facts(pd.read_csv(path,keep_default_na=False),sid,evidence)
             write_json(evidence,manual/"evidence"/f"{sid}.json")
@@ -584,10 +652,10 @@ class SnapshotBuilder:
 def build_snapshots(raw_root: Path) -> SnapshotBuilder:
     builder=SnapshotBuilder(raw_root)
     for sid in SOURCE_IDS:
-        if document_path(raw_root,sid).exists():
+        if sid != NETC_SOURCE_ID and document_path(raw_root,sid).exists():
             builder.pin(sid)
     builder.notes.update({"npci_netc_monthly_statistics":"HTTP403/JS restricted primary page; governed manual snapshot required; no invented API or search-result numerical facts.","upeida_expressway_projects":"Verified TLS retrieval failed due to missing certificate issuer; Ganga progress PDF link returns500. No unverified project progress/financial facts.","msrdc_financial_disclosures":"Public index/subsidiary FY23-24 filings identified; primary download timed out. Parent standalone latest visible FY18-19, not FY23-24. No statement facts without retrieved PDF.","adb_state_road_projects":"Official project52298-001 primary page HTTP403; financial statement April2024-May2025 disclosed in index; no unretrieved numerical facts.","rbi_state_road_finances":"Goa revenue Roads and Bridges rows contain dashes, left absent rather than invented zero. Road-corporation debt/guarantees and corridor attribution not inferred from state-government aggregates."})
-    for function in (builder.budget,builder.nhit,builder.parliament_and_audit,builder.monetisation,builder.upeida,builder.nhidcl,builder.rbi,builder.brs):
+    for function in (builder.budget,builder.nhit,builder.parliament_and_audit,builder.monetisation,builder.upeida,builder.nhidcl,builder.rbi,builder.brs,builder.netc_manual_snapshot):
         function()
     builder.finish()
     return builder

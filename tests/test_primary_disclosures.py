@@ -2,6 +2,7 @@ import json
 import os
 import tempfile
 import unittest
+from contextlib import ExitStack
 from pathlib import Path
 from unittest.mock import patch
 
@@ -11,7 +12,7 @@ import yaml
 from pipelines.common import sha256_for_file
 from pipelines.connectors.primary_disclosures import (
     DOCUMENTS, FACT_COLUMNS, SOURCE_IDS, PrimaryDisclosuresConnector,
-    SnapshotBuilder, validate_facts,
+    SnapshotBuilder, validate_facts, build_snapshots, NETC_RENDERED_SNAPSHOT, NETC_SOURCE_ID, RENDERED_SNAPSHOT_KIND,
 )
 
 
@@ -53,6 +54,61 @@ class PrimaryDisclosureTests(unittest.TestCase):
         df.loc[0, "metric_value"] = 123
         with self.assertRaisesRegex(ValueError, "alias"):
             validate_facts(df, self.sid, self.evidence())
+
+    def test_netc_browser_snapshot_is_scoped_pinned_and_rebuilt_by_all_source_cli(self):
+        original = Path(__file__).resolve().parents[1] / "data/raw" / NETC_RENDERED_SNAPSHOT
+        captured = json.loads(original.read_text())
+        path = self.root / NETC_RENDERED_SNAPSHOT
+        path.parent.mkdir(parents=True)
+        path.write_bytes(original.read_bytes())
+        with ExitStack() as stack:
+            for method in ("budget", "nhit", "parliament_and_audit", "monetisation", "upeida", "nhidcl", "rbi", "brs"):
+                stack.enter_context(patch.object(SnapshotBuilder, method))
+            rebuilt = build_snapshots(self.root)
+        evidence_path = self.root / "manual/evidence" / f"{NETC_SOURCE_ID}.json"
+        evidence = json.loads(evidence_path.read_text())
+        csv = self.root / "manual" / f"{NETC_SOURCE_ID}.csv"
+        df = validate_facts(pd.read_csv(csv, keep_default_na=False), NETC_SOURCE_ID, evidence)
+        self.assertEqual(len(df), 34)
+        self.assertEqual(len(rebuilt.rows[NETC_SOURCE_ID]), 34)
+        self.assertEqual(df.period_end.nunique(), 17)
+        self.assertEqual(set(df.entity_id), {"NPCI_NETC"})
+        self.assertEqual(set(df.entity_type), {"payment_network"})
+        self.assertEqual(set(df.road_class), {"NETC network (multiple road classes)"})
+        self.assertEqual(set(df.period_basis), {"calendar_month"})
+        self.assertTrue(df.published_at.eq("").all())
+        self.assertTrue(df.analytical_eligible.all())
+        self.assertTrue(df.notes.str.contains(captured["published_exclusions"], regex=False).all())
+        self.assertTrue(df.notes.str.contains("not NHAI toll receipts", regex=False).all())
+        august = df[df.period_end.eq("2026-08-31")].set_index("metric")
+        self.assertEqual(august.loc["netc_payment_transactions", "value"], 351_000_000)
+        self.assertEqual(august.loc["netc_payment_transactions", "original_value"], 351)
+        self.assertEqual(august.loc["netc_payment_transactions", "original_unit"], "million transactions")
+        self.assertAlmostEqual(august.loc["netc_payment_amount_inr_crore", "value"], 7185.03)
+        self.assertEqual(evidence["retrieved_at"], captured["captured_at"])
+        self.assertEqual(evidence["csv_sha256"], sha256_for_file(csv))
+        self.assertEqual(evidence["documents"][0]["sha256"], sha256_for_file(path))
+        self.assertEqual(evidence["documents"][0]["artifact_kind"], RENDERED_SNAPSHOT_KIND)
+        self.assertFalse(evidence["documents"][0]["publisher_document_checksum_available"])
+        with patch("pipelines.connectors.primary_disclosures.download_document", side_effect=AssertionError("Local JSON cannot be compared to publisher bytes")):
+            result = PrimaryDisclosuresConnector().run({"source_id": NETC_SOURCE_ID, "allow_auto_fetch": True}, self.root, self.root / "processed", self.root / "manifest")
+        self.assertFalse(result.skipped)
+        self.assertEqual(result.manifest["last_successful_retrieval_at"], captured["captured_at"])
+        path.unlink()
+        result = PrimaryDisclosuresConnector().run({"source_id": NETC_SOURCE_ID, "allow_auto_fetch": False}, self.root, self.root / "processed", self.root / "manifest")
+        self.assertTrue(result.skipped)
+        self.assertIn("rendered snapshot missing", result.skip_reason)
+
+    def test_netc_million_transaction_conversion_cannot_become_unscaled_ones(self):
+        sid = NETC_SOURCE_ID
+        builder = SnapshotBuilder(self.root)
+        builder.documents[sid] = [{"sha256": "a" * 64, "url": DOCUMENTS[sid]}]
+        builder.fact(sid, "netc_payment_transactions", 351, "transactions", "Rendered August-2026 Volume MTD", end="2026-08-31", asof="2026-08-31", original_unit="million transactions", entity_id="NPCI_NETC", agency="NPCI", entity_type="payment_network", road_class="NETC network (multiple road classes)")
+        facts = pd.DataFrame(builder.rows[sid])
+        self.assertEqual(validate_facts(facts, sid, {"documents": builder.documents[sid]}).iloc[0]["value"], 351_000_000)
+        facts.loc[0, ["value", "metric_value"]] = 351
+        with self.assertRaisesRegex(ValueError, "transaction unit conversion"):
+            validate_facts(facts, sid, {"documents": builder.documents[sid]})
 
     def test_scoped_duplicates_rejected_be_re_distinct(self):
         self.fact(estimate="BE")

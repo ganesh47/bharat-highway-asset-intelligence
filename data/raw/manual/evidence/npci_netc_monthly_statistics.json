@@ -1,12 +1,25 @@
 {
   "source_id": "npci_netc_monthly_statistics",
   "research_cutoff": "2026-10-02",
-  "retrieved_at": null,
-  "documents": [],
-  "csv_sha256": "5ccdb1c9a95634063e5199948f333b8309b25565884af5caf41bc7a5d867aabc",
-  "extraction_status": "evidence_gap",
-  "row_count": 0,
-  "notes": "HTTP403/JS restricted primary page; governed manual snapshot required; no invented API or search-result numerical facts.",
-  "gap_reason": "HTTP403/JS restricted primary page; governed manual snapshot required; no invented API or search-result numerical facts.",
-  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"
+  "retrieved_at": "2026-10-01T21:49:22+00:00",
+  "last_checked_at": "2026-10-01T21:56:15.541204+00:00",
+  "documents": [
+    {
+      "url": "https://www.npci.org.in/product/netc/product-statistics",
+      "relative_path": "manual/evidence/npci_netc_rendered_snapshot_2026-10-02.json",
+      "sha256": "3743b75a8a0b48a4aba9b6c328164248ebf3ff2da8eb0a954f95d249c230cf99",
+      "size_bytes": 2547,
+      "artifact_kind": "governed_rendered_table_snapshot",
+      "checksum_scope": "Local governed rendered-table JSON, not publisher HTML/PDF bytes",
+      "capture_method": "Manual browser review of rendered official NETC FASTag Statistics table; selected reporting years and scrolled to load all twelve prior-year rows. This is a governed rendered-table snapshot, not publisher PDF bytes.",
+      "captured_at": "2026-10-01T21:49:22+00:00",
+      "publisher_document_checksum_available": false
+    }
+  ],
+  "csv_sha256": "a33d6c5f7eb974526e4f7fb4e197e919374da6c2d058fb9d8d2d228fb4ed4c9c",
+  "extraction_status": "validated",
+  "row_count": 34,
+  "notes": "Governed manual browser capture of seventeen official monthly rows, April2025-August2026, captured2026-10-01T21:49:22+00:00. Publication date undisclosed. NETC payment transactions and scheme payment amounts are not NHAI toll receipts, vehicle counts, PCU traffic or corridor revenue. Published exclusions: Annual pass and Maharashtra Electric Vehicle exempted data is not included in the NETC transaction data. Document SHA256 pins local rendered JSON, not publisher response bytes; future months require a new reviewed capture.",
+  "gap_reason": "",
+  "transformation": "SnapshotBuilder.netc_manual_snapshot; original million transactions multiplied by1,000,000; INR crore unchanged; rendered table row/heading anchors; document hash pins governed local JSON rather than publisher response bytes."
 }
