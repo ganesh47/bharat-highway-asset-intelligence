@@ -3299,26 +3299,30 @@ function App() {
       React.createElement(
         'div',
         { className: 'toggle-group' },
-        React.createElement('button', { type: 'button', className: `toggle ${sourceFilter === 'analyst' ? 'active' : ''}`, onClick: () => setSourceFilter('analyst') }, 'Analyst evidence'),
-        React.createElement('button', { type: 'button', className: `toggle ${sourceFilter === 'issuer' ? 'active' : ''}`, onClick: () => setSourceFilter('issuer') }, 'Issuer disclosures'),
+        React.createElement('button', { type: 'button', className: `toggle ${sourceFilter === 'analyst' ? 'active' : ''}`, 'aria-pressed': sourceFilter === 'analyst', onClick: () => setSourceFilter('analyst') }, 'Analyst evidence'),
+        React.createElement('button', { type: 'button', className: `toggle ${sourceFilter === 'issuer' ? 'active' : ''}`, 'aria-pressed': sourceFilter === 'issuer', onClick: () => setSourceFilter('issuer') }, 'Issuer disclosures'),
         React.createElement('button', {
           type: 'button',
           className: `toggle ${sourceFilter === 'all' ? 'active' : ''}`,
+          'aria-pressed': sourceFilter === 'all',
           onClick: () => setSourceFilter('all'),
         }, 'All Signals'),
         React.createElement('button', {
           type: 'button',
           className: `toggle ${sourceFilter === 'official' ? 'active' : ''}`,
+          'aria-pressed': sourceFilter === 'official',
           onClick: () => setSourceFilter('official'),
         }, 'Official only'),
         React.createElement('button', {
           type: 'button',
           className: `toggle ${sourceFilter === 'proxy' ? 'active' : ''}`,
+          'aria-pressed': sourceFilter === 'proxy',
           onClick: () => setSourceFilter('proxy'),
         }, 'Proxy only'),
         React.createElement('button', {
           type: 'button',
           className: `toggle ${sourceFilter === 'model' ? 'active' : ''}`,
+          'aria-pressed': sourceFilter === 'model',
           onClick: () => setSourceFilter('model'),
         }, 'Model only')
       ),
@@ -3328,22 +3332,26 @@ function App() {
         React.createElement('button', {
           type: 'button',
           className: `toggle ${chartScale === 'compact' ? 'active' : ''}`,
+          'aria-pressed': chartScale === 'compact',
           onClick: () => setChartScale('compact'),
         }, 'Compact'),
         React.createElement('button', {
           type: 'button',
           className: `toggle ${chartScale === 'normal' ? 'active' : ''}`,
+          'aria-pressed': chartScale === 'normal',
           onClick: () => setChartScale('normal'),
         }, 'Normal'),
         React.createElement('button', {
           type: 'button',
           className: `toggle ${chartScale === 'large' ? 'active' : ''}`,
+          'aria-pressed': chartScale === 'large',
           onClick: () => setChartScale('large'),
         }, 'Enlarge')
         ,
         React.createElement('button', {
           type: 'button',
           className: `toggle ${chartScale === 'xlarge' ? 'active' : ''}`,
+          'aria-pressed': chartScale === 'xlarge',
           onClick: () => setChartScale('xlarge'),
           title: 'Show a large single-column chart layout for close reading and zoomed inspection',
         }, 'Focus')
