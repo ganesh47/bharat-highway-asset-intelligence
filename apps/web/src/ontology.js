@@ -97,7 +97,7 @@ function hasColumn(entry, alias) {
 }
 
 export function inferOntologyCoverage(catalog) {
-  const entries = Object.values(catalog || {}).filter((entry) => entry.analytical_ready !== false);
+  const entries = Object.values(catalog || {}).filter((entry) => entry.analytical_ready !== false || entry.disclosure_ready === true);
   const counts = {};
   ONTOLOGY.entities.forEach((entity) => {
     const matched = entries.filter((entry) => {
@@ -127,4 +127,3 @@ export function inferOntologyCoverage(catalog) {
     relationCoverage,
   };
 }
-
