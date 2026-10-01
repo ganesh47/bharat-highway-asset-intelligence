@@ -10,6 +10,7 @@ import yaml
 
 from pipelines.common import dataframe_checksum, sha256_for_file, write_catalog, write_json, write_parquet
 from pipelines.connectors.base import ConnectorResult
+from pipelines.connectors.nhai_annual_documents import NHAIAnnualDocumentsConnector
 from pipelines.correlation import _approved_correlations, _build_metric_long, JOIN_KEYS, canonical_entity
 from pipelines.ingest import run_ingestion, refresh_quality_only, _load_nhai_extraction_quality
 from pipelines.quality import evidence_status, evaluate, semantic_errors, observation_date
@@ -108,6 +109,18 @@ class PublicationTests(unittest.TestCase):
         entry = self.run_fixture(FixtureConnector(frame, "manual_gap"))
         self.assertEqual(list(frame.columns), list(pd.read_parquet(entry["output_table_path"]).columns))
         self.assertFalse(entry["analytical_ready"])
+        self.assertIsNone(entry["source"].get("retrieved_at"))
+
+    def test_unchanged_data_adopts_license_correction_without_changing_lineage(self):
+        first = self.run_fixture(FixtureConnector(self.frame))
+        sha = sha256_for_file(self.processed / "fixture_source.parquet")
+        self.source.update(publisher_org="Corrected publisher", license_terms="Source-specific terms", publisher_type="government")
+        self.inventory.write_text(yaml.safe_dump({"sources": [self.source]}))
+        second = self.run_fixture(FixtureConnector(self.frame))
+        self.assertEqual("Corrected publisher", second["source"]["publisher"])
+        self.assertEqual("Source-specific terms", second["source"]["license_terms"])
+        self.assertEqual(first["source"]["retrieved_at"], second["source"]["retrieved_at"])
+        self.assertEqual(sha, sha256_for_file(self.processed / "fixture_source.parquet"))
 
     def test_unknown_selection_is_an_error(self):
         with self.assertRaises(ValueError):
@@ -147,6 +160,14 @@ class QualityTests(unittest.TestCase):
         self.assertEqual("2020-03-31", observation_date(frame, {"retrieved_at": "2026-10-02"}))
         self.assertIsNone(observation_date(pd.DataFrame({"value": [1]}), {"retrieved_at": "2026-10-02"}))
 
+    def test_document_http_and_publication_dates_are_not_observation_dates(self):
+        connector = NHAIAnnualDocumentsConnector()
+        source = {"publication_date": "2026-09-30"}
+        candidate = {"title": "Annual report published 30 September 2026"}
+        headers = {"Date": "Fri, 02 Oct 2026 00:00:00 GMT", "Last-Modified": "2026-10-01"}
+        self.assertIsNone(connector._extract_candidate_as_of(source, candidate, headers, "30 September 2026"))
+        self.assertEqual("2025-03-31", connector._extract_candidate_as_of(source, candidate | {"source_as_of_date": "2025-03-31"}, headers, None))
+
     def test_constraints_preserve_nhai_scope_and_progress_ranges(self):
         df = pd.DataFrame({"series_scope": ["All NH"], "period": ["2025-26"], "construction_progress_pct": [120]})
         failures = semantic_errors(df, {"source_id": "nhai_constructed_length_series_official"})
@@ -171,6 +192,10 @@ class QualityTests(unittest.TestCase):
             write_json({"source_parquet": str(source), "rows_merged": 1}, manifest)
             self.assertIsNone(_load_nhai_extraction_quality(root, str(source)))
             write_json({"source_parquet_sha256": sha256_for_file(source), "rows_merged": 1}, manifest)
+            # A stale or legacy hashless quality report cannot be attached even
+            # when the extraction manifest happens to match the live input.
+            self.assertIsNone(_load_nhai_extraction_quality(root, str(source)))
+            write_json({"source_parquet_sha256": sha256_for_file(source), "canonical_rows": 1, "quality": {}, "method_mix": {}}, quality)
             self.assertIsNotNone(_load_nhai_extraction_quality(root, str(source)))
             write_parquet(pd.DataFrame({"document": ["changed"]}), source)
             self.assertIsNone(_load_nhai_extraction_quality(root, str(source)))
@@ -184,7 +209,10 @@ class QualityTests(unittest.TestCase):
     def test_unsafe_candidate_is_recorded_without_unbound_reason(self):
         source = {"source_id": "fixture", "allow_auto_fetch": True, "url": "https://example.gov.in/resource", "resource_file_urls": ["http://127.0.0.1/private"]}
         with patch("research.scan._robots_allowed", return_value={"allowed": True}), patch("research.scan._http_probe", return_value={"status_ok": True, "http_status": 200}):
-            self.assertEqual("available", _scan_item(source)["scan_status"])
+            result = _scan_item(source)
+        self.assertEqual("available", result["scan_status"])
+        self.assertEqual("invalid_or_unsafe_url", result["endpoint_checks"][0]["error"])
+        self.assertFalse(result["endpoint_checks"][0]["request_attempted"])
 
     def test_explicit_robots_disallow_never_probes_endpoint(self):
         source = {"source_id": "fixture", "allow_auto_fetch": True, "url": "https://example.gov.in/resource"}

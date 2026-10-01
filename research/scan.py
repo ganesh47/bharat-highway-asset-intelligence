@@ -161,6 +161,8 @@ def _scan_item(item: Dict[str, Any]) -> Dict[str, Any]:
         return result
     if not sanitize_public_http_url(url, allowed_hosts=allowed_hosts):
         result["scan_error"] = "invalid_or_unsafe_url"
+        result["endpoint_checks"].append({"url": url, "status_ok": False, "http_status": None,
+                                          "error": "invalid_or_unsafe_url", "request_attempted": False})
         return result
 
     candidates = _safe_url_list(item)
@@ -177,6 +179,8 @@ def _scan_item(item: Dict[str, Any]) -> Dict[str, Any]:
         safe_candidate = sanitize_public_http_url(candidate, allowed_hosts=allowed_hosts)
         if not safe_candidate:
             result["scan_error"] = "invalid_or_unsafe_url"
+            result["endpoint_checks"].append({"url": candidate, "status_ok": False, "http_status": None,
+                                              "error": "invalid_or_unsafe_url", "request_attempted": False})
             continue
         robots = _robots_allowed(safe_candidate, allowed_hosts)
         if not robots.get("allowed"):

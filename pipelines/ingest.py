@@ -45,7 +45,9 @@ def _load_nhai_extraction_quality(processed_root: Path, output_table_path: str |
     expected = Path(output_table_path)
     input_sha = manifest_payload.get("source_parquet_sha256")
     # A matching pathname is insufficient: re-ingestion can replace the document list.
-    if not expected.is_file() or not input_sha or input_sha != sha256_for_file(expected):
+    if (not expected.is_file() or not input_sha
+            or input_sha != quality_payload.get("source_parquet_sha256")
+            or input_sha != sha256_for_file(expected)):
         return None
     total = quality_payload.get("canonical_rows", quality_payload.get("total_rows"))
     if total != manifest_payload.get("rows_merged"):
@@ -100,6 +102,16 @@ def _rewrite_paths(value, staged: Path, published: Path):
 
 
 def _annotate(entry: dict, source: dict, df: pd.DataFrame, processed_root: Path) -> dict:
+    # Inventory corrections describe the same retained artifact; collection and
+    # extraction lineage stay pinned to the bytes that actually produced it.
+    source_metadata = entry.setdefault("source", {})
+    for inventory_key, metadata_key in (("publisher_org", "publisher"), ("dataset_title", "title"),
+                                       ("official_flag", "official_flag"), ("license_terms", "license_terms"),
+                                       ("publisher_type", "publisher_type"), ("domain", "domain")):
+        if inventory_key in source:
+            source_metadata[metadata_key] = source[inventory_key]
+    if source.get("resource_page_url") or source.get("url"):
+        source_metadata["url"] = source.get("resource_page_url") or source["url"]
     scope = LEGACY_SCOPE_METADATA.get(source["source_id"], {}) | {key: source[key] for key in ("agency", "entity_type", "entity_id", "road_class", "scope_note", "source_as_of_date", "publisher_type") if key in source}
     entry["analytical_scope"] = scope or {"road_class": "unspecified", "scope_note": "Use source-specific row definitions; no cross-source identity inferred."}
     evidence = evidence_status(df, source, entry)
@@ -197,7 +209,11 @@ def run_ingestion(
                 if not previous:
                     entry = _base_manifest(source, output) | {k: v for k, v in entry.items() if k not in {"manifest", "output_table_path"}}
                     entry["manifest"] = {"raw_files": [], "row_count": len(published_df), "columns": list(published_df.columns), "output_files": []}
-                entry.setdefault("source", {}).setdefault("retrieved_at", checked)
+                if not previous and published_df.empty:
+                    # A failed request is a check, not a successful retrieval.
+                    entry.setdefault("source", {}).pop("retrieved_at", None)
+                    entry.pop("retrieved_at", None)
+                    entry.pop("last_successful_retrieval_at", None)
                 if connector is None:
                     outcome = "not_mapped"
                 elif entry.get("status") == "metadata_only":

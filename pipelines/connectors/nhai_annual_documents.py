@@ -577,19 +577,19 @@ class NHAIAnnualDocumentsConnector:
             return None, None
 
     def _extract_candidate_as_of(self, source: Dict[str, Any], candidate: Dict[str, Any], headers: dict[str, str], pdf_text: str | None) -> str | None:
+        # HTTP Date and Last-Modified describe delivery/publication, not the
+        # period measured by a report. Do not change observations on each fetch.
         hints = [
             candidate.get("as_of"),
+            candidate.get("source_as_of_date"),
             source.get("as_of"),
-            source.get("publication_date"),
-            source.get("date"),
-            headers.get("Last-Modified"),
-            headers.get("Date"),
+            source.get("source_as_of_date"),
         ]
         for hint in hints:
             parsed = self._parse_date_hint(hint)
             if parsed:
                 return parsed
-        return self._parse_date_hint(candidate.get("title")) or self._parse_date_hint(pdf_text)
+        return None
 
     def _row_from_candidate(
         self,
@@ -621,8 +621,6 @@ class NHAIAnnualDocumentsConnector:
         raw_pdf = self._write_raw_response(raw_root / source_id, source_id, response.content, ".pdf")
         publication_date, pdf_text = self._pdf_metadata(raw_pdf)
         as_of = self._extract_candidate_as_of(source, candidate, response.headers, pdf_text)
-        if not as_of:
-            as_of = publication_date
 
         title = self._safe_text(candidate.get("title", "")) or raw_pdf.name
         doc_year = (
