@@ -108,13 +108,16 @@ Why branch deploy is used:
 - the repository previously hit upstream Node runtime warnings in GitHub-maintained Pages actions
 - the current deploy path avoids those actions and publishes directly to `gh-pages`
 
-On each push to `main`, the workflow:
+On a push to `main`, the research workflow:
 - runs scan + gap report
 - runs ingestion and correlation generation
 - runs the NHAI OCR shard/merge/confidence-refresh path only when OCR-relevant pipeline, source, manifest, or workflow files change
-- packages `apps/web` with `data/manifests` and `data/processed`
-- force-pushes the packaged site to `gh-pages`
-- runs Playwright smoke against the final published Pages URL, with retries to absorb GitHub Pages propagation lag
+- stages downloads and preserves the last validated observation after failures
+- validates artifacts and publishes the `bhai-research-artifacts` Actions artifact
+
+Daily scheduled and manual runs use the same pipeline. A manual run can select `ocr_mode=skip` to refresh other sources without repeating OCR; existing extraction quality remains tied to its exact source checksum. Scheduled runs exercise the full OCR path.
+
+After a successful trusted research run on `main`, the deployment workflow restores **that run's validated artifact**, packages `apps/web` with its manifests and parquet files, and publishes to `gh-pages`. The bundle manifest records the research run ID, source revision and catalog checksum. Post-deployment checks verify that the published catalog matches the artifact before running Playwright chart, evidence-filter, citation, accessibility and screenshot checks.
 
 Manual run:
 
@@ -126,7 +129,7 @@ Manual run:
    - `source.branch = gh-pages`
    - `source.path = /`
 3. Ensure repo secret `PAGES_DEPLOY_TOKEN` is configured.
-4. Push to `main` or run `workflow_dispatch` from `main`.
+4. Push to `main` or dispatch `research-pipeline.yml` from `main`. Direct manual deployment requires a successful research artifact for the same revision.
 5. Access at `https://<org-or-user>.github.io/<repo>/`.
 
 ## Output artifacts
