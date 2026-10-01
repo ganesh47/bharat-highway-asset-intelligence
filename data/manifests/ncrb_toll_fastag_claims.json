@@ -62,8 +62,8 @@
   "output_table_path": "data/processed/ncrb_toll_fastag_claims.parquet",
   "refresh_error": "Million-scale metric is labelled as an unscaled count",
   "data_checksum": "6d6850811b134df363baa66698fb5b191623e27185774490dd6385e28407f0f8",
-  "last_checked_at": "2026-10-01T20:10:12.915850+00:00",
-  "refresh_outcome": "manual_evidence_required",
+  "last_checked_at": "2026-10-01T20:29:44.113853+00:00",
+  "refresh_outcome": "restricted",
   "analytical_scope": {
     "road_class": "unspecified",
     "scope_note": "Use source-specific row definitions; no cross-source identity inferred."

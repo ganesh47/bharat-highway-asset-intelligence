@@ -1,17 +1,20 @@
 {
-  "generated_at": "2026-10-01T20:22:53.310076+00:00",
-  "started_at": "2026-10-01T20:22:52.808477+00:00",
+  "generated_at": "2026-10-01T20:29:44.134681+00:00",
+  "started_at": "2026-10-01T20:29:44.030836+00:00",
   "registered_source_count": 50,
   "checked_source_count": 50,
   "run_source_ids": [
-    "data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026"
+    "morh_procurement_awards",
+    "morh_contractor_disclosures",
+    "morh_arbitration_claims",
+    "ncrb_toll_fastag_claims"
   ],
   "outcome_counts": {
     "checked_unchanged": 18,
     "updated": 18,
     "metadata_only": 1,
-    "manual_evidence_required": 10,
-    "restricted": 2,
+    "manual_evidence_required": 6,
+    "restricted": 6,
     "retained_after_failure": 1
   },
   "analytical_ready_source_count": 32,
@@ -383,8 +386,8 @@
     },
     {
       "source_id": "morh_procurement_awards",
-      "outcome": "manual_evidence_required",
-      "last_checked_at": "2026-10-01T20:10:12.883636+00:00",
+      "outcome": "restricted",
+      "last_checked_at": "2026-10-01T20:29:44.030852+00:00",
       "source_as_of_date": "2025-12-31",
       "publication_date": null,
       "analytical_ready": false,
@@ -396,8 +399,8 @@
     },
     {
       "source_id": "morh_contractor_disclosures",
-      "outcome": "manual_evidence_required",
-      "last_checked_at": "2026-10-01T20:10:12.895890+00:00",
+      "outcome": "restricted",
+      "last_checked_at": "2026-10-01T20:29:44.082882+00:00",
       "source_as_of_date": "2025-12-31",
       "publication_date": null,
       "analytical_ready": false,
@@ -409,8 +412,8 @@
     },
     {
       "source_id": "morh_arbitration_claims",
-      "outcome": "manual_evidence_required",
-      "last_checked_at": "2026-10-01T20:10:12.906059+00:00",
+      "outcome": "restricted",
+      "last_checked_at": "2026-10-01T20:29:44.098520+00:00",
       "source_as_of_date": "2025-12-31",
       "publication_date": null,
       "analytical_ready": false,
@@ -422,8 +425,8 @@
     },
     {
       "source_id": "ncrb_toll_fastag_claims",
-      "outcome": "manual_evidence_required",
-      "last_checked_at": "2026-10-01T20:10:12.915850+00:00",
+      "outcome": "restricted",
+      "last_checked_at": "2026-10-01T20:29:44.113853+00:00",
       "source_as_of_date": "2025-12-31",
       "publication_date": null,
       "analytical_ready": false,
@@ -632,7 +635,7 @@
       "source_id": "upeida_expressway_projects",
       "outcome": "updated",
       "last_checked_at": "2026-10-01T20:10:25.306552+00:00",
-      "source_as_of_date": "2026-12-31",
+      "source_as_of_date": null,
       "publication_date": null,
       "analytical_ready": false,
       "evidence_status": "verified",

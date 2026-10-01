@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T20:22:53.599301+00:00",
+  "generated_at": "2026-10-01T20:33:26.180393+00:00",
   "datasets": [
     {
       "source_id": "data_gov_in_nhai_projects_api",
@@ -1658,8 +1658,8 @@
       "output_table_path": "data/processed/morh_procurement_awards.parquet",
       "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
       "data_checksum": "255386f168077c123f70388692b72603ce6456fdfd987f071d85d9070b7d7032",
-      "last_checked_at": "2026-10-01T20:10:12.883636+00:00",
-      "refresh_outcome": "manual_evidence_required",
+      "last_checked_at": "2026-10-01T20:29:44.030852+00:00",
+      "refresh_outcome": "restricted",
       "analytical_scope": {
         "road_class": "unspecified",
         "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
@@ -1738,8 +1738,8 @@
       "output_table_path": "data/processed/morh_contractor_disclosures.parquet",
       "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
       "data_checksum": "f60dfd6c412eec5eb39100ccd13b0b188da130b47b348f67baa12cff886a27ff",
-      "last_checked_at": "2026-10-01T20:10:12.895890+00:00",
-      "refresh_outcome": "manual_evidence_required",
+      "last_checked_at": "2026-10-01T20:29:44.082882+00:00",
+      "refresh_outcome": "restricted",
       "analytical_scope": {
         "road_class": "unspecified",
         "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
@@ -1818,8 +1818,8 @@
       "output_table_path": "data/processed/morh_arbitration_claims.parquet",
       "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
       "data_checksum": "cdb56af7237c1d1dba24bc3226db7f0b18e430058ff477d2b4e12fe287c649a1",
-      "last_checked_at": "2026-10-01T20:10:12.906059+00:00",
-      "refresh_outcome": "manual_evidence_required",
+      "last_checked_at": "2026-10-01T20:29:44.098520+00:00",
+      "refresh_outcome": "restricted",
       "analytical_scope": {
         "road_class": "unspecified",
         "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
@@ -1898,8 +1898,8 @@
       "output_table_path": "data/processed/ncrb_toll_fastag_claims.parquet",
       "refresh_error": "Million-scale metric is labelled as an unscaled count",
       "data_checksum": "6d6850811b134df363baa66698fb5b191623e27185774490dd6385e28407f0f8",
-      "last_checked_at": "2026-10-01T20:10:12.915850+00:00",
-      "refresh_outcome": "manual_evidence_required",
+      "last_checked_at": "2026-10-01T20:29:44.113853+00:00",
+      "refresh_outcome": "restricted",
       "analytical_scope": {
         "road_class": "unspecified",
         "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
@@ -4688,7 +4688,7 @@
       "last_successful_retrieval_at": "2026-10-01T19:49:37.207385+00:00",
       "data_changed_at": "2026-10-01T20:10:25.306552+00:00",
       "publication_date": null,
-      "source_as_of_date": "2026-12-31",
+      "source_as_of_date": null,
       "analytical_ready": false,
       "evidence_status": "verified",
       "disclosure_ready": true,
@@ -4817,10 +4817,12 @@
       "consistency_score": 0.98,
       "overall_confidence_badge": "Med",
       "overall_confidence_reason": [
-        "Recency is stale against claimed update frequency"
+        "Recency is stale against claimed update frequency",
+        "Observation date is unavailable; collection time is not data freshness"
       ],
-      "recency_basis": "observation_date",
-      "validation_errors": []
+      "recency_basis": "unknown",
+      "validation_errors": [],
+      "last_quality_check_at": "2026-10-01T20:33:26.179909+00:00"
     },
     {
       "source_id": "msrdc_financial_disclosures",

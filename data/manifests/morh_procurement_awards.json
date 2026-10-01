@@ -62,8 +62,8 @@
   "output_table_path": "data/processed/morh_procurement_awards.parquet",
   "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
   "data_checksum": "255386f168077c123f70388692b72603ce6456fdfd987f071d85d9070b7d7032",
-  "last_checked_at": "2026-10-01T20:10:12.883636+00:00",
-  "refresh_outcome": "manual_evidence_required",
+  "last_checked_at": "2026-10-01T20:29:44.030852+00:00",
+  "refresh_outcome": "restricted",
   "analytical_scope": {
     "road_class": "unspecified",
     "scope_note": "Use source-specific row definitions; no cross-source identity inferred."

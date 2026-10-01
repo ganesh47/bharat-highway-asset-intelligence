@@ -62,8 +62,8 @@
   "output_table_path": "data/processed/morh_contractor_disclosures.parquet",
   "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
   "data_checksum": "f60dfd6c412eec5eb39100ccd13b0b188da130b47b348f67baa12cff886a27ff",
-  "last_checked_at": "2026-10-01T20:10:12.895890+00:00",
-  "refresh_outcome": "manual_evidence_required",
+  "last_checked_at": "2026-10-01T20:29:44.082882+00:00",
+  "refresh_outcome": "restricted",
   "analytical_scope": {
     "road_class": "unspecified",
     "scope_note": "Use source-specific row definitions; no cross-source identity inferred."

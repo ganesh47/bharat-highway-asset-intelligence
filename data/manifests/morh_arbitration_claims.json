@@ -62,8 +62,8 @@
   "output_table_path": "data/processed/morh_arbitration_claims.parquet",
   "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
   "data_checksum": "cdb56af7237c1d1dba24bc3226db7f0b18e430058ff477d2b4e12fe287c649a1",
-  "last_checked_at": "2026-10-01T20:10:12.906059+00:00",
-  "refresh_outcome": "manual_evidence_required",
+  "last_checked_at": "2026-10-01T20:29:44.098520+00:00",
+  "refresh_outcome": "restricted",
   "analytical_scope": {
     "road_class": "unspecified",
     "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
