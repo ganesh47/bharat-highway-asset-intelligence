@@ -527,10 +527,41 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
                     raise RuntimeError(f"CSV lost lineage field: {field}")
             if len(csv_text.splitlines()) < 2:
                 raise RuntimeError("CSV export has no observation rows")
+            await page.get_by_label('Estimate type', exact=True).select_option('BE')
+            if await table.locator('tbody tr').count() < 1 or 'Budget estimate' not in await table.inner_text():
+                raise RuntimeError('Budget estimates must remain visible and distinct from measured actuals')
+            await page.get_by_label('Estimate type', exact=True).select_option('All')
+            await page.get_by_label('Evidence class', exact=True).select_option('target')
+            if await table.locator('tbody tr[data-evidence-class="target"]').count() < 1 or 'excluded from measured calculations' not in await table.inner_text():
+                raise RuntimeError('Validated targets must remain visible with calculation exclusions')
+            await page.get_by_label('Evidence class', exact=True).select_option('All')
             await page.get_by_role('button', name='Debt & repayments', exact=False).click()
             debt_text = await page.locator('.analyst-evidence-panel').inner_text()
             if 'Disclosed debt maturity buckets are available' not in debt_text and 'No validated debt maturity schedule' not in debt_text:
                 raise RuntimeError("Debt maturities must show disclosed scope or an explicit evidence gap")
+            await page.get_by_label('Agency', exact=True).select_option('NHIT')
+            await page.get_by_label('Metric', exact=True).select_option('debt_maturity_lt1yr_inr_crore')
+            if await table.locator('tbody tr').count() < 1 or 'contractual_undiscounted_maturity' not in await table.inner_text():
+                raise RuntimeError('NHIT disclosed maturities must preserve contractual statement basis')
+            await page.get_by_role('button', name='State road spending', exact=False).click()
+            if await table.locator('tbody tr').count() < 1 or 'roads_and_bridges_all_classes' not in await table.inner_text():
+                raise RuntimeError('State road finances must retain their wider Roads and Bridges scope')
+            state_selector = page.locator('.toolbar select').first
+            await state_selector.select_option('Maharashtra')
+            for estimate_type in ['actual', 'BE', 'RE']:
+                await page.get_by_label('Estimate type', exact=True).select_option(estimate_type)
+                if await table.locator('tbody tr').count() < 1 or 'Maharashtra' not in await table.inner_text():
+                    raise RuntimeError(f'Maharashtra state road expenditure missing for {estimate_type}')
+                if 'rbi_state_road_finances' not in await table.inner_text():
+                    raise RuntimeError('State road finance rows lost their RBI primary-source lineage')
+            await page.get_by_role('button', name='Debt & repayments', exact=False).click()
+            await page.get_by_label('Metric', exact=True).select_option('state_government_guarantees_outstanding_inr_crore')
+            guarantee_text = await table.inner_text()
+            if await table.locator('tbody tr').count() < 1 or not all(marker in guarantee_text for marker in ['All sectors', 'state_government', 'rbi_state_road_finances']):
+                raise RuntimeError('Maharashtra guarantees must remain all-sector state-government observations')
+            if 'guarantees are contingent exposures and are not added to debt' not in await page.locator('.analyst-evidence-panel').inner_text():
+                raise RuntimeError('Contingent guarantees must not be presented as highway debt')
+            await state_selector.select_option('All')
             await page.get_by_role('button', name='NH & SH networks', exact=False).click()
             network_panel = page.locator('.analyst-evidence-panel')
             if await network_panel.locator('tbody tr').count() < 1:
@@ -567,6 +598,13 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
                     raise RuntimeError("Empty state/finance selection must show unavailable evidence")
                 await state_selector.select_option('All')
             await page.get_by_role('button', name='Funding & outcomes', exact=False).click()
+
+            await page.set_viewport_size({'width': 390, 'height': 844})
+            if await page.evaluate('document.documentElement.scrollWidth > innerWidth + 1'):
+                raise RuntimeError('Narrow viewport has page-level horizontal overflow')
+            if not await page.get_by_label('Agency', exact=True).is_visible():
+                raise RuntimeError('Disclosure filters are not usable on a narrow viewport')
+            await page.set_viewport_size({'width': 1280, 'height': 720})
 
             if generate_screenshot:
                 await page.screenshot(path="buildcheck/last-smoke.png", full_page=True)

@@ -553,7 +553,14 @@ button {
 .analyst-console {
   margin: 22px 0;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 12px;
+}
+
+.analyst-console > *,
+.analyst-highlights > *,
+.evidence-table-wrap {
+  min-width: 0;
 }
 
 .analyst-console h2,
@@ -634,6 +641,7 @@ button {
 }
 
 .evidence-table-wrap {
+  width: 100%;
   max-height: 560px;
   overflow: auto;
   border: 1px solid var(--line);
@@ -728,6 +736,10 @@ summary:focus-visible {
 }
 
 @media (max-width: 700px) {
+  .chart-grid[data-size] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .analyst-console .source-line {
     flex-wrap: wrap;
     align-items: start;
@@ -740,6 +752,10 @@ summary:focus-visible {
   .toolbar .toggle-group {
     flex-wrap: wrap;
     border-radius: 12px;
+  }
+
+  .metric-card {
+    overflow-wrap: anywhere;
   }
 }
 
