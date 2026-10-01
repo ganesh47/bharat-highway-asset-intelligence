@@ -111,6 +111,16 @@ incurred expenditure. The cited Total covers only Arunachal Pradesh, Nagaland,
 Manipur and Tripura. A committed reference-evidence JSON pins the PDF and CSV
 checksums and the comparison cells.
 
+The legacy five-state NIP project summary is planned pipeline context. Its
+capital-outlay columns cover2020-2024 planned investment, not incurred expenditure
+or a2024 stock observation. The original parliamentary answer date is unverified.
+The official OGD resource's embedded publication timestamp gives23December2021;
+its January2022 metadata update does not refresh the underlying observation.
+This source retains its existing identifier and raw snapshot but is marked
+`evidence_class=target` and `analytical_eligible=false`. Its observation cutoff
+stays unknown. The five states are Uttar Pradesh, Tamil Nadu, Kerala, West Bengal
+and Assam; this table cannot establish all-state project coverage.
+
 Issuer/multilateral public disclosure is not blanket permission to redistribute
 whole reports. CSV extracts link to originals and cite only relevant tables;
 no blanket OGL licence is asserted for those documents.

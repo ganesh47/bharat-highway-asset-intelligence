@@ -58,21 +58,23 @@ sources:
 
   - source_id: data_gov_in_nhai_state_projects_api
     official_flag: true
-    publisher_org: National Highways Authority of India (NHAI)
+    publisher_org: Ministry of Road Transport and Highways (MoRTH) / Parliament Secretariat
+    agency_scope: MoRTH National Infrastructure Pipeline road projects; implementing agencies not separated
+    entity_type: state_aggregate
     domain: data.gov.in
-    dataset_title: State-wise national highway and road project counts
+    dataset_title: Five-state NIP highway project plans and planned capital outlay for 2020-2024
     theme: projects
     access_type: API
     auth: key
     update_frequency: annual
     geographic_granularity: state
-    temporal_coverage: 2021-2026
+    temporal_coverage: 2020-2024 plan horizon; original parliamentary observation date unverified
     license_terms: "Open Government Data License - India (OGL), subject to data.gov.in terms"
     retrieval_method: API call
     resource_page_url: https://www.data.gov.in/resource/state-wise-number-nh-and-road-projects-relating-are-included-national-infrastructure
     reliability_grade: B
-    reliability_justification: Official data.gov.in state-level NH project inventory suitable for cross-state gap checks.
-    known_limitations: "This page publishes a compact summary; some releases may require manual validation for disaggregated filters."
+    reliability_justification: Official data.gov.in reproduction of a MoRTH parliamentary NIP plan table; planned pipeline context only.
+    known_limitations: "Only Uttar Pradesh, Tamil Nadu, Kerala, West Bengal and Assam are included. Capital outlay for2020-2024 is planned investment, not actual expenditure or observed highway stock. The plan end-year is not an observation cutoff. Original parliamentary answer date is unverified."
     allow_auto_fetch: true
     url: https://api.data.gov.in/resource/{resource_id}
     resource_id: b358bfbb-1eee-4e3f-9ebd-956cae5040a7
@@ -80,7 +82,15 @@ sources:
     api_key_env: DATA_GOV_IN_API_KEY
     resource_nid: 6904484
     permanent_identifier_hint: "uuid b358bfbb-1eee-4e3f-9ebd-956cae5040a7"
-    notes: "Auto-fetched from data.gov.in API (uuid). Page/file fallback retained."
+    evidence_class: target
+    analytical_eligible: false
+    publication_date: '2021-12-23'
+    source_as_of_date: null
+    observation_date_unknown: true
+    primary_reference_url: https://www.data.gov.in/resource/state-wise-number-nh-and-road-projects-relating-are-included-national-infrastructure
+    primary_reference_sha256: 2a8166c46e56457603daa0048acba207646f2534f48c33b739890e9b9737caf9
+    evidence_metadata_path: data/raw/manual/evidence/data_gov_in_nhai_state_projects_api.json
+    notes: "Official resource page identifies Rajya SabhaSession253 unstarred question2230 and NIP capital outlay for2020-2024. Resource published_date1640274379 gives23December2021; OGD metadata update28January2022 is not a new observation. Exact parliamentary answer/table cutoff remains unknown. Snapshot preserved for planned pipeline context, excluded from measured analytics. API/file fallback retained."
     resource_file_urls:
       - https://data.gov.in/sites/default/files/dataurl08122021/RS_Session_253_AU2230.C.csv
     manual_fallback: true
