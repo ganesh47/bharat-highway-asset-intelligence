@@ -83,5 +83,6 @@
   "analytical_ready": true,
   "extraction_status": "validated",
   "recency_basis": "observation_date",
-  "validation_errors": []
+  "validation_errors": [],
+  "last_quality_check_at": "2026-10-01T22:14:43.664433+00:00"
 }

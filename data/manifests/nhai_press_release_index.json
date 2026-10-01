@@ -71,5 +71,6 @@
   "analytical_ready": false,
   "extraction_status": "fetched",
   "recency_basis": "unknown",
-  "validation_errors": []
+  "validation_errors": [],
+  "last_quality_check_at": "2026-10-01T22:09:09.192988+00:00"
 }

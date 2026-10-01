@@ -5,13 +5,15 @@
   "status": "manual_ingest",
   "metric_category": "proxy_derived",
   "source": {
-    "publisher": "NASA Earthdata / NOAA",
-    "title": "VIIRS nightlights proxy activity index around national highways",
-    "url": "https://earthdata.nasa.gov/",
+    "publisher": "NASA VIIRS Land Science Investigator-led Processing System / LAADS DAAC",
+    "title": "NASA VNP46A4 yearly Black Marble nightlights proxy discovery",
+    "url": "https://ladsweb.modaps.eosdis.nasa.gov/missions-and-measurements/products/VNP46A4/",
     "retrieved_at": "2026-03-11T05:17:35.842099+00:00",
     "license_terms": "Use NASA VIIRS proxy dataset under official redistribution terms; separate from measured infrastructure condition metrics.",
     "official_flag": false,
-    "domain": "earthdata.nasa.gov"
+    "domain": "ladsweb.modaps.eosdis.nasa.gov",
+    "observation_date_unknown": true,
+    "publication_date_unknown": true
   },
   "citations": {
     "permanent_identifier": "official nightlight scene id or annual product release",
@@ -65,8 +67,7 @@
   "last_checked_at": "2026-10-01T20:10:12.936977+00:00",
   "refresh_outcome": "manual_evidence_required",
   "analytical_scope": {
-    "road_class": "unspecified",
-    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+    "observation_date_unknown": true
   },
   "evidence_status": "unverified",
   "source_as_of_date": null,
@@ -77,5 +78,5 @@
   "recency_basis": "unknown",
   "validation_errors": [],
   "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date",
-  "last_quality_check_at": "2026-10-01T21:28:26.581359+00:00"
+  "last_quality_check_at": "2026-10-01T22:14:43.661917+00:00"
 }

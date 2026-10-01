@@ -5,13 +5,15 @@
   "status": "manual_ingest",
   "metric_category": "official_measured",
   "source": {
-    "publisher": "Ministry of Statistics and Programme Implementation / Parliament Secretariat",
+    "publisher": "Ministry of Road Transport and Highways / Parliament Secretariat",
     "title": "Parliamentary Questions and written replies on highways",
-    "url": "https://sansad.in/",
+    "url": "https://sansad.in/rs/questions/questions-and-answers",
     "retrieved_at": "2026-03-11T05:17:35.798756+00:00",
     "license_terms": "Official parliament documentation; cite Q&A number and session/session year in methodology.",
     "official_flag": true,
-    "domain": "sansad.in"
+    "domain": "sansad.in",
+    "observation_date_unknown": true,
+    "publication_date_unknown": true
   },
   "citations": {
     "permanent_identifier": "question number + session year",
@@ -66,8 +68,7 @@
   "last_checked_at": "2026-10-01T20:10:06.693681+00:00",
   "refresh_outcome": "manual_evidence_required",
   "analytical_scope": {
-    "road_class": "unspecified",
-    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+    "observation_date_unknown": true
   },
   "evidence_status": "unverified",
   "source_as_of_date": null,
@@ -78,5 +79,5 @@
   "recency_basis": "unknown",
   "validation_errors": [],
   "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date",
-  "last_quality_check_at": "2026-10-01T21:28:26.572377+00:00"
+  "last_quality_check_at": "2026-10-01T22:14:43.649255+00:00"
 }

@@ -7,11 +7,13 @@
   "source": {
     "publisher": "Ministry of Road Transport and Highways (MoRTH)",
     "title": "Procurement and award notices for highway works",
-    "url": "https://eprocure.gov.in",
+    "url": "https://eprocure.gov.in/epublish//app",
     "retrieved_at": "2026-03-11T05:17:35.811480+00:00",
     "license_terms": "EProcurement portal terms and bidder-facing reuse restrictions.",
     "official_flag": true,
-    "domain": "eprocure.gov.in"
+    "domain": "eprocure.gov.in",
+    "observation_date_unknown": true,
+    "publication_date_unknown": true
   },
   "citations": {
     "permanent_identifier": "notice number and award order id",
@@ -66,8 +68,7 @@
   "last_checked_at": "2026-10-01T20:29:44.030852+00:00",
   "refresh_outcome": "restricted",
   "analytical_scope": {
-    "road_class": "unspecified",
-    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+    "observation_date_unknown": true
   },
   "evidence_status": "unverified",
   "source_as_of_date": null,
@@ -78,5 +79,5 @@
   "recency_basis": "unknown",
   "validation_errors": [],
   "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date",
-  "last_quality_check_at": "2026-10-01T21:28:26.574067+00:00"
+  "last_quality_check_at": "2026-10-01T22:14:43.653523+00:00"
 }

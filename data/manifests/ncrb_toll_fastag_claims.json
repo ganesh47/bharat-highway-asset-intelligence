@@ -5,13 +5,16 @@
   "status": "manual_ingest",
   "metric_category": "official_measured",
   "source": {
-    "publisher": "Ministry of Road Transport and Highways (MoRTH)",
+    "publisher": "National Payments Corporation of India (NPCI)",
     "title": "Toll and FASTag collection quality signal snapshots",
-    "url": "https://fto.gov.in/api/toll-fastag",
+    "url": "https://www.npci.org.in/product/ecosystem-statistics/netc",
     "retrieved_at": "2026-03-11T05:17:35.830438+00:00",
-    "license_terms": "Portal specific API terms. Verify if telemetry fields are aggregated only.",
-    "official_flag": true,
-    "domain": "fto.gov.in"
+    "license_terms": "NPCI site/product terms apply; no NCRB, government OGL or public API licence is asserted. Cite the exact NETC statistics table and period.",
+    "official_flag": false,
+    "domain": "www.npci.org.in",
+    "publisher_type": "payment_system",
+    "observation_date_unknown": true,
+    "publication_date_unknown": true
   },
   "citations": {
     "permanent_identifier": "API endpoint version and response schema",
@@ -50,7 +53,7 @@
   "retrieved_at": "2026-03-11T05:17:35.830438+00:00",
   "completeness_score": 0.98,
   "recency_score": 0.25,
-  "provenance_score": 0.6859999999999999,
+  "provenance_score": 0.588,
   "consistency_score": 0.75,
   "overall_confidence_badge": "Low",
   "overall_confidence_reason": [
@@ -66,8 +69,8 @@
   "last_checked_at": "2026-10-01T20:29:44.113853+00:00",
   "refresh_outcome": "restricted",
   "analytical_scope": {
-    "road_class": "unspecified",
-    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+    "publisher_type": "payment_system",
+    "observation_date_unknown": true
   },
   "evidence_status": "unverified",
   "source_as_of_date": null,
@@ -80,5 +83,5 @@
     "Million-scale metric is labelled as an unscaled count"
   ],
   "quarantine_reason": "Million-scale metric is labelled as an unscaled count",
-  "last_quality_check_at": "2026-10-01T21:28:26.578485+00:00"
+  "last_quality_check_at": "2026-10-01T22:14:43.658462+00:00"
 }

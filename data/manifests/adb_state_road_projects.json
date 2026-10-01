@@ -1,11 +1,25 @@
 {
   "source_id": "adb_state_road_projects",
-  "status": "manual_gap",
-  "metric_category": "official_measured",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "issuer_disclosed",
+  "refresh_outcome": "updated",
+  "last_checked_at": "2026-10-01T22:09:08.840551+00:00",
+  "last_successful_retrieval_at": "2026-10-01T21:54:50.461542+00:00",
+  "data_changed_at": "2026-10-01T22:09:08.840551+00:00",
+  "publication_date": "2025-09-05",
+  "source_as_of_date": "2025-05-19",
+  "analytical_ready": true,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "",
   "source": {
-    "publisher": "Asian Development Bank",
+    "publisher": "Maharashtra Public Works Department (borrower-owned accounts) / Asian Development Bank (disclosure host)",
     "title": "ADB Maharashtra State Road Improvement Project52298-001",
     "url": "https://www.adb.org/projects/52298-001/main",
+    "retrieved_at": "2026-10-01T21:54:50.461542+00:00",
     "official_flag": false,
     "publisher_type": "multilateral",
     "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
@@ -14,11 +28,52 @@
   "citations": {
     "permanent_identifier": "adb_state_road_projects",
     "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
-    "note": "Official project52298-001 primary page HTTP403; financial statement April2024-May2025 disclosed in index; no unretrieved numerical facts."
+    "note": "Final scanned MPWD project accounts visually checked on physical pages3-8,11-13,24-25. Exact PDF hash pinned; OCR digit errors are not ingested. Cash basis; current1April2024-19May2025, priorFY2023-24, cumulative1April2020-19May2025. Authorised20August2025; auditor22August2025; ADB document pagepublished5September2025. Government of India borrower, ADB lender, MPWD executing agency. No state aggregate debt/guarantees inferred. Printed dashes remain absent. Investment components differ from printed subtotal by one INRthousand. Nine printed package deposits sum928394 versus reported total928530 INRthousand, an unreconciled136-thousand discrepancy; no cause inferred. Reported assertions retained separately. Project450km/5year-maintenance objectives and historical PAM cost plan are target context, excluded from measured arithmetic. Automated ADB requests remain restricted; manual browser download archive used, no automatic refresh claim.",
+    "primary_reference": {
+      "url": "https://www.adb.org/sites/default/files/project-documents/52298/52298-001-apfs-en_3.pdf",
+      "sha256": "d8d949023e38e46929f39edf948b642fcc670d34332e841ba186121d0b955ffd",
+      "table_page": null,
+      "evidence_metadata_path": "data/raw/manual/evidence/adb_state_road_projects.json"
+    }
   },
   "manifest": {
-    "raw_files": [],
-    "row_count": 0,
+    "raw_files": [
+      {
+        "path": "data/raw/manual/evidence/adb_state_road_projects.json",
+        "sha256": "c586e367862542c444d3d508a3742a1282280639260fbb4199edd220e7384541",
+        "size_bytes": 2132
+      },
+      {
+        "path": "data/raw/primary_disclosures/adb_state_road_projects/document.pdf",
+        "sha256": "d8d949023e38e46929f39edf948b642fcc670d34332e841ba186121d0b955ffd",
+        "size_bytes": 3005347
+      },
+      {
+        "path": "data/raw/manual/adb_state_road_projects.csv",
+        "sha256": "8c2b7b703801d920bf4f067f2ed97bc31bc557672e1064a2c539bd66b7fd974d",
+        "size_bytes": 109149
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://www.adb.org/sites/default/files/project-documents/52298/52298-001-apfs-en_3.pdf",
+        "relative_path": "primary_disclosures/adb_state_road_projects/document.pdf",
+        "sha256": "d8d949023e38e46929f39edf948b642fcc670d34332e841ba186121d0b955ffd",
+        "size_bytes": 3005347,
+        "artifact_kind": "publisher_pdf",
+        "checksum_scope": "Exact downloaded publisher PDF bytes",
+        "extraction_method": "Checksum-pinned visual transcription of scanned tables; embedded OCR is not numerical authority",
+        "publication_reference_url": "https://www.adb.org/projects/documents/ind-52298-001-apfs-3"
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/adb_state_road_projects.parquet",
+        "format": "parquet",
+        "sha256": "e84de258406d01c70817ff026a30df2e4696d0154db9caa7dc4c57555942b845"
+      }
+    ],
+    "row_count": 77,
     "columns": [
       "entity_id",
       "entity_name",
@@ -65,49 +120,24 @@
       "concessionaire_id",
       "financing_entity_id",
       "contractor_name"
-    ],
-    "output_files": [
-      {
-        "path": "data/processed/adb_state_road_projects.parquet",
-        "format": "parquet",
-        "sha256": "f4f94eac01503b05db3e2395aa8d84de7c2d2014378bf33d352945166cb7552c"
-      }
     ]
   },
-  "output_table_path": "data/processed/adb_state_road_projects.parquet",
-  "connector": "primary_disclosures",
-  "version": "1.0.0",
-  "refresh_outcome": "restricted",
-  "last_checked_at": "2026-10-01T20:17:36.386717+00:00",
-  "data_changed_at": null,
-  "publication_date": null,
-  "source_as_of_date": null,
-  "analytical_ready": false,
-  "evidence_status": "unavailable",
-  "disclosure_ready": false,
-  "extraction_status": "evidence_gap",
-  "skip_reason": "Official project52298-001 primary page HTTP403; financial statement April2024-May2025 disclosed in index; no unretrieved numerical facts.",
+  "retrieved_at": "2026-10-01T21:54:50.461542+00:00",
   "semantic_rechecks": [],
-  "refresh_error": "Official project52298-001 primary page HTTP403; financial statement April2024-May2025 disclosed in index; no unretrieved numerical facts.",
-  "data_checksum": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "completeness_score": 0.98,
+  "recency_score": 0.7,
+  "provenance_score": 0.588,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "Med",
+  "overall_confidence_reason": [],
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/adb_state_road_projects.parquet",
+  "data_checksum": "8fa6927ecb40bef4fdc9fbf24f9cd18796a241bf429218da4efdd0ffb141aad7",
+  "last_ingested_at": "2026-10-01T22:09:08.840551+00:00",
   "analytical_scope": {
-    "source_as_of_date": null,
+    "source_as_of_date": "2025-05-19",
     "publisher_type": "multilateral"
   },
-  "completeness_score": 0.0,
-  "recency_score": 0.25,
-  "provenance_score": 0.3,
-  "consistency_score": 0.3,
-  "overall_confidence_badge": "Low",
-  "overall_confidence_reason": [
-    "Low provenance confidence (source reliability category)",
-    "Missingness is high; check source completeness",
-    "Recency is stale against claimed update frequency",
-    "Schema/range checks showed potential consistency issues",
-    "Use for trend and risk ranking, not precise governance decisions",
-    "Observation date is unavailable; collection time is not data freshness",
-    "Not eligible for measured analyst calculations"
-  ],
-  "recency_basis": "unknown",
-  "validation_errors": []
+  "last_quality_check_at": "2026-10-01T22:14:43.674869+00:00"
 }

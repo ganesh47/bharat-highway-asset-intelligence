@@ -5,13 +5,15 @@
   "status": "manual_ingest",
   "metric_category": "proxy_derived",
   "source": {
-    "publisher": "OpenStreetMap Foundation / Academic proxy sources",
+    "publisher": "OpenStreetMap contributors / OpenStreetMap Foundation",
     "title": "Corridor geometry and ancillary maintenance proxy indicators",
-    "url": "https://overpass-api.de/api/interpreter",
+    "url": "https://overpass-api.de/",
     "retrieved_at": "2026-03-11T05:17:35.836220+00:00",
     "license_terms": "OpenStreetMap ODbL terms; geometry/proxy use with attribution and separation from official metrics.",
     "official_flag": false,
-    "domain": "openstreetmap.org"
+    "domain": "openstreetmap.org",
+    "observation_date_unknown": true,
+    "publication_date_unknown": true
   },
   "citations": {
     "permanent_identifier": "Overpass query id or source timestamp",
@@ -66,8 +68,7 @@
   "last_checked_at": "2026-10-01T20:10:12.926382+00:00",
   "refresh_outcome": "manual_evidence_required",
   "analytical_scope": {
-    "road_class": "unspecified",
-    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+    "observation_date_unknown": true
   },
   "evidence_status": "unverified",
   "source_as_of_date": null,
@@ -80,5 +81,5 @@
     "Unsupported roughness unit km_per_km"
   ],
   "quarantine_reason": "Unsupported roughness unit km_per_km",
-  "last_quality_check_at": "2026-10-01T21:28:26.580066+00:00"
+  "last_quality_check_at": "2026-10-01T22:14:43.660580+00:00"
 }

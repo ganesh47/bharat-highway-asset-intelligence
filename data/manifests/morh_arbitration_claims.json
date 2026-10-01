@@ -7,11 +7,13 @@
   "source": {
     "publisher": "Ministry of Road Transport and Highways (MoRTH)",
     "title": "Arbitration and claim settlements associated with highway projects",
-    "url": "https://morth.nic.in/arbitration-and-claims",
+    "url": "https://sansad.in/rs/questions/questions-and-answers",
     "retrieved_at": "2026-03-11T05:17:35.823747+00:00",
     "license_terms": "Use only official releases, tribunal disclosures, and ministry-level replies.",
     "official_flag": true,
-    "domain": "morth.nic.in"
+    "domain": "sansad.in",
+    "observation_date_unknown": true,
+    "publication_date_unknown": true
   },
   "citations": {
     "permanent_identifier": "order/award/case identifier and publication note",
@@ -67,8 +69,7 @@
   "last_checked_at": "2026-10-01T20:29:44.098520+00:00",
   "refresh_outcome": "restricted",
   "analytical_scope": {
-    "road_class": "unspecified",
-    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+    "observation_date_unknown": true
   },
   "evidence_status": "unverified",
   "source_as_of_date": null,
@@ -79,5 +80,5 @@
   "recency_basis": "unknown",
   "validation_errors": [],
   "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date",
-  "last_quality_check_at": "2026-10-01T21:28:26.576876+00:00"
+  "last_quality_check_at": "2026-10-01T22:14:43.656692+00:00"
 }

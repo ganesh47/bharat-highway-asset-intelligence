@@ -1,24 +1,76 @@
 {
   "source_id": "npci_netc_monthly_statistics",
-  "status": "manual_gap",
-  "metric_category": "official_measured",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "issuer_disclosed",
+  "refresh_outcome": "updated",
+  "last_checked_at": "2026-10-01T22:09:08.785172+00:00",
+  "last_successful_retrieval_at": "2026-10-01T21:49:22+00:00",
+  "data_changed_at": "2026-10-01T22:09:08.785172+00:00",
+  "publication_date": null,
+  "source_as_of_date": "2026-08-31",
+  "analytical_ready": true,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "",
   "source": {
     "publisher": "National Payments Corporation of India",
     "title": "NPCI NETC monthly product statistics",
     "url": "https://www.npci.org.in/product/netc/product-statistics",
+    "retrieved_at": "2026-10-01T21:49:22+00:00",
     "official_flag": false,
-    "publisher_type": "payment_system",
+    "publisher_type": "issuer",
     "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
-    "domain": "www.npci.org.in"
+    "domain": "www.npci.org.in",
+    "evidence_class": "issuer_disclosure",
+    "publication_date_unknown": true
   },
   "citations": {
     "permanent_identifier": "npci_netc_monthly_statistics",
     "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
-    "note": "HTTP403/JS restricted primary page; governed manual snapshot required; no invented API or search-result numerical facts."
+    "note": "Governed manual browser capture of seventeen official monthly rows, April2025-August2026, captured2026-10-01T21:49:22+00:00. Publication date undisclosed. NETC payment transactions and scheme payment amounts are not NHAI toll receipts, vehicle counts, PCU traffic or corridor revenue. Published exclusions: Annual pass and Maharashtra Electric Vehicle exempted data is not included in the NETC transaction data. Document SHA256 pins local rendered JSON, not publisher response bytes; future months require a new reviewed capture."
   },
   "manifest": {
-    "raw_files": [],
-    "row_count": 0,
+    "raw_files": [
+      {
+        "path": "data/raw/manual/evidence/npci_netc_monthly_statistics.json",
+        "sha256": "34c67f27ddf9bbacc41bd776e943f199e7a1ebe1d7d5fc77fb5e3cf6603bd13d",
+        "size_bytes": 1939
+      },
+      {
+        "path": "data/raw/manual/evidence/npci_netc_rendered_snapshot_2026-10-02.json",
+        "sha256": "3743b75a8a0b48a4aba9b6c328164248ebf3ff2da8eb0a954f95d249c230cf99",
+        "size_bytes": 2547
+      },
+      {
+        "path": "data/raw/manual/npci_netc_monthly_statistics.csv",
+        "sha256": "c2f003690091794931cfba98d9e45d48da83ad57429c88201a267b08e99da8ce",
+        "size_bytes": 44196
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://www.npci.org.in/product/netc/product-statistics",
+        "relative_path": "manual/evidence/npci_netc_rendered_snapshot_2026-10-02.json",
+        "sha256": "3743b75a8a0b48a4aba9b6c328164248ebf3ff2da8eb0a954f95d249c230cf99",
+        "size_bytes": 2547,
+        "artifact_kind": "governed_rendered_table_snapshot",
+        "checksum_scope": "Local governed rendered-table JSON, not publisher HTML/PDF bytes",
+        "capture_method": "Manual browser review of rendered official NETC FASTag Statistics table; selected reporting years and scrolled to load all twelve prior-year rows. This is a governed rendered-table snapshot, not publisher PDF bytes.",
+        "captured_at": "2026-10-01T21:49:22+00:00",
+        "publisher_document_checksum_available": false
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/npci_netc_monthly_statistics.parquet",
+        "format": "parquet",
+        "sha256": "b82115de1f97f7394f2c26d205c5918720f3d6fb339a400ae2f93a1f233bf478"
+      }
+    ],
+    "row_count": 34,
     "columns": [
       "entity_id",
       "entity_name",
@@ -65,49 +117,25 @@
       "concessionaire_id",
       "financing_entity_id",
       "contractor_name"
-    ],
-    "output_files": [
-      {
-        "path": "data/processed/npci_netc_monthly_statistics.parquet",
-        "format": "parquet",
-        "sha256": "f4f94eac01503b05db3e2395aa8d84de7c2d2014378bf33d352945166cb7552c"
-      }
     ]
   },
-  "output_table_path": "data/processed/npci_netc_monthly_statistics.parquet",
-  "connector": "primary_disclosures",
-  "version": "1.0.0",
-  "refresh_outcome": "restricted",
-  "last_checked_at": "2026-10-01T20:17:36.371592+00:00",
-  "data_changed_at": null,
-  "publication_date": null,
-  "source_as_of_date": null,
-  "analytical_ready": false,
-  "evidence_status": "unavailable",
-  "disclosure_ready": false,
-  "extraction_status": "evidence_gap",
-  "skip_reason": "HTTP403/JS restricted primary page; governed manual snapshot required; no invented API or search-result numerical facts.",
+  "retrieved_at": "2026-10-01T21:49:22+00:00",
   "semantic_rechecks": [],
-  "refresh_error": "HTTP403/JS restricted primary page; governed manual snapshot required; no invented API or search-result numerical facts.",
-  "data_checksum": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "completeness_score": 0.98,
+  "recency_score": 0.7,
+  "provenance_score": 0.588,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "Med",
+  "overall_confidence_reason": [],
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/npci_netc_monthly_statistics.parquet",
+  "data_checksum": "21d29429bd3086fca5bddc8d862d7a16ce99922b148cd0817d2f3caf2b9d97a9",
+  "last_ingested_at": "2026-10-01T22:09:08.785172+00:00",
   "analytical_scope": {
-    "source_as_of_date": null,
-    "publisher_type": "payment_system"
+    "source_as_of_date": "2026-08-31",
+    "publisher_type": "issuer",
+    "evidence_class": "issuer_disclosure"
   },
-  "completeness_score": 0.0,
-  "recency_score": 0.25,
-  "provenance_score": 0.3,
-  "consistency_score": 0.3,
-  "overall_confidence_badge": "Low",
-  "overall_confidence_reason": [
-    "Low provenance confidence (source reliability category)",
-    "Missingness is high; check source completeness",
-    "Recency is stale against claimed update frequency",
-    "Schema/range checks showed potential consistency issues",
-    "Use for trend and risk ranking, not precise governance decisions",
-    "Observation date is unavailable; collection time is not data freshness",
-    "Not eligible for measured analyst calculations"
-  ],
-  "recency_basis": "unknown",
-  "validation_errors": []
+  "last_quality_check_at": "2026-10-01T22:14:43.670174+00:00"
 }

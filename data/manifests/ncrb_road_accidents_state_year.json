@@ -6,12 +6,14 @@
   "metric_category": "official_measured",
   "source": {
     "publisher": "National Crime Records Bureau (NCRB)",
-    "title": "Road accident state and year summary tables",
+    "title": "NCRB Accidental Deaths and Suicides in India road-accident tables",
     "retrieved_at": "2026-03-11T05:17:32.830539+00:00",
     "license_terms": "NCRB publication terms. Use only published tables and cite report/table numbers.",
     "official_flag": true,
     "domain": "ncrb.gov.in",
-    "url": "https://ncrb.gov.in/en/road-accidents-statistics"
+    "url": "https://www.ncrb.gov.in/accidental-deaths-suicides-in-india-adsi.html",
+    "observation_date_unknown": true,
+    "publication_date_unknown": true
   },
   "citations": {
     "permanent_identifier": "year and report table page numbers",
@@ -63,8 +65,7 @@
   "last_checked_at": "2026-10-01T20:09:56.513285+00:00",
   "refresh_outcome": "manual_evidence_required",
   "analytical_scope": {
-    "road_class": "unspecified",
-    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+    "observation_date_unknown": true
   },
   "evidence_status": "unverified",
   "source_as_of_date": null,
@@ -75,5 +76,5 @@
   "recency_basis": "unknown",
   "validation_errors": [],
   "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date",
-  "last_quality_check_at": "2026-10-01T21:28:26.570900+00:00"
+  "last_quality_check_at": "2026-10-01T22:14:43.647512+00:00"
 }
