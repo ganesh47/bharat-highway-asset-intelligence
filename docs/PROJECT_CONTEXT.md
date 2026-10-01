@@ -1,5 +1,7 @@
 # Project Context Deep-Dive: Bharat Highway Asset Intelligence
 
+> Historical architecture review. Its counts and unresolved findings describe the earlier prototype. The current source accountability and analytical boundaries are documented in [coverage_matrix.md](coverage_matrix.md), [finance_source_methodology.md](finance_source_methodology.md), and the [2 October 2026 upgrade record](governance/2026-10-02-finance-enrichment.md).
+
 ## 1) Executive summary (critical take)
 
 This repository is a strong **official-first analytics scaffold**: it already has source governance, connectorized ingestion, confidence-scored manifests, and a static DuckDB-WASM UI.

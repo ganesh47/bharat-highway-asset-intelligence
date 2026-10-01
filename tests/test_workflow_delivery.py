@@ -4,6 +4,7 @@ import hashlib
 import json
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import Mock, patch
@@ -12,6 +13,7 @@ import yaml
 
 from scripts.check_deployed_provenance import verify
 from scripts.research_change_detection import requires_ocr
+from scripts.nhai_annual_report_merge import _validate_shard_manifests
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -56,6 +58,30 @@ class ResearchDeliveryTests(unittest.TestCase):
         self.assertIn("research_run.outputs.run_id", restore["with"]["run-id"])
         self.assertIn("schedule", job["if"])
         self.assertIn("head_repository.full_name == github.repository", job["if"])
+
+    def test_failed_required_ocr_blocks_publication_but_intentional_skip_does_not(self):
+        workflow = yaml.safe_load((ROOT / ".github/workflows/research-pipeline.yml").read_text())
+        condition = workflow["jobs"]["build_correlation"]["if"]
+        cases = [("true", "success", "success", True), ("true", "success", "failure", False),
+                 ("true", "success", "cancelled", False), ("true", "success", "skipped", False),
+                 ("false", "success", "skipped", True), ("false", "failure", "skipped", False),
+                 ("false", "success", "failure", False)]
+        for ocr, ingest, refresh, allowed in cases:
+            expression = condition.replace("always()", "True").replace("&&", "and").replace("||", "or")
+            for key, value in [("needs.changes.outputs.run_nhai_ocr", ocr),
+                               ("needs.ingest_base.result", ingest),
+                               ("needs.refresh_nhai_confidence.result", refresh)]:
+                expression = expression.replace(key, repr(value))
+            with self.subTest(ocr=ocr, ingest=ingest, refresh=refresh):
+                self.assertEqual(eval(expression, {"__builtins__": {}}), allowed)
+
+    def test_ocr_merge_rejects_shards_from_other_source_bytes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "source.parquet"
+            source.write_bytes(b"current source document list")
+            shard = {"source_parquet_sha256": hashlib.sha256(b"previous source list").hexdigest()}
+            with self.assertRaisesRegex(SystemExit, "checksum"):
+                _validate_shard_manifests([shard], source, allow_incomplete=False)
 
     def test_published_catalog_checksum_must_match_bundle(self):
         catalog = json.dumps({"datasets": [{"source_id": "official"}]}).encode()
