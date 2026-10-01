@@ -18,9 +18,9 @@ from pipelines.common import read_json, write_json
 
 
 DEFAULT_HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (compatible; BHAI-research-scan/0.2; +https://example.local/official-first-scan)"
-    )
+    # Match the documented connector identity. A placeholder browser identity
+    # with an example.local contact caused 403s for accessible public exports.
+    "User-Agent": "BHAI-research-scan/0.2",
 }
 
 
@@ -44,14 +44,14 @@ def _safe_url(item: Dict[str, Any]) -> str | None:
 
 
 def _safe_url_list(item: Dict[str, Any]) -> list[str]:
-    raw = item.get("resource_file_urls")
-    if not raw:
-        return []
-    if isinstance(raw, str):
-        return [raw]
-    if isinstance(raw, (tuple, list, set)):
-        return [str(value) for value in raw if value]
-    return []
+    urls = []
+    for key in ("resource_file_urls", "discovery_endpoints"):
+        raw = item.get(key)
+        if isinstance(raw, str):
+            urls.append(raw)
+        elif isinstance(raw, (tuple, list, set)):
+            urls.extend(str(value) for value in raw if value)
+    return urls
 
 
 def _robots_allowed(url: str, allowed_hosts: set[str]) -> Dict[str, Any]:
@@ -98,6 +98,7 @@ def _http_probe(url: str, allowed_hosts: set[str], timeout: int = 20) -> Dict[st
         "etag": None,
         "last_modified": None,
         "error": None,
+        "request_attempted": False,
     }
     safe_url = sanitize_public_http_url(url, allowed_hosts=allowed_hosts)
     if not safe_url:
@@ -106,6 +107,7 @@ def _http_probe(url: str, allowed_hosts: set[str], timeout: int = 20) -> Dict[st
 
     resp = None
     try:
+        status["request_attempted"] = True
         resp = requests.get(safe_url, headers=DEFAULT_HEADERS, timeout=timeout, allow_redirects=True, stream=True)
         if not sanitize_public_http_url(resp.url or safe_url, allowed_hosts=allowed_hosts):
             status["error"] = "unsafe_redirect_url"

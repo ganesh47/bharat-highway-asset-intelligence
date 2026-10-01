@@ -272,6 +272,16 @@ class QualityTests(unittest.TestCase):
         self.assertEqual("disallowed_by_robots", result["scan_error"])
         self.assertFalse(result["endpoint_checks"][0]["request_attempted"])
 
+    def test_configured_discovery_endpoint_is_audited_even_when_index_is_missing(self):
+        source = {"source_id": "fixture", "allow_auto_fetch": True, "url": "https://example.gov.in/missing-index",
+                  "discovery_endpoints": ["https://example.gov.in/api/annual-reports"]}
+        probe = lambda url, hosts: {"status_ok": "/api/" in url, "http_status": 200 if "/api/" in url else 404}
+        with patch("research.scan._robots_allowed", return_value={"allowed": True}), patch("research.scan._http_probe", side_effect=probe):
+            result = _scan_item(source)
+        self.assertEqual("available", result["scan_status"])
+        self.assertEqual("https://example.gov.in/api/annual-reports", result["scanned_url"])
+        self.assertEqual(2, len(result["endpoint_checks"]))
+
     def test_gap_report_does_not_let_last_source_override_theme(self):
         sources = [{"source_id": "available", "theme": "finance", "allow_auto_fetch": True}, {"source_id": "blocked", "theme": "finance", "allow_auto_fetch": False}]
         finance = [gap for gap in detect_gaps(sources) if gap["theme"] == "finance"][0]
