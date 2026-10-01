@@ -1178,7 +1178,7 @@
       "auth": "none",
       "update_frequency": "annual",
       "geographic_granularity": "nation",
-      "temporal_coverage": "2015-16 to 2026-27",
+      "temporal_coverage": "available official linked reports; reporting periods determined per document",
       "license_terms": "Official publication on NHAI website; reuse subject to official publication terms.",
       "retrieval_method": "API call",
       "reliability_grade": "B",
@@ -1264,11 +1264,12 @@
       "disclosure_ready": false,
       "evidence_status": "document_metadata",
       "extraction_status": "checksum_mismatch",
-      "observation_as_of": "2023-12-31",
+      "observation_as_of": null,
       "publication_date": "2023-01-01",
       "refresh_outcome": "updated",
       "refresh_error": null,
-      "last_refresh_checked_at": "2026-10-01T20:08:37.009417+00:00"
+      "last_refresh_checked_at": "2026-10-01T20:08:37.009417+00:00",
+      "observation_date_unknown": true
     },
     {
       "source_id": "nhai_press_release_index",
@@ -2824,5 +2825,5 @@
       "last_refresh_checked_at": "2026-10-01T20:17:36.386717+00:00"
     }
   ],
-  "catalog_synced_at": "2026-10-01T20:53:56.952771+00:00"
+  "catalog_synced_at": "2026-10-01T20:57:32.540954+00:00"
 }

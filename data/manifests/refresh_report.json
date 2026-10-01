@@ -268,7 +268,7 @@
       "source_id": "nhai_annual_report_documents",
       "outcome": "updated",
       "last_checked_at": "2026-10-01T20:08:37.009417+00:00",
-      "source_as_of_date": "2023-12-31",
+      "source_as_of_date": null,
       "publication_date": "2023-01-01",
       "analytical_ready": false,
       "evidence_status": "document_metadata",
