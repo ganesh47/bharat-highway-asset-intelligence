@@ -264,7 +264,8 @@ def sync_catalog_metadata(inventory_path: str = "research/source_inventory.yaml"
     inventory = load_inventory(inventory_path)
     payload = read_json(Path(out_path))
     results = payload.get("sources", [])
-    expected_ids = {source["source_id"] for source in inventory.sources}
+    definitions = {source["source_id"]: source for source in inventory.sources}
+    expected_ids = set(definitions)
     scanned_ids = [source.get("source_id") for source in results]
     if len(scanned_ids) != len(set(scanned_ids)) or set(scanned_ids) != expected_ids:
         raise ValueError("Machine inventory source IDs differ from the registered inventory; run the source scan first")
@@ -272,6 +273,14 @@ def sync_catalog_metadata(inventory_path: str = "research/source_inventory.yaml"
     if expected_ids - entries.keys():
         raise ValueError(f"Published catalog missing registered sources: {sorted(expected_ids - entries.keys())}")
     for result in results:
+        # Definition changes (auth/publisher/licence/approved URLs) are
+        # authoritative; old probe evidence continues to name its actual URL.
+        probe_keys = {"last_checked_at", "status_ok", "http_status", "content_type", "etag",
+                      "last_modified", "last-modified", "scan_error", "scan_status",
+                      "endpoint_checks", "scanned_url", "crawl_delay_seconds"}
+        probe = {key: result[key] for key in probe_keys if key in result}
+        result.update(definitions[result["source_id"]])
+        result.update(probe)
         entry = entries[result["source_id"]]
         result.update(analytical_ready=entry.get("analytical_ready", False),
                       disclosure_ready=entry.get("disclosure_ready", False),

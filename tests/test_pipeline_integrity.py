@@ -276,6 +276,7 @@ class QualityTests(unittest.TestCase):
             write_catalog(catalog, [{"source_id": "fixture", "analytical_ready": False, "disclosure_ready": True,
                                      "evidence_status": "verified", "extraction_status": "validated",
                                      "source_as_of_date": "2025-03-31", "last_checked_at": "publication_check"}])
+            inventory.write_text(yaml.safe_dump({"sources": [{"source_id": "fixture", "auth": "restricted", "url": "https://example.gov.in/new-report.pdf"}]}))
             with patch("research.scan.requests.get", side_effect=AssertionError("Repeated network scan")):
                 result = sync_catalog_metadata(str(inventory), str(scanned), str(catalog))[0]
             self.assertEqual(checks, result["endpoint_checks"])
@@ -283,6 +284,8 @@ class QualityTests(unittest.TestCase):
             self.assertEqual("publication_check", result["last_refresh_checked_at"])
             self.assertTrue(result["disclosure_ready"])
             self.assertFalse(result["analytical_ready"])
+            self.assertEqual("restricted", result["auth"])
+            self.assertEqual("https://example.gov.in/new-report.pdf", result["url"])
             self.assertEqual("original_scan", json.loads(scanned.read_text())["generated_at"])
             inventory.write_text(yaml.safe_dump({"sources": [{"source_id": "fixture"}, {"source_id": "missing"}]}))
             with self.assertRaises(ValueError):
