@@ -3,7 +3,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import pandas as pd
 import yaml
@@ -11,6 +11,7 @@ import yaml
 from pipelines.common import dataframe_checksum, sha256_for_file, write_catalog, write_json, write_parquet
 from pipelines.connectors.base import ConnectorResult
 from pipelines.connectors.nhai_annual_documents import NHAIAnnualDocumentsConnector
+from pipelines.connectors.datagovin_ogd import DataGovInConnector
 from pipelines.correlation import _approved_correlations, _build_metric_long, JOIN_KEYS, canonical_entity
 from pipelines.ingest import run_ingestion, refresh_quality_only, _load_nhai_extraction_quality
 from pipelines.quality import evidence_status, evaluate, semantic_errors, observation_date, observed_row_mask
@@ -290,6 +291,61 @@ class QualityTests(unittest.TestCase):
             inventory.write_text(yaml.safe_dump({"sources": [{"source_id": "fixture"}, {"source_id": "missing"}]}))
             with self.assertRaises(ValueError):
                 sync_catalog_metadata(str(inventory), str(scanned), str(catalog))
+
+
+class DataGovCorrectionTests(unittest.TestCase):
+    def test_pinned_tamil_annexure_restores_decimals_and_preserves_raw_cells(self):
+        sid = "data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026"
+        csv_sha = "2b2e98b196e10d006292707a584fa49f0fdc82035d6a0f4c00f3cf2d44d9f65c"
+        pdf_sha = "46a17f9f1efc8d0afda41cfc5ea41b6f7dd69696aa2b2db6d9ae558c7d739267"
+        source = {"source_id": sid, "progress_reference_url": "https://sansad.in/getFile/annex/265/AU286_APrEba.pdf?source=pqars", "progress_reference_sha256": pdf_sha}
+        frame_rows, table_rows = [], []
+        for index in range(55):
+            nhai = index < 34
+            physical = "0.67" if index == 0 else "47.18" if index == 4 else "-" if index == 52 else "96%" if not nhai else "90"
+            raw = 67.0 if index == 0 else 4718.0 if index == 4 else float("nan") if index == 52 else 96.0 if not nhai else 90.0
+            table_rows.append([str(index + 1 if nhai else index - 33), f"Project {index}", "10", "100", "01.01.2024", "01.01.2025", physical])
+            frame_rows.append({"sl._no.": index + 1, "project_name": f"Project {index}", "implementing_agency": "National Highways Authority of India (NHAI)" if nhai else "State Public Works Department (PWD)", "appointed_date": "01.01.2024", "length_km": 10, "tpc_rs_in_crore": 100, "physical_progress_pct": raw})
+        frame = pd.DataFrame(frame_rows)
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            csv = root / "source.csv"
+            csv.write_text("fixture")
+            document = root / sid / "progress_reference_AU286_20240724.pdf"
+            document.parent.mkdir()
+            document.write_bytes(b"fixture")
+            reader = MagicMock()
+            page = MagicMock()
+            page.extract_tables.return_value = [table_rows]
+            reader.pages = [MagicMock(), MagicMock(), page]
+            open_pdf = MagicMock()
+            open_pdf.__enter__.return_value = reader
+            hashes = lambda path: csv_sha if path.suffix == ".csv" else pdf_sha
+            with patch("pipelines.connectors.datagovin_ogd.sha256_for_file", side_effect=hashes), patch("pdfplumber.open", return_value=open_pdf):
+                result, _, evidence = DataGovInConnector._reconcile_tamil_progress(frame, source, root, [csv])
+                self.assertEqual(0.67, result.iloc[0]["physical_progress_pct"])
+                self.assertEqual(67, result.iloc[0]["physical_progress_raw_csv"])
+                self.assertEqual(47.18, result.iloc[4]["physical_progress_pct"])
+                self.assertEqual(96, result.iloc[34]["physical_progress_pct"])
+                self.assertTrue(pd.isna(result.iloc[52]["physical_progress_pct"]))
+                self.assertEqual(55, evidence["rows_checked"])
+                self.assertIn("Annexure II", result.iloc[0]["progress_citation_anchor"])
+                self.assertEqual([], semantic_errors(result, source))
+                with self.assertRaisesRegex(ValueError, "row contract"):
+                    DataGovInConnector._reconcile_tamil_progress(frame.iloc[::-1], source, root, [csv])
+                changed = frame.copy()
+                changed.loc[0, "length_km"] = 11
+                with self.assertRaisesRegex(ValueError, "length_km mismatch"):
+                    DataGovInConnector._reconcile_tamil_progress(changed, source, root, [csv])
+            with patch("pipelines.connectors.datagovin_ogd.sha256_for_file", return_value="0" * 64):
+                with self.assertRaisesRegex(ValueError, "CSV snapshot changed"):
+                    DataGovInConnector._reconcile_tamil_progress(frame, source, root, [csv])
+
+    def test_pandas_string_dtype_numeric_coercion_preserves_text_labels(self):
+        frame = pd.DataFrame({"cost": pd.Series(["1,234", "2,500", "3,100"], dtype="str"), "project_name": pd.Series(["A", "B", "C"], dtype="str")})
+        result = DataGovInConnector._coerce_mixed_numeric_columns(frame)
+        self.assertEqual([1234, 2500, 3100], list(result["cost"]))
+        self.assertEqual(["A", "B", "C"], list(result["project_name"]))
 
 
 class CorrelationTests(unittest.TestCase):
