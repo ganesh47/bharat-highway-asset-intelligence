@@ -761,6 +761,15 @@ def _extract_rows_for_pdf(url: str, source_row: pd.Series, output_root: Path) ->
     parser_env = _parser_environment()
 
     payload, download_error = _download_pdf(url)
+    if payload is not None:
+        expected_checksum = str(source_row.get("document_checksum") or "")
+        actual_checksum = _checksum(payload)
+        if not re.fullmatch(r"[0-9a-f]{64}", expected_checksum):
+            download_error = "missing_validated_document_checksum"
+            payload = None
+        elif actual_checksum != expected_checksum:
+            download_error = f"document_checksum_mismatch: validated={expected_checksum}; downloaded={actual_checksum}"
+            payload = None
     if payload is None:
         return [
             {
