@@ -68,6 +68,15 @@
       "metric_category",
       "dataset_source",
       "retrieved_at"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": [
+      {
+        "path": "data/raw/data_gov_in_gsdp_stateut_current_prices_2017_23/data_gov_in_gsdp_stateut_current_prices_2017_23/raw_20260326_154220.csv",
+        "sha256": "b794188e6e91180e272fac04a249a02f44c3cc5b0e9895165ae45528bc7513e2",
+        "availability": "not_archived",
+        "reason": "raw_input_archive_missing"
+      }
     ]
   },
   "retrieved_at": "2026-03-26T15:42:20.001770+00:00",

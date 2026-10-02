@@ -21,13 +21,7 @@
     "note": "Contractor disclosure CSV imported through approved manual artifact."
   },
   "manifest": {
-    "raw_files": [
-      {
-        "path": "data/raw/manual/morh_contractor_disclosures.csv",
-        "sha256": "8bb4a055d461ebfdc510e9f4eb6ebc7d0e38c6ba9ac75ca093e4cbe5662e0325",
-        "size_bytes": 265
-      }
-    ],
+    "raw_files": [],
     "output_files": [
       {
         "path": "data/processed/morh_contractor_disclosures.parquet",
@@ -49,7 +43,24 @@
       "metric_category",
       "dataset_source",
       "retrieved_at"
-    ]
+    ],
+    "unbound_raw_evidence": [
+      {
+        "path": "data/raw/manual/morh_contractor_disclosures.csv",
+        "expected_sha256": "8bb4a055d461ebfdc510e9f4eb6ebc7d0e38c6ba9ac75ca093e4cbe5662e0325",
+        "available_sha256": "faf67e71edb6dfba035cb382fdec904e3e7eed0ba8e08b79498678a0632bfdeb",
+        "original_binding": {
+          "path": "data/raw/manual/morh_contractor_disclosures.csv",
+          "sha256": "8bb4a055d461ebfdc510e9f4eb6ebc7d0e38c6ba9ac75ca093e4cbe5662e0325",
+          "size_bytes": 265
+        },
+        "availability": "present_unbound",
+        "binding_status": "quarantined",
+        "reason": "unsupported_legacy_input_checksum_mismatch",
+        "available_size_bytes": 262
+      }
+    ],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-03-11T05:17:35.817631+00:00",
   "completeness_score": 0.98,

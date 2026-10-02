@@ -33,19 +33,19 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/cag_maharashtra_road_finances_2024_25.json",
-        "sha256": "a551c06d88722d9031c65cf26346ad1010e1cf5ba4e7dd8f38f65fe93b913cc9",
-        "size_bytes": 1563
-      },
-      {
         "path": "data/raw/primary_disclosures/cag_maharashtra_road_finances_2024_25/versions/711cf4d8d72af4dbb87d75dca8974e6ba3785ed78bc24b145d775bd671742cbb.pdf",
         "sha256": "711cf4d8d72af4dbb87d75dca8974e6ba3785ed78bc24b145d775bd671742cbb",
         "size_bytes": 9319392
       },
       {
         "path": "data/raw/manual/cag_maharashtra_road_finances_2024_25.csv",
-        "sha256": "8168b54d6111c60766ff3ea8578bc2303dee02977aa09dbfbc4a5ccb2943ceb2",
+        "sha256": "7da3a73b647a989c8866a9c053f53ec7474fb94ff67ced68a499c24c27d47e68",
         "size_bytes": 4894
+      },
+      {
+        "path": "data/raw/manual/evidence/cag_maharashtra_road_finances_2024_25.json",
+        "sha256": "5a60009565bea6f39bc045855575ea32747ebca877ae07c995a37d39f194c02c",
+        "size_bytes": 1563
       }
     ],
     "source_documents": [
@@ -53,7 +53,8 @@
         "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-CD-ENGLISH-FINANCE-ACCOUNTS-VOL-I-06944f1e510c216-51074266.pdf",
         "relative_path": "primary_disclosures/cag_maharashtra_road_finances_2024_25/versions/711cf4d8d72af4dbb87d75dca8974e6ba3785ed78bc24b145d775bd671742cbb.pdf",
         "sha256": "711cf4d8d72af4dbb87d75dca8974e6ba3785ed78bc24b145d775bd671742cbb",
-        "size_bytes": 9319392
+        "size_bytes": 9319392,
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -118,13 +119,15 @@
       "revision_identity",
       "price_basis",
       "base_year"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-02T04:22:48.988928+00:00",
   "semantic_rechecks": [],
   "publication_history": {
     "index_path": "history/cag_maharashtra_road_finances_2024_25/index.json",
-    "version_count": 1,
+    "version_count": 2,
     "revision_count": 0,
     "candidate_version_id": "519142cb38198ef617ab931d656085bae28e69ef6963073e79f376244ce8b614"
   },
@@ -241,5 +244,6 @@
       "quarter_start": "2026-10-01",
       "quarter_end": "2026-12-31"
     }
-  ]
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
 }

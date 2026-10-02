@@ -21,13 +21,7 @@
     "note": "Arbitration claim CSV imported through approved manual artifact."
   },
   "manifest": {
-    "raw_files": [
-      {
-        "path": "data/raw/manual/morh_arbitration_claims.csv",
-        "sha256": "73d95afc7f758b2f190225cd4aba54eef98362d3e40d9b6f38d299e37f5de324",
-        "size_bytes": 214
-      }
-    ],
+    "raw_files": [],
     "output_files": [
       {
         "path": "data/processed/morh_arbitration_claims.parquet",
@@ -49,7 +43,24 @@
       "metric_category",
       "dataset_source",
       "retrieved_at"
-    ]
+    ],
+    "unbound_raw_evidence": [
+      {
+        "path": "data/raw/manual/morh_arbitration_claims.csv",
+        "expected_sha256": "73d95afc7f758b2f190225cd4aba54eef98362d3e40d9b6f38d299e37f5de324",
+        "available_sha256": "d6a6890d72290880d7f89d0e8b05da9185e30077c25e60336a8dd766c7645ca5",
+        "original_binding": {
+          "path": "data/raw/manual/morh_arbitration_claims.csv",
+          "sha256": "73d95afc7f758b2f190225cd4aba54eef98362d3e40d9b6f38d299e37f5de324",
+          "size_bytes": 214
+        },
+        "availability": "present_unbound",
+        "binding_status": "quarantined",
+        "reason": "unsupported_legacy_input_checksum_mismatch",
+        "available_size_bytes": 211
+      }
+    ],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-03-11T05:17:35.823747+00:00",
   "completeness_score": 0.98,

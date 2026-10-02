@@ -33,11 +33,6 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/morth_state_highway_network.json",
-        "sha256": "d679d14ae5e8382d9c88564ab723ae1b46d48be6b2be54bce58f7b1002cb0c65",
-        "size_bytes": 1059
-      },
-      {
         "path": "data/raw/primary_disclosures/morth_state_highway_network/document.pdf",
         "sha256": "3288df12fb15571bfcdbcd388befe36e2cf7fdc07bf794024906e242fda73a9a",
         "size_bytes": 9147734
@@ -46,6 +41,11 @@
         "path": "data/raw/manual/morth_state_highway_network.csv",
         "sha256": "5afbe9886f0e071722b3bd4794b8f02c35ae82a565ae20d144c4f6a064bafc41",
         "size_bytes": 61697
+      },
+      {
+        "path": "data/raw/manual/evidence/morth_state_highway_network.json",
+        "sha256": "d679d14ae5e8382d9c88564ab723ae1b46d48be6b2be54bce58f7b1002cb0c65",
+        "size_bytes": 1059
       }
     ],
     "source_documents": [
@@ -53,7 +53,8 @@
         "url": "https://morth.gov.in/backend/documents/uploaded/1781850176_EDsilQvsKL.pdf",
         "relative_path": "primary_disclosures/morth_state_highway_network/document.pdf",
         "sha256": "3288df12fb15571bfcdbcd388befe36e2cf7fdc07bf794024906e242fda73a9a",
-        "size_bytes": 9147734
+        "size_bytes": 9147734,
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -118,7 +119,9 @@
       "base_year",
       "observation_status",
       "price_basis"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-01T19:28:52.082854+00:00",
   "semantic_rechecks": [],
@@ -368,5 +371,6 @@
       "quarter_start": "2026-10-01",
       "quarter_end": "2026-12-31"
     }
-  ]
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
 }

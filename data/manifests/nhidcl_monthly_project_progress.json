@@ -33,11 +33,6 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/nhidcl_monthly_project_progress.json",
-        "sha256": "e30d4f7bfdf07e5ac7b32efb320376473d011e5f66eed7d1a94834df033a5f10",
-        "size_bytes": 1114
-      },
-      {
         "path": "data/raw/primary_disclosures/nhidcl_monthly_project_progress/document.pdf",
         "sha256": "8d651f90b0d4a1410cabf2e74b8fa4338936fc6b8e468541590c44ad3d2038f3",
         "size_bytes": 687834
@@ -46,6 +41,11 @@
         "path": "data/raw/manual/nhidcl_monthly_project_progress.csv",
         "sha256": "270168b03bbb7a6b388869ab8554d78cdd4921fc6a8e15fc55acbf17a99ec19a",
         "size_bytes": 4013296
+      },
+      {
+        "path": "data/raw/manual/evidence/nhidcl_monthly_project_progress.json",
+        "sha256": "e30d4f7bfdf07e5ac7b32efb320376473d011e5f66eed7d1a94834df033a5f10",
+        "size_bytes": 1114
       }
     ],
     "source_documents": [
@@ -53,7 +53,8 @@
         "url": "https://www.nhidcl.com/sites/default/files/2026-09/nhidcl-completed_and_ongoing_projects_status_per_pmp_data_lake_portal_31-08-2026.pdf",
         "relative_path": "primary_disclosures/nhidcl_monthly_project_progress/document.pdf",
         "sha256": "8d651f90b0d4a1410cabf2e74b8fa4338936fc6b8e468541590c44ad3d2038f3",
-        "size_bytes": 687834
+        "size_bytes": 687834,
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -118,7 +119,9 @@
       "base_year",
       "observation_status",
       "price_basis"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-01T19:28:49.064739+00:00",
   "semantic_rechecks": [],
@@ -2981,5 +2984,6 @@
       "quarter_start": "2026-10-01",
       "quarter_end": "2026-12-31"
     }
-  ]
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
 }

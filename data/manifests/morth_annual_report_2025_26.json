@@ -33,11 +33,6 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/morth_annual_report_2025_26.json",
-        "sha256": "510ec6f1af45178147c38223d1f694c704d1ebeded099e1fdc8a7482bc848f76",
-        "size_bytes": 2160
-      },
-      {
         "path": "data/raw/primary_disclosures/morth_annual_report_2025_26/versions/d0dd808600a8a2d0013b1fe4772d104f14dc18fc810c21a09a16aad01ea5624a.pdf",
         "sha256": "d0dd808600a8a2d0013b1fe4772d104f14dc18fc810c21a09a16aad01ea5624a",
         "size_bytes": 81369305
@@ -46,6 +41,11 @@
         "path": "data/raw/manual/morth_annual_report_2025_26.csv",
         "sha256": "51a361b3fb3917c7c96116b3e175231612cf9a86c294ab8334bc3b98c3a3f27a",
         "size_bytes": 221422
+      },
+      {
+        "path": "data/raw/manual/evidence/morth_annual_report_2025_26.json",
+        "sha256": "510ec6f1af45178147c38223d1f694c704d1ebeded099e1fdc8a7482bc848f76",
+        "size_bytes": 2160
       }
     ],
     "source_documents": [
@@ -58,7 +58,8 @@
         "reviewed_table_relative_path": "manual/evidence/morth_annual_report_2025_26_reviewed_tables.json",
         "reviewed_table_sha256": "5a72990102ff4b75866747582b83c314f009e755ca4e0d090a2e9f1a91ec8f2c",
         "listing_metadata_relative_path": "manual/evidence/national_freshness_official_listing_records.json",
-        "listing_metadata_sha256": "e9de7161de73d34ad9139836f7273ecdb3f5807d238efa9a19da44c7a5178008"
+        "listing_metadata_sha256": "e9de7161de73d34ad9139836f7273ecdb3f5807d238efa9a19da44c7a5178008",
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -123,7 +124,9 @@
       "revision_identity",
       "price_basis",
       "base_year"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-02T04:23:00.277342+00:00",
   "semantic_rechecks": [],
@@ -883,5 +886,6 @@
       "quarter_start": "2026-10-01",
       "quarter_end": "2026-12-31"
     }
-  ]
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
 }

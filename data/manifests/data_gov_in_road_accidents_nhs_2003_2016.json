@@ -57,6 +57,15 @@
       "metric_category",
       "dataset_source",
       "retrieved_at"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": [
+      {
+        "path": "data/raw/data_gov_in_road_accidents_nhs_2003_2016/data_gov_in_road_accidents_nhs_2003_2016/raw_20260311_051709.csv",
+        "sha256": "1b0d94766936dead48921847eff916ca967de9d72576f6f427541a842415709a",
+        "availability": "not_archived",
+        "reason": "raw_input_archive_missing"
+      }
     ]
   },
   "retrieved_at": "2026-03-11T05:17:09.074208+00:00",

@@ -33,11 +33,6 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/nhit_asset_valuation_assumptions.json",
-        "sha256": "16ac94e4c1a4b2f5e5984db3ed6005923d54a630e6ebe3cc1ea1f99e54e9f33c",
-        "size_bytes": 1250
-      },
-      {
         "path": "data/raw/primary_disclosures/nhit_asset_valuation_assumptions/document.pdf",
         "sha256": "6df526244e98e9eaa56e6f0f44de160ffbb774bfe334159fd2885fdb606a7e92",
         "size_bytes": 5622960
@@ -46,6 +41,11 @@
         "path": "data/raw/manual/nhit_asset_valuation_assumptions.csv",
         "sha256": "6970b21a5732aa77b2fb7d0395593feb40df241d625cf03ef3c256ab02385ed8",
         "size_bytes": 13525
+      },
+      {
+        "path": "data/raw/manual/evidence/nhit_asset_valuation_assumptions.json",
+        "sha256": "16ac94e4c1a4b2f5e5984db3ed6005923d54a630e6ebe3cc1ea1f99e54e9f33c",
+        "size_bytes": 1250
       }
     ],
     "source_documents": [
@@ -53,7 +53,8 @@
         "url": "https://nhit.co.in/pdf/valuation-report/Valuation%20Report%20F_08_08_26.pdf",
         "relative_path": "primary_disclosures/nhit_asset_valuation_assumptions/document.pdf",
         "sha256": "6df526244e98e9eaa56e6f0f44de160ffbb774bfe334159fd2885fdb606a7e92",
-        "size_bytes": 5622960
+        "size_bytes": 5622960,
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -118,7 +119,9 @@
       "base_year",
       "observation_status",
       "price_basis"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-01T19:28:46.272467+00:00",
   "semantic_rechecks": [],
@@ -410,5 +413,6 @@
       "quarter_start": "2026-10-01",
       "quarter_end": "2026-12-31"
     }
-  ]
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
 }

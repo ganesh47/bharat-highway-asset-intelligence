@@ -17,7 +17,18 @@
     "note": "Public index/subsidiary FY23-24 filings identified; primary download timed out. Parent standalone latest visible FY18-19, not FY23-24. No statement facts without retrieved PDF."
   },
   "manifest": {
-    "raw_files": [],
+    "raw_files": [
+      {
+        "path": "data/raw/manual/msrdc_financial_disclosures.csv",
+        "sha256": "00238de3ec0a91725467fc5092e033650f789412256294382f35cf54cba5dff4",
+        "size_bytes": 648
+      },
+      {
+        "path": "data/raw/manual/evidence/msrdc_financial_disclosures.json",
+        "sha256": "80aba930a8ed9455cfc6db372dfaadb644b7b9a9986b35bc30324e40b4ccdb49",
+        "size_bytes": 871
+      }
+    ],
     "row_count": 0,
     "columns": [
       "entity_id",
@@ -72,7 +83,10 @@
         "format": "parquet",
         "sha256": "f4f94eac01503b05db3e2395aa8d84de7c2d2014378bf33d352945166cb7552c"
       }
-    ]
+    ],
+    "source_documents": [],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "output_table_path": "data/processed/msrdc_financial_disclosures.parquet",
   "connector": "primary_disclosures",
@@ -127,5 +141,7 @@
     }
   ],
   "research_cutoff": "2026-10-02",
-  "next_expected_publication_at": null
+  "next_expected_publication_at": null,
+  "publication_history": null,
+  "governed_extract_binding_status": "empty_gap_snapshot"
 }

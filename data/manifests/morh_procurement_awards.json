@@ -21,13 +21,7 @@
     "note": "Procurement CSV imported through approved manual artifact."
   },
   "manifest": {
-    "raw_files": [
-      {
-        "path": "data/raw/manual/morh_procurement_awards.csv",
-        "sha256": "f3bdd402ebbb666adc84b5d8d3180a27af1ccd874f96f9cede7f6921b1e62355",
-        "size_bytes": 344
-      }
-    ],
+    "raw_files": [],
     "output_files": [
       {
         "path": "data/processed/morh_procurement_awards.parquet",
@@ -48,7 +42,24 @@
       "metric_category",
       "dataset_source",
       "retrieved_at"
-    ]
+    ],
+    "unbound_raw_evidence": [
+      {
+        "path": "data/raw/manual/morh_procurement_awards.csv",
+        "expected_sha256": "f3bdd402ebbb666adc84b5d8d3180a27af1ccd874f96f9cede7f6921b1e62355",
+        "available_sha256": "275d633368319383c01d1e95089a49a847e8d2e2d255b9b70ccf8468d22567d1",
+        "original_binding": {
+          "path": "data/raw/manual/morh_procurement_awards.csv",
+          "sha256": "f3bdd402ebbb666adc84b5d8d3180a27af1ccd874f96f9cede7f6921b1e62355",
+          "size_bytes": 344
+        },
+        "availability": "present_unbound",
+        "binding_status": "quarantined",
+        "reason": "unsupported_legacy_input_checksum_mismatch",
+        "available_size_bytes": 337
+      }
+    ],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-03-11T05:17:35.811480+00:00",
   "completeness_score": 0.909,

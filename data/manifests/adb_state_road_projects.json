@@ -39,11 +39,6 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/adb_state_road_projects.json",
-        "sha256": "54718e66c311938db2956ebbeefb27e7e44ed26a282c15f774a489162f7a9478",
-        "size_bytes": 2132
-      },
-      {
         "path": "data/raw/primary_disclosures/adb_state_road_projects/document.pdf",
         "sha256": "d8d949023e38e46929f39edf948b642fcc670d34332e841ba186121d0b955ffd",
         "size_bytes": 3005347
@@ -52,6 +47,11 @@
         "path": "data/raw/manual/adb_state_road_projects.csv",
         "sha256": "da155abb93a0fbdf52852bbe89c0cb6233a65f1637e994078d34c0ac04c9e8a6",
         "size_bytes": 108960
+      },
+      {
+        "path": "data/raw/manual/evidence/adb_state_road_projects.json",
+        "sha256": "54718e66c311938db2956ebbeefb27e7e44ed26a282c15f774a489162f7a9478",
+        "size_bytes": 2132
       }
     ],
     "source_documents": [
@@ -63,7 +63,8 @@
         "artifact_kind": "publisher_pdf",
         "checksum_scope": "Exact downloaded publisher PDF bytes",
         "extraction_method": "Checksum-pinned visual transcription of scanned tables; embedded OCR is not numerical authority",
-        "publication_reference_url": "https://www.adb.org/projects/documents/ind-52298-001-apfs-3"
+        "publication_reference_url": "https://www.adb.org/projects/documents/ind-52298-001-apfs-3",
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -128,7 +129,9 @@
       "base_year",
       "observation_status",
       "price_basis"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-01T21:54:50.461542+00:00",
   "semantic_rechecks": [],
@@ -2329,5 +2332,6 @@
       "quarter_start": "2026-10-01",
       "quarter_end": "2026-12-31"
     }
-  ]
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
 }

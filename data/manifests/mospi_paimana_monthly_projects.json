@@ -33,11 +33,6 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/mospi_paimana_monthly_projects.json",
-        "sha256": "bdbb2823a3e72a1371b2e3b3721835e74543f227d72ca722e9029df015b0e359",
-        "size_bytes": 1621
-      },
-      {
         "path": "data/raw/primary_disclosures/mospi_paimana_monthly_projects/versions/af9fad425ca081ab4c1fa49fedc1640ac0e6b199f04372761a31507754a03b02.pdf",
         "sha256": "af9fad425ca081ab4c1fa49fedc1640ac0e6b199f04372761a31507754a03b02",
         "size_bytes": 6468411
@@ -46,6 +41,11 @@
         "path": "data/raw/manual/mospi_paimana_monthly_projects.csv",
         "sha256": "759b98ad518a95811fa54aee56433346e44116aac4dcef5ae892245ec12c26e3",
         "size_bytes": 7574433
+      },
+      {
+        "path": "data/raw/manual/evidence/mospi_paimana_monthly_projects.json",
+        "sha256": "bdbb2823a3e72a1371b2e3b3721835e74543f227d72ca722e9029df015b0e359",
+        "size_bytes": 1621
       }
     ],
     "source_documents": [
@@ -53,7 +53,8 @@
         "url": "https://paimana-proj.mospi.gov.in/ReportPage/ViewPdf?id=1323&path=Content%5CArchiveReport%5Cflash%5C2026-27/FlashReport_August_2026.pdf",
         "relative_path": "primary_disclosures/mospi_paimana_monthly_projects/versions/af9fad425ca081ab4c1fa49fedc1640ac0e6b199f04372761a31507754a03b02.pdf",
         "sha256": "af9fad425ca081ab4c1fa49fedc1640ac0e6b199f04372761a31507754a03b02",
-        "size_bytes": 6468411
+        "size_bytes": 6468411,
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -118,7 +119,9 @@
       "revision_identity",
       "price_basis",
       "base_year"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-02T04:23:23.894230+00:00",
   "semantic_rechecks": [],
@@ -4507,5 +4510,6 @@
       "quarter_start": "2026-10-01",
       "quarter_end": "2026-12-31"
     }
-  ]
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
 }

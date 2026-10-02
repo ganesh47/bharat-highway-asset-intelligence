@@ -33,11 +33,6 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/union_budget_morth_demand86.json",
-        "sha256": "e51ebe2ed6150c0a1f0ddcc6898e679bb5c6864f48ec0ff15a7fe4daa0df01de",
-        "size_bytes": 1211
-      },
-      {
         "path": "data/raw/primary_disclosures/union_budget_morth_demand86/document.pdf",
         "sha256": "b65b89fd24ce782082b314927e595d92dfb10eaa73a3c4c0f211ce0ed7a0fc08",
         "size_bytes": 366442
@@ -46,6 +41,11 @@
         "path": "data/raw/manual/union_budget_morth_demand86.csv",
         "sha256": "fec0dbd3584fd0cd03358c4d24fd7b554ae02a8239fdac1d7db2109f4488dc4c",
         "size_bytes": 34279
+      },
+      {
+        "path": "data/raw/manual/evidence/union_budget_morth_demand86.json",
+        "sha256": "e51ebe2ed6150c0a1f0ddcc6898e679bb5c6864f48ec0ff15a7fe4daa0df01de",
+        "size_bytes": 1211
       }
     ],
     "source_documents": [
@@ -53,7 +53,8 @@
         "url": "https://www.indiabudget.gov.in/doc/eb/sbe86.pdf",
         "relative_path": "primary_disclosures/union_budget_morth_demand86/document.pdf",
         "sha256": "b65b89fd24ce782082b314927e595d92dfb10eaa73a3c4c0f211ce0ed7a0fc08",
-        "size_bytes": 366442
+        "size_bytes": 366442,
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -118,7 +119,9 @@
       "base_year",
       "observation_status",
       "price_basis"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-01T19:28:45.439777+00:00",
   "semantic_rechecks": [],
@@ -1239,5 +1242,6 @@
       "quarter_start": "2026-10-01",
       "quarter_end": "2026-12-31"
     }
-  ]
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
 }

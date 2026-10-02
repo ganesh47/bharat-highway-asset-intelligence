@@ -21,13 +21,7 @@
     "note": "Macro indicators imported through approved manual artifact."
   },
   "manifest": {
-    "raw_files": [
-      {
-        "path": "data/raw/manual/rbi_mospi_macro_indicators.csv",
-        "sha256": "737ef25c6e750282cc540aeeddaad2cb66f6f0349ed4d061a416624121df56e1",
-        "size_bytes": 280
-      }
-    ],
+    "raw_files": [],
     "output_files": [
       {
         "path": "data/processed/rbi_mospi_macro_indicators.parquet",
@@ -47,7 +41,24 @@
       "metric_category",
       "dataset_source",
       "retrieved_at"
-    ]
+    ],
+    "unbound_raw_evidence": [
+      {
+        "path": "data/raw/manual/rbi_mospi_macro_indicators.csv",
+        "expected_sha256": "737ef25c6e750282cc540aeeddaad2cb66f6f0349ed4d061a416624121df56e1",
+        "available_sha256": "c97ed498e465720fbb0b0f1c596d2ec9a16420777b2fc462549c56f2bd5fbad9",
+        "original_binding": {
+          "path": "data/raw/manual/rbi_mospi_macro_indicators.csv",
+          "sha256": "737ef25c6e750282cc540aeeddaad2cb66f6f0349ed4d061a416624121df56e1",
+          "size_bytes": 280
+        },
+        "availability": "present_unbound",
+        "binding_status": "quarantined",
+        "reason": "unsupported_legacy_input_checksum_mismatch",
+        "available_size_bytes": 273
+      }
+    ],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-03-11T05:17:35.808204+00:00",
   "completeness_score": 0.98,

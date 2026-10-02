@@ -33,11 +33,6 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/nhit_quarterly_financial_filings.json",
-        "sha256": "b499e506018c9244bf9f9e13a4d45cd1c6cd3f1258014b830cf5f73b46e31ce4",
-        "size_bytes": 994
-      },
-      {
         "path": "data/raw/primary_disclosures/nhit_quarterly_financial_filings/document.pdf",
         "sha256": "2b8d33b472e4f84eef04f951d477bb85199095d1c1d8df52e8238b212a1b9d0b",
         "size_bytes": 5869520
@@ -46,6 +41,11 @@
         "path": "data/raw/manual/nhit_quarterly_financial_filings.csv",
         "sha256": "5ec5eabece19525b6850806d34482cabb3ce28e6ca7b3731cdc2785c8071f06d",
         "size_bytes": 4186
+      },
+      {
+        "path": "data/raw/manual/evidence/nhit_quarterly_financial_filings.json",
+        "sha256": "b499e506018c9244bf9f9e13a4d45cd1c6cd3f1258014b830cf5f73b46e31ce4",
+        "size_bytes": 994
       }
     ],
     "source_documents": [
@@ -53,7 +53,8 @@
         "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/BM%20Outcome%2007082026%20F.pdf",
         "relative_path": "primary_disclosures/nhit_quarterly_financial_filings/document.pdf",
         "sha256": "2b8d33b472e4f84eef04f951d477bb85199095d1c1d8df52e8238b212a1b9d0b",
-        "size_bytes": 5869520
+        "size_bytes": 5869520,
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -118,7 +119,9 @@
       "base_year",
       "observation_status",
       "price_basis"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-01T19:28:46.194237+00:00",
   "semantic_rechecks": [],
@@ -399,5 +402,6 @@
       "quarter_start": "2026-10-01",
       "quarter_end": "2026-12-31"
     }
-  ]
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
 }

@@ -33,11 +33,6 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/nhit_annual_report.json",
-        "sha256": "675a2a131bae83531b100f10843e893d6901afbd76cad771d9283618e101f6ee",
-        "size_bytes": 1219
-      },
-      {
         "path": "data/raw/primary_disclosures/nhit_annual_report/document.pdf",
         "sha256": "e3f4ef047898465a34c8fa72fca6dcfea44596ec5e7fe2210118e343be465997",
         "size_bytes": 63634629
@@ -46,6 +41,11 @@
         "path": "data/raw/manual/nhit_annual_report.csv",
         "sha256": "439460c9785aa88cdb74240b3b1436717c0b7379ca4a309859bf359157b521cb",
         "size_bytes": 48584
+      },
+      {
+        "path": "data/raw/manual/evidence/nhit_annual_report.json",
+        "sha256": "675a2a131bae83531b100f10843e893d6901afbd76cad771d9283618e101f6ee",
+        "size_bytes": 1219
       }
     ],
     "source_documents": [
@@ -53,7 +53,8 @@
         "url": "https://nhit.co.in/pdf/annual-report/NHIT_Annual%20Report%20FY%202025-26.pdf",
         "relative_path": "primary_disclosures/nhit_annual_report/document.pdf",
         "sha256": "e3f4ef047898465a34c8fa72fca6dcfea44596ec5e7fe2210118e343be465997",
-        "size_bytes": 63634629
+        "size_bytes": 63634629,
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -118,7 +119,9 @@
       "base_year",
       "observation_status",
       "price_basis"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-01T19:28:59.062600+00:00",
   "semantic_rechecks": [],
@@ -1107,5 +1110,6 @@
       "quarter_start": "2026-10-01",
       "quarter_end": "2026-12-31"
     }
-  ]
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
 }

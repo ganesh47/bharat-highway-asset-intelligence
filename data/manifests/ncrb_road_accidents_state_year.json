@@ -20,13 +20,7 @@
     "anchor": "official_pdf_tables_or_manual_csv"
   },
   "manifest": {
-    "raw_files": [
-      {
-        "path": "data/raw/manual/ncrb_road_accidents_state_year.csv",
-        "sha256": "792aa08c6207fb6671fc4233409cab8295ed36bbed6f9c1e16b67caafcf14265",
-        "size_bytes": 171
-      }
-    ],
+    "raw_files": [],
     "output_files": [
       {
         "path": "data/processed/ncrb_road_accidents_state_year.parquet",
@@ -45,7 +39,24 @@
       "source_type",
       "source_id",
       "retrieved_at"
-    ]
+    ],
+    "unbound_raw_evidence": [
+      {
+        "path": "data/raw/manual/ncrb_road_accidents_state_year.csv",
+        "expected_sha256": "792aa08c6207fb6671fc4233409cab8295ed36bbed6f9c1e16b67caafcf14265",
+        "available_sha256": "50c027cb2981ffd71bb1addd1a8398241b12350b7bac1df266af97e518c7ee83",
+        "original_binding": {
+          "path": "data/raw/manual/ncrb_road_accidents_state_year.csv",
+          "sha256": "792aa08c6207fb6671fc4233409cab8295ed36bbed6f9c1e16b67caafcf14265",
+          "size_bytes": 171
+        },
+        "availability": "present_unbound",
+        "binding_status": "quarantined",
+        "reason": "unsupported_legacy_input_checksum_mismatch",
+        "available_size_bytes": 167
+      }
+    ],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-03-11T05:17:32.830647+00:00",
   "completeness_score": 0.98,

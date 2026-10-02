@@ -22,13 +22,7 @@
     "note": "FASTag/quality snapshot CSV imported through approved manual artifact."
   },
   "manifest": {
-    "raw_files": [
-      {
-        "path": "data/raw/manual/ncrb_toll_fastag_claims.csv",
-        "sha256": "cc91af91f13d81a8da0a470e87bf4c2cdad18c9623c0519e7c6a0bc33a457678",
-        "size_bytes": 379
-      }
-    ],
+    "raw_files": [],
     "output_files": [
       {
         "path": "data/processed/ncrb_toll_fastag_claims.parquet",
@@ -48,7 +42,24 @@
       "metric_category",
       "dataset_source",
       "retrieved_at"
-    ]
+    ],
+    "unbound_raw_evidence": [
+      {
+        "path": "data/raw/manual/ncrb_toll_fastag_claims.csv",
+        "expected_sha256": "cc91af91f13d81a8da0a470e87bf4c2cdad18c9623c0519e7c6a0bc33a457678",
+        "available_sha256": "07540afcf8095df060c7b9a1776c2989e86436792e6056c59f0bf5417b97a10a",
+        "original_binding": {
+          "path": "data/raw/manual/ncrb_toll_fastag_claims.csv",
+          "sha256": "cc91af91f13d81a8da0a470e87bf4c2cdad18c9623c0519e7c6a0bc33a457678",
+          "size_bytes": 379
+        },
+        "availability": "present_unbound",
+        "binding_status": "quarantined",
+        "reason": "unsupported_legacy_input_checksum_mismatch",
+        "available_size_bytes": 372
+      }
+    ],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-03-11T05:17:35.830438+00:00",
   "completeness_score": 0.98,

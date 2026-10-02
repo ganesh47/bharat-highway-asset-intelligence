@@ -48,7 +48,9 @@
       "metric_category",
       "dataset_source",
       "retrieved_at"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-02T04:56:18.696544+00:00",
   "completeness_score": 0.995,

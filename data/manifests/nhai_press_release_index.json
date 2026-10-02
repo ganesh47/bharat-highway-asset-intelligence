@@ -39,7 +39,9 @@
       "publisher",
       "retrieval_url",
       "metric_category"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-03-11T05:17:32.818626+00:00",
   "completeness_score": 0.62,
@@ -72,7 +74,7 @@
   "extraction_status": "fetched",
   "recency_basis": "unknown",
   "validation_errors": [],
-  "last_quality_check_at": "2026-10-02T05:07:32.755209+00:00",
+  "last_quality_check_at": "2026-10-02T06:25:24.565266+00:00",
   "metric_coverage": [
     {
       "source_id": "nhai_press_release_index",

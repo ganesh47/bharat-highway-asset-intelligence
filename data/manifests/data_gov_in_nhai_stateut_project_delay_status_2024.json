@@ -46,6 +46,15 @@
       "metric_category",
       "dataset_source",
       "retrieved_at"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": [
+      {
+        "path": "data/raw/data_gov_in_nhai_stateut_project_delay_status_2024/data_gov_in_nhai_stateut_project_delay_status_2024/raw_20260315_083621.csv",
+        "sha256": "7d9e767b9adec4214ae7f526c6b3f15717f121655d65b75566e7aafbc7922332",
+        "availability": "not_archived",
+        "reason": "raw_input_archive_missing"
+      }
     ]
   },
   "retrieved_at": "2026-03-15T08:36:21.210347+00:00",

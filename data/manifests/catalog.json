@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T05:07:43.650034+00:00",
+  "generated_at": "2026-10-02T06:25:37.289128+00:00",
   "datasets": [
     {
       "source_id": "data_gov_in_nhai_projects_api",
@@ -52,6 +52,15 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": [
+          {
+            "path": "data/raw/data_gov_in_nhai_projects_api/data_gov_in_nhai_projects_api/raw_20260311_051707.csv",
+            "sha256": "8e350748bca06b4aa2a0d84b1ead500e5408cd59f50c01375c91de467c6b681a",
+            "availability": "not_archived",
+            "reason": "raw_input_archive_missing"
+          }
         ]
       },
       "retrieved_at": "2026-03-11T05:17:07.260825+00:00",
@@ -156,6 +165,15 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": [
+          {
+            "path": "data/raw/data_gov_in_nhai_project_finance_api/data_gov_in_nhai_project_finance_api/raw_20260311_051707.json",
+            "sha256": "53c1dc4148c9eed950ba9763808ad4537bddcc530b3c28aaabd6ecc33e6debf1",
+            "availability": "not_archived",
+            "reason": "raw_input_archive_missing"
+          }
         ]
       },
       "retrieved_at": "2026-03-11T05:17:07.362507+00:00",
@@ -267,7 +285,9 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:55:32.103911+00:00",
       "completeness_score": 1.0,
@@ -419,7 +439,9 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:55:32.909985+00:00",
       "completeness_score": 0.969,
@@ -563,6 +585,15 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": [
+          {
+            "path": "data/raw/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs/raw_20260311_051708.csv",
+            "sha256": "b165b8a2ecd46c2cd677f0f0364e8e27eab674222f312c0ad7f2cafc55b29df2",
+            "availability": "not_archived",
+            "reason": "raw_input_archive_missing"
+          }
         ]
       },
       "retrieved_at": "2026-03-11T05:17:08.258352+00:00",
@@ -676,7 +707,9 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-01T20:22:52.812560+00:00",
       "progress_reconciliation": {
@@ -784,6 +817,15 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": [
+          {
+            "path": "data/raw/data_gov_in_nhai_himachal_nhai_projects_ongoing/data_gov_in_nhai_himachal_nhai_projects_ongoing/raw_20260311_051708.csv",
+            "sha256": "5b3d253aef7274d1a0e59b6c8f46fc687607adbadd931216bb77201944b52625",
+            "availability": "not_archived",
+            "reason": "raw_input_archive_missing"
+          }
         ]
       },
       "retrieved_at": "2026-03-11T05:17:08.552508+00:00",
@@ -885,7 +927,9 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:56:18.696544+00:00",
       "completeness_score": 0.995,
@@ -1016,6 +1060,15 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": [
+          {
+            "path": "data/raw/data_gov_in_nhai_yearwise_nh_constructed_2014_15/data_gov_in_nhai_yearwise_nh_constructed_2014_15/raw_20260311_051708.csv",
+            "sha256": "86d92b784b303d1772d9d012b0f0964924c22ba896ad8d5848f4ff298bd1d8bd",
+            "availability": "not_archived",
+            "reason": "raw_input_archive_missing"
+          }
         ]
       },
       "retrieved_at": "2026-03-11T05:17:08.746726+00:00",
@@ -1115,7 +1168,9 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:56:18.978104+00:00",
       "completeness_score": 0.997,
@@ -1293,7 +1348,9 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:56:19.095040+00:00",
       "completeness_score": 0.998,
@@ -1437,6 +1494,15 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": [
+          {
+            "path": "data/raw/data_gov_in_road_accidents_nhs_2003_2016/data_gov_in_road_accidents_nhs_2003_2016/raw_20260311_051709.csv",
+            "sha256": "1b0d94766936dead48921847eff916ca967de9d72576f6f427541a842415709a",
+            "availability": "not_archived",
+            "reason": "raw_input_archive_missing"
+          }
         ]
       },
       "retrieved_at": "2026-03-11T05:17:09.074208+00:00",
@@ -1601,6 +1667,15 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": [
+          {
+            "path": "data/raw/data_gov_in_road_accidents_india_2003_2016/data_gov_in_road_accidents_india_2003_2016/raw_20260311_051709.csv",
+            "sha256": "28fc7e0aae4d7829740dc9b402dc7366a1e2c8cd537e683c7378a3039f1d7dbe",
+            "availability": "not_archived",
+            "reason": "raw_input_archive_missing"
+          }
         ]
       },
       "retrieved_at": "2026-03-11T05:17:09.174692+00:00",
@@ -1765,6 +1840,15 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": [
+          {
+            "path": "data/raw/data_gov_in_road_fatal_accidents_2003_2016/data_gov_in_road_fatal_accidents_2003_2016/raw_20260311_051709.csv",
+            "sha256": "353dec5e33b5fe2307784262f5ce9ae5b849e791c0dc9955a68663b633595a14",
+            "availability": "not_archived",
+            "reason": "raw_input_archive_missing"
+          }
         ]
       },
       "retrieved_at": "2026-03-11T05:17:09.276082+00:00",
@@ -1911,7 +1995,9 @@
           "publisher",
           "retrieval_url",
           "metric_category"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-03-11T05:17:32.818626+00:00",
       "completeness_score": 0.62,
@@ -1944,7 +2030,7 @@
       "extraction_status": "fetched",
       "recency_basis": "unknown",
       "validation_errors": [],
-      "last_quality_check_at": "2026-10-02T05:07:32.755209+00:00",
+      "last_quality_check_at": "2026-10-02T06:25:24.565266+00:00",
       "metric_coverage": [
         {
           "source_id": "nhai_press_release_index",
@@ -1986,13 +2072,7 @@
         "anchor": "official_pdf_tables_or_manual_csv"
       },
       "manifest": {
-        "raw_files": [
-          {
-            "path": "data/raw/manual/ncrb_road_accidents_state_year.csv",
-            "sha256": "792aa08c6207fb6671fc4233409cab8295ed36bbed6f9c1e16b67caafcf14265",
-            "size_bytes": 171
-          }
-        ],
+        "raw_files": [],
         "output_files": [
           {
             "path": "data/processed/ncrb_road_accidents_state_year.parquet",
@@ -2011,7 +2091,24 @@
           "source_type",
           "source_id",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [
+          {
+            "path": "data/raw/manual/ncrb_road_accidents_state_year.csv",
+            "expected_sha256": "792aa08c6207fb6671fc4233409cab8295ed36bbed6f9c1e16b67caafcf14265",
+            "available_sha256": "50c027cb2981ffd71bb1addd1a8398241b12350b7bac1df266af97e518c7ee83",
+            "original_binding": {
+              "path": "data/raw/manual/ncrb_road_accidents_state_year.csv",
+              "sha256": "792aa08c6207fb6671fc4233409cab8295ed36bbed6f9c1e16b67caafcf14265",
+              "size_bytes": 171
+            },
+            "availability": "present_unbound",
+            "binding_status": "quarantined",
+            "reason": "unsupported_legacy_input_checksum_mismatch",
+            "available_size_bytes": 167
+          }
+        ],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-03-11T05:17:32.830647+00:00",
       "completeness_score": 0.98,
@@ -2090,11 +2187,6 @@
             "size_bytes": 10998
           },
           {
-            "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
-            "sha256": "46ad0339a990c24b804e1f256fa17fe0ee646adbbf298558d4b67e5a53b4d43a",
-            "size_bytes": 11249
-          },
-          {
             "path": "data/processed/ncrb_road_accidents_state_year.parquet",
             "sha256": "2a38f93d77363ca9ef3d14f92ef95017f3155f6e34630981e9162f0ff29704c2",
             "size_bytes": 6125
@@ -2138,7 +2230,24 @@
           "dataset_source",
           "retrieved_at",
           "model_notes"
-        ]
+        ],
+        "unbound_raw_evidence": [
+          {
+            "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
+            "expected_sha256": "46ad0339a990c24b804e1f256fa17fe0ee646adbbf298558d4b67e5a53b4d43a",
+            "available_sha256": "a1fa78fbc8a4d44b880da3448c8158e29256b818c05fd170ba12fe4a4f200a20",
+            "original_binding": {
+              "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
+              "sha256": "46ad0339a990c24b804e1f256fa17fe0ee646adbbf298558d4b67e5a53b4d43a",
+              "size_bytes": 11249
+            },
+            "availability": "present_unbound",
+            "binding_status": "quarantined",
+            "reason": "unsupported_legacy_input_checksum_mismatch",
+            "available_size_bytes": 11249
+          }
+        ],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-03-11T05:17:32.833320+00:00",
       "note": "Model outputs must be treated as estimates and scenario inputs, never as certified official facts.",
@@ -2218,13 +2327,7 @@
         "note": "Parliament Q&A snapshot CSV imported through approved manual artifact."
       },
       "manifest": {
-        "raw_files": [
-          {
-            "path": "data/raw/manual/parliament_qa_highway_queries.csv",
-            "sha256": "bcbb46bf254cf07cf94882727eecec35c51bc430f8a1ea15ce97699ab8df825f",
-            "size_bytes": 171
-          }
-        ],
+        "raw_files": [],
         "output_files": [
           {
             "path": "data/processed/parliament_qa_highway_queries.parquet",
@@ -2245,7 +2348,24 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [
+          {
+            "path": "data/raw/manual/parliament_qa_highway_queries.csv",
+            "expected_sha256": "bcbb46bf254cf07cf94882727eecec35c51bc430f8a1ea15ce97699ab8df825f",
+            "available_sha256": "54a88ddb6d2df978cc7a6fd40fd439ff8a82761299c814b248501e03612c2d27",
+            "original_binding": {
+              "path": "data/raw/manual/parliament_qa_highway_queries.csv",
+              "sha256": "bcbb46bf254cf07cf94882727eecec35c51bc430f8a1ea15ce97699ab8df825f",
+              "size_bytes": 171
+            },
+            "availability": "present_unbound",
+            "binding_status": "quarantined",
+            "reason": "unsupported_legacy_input_checksum_mismatch",
+            "available_size_bytes": 167
+          }
+        ],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-03-11T05:17:35.798756+00:00",
       "completeness_score": 0.98,
@@ -2319,13 +2439,7 @@
         "note": "Macro indicators imported through approved manual artifact."
       },
       "manifest": {
-        "raw_files": [
-          {
-            "path": "data/raw/manual/rbi_mospi_macro_indicators.csv",
-            "sha256": "737ef25c6e750282cc540aeeddaad2cb66f6f0349ed4d061a416624121df56e1",
-            "size_bytes": 280
-          }
-        ],
+        "raw_files": [],
         "output_files": [
           {
             "path": "data/processed/rbi_mospi_macro_indicators.parquet",
@@ -2345,7 +2459,24 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [
+          {
+            "path": "data/raw/manual/rbi_mospi_macro_indicators.csv",
+            "expected_sha256": "737ef25c6e750282cc540aeeddaad2cb66f6f0349ed4d061a416624121df56e1",
+            "available_sha256": "c97ed498e465720fbb0b0f1c596d2ec9a16420777b2fc462549c56f2bd5fbad9",
+            "original_binding": {
+              "path": "data/raw/manual/rbi_mospi_macro_indicators.csv",
+              "sha256": "737ef25c6e750282cc540aeeddaad2cb66f6f0349ed4d061a416624121df56e1",
+              "size_bytes": 280
+            },
+            "availability": "present_unbound",
+            "binding_status": "quarantined",
+            "reason": "unsupported_legacy_input_checksum_mismatch",
+            "available_size_bytes": 273
+          }
+        ],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-03-11T05:17:35.808204+00:00",
       "completeness_score": 0.98,
@@ -2419,13 +2550,7 @@
         "note": "Procurement CSV imported through approved manual artifact."
       },
       "manifest": {
-        "raw_files": [
-          {
-            "path": "data/raw/manual/morh_procurement_awards.csv",
-            "sha256": "f3bdd402ebbb666adc84b5d8d3180a27af1ccd874f96f9cede7f6921b1e62355",
-            "size_bytes": 344
-          }
-        ],
+        "raw_files": [],
         "output_files": [
           {
             "path": "data/processed/morh_procurement_awards.parquet",
@@ -2446,7 +2571,24 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [
+          {
+            "path": "data/raw/manual/morh_procurement_awards.csv",
+            "expected_sha256": "f3bdd402ebbb666adc84b5d8d3180a27af1ccd874f96f9cede7f6921b1e62355",
+            "available_sha256": "275d633368319383c01d1e95089a49a847e8d2e2d255b9b70ccf8468d22567d1",
+            "original_binding": {
+              "path": "data/raw/manual/morh_procurement_awards.csv",
+              "sha256": "f3bdd402ebbb666adc84b5d8d3180a27af1ccd874f96f9cede7f6921b1e62355",
+              "size_bytes": 344
+            },
+            "availability": "present_unbound",
+            "binding_status": "quarantined",
+            "reason": "unsupported_legacy_input_checksum_mismatch",
+            "available_size_bytes": 337
+          }
+        ],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-03-11T05:17:35.811480+00:00",
       "completeness_score": 0.909,
@@ -2520,13 +2662,7 @@
         "note": "Contractor disclosure CSV imported through approved manual artifact."
       },
       "manifest": {
-        "raw_files": [
-          {
-            "path": "data/raw/manual/morh_contractor_disclosures.csv",
-            "sha256": "8bb4a055d461ebfdc510e9f4eb6ebc7d0e38c6ba9ac75ca093e4cbe5662e0325",
-            "size_bytes": 265
-          }
-        ],
+        "raw_files": [],
         "output_files": [
           {
             "path": "data/processed/morh_contractor_disclosures.parquet",
@@ -2548,7 +2684,24 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [
+          {
+            "path": "data/raw/manual/morh_contractor_disclosures.csv",
+            "expected_sha256": "8bb4a055d461ebfdc510e9f4eb6ebc7d0e38c6ba9ac75ca093e4cbe5662e0325",
+            "available_sha256": "faf67e71edb6dfba035cb382fdec904e3e7eed0ba8e08b79498678a0632bfdeb",
+            "original_binding": {
+              "path": "data/raw/manual/morh_contractor_disclosures.csv",
+              "sha256": "8bb4a055d461ebfdc510e9f4eb6ebc7d0e38c6ba9ac75ca093e4cbe5662e0325",
+              "size_bytes": 265
+            },
+            "availability": "present_unbound",
+            "binding_status": "quarantined",
+            "reason": "unsupported_legacy_input_checksum_mismatch",
+            "available_size_bytes": 262
+          }
+        ],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-03-11T05:17:35.817631+00:00",
       "completeness_score": 0.98,
@@ -2622,13 +2775,7 @@
         "note": "Arbitration claim CSV imported through approved manual artifact."
       },
       "manifest": {
-        "raw_files": [
-          {
-            "path": "data/raw/manual/morh_arbitration_claims.csv",
-            "sha256": "73d95afc7f758b2f190225cd4aba54eef98362d3e40d9b6f38d299e37f5de324",
-            "size_bytes": 214
-          }
-        ],
+        "raw_files": [],
         "output_files": [
           {
             "path": "data/processed/morh_arbitration_claims.parquet",
@@ -2650,7 +2797,24 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [
+          {
+            "path": "data/raw/manual/morh_arbitration_claims.csv",
+            "expected_sha256": "73d95afc7f758b2f190225cd4aba54eef98362d3e40d9b6f38d299e37f5de324",
+            "available_sha256": "d6a6890d72290880d7f89d0e8b05da9185e30077c25e60336a8dd766c7645ca5",
+            "original_binding": {
+              "path": "data/raw/manual/morh_arbitration_claims.csv",
+              "sha256": "73d95afc7f758b2f190225cd4aba54eef98362d3e40d9b6f38d299e37f5de324",
+              "size_bytes": 214
+            },
+            "availability": "present_unbound",
+            "binding_status": "quarantined",
+            "reason": "unsupported_legacy_input_checksum_mismatch",
+            "available_size_bytes": 211
+          }
+        ],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-03-11T05:17:35.823747+00:00",
       "completeness_score": 0.98,
@@ -2725,13 +2889,7 @@
         "note": "FASTag/quality snapshot CSV imported through approved manual artifact."
       },
       "manifest": {
-        "raw_files": [
-          {
-            "path": "data/raw/manual/ncrb_toll_fastag_claims.csv",
-            "sha256": "cc91af91f13d81a8da0a470e87bf4c2cdad18c9623c0519e7c6a0bc33a457678",
-            "size_bytes": 379
-          }
-        ],
+        "raw_files": [],
         "output_files": [
           {
             "path": "data/processed/ncrb_toll_fastag_claims.parquet",
@@ -2751,7 +2909,24 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [
+          {
+            "path": "data/raw/manual/ncrb_toll_fastag_claims.csv",
+            "expected_sha256": "cc91af91f13d81a8da0a470e87bf4c2cdad18c9623c0519e7c6a0bc33a457678",
+            "available_sha256": "07540afcf8095df060c7b9a1776c2989e86436792e6056c59f0bf5417b97a10a",
+            "original_binding": {
+              "path": "data/raw/manual/ncrb_toll_fastag_claims.csv",
+              "sha256": "cc91af91f13d81a8da0a470e87bf4c2cdad18c9623c0519e7c6a0bc33a457678",
+              "size_bytes": 379
+            },
+            "availability": "present_unbound",
+            "binding_status": "quarantined",
+            "reason": "unsupported_legacy_input_checksum_mismatch",
+            "available_size_bytes": 372
+          }
+        ],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-03-11T05:17:35.830438+00:00",
       "completeness_score": 0.98,
@@ -2829,13 +3004,7 @@
         "note": "This is proxy geometry/context only, not an official quality measurement."
       },
       "manifest": {
-        "raw_files": [
-          {
-            "path": "data/raw/manual/quality_maintenance_indicators.csv",
-            "sha256": "8750e5e5ae1953290e0c8234d5ffc757730e592d454c87527f2ebacc89889381",
-            "size_bytes": 332
-          }
-        ],
+        "raw_files": [],
         "output_files": [
           {
             "path": "data/processed/quality_maintenance_indicators.parquet",
@@ -2855,7 +3024,24 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [
+          {
+            "path": "data/raw/manual/quality_maintenance_indicators.csv",
+            "expected_sha256": "8750e5e5ae1953290e0c8234d5ffc757730e592d454c87527f2ebacc89889381",
+            "available_sha256": "9f2dc71d751441e6e5b7b3f30d1748d447e7d50d513988bdc304f67f9800ba18",
+            "original_binding": {
+              "path": "data/raw/manual/quality_maintenance_indicators.csv",
+              "sha256": "8750e5e5ae1953290e0c8234d5ffc757730e592d454c87527f2ebacc89889381",
+              "size_bytes": 332
+            },
+            "availability": "present_unbound",
+            "binding_status": "quarantined",
+            "reason": "unsupported_legacy_input_checksum_mismatch",
+            "available_size_bytes": 325
+          }
+        ],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-03-11T05:17:35.836220+00:00",
       "completeness_score": 0.98,
@@ -2932,13 +3118,7 @@
         "note": "VIIRS proxy indicators imported through approved manual artifact; clearly marked as proxy-derived."
       },
       "manifest": {
-        "raw_files": [
-          {
-            "path": "data/raw/manual/viirs_nightlights_proxy.csv",
-            "sha256": "7ffa238bf0be57d49ff5f883c110590c535aad5d02f73e7ff36ac2a9bf752773",
-            "size_bytes": 164
-          }
-        ],
+        "raw_files": [],
         "output_files": [
           {
             "path": "data/processed/viirs_nightlights_proxy.parquet",
@@ -2958,7 +3138,24 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [
+          {
+            "path": "data/raw/manual/viirs_nightlights_proxy.csv",
+            "expected_sha256": "7ffa238bf0be57d49ff5f883c110590c535aad5d02f73e7ff36ac2a9bf752773",
+            "available_sha256": "140cedfad9614c86b4c074472c256ee5e5f93ea0acbce8786fb4e67df0b82b0f",
+            "original_binding": {
+              "path": "data/raw/manual/viirs_nightlights_proxy.csv",
+              "sha256": "7ffa238bf0be57d49ff5f883c110590c535aad5d02f73e7ff36ac2a9bf752773",
+              "size_bytes": 164
+            },
+            "availability": "present_unbound",
+            "binding_status": "quarantined",
+            "reason": "unsupported_legacy_input_checksum_mismatch",
+            "available_size_bytes": 160
+          }
+        ],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-03-11T05:17:35.842099+00:00",
       "completeness_score": 0.98,
@@ -3172,7 +3369,9 @@
           "publication_date",
           "document_checksum",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:56:20.287292+00:00",
       "completeness_score": 0.857,
@@ -3255,7 +3454,7 @@
           "quarter_end": "2026-12-31"
         }
       ],
-      "last_quality_check_at": "2026-10-02T05:07:32.749562+00:00"
+      "last_quality_check_at": "2026-10-02T06:25:24.558005+00:00"
     },
     {
       "source_id": "nhai_audited_results_pdf",
@@ -3314,7 +3513,9 @@
           "publication_date",
           "document_checksum",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:56:19.797545+00:00",
       "completeness_score": 0.929,
@@ -3402,7 +3603,7 @@
           "quarter_end": "2026-12-31"
         }
       ],
-      "last_quality_check_at": "2026-10-02T05:07:32.753030+00:00"
+      "last_quality_check_at": "2026-10-02T06:25:24.562281+00:00"
     },
     {
       "source_id": "data_gov_in_nhai_statewise_nh_project_status_2024_25",
@@ -3465,7 +3666,9 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:55:33.052422+00:00",
       "completeness_score": 0.988,
@@ -3600,6 +3803,15 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": [
+          {
+            "path": "data/raw/data_gov_in_nhai_stateut_project_delay_status_2024/data_gov_in_nhai_stateut_project_delay_status_2024/raw_20260315_083621.csv",
+            "sha256": "7d9e767b9adec4214ae7f526c6b3f15717f121655d65b75566e7aafbc7922332",
+            "availability": "not_archived",
+            "reason": "raw_input_archive_missing"
+          }
         ]
       },
       "retrieved_at": "2026-03-15T08:36:21.210347+00:00",
@@ -3703,7 +3915,9 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:58:19.761162+00:00",
       "completeness_score": 0.994,
@@ -3967,7 +4181,9 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-03-16T08:52:20.431774+00:00",
       "completeness_score": 0.98,
@@ -4072,7 +4288,9 @@
           "dataset_source",
           "analytical_eligible",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-01T20:08:33.695700+00:00",
       "source_as_of_date": "2024-12-31",
@@ -4452,7 +4670,9 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-01T20:08:31.190674+00:00",
       "completeness_score": 0.98,
@@ -4593,6 +4813,15 @@
           "metric_category",
           "dataset_source",
           "retrieved_at"
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": [
+          {
+            "path": "data/raw/data_gov_in_gsdp_stateut_current_prices_2017_23/data_gov_in_gsdp_stateut_current_prices_2017_23/raw_20260326_154220.csv",
+            "sha256": "b794188e6e91180e272fac04a249a02f44c3cc5b0e9895165ae45528bc7513e2",
+            "availability": "not_archived",
+            "reason": "raw_input_archive_missing"
+          }
         ]
       },
       "retrieved_at": "2026-03-26T15:42:20.001770+00:00",
@@ -4798,11 +5027,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/union_budget_morth_demand86.json",
-            "sha256": "e51ebe2ed6150c0a1f0ddcc6898e679bb5c6864f48ec0ff15a7fe4daa0df01de",
-            "size_bytes": 1211
-          },
-          {
             "path": "data/raw/primary_disclosures/union_budget_morth_demand86/document.pdf",
             "sha256": "b65b89fd24ce782082b314927e595d92dfb10eaa73a3c4c0f211ce0ed7a0fc08",
             "size_bytes": 366442
@@ -4811,6 +5035,11 @@
             "path": "data/raw/manual/union_budget_morth_demand86.csv",
             "sha256": "fec0dbd3584fd0cd03358c4d24fd7b554ae02a8239fdac1d7db2109f4488dc4c",
             "size_bytes": 34279
+          },
+          {
+            "path": "data/raw/manual/evidence/union_budget_morth_demand86.json",
+            "sha256": "e51ebe2ed6150c0a1f0ddcc6898e679bb5c6864f48ec0ff15a7fe4daa0df01de",
+            "size_bytes": 1211
           }
         ],
         "source_documents": [
@@ -4818,7 +5047,8 @@
             "url": "https://www.indiabudget.gov.in/doc/eb/sbe86.pdf",
             "relative_path": "primary_disclosures/union_budget_morth_demand86/document.pdf",
             "sha256": "b65b89fd24ce782082b314927e595d92dfb10eaa73a3c4c0f211ce0ed7a0fc08",
-            "size_bytes": 366442
+            "size_bytes": 366442,
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -4883,7 +5113,9 @@
           "base_year",
           "observation_status",
           "price_basis"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-01T19:28:45.439777+00:00",
       "semantic_rechecks": [],
@@ -6004,7 +6236,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "union_budget_highway_outcomes",
@@ -6041,11 +6274,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/union_budget_highway_outcomes.json",
-            "sha256": "20996bcd5657073e0767ec16901295aa166df8f0429121e40235b1d74bed7798",
-            "size_bytes": 844
-          },
-          {
             "path": "data/raw/primary_disclosures/union_budget_highway_outcomes/document.pdf",
             "sha256": "e3535b4c027fa3c6b4f1236aa198d612fcb076a54d2d1ec8b2e2d1e712437039",
             "size_bytes": 3099218
@@ -6054,6 +6282,11 @@
             "path": "data/raw/manual/union_budget_highway_outcomes.csv",
             "sha256": "7f9ddbc01455eede0f482fb506d1cd2e9860da592fa2cbea470959f7e577d280",
             "size_bytes": 8143
+          },
+          {
+            "path": "data/raw/manual/evidence/union_budget_highway_outcomes.json",
+            "sha256": "20996bcd5657073e0767ec16901295aa166df8f0429121e40235b1d74bed7798",
+            "size_bytes": 844
           }
         ],
         "source_documents": [
@@ -6061,7 +6294,8 @@
             "url": "https://www.indiabudget.gov.in/doc/OutcomeBudgetE2026_2027.pdf",
             "relative_path": "primary_disclosures/union_budget_highway_outcomes/document.pdf",
             "sha256": "e3535b4c027fa3c6b4f1236aa198d612fcb076a54d2d1ec8b2e2d1e712437039",
-            "size_bytes": 3099218
+            "size_bytes": 3099218,
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -6126,7 +6360,9 @@
           "base_year",
           "observation_status",
           "price_basis"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-01T19:28:45.546713+00:00",
       "semantic_rechecks": [],
@@ -6617,7 +6853,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "nhit_quarterly_operations_finance",
@@ -6654,11 +6891,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/nhit_quarterly_operations_finance.json",
-            "sha256": "49f53216dedb5092d25e2145c3603652d46376571c6d3dbeb0a97b008c48c243",
-            "size_bytes": 1265
-          },
-          {
             "path": "data/raw/primary_disclosures/nhit_quarterly_operations_finance/document.pdf",
             "sha256": "da8176d700cfc2e88e991e2a71e0a78d92d3397a519a7f13b240808a55db65f1",
             "size_bytes": 3410545
@@ -6667,6 +6899,11 @@
             "path": "data/raw/manual/nhit_quarterly_operations_finance.csv",
             "sha256": "85cb524360ea333eca7cb741578d9a20dd6da3cfa8b170b52d549997d445a641",
             "size_bytes": 91182
+          },
+          {
+            "path": "data/raw/manual/evidence/nhit_quarterly_operations_finance.json",
+            "sha256": "49f53216dedb5092d25e2145c3603652d46376571c6d3dbeb0a97b008c48c243",
+            "size_bytes": 1265
           }
         ],
         "source_documents": [
@@ -6674,7 +6911,8 @@
             "url": "https://nhit.co.in/pdf/investor-presentations/Investor%20Presentation%20June%202026.pdf",
             "relative_path": "primary_disclosures/nhit_quarterly_operations_finance/document.pdf",
             "sha256": "da8176d700cfc2e88e991e2a71e0a78d92d3397a519a7f13b240808a55db65f1",
-            "size_bytes": 3410545
+            "size_bytes": 3410545,
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -6739,7 +6977,9 @@
           "base_year",
           "observation_status",
           "price_basis"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-01T19:28:46.101037+00:00",
       "semantic_rechecks": [],
@@ -7429,7 +7669,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "nhit_quarterly_financial_filings",
@@ -7466,11 +7707,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/nhit_quarterly_financial_filings.json",
-            "sha256": "b499e506018c9244bf9f9e13a4d45cd1c6cd3f1258014b830cf5f73b46e31ce4",
-            "size_bytes": 994
-          },
-          {
             "path": "data/raw/primary_disclosures/nhit_quarterly_financial_filings/document.pdf",
             "sha256": "2b8d33b472e4f84eef04f951d477bb85199095d1c1d8df52e8238b212a1b9d0b",
             "size_bytes": 5869520
@@ -7479,6 +7715,11 @@
             "path": "data/raw/manual/nhit_quarterly_financial_filings.csv",
             "sha256": "5ec5eabece19525b6850806d34482cabb3ce28e6ca7b3731cdc2785c8071f06d",
             "size_bytes": 4186
+          },
+          {
+            "path": "data/raw/manual/evidence/nhit_quarterly_financial_filings.json",
+            "sha256": "b499e506018c9244bf9f9e13a4d45cd1c6cd3f1258014b830cf5f73b46e31ce4",
+            "size_bytes": 994
           }
         ],
         "source_documents": [
@@ -7486,7 +7727,8 @@
             "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/BM%20Outcome%2007082026%20F.pdf",
             "relative_path": "primary_disclosures/nhit_quarterly_financial_filings/document.pdf",
             "sha256": "2b8d33b472e4f84eef04f951d477bb85199095d1c1d8df52e8238b212a1b9d0b",
-            "size_bytes": 5869520
+            "size_bytes": 5869520,
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -7551,7 +7793,9 @@
           "base_year",
           "observation_status",
           "price_basis"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-01T19:28:46.194237+00:00",
       "semantic_rechecks": [],
@@ -7832,7 +8076,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "nhit_asset_valuation_assumptions",
@@ -7869,11 +8114,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/nhit_asset_valuation_assumptions.json",
-            "sha256": "16ac94e4c1a4b2f5e5984db3ed6005923d54a630e6ebe3cc1ea1f99e54e9f33c",
-            "size_bytes": 1250
-          },
-          {
             "path": "data/raw/primary_disclosures/nhit_asset_valuation_assumptions/document.pdf",
             "sha256": "6df526244e98e9eaa56e6f0f44de160ffbb774bfe334159fd2885fdb606a7e92",
             "size_bytes": 5622960
@@ -7882,6 +8122,11 @@
             "path": "data/raw/manual/nhit_asset_valuation_assumptions.csv",
             "sha256": "6970b21a5732aa77b2fb7d0395593feb40df241d625cf03ef3c256ab02385ed8",
             "size_bytes": 13525
+          },
+          {
+            "path": "data/raw/manual/evidence/nhit_asset_valuation_assumptions.json",
+            "sha256": "16ac94e4c1a4b2f5e5984db3ed6005923d54a630e6ebe3cc1ea1f99e54e9f33c",
+            "size_bytes": 1250
           }
         ],
         "source_documents": [
@@ -7889,7 +8134,8 @@
             "url": "https://nhit.co.in/pdf/valuation-report/Valuation%20Report%20F_08_08_26.pdf",
             "relative_path": "primary_disclosures/nhit_asset_valuation_assumptions/document.pdf",
             "sha256": "6df526244e98e9eaa56e6f0f44de160ffbb774bfe334159fd2885fdb606a7e92",
-            "size_bytes": 5622960
+            "size_bytes": 5622960,
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -7954,7 +8200,9 @@
           "base_year",
           "observation_status",
           "price_basis"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-01T19:28:46.272467+00:00",
       "semantic_rechecks": [],
@@ -8246,7 +8494,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "nhit_annual_report",
@@ -8283,11 +8532,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/nhit_annual_report.json",
-            "sha256": "675a2a131bae83531b100f10843e893d6901afbd76cad771d9283618e101f6ee",
-            "size_bytes": 1219
-          },
-          {
             "path": "data/raw/primary_disclosures/nhit_annual_report/document.pdf",
             "sha256": "e3f4ef047898465a34c8fa72fca6dcfea44596ec5e7fe2210118e343be465997",
             "size_bytes": 63634629
@@ -8296,6 +8540,11 @@
             "path": "data/raw/manual/nhit_annual_report.csv",
             "sha256": "439460c9785aa88cdb74240b3b1436717c0b7379ca4a309859bf359157b521cb",
             "size_bytes": 48584
+          },
+          {
+            "path": "data/raw/manual/evidence/nhit_annual_report.json",
+            "sha256": "675a2a131bae83531b100f10843e893d6901afbd76cad771d9283618e101f6ee",
+            "size_bytes": 1219
           }
         ],
         "source_documents": [
@@ -8303,7 +8552,8 @@
             "url": "https://nhit.co.in/pdf/annual-report/NHIT_Annual%20Report%20FY%202025-26.pdf",
             "relative_path": "primary_disclosures/nhit_annual_report/document.pdf",
             "sha256": "e3f4ef047898465a34c8fa72fca6dcfea44596ec5e7fe2210118e343be465997",
-            "size_bytes": 63634629
+            "size_bytes": 63634629,
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -8368,7 +8618,9 @@
           "base_year",
           "observation_status",
           "price_basis"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-01T19:28:59.062600+00:00",
       "semantic_rechecks": [],
@@ -9357,7 +9609,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "nhidcl_monthly_project_progress",
@@ -9394,11 +9647,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/nhidcl_monthly_project_progress.json",
-            "sha256": "e30d4f7bfdf07e5ac7b32efb320376473d011e5f66eed7d1a94834df033a5f10",
-            "size_bytes": 1114
-          },
-          {
             "path": "data/raw/primary_disclosures/nhidcl_monthly_project_progress/document.pdf",
             "sha256": "8d651f90b0d4a1410cabf2e74b8fa4338936fc6b8e468541590c44ad3d2038f3",
             "size_bytes": 687834
@@ -9407,6 +9655,11 @@
             "path": "data/raw/manual/nhidcl_monthly_project_progress.csv",
             "sha256": "270168b03bbb7a6b388869ab8554d78cdd4921fc6a8e15fc55acbf17a99ec19a",
             "size_bytes": 4013296
+          },
+          {
+            "path": "data/raw/manual/evidence/nhidcl_monthly_project_progress.json",
+            "sha256": "e30d4f7bfdf07e5ac7b32efb320376473d011e5f66eed7d1a94834df033a5f10",
+            "size_bytes": 1114
           }
         ],
         "source_documents": [
@@ -9414,7 +9667,8 @@
             "url": "https://www.nhidcl.com/sites/default/files/2026-09/nhidcl-completed_and_ongoing_projects_status_per_pmp_data_lake_portal_31-08-2026.pdf",
             "relative_path": "primary_disclosures/nhidcl_monthly_project_progress/document.pdf",
             "sha256": "8d651f90b0d4a1410cabf2e74b8fa4338936fc6b8e468541590c44ad3d2038f3",
-            "size_bytes": 687834
+            "size_bytes": 687834,
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -9479,7 +9733,9 @@
           "base_year",
           "observation_status",
           "price_basis"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-01T19:28:49.064739+00:00",
       "semantic_rechecks": [],
@@ -12342,7 +12598,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "parliament_nhai_debt_tot_invit",
@@ -12379,11 +12636,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/parliament_nhai_debt_tot_invit.json",
-            "sha256": "a5aba9d03614730179b4d39d860d768c5c5c734019cd06c550435a0883ae7a76",
-            "size_bytes": 1253
-          },
-          {
             "path": "data/raw/primary_disclosures/parliament_nhai_debt_tot_invit/document.pdf",
             "sha256": "a8fc9ba166a457d2644c4d9defd18e860b680de96cad1b7daeca489813e7efc7",
             "size_bytes": 191392
@@ -12392,6 +12644,11 @@
             "path": "data/raw/manual/parliament_nhai_debt_tot_invit.csv",
             "sha256": "dafdf6a0d75f00a41c8d26b47c90426022dcc18881e24da39570337df33b491b",
             "size_bytes": 31191
+          },
+          {
+            "path": "data/raw/manual/evidence/parliament_nhai_debt_tot_invit.json",
+            "sha256": "a5aba9d03614730179b4d39d860d768c5c5c734019cd06c550435a0883ae7a76",
+            "size_bytes": 1253
           }
         ],
         "source_documents": [
@@ -12399,7 +12656,8 @@
             "url": "https://sansad.in/getFile/loksabhaquestions/annex/187/AU963_8iM1pC.pdf?source=pqals",
             "relative_path": "primary_disclosures/parliament_nhai_debt_tot_invit/document.pdf",
             "sha256": "a8fc9ba166a457d2644c4d9defd18e860b680de96cad1b7daeca489813e7efc7",
-            "size_bytes": 191392
+            "size_bytes": 191392,
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -12464,7 +12722,9 @@
           "base_year",
           "observation_status",
           "price_basis"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-01T19:28:46.561911+00:00",
       "semantic_rechecks": [],
@@ -12874,7 +13134,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "nhai_monetisation_transactions",
@@ -12911,11 +13172,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/nhai_monetisation_transactions.json",
-            "sha256": "96faa462c392a8aec8378663e8f761f382f3a11a62fdc4c03081da1cab80f189",
-            "size_bytes": 1057
-          },
-          {
             "path": "data/raw/primary_disclosures/nhai_monetisation_transactions/document.html",
             "sha256": "c2ff31f3a1530bee63a9fd061d31366ad69abfce3869ba5ecbe62e041049a683",
             "size_bytes": 90217
@@ -12924,6 +13180,11 @@
             "path": "data/raw/manual/nhai_monetisation_transactions.csv",
             "sha256": "486681dd25b0ccb2a5b7771894a4be18179598560a9705d47a1b0355ccba8ef1",
             "size_bytes": 5219
+          },
+          {
+            "path": "data/raw/manual/evidence/nhai_monetisation_transactions.json",
+            "sha256": "96faa462c392a8aec8378663e8f761f382f3a11a62fdc4c03081da1cab80f189",
+            "size_bytes": 1057
           }
         ],
         "source_documents": [
@@ -12932,7 +13193,8 @@
             "relative_path": "primary_disclosures/nhai_monetisation_transactions/document.html",
             "sha256": "c2ff31f3a1530bee63a9fd061d31366ad69abfce3869ba5ecbe62e041049a683",
             "size_bytes": 90217,
-            "semantic_document_sha256": "1c0d94d382ddc7a0dfb13a87259a0e55fa95836388b2a84cbefa74cbfaf20bf9"
+            "semantic_document_sha256": "1c0d94d382ddc7a0dfb13a87259a0e55fa95836388b2a84cbefa74cbfaf20bf9",
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -12997,7 +13259,9 @@
           "base_year",
           "observation_status",
           "price_basis"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-01T19:28:46.585482+00:00",
       "semantic_rechecks": [],
@@ -13284,7 +13548,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "npci_netc_monthly_statistics",
@@ -13323,11 +13588,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/npci_netc_monthly_statistics.json",
-            "sha256": "bc975d0e6eff39d4952cae3bce3fac8d4c2ea06291fc789af447732db3261111",
-            "size_bytes": 1939
-          },
-          {
             "path": "data/raw/manual/evidence/npci_netc_rendered_snapshot_2026-10-02.json",
             "sha256": "3743b75a8a0b48a4aba9b6c328164248ebf3ff2da8eb0a954f95d249c230cf99",
             "size_bytes": 2547
@@ -13336,6 +13596,11 @@
             "path": "data/raw/manual/npci_netc_monthly_statistics.csv",
             "sha256": "212f87b794e4d88525b90a37764841f02c999ca7053940a8801601101eb71641",
             "size_bytes": 44348
+          },
+          {
+            "path": "data/raw/manual/evidence/npci_netc_monthly_statistics.json",
+            "sha256": "bc975d0e6eff39d4952cae3bce3fac8d4c2ea06291fc789af447732db3261111",
+            "size_bytes": 1939
           }
         ],
         "source_documents": [
@@ -13348,7 +13613,8 @@
             "checksum_scope": "Local governed rendered-table JSON, not publisher HTML/PDF bytes",
             "capture_method": "Manual browser review of rendered official NETC FASTag Statistics table; selected reporting years and scrolled to load all twelve prior-year rows. This is a governed rendered-table snapshot, not publisher PDF bytes.",
             "captured_at": "2026-10-01T21:49:22+00:00",
-            "publisher_document_checksum_available": false
+            "publisher_document_checksum_available": false,
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -13413,7 +13679,9 @@
           "base_year",
           "observation_status",
           "price_basis"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-01T21:49:22+00:00",
       "semantic_rechecks": [],
@@ -13565,7 +13833,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "rbi_state_road_finances",
@@ -13602,11 +13871,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/rbi_state_road_finances.json",
-            "sha256": "05a279c353e2a93afcfa697320b495cfd5b6dd2c6bac39b5fb8b7ebae1f6123e",
-            "size_bytes": 1579
-          },
-          {
             "path": "data/raw/primary_disclosures/rbi_state_road_finances/document.pdf",
             "sha256": "0da62779a6cb5441149e0de4bad024d4d63c449dab564f821fdd307ea3e4fc77",
             "size_bytes": 3616815
@@ -13615,6 +13879,11 @@
             "path": "data/raw/manual/rbi_state_road_finances.csv",
             "sha256": "04433c736fcf3521d12ac8466a962b26a2e0faadb5140408aea048a5a96b3935",
             "size_bytes": 1446953
+          },
+          {
+            "path": "data/raw/manual/evidence/rbi_state_road_finances.json",
+            "sha256": "05a279c353e2a93afcfa697320b495cfd5b6dd2c6bac39b5fb8b7ebae1f6123e",
+            "size_bytes": 1579
           }
         ],
         "source_documents": [
@@ -13622,7 +13891,8 @@
             "url": "https://rbidocs.rbi.org.in/rdocs/Publications/PDFs/0SF23012026877D47254C4F4B0793B2C38F05FB7EC5.PDF",
             "relative_path": "primary_disclosures/rbi_state_road_finances/document.pdf",
             "sha256": "0da62779a6cb5441149e0de4bad024d4d63c449dab564f821fdd307ea3e4fc77",
-            "size_bytes": 3616815
+            "size_bytes": 3616815,
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -13687,7 +13957,9 @@
           "base_year",
           "observation_status",
           "price_basis"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-01T19:28:49.237144+00:00",
       "semantic_rechecks": [],
@@ -14512,7 +14784,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "cag_bharatmala_performance_audit",
@@ -14549,11 +14822,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/cag_bharatmala_performance_audit.json",
-            "sha256": "b0a962bab880868056258d414659513e6c366c77b1b0567ccfea1ef4091f2cad",
-            "size_bytes": 923
-          },
-          {
             "path": "data/raw/primary_disclosures/cag_bharatmala_performance_audit/document.pdf",
             "sha256": "bfeaffbdc6ba8d52a6c0b08d5805c2c5d61d58ebf3a03cd3d1a605a67b2609d5",
             "size_bytes": 8105572
@@ -14562,6 +14830,11 @@
             "path": "data/raw/manual/cag_bharatmala_performance_audit.csv",
             "sha256": "42944ba0a5798cedaa4be67a5884f7b91a38fbc0ab5754769d5084b94eb10009",
             "size_bytes": 5509
+          },
+          {
+            "path": "data/raw/manual/evidence/cag_bharatmala_performance_audit.json",
+            "sha256": "b0a962bab880868056258d414659513e6c366c77b1b0567ccfea1ef4091f2cad",
+            "size_bytes": 923
           }
         ],
         "source_documents": [
@@ -14569,7 +14842,8 @@
             "url": "https://saiindia.gov.in/webroot/uploads/download_audit_report/2023/Report-No.-19-of-203--Bharatmala-English-064d5db7bc63c20.06754442.pdf",
             "relative_path": "primary_disclosures/cag_bharatmala_performance_audit/document.pdf",
             "sha256": "bfeaffbdc6ba8d52a6c0b08d5805c2c5d61d58ebf3a03cd3d1a605a67b2609d5",
-            "size_bytes": 8105572
+            "size_bytes": 8105572,
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -14634,7 +14908,9 @@
           "base_year",
           "observation_status",
           "price_basis"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-01T19:28:51.317541+00:00",
       "semantic_rechecks": [],
@@ -14917,7 +15193,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "morth_state_highway_network",
@@ -14954,11 +15231,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/morth_state_highway_network.json",
-            "sha256": "d679d14ae5e8382d9c88564ab723ae1b46d48be6b2be54bce58f7b1002cb0c65",
-            "size_bytes": 1059
-          },
-          {
             "path": "data/raw/primary_disclosures/morth_state_highway_network/document.pdf",
             "sha256": "3288df12fb15571bfcdbcd388befe36e2cf7fdc07bf794024906e242fda73a9a",
             "size_bytes": 9147734
@@ -14967,6 +15239,11 @@
             "path": "data/raw/manual/morth_state_highway_network.csv",
             "sha256": "5afbe9886f0e071722b3bd4794b8f02c35ae82a565ae20d144c4f6a064bafc41",
             "size_bytes": 61697
+          },
+          {
+            "path": "data/raw/manual/evidence/morth_state_highway_network.json",
+            "sha256": "d679d14ae5e8382d9c88564ab723ae1b46d48be6b2be54bce58f7b1002cb0c65",
+            "size_bytes": 1059
           }
         ],
         "source_documents": [
@@ -14974,7 +15251,8 @@
             "url": "https://morth.gov.in/backend/documents/uploaded/1781850176_EDsilQvsKL.pdf",
             "relative_path": "primary_disclosures/morth_state_highway_network/document.pdf",
             "sha256": "3288df12fb15571bfcdbcd388befe36e2cf7fdc07bf794024906e242fda73a9a",
-            "size_bytes": 9147734
+            "size_bytes": 9147734,
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -15039,7 +15317,9 @@
           "base_year",
           "observation_status",
           "price_basis"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-01T19:28:52.082854+00:00",
       "semantic_rechecks": [],
@@ -15289,7 +15569,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "upeida_expressway_projects",
@@ -15326,11 +15607,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/upeida_expressway_projects.json",
-            "sha256": "6943bf31992aa96423f65daec2ddee56141689c7151c7d79c2c3a2a53088cd9f",
-            "size_bytes": 1338
-          },
-          {
             "path": "data/raw/primary_disclosures/upeida_expressway_projects/document.html",
             "sha256": "b42ffae976f8e33384f83f4d34ebb63a80f950e8d235a5eb76067c4b795d3e0a",
             "size_bytes": 80529
@@ -15344,6 +15620,11 @@
             "path": "data/raw/manual/upeida_expressway_projects.csv",
             "sha256": "bfc27a4a268fb65a729f0546895e0c3f1aa630837b3223f28516fb6313862a6c",
             "size_bytes": 6280
+          },
+          {
+            "path": "data/raw/manual/evidence/upeida_expressway_projects.json",
+            "sha256": "6943bf31992aa96423f65daec2ddee56141689c7151c7d79c2c3a2a53088cd9f",
+            "size_bytes": 1338
           }
         ],
         "source_documents": [
@@ -15351,13 +15632,15 @@
             "url": "https://upeida.up.gov.in/en/page/ganga-expressway",
             "relative_path": "primary_disclosures/upeida_expressway_projects/document.html",
             "sha256": "b42ffae976f8e33384f83f4d34ebb63a80f950e8d235a5eb76067c4b795d3e0a",
-            "size_bytes": 80529
+            "size_bytes": 80529,
+            "availability": "archived"
           },
           {
             "url": "https://upeida.up.gov.in/en/page/agra-lucknow-expressway",
             "relative_path": "primary_disclosures/upeida_expressway_projects/agra-lucknow.html",
             "sha256": "251f5a62bfe6f859d0a900b211aec95d77bd77d4633cb55d893e9337fa41f51a",
-            "size_bytes": 41332
+            "size_bytes": 41332,
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -15422,7 +15705,9 @@
           "base_year",
           "observation_status",
           "price_basis"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-01T19:49:37.207385+00:00",
       "semantic_rechecks": [],
@@ -15652,7 +15937,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "msrdc_financial_disclosures",
@@ -15673,7 +15959,18 @@
         "note": "Public index/subsidiary FY23-24 filings identified; primary download timed out. Parent standalone latest visible FY18-19, not FY23-24. No statement facts without retrieved PDF."
       },
       "manifest": {
-        "raw_files": [],
+        "raw_files": [
+          {
+            "path": "data/raw/manual/msrdc_financial_disclosures.csv",
+            "sha256": "00238de3ec0a91725467fc5092e033650f789412256294382f35cf54cba5dff4",
+            "size_bytes": 648
+          },
+          {
+            "path": "data/raw/manual/evidence/msrdc_financial_disclosures.json",
+            "sha256": "80aba930a8ed9455cfc6db372dfaadb644b7b9a9986b35bc30324e40b4ccdb49",
+            "size_bytes": 871
+          }
+        ],
         "row_count": 0,
         "columns": [
           "entity_id",
@@ -15728,7 +16025,10 @@
             "format": "parquet",
             "sha256": "f4f94eac01503b05db3e2395aa8d84de7c2d2014378bf33d352945166cb7552c"
           }
-        ]
+        ],
+        "source_documents": [],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "output_table_path": "data/processed/msrdc_financial_disclosures.parquet",
       "connector": "primary_disclosures",
@@ -15783,7 +16083,9 @@
         }
       ],
       "research_cutoff": "2026-10-02",
-      "next_expected_publication_at": null
+      "next_expected_publication_at": null,
+      "publication_history": null,
+      "governed_extract_binding_status": "empty_gap_snapshot"
     },
     {
       "source_id": "adb_state_road_projects",
@@ -15826,11 +16128,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/adb_state_road_projects.json",
-            "sha256": "54718e66c311938db2956ebbeefb27e7e44ed26a282c15f774a489162f7a9478",
-            "size_bytes": 2132
-          },
-          {
             "path": "data/raw/primary_disclosures/adb_state_road_projects/document.pdf",
             "sha256": "d8d949023e38e46929f39edf948b642fcc670d34332e841ba186121d0b955ffd",
             "size_bytes": 3005347
@@ -15839,6 +16136,11 @@
             "path": "data/raw/manual/adb_state_road_projects.csv",
             "sha256": "da155abb93a0fbdf52852bbe89c0cb6233a65f1637e994078d34c0ac04c9e8a6",
             "size_bytes": 108960
+          },
+          {
+            "path": "data/raw/manual/evidence/adb_state_road_projects.json",
+            "sha256": "54718e66c311938db2956ebbeefb27e7e44ed26a282c15f774a489162f7a9478",
+            "size_bytes": 2132
           }
         ],
         "source_documents": [
@@ -15850,7 +16152,8 @@
             "artifact_kind": "publisher_pdf",
             "checksum_scope": "Exact downloaded publisher PDF bytes",
             "extraction_method": "Checksum-pinned visual transcription of scanned tables; embedded OCR is not numerical authority",
-            "publication_reference_url": "https://www.adb.org/projects/documents/ind-52298-001-apfs-3"
+            "publication_reference_url": "https://www.adb.org/projects/documents/ind-52298-001-apfs-3",
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -15915,7 +16218,9 @@
           "base_year",
           "observation_status",
           "price_basis"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-01T21:54:50.461542+00:00",
       "semantic_rechecks": [],
@@ -18116,7 +18421,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "correlation_matrix",
@@ -18251,11 +18557,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/mospi_paimana_monthly_projects.json",
-            "sha256": "bdbb2823a3e72a1371b2e3b3721835e74543f227d72ca722e9029df015b0e359",
-            "size_bytes": 1621
-          },
-          {
             "path": "data/raw/primary_disclosures/mospi_paimana_monthly_projects/versions/af9fad425ca081ab4c1fa49fedc1640ac0e6b199f04372761a31507754a03b02.pdf",
             "sha256": "af9fad425ca081ab4c1fa49fedc1640ac0e6b199f04372761a31507754a03b02",
             "size_bytes": 6468411
@@ -18264,6 +18565,11 @@
             "path": "data/raw/manual/mospi_paimana_monthly_projects.csv",
             "sha256": "759b98ad518a95811fa54aee56433346e44116aac4dcef5ae892245ec12c26e3",
             "size_bytes": 7574433
+          },
+          {
+            "path": "data/raw/manual/evidence/mospi_paimana_monthly_projects.json",
+            "sha256": "bdbb2823a3e72a1371b2e3b3721835e74543f227d72ca722e9029df015b0e359",
+            "size_bytes": 1621
           }
         ],
         "source_documents": [
@@ -18271,7 +18577,8 @@
             "url": "https://paimana-proj.mospi.gov.in/ReportPage/ViewPdf?id=1323&path=Content%5CArchiveReport%5Cflash%5C2026-27/FlashReport_August_2026.pdf",
             "relative_path": "primary_disclosures/mospi_paimana_monthly_projects/versions/af9fad425ca081ab4c1fa49fedc1640ac0e6b199f04372761a31507754a03b02.pdf",
             "sha256": "af9fad425ca081ab4c1fa49fedc1640ac0e6b199f04372761a31507754a03b02",
-            "size_bytes": 6468411
+            "size_bytes": 6468411,
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -18336,7 +18643,9 @@
           "revision_identity",
           "price_basis",
           "base_year"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:23:23.894230+00:00",
       "semantic_rechecks": [],
@@ -22725,7 +23034,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "rbi_gsdp_current_prices_2024_25",
@@ -22762,19 +23072,19 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/rbi_gsdp_current_prices_2024_25.json",
-            "sha256": "e80c910ce0c047f0165c583114d4c5c597323976f925946b838e1981c5fad8d4",
-            "size_bytes": 1775
-          },
-          {
             "path": "data/raw/primary_disclosures/rbi_gsdp_current_prices_2024_25/versions/6e48293426935a2ef796c0163edbedeeb6dd165b21db8f018ac912502b3cc287.pdf",
             "sha256": "6e48293426935a2ef796c0163edbedeeb6dd165b21db8f018ac912502b3cc287",
             "size_bytes": 138670
           },
           {
             "path": "data/raw/manual/rbi_gsdp_current_prices_2024_25.csv",
-            "sha256": "899ebc62ac69f921924f472117842785ca3cf919d0cd493d0e13b2da9b34841c",
-            "size_bytes": 550460
+            "sha256": "6dd5c6d946ed3a810193820dc74663fa497fe87b0cab22dd620420d587942945",
+            "size_bytes": 549800
+          },
+          {
+            "path": "data/raw/manual/evidence/rbi_gsdp_current_prices_2024_25.json",
+            "sha256": "ccae8910a2d693eefa0547fad18098c3807ec1c5bd213fd1b33c80f4b85d6cae",
+            "size_bytes": 1775
           }
         ],
         "source_documents": [
@@ -22784,7 +23094,8 @@
             "sha256": "6e48293426935a2ef796c0163edbedeeb6dd165b21db8f018ac912502b3cc287",
             "size_bytes": 138670,
             "publication_evidence_url": "https://www.rbi.org.in/scripts/PublicationsView.aspx?id=23470",
-            "publication_evidence_sha256": "c342340fc6eedd99d24c3d7da9588eab3ddcf52905f7344a100e8069983c1f15"
+            "publication_evidence_sha256": "c342340fc6eedd99d24c3d7da9588eab3ddcf52905f7344a100e8069983c1f15",
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -22849,7 +23160,9 @@
           "revision_identity",
           "price_basis",
           "base_year"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:29:25.393770+00:00",
       "semantic_rechecks": [],
@@ -22858,7 +23171,7 @@
       "local_seed_used": true,
       "publication_history": {
         "index_path": "history/rbi_gsdp_current_prices_2024_25/index.json",
-        "version_count": 1,
+        "version_count": 2,
         "revision_count": 0,
         "candidate_version_id": "466ef038f6365e38024cd6f2a6ed26c5d24a8a436f2ee28dc099a5b6f5695f9c"
       },
@@ -23011,7 +23324,8 @@
           "quarter_end": "2026-12-31"
         }
       ],
-      "refresh_error": "Response is not a PDF"
+      "refresh_error": "Response is not a PDF",
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "cag_karnataka_road_finances_2024_25",
@@ -23048,19 +23362,19 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/cag_karnataka_road_finances_2024_25.json",
-            "sha256": "b8f4b89800d6e06d3195b7fed8a099058bef8c2fb69d63eb3c6cd669adbe42eb",
-            "size_bytes": 1579
-          },
-          {
             "path": "data/raw/primary_disclosures/cag_karnataka_road_finances_2024_25/versions/a60e4f514b0fa63dc3862db3de74c2c778b832bd09cc05341e5ec0381fadf9a5.pdf",
             "sha256": "a60e4f514b0fa63dc3862db3de74c2c778b832bd09cc05341e5ec0381fadf9a5",
             "size_bytes": 10685712
           },
           {
             "path": "data/raw/manual/cag_karnataka_road_finances_2024_25.csv",
-            "sha256": "9bc9aaee5d68516a452986d2a6db5698e3c174eb46b02df8841a2fcb44d125d7",
+            "sha256": "cb1b12ac8109d8b28a41672fd5fb1313d925d97db0ffb5b4499285b15469a4c6",
             "size_bytes": 5368
+          },
+          {
+            "path": "data/raw/manual/evidence/cag_karnataka_road_finances_2024_25.json",
+            "sha256": "0c133f09c8466921cec10c1c2e4ad1a962f33a505a1082cb654f490a7778e95f",
+            "size_bytes": 1579
           }
         ],
         "source_documents": [
@@ -23068,7 +23382,8 @@
             "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-2-Finance-Accounts-Vol-I-2024-25-government-of-karnataka-06948f82bb28817-62582478.pdf",
             "relative_path": "primary_disclosures/cag_karnataka_road_finances_2024_25/versions/a60e4f514b0fa63dc3862db3de74c2c778b832bd09cc05341e5ec0381fadf9a5.pdf",
             "sha256": "a60e4f514b0fa63dc3862db3de74c2c778b832bd09cc05341e5ec0381fadf9a5",
-            "size_bytes": 10685712
+            "size_bytes": 10685712,
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -23133,13 +23448,15 @@
           "revision_identity",
           "price_basis",
           "base_year"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:22:43.569547+00:00",
       "semantic_rechecks": [],
       "publication_history": {
         "index_path": "history/cag_karnataka_road_finances_2024_25/index.json",
-        "version_count": 1,
+        "version_count": 2,
         "revision_count": 0,
         "candidate_version_id": "8cf7fee5e11bb39da6fa7b16a7fe364cf034fc98a780376cb10c102d3798c514"
       },
@@ -23256,7 +23573,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "cag_maharashtra_road_finances_2024_25",
@@ -23293,19 +23611,19 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/cag_maharashtra_road_finances_2024_25.json",
-            "sha256": "a551c06d88722d9031c65cf26346ad1010e1cf5ba4e7dd8f38f65fe93b913cc9",
-            "size_bytes": 1563
-          },
-          {
             "path": "data/raw/primary_disclosures/cag_maharashtra_road_finances_2024_25/versions/711cf4d8d72af4dbb87d75dca8974e6ba3785ed78bc24b145d775bd671742cbb.pdf",
             "sha256": "711cf4d8d72af4dbb87d75dca8974e6ba3785ed78bc24b145d775bd671742cbb",
             "size_bytes": 9319392
           },
           {
             "path": "data/raw/manual/cag_maharashtra_road_finances_2024_25.csv",
-            "sha256": "8168b54d6111c60766ff3ea8578bc2303dee02977aa09dbfbc4a5ccb2943ceb2",
+            "sha256": "7da3a73b647a989c8866a9c053f53ec7474fb94ff67ced68a499c24c27d47e68",
             "size_bytes": 4894
+          },
+          {
+            "path": "data/raw/manual/evidence/cag_maharashtra_road_finances_2024_25.json",
+            "sha256": "5a60009565bea6f39bc045855575ea32747ebca877ae07c995a37d39f194c02c",
+            "size_bytes": 1563
           }
         ],
         "source_documents": [
@@ -23313,7 +23631,8 @@
             "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-CD-ENGLISH-FINANCE-ACCOUNTS-VOL-I-06944f1e510c216-51074266.pdf",
             "relative_path": "primary_disclosures/cag_maharashtra_road_finances_2024_25/versions/711cf4d8d72af4dbb87d75dca8974e6ba3785ed78bc24b145d775bd671742cbb.pdf",
             "sha256": "711cf4d8d72af4dbb87d75dca8974e6ba3785ed78bc24b145d775bd671742cbb",
-            "size_bytes": 9319392
+            "size_bytes": 9319392,
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -23378,13 +23697,15 @@
           "revision_identity",
           "price_basis",
           "base_year"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:22:48.988928+00:00",
       "semantic_rechecks": [],
       "publication_history": {
         "index_path": "history/cag_maharashtra_road_finances_2024_25/index.json",
-        "version_count": 1,
+        "version_count": 2,
         "revision_count": 0,
         "candidate_version_id": "519142cb38198ef617ab931d656085bae28e69ef6963073e79f376244ce8b614"
       },
@@ -23501,7 +23822,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "morth_road_accidents_2024_final",
@@ -23539,11 +23861,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/morth_road_accidents_2024_final.json",
-            "sha256": "24041b9ae02028bfae204cea84e75c46de9f4b3031baa57cad2a147198219c7a",
-            "size_bytes": 2041
-          },
-          {
             "path": "data/raw/primary_disclosures/morth_road_accidents_2024_final/versions/b45b0e4d8e14a8d4653790f9080a01b9b95b79008359ba93dc12497064be69b2.pdf",
             "sha256": "b45b0e4d8e14a8d4653790f9080a01b9b95b79008359ba93dc12497064be69b2",
             "size_bytes": 21376701
@@ -23552,6 +23869,11 @@
             "path": "data/raw/manual/morth_road_accidents_2024_final.csv",
             "sha256": "37d919fe5f3992dbb19742ecedcac12d731d7f9c25cb76d98d669022a25ac585",
             "size_bytes": 2020333
+          },
+          {
+            "path": "data/raw/manual/evidence/morth_road_accidents_2024_final.json",
+            "sha256": "24041b9ae02028bfae204cea84e75c46de9f4b3031baa57cad2a147198219c7a",
+            "size_bytes": 2041
           }
         ],
         "source_documents": [
@@ -23564,7 +23886,8 @@
             "reviewed_table_relative_path": "manual/evidence/morth_road_accidents_2024_reviewed_tables.json",
             "reviewed_table_sha256": "8a54930c708f6b5c9e8912e51601c297100244e9ab81fad3f89b09e70f425384",
             "listing_metadata_relative_path": "manual/evidence/national_freshness_official_listing_records.json",
-            "listing_metadata_sha256": "e9de7161de73d34ad9139836f7273ecdb3f5807d238efa9a19da44c7a5178008"
+            "listing_metadata_sha256": "e9de7161de73d34ad9139836f7273ecdb3f5807d238efa9a19da44c7a5178008",
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -23629,7 +23952,9 @@
           "revision_identity",
           "price_basis",
           "base_year"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:22:58.785902+00:00",
       "semantic_rechecks": [],
@@ -24947,7 +25272,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "nhai_fy2025_26_performance",
@@ -24984,11 +25310,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/nhai_fy2025_26_performance.json",
-            "sha256": "d18e7c0304ab4d99c0d7de4622bc015f9e70d67356645f3d19592ce4c1341b65",
-            "size_bytes": 1686
-          },
-          {
             "path": "data/raw/primary_disclosures/nhai_fy2025_26_performance/versions/0f5de32b5f62870df66f4df9bb54b65262e6f89f296675f286e1a61852d0bfb3.html",
             "sha256": "0f5de32b5f62870df66f4df9bb54b65262e6f89f296675f286e1a61852d0bfb3",
             "size_bytes": 72706
@@ -24997,6 +25318,11 @@
             "path": "data/raw/manual/nhai_fy2025_26_performance.csv",
             "sha256": "ea6ade54a8394d8cd3e887d4c347ebab68c848fc1134765d27a624cc188c1361",
             "size_bytes": 5365
+          },
+          {
+            "path": "data/raw/manual/evidence/nhai_fy2025_26_performance.json",
+            "sha256": "d18e7c0304ab4d99c0d7de4622bc015f9e70d67356645f3d19592ce4c1341b65",
+            "size_bytes": 1686
           }
         ],
         "source_documents": [
@@ -25006,7 +25332,8 @@
             "sha256": "0f5de32b5f62870df66f4df9bb54b65262e6f89f296675f286e1a61852d0bfb3",
             "size_bytes": 72706,
             "extractor": "pipelines.national_freshness; source-pinned reviewed table or labelled release extraction",
-            "semantic_document_sha256": "87f5b9102a0b75456205b723b73c4a52d92e13dd56d0e5937e0b2e3f39d56e5a"
+            "semantic_document_sha256": "87f5b9102a0b75456205b723b73c4a52d92e13dd56d0e5937e0b2e3f39d56e5a",
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -25071,7 +25398,9 @@
           "revision_identity",
           "price_basis",
           "base_year"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:22:45.351478+00:00",
       "semantic_rechecks": [],
@@ -25301,7 +25630,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "morth_annual_report_2025_26",
@@ -25338,11 +25668,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/morth_annual_report_2025_26.json",
-            "sha256": "510ec6f1af45178147c38223d1f694c704d1ebeded099e1fdc8a7482bc848f76",
-            "size_bytes": 2160
-          },
-          {
             "path": "data/raw/primary_disclosures/morth_annual_report_2025_26/versions/d0dd808600a8a2d0013b1fe4772d104f14dc18fc810c21a09a16aad01ea5624a.pdf",
             "sha256": "d0dd808600a8a2d0013b1fe4772d104f14dc18fc810c21a09a16aad01ea5624a",
             "size_bytes": 81369305
@@ -25351,6 +25676,11 @@
             "path": "data/raw/manual/morth_annual_report_2025_26.csv",
             "sha256": "51a361b3fb3917c7c96116b3e175231612cf9a86c294ab8334bc3b98c3a3f27a",
             "size_bytes": 221422
+          },
+          {
+            "path": "data/raw/manual/evidence/morth_annual_report_2025_26.json",
+            "sha256": "510ec6f1af45178147c38223d1f694c704d1ebeded099e1fdc8a7482bc848f76",
+            "size_bytes": 2160
           }
         ],
         "source_documents": [
@@ -25363,7 +25693,8 @@
             "reviewed_table_relative_path": "manual/evidence/morth_annual_report_2025_26_reviewed_tables.json",
             "reviewed_table_sha256": "5a72990102ff4b75866747582b83c314f009e755ca4e0d090a2e9f1a91ec8f2c",
             "listing_metadata_relative_path": "manual/evidence/national_freshness_official_listing_records.json",
-            "listing_metadata_sha256": "e9de7161de73d34ad9139836f7273ecdb3f5807d238efa9a19da44c7a5178008"
+            "listing_metadata_sha256": "e9de7161de73d34ad9139836f7273ecdb3f5807d238efa9a19da44c7a5178008",
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -25428,7 +25759,9 @@
           "revision_identity",
           "price_basis",
           "base_year"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:23:00.277342+00:00",
       "semantic_rechecks": [],
@@ -26188,7 +26521,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "nhai_financial_results_2025_03_unaudited",
@@ -26226,11 +26560,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/nhai_financial_results_2025_03_unaudited.json",
-            "sha256": "38c8a3975af0ce5202f1f8c1487d9a89c7dc0fea503b9a8d50f24fa4fbb2f712",
-            "size_bytes": 1953
-          },
-          {
             "path": "data/raw/primary_disclosures/nhai_financial_results_2025_03_unaudited/versions/d08837c303f72abf4d131e796f71eb93450be10cfdd96ee7fd4f921c3ac38c97.pdf",
             "sha256": "d08837c303f72abf4d131e796f71eb93450be10cfdd96ee7fd4f921c3ac38c97",
             "size_bytes": 1952928
@@ -26239,6 +26568,11 @@
             "path": "data/raw/manual/nhai_financial_results_2025_03_unaudited.csv",
             "sha256": "281b119a680a81243a9acb7f3f3aceabd29c3e50360765ecbd5d1ac83227c4c5",
             "size_bytes": 97379
+          },
+          {
+            "path": "data/raw/manual/evidence/nhai_financial_results_2025_03_unaudited.json",
+            "sha256": "38c8a3975af0ce5202f1f8c1487d9a89c7dc0fea503b9a8d50f24fa4fbb2f712",
+            "size_bytes": 1953
           }
         ],
         "source_documents": [
@@ -26249,7 +26583,8 @@
             "size_bytes": 1952928,
             "extractor": "pipelines.national_freshness; source-pinned reviewed table or labelled release extraction",
             "reviewed_table_relative_path": "manual/evidence/nhai_financial_results_2025_03_reviewed_tables.json",
-            "reviewed_table_sha256": "8900ae420de56dfe2f360a0b36135ffdc2e0e8c51faa5394f29639cbc4bac034"
+            "reviewed_table_sha256": "8900ae420de56dfe2f360a0b36135ffdc2e0e8c51faa5394f29639cbc4bac034",
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -26314,7 +26649,9 @@
           "revision_identity",
           "price_basis",
           "base_year"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:22:45.891884+00:00",
       "semantic_rechecks": [],
@@ -27665,7 +28002,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "cag_gujarat_road_finances_2024_25",
@@ -27702,11 +28040,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/cag_gujarat_road_finances_2024_25.json",
-            "sha256": "2414b62b7d25178a8bbe134eeb0a6b22912815402e1b33f470ca701fe8635c11",
-            "size_bytes": 1530
-          },
-          {
             "path": "data/raw/primary_disclosures/cag_gujarat_road_finances_2024_25/versions/2c5c3b75ad46e7de9e40d24d871874a1e4c89b0c79f829f9cb7ca186d0aed46c.pdf",
             "sha256": "2c5c3b75ad46e7de9e40d24d871874a1e4c89b0c79f829f9cb7ca186d0aed46c",
             "size_bytes": 1082160
@@ -27715,6 +28048,11 @@
             "path": "data/raw/manual/cag_gujarat_road_finances_2024_25.csv",
             "sha256": "bea521a0a78255f0899d1fe94bf78814bfe1c6a21fed125e6dceccc969c6bf99",
             "size_bytes": 4768
+          },
+          {
+            "path": "data/raw/manual/evidence/cag_gujarat_road_finances_2024_25.json",
+            "sha256": "2414b62b7d25178a8bbe134eeb0a6b22912815402e1b33f470ca701fe8635c11",
+            "size_bytes": 1530
           }
         ],
         "source_documents": [
@@ -27722,7 +28060,8 @@
             "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-VOL-I-2024-25-069c52aa2b34bf9-63690940.pdf",
             "relative_path": "primary_disclosures/cag_gujarat_road_finances_2024_25/versions/2c5c3b75ad46e7de9e40d24d871874a1e4c89b0c79f829f9cb7ca186d0aed46c.pdf",
             "sha256": "2c5c3b75ad46e7de9e40d24d871874a1e4c89b0c79f829f9cb7ca186d0aed46c",
-            "size_bytes": 1082160
+            "size_bytes": 1082160,
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -27787,7 +28126,9 @@
           "revision_identity",
           "price_basis",
           "base_year"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:41:06.708076+00:00",
       "semantic_rechecks": [],
@@ -27910,7 +28251,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "cag_uttar_pradesh_road_finances_2024_25",
@@ -27947,11 +28289,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/cag_uttar_pradesh_road_finances_2024_25.json",
-            "sha256": "b585e91674de4a0bd458d02478f9d8cdf48785ac511b21f2ccafcd71bd09b94a",
-            "size_bytes": 1576
-          },
-          {
             "path": "data/raw/primary_disclosures/cag_uttar_pradesh_road_finances_2024_25/versions/50343d23a580af96f455acaf086546d1282c571bb854055541771f99915eb411.pdf",
             "sha256": "50343d23a580af96f455acaf086546d1282c571bb854055541771f99915eb411",
             "size_bytes": 6809225
@@ -27960,6 +28297,11 @@
             "path": "data/raw/manual/cag_uttar_pradesh_road_finances_2024_25.csv",
             "sha256": "434c3604b2426c8d4ebb94764a488d1353a654f5a55e887d4fbfa347072303aa",
             "size_bytes": 4945
+          },
+          {
+            "path": "data/raw/manual/evidence/cag_uttar_pradesh_road_finances_2024_25.json",
+            "sha256": "b585e91674de4a0bd458d02478f9d8cdf48785ac511b21f2ccafcd71bd09b94a",
+            "size_bytes": 1576
           }
         ],
         "source_documents": [
@@ -27967,7 +28309,8 @@
             "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-English-06964e82777f6d2-05539712.pdf",
             "relative_path": "primary_disclosures/cag_uttar_pradesh_road_finances_2024_25/versions/50343d23a580af96f455acaf086546d1282c571bb854055541771f99915eb411.pdf",
             "sha256": "50343d23a580af96f455acaf086546d1282c571bb854055541771f99915eb411",
-            "size_bytes": 6809225
+            "size_bytes": 6809225,
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -28032,7 +28375,9 @@
           "revision_identity",
           "price_basis",
           "base_year"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:41:07.400529+00:00",
       "semantic_rechecks": [],
@@ -28155,7 +28500,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "cag_telangana_road_finances_2024_25",
@@ -28192,11 +28538,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/cag_telangana_road_finances_2024_25.json",
-            "sha256": "534f4cf9d911921dd25c8e48519fc8722c5eb04c3eca47c830c3a809d5d498d6",
-            "size_bytes": 1556
-          },
-          {
             "path": "data/raw/primary_disclosures/cag_telangana_road_finances_2024_25/versions/1c4ce5bab8dc25efcd6ae17cd28152e6bf11a1b184922d5ad782ef49b2fadcba.pdf",
             "sha256": "1c4ce5bab8dc25efcd6ae17cd28152e6bf11a1b184922d5ad782ef49b2fadcba",
             "size_bytes": 21101550
@@ -28205,6 +28546,11 @@
             "path": "data/raw/manual/cag_telangana_road_finances_2024_25.csv",
             "sha256": "dd79516d3e17cb02211ea74d36a8e14a6cd71990ee9e15f235f9907bb4ba4b6a",
             "size_bytes": 5278
+          },
+          {
+            "path": "data/raw/manual/evidence/cag_telangana_road_finances_2024_25.json",
+            "sha256": "534f4cf9d911921dd25c8e48519fc8722c5eb04c3eca47c830c3a809d5d498d6",
+            "size_bytes": 1556
           }
         ],
         "source_documents": [
@@ -28212,7 +28558,8 @@
             "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2024-25-069ce501b30f835-70020121.pdf",
             "relative_path": "primary_disclosures/cag_telangana_road_finances_2024_25/versions/1c4ce5bab8dc25efcd6ae17cd28152e6bf11a1b184922d5ad782ef49b2fadcba.pdf",
             "sha256": "1c4ce5bab8dc25efcd6ae17cd28152e6bf11a1b184922d5ad782ef49b2fadcba",
-            "size_bytes": 21101550
+            "size_bytes": 21101550,
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -28277,7 +28624,9 @@
           "revision_identity",
           "price_basis",
           "base_year"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T04:41:11.027393+00:00",
       "semantic_rechecks": [],
@@ -28400,7 +28749,8 @@
           "quarter_start": "2026-10-01",
           "quarter_end": "2026-12-31"
         }
-      ]
+      ],
+      "governed_extract_binding_status": "validated_current_extract"
     },
     {
       "source_id": "mospi_nh_construction_2025_26",
@@ -28437,11 +28787,6 @@
       "manifest": {
         "raw_files": [
           {
-            "path": "data/raw/manual/evidence/mospi_nh_construction_2025_26.json",
-            "sha256": "4341cc523831324063b1bf7a2dff31841ef5f1929e2a685d06043b192f0b5d4f",
-            "size_bytes": 1731
-          },
-          {
             "path": "data/raw/primary_disclosures/mospi_nh_construction_2025_26/versions/dd7a83c27691f4aacb501a95c408de803dcc6234dfda5878a8dcaf924cfe5066.html",
             "sha256": "dd7a83c27691f4aacb501a95c408de803dcc6234dfda5878a8dcaf924cfe5066",
             "size_bytes": 190876
@@ -28450,6 +28795,11 @@
             "path": "data/raw/manual/mospi_nh_construction_2025_26.csv",
             "sha256": "6ce595997aa6b4e163e920deda5371c015636bbef8cbc24407a96c2df554e53a",
             "size_bytes": 1921
+          },
+          {
+            "path": "data/raw/manual/evidence/mospi_nh_construction_2025_26.json",
+            "sha256": "4341cc523831324063b1bf7a2dff31841ef5f1929e2a685d06043b192f0b5d4f",
+            "size_bytes": 1731
           }
         ],
         "source_documents": [
@@ -28459,7 +28809,8 @@
             "sha256": "dd7a83c27691f4aacb501a95c408de803dcc6234dfda5878a8dcaf924cfe5066",
             "size_bytes": 190876,
             "extractor": "pipelines.national_freshness; source-pinned reviewed table or labelled release extraction",
-            "semantic_document_sha256": "bd3d641baea3fb60b0e1544a13adb1bb0a10d01167afc8db9ea126d0c9d9ad38"
+            "semantic_document_sha256": "bd3d641baea3fb60b0e1544a13adb1bb0a10d01167afc8db9ea126d0c9d9ad38",
+            "availability": "archived"
           }
         ],
         "output_files": [
@@ -28524,7 +28875,9 @@
           "revision_identity",
           "price_basis",
           "base_year"
-        ]
+        ],
+        "unbound_raw_evidence": [],
+        "raw_evidence_gaps": []
       },
       "retrieved_at": "2026-10-02T05:00:42.130838+00:00",
       "semantic_rechecks": [],
@@ -28615,7 +28968,8 @@
           "quarter_end": "2026-12-31"
         }
       ],
-      "last_quality_check_at": "2026-10-02T05:06:19.953217+00:00"
+      "last_quality_check_at": "2026-10-02T05:06:19.953217+00:00",
+      "governed_extract_binding_status": "validated_current_extract"
     }
   ]
 }

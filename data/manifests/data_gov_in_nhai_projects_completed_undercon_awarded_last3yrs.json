@@ -50,6 +50,15 @@
       "metric_category",
       "dataset_source",
       "retrieved_at"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": [
+      {
+        "path": "data/raw/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs/raw_20260311_051708.csv",
+        "sha256": "b165b8a2ecd46c2cd677f0f0364e8e27eab674222f312c0ad7f2cafc55b29df2",
+        "availability": "not_archived",
+        "reason": "raw_input_archive_missing"
+      }
     ]
   },
   "retrieved_at": "2026-03-11T05:17:08.258352+00:00",

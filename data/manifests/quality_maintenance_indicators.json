@@ -21,13 +21,7 @@
     "note": "This is proxy geometry/context only, not an official quality measurement."
   },
   "manifest": {
-    "raw_files": [
-      {
-        "path": "data/raw/manual/quality_maintenance_indicators.csv",
-        "sha256": "8750e5e5ae1953290e0c8234d5ffc757730e592d454c87527f2ebacc89889381",
-        "size_bytes": 332
-      }
-    ],
+    "raw_files": [],
     "output_files": [
       {
         "path": "data/processed/quality_maintenance_indicators.parquet",
@@ -47,7 +41,24 @@
       "metric_category",
       "dataset_source",
       "retrieved_at"
-    ]
+    ],
+    "unbound_raw_evidence": [
+      {
+        "path": "data/raw/manual/quality_maintenance_indicators.csv",
+        "expected_sha256": "8750e5e5ae1953290e0c8234d5ffc757730e592d454c87527f2ebacc89889381",
+        "available_sha256": "9f2dc71d751441e6e5b7b3f30d1748d447e7d50d513988bdc304f67f9800ba18",
+        "original_binding": {
+          "path": "data/raw/manual/quality_maintenance_indicators.csv",
+          "sha256": "8750e5e5ae1953290e0c8234d5ffc757730e592d454c87527f2ebacc89889381",
+          "size_bytes": 332
+        },
+        "availability": "present_unbound",
+        "binding_status": "quarantined",
+        "reason": "unsupported_legacy_input_checksum_mismatch",
+        "available_size_bytes": 325
+      }
+    ],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-03-11T05:17:35.836220+00:00",
   "completeness_score": 0.98,

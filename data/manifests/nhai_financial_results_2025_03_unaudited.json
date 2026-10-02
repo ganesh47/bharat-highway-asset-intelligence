@@ -34,11 +34,6 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/nhai_financial_results_2025_03_unaudited.json",
-        "sha256": "38c8a3975af0ce5202f1f8c1487d9a89c7dc0fea503b9a8d50f24fa4fbb2f712",
-        "size_bytes": 1953
-      },
-      {
         "path": "data/raw/primary_disclosures/nhai_financial_results_2025_03_unaudited/versions/d08837c303f72abf4d131e796f71eb93450be10cfdd96ee7fd4f921c3ac38c97.pdf",
         "sha256": "d08837c303f72abf4d131e796f71eb93450be10cfdd96ee7fd4f921c3ac38c97",
         "size_bytes": 1952928
@@ -47,6 +42,11 @@
         "path": "data/raw/manual/nhai_financial_results_2025_03_unaudited.csv",
         "sha256": "281b119a680a81243a9acb7f3f3aceabd29c3e50360765ecbd5d1ac83227c4c5",
         "size_bytes": 97379
+      },
+      {
+        "path": "data/raw/manual/evidence/nhai_financial_results_2025_03_unaudited.json",
+        "sha256": "38c8a3975af0ce5202f1f8c1487d9a89c7dc0fea503b9a8d50f24fa4fbb2f712",
+        "size_bytes": 1953
       }
     ],
     "source_documents": [
@@ -57,7 +57,8 @@
         "size_bytes": 1952928,
         "extractor": "pipelines.national_freshness; source-pinned reviewed table or labelled release extraction",
         "reviewed_table_relative_path": "manual/evidence/nhai_financial_results_2025_03_reviewed_tables.json",
-        "reviewed_table_sha256": "8900ae420de56dfe2f360a0b36135ffdc2e0e8c51faa5394f29639cbc4bac034"
+        "reviewed_table_sha256": "8900ae420de56dfe2f360a0b36135ffdc2e0e8c51faa5394f29639cbc4bac034",
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -122,7 +123,9 @@
       "revision_identity",
       "price_basis",
       "base_year"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-02T04:22:45.891884+00:00",
   "semantic_rechecks": [],
@@ -1473,5 +1476,6 @@
       "quarter_start": "2026-10-01",
       "quarter_end": "2026-12-31"
     }
-  ]
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
 }

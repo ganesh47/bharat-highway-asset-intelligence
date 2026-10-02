@@ -26,11 +26,6 @@
         "size_bytes": 10998
       },
       {
-        "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
-        "sha256": "46ad0339a990c24b804e1f256fa17fe0ee646adbbf298558d4b67e5a53b4d43a",
-        "size_bytes": 11249
-      },
-      {
         "path": "data/processed/ncrb_road_accidents_state_year.parquet",
         "sha256": "2a38f93d77363ca9ef3d14f92ef95017f3155f6e34630981e9162f0ff29704c2",
         "size_bytes": 6125
@@ -74,7 +69,24 @@
       "dataset_source",
       "retrieved_at",
       "model_notes"
-    ]
+    ],
+    "unbound_raw_evidence": [
+      {
+        "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
+        "expected_sha256": "46ad0339a990c24b804e1f256fa17fe0ee646adbbf298558d4b67e5a53b4d43a",
+        "available_sha256": "a1fa78fbc8a4d44b880da3448c8158e29256b818c05fd170ba12fe4a4f200a20",
+        "original_binding": {
+          "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
+          "sha256": "46ad0339a990c24b804e1f256fa17fe0ee646adbbf298558d4b67e5a53b4d43a",
+          "size_bytes": 11249
+        },
+        "availability": "present_unbound",
+        "binding_status": "quarantined",
+        "reason": "unsupported_legacy_input_checksum_mismatch",
+        "available_size_bytes": 11249
+      }
+    ],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-03-11T05:17:32.833320+00:00",
   "note": "Model outputs must be treated as estimates and scenario inputs, never as certified official facts.",

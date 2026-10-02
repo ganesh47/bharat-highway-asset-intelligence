@@ -33,11 +33,6 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/nhai_monetisation_transactions.json",
-        "sha256": "96faa462c392a8aec8378663e8f761f382f3a11a62fdc4c03081da1cab80f189",
-        "size_bytes": 1057
-      },
-      {
         "path": "data/raw/primary_disclosures/nhai_monetisation_transactions/document.html",
         "sha256": "c2ff31f3a1530bee63a9fd061d31366ad69abfce3869ba5ecbe62e041049a683",
         "size_bytes": 90217
@@ -46,6 +41,11 @@
         "path": "data/raw/manual/nhai_monetisation_transactions.csv",
         "sha256": "486681dd25b0ccb2a5b7771894a4be18179598560a9705d47a1b0355ccba8ef1",
         "size_bytes": 5219
+      },
+      {
+        "path": "data/raw/manual/evidence/nhai_monetisation_transactions.json",
+        "sha256": "96faa462c392a8aec8378663e8f761f382f3a11a62fdc4c03081da1cab80f189",
+        "size_bytes": 1057
       }
     ],
     "source_documents": [
@@ -54,7 +54,8 @@
         "relative_path": "primary_disclosures/nhai_monetisation_transactions/document.html",
         "sha256": "c2ff31f3a1530bee63a9fd061d31366ad69abfce3869ba5ecbe62e041049a683",
         "size_bytes": 90217,
-        "semantic_document_sha256": "1c0d94d382ddc7a0dfb13a87259a0e55fa95836388b2a84cbefa74cbfaf20bf9"
+        "semantic_document_sha256": "1c0d94d382ddc7a0dfb13a87259a0e55fa95836388b2a84cbefa74cbfaf20bf9",
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -119,7 +120,9 @@
       "base_year",
       "observation_status",
       "price_basis"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-01T19:28:46.585482+00:00",
   "semantic_rechecks": [],
@@ -406,5 +409,6 @@
       "quarter_start": "2026-10-01",
       "quarter_end": "2026-12-31"
     }
-  ]
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
 }

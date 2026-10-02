@@ -21,13 +21,7 @@
     "note": "VIIRS proxy indicators imported through approved manual artifact; clearly marked as proxy-derived."
   },
   "manifest": {
-    "raw_files": [
-      {
-        "path": "data/raw/manual/viirs_nightlights_proxy.csv",
-        "sha256": "7ffa238bf0be57d49ff5f883c110590c535aad5d02f73e7ff36ac2a9bf752773",
-        "size_bytes": 164
-      }
-    ],
+    "raw_files": [],
     "output_files": [
       {
         "path": "data/processed/viirs_nightlights_proxy.parquet",
@@ -47,7 +41,24 @@
       "metric_category",
       "dataset_source",
       "retrieved_at"
-    ]
+    ],
+    "unbound_raw_evidence": [
+      {
+        "path": "data/raw/manual/viirs_nightlights_proxy.csv",
+        "expected_sha256": "7ffa238bf0be57d49ff5f883c110590c535aad5d02f73e7ff36ac2a9bf752773",
+        "available_sha256": "140cedfad9614c86b4c074472c256ee5e5f93ea0acbce8786fb4e67df0b82b0f",
+        "original_binding": {
+          "path": "data/raw/manual/viirs_nightlights_proxy.csv",
+          "sha256": "7ffa238bf0be57d49ff5f883c110590c535aad5d02f73e7ff36ac2a9bf752773",
+          "size_bytes": 164
+        },
+        "availability": "present_unbound",
+        "binding_status": "quarantined",
+        "reason": "unsupported_legacy_input_checksum_mismatch",
+        "available_size_bytes": 160
+      }
+    ],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-03-11T05:17:35.842099+00:00",
   "completeness_score": 0.98,

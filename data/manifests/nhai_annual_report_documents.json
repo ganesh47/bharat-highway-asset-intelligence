@@ -161,7 +161,9 @@
       "publication_date",
       "document_checksum",
       "retrieved_at"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-02T04:56:20.287292+00:00",
   "completeness_score": 0.857,
@@ -244,5 +246,5 @@
       "quarter_end": "2026-12-31"
     }
   ],
-  "last_quality_check_at": "2026-10-02T05:07:32.749562+00:00"
+  "last_quality_check_at": "2026-10-02T06:25:24.558005+00:00"
 }

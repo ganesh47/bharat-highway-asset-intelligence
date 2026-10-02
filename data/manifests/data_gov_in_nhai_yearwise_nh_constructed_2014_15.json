@@ -44,6 +44,15 @@
       "metric_category",
       "dataset_source",
       "retrieved_at"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": [
+      {
+        "path": "data/raw/data_gov_in_nhai_yearwise_nh_constructed_2014_15/data_gov_in_nhai_yearwise_nh_constructed_2014_15/raw_20260311_051708.csv",
+        "sha256": "86d92b784b303d1772d9d012b0f0964924c22ba896ad8d5848f4ff298bd1d8bd",
+        "availability": "not_archived",
+        "reason": "raw_input_archive_missing"
+      }
     ]
   },
   "retrieved_at": "2026-03-11T05:17:08.746726+00:00",

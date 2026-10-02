@@ -33,11 +33,6 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/nhai_fy2025_26_performance.json",
-        "sha256": "d18e7c0304ab4d99c0d7de4622bc015f9e70d67356645f3d19592ce4c1341b65",
-        "size_bytes": 1686
-      },
-      {
         "path": "data/raw/primary_disclosures/nhai_fy2025_26_performance/versions/0f5de32b5f62870df66f4df9bb54b65262e6f89f296675f286e1a61852d0bfb3.html",
         "sha256": "0f5de32b5f62870df66f4df9bb54b65262e6f89f296675f286e1a61852d0bfb3",
         "size_bytes": 72706
@@ -46,6 +41,11 @@
         "path": "data/raw/manual/nhai_fy2025_26_performance.csv",
         "sha256": "ea6ade54a8394d8cd3e887d4c347ebab68c848fc1134765d27a624cc188c1361",
         "size_bytes": 5365
+      },
+      {
+        "path": "data/raw/manual/evidence/nhai_fy2025_26_performance.json",
+        "sha256": "d18e7c0304ab4d99c0d7de4622bc015f9e70d67356645f3d19592ce4c1341b65",
+        "size_bytes": 1686
       }
     ],
     "source_documents": [
@@ -55,7 +55,8 @@
         "sha256": "0f5de32b5f62870df66f4df9bb54b65262e6f89f296675f286e1a61852d0bfb3",
         "size_bytes": 72706,
         "extractor": "pipelines.national_freshness; source-pinned reviewed table or labelled release extraction",
-        "semantic_document_sha256": "87f5b9102a0b75456205b723b73c4a52d92e13dd56d0e5937e0b2e3f39d56e5a"
+        "semantic_document_sha256": "87f5b9102a0b75456205b723b73c4a52d92e13dd56d0e5937e0b2e3f39d56e5a",
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -120,7 +121,9 @@
       "revision_identity",
       "price_basis",
       "base_year"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-02T04:22:45.351478+00:00",
   "semantic_rechecks": [],
@@ -350,5 +353,6 @@
       "quarter_start": "2026-10-01",
       "quarter_end": "2026-12-31"
     }
-  ]
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
 }

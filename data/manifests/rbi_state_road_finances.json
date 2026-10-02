@@ -33,11 +33,6 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/rbi_state_road_finances.json",
-        "sha256": "05a279c353e2a93afcfa697320b495cfd5b6dd2c6bac39b5fb8b7ebae1f6123e",
-        "size_bytes": 1579
-      },
-      {
         "path": "data/raw/primary_disclosures/rbi_state_road_finances/document.pdf",
         "sha256": "0da62779a6cb5441149e0de4bad024d4d63c449dab564f821fdd307ea3e4fc77",
         "size_bytes": 3616815
@@ -46,6 +41,11 @@
         "path": "data/raw/manual/rbi_state_road_finances.csv",
         "sha256": "04433c736fcf3521d12ac8466a962b26a2e0faadb5140408aea048a5a96b3935",
         "size_bytes": 1446953
+      },
+      {
+        "path": "data/raw/manual/evidence/rbi_state_road_finances.json",
+        "sha256": "05a279c353e2a93afcfa697320b495cfd5b6dd2c6bac39b5fb8b7ebae1f6123e",
+        "size_bytes": 1579
       }
     ],
     "source_documents": [
@@ -53,7 +53,8 @@
         "url": "https://rbidocs.rbi.org.in/rdocs/Publications/PDFs/0SF23012026877D47254C4F4B0793B2C38F05FB7EC5.PDF",
         "relative_path": "primary_disclosures/rbi_state_road_finances/document.pdf",
         "sha256": "0da62779a6cb5441149e0de4bad024d4d63c449dab564f821fdd307ea3e4fc77",
-        "size_bytes": 3616815
+        "size_bytes": 3616815,
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -118,7 +119,9 @@
       "base_year",
       "observation_status",
       "price_basis"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-01T19:28:49.237144+00:00",
   "semantic_rechecks": [],
@@ -943,5 +946,6 @@
       "quarter_start": "2026-10-01",
       "quarter_end": "2026-12-31"
     }
-  ]
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
 }

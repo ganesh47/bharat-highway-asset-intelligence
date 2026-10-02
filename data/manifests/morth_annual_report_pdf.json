@@ -54,7 +54,9 @@
       "dataset_source",
       "analytical_eligible",
       "retrieved_at"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-01T20:08:33.695700+00:00",
   "source_as_of_date": "2024-12-31",

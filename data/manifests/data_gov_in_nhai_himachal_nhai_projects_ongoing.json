@@ -50,6 +50,15 @@
       "metric_category",
       "dataset_source",
       "retrieved_at"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": [
+      {
+        "path": "data/raw/data_gov_in_nhai_himachal_nhai_projects_ongoing/data_gov_in_nhai_himachal_nhai_projects_ongoing/raw_20260311_051708.csv",
+        "sha256": "5b3d253aef7274d1a0e59b6c8f46fc687607adbadd931216bb77201944b52625",
+        "availability": "not_archived",
+        "reason": "raw_input_archive_missing"
+      }
     ]
   },
   "retrieved_at": "2026-03-11T05:17:08.552508+00:00",

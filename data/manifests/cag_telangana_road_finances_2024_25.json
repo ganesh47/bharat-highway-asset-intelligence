@@ -33,11 +33,6 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/cag_telangana_road_finances_2024_25.json",
-        "sha256": "534f4cf9d911921dd25c8e48519fc8722c5eb04c3eca47c830c3a809d5d498d6",
-        "size_bytes": 1556
-      },
-      {
         "path": "data/raw/primary_disclosures/cag_telangana_road_finances_2024_25/versions/1c4ce5bab8dc25efcd6ae17cd28152e6bf11a1b184922d5ad782ef49b2fadcba.pdf",
         "sha256": "1c4ce5bab8dc25efcd6ae17cd28152e6bf11a1b184922d5ad782ef49b2fadcba",
         "size_bytes": 21101550
@@ -46,6 +41,11 @@
         "path": "data/raw/manual/cag_telangana_road_finances_2024_25.csv",
         "sha256": "dd79516d3e17cb02211ea74d36a8e14a6cd71990ee9e15f235f9907bb4ba4b6a",
         "size_bytes": 5278
+      },
+      {
+        "path": "data/raw/manual/evidence/cag_telangana_road_finances_2024_25.json",
+        "sha256": "534f4cf9d911921dd25c8e48519fc8722c5eb04c3eca47c830c3a809d5d498d6",
+        "size_bytes": 1556
       }
     ],
     "source_documents": [
@@ -53,7 +53,8 @@
         "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2024-25-069ce501b30f835-70020121.pdf",
         "relative_path": "primary_disclosures/cag_telangana_road_finances_2024_25/versions/1c4ce5bab8dc25efcd6ae17cd28152e6bf11a1b184922d5ad782ef49b2fadcba.pdf",
         "sha256": "1c4ce5bab8dc25efcd6ae17cd28152e6bf11a1b184922d5ad782ef49b2fadcba",
-        "size_bytes": 21101550
+        "size_bytes": 21101550,
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -118,7 +119,9 @@
       "revision_identity",
       "price_basis",
       "base_year"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-02T04:41:11.027393+00:00",
   "semantic_rechecks": [],
@@ -241,5 +244,6 @@
       "quarter_start": "2026-10-01",
       "quarter_end": "2026-12-31"
     }
-  ]
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
 }

@@ -33,11 +33,6 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/cag_uttar_pradesh_road_finances_2024_25.json",
-        "sha256": "b585e91674de4a0bd458d02478f9d8cdf48785ac511b21f2ccafcd71bd09b94a",
-        "size_bytes": 1576
-      },
-      {
         "path": "data/raw/primary_disclosures/cag_uttar_pradesh_road_finances_2024_25/versions/50343d23a580af96f455acaf086546d1282c571bb854055541771f99915eb411.pdf",
         "sha256": "50343d23a580af96f455acaf086546d1282c571bb854055541771f99915eb411",
         "size_bytes": 6809225
@@ -46,6 +41,11 @@
         "path": "data/raw/manual/cag_uttar_pradesh_road_finances_2024_25.csv",
         "sha256": "434c3604b2426c8d4ebb94764a488d1353a654f5a55e887d4fbfa347072303aa",
         "size_bytes": 4945
+      },
+      {
+        "path": "data/raw/manual/evidence/cag_uttar_pradesh_road_finances_2024_25.json",
+        "sha256": "b585e91674de4a0bd458d02478f9d8cdf48785ac511b21f2ccafcd71bd09b94a",
+        "size_bytes": 1576
       }
     ],
     "source_documents": [
@@ -53,7 +53,8 @@
         "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-English-06964e82777f6d2-05539712.pdf",
         "relative_path": "primary_disclosures/cag_uttar_pradesh_road_finances_2024_25/versions/50343d23a580af96f455acaf086546d1282c571bb854055541771f99915eb411.pdf",
         "sha256": "50343d23a580af96f455acaf086546d1282c571bb854055541771f99915eb411",
-        "size_bytes": 6809225
+        "size_bytes": 6809225,
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -118,7 +119,9 @@
       "revision_identity",
       "price_basis",
       "base_year"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-02T04:41:07.400529+00:00",
   "semantic_rechecks": [],
@@ -241,5 +244,6 @@
       "quarter_start": "2026-10-01",
       "quarter_end": "2026-12-31"
     }
-  ]
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
 }

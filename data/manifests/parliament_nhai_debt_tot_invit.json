@@ -33,11 +33,6 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/parliament_nhai_debt_tot_invit.json",
-        "sha256": "a5aba9d03614730179b4d39d860d768c5c5c734019cd06c550435a0883ae7a76",
-        "size_bytes": 1253
-      },
-      {
         "path": "data/raw/primary_disclosures/parliament_nhai_debt_tot_invit/document.pdf",
         "sha256": "a8fc9ba166a457d2644c4d9defd18e860b680de96cad1b7daeca489813e7efc7",
         "size_bytes": 191392
@@ -46,6 +41,11 @@
         "path": "data/raw/manual/parliament_nhai_debt_tot_invit.csv",
         "sha256": "dafdf6a0d75f00a41c8d26b47c90426022dcc18881e24da39570337df33b491b",
         "size_bytes": 31191
+      },
+      {
+        "path": "data/raw/manual/evidence/parliament_nhai_debt_tot_invit.json",
+        "sha256": "a5aba9d03614730179b4d39d860d768c5c5c734019cd06c550435a0883ae7a76",
+        "size_bytes": 1253
       }
     ],
     "source_documents": [
@@ -53,7 +53,8 @@
         "url": "https://sansad.in/getFile/loksabhaquestions/annex/187/AU963_8iM1pC.pdf?source=pqals",
         "relative_path": "primary_disclosures/parliament_nhai_debt_tot_invit/document.pdf",
         "sha256": "a8fc9ba166a457d2644c4d9defd18e860b680de96cad1b7daeca489813e7efc7",
-        "size_bytes": 191392
+        "size_bytes": 191392,
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -118,7 +119,9 @@
       "base_year",
       "observation_status",
       "price_basis"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-01T19:28:46.561911+00:00",
   "semantic_rechecks": [],
@@ -528,5 +531,6 @@
       "quarter_start": "2026-10-01",
       "quarter_end": "2026-12-31"
     }
-  ]
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
 }

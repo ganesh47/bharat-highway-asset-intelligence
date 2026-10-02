@@ -21,13 +21,7 @@
     "note": "Parliament Q&A snapshot CSV imported through approved manual artifact."
   },
   "manifest": {
-    "raw_files": [
-      {
-        "path": "data/raw/manual/parliament_qa_highway_queries.csv",
-        "sha256": "bcbb46bf254cf07cf94882727eecec35c51bc430f8a1ea15ce97699ab8df825f",
-        "size_bytes": 171
-      }
-    ],
+    "raw_files": [],
     "output_files": [
       {
         "path": "data/processed/parliament_qa_highway_queries.parquet",
@@ -48,7 +42,24 @@
       "metric_category",
       "dataset_source",
       "retrieved_at"
-    ]
+    ],
+    "unbound_raw_evidence": [
+      {
+        "path": "data/raw/manual/parliament_qa_highway_queries.csv",
+        "expected_sha256": "bcbb46bf254cf07cf94882727eecec35c51bc430f8a1ea15ce97699ab8df825f",
+        "available_sha256": "54a88ddb6d2df978cc7a6fd40fd439ff8a82761299c814b248501e03612c2d27",
+        "original_binding": {
+          "path": "data/raw/manual/parliament_qa_highway_queries.csv",
+          "sha256": "bcbb46bf254cf07cf94882727eecec35c51bc430f8a1ea15ce97699ab8df825f",
+          "size_bytes": 171
+        },
+        "availability": "present_unbound",
+        "binding_status": "quarantined",
+        "reason": "unsupported_legacy_input_checksum_mismatch",
+        "available_size_bytes": 167
+      }
+    ],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-03-11T05:17:35.798756+00:00",
   "completeness_score": 0.98,

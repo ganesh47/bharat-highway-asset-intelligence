@@ -49,6 +49,15 @@
       "metric_category",
       "dataset_source",
       "retrieved_at"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": [
+      {
+        "path": "data/raw/data_gov_in_nhai_projects_api/data_gov_in_nhai_projects_api/raw_20260311_051707.csv",
+        "sha256": "8e350748bca06b4aa2a0d84b1ead500e5408cd59f50c01375c91de467c6b681a",
+        "availability": "not_archived",
+        "reason": "raw_input_archive_missing"
+      }
     ]
   },
   "retrieved_at": "2026-03-11T05:17:07.260825+00:00",

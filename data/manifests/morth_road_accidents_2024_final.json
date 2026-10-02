@@ -34,11 +34,6 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/morth_road_accidents_2024_final.json",
-        "sha256": "24041b9ae02028bfae204cea84e75c46de9f4b3031baa57cad2a147198219c7a",
-        "size_bytes": 2041
-      },
-      {
         "path": "data/raw/primary_disclosures/morth_road_accidents_2024_final/versions/b45b0e4d8e14a8d4653790f9080a01b9b95b79008359ba93dc12497064be69b2.pdf",
         "sha256": "b45b0e4d8e14a8d4653790f9080a01b9b95b79008359ba93dc12497064be69b2",
         "size_bytes": 21376701
@@ -47,6 +42,11 @@
         "path": "data/raw/manual/morth_road_accidents_2024_final.csv",
         "sha256": "37d919fe5f3992dbb19742ecedcac12d731d7f9c25cb76d98d669022a25ac585",
         "size_bytes": 2020333
+      },
+      {
+        "path": "data/raw/manual/evidence/morth_road_accidents_2024_final.json",
+        "sha256": "24041b9ae02028bfae204cea84e75c46de9f4b3031baa57cad2a147198219c7a",
+        "size_bytes": 2041
       }
     ],
     "source_documents": [
@@ -59,7 +59,8 @@
         "reviewed_table_relative_path": "manual/evidence/morth_road_accidents_2024_reviewed_tables.json",
         "reviewed_table_sha256": "8a54930c708f6b5c9e8912e51601c297100244e9ab81fad3f89b09e70f425384",
         "listing_metadata_relative_path": "manual/evidence/national_freshness_official_listing_records.json",
-        "listing_metadata_sha256": "e9de7161de73d34ad9139836f7273ecdb3f5807d238efa9a19da44c7a5178008"
+        "listing_metadata_sha256": "e9de7161de73d34ad9139836f7273ecdb3f5807d238efa9a19da44c7a5178008",
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -124,7 +125,9 @@
       "revision_identity",
       "price_basis",
       "base_year"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-02T04:22:58.785902+00:00",
   "semantic_rechecks": [],
@@ -1442,5 +1445,6 @@
       "quarter_start": "2026-10-01",
       "quarter_end": "2026-12-31"
     }
-  ]
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
 }

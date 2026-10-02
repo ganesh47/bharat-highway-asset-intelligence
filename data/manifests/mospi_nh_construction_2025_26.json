@@ -33,11 +33,6 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/mospi_nh_construction_2025_26.json",
-        "sha256": "4341cc523831324063b1bf7a2dff31841ef5f1929e2a685d06043b192f0b5d4f",
-        "size_bytes": 1731
-      },
-      {
         "path": "data/raw/primary_disclosures/mospi_nh_construction_2025_26/versions/dd7a83c27691f4aacb501a95c408de803dcc6234dfda5878a8dcaf924cfe5066.html",
         "sha256": "dd7a83c27691f4aacb501a95c408de803dcc6234dfda5878a8dcaf924cfe5066",
         "size_bytes": 190876
@@ -46,6 +41,11 @@
         "path": "data/raw/manual/mospi_nh_construction_2025_26.csv",
         "sha256": "6ce595997aa6b4e163e920deda5371c015636bbef8cbc24407a96c2df554e53a",
         "size_bytes": 1921
+      },
+      {
+        "path": "data/raw/manual/evidence/mospi_nh_construction_2025_26.json",
+        "sha256": "4341cc523831324063b1bf7a2dff31841ef5f1929e2a685d06043b192f0b5d4f",
+        "size_bytes": 1731
       }
     ],
     "source_documents": [
@@ -55,7 +55,8 @@
         "sha256": "dd7a83c27691f4aacb501a95c408de803dcc6234dfda5878a8dcaf924cfe5066",
         "size_bytes": 190876,
         "extractor": "pipelines.national_freshness; source-pinned reviewed table or labelled release extraction",
-        "semantic_document_sha256": "bd3d641baea3fb60b0e1544a13adb1bb0a10d01167afc8db9ea126d0c9d9ad38"
+        "semantic_document_sha256": "bd3d641baea3fb60b0e1544a13adb1bb0a10d01167afc8db9ea126d0c9d9ad38",
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -120,7 +121,9 @@
       "revision_identity",
       "price_basis",
       "base_year"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-02T05:00:42.130838+00:00",
   "semantic_rechecks": [],
@@ -211,5 +214,6 @@
       "quarter_end": "2026-12-31"
     }
   ],
-  "last_quality_check_at": "2026-10-02T05:06:19.953217+00:00"
+  "last_quality_check_at": "2026-10-02T05:06:19.953217+00:00",
+  "governed_extract_binding_status": "validated_current_extract"
 }

@@ -33,11 +33,6 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/nhit_quarterly_operations_finance.json",
-        "sha256": "49f53216dedb5092d25e2145c3603652d46376571c6d3dbeb0a97b008c48c243",
-        "size_bytes": 1265
-      },
-      {
         "path": "data/raw/primary_disclosures/nhit_quarterly_operations_finance/document.pdf",
         "sha256": "da8176d700cfc2e88e991e2a71e0a78d92d3397a519a7f13b240808a55db65f1",
         "size_bytes": 3410545
@@ -46,6 +41,11 @@
         "path": "data/raw/manual/nhit_quarterly_operations_finance.csv",
         "sha256": "85cb524360ea333eca7cb741578d9a20dd6da3cfa8b170b52d549997d445a641",
         "size_bytes": 91182
+      },
+      {
+        "path": "data/raw/manual/evidence/nhit_quarterly_operations_finance.json",
+        "sha256": "49f53216dedb5092d25e2145c3603652d46376571c6d3dbeb0a97b008c48c243",
+        "size_bytes": 1265
       }
     ],
     "source_documents": [
@@ -53,7 +53,8 @@
         "url": "https://nhit.co.in/pdf/investor-presentations/Investor%20Presentation%20June%202026.pdf",
         "relative_path": "primary_disclosures/nhit_quarterly_operations_finance/document.pdf",
         "sha256": "da8176d700cfc2e88e991e2a71e0a78d92d3397a519a7f13b240808a55db65f1",
-        "size_bytes": 3410545
+        "size_bytes": 3410545,
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -118,7 +119,9 @@
       "base_year",
       "observation_status",
       "price_basis"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-01T19:28:46.101037+00:00",
   "semantic_rechecks": [],
@@ -808,5 +811,6 @@
       "quarter_start": "2026-10-01",
       "quarter_end": "2026-12-31"
     }
-  ]
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
 }

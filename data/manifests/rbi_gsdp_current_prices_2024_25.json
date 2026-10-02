@@ -33,19 +33,19 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/manual/evidence/rbi_gsdp_current_prices_2024_25.json",
-        "sha256": "e80c910ce0c047f0165c583114d4c5c597323976f925946b838e1981c5fad8d4",
-        "size_bytes": 1775
-      },
-      {
         "path": "data/raw/primary_disclosures/rbi_gsdp_current_prices_2024_25/versions/6e48293426935a2ef796c0163edbedeeb6dd165b21db8f018ac912502b3cc287.pdf",
         "sha256": "6e48293426935a2ef796c0163edbedeeb6dd165b21db8f018ac912502b3cc287",
         "size_bytes": 138670
       },
       {
         "path": "data/raw/manual/rbi_gsdp_current_prices_2024_25.csv",
-        "sha256": "899ebc62ac69f921924f472117842785ca3cf919d0cd493d0e13b2da9b34841c",
-        "size_bytes": 550460
+        "sha256": "6dd5c6d946ed3a810193820dc74663fa497fe87b0cab22dd620420d587942945",
+        "size_bytes": 549800
+      },
+      {
+        "path": "data/raw/manual/evidence/rbi_gsdp_current_prices_2024_25.json",
+        "sha256": "ccae8910a2d693eefa0547fad18098c3807ec1c5bd213fd1b33c80f4b85d6cae",
+        "size_bytes": 1775
       }
     ],
     "source_documents": [
@@ -55,7 +55,8 @@
         "sha256": "6e48293426935a2ef796c0163edbedeeb6dd165b21db8f018ac912502b3cc287",
         "size_bytes": 138670,
         "publication_evidence_url": "https://www.rbi.org.in/scripts/PublicationsView.aspx?id=23470",
-        "publication_evidence_sha256": "c342340fc6eedd99d24c3d7da9588eab3ddcf52905f7344a100e8069983c1f15"
+        "publication_evidence_sha256": "c342340fc6eedd99d24c3d7da9588eab3ddcf52905f7344a100e8069983c1f15",
+        "availability": "archived"
       }
     ],
     "output_files": [
@@ -120,7 +121,9 @@
       "revision_identity",
       "price_basis",
       "base_year"
-    ]
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
   },
   "retrieved_at": "2026-10-02T04:29:25.393770+00:00",
   "semantic_rechecks": [],
@@ -129,7 +132,7 @@
   "local_seed_used": true,
   "publication_history": {
     "index_path": "history/rbi_gsdp_current_prices_2024_25/index.json",
-    "version_count": 1,
+    "version_count": 2,
     "revision_count": 0,
     "candidate_version_id": "466ef038f6365e38024cd6f2a6ed26c5d24a8a436f2ee28dc099a5b6f5695f9c"
   },
@@ -282,5 +285,6 @@
       "quarter_end": "2026-12-31"
     }
   ],
-  "refresh_error": "Response is not a PDF"
+  "refresh_error": "Response is not a PDF",
+  "governed_extract_binding_status": "validated_current_extract"
 }
