@@ -1405,7 +1405,7 @@ function MultiLineChart({
   );
 }
 
-function HorizontalBars({ title, rows, xLabel, yLabel, confidence, onHover, tooltipLines, asOfDate }) {
+function HorizontalBars({ title, rows, xLabel, yLabel, confidence, onHover, tooltipLines, asOfDate, extraContent }) {
   const series = (rows || [])
     .filter((item) => num(item.value, null) !== null)
     .sort((a, b) => num(b.value) - num(a.value));
@@ -1422,12 +1422,12 @@ function HorizontalBars({ title, rows, xLabel, yLabel, confidence, onHover, tool
       top.length ? null : React.createElement('p', { role: 'status', className: 'insight-note' }, 'No records available for this selection. Missing values are not zero.'),
       ...top.map((row) => {
         const width = Math.round((num(row.value) / max) * 100);
-        return React.createElement('div', { key: row.label, className: 'bar-row' },
+        return React.createElement('div', { key: row.label, className: 'bar-row', tabIndex: 0, 'aria-label': `${safeLabel(row.label)}: ${fmtNum(row.value)} ${xLabel || ''}` },
           React.createElement('div', { className: 'bar-label', title: `${safeLabel(row.label)}: ${fmtNum(row.value)}` }, safeLabel(row.label)),
           React.createElement('div', { className: 'bar-track' },
             React.createElement('div', {
               className: 'bar-fill',
-              style: { width: `${clamp(width, 5, 100)}%` },
+              style: { width: `${clamp(width, 0, 100)}%` },
               title: `${safeLabel(row.label)}: ${fmtNum(row.value)}`,
               onMouseEnter: (event) => onHover(tooltipPayload(event, tooltipText([
                 safeLabel(row.label),
@@ -1444,7 +1444,8 @@ function HorizontalBars({ title, rows, xLabel, yLabel, confidence, onHover, tool
         );
       })
     ),
-    React.createElement('div', { className: 'insight-note' }, tooltipLines || '')
+    React.createElement('div', { className: 'insight-note' }, tooltipLines || ''),
+    extraContent || null
   );
   }
 
@@ -1563,6 +1564,7 @@ function StackedStateStatus({
   segmentDefinitions,
   metaText,
   noteText,
+  extraContent,
 }) {
   const segments = segmentDefinitions?.length
     ? segmentDefinitions
@@ -1618,7 +1620,8 @@ function StackedStateStatus({
         }));
         return React.createElement(
           'div',
-          { key: row.state, className: 'bar-row', style: { alignItems: 'start' } },
+          { key: row.state, className: 'bar-row', style: { alignItems: 'start' }, tabIndex: 0,
+            'aria-label': `${row.state}. ${row.segments.map((item) => `${item.label}: ${fmtNum(item.value)}`).join('. ')}. Total: ${fmtNum(row.total)}` },
           React.createElement('div', { className: 'bar-label', title: row.state }, row.state),
           React.createElement(
             'div',
@@ -1644,7 +1647,8 @@ function StackedStateStatus({
           React.createElement('div', { className: 'bar-value' }, fmtNum(row.total))
         );
       })),
-    React.createElement('div', { className: 'insight-note' }, noteText || 'Blue=Under construction, Green=Completed, Amber=Approved but not commenced')
+    React.createElement('div', { className: 'insight-note' }, noteText || 'Blue=Under construction, Green=Completed, Amber=Approved but not commenced'),
+    extraContent || null
   );
 }
 
@@ -1704,6 +1708,8 @@ function ScatterChart({
   const radiusScale = (value) => Number.isFinite(num(value)) ? clamp(((num(value) - rMin) / (rMax - rMin || 1)) * 7 + 3, 3, 12) : 3;
   const chartRef = useRef(null);
   const [scatterResizeTick, setScatterResizeTick] = useState(0);
+  const [keyboardPoint, setKeyboardPoint] = useState(null);
+  const selectedPoint = Number.isInteger(keyboardPoint) ? points[Math.min(keyboardPoint, points.length - 1)] : null;
 
   useEffect(() => {
     const canvas = chartRef.current;
@@ -1885,8 +1891,16 @@ function ScatterChart({
         ref: chartRef,
         className: 'chart-canvas',
         role: 'img',
-        'aria-label': `${title}. ${resolvedXAxisLabel}; ${resolvedYAxisLabel}. ${points.length} observations.`,
+        tabIndex: 0,
+        'data-point-count': points.length,
+        'aria-label': `${title}. ${resolvedXAxisLabel}; ${resolvedYAxisLabel}. ${points.length} observations. Use arrow keys, Home or End to inspect points.`,
         style: { width: '100%', height: `${height}px`, display: 'block' },
+        onFocus: () => setKeyboardPoint(0),
+        onKeyDown: (event) => {
+          if (!points.length || !['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) return;
+          event.preventDefault();
+          setKeyboardPoint((previous) => event.key === 'Home' ? 0 : event.key === 'End' ? points.length - 1 : clamp((previous ?? 0) + (['ArrowRight', 'ArrowDown'].includes(event.key) ? 1 : -1), 0, points.length - 1));
+        },
         onMouseMove: (event) => {
           const point = nearestPoint(event);
           if (!point) {
@@ -1903,6 +1917,7 @@ function ScatterChart({
         onMouseLeave: () => onHover({ visible: false }),
       })
     ),
+    React.createElement('p', { className: 'insight-note', role: 'status', 'aria-live': 'polite' }, selectedPoint ? `${safeLabel(selectedPoint.state)} · ${resolvedXAxisLabel}: ${fmtNum(selectedPoint.x)} · ${resolvedYAxisLabel}: ${fmtNum(selectedPoint.y)}${radiusLabel ? ` · ${radiusLabel}: ${Number.isFinite(num(selectedPoint.radius)) ? fmtNum(selectedPoint.radius) : 'coverage unavailable'}` : ''} · ${selectedPoint.modelConfidence || ''}` : 'Focus the chart and use arrow keys, Home or End to inspect each point.'),
     React.createElement('div', { className: 'insight-note' }, noteText || `Why this badge?: ${confidence.reasons?.[0] || 'Use source provenance, recency, and consistency checks.'}`)
   );
 }
@@ -2327,7 +2342,7 @@ function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter })
   const [metric, setMetric] = useState('All');
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(0);
-  const [periodView, setPeriodView] = useState('all');
+  const [periodView, setPeriodView] = useState('latest');
   const [observationStatus, setObservationStatus] = useState('All');
   const [assurance, setAssurance] = useState('All');
   const disclosedRows = rows.filter((row) => disclosureVisible(row, catalog, evidence === 'undated_context'));
@@ -2336,17 +2351,19 @@ function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter })
     return matchesSourceFilter(item, sourceFilter)
       && (selectedState === 'All' || normalizeState(row.state) === normalizeState(selectedState));
   });
-  const themed = selectPeriodView(evidenceRows.filter((row) => disclosureTheme(row) === theme && (observationStatus === 'All' || row.observation_status === observationStatus) && (assurance === 'All' || row.assurance === assurance)), periodView);
-  const options = (key) => [...new Set(themed.map((row) => String(row[key] || '')).filter(Boolean))].sort();
-  const periodOptions = [...new Set(themed.map(periodLabel))].sort();
-  const filtered = themed.filter((row) => (agency === 'All' || row.agency === agency)
+  const themeHistory = evidenceRows.filter((row) => disclosureTheme(row) === theme && (observationStatus === 'All' || row.observation_status === observationStatus) && (assurance === 'All' || row.assurance === assurance));
+  const options = (key) => [...new Set(themeHistory.map((row) => String(row[key] || '')).filter(Boolean))].sort();
+  const periodOptions = [...new Set(themeHistory.map(periodLabel))].sort();
+  const matchesDisclosureFilters = (row) => (agency === 'All' || row.agency === agency)
     && (roadClass === 'All' || row.road_class === roadClass)
     && (period === 'All' || periodLabel(row) === period)
     && (estimate === 'All' || row.estimate_type === estimate)
     && (evidence === 'All' || (evidence === 'undated_context' ? !row.data_as_of : row.evidence_class === evidence))
     && (metric === 'All' || row.metric === metric)
-    && (!search || `${row.entity_id} ${row.entity_type} ${row.entity_name || ''} ${row.project_name || ''}`.toLowerCase().includes(search.toLowerCase())));
-  const ratioRows = themed.filter((row) => (agency === 'All' || row.agency === agency) && (roadClass === 'All' || row.road_class === roadClass) && (period === 'All' || periodLabel(row) === period) && (estimate === 'All' || row.estimate_type === estimate) && (evidence === 'All' || (evidence === 'undated_context' ? !row.data_as_of : row.evidence_class === evidence)) && (!search || `${row.entity_id} ${row.entity_name || ''}`.toLowerCase().includes(search.toLowerCase())));
+    && (!search || `${row.entity_id} ${row.entity_type} ${row.entity_name || ''} ${row.project_name || ''}`.toLowerCase().includes(search.toLowerCase()));
+  const trendHistory = themeHistory.filter(matchesDisclosureFilters);
+  const filtered = selectPeriodView(trendHistory, periodView);
+  const ratioRows = selectPeriodView(themeHistory.filter((row) => (agency === 'All' || row.agency === agency) && (roadClass === 'All' || row.road_class === roadClass) && (period === 'All' || periodLabel(row) === period) && (estimate === 'All' || row.estimate_type === estimate) && (evidence === 'All' || (evidence === 'undated_context' ? !row.data_as_of : row.evidence_class === evidence)) && (!search || `${row.entity_id} ${row.entity_name || ''}`.toLowerCase().includes(search.toLowerCase()))), periodView);
   const derived = deriveDisclosureInsights(ratioRows.filter((row) => disclosureEligible(row, catalog)));
   const ordered = [...filtered].sort((a, b) => String(b.period_end || b.data_as_of || '').localeCompare(String(a.period_end || a.data_as_of || ''))
     || String(a.agency).localeCompare(String(b.agency)) || String(a.entity_id).localeCompare(String(b.entity_id)) || String(a.metric).localeCompare(String(b.metric)));
@@ -2405,7 +2422,9 @@ function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter })
           row ? React.createElement('p', { className: 'insight-note' }, `NPCI · payment network · ${periodLabel(row)} · as of ${row.data_as_of}. Publication: ${row.published_at || 'not disclosed'}. Original: ${fmtNum(row.original_value, { compact: false })} ${row.original_unit}.`) : null,
           row ? React.createElement('a', { href: validCitation(row.citation_url), target: '_blank', rel: 'noreferrer' }, `Primary NETC table · ${row.table_page || 'monthly statistics'}`) : null,
           row ? React.createElement('p', { className: 'insight-note' }, row.notes) : null))) : null,
-      theme === 'toll' && evidenceRows.some((row) => row.source_id === 'npci_netc_monthly_statistics') ? React.createElement(NETCPaymentTrends, { rows: filtered.filter((row) => disclosureMeasured(row, catalog)), catalog }) : null,
+      theme === 'toll' && evidenceRows.some((row) => row.source_id === 'npci_netc_monthly_statistics') ? React.createElement('div', null,
+        React.createElement('p', { className: 'insight-note' }, 'Monthly trends retain the filtered history independently of the table period view. Agency, road class, reporting period, evidence and metric filters still apply.'),
+        React.createElement(NETCPaymentTrends, { rows: trendHistory.filter((row) => disclosureMeasured(row, catalog)), catalog })) : null,
       ['funding', 'delivery', 'monetisation'].includes(theme) ? React.createElement('details', { className: 'comparable-insights' },
         React.createElement('summary', null, `Comparable calculations (${derived.length}) · matched scope and units`),
         derived.length ? derived.slice(0, 100).map((item, index) => React.createElement('p', { key: index },
@@ -2415,6 +2434,7 @@ function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter })
           React.createElement('a', { href: validCitation(item.denominator.citation_url), target: '_blank', rel: 'noreferrer' }, `Denominator · ${item.denominator.table_page}`)))
           : React.createElement('p', { className: 'insight-note' }, 'No disclosed compatible numerator/denominator pair for this selection. Calculations require the same entity, agency, period, accounting basis and source; cost/km also requires kilometre units and the same cutoff. Missing pairs are not inferred.')) : null,
       React.createElement('p', { className: 'metric-meta', role: 'status', 'aria-live': 'polite' }, `${ordered.length.toLocaleString('en-IN')} observations · ${new Set(ordered.map((row) => row.source_id)).size} sources · ${new Set(ordered.map((row) => normalizeState(row.state)).filter((state) => state && !isAggregateStateLabel(state))).size} distinct disclosed location labels (including historical and multi-state scopes). Missing or omitted evidence is not zero.`),
+      React.createElement('p', { className: 'insight-note', 'data-testid': 'selection-period-coverage', role: 'status' }, selectionPeriodCoverage(ordered, periodView, trendHistory.length - filtered.length)),
       ordered.length ? React.createElement('div', { className: 'evidence-table-wrap', tabIndex: 0, role: 'region', 'aria-label': 'Scrollable disclosure evidence table' },
         React.createElement('table', { className: 'evidence-table', 'aria-describedby': 'analyst-comparability' },
           React.createElement('caption', null, `${activeTheme.title}: rows ${activePage * pageSize + 1}–${Math.min((activePage + 1) * pageSize, ordered.length)} of ${ordered.length}. CSV includes all filtered rows and original units.`),
@@ -2487,6 +2507,83 @@ function observationLabel(row) {
   const status = row.observation_status || 'status not disclosed';
   const assurance = row.assurance || 'assurance not disclosed';
   return `${status} · ${assurance}${row.price_basis ? ` · ${row.price_basis}` : ''}${row.base_year ? ` · base ${row.base_year}` : ''}`;
+}
+
+function selectionPeriodCoverage(rows, mode, omitted = 0) {
+  const periods = [...new Set(rows.map((row) => `${row.period_start || 'unknown'} → ${row.period_end || 'unknown'}`))].sort();
+  const cutoffs = [...new Set(rows.map((row) => row.data_as_of).filter(Boolean))].sort();
+  const range = (values) => values.length ? (values.length === 1 ? values[0] : `${values[0]} through ${values[values.length - 1]}`) : 'not disclosed';
+  const starts = rows.map((row) => row.period_start).filter(Boolean).sort();
+  const ends = rows.map((row) => row.period_end).filter(Boolean).sort();
+  const periodSummary = periods.length <= 6 ? (periods.join('; ') || 'not disclosed') : `${starts[0] || 'start not disclosed'} through ${ends.at(-1) || 'end not disclosed'}; ${rows.filter((row) => !row.period_start || !row.period_end).length} observations have incomplete period bounds (see individual rows)`;
+  const description = mode === 'latest' ? 'Latest available per entity within the selected filters and each compatible metric, estimate and accounting scope; periods may differ.' : mode === 'common' ? 'Common period within each selected compatible scope; different scopes may retain different periods.' : 'All disclosed history, including qualified estimates and undated context when explicitly selected.';
+  return `${description} Selected reporting periods (${periods.length}): ${periodSummary}. Observation cutoffs: ${range(cutoffs)}. ${rows.filter((row) => !row.data_as_of).length} selected observations have no disclosed cutoff.${mode !== 'all' ? ` ${omitted} historical or undated observations retained under All history. Unknown estimate vintages cannot establish a latest observation.` : ''}`;
+}
+
+function latestGsdpPeriod(rows) {
+  const current = rows.filter((row) => row.entity_type === 'state_aggregate' && row.period_basis === 'fiscal_year' && row.price_basis === 'current_prices' && row.unit === 'INR crore' && row.period_end && row.data_as_of && Number.isFinite(num(row.value)) && !isAggregateStateLabel(row.state));
+  const latest = current.map((row) => row.period_end).sort().at(-1);
+  const selected = current.filter((row) => row.period_end === latest);
+  const byState = new Map();
+  for (const row of selected) {
+    const key = normalizeState(row.state);
+    byState.set(key, [...(byState.get(key) || []), row]);
+  }
+  // Ambiguous revisions are not resolved by row order. Missing states stay omitted.
+  return [...byState.values()].filter((facts) => facts.length === 1).map((facts) => facts[0]);
+}
+
+function reportedScheduleDate(value) {
+  const text = String(value || '').trim();
+  const match = text.match(/^(\d{2})\/(\d{2})\/(\d{4})$/) || text.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) return null;
+  const iso = text.includes('/') ? `${match[3]}-${match[2]}-${match[1]}` : text;
+  const date = new Date(`${iso}T00:00:00Z`);
+  return Number.isFinite(date.valueOf()) && date.toISOString().slice(0, 10) === iso ? iso : null;
+}
+
+function latestNetworkStock(rows) {
+  const scope = rows.filter((row) => row.source_id === 'morth_annual_report_2025_26' && row.metric === 'nh_network_length_km' && row.entity_type === 'state_ut' && row.road_class === 'National Highway' && row.unit === 'km' && row.period_basis === 'stock' && row.data_as_of && Number.isFinite(num(row.value)) && num(row.value) >= 0 && !isAggregateStateLabel(row.state));
+  const cutoff = scope.map((row) => row.data_as_of).sort().at(-1) || null;
+  const states = new Map();
+  scope.filter((row) => row.data_as_of === cutoff).forEach((row) => { const key = normalizeState(row.state); states.set(key, [...(states.get(key) || []), row]); });
+  const selected = [...states.values()].filter((facts) => facts.length === 1).map((facts) => facts[0]);
+  return { rows: selected, cutoff, citation_url: selected[0]?.citation_url || null };
+}
+
+function nhidclPortfolioSnapshot(rows) {
+  const scope = rows.filter((row) => row.source_id === 'nhidcl_monthly_project_progress' && row.entity_type === 'project' && row.agency === 'NHIDCL' && row.road_class === 'National Highway' && row.period_basis === 'project_snapshot' && row.statement_basis === 'PMP_Data_Lake' && row.entity_id && row.data_as_of && row.analytical_eligible === true);
+  const cutoff = scope.map((row) => row.data_as_of).sort().at(-1) || null;
+  const projects = new Map();
+  scope.filter((row) => row.data_as_of === cutoff).forEach((row) => projects.set(row.entity_id, [...(projects.get(row.entity_id) || []), row]));
+  const states = new Map();
+  const descriptors = ['state', 'project_stage', 'scheduled_completion_date', 'likely_completion_date', 'actual_completion_date'];
+  let excluded = 0;
+  const accepted = [];
+  for (const facts of projects.values()) {
+    if (descriptors.some((field) => new Set(facts.map((row) => String(row[field] || '').trim())).size !== 1) || !facts[0].state || isAggregateStateLabel(facts[0].state)) { excluded += 1; continue; }
+    const row = facts[0];
+    const stateKey = normalizeState(row.state);
+    if (!states.has(stateKey)) states.set(stateKey, { state: row.state, total_projects: 0, completed_projects: 0, ongoing_past_schedule: 0, ongoing_within_schedule: 0, ongoing_unknown_schedule: 0, other_stage_projects: 0 });
+    const summary = states.get(stateKey);
+    const stage = String(row.project_stage || '').trim().toLowerCase();
+    const schedule = reportedScheduleDate(row.scheduled_completion_date);
+    const bucket = stage === 'completed' ? 'completed_projects' : stage === 'ongoing' ? (!schedule ? 'ongoing_unknown_schedule' : schedule < cutoff ? 'ongoing_past_schedule' : 'ongoing_within_schedule') : 'other_stage_projects';
+    summary.total_projects += 1;
+    summary[bucket] += 1;
+    accepted.push(row);
+  }
+  return { rows: [...states.values()], projects: accepted, cutoff, excluded, citation_url: accepted[0]?.citation_url || null };
+}
+
+function portfolioScheduleBurden(portfolioRows, gsdpRows) {
+  const gsdp = new Map(gsdpRows.map((row) => [normalizeState(row.state), row]));
+  return portfolioRows.flatMap((row) => {
+    const denominator = gsdp.get(normalizeState(row.state));
+    const value = num(denominator?.gsdp_current_price);
+    const pastSchedule = num(row.ongoing_past_schedule);
+    return Number.isFinite(value) && value > 0 && Number.isInteger(pastSchedule) && pastSchedule >= 0 ? [{ label: row.state, value: pastSchedule / value * 100000, past_schedule: pastSchedule, unknown_schedule: row.ongoing_unknown_schedule }] : [];
+  }).sort((a, b) => b.value - a.value);
 }
 
 function MetricCoverage({ rows, catalog }) {
@@ -2805,7 +2902,9 @@ async function loadAnalyticCatalog(conn, catalog) {
 
   const primaryGsdp = disclosureRows.filter((row) => row.source_id === 'rbi_gsdp_current_prices_2024_25' && row.metric === 'gsdp_current_prices_inr_crore' && disclosureMeasured(row, catalog) && !isAggregateStateLabel(row.state));
   const gsdpHistory = primaryGsdp.length ? primaryGsdp : wideYearFacts(gsdp, /^gross_state_domestic_product_gsdpat_current_prices_-_(\d{4}-\d{2})$/, ['state/ut', 'state'], 'data_gov_in_gsdp_stateut_current_prices_2017_23').map((row) => ({ ...row, entity_id: normalizeState(row.state), source_id: row.source, metric: 'gsdp_current_prices_inr_crore', unit: 'INR crore', estimate_type: 'actual', period_start: `${row.period.slice(0,4)}-04-01`, period_end: `${Number(row.period.slice(0,4))+1}-03-31`, data_as_of: `${Number(row.period.slice(0,4))+1}-03-31` }));
-  const gsdpRows = selectPeriodView(gsdpHistory, 'common').map((row) => ({ state: row.state, gsdp_year: `${row.period_start.slice(0,4)}-${row.period_end.slice(2,4)}`, gsdp_current_price: num(row.value), source: row.source_id, source_as_of_date: row.data_as_of }));
+  const gsdpRows = latestGsdpPeriod(gsdpHistory).map((row) => ({ state: row.state, gsdp_year: `${row.period_start.slice(0,4)}-${row.period_end.slice(2,4)}`, gsdp_current_price: num(row.value), source: row.source_id, source_as_of_date: row.data_as_of, citation_url: row.citation_url }));
+  const nhidclPortfolio = nhidclPortfolioSnapshot(disclosureRows.filter((row) => disclosureMeasured(row, catalog)));
+  const economicNetworkStock = latestNetworkStock(disclosureRows.filter((row) => disclosureMeasured(row, catalog)));
 
   legacyRoadFatalAccidents.forEach((row) => {
     const state = row.state || row['states/uts'] || row.state_name;
@@ -3032,6 +3131,8 @@ async function loadAnalyticCatalog(conn, catalog) {
   morthPermitRows.forEach((row) => stateList.add(row.state));
   return {
     disclosureRows,
+    nhidclPortfolio,
+    economicNetworkStock,
     growthRows,
     financeRows,
     portfolioRows: mergedPortfolioRows,
@@ -3141,9 +3242,9 @@ function App() {
       growth: confidenceFromSources(entries.filter((item) => item.source_id === 'nhai_constructed_length_series_official')),
       finance: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('project_finance_api'))),
       portfolio: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('state_projects_api'))),
-      status: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('statewise_nh_project_status'))),
+      status: confidenceFromSources(entries.filter((item) => item.source_id === 'nhidcl_monthly_project_progress')),
       safety: confidenceFromSources(entries.filter((item) => [...(analytics?.officialSafetyTrendRows || []).map(row => row.source), 'parliament_qa_nh_blackspots_state', 'morth_annual_report_pdf'].includes(item.source_id))),
-      economic: confidenceFromSources(entries.filter((item) => [...(analytics?.gsdpRows || []).map(row => row.source), 'morth_annual_report_pdf', 'data_gov_in_nhai_stateut_project_delay_status_2024'].includes(item.source_id))),
+      economic: confidenceFromSources(entries.filter((item) => [...(analytics?.gsdpRows || []).map(row => row.source), 'morth_annual_report_2025_26', 'nhidcl_monthly_project_progress'].includes(item.source_id))),
       morthReport: confidenceFromSources(entries.filter((item) => item.source_id === 'morth_annual_report_pdf')),
       model: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('highway_project_risk_and_access_panel') || item.source_type === 'model_output')),
       macro: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('rbi_mospi_macro_indicators') || String(item.source_id).includes('ncrb_road_accidents_state_year') || String(item.source_id).includes('quality_maintenance_indicators'))),
@@ -3162,6 +3263,7 @@ function App() {
       officialSafetyTrendRows: toTopStates(analytics.officialSafetyTrendRows || [], state),
       portfolioRows: toTopStates(analytics.portfolioRows || [], state),
       stateStatusRows: toTopStates(analytics.stateStatusRows, state),
+      nhidclPortfolioRows: toTopStates(analytics.nhidclPortfolio?.rows || [], state),
       gsdpRows: toTopStates(analytics.gsdpRows || [], state),
       nhFatalityBurdenRows: toTopStates(analytics.nhFatalityBurdenRows || [], state),
       nhBlackspotContextRows: toTopStates(analytics.nhBlackspotContextRows || [], state),
@@ -3203,7 +3305,7 @@ function App() {
     finance: latestDateFromRows(analytics?.financeRows, catalog, ['data_gov_in_nhai_project_finance_api']),
     portfolio: latestDateFromRows(analytics?.portfolioRows, catalog, ['data_gov_in_nhai_state_projects_api', 'data_gov_in_nhai_stateut_length_constructed_2019_24', 'morth_annual_report_pdf']),
     morthAppendix: latestDateFromRows(analytics?.morthCrifRows || analytics?.morthAppendix2CountRows || [], catalog, ['morth_annual_report_pdf']),
-    status: latestDateFromRows(analytics?.stateStatusRows, catalog, ['data_gov_in_nhai_stateut_project_delay_status_2024']),
+    status: analytics?.nhidclPortfolio?.cutoff,
     safety: latestDateFromRows(analytics?.accidentTrendRows || [], catalog, ['ncrb_road_accidents_state_year', 'quality_maintenance_indicators', 'highway_project_risk_and_access_panel']),
     modelRisk: latestDateFromRows(analytics?.modelStateRisk || [], catalog, ['highway_project_risk_and_access_panel', 'ncrb_road_accidents_state_year']),
     economic: latestDateFromRows(analytics?.gsdpRows || [], catalog, ['data_gov_in_gsdp_stateut_current_prices_2017_23', 'morth_annual_report_pdf', 'data_gov_in_nhai_stateut_project_delay_status_2024']),
@@ -3249,10 +3351,8 @@ function App() {
   const portfolioBars = (filteredStateRows?.portfolioRows || analytics?.portfolioRows || [])
     .map((row) => ({ label: row.state, value: row.length }))
     .filter((item) => Number.isFinite(num(item.value)));
-  const statusBars = (filteredStateRows?.stateStatusRows || analytics?.stateStatusRows || [])
-    .map((row) => ({ state: row.state, active_projects: num(row.active_projects), delayed_projects: num(row.delayed_projects) }))
-    .filter((row) => Number.isFinite(row.active_projects) && Number.isFinite(row.delayed_projects))
-    .sort((a, b) => (b.active_projects + b.delayed_projects) - (a.active_projects + a.delayed_projects));
+  const statusBars = filteredStateRows?.nhidclPortfolioRows || analytics?.nhidclPortfolio?.rows || [];
+  const portfolioProjectCount = completeSum(statusBars.map((row) => row.total_projects));
 
   const filteredModelSummaryRows = filteredStateRows?.modelByStateSummary || analytics?.modelByStateSummary || [];
   const filteredModelRiskRows = filteredStateRows?.modelStateRisk || analytics?.modelStateRisk || [];
@@ -3324,58 +3424,38 @@ function App() {
   const modelPanelReady = modelCoverageStates.size >= 10 && new Set(modelScoreValues).size > 1;
 
   const economicContextRows = (() => {
+    const networkLookup = new Map((analytics?.economicNetworkStock?.rows || []).map((row) => [normalizeState(row.state), row]));
     const gsdpLookup = new Map(
       (filteredStateRows?.gsdpRows || analytics?.gsdpRows || [])
         .filter((row) => row?.state)
         .map((row) => [normalizeState(row.state), row])
     );
-    const delayLookup = new Map(
-      (filteredStateRows?.stateStatusRows || analytics?.stateStatusRows || [])
+    const projectLookup = new Map(
+      statusBars
         .filter((row) => row?.state)
         .map((row) => [normalizeState(row.state), row])
     );
     return Array.from(gsdpLookup.entries())
       .map(([key, row]) => {
-        const nhLengthKm = num((analytics?.morthNHLengthByState || {})[key]);
-        const delay = delayLookup.get(key);
-        if (!Number.isFinite(row.gsdp_current_price) || !Number.isFinite(nhLengthKm) || nhLengthKm <= 0) {
+        const nhLengthKm = num(networkLookup.get(key)?.value);
+        const project = projectLookup.get(key);
+        if (!Number.isFinite(row.gsdp_current_price) || !Number.isFinite(nhLengthKm) || nhLengthKm < 0) {
           return null;
         }
         return {
           state: row.state,
           x: num(row.gsdp_current_price),
           y: nhLengthKm,
-          radius: num(delay?.delayed_projects),
-          modelConfidence: `Latest GSDP year: ${row.gsdp_year} • Delayed NH projects: ${fmtNum(delay?.delayed_projects)}`,
+          radius: num(project?.total_projects),
+          modelConfidence: `GSDP period: ${row.gsdp_year} • NHIDCL monitored NH projects: ${project ? fmtNum(project.total_projects) : 'not covered by this portfolio'} • NHIDCL snapshot: ${analytics?.nhidclPortfolio?.cutoff || 'unavailable'}`,
           gsdp_year: row.gsdp_year,
-          delayed_projects: num(delay?.delayed_projects),
+          portfolio_projects: num(project?.total_projects),
         };
       })
       .filter(Boolean);
   })();
 
-  const delayBurdenRows = (() => {
-    const gsdpLookup = new Map(
-      (filteredStateRows?.gsdpRows || analytics?.gsdpRows || [])
-        .filter((row) => row?.state)
-        .map((row) => [normalizeState(row.state), row])
-    );
-    return (filteredStateRows?.stateStatusRows || analytics?.stateStatusRows || [])
-      .map((row) => {
-        const gsdpRow = gsdpLookup.get(normalizeState(row.state));
-        const gsdpValue = num(gsdpRow?.gsdp_current_price);
-        const delayed = num(row.delayed_projects);
-        if (!Number.isFinite(gsdpValue) || gsdpValue <= 0 || !Number.isFinite(delayed)) {
-          return null;
-        }
-        return {
-          label: row.state,
-          value: (delayed / gsdpValue) * 100000,
-        };
-      })
-      .filter(Boolean)
-      .sort((a, b) => b.value - a.value);
-  })();
+  const delayBurdenRows = portfolioScheduleBurden(statusBars, filteredStateRows?.gsdpRows || analytics?.gsdpRows || []);
 
   const macroLines = [
     {
@@ -3449,7 +3529,7 @@ function App() {
     .filter((row) => Number.isFinite(row.x) && Number.isFinite(row.y));
 
   const portfolioConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'morth_annual_report_pdf'));
-  const stateStatusConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'data_gov_in_nhai_stateut_project_delay_status_2024'));
+  const stateStatusConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'nhidcl_monthly_project_progress'));
   const growthConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'nhai_constructed_length_series_official'));
   const modelConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'highway_project_risk_and_access_panel'));
   const morthReportConfidence = confidenceFromSources(Object.values(catalog).filter((item) => item.source_id === 'morth_annual_report_pdf'));
@@ -3652,17 +3732,27 @@ function App() {
       }),
       React.createElement(ChartTooltip, { tooltip }),
       React.createElement(StackedStateStatus, {
-        title: 'State Project Mix (active vs delayed NH projects, official March 2024 snapshot)',
+        title: 'NHIDCL Monitored NH Portfolio: Reported Stages & Schedule Exposure',
         rows: statusBars,
         confidence: stateStatusConfidence,
         onHover: setTooltip,
-        asOfDate: 'March 2024',
+        asOfDate: analytics?.nhidclPortfolio?.cutoff || 'unavailable',
         segmentDefinitions: [
-          { key: 'active_projects', label: 'Active without listed delay', color: '#2f5f99' },
-          { key: 'delayed_projects', label: 'Delayed projects', color: '#b07a00' },
+          { key: 'completed_projects', label: 'Reported completed', color: '#0a8f52' },
+          { key: 'ongoing_past_schedule', label: 'Ongoing past reported schedule', color: '#b07a00' },
+          { key: 'ongoing_within_schedule', label: 'Ongoing not past reported schedule', color: '#2f5f99' },
+          { key: 'ongoing_unknown_schedule', label: 'Ongoing schedule unavailable', color: '#777' },
+          { key: 'other_stage_projects', label: 'Other reported stages', color: '#8a65ad' },
         ],
-        metaText: 'State/UT-wise NH project counts. Delayed projects are a subset of all listed projects.',
-        noteText: 'Blue=Active without listed delay, Amber=Delayed projects. The Total row is excluded, and some zero-project geographies may be omitted from the official annexure.',
+        metaText: `NHIDCL monitored agency portfolio only: ${portfolioProjectCount == null ? 'unavailable' : portfolioProjectCount} distinct National Highway projects across ${statusBars.length} disclosed state/UT labels in this selection.`,
+        noteText: `Reported stages determine the counts. Schedule exposure means an ongoing project has a valid reported scheduled completion before the snapshot date; it is not an adjudicated contractual delay. Unknown schedules stay unavailable. This portfolio does not represent all NHAI, MoRTH or State Highway projects, or network stock. ${analytics?.nhidclPortfolio?.excluded || 0} projects excluded for conflicting descriptors.`,
+        extraContent: React.createElement('div', { className: 'insight-note' },
+          React.createElement('p', null, `${fmtNum(completeSum(statusBars.map(row => row.completed_projects)))} reported completed; ${fmtNum(completeSum(statusBars.map(row => row.ongoing_past_schedule + row.ongoing_within_schedule + row.ongoing_unknown_schedule)))} ongoing (${fmtNum(completeSum(statusBars.map(row => row.ongoing_past_schedule)))} past reported schedule, ${fmtNum(completeSum(statusBars.map(row => row.ongoing_within_schedule)))} not past, ${fmtNum(completeSum(statusBars.map(row => row.ongoing_unknown_schedule)))} schedule unavailable); ${fmtNum(completeSum(statusBars.map(row => row.other_stage_projects)))} other reported stages.`),
+          analytics?.nhidclPortfolio?.citation_url ? React.createElement('a', { href: validCitation(analytics.nhidclPortfolio.citation_url), target: '_blank', rel: 'noreferrer' }, 'Primary NHIDCL monthly project snapshot') : null,
+          React.createElement('details', null, React.createElement('summary', null, 'Historical context: official March 2024 NH project annexure'),
+            React.createElement('p', null, 'The older all-listed NH project annexure retains its own March 2024 date and reported delay definition; it is not spliced into the NHIDCL series.'),
+            React.createElement('a', { href: validCitation(catalog.data_gov_in_nhai_stateut_project_delay_status_2024?.source?.url), target: '_blank', rel: 'noreferrer' }, 'Historical primary annexure'),
+            ...(filteredStateRows?.stateStatusRows || []).map((row) => React.createElement('p', { key: row.state }, `${row.state}: ${fmtNum(row.active_projects)} active without listed delay; ${fmtNum(row.delayed_projects)} listed delayed projects (March 2024).`)))),
       }),
       React.createElement(HorizontalBars, {
         title: 'NH Fatality Burden by State/UT (official NH fatalities)',
@@ -3729,26 +3819,32 @@ function App() {
         rows: economicContextRows,
         confidence: confidenceCatalog.economic,
         onHover: setTooltip,
-        asOfDate: `Common GSDP period: ${analytics?.gsdpRows?.[0]?.gsdp_year || 'unavailable'} · ${analytics?.gsdpRows?.length || 0} locations | NH length: 2024-12-31 | Delayed projects: March 2024`,
-        xLabel: 'Common-period GSDP at current prices (₹ crore)',
+        asOfDate: `Latest published GSDP period: ${analytics?.gsdpRows?.[0]?.gsdp_year || 'unavailable'} · ${analytics?.gsdpRows?.length || 0} current state/UT rows | NH length: ${analytics?.economicNetworkStock?.cutoff || 'unavailable'} | NHIDCL portfolio: ${analytics?.nhidclPortfolio?.cutoff || 'unavailable'}`,
+        metaText: 'Network stock, economic output and monitored portfolio scope have separate dates and definitions.',
+        noteText: React.createElement('span', null, 'One latest published GSDP annual period is used; missing states and historical geographies are excluded. Bubbles count distinct NHIDCL monitored NH projects, not network kilometres or all highway projects. Small fixed markers outside that portfolio mean coverage unavailable, not zero. Latest MoRTH state NH stock is used; the published national total is excluded because it does not reconcile with the state table. This is context across separately dated observations. ',
+          React.createElement('a', { href: validCitation(analytics?.gsdpRows?.[0]?.citation_url), target: '_blank', rel: 'noreferrer' }, 'Primary GSDP table'), ' · ',
+          React.createElement('a', { href: validCitation(analytics?.economicNetworkStock?.citation_url), target: '_blank', rel: 'noreferrer' }, 'Primary NH network stock'), ' · ',
+          React.createElement('a', { href: validCitation(analytics?.nhidclPortfolio?.citation_url), target: '_blank', rel: 'noreferrer' }, 'Primary NHIDCL snapshot')),
+        xLabel: 'Latest-period GSDP at current prices (₹ crore)',
         yLabel: 'NH length (km)',
-        pointLabel: 'Delayed NH projects',
-        xAxisLabel: 'Common-period GSDP at current prices (₹ crore)',
+        pointLabel: 'NHIDCL monitored NH projects',
+        xAxisLabel: 'Latest-period GSDP at current prices (₹ crore)',
         yAxisLabel: 'NH length (km)',
         pointEntityLabel: 'State / UT',
-        radiusLabel: 'Delayed NH projects',
+        radiusLabel: 'NHIDCL monitored NH projects',
         chartScale: activeChartScale,
         chartHeight: activeChartHeight,
       }),
       React.createElement(HorizontalBars, {
-        title: 'Delay Burden Relative to Economic Scale',
+        title: 'NHIDCL Schedule Exposure Relative to Economic Scale',
         rows: delayBurdenRows,
         confidence: confidenceCatalog.economic,
         onHover: setTooltip,
-        asOfDate: chartDates.economic,
-        xLabel: 'Delayed NH projects per ₹1 lakh crore GSDP',
+        asOfDate: `NHIDCL: ${analytics?.nhidclPortfolio?.cutoff || 'unavailable'} | GSDP: ${analytics?.gsdpRows?.[0]?.gsdp_year || 'unavailable'}`,
+        xLabel: 'Ongoing past-schedule NHIDCL projects per ₹1 lakh crore GSDP',
         yLabel: 'State / UT',
-        tooltipLines: 'Common-period current-price GSDP uses greatest available compatible state coverage; missing states are excluded. Use this as context for relative delivery burden, not as a causal measure.',
+        tooltipLines: `Numerator: distinct ongoing NHIDCL NH projects past their reported scheduled completion at the portfolio snapshot. Denominator: latest single-period current-price GSDP (₹ crore), scaled by 100,000. ${delayBurdenRows.length} matched state/UT labels; ${statusBars.length - delayBurdenRows.length} portfolio locations omitted for missing compatible GSDP. ${completeSum(statusBars.map(row => row.ongoing_unknown_schedule)) ?? 'unavailable'} ongoing projects have unknown schedules. Schedule exposure is not reported contractual delay, and this monitored agency portfolio is not whole-NHAI or State Highway coverage. Different observation periods provide context, not a causal measure.`,
+        extraContent: React.createElement('p', { className: 'insight-note' }, React.createElement('a', { href: validCitation(analytics?.nhidclPortfolio?.citation_url), target: '_blank', rel: 'noreferrer' }, 'Primary NHIDCL numerator'), ' · ', React.createElement('a', { href: validCitation(analytics?.gsdpRows?.[0]?.citation_url), target: '_blank', rel: 'noreferrer' }, 'Primary GSDP denominator')),
       }),
       React.createElement(ScatterChart, {
         title: 'Project Economics: Land Acquisition vs Maintenance (Model Panel)',

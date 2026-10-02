@@ -185,12 +185,12 @@ REQUIRED_CHARTS = [
         "empty_markers": ["No scatter points."],
     },
     {
-        "title": "State Project Mix (active vs delayed NH projects, official March 2024 snapshot)",
+        "title": "NHIDCL Monitored NH Portfolio: Reported Stages & Schedule Exposure",
         "data_selector": ".bar-row",
         "min_points": 1,
-        "meta_markers": ["As of March 2024"],
-        "legend_labels": ["Active without listed delay", "Delayed projects"],
-        "note_markers": ["Active without listed delay", "Delayed projects", "Total row is excluded"],
+        "meta_markers": ["NHIDCL monitored agency portfolio only", "As of 2026-08-31"],
+        "legend_labels": ["Reported completed", "Ongoing past reported schedule", "Ongoing not past reported schedule", "Ongoing schedule unavailable", "Other reported stages"],
+        "note_markers": ["not an adjudicated contractual delay", "Unknown schedules stay unavailable", "does not represent all NHAI"],
         "empty_markers": ["No records available."],
     },
     {
@@ -228,16 +228,17 @@ REQUIRED_CHARTS = [
         "axes": True,
         "data_selector": ".point",
         "min_points": 1,
-        "meta_markers": ["Common GSDP period:"],
-        "legend_labels": ["Each point: State / UT", "Bubble size: Delayed NH projects"],
+        "meta_markers": ["Latest published GSDP period: 2024-25", "NH length: 2025-12-31", "NHIDCL portfolio: 2026-08-31"],
+        "note_markers": ["published national total is excluded", "coverage unavailable, not zero"],
+        "legend_labels": ["Each point: State / UT", "Bubble size: NHIDCL monitored NH projects"],
         "empty_markers": ["No scatter points."],
     },
     {
-        "title": "Delay Burden Relative to Economic Scale",
+        "title": "NHIDCL Schedule Exposure Relative to Economic Scale",
         "data_selector": ".bar-row",
         "min_points": 1,
         "meta_markers": ["As of"],
-        "note_markers": ["Common-period current-price GSDP uses greatest available compatible state coverage", "relative delivery burden"],
+        "note_markers": ["latest single-period current-price GSDP", "Schedule exposure is not reported contractual delay", "not whole-NHAI or State Highway coverage"],
         "empty_markers": ["No records available."],
     },
 
@@ -282,7 +283,7 @@ else:
 
 def _frontend_fixture_script(source: str) -> str:
     """Exercise the deployed pure calculation functions, including invalid joins."""
-    names = ["num", "observedAxisTicks", "completeSum", "statePortfolioObservation", "unrectifiedShare", "fmtNum", "sourceTypeTag", "analyticalReady", "disclosureReady", "confidenceFromSources", "humanMetric", "disclosureTheme", "validCitation", "disclosureCutoffKnown", "disclosureEligible", "disclosureMeasured", "disclosureVisible", "disclosureQualifier", "csvText", "deriveDisclosureInsights", "netcPaymentHighlights", "netcPaymentSeries", "netcMonthTick", "wideYearFacts", "selectPeriodView", "observationLabel", "completeCalendarQuarterFlows", "normalizeState", "isAggregateStateLabel"]
+    names = ["num", "observedAxisTicks", "completeSum", "statePortfolioObservation", "unrectifiedShare", "fmtNum", "sourceTypeTag", "analyticalReady", "disclosureReady", "confidenceFromSources", "humanMetric", "disclosureTheme", "validCitation", "disclosureCutoffKnown", "disclosureEligible", "disclosureMeasured", "disclosureVisible", "disclosureQualifier", "csvText", "deriveDisclosureInsights", "netcPaymentHighlights", "netcPaymentSeries", "netcMonthTick", "wideYearFacts", "selectPeriodView", "observationLabel", "completeCalendarQuarterFlows", "normalizeState", "isAggregateStateLabel", "selectionPeriodCoverage", "latestGsdpPeriod", "reportedScheduleDate", "latestNetworkStock", "nhidclPortfolioSnapshot", "portfolioScheduleBurden"]
     aliases = re.search(r'const STATE_ALIASES = \{.*?^\};', source, re.MULTILINE | re.DOTALL)
     if not aliases: raise RuntimeError('Missing state geography aliases')
     blocks = [aliases.group(0)]
@@ -389,6 +390,28 @@ def _frontend_fixture_script(source: str) -> str:
     check(completeCalendarQuarterFlows([july,netcActual,september].map(row=>({...row,metric:'debt_outstanding_inr_crore'}))).length===0,'monthly-labelled debt stocks are not additive flows');
     check(selectPeriodView([annual('A','2024-03-31',1),{...annual('A','2025-03-31',2),period_basis:'calendar_quarter'}],'latest').length===2,'latest view preserves different period bases');
     check(selectPeriodView([{...annual('A','2024-03-31',1),observation_status:'final'},{...annual('A','2025-03-31',2),observation_status:'provisional'}],'latest').length===2,'latest view preserves final and provisional scopes');
+
+
+    check(reportedScheduleDate('29/02/2024')==='2024-02-29' && reportedScheduleDate('31/02/2026')===null && reportedScheduleDate('-')===null, 'invalid/unknown schedules are not dates');
+    check(reportedScheduleDate('2026-08-31')==='2026-08-31' && reportedScheduleDate('2026-8-31')===null, 'schedule dates require exact unambiguous format');
+    const project={source_id:'nhidcl_monthly_project_progress',entity_type:'project',agency:'NHIDCL',road_class:'National Highway',period_basis:'project_snapshot',statement_basis:'PMP_Data_Lake',entity_id:'P1',state:'Assam',project_stage:'Ongoing',scheduled_completion_date:'01/08/2026',data_as_of:'2026-08-31',analytical_eligible:true};
+    const portfolio=nhidclPortfolioSnapshot([project,{...project,metric:'another_metric'}, {...project,entity_id:'P2',project_stage:'Completed'}, {...project,entity_id:'P3',scheduled_completion_date:'-'}, {...project,entity_id:'P4',scheduled_completion_date:'31/08/2026'}, {...project,entity_id:'P5',project_stage:'Terminated'}, {...project,entity_id:'other',agency:'NHAI'}, {...project,entity_id:'mmlp',road_class:'multimodal_logistics'}, {...project,entity_id:'old',data_as_of:'2026-07-31'}]);
+    check(portfolio.projects.length===5 && portfolio.rows[0].total_projects===5, 'portfolio counts distinct projects, not metric rows, old snapshots or other scopes');
+    check(portfolio.rows[0].completed_projects===1 && portfolio.rows[0].ongoing_past_schedule===1 && portfolio.rows[0].ongoing_unknown_schedule===1 && portfolio.rows[0].ongoing_within_schedule===1 && portfolio.rows[0].other_stage_projects===1, 'reported stages, snapshot boundary and unknown schedules remain separate');
+    const conflict=nhidclPortfolioSnapshot([project,{...project,project_stage:'Completed'}]);
+    check(conflict.projects.length===0 && conflict.excluded===1, 'conflicting project descriptors are not counted arbitrarily');
+    const gsdp={entity_id:'Assam',entity_type:'state_aggregate',state:'Assam',metric:'gsdp_current_prices_inr_crore',unit:'INR crore',price_basis:'current_prices',period_basis:'fiscal_year',period_start:'2024-04-01',period_end:'2025-03-31',data_as_of:'2025-03-31',value:100000};
+    check(latestGsdpPeriod([gsdp,{...gsdp,state:'Manipur',entity_id:'Manipur',period_end:'2024-03-31'},{...gsdp,state:'Historical J&K',entity_type:'historical_state_aggregate'}, {...gsdp,state:'Unknown',value:null}]).length===1, 'latest economic comparison uses one current geographic GSDP period, never a mixed latest-per-state panel');
+    check(latestGsdpPeriod([gsdp,gsdp]).length===0, 'ambiguous GSDP revisions are not chosen by row order');
+    const stock={source_id:'morth_annual_report_2025_26',metric:'nh_network_length_km',entity_type:'state_ut',state:'Assam',road_class:'National Highway',unit:'km',period_basis:'stock',data_as_of:'2025-12-31',value:100};
+    check(latestNetworkStock([stock,{...stock,state:'Total',entity_type:'published_total'},{...stock,state:'Manipur',data_as_of:'2024-12-31'},{...stock,state:'Other',period_basis:'project_snapshot'}]).rows.length===1, 'economic network uses latest state stock; never national totals, project lengths or mixed-date fallback');
+    check(latestNetworkStock([stock,stock]).rows.length===0, 'ambiguous stock records excluded');
+    check(latestNetworkStock([{...stock,value:0}]).rows[0]?.value===0, 'observed zero network stock retained');
+    const burden=portfolioScheduleBurden(portfolio.rows,[{state:'Assam',gsdp_current_price:100000}]);
+    check(burden.length===1 && burden[0].value===1 && burden[0].unknown_schedule===1, 'schedule exposure uses distinct ongoing projects and crore-normalized GSDP');
+    check(portfolioScheduleBurden(portfolio.rows,[{state:'Assam',gsdp_current_price:null}]).length===0 && portfolioScheduleBurden(portfolio.rows,[{state:'Assam',gsdp_current_price:0}]).length===0, 'missing or zero economic denominators never create a zero burden');
+    check(portfolioScheduleBurden([{state:'Assam',ongoing_past_schedule:0,ongoing_unknown_schedule:0}],[{state:'Assam',gsdp_current_price:100000}])[0].value===0, 'observed zero schedule exposure retained');
+    check(selectionPeriodCoverage([gsdp],'latest',3).includes('2024-04-01 → 2025-03-31') && selectionPeriodCoverage([gsdp],'latest',3).includes('3 historical or undated'), 'latest coverage dates and retained history explicit');
 
     return failures;
     """
@@ -615,6 +638,21 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
             if not any("Issuer disclosures:" in text for text in summary_text):
                 raise RuntimeError("Issuer disclosure coverage missing")
             await validate_charts(REQUIRED_CHARTS)
+            portfolio_card = page.locator('.insight-chart').filter(has=page.locator('.chart-title', has_text='NHIDCL Monitored NH Portfolio: Reported Stages & Schedule Exposure'))
+            if await portfolio_card.locator('a[href^="https://"]').count() < 1:
+                raise RuntimeError('NHIDCL portfolio must retain its primary citation')
+            first_portfolio_row = portfolio_card.locator('.bar-row').first
+            await first_portfolio_row.focus()
+            if 'Ongoing schedule unavailable:' not in (await first_portfolio_row.get_attribute('aria-label') or ''):
+                raise RuntimeError('Portfolio keyboard labels must expose every stage, including unknown schedules')
+            economic_card = page.locator('.insight-chart').filter(has=page.locator('.chart-title', has_text='Economic Scale vs NH Extent by State/UT'))
+            if await economic_card.locator('a[href^="https://"]').count() != 3:
+                raise RuntimeError('Economic comparison must cite GSDP, network stock and monitored portfolio separately')
+            await economic_card.locator('canvas').focus()
+            await economic_card.locator('canvas').press('End')
+            economic_keyboard_text = await economic_card.get_by_role('status').inner_text()
+            if not all(marker in economic_keyboard_text for marker in ['GSDP', 'NH length (km)', 'NHIDCL', '2024-25', '2026-08-31']):
+                raise RuntimeError('Economic chart keyboard readout lost units, date or portfolio context')
             for viewport in [{'width': 1440, 'height': 1100}, {'width': 390, 'height': 844}]:
                 await page.set_viewport_size(viewport)
                 await page.wait_for_timeout(250)
@@ -651,6 +689,13 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
                     raise RuntimeError(f"CSV lost lineage field: {field}")
             if len(csv_text.splitlines()) < 2:
                 raise RuntimeError("CSV export has no observation rows")
+            if await page.get_by_label('Period view', exact=True).input_value() != 'latest':
+                raise RuntimeError('Analyst evidence must default to latest available per compatible entity scope')
+            coverage_summary = await page.get_by_test_id('selection-period-coverage').inner_text()
+            if not all(marker in coverage_summary for marker in ['periods may differ', 'Selected reporting periods', 'Observation cutoffs', 'All history', 'Unknown estimate vintages']):
+                raise RuntimeError('Latest table view must disclose selected periods and retained history')
+            # Explicitly retain historical and unknown-vintage estimate coverage in history mode.
+            await page.get_by_label('Period view', exact=True).select_option('all')
             await page.get_by_label('Estimate type', exact=True).select_option('BE')
             if await table.locator('tbody tr').count() < 1 or 'Budget estimate' not in await table.inner_text():
                 raise RuntimeError('Budget estimates must remain visible and distinct from measured actuals')
@@ -725,6 +770,9 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
                 {'title': 'NETC monthly payment transactions', 'axes': True, 'data_selector': 'canvas', 'min_points': 1, 'legend_labels': ['Transactions (count)', 'Points:'], 'meta_markers': ['Publication date not disclosed', 'annual-pass', 'Maharashtra', 'As of']},
                 {'title': 'NETC monthly payment amount', 'axes': True, 'data_selector': 'canvas', 'min_points': 1, 'legend_labels': ['Payment amount (₹ crore)', 'Points:'], 'meta_markers': ['Publication date not disclosed', 'annual-pass', 'Maharashtra', 'As of']},
             ])
+            await page.get_by_label('Period view', exact=True).select_option('latest')
+            if await table.locator('tbody tr').count() != 2 or '2026-08-31' not in await table.inner_text():
+                raise RuntimeError('Latest NETC evidence must expose the two latest monthly metrics')
             netc_trends = page.get_by_role('region', name='NETC monthly payment trends', exact=True)
             for chart in await netc_trends.locator('canvas').all():
                 if int(await chart.get_attribute('data-point-count')) < 17 or await chart.get_attribute('data-period-start') != '2025-04-30' or (await chart.get_attribute('data-period-end')) < '2026-08-31':
@@ -736,6 +784,7 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
                     raise RuntimeError('NETC chart keyboard readout does not expose the selected month')
             if await netc_trends.locator('a[href="https://www.npci.org.in/product/netc/product-statistics"]').count() != 2:
                 raise RuntimeError('NETC trends lost their primary citations')
+            await page.get_by_label('Period view', exact=True).select_option('all')
             async with page.expect_download() as netc_download_info:
                 await page.get_by_role('button', name='Download filtered evidence CSV', exact=True).click()
             netc_download = await netc_download_info.value
@@ -827,6 +876,10 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
             latest_gsdp_text = await table.inner_text()
             if not all(marker in latest_gsdp_text for marker in ['rbi_gsdp_current_prices_2024_25', 'current', '2025-03-31']):
                 raise RuntimeError('Latest GSDP evidence lost source, price basis or observation cutoff')
+            await page.get_by_label('Reporting period', exact=True).select_option('2022-04-01 → 2023-03-31 (fiscal_year)')
+            if await table.locator('tbody tr').count() < 1 or 'As of: 2023-03-31' not in await table.inner_text() or await page.get_by_label('Period view', exact=True).input_value() != 'latest':
+                raise RuntimeError('Explicit historical reporting-period filters must retain their own latest compatible observations')
+
             await page.get_by_role('button', name='State road spending', exact=False).click()
             for state, sid in [('Karnataka','cag_karnataka_road_finances_2024_25'), ('Maharashtra','cag_maharashtra_road_finances_2024_25'), ('Gujarat','cag_gujarat_road_finances_2024_25'), ('Uttar Pradesh','cag_uttar_pradesh_road_finances_2024_25'), ('Telangana','cag_telangana_road_finances_2024_25')]:
                 await state_selector.select_option(state)
