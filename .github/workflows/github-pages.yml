@@ -92,6 +92,14 @@ jobs:
           github-token: ${{ github.token }}
           run-id: ${{ steps.research_run.outputs.run_id }}
 
+      - name: Restore matching source evidence
+        uses: actions/download-artifact@v8
+        with:
+          name: bhai-source-evidence
+          path: data/raw
+          github-token: ${{ github.token }}
+          run-id: ${{ steps.research_run.outputs.run_id }}
+
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
