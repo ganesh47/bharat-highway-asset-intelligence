@@ -51,7 +51,7 @@ sources:
     retrieval_method: Exact downloadable one-page publisher PDF, rendered visual verification including Hindi-font date missed by native text extraction; official index dated upload separately archived
     reliability_grade: A
     reliability_justification: Printed table has explicit27.04.2026 heading; five component100% cells, overall98% and1498 total/completed structures checked against the rendered original.
-    known_limitations: Historical construction snapshot, not October2026 current progress or a statement of toll receipts/spending. Components are distinct from overall progress. Project is an Uttar Pradesh expressway, not NHAI-wide or all-state-highway inventory. Later inauguration date does not advance observation cutoff.
+    known_limitations: Historical construction snapshot, not October2026 current progress or a statement of toll receipts/spending. Components are distinct from overall progress. Project is an Uttar Pradesh expressway, not NHAI-wide or all-state-highway inventory. Later inauguration date does not advance observation cutoff. Progress disclosure identifies reporting/implementing authority but does not establish asset owner, operator or concessionaire; those roles remain unspecified.
     allow_auto_fetch: true
     url: https://upeida.up.gov.in/downloadmedia/siteContent/202604271802004244Ganga%20Pdf.pdf
     resource_page_url: https://upeida.up.gov.in/en/article/ganga-expressway

@@ -2,7 +2,7 @@
   "source_id": "upeida_ganga_progress_2026_04_27",
   "research_cutoff": "2026-10-02",
   "retrieved_at": "2026-10-02T08:18:26.655093+00:00",
-  "last_checked_at": "2026-10-02T08:58:40.142123+00:00",
+  "last_checked_at": "2026-10-02T08:50:14.402196+00:00",
   "documents": [
     {
       "url": "https://upeida.up.gov.in/downloadmedia/siteContent/202604271802004244Ganga%20Pdf.pdf",
@@ -13,24 +13,19 @@
   ],
   "extraction_status": "validated",
   "row_count": 8,
-  "notes": "Eight dated administrative progress facts, verified rendered one-page publisher PDF. Observed/published27April2026; the later inauguration29April2026 does not advance these facts. No financial revenue or current October progress inferred. Asset owner/operator/concessionaire are not established by this progress disclosure.",
+  "notes": "Eight dated administrative progress facts, verified rendered one-page publisher PDF. Observed/published27April2026; the later inauguration29April2026 does not advance these facts. No financial revenue or current October progress inferred.",
   "gap_reason": "",
   "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
   "active_document_sha256": [
     "b387e33686b57676bdf259f5e18ba239a17789cd33f3b968e89a0ae7adc9a399"
   ],
-  "csv_sha256": "8a6579b73c4492a7b1b129352bf00bed51dcb5684194ef8f9cb5d6876d8b281a",
+  "csv_sha256": "e81acc5082869cb88a0fb51dd7cc2442b42cbd0bee9c81b312f048e053fc4b33",
   "history": {
     "index_path": "history/upeida_ganga_progress_2026_04_27/index.json",
-    "version_count": 3,
+    "version_count": 1,
     "revision_count": 0,
-    "candidate_version_id": "f7060f815aef0634c0332dbf4687b626cf68c36612eb7ef856803f7029fc4e9c"
+    "candidate_version_id": "68841183368b595d6cf764e1faebafb9b3245396d0c4dff2112a053b5882412a"
   },
-  "provenance_correction": {
-    "fields": [
-      "asset_owner_id",
-      "notes"
-    ],
-    "reason": "Removed unsupported ownership inference from reporting/implementing authority; primary PDF establishes neither asset owner nor operator/concessionaire. Values, periods, publication, assurance, source document hash and observation status unchanged."
-  }
+  "version_id": "827fbd2629249fbdf9961d6cec3e9a1f0c73ff5a2232d37f3df6e2c859b6e46d",
+  "observation_checksum": "060a8c34430d93b6fb1b10d720c8776deba4f62ba61656ba7da342c307acd83a"
 }

@@ -22,9 +22,9 @@
   "csv_sha256": "8a6579b73c4492a7b1b129352bf00bed51dcb5684194ef8f9cb5d6876d8b281a",
   "history": {
     "index_path": "history/upeida_ganga_progress_2026_04_27/index.json",
-    "version_count": 3,
+    "version_count": 1,
     "revision_count": 0,
-    "candidate_version_id": "f7060f815aef0634c0332dbf4687b626cf68c36612eb7ef856803f7029fc4e9c"
+    "candidate_version_id": "89b87fdb81bfc47df76f51db6b2e5d1478bb846b3eb8b860b4cec21c14e0ddc8"
   },
   "provenance_correction": {
     "fields": [
@@ -32,5 +32,7 @@
       "notes"
     ],
     "reason": "Removed unsupported ownership inference from reporting/implementing authority; primary PDF establishes neither asset owner nor operator/concessionaire. Values, periods, publication, assurance, source document hash and observation status unchanged."
-  }
+  },
+  "version_id": "f7060f815aef0634c0332dbf4687b626cf68c36612eb7ef856803f7029fc4e9c",
+  "observation_checksum": "14a6959499bf4a0da90f808601ee0c816946aa72c03fb60a7be310cbf5406677"
 }
