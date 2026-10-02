@@ -113,6 +113,11 @@ def catalogue_finance_documents(content: str) -> dict[str, list[str]]:
     if not start:
         return {}
     section = re.split(r'<div\s+id="tab-\d+"', content[start.end():], maxsplit=1)[0]
+    # Regional CAG offices publish year headings as h5 rather than the central
+    # accordion. Normalize only within the Finance Accounts tab; monthly or
+    # appropriation links must not leak into financial-document discovery.
+    section = re.sub(r"<h5>\s*(20\d{2})\s*-\s*(\d{2})\s*</h5>",
+                     r'<div class="accTrigger">\1 - \2</div>', section)
     chunks = re.split(r'<div\s+class="accTrigger">\s*(20\d{2})\s*-\s*(\d{2})\s*</div>', section)
     results: dict[str, list[str]] = {}
     for offset in range(1, len(chunks), 3):

@@ -25,6 +25,12 @@ class StateFreshnessTests(unittest.TestCase):
         self.assertEqual(result["2024-25"], ["https://cag.gov.in/uploads/finance2024.pdf"])
         self.assertEqual(catalogue_finance_documents('<div id="tab-360">2026-27'), {})
 
+    def test_regional_year_headings_do_not_hide_available_accounts(self):
+        content = '<div id="tab-359"><h5>2024 - 25</h5><a href="/uploads/current.pdf">Download</a><h5>2023 - 24</h5><a href="/uploads/prior.pdf">Download</a><div id="tab-360"><h5>2024 - 25</h5><a href="/uploads/monthly.pdf">Monthly</a>'
+        documents = catalogue_finance_documents(content)
+        self.assertEqual(documents["2024-25"], ["https://cag.gov.in/uploads/current.pdf"])
+        self.assertEqual(documents["2023-24"], ["https://cag.gov.in/uploads/prior.pdf"])
+
     def test_rendered_recheck_preserves_http_failure_and_observation_cutoffs(self):
         with tempfile.TemporaryDirectory() as directory, patch(
             "pipelines.state_freshness._retrieve_public_page",
