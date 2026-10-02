@@ -1,10 +1,10 @@
 # Primary finance and highway disclosure methodology
 
-Research cutoff: 2 October 2026. The original enrichment added 16 government, issuer, payment-system and multilateral sources. The subsequent freshness pass adds 12 separately identified sources. Government authority does not establish
+Research cutoff: 2 October 2026. The original enrichment added 16 government, issuer, payment-system and multilateral sources. The subsequent freshness pass adds 12 separately identified sources; gap completion adds 27 further reviewed source definitions. Government authority does not establish
 extract quality; issuer disclosures are not classified as government measurements.
 
-The governed snapshots contain **10,640 numerical facts**, of which **10,262** are
-eligible for scoped calculations, from 27 sources with validated numerical snapshots.
+The governed snapshots contain **10,922 numerical facts**, of which **10,540** are
+eligible for scoped calculations, from 54 sources with validated numerical snapshots.
 One source has a typed empty snapshot and an explicit evidence gap. Every
 nonempty row records its source URL, physical document/table/page anchor, source
 SHA256, original units, normalized value, entity, road class, period, statement
@@ -14,7 +14,7 @@ basis, estimate type, publication date when disclosed, and observation date.
 | --- | --- | --- |
 | Union Budget Demand86 | 40 actual/BE/RE gross, recovery, net, NHAI, road works, CRIF, maintenance and safety allocations | Revenue/capital/total columns; transfers and recoveries are never summed into net spending; 10 reproduced prior-BE rows have unknown original vintage and remain disclosure-only |
 | Outcome Framework2026-27 | 12 construction, PPP, monetisation, safety and tolling targets | Forward targets, no achievement inference |
-| NHIT June2026 presentation | 117 consolidated/SPV finance, asset-group traffic and toll facts | Portfolio expansion; NSPPL FY26 ETC-only versus FY27 full collection traffic; rounded amounts |
+| NHIT August2026 presentation | 117 consolidated/SPV finance, asset-group traffic and toll facts | Portfolio expansion; NSPPL FY26 ETC-only versus FY27 full collection traffic; rounded amounts |
 | NHIT quarterly board outcome | 6 distribution and NAV/EV facts | Scanned AnnexureI accounting statements remain quarantined |
 | NHIT June2026 valuation | 17 concession-round, portfolio and WACC facts | Valuer assumptions differ from measurements; INRmillion concession fees normalized to INRcrore |
 | NHIT Annual Report2025-26 | 62 audited consolidated financial, SPV operating, debt flow and instrument maturity facts | Audited INRlakh normalized; fiscal publication day undisclosed; maturity uses contractual undiscounted basis; eight source dashes omitted |
@@ -28,6 +28,12 @@ basis, estimate type, publication date when disclosed, and observation date.
 | NPCI NETC statistics | 34 monthly payment-volume and amount facts, April2025–August2026 | Governed manual capture of the rendered official table; annual pass and Maharashtra Electric Vehicle exempted data excluded as stated by NPCI; no NHAI-receipts or traffic-count inference |
 | MSRDC financial disclosures | Evidence gap | Index/filings time out; subsidiaryFY23-24 is not parent standaloneFY23-24 |
 | ADB project52298-001 final accounts | 77 project/package finance and target facts | MPWD cash-basis accounts through19May2025;70 actuals eligible,6 targets and1 unreconciled deposit total excluded; scanned cells visually checked against exact PDF bytes |
+
+| CAG FY2024-25 road finances | 93 facts across 30 jurisdictions; 89 eligible | Audited Finance Accounts or clearly tagged Delhi/Puducherry audit narratives; four Assam/Manipur capital facts unreconciled; broad Roads and Bridges is not SH-only spending |
+| NHAI June2025–June2026 quarter filings | 196 eligible quarter/YTD/annual/stock facts, five original filing vintages | Limited-review unaudited; explicit restatements, missing cells and unknown publication days retained; toll collection, CFI deposits and ploughback differ |
+| UPEIDA Ganga27April2026 progress | Eight dated physical progress/count facts | Overall98% differs from component100%; not fiscal spending, current October progress or evidence of asset ownership |
+
+See [state-account extraction](state_accounts_completion_methodology.md), [national filing extraction](national_issuer_completion.md) and [gap resolution](gap_completion_notes_2026_10_02.md).
 
 ## Financial and comparison rules
 

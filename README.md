@@ -165,10 +165,12 @@ python scripts/build_coverage_report.py
 
 ## Publication coverage at 2 October 2026
 
-The reconciled inventory has **62 sources** and **63 datasets**. Governed primary snapshots contain **10,640 numerical facts**, including **10,262 calculation-eligible observations**; these heterogeneous facts are not an additive network or project total.
+The reconciled inventory has **89 sources** and **90 datasets**. Governed primary snapshots contain **10,922 numerical facts**, including **10,540 calculation-eligible observations**; these heterogeneous facts are not an additive network or project total.
 
-New verified evidence includes final 2024 road-safety tables, FY2024–25 GSDP, audited FY2024–25 Roads and Bridges spending for five states, complete FY2025–26 NHAI funding and separate all-NH construction, and August 2026 costs/progress for 982 PAIMANA-monitored highway projects. NHIT remains at June 2026 and NETC/NHIDCL at August 2026 where later observations were not verified. Missing September-quarter releases are explicit gaps.
+New verified evidence includes final 2024 road-safety tables, FY2024–25 GSDP, FY2024–25 CAG road-capital disclosures for 30 states/UTs (28 eligible after statement reconciliation), complete FY2025–26 NHAI funding and separate all-NH construction, and August 2026 costs/progress for 982 PAIMANA-monitored highway projects. The latest enrichment adds five NHAI financial filings through June 2026 and dated April 2026 Ganga progress. NHIT’s August 2026 presentation and NETC/NHIDCL August observations retain their individual periods. Missing September-quarter releases are explicit gaps.
 
-The evidence explorer separates observation status, assurance, road class, entity and reporting period, and supports all-history, latest-per-entity and common-period views. Metric-level coverage distinguishes observation dates, publication lag, check outcomes and announced next releases. Old source vintages remain accessible; incompatible periods and network/project scopes are not combined.
+The evidence explorer separates observation status, assurance, road class, entity and reporting period, and defaults to the latest available evidence, with all-history and common-period views available. Metric-level coverage distinguishes observation dates, publication lag, check outcomes and announced next releases. Old source vintages remain accessible; incompatible periods and network/project scopes are not combined.
 
 See the [state publication audit](research/state_publication_audit_2026_10_02.md), [national extraction methodology](docs/national_freshness_methodology.md), and [freshness implementation notes](docs/freshness_implementation_notes.md).
+
+The [gap-completion record](docs/gap_completion_notes_2026_10_02.md), [36-jurisdiction resolution](research/state_gap_resolution_2026_10_02.md), and [NHAI filing methodology](docs/national_issuer_completion.md) explain the completed extracts, original filing revisions and remaining inaccessible disclosures.
