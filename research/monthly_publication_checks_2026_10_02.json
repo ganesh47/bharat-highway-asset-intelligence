@@ -1,0 +1,263 @@
+{
+  "research_cutoff": "2026-10-02",
+  "checks": [
+    {
+      "url": "https://nhit.co.in/reports/",
+      "resolved_url": "https://nhit.co.in/reports/",
+      "http_status": 200,
+      "checked_at": "2026-10-02T04:37:20.958002+00:00",
+      "sha256": "dc5e272c6263923e4eddc877ff4c271c00bef74899441cbe71755915588621f8",
+      "size_bytes": 413070,
+      "outcome": "retrieved",
+      "capture_path": "data/raw/state_freshness/publication_checks/nhit.html",
+      "source_id": "nhit",
+      "last_verified_observation": "2026-06-30",
+      "newer_publication_verified": false,
+      "publication_date": null,
+      "candidate_links": [
+        {
+          "label": "Statement of Investor Complaints – NHIT",
+          "url": "https://nhit.co.in/pdf/IGR%20Signed%20-%20Aug%202026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/corporate-governance/04%20Enterprise%20Risk%20Management%20Framework%2002042026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/corporate-governance/16.%20Policy%20on%20Filing%20of%20claims%20by%20Debenture%20Holders_07082026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/corporate-governance/1.11%20UPSI%20Policy%2007082026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/corporate-governance/List%20of%20Directors%20&%20Composition%20of%20Committee-20042026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/corporate-governance/15.%20Policy%20of%20Filing%20of%20Claims%20by%20Unitholders_07082026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/corporate-governance/AC2364305_MGT%207_Final_26022026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/General%20Meeting/Updated_EOM%20Notice_NHIT_03032026_05_03_2026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/general-meeting/Annexure%2003%2026th%20July%202025.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/NHIT%206(1)%20&%207(1)%20Sep%202026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/NHIT%20Reg%2060(2)%20Sep%202026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Trading%20Window%20Closure%20Sep%202026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Distribution%20June%202026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/BM%20Outcome%2007082026%20F.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Prior-Intimation-07082026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Statement%20of%20Investors%20Complaint_NHIT_Qtr%20ended%2030.06.2026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Complaint%20Status_NHIT_Qtr%20ended%2030.06.2026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/NHIT%20UHP%20June%202026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Statement%20of%20Corporate%20Governance%20Report_NHIT_Qtr%20ended%2030.06.2026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/BM%20Outcome%2013072026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Trading%20Window%20Closure%20June%202026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Intimation%20of%20Payment%20of%20Distribution%20Mar%202026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/BM%20Outcome%2013052026%20F.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Prior%20Intimation%2013052026%20F.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Complaint-Status-NHIT-Qtr-ended-31.03.2026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Statement-of-Corporate-Governance-Report-NHIT-Qtr-ended-31.03.2026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Statement-of-Investors-Complaint-NHIT-Qtr-ended-31.03.2026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/NHIT-UHP-032026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Half%20Yearly%20Statement_NHIT%20as%20on%2031.03.2026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/NHIT%20Reg%2060(2)%20Mar%202026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Appointed-Date-31032026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Trading-Window-Closure-March-2026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Payment%20of%20Distribution%20Jan%202026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/SE%20Intimation_Allotment_25032026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/National%20Highways%20Infra%20Trust%20-%20Placement%20Document_20260325003021.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/BM%20Outcome%2024032026%20(1).pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/BM%20Outcome%2023032026_Corrected%20Date.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/BM%20Outcome%2023032026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/BM%20Outcome%2019032026_Signed.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/BM%20Outcome%2016032026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Prior%20Intimation%2012032026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Newspaper%20Intimation%20Consol%2012022026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/BM%20Outcome%2012022026%20Final.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Intimation%20NHAI%20Acceptance%2012022026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Prior%20Intimation%2012022026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/BM%20Outcome%2002022026%20F.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/BM%20Outcome%2027012026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/Prior%20Int%2021012026.pdf"
+        },
+        {
+          "label": "",
+          "url": "https://nhit.co.in/pdf/investor-presentations/Investor%20Presentation%20June%202026.pdf"
+        },
+        {
+          "label": "Statement of Investor Complaints – NHIT",
+          "url": "https://nhit.co.in/pdf/IGR%20Signed%20-%20Aug%202026.pdf"
+        }
+      ],
+      "status": "index_retrieved_document_period_verification_pending",
+      "note": "Index/filing/record-date/trading-window dates do not prove an operational reporting-period update. A browser index may differ from HTTP cached content; no claim that unobserved results are unreleased."
+    },
+    {
+      "url": "https://www.npci.org.in/product/netc/product-statistics",
+      "checked_at": "2026-10-02T04:37:21.892073+00:00",
+      "outcome": "retrieval_blocked",
+      "http_status": 403,
+      "reason": "HTTPError: HTTP Error 403: Forbidden",
+      "source_id": "npci_netc",
+      "last_verified_observation": "2026-08-31",
+      "newer_publication_verified": false,
+      "publication_date": null,
+      "status": "latest_publication_check_blocked",
+      "note": "A restricted response does not prove that September data are unavailable or unreleased. Retain the existing verified observation cutoff and request primary rendered-table verification."
+    },
+    {
+      "url": "https://www.nhidcl.com/en/current-status",
+      "resolved_url": "https://www.nhidcl.com/en/current-status",
+      "http_status": 200,
+      "checked_at": "2026-10-02T04:37:21.945816+00:00",
+      "sha256": "e1641b15d7fb37c1cf1bcd418e02a962daf31efefe7250a1d1f66931b7c59afd",
+      "size_bytes": 76294,
+      "outcome": "retrieved",
+      "capture_path": "data/raw/state_freshness/publication_checks/nhidcl.html",
+      "source_id": "nhidcl",
+      "last_verified_observation": "2026-08-31",
+      "newer_publication_verified": false,
+      "publication_date": null,
+      "candidate_links": [
+        {
+          "label": "View",
+          "url": "https://www.nhidcl.com/sites/default/files/2026-09/nhidcl-completed_and_ongoing_projects_status_per_pmp_data_lake_portal_31-08-2026.pdf"
+        },
+        {
+          "label": "📥 Download August, 2026 Report",
+          "url": "https://www.nhidcl.com/sites/default/files/2026-09/nhidcl-completed_and_ongoing_projects_status_per_pmp_data_lake_portal_31-08-2026_0.xlsx"
+        }
+      ],
+      "status": "index_retrieved_document_period_verification_pending",
+      "note": "Index/filing/record-date/trading-window dates do not prove an operational reporting-period update. A browser index may differ from HTTP cached content; no claim that unobserved results are unreleased."
+    }
+  ],
+  "method": "TLS-verified official index discovery; publisher metadata/footer is not measurement evidence. No inferred September2026 monthly values or Q2FY27 financial results."
+}

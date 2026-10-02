@@ -1,0 +1,31 @@
+{
+  "source_id": "rbi_gsdp_current_prices_2024_25",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-02T04:29:25.393770+00:00",
+  "last_checked_at": "2026-10-02T04:32:36.181111+00:00",
+  "documents": [
+    {
+      "url": "https://rbidocs.rbi.org.in/rdocs/Publications/PDFs/21T_11122025D994949B48C44B68B4465FBB9ADDFF3D.PDF",
+      "relative_path": "primary_disclosures/rbi_gsdp_current_prices_2024_25/versions/6e48293426935a2ef796c0163edbedeeb6dd165b21db8f018ac912502b3cc287.pdf",
+      "sha256": "6e48293426935a2ef796c0163edbedeeb6dd165b21db8f018ac912502b3cc287",
+      "size_bytes": 138670,
+      "publication_evidence_url": "https://www.rbi.org.in/scripts/PublicationsView.aspx?id=23470",
+      "publication_evidence_sha256": "c342340fc6eedd99d24c3d7da9588eab3ddcf52905f7344a100e8069983c1f15"
+    }
+  ],
+  "extraction_status": "validated",
+  "row_count": 455,
+  "notes": "RBI Table21 full2011-12–2024-25 December2025 vintage. Missing cells and historical J&K/Ladakh boundary preserved; original INRlakh normalized by0.01 to INRcrore. Completed-period statistical estimates have undisclosed revision/assurance statuses distinct from audited accounts.",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "active_document_sha256": [
+    "6e48293426935a2ef796c0163edbedeeb6dd165b21db8f018ac912502b3cc287"
+  ],
+  "csv_sha256": "899ebc62ac69f921924f472117842785ca3cf919d0cd493d0e13b2da9b34841c",
+  "history": {
+    "index_path": "history/rbi_gsdp_current_prices_2024_25/index.json",
+    "version_count": 1,
+    "revision_count": 0,
+    "candidate_version_id": "466ef038f6365e38024cd6f2a6ed26c5d24a8a436f2ee28dc099a5b6f5695f9c"
+  }
+}

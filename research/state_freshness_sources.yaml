@@ -1,0 +1,85 @@
+sources:
+  - source_id: rbi_gsdp_current_prices_2024_25
+    official_flag: true
+    publisher_org: Reserve Bank of India / National Statistical Office, MoSPI
+    publisher_type: government
+    domain: rbidocs.rbi.org.in
+    dataset_title: RBI Handbook of Statistics on Indian States 2024-25, Table21 GSDP at current prices
+    theme: macro
+    access_type: PDF
+    auth: none
+    update_frequency: annual
+    geographic_granularity: state_ut
+    temporal_coverage: FY2011-12 to FY2024-25; missing state-year cells preserved
+    license_terms: Public primary statistical disclosure; attribution and original table citation required.
+    retrieval_method: pinned primary PDF and official HTML index, reproducible full-vintage table extraction
+    reliability_grade: A
+    reliability_justification: RBI reproduces National Statistical Office state GSDP; full vintage and original units retained.
+    known_limitations: FY2024-25 available for25jurisdictions. Nine table rows lack latest-year values; merged Dadra and Nagar Haveli and Daman and Diu and Lakshadweep absent. J&K throughFY2018-19 includes Ladakh and remains separate historical geography. Published statistical estimates can revise earlier vintages; individual revision/provisional statuses undisclosed.
+    allow_auto_fetch: true
+    url: https://rbidocs.rbi.org.in/rdocs/Publications/PDFs/21T_11122025D994949B48C44B68B4465FBB9ADDFF3D.PDF
+    resource_page_url: https://www.rbi.org.in/scripts/PublicationsView.aspx?id=23470
+    permanent_identifier_hint: RBI Table21, Handbook2024-25, published11December2025
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2025-03-31'
+    publication_date: '2025-12-11'
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Immutable135KB PDF avoids treating dynamic HTML footer changes as new statistical observations. Original INRlakh multiplied by0.01 to INRcrore. Date cutoff is each completed fiscal year;11December2025 is the separate publication/disclosure date. No AE/RE or audited status inferred.
+  - source_id: cag_karnataka_road_finances_2024_25
+    official_flag: true
+    publisher_org: Comptroller and Auditor General of India / Government of Karnataka
+    publisher_type: government
+    domain: cag.gov.in
+    dataset_title: Karnataka Finance Accounts2024-25 VolI, audited Roads and Bridges expenditure
+    theme: state_finance
+    access_type: PDF
+    auth: none
+    update_frequency: annual
+    geographic_granularity: state
+    temporal_coverage: FY2024-25 annual actuals plus FY2023-24 capital comparative
+    license_terms: Public government accounts; attribution and statement/page citation required.
+    retrieval_method: pinned primary PDF and reproducible labelled table extraction with cross-table reconciliation
+    reliability_grade: A
+    reliability_justification: Audited annual state accounts; current-year capital agrees between Statements4A and5.
+    known_limitations: Functional all-road-class Roads and Bridges, not SH-only or KRDCL finances. Annual flows are distinct from cumulative columns. Publication/signature date undisclosed here. MH3054 includes off-budget borrowing interest as qualified in Statement4B.
+    allow_auto_fetch: true
+    url: https://cag.gov.in/uploads/state_accounts_report/account-report-2-Finance-Accounts-Vol-I-2024-25-government-of-karnataka-06948f82bb28817-62582478.pdf
+    resource_page_url: https://cag.gov.in/ae/karnataka/en/state-accounts-report?defuat_account_report_type=359
+    permanent_identifier_hint: Karnataka Finance Accounts2024-25, VolI Statements4A and5
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2025-03-31'
+    publication_date: null
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Revenue INR1898.59crore and capital INR7939.05crore forFY2024-25; comparative capital INR8760.80crore. Dates never inferred from filenames, index footers or retrieval. State-level functional cash-account figures; no corporation debt or cost/km inference.
+  - source_id: cag_maharashtra_road_finances_2024_25
+    official_flag: true
+    publisher_org: Comptroller and Auditor General of India / Government of Maharashtra
+    publisher_type: government
+    domain: cag.gov.in
+    dataset_title: Maharashtra Finance Accounts2024-25 VolI, audited Roads and Bridges expenditure
+    theme: state_finance
+    access_type: PDF
+    auth: none
+    update_frequency: annual
+    geographic_granularity: state
+    temporal_coverage: FY2024-25 annual actuals plus FY2023-24 capital comparative
+    license_terms: Public government accounts; attribution and statement/page citation required.
+    retrieval_method: pinned primary PDF and reproducible labelled table extraction with cross-table reconciliation
+    reliability_grade: A
+    reliability_justification: Audited annual state accounts; current-year capital agrees between Statements4A and5.
+    known_limitations: Functional all-road-class Roads and Bridges, not SH-only or MSRDC finances. Annual flow is distinct from progressive expenditure. Publication day unknown. Accounts as reported retain classification/qualification context; no budget utilisation computed across statements/vintages.
+    allow_auto_fetch: true
+    url: https://cag.gov.in/uploads/state_accounts_report/account-report-CD-ENGLISH-FINANCE-ACCOUNTS-VOL-I-06944f1e510c216-51074266.pdf
+    resource_page_url: https://cag.gov.in/ae/mumbai/en/state-accounts-report?defuat_account_report_type=359
+    permanent_identifier_hint: Maharashtra Finance Accounts2024-25, VolI Statements4A and5
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2025-03-31'
+    publication_date: null
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Revenue INR6837.87crore and capital INR32251.54crore forFY2024-25; comparative capital INR26374.51crore. Separate state-government aggregate from concessionaire/corporation disclosures and all-sector liabilities; no inferred release date or construction cost.
