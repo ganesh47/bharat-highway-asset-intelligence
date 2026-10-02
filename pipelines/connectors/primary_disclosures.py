@@ -225,6 +225,31 @@ def validate_facts(df: pd.DataFrame, source_id: str, evidence: dict[str, Any], c
     return df
 
 
+def preserve_verified_document(candidate: Path, pinned: Path, work: Path, expected_sha256: str) -> list[Path]:
+    """Retain checked bytes without changing the extract's document identity."""
+    if not re.fullmatch(r"[0-9a-f]{64}", expected_sha256) or sha256_for_file(candidate) != expected_sha256:
+        raise ValueError("Cannot archive an unverified primary document")
+    archive = work / "versions" / (expected_sha256 + pinned.suffix)
+    destinations = list(dict.fromkeys([archive, pinned]))
+    for destination in destinations:
+        if destination.exists():
+            if sha256_for_file(destination) != expected_sha256:
+                raise ValueError("Archived primary document checksum mismatch")
+            continue
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        fd, temporary = tempfile.mkstemp(prefix=".verified-document-", dir=destination.parent)
+        os.close(fd)
+        temporary = Path(temporary)
+        try:
+            shutil.copyfile(candidate, temporary)
+            if sha256_for_file(temporary) != expected_sha256:
+                raise ValueError("Staged primary document checksum mismatch")
+            os.replace(temporary, destination)
+        finally:
+            temporary.unlink(missing_ok=True)
+    return destinations
+
+
 class PrimaryDisclosuresConnector:
     spec = ConnectorSpec(name="primary_disclosures", version="1.0.0", source_ids=list(SOURCE_IDS), inputs=["verified_primary_snapshot"], outputs=["parquet"], citation_mapping={"primary_source": "citation_url", "anchor": "table_page", "permanent_identifier": "source_document_sha256", "license_terms": "license_terms"})
 
@@ -280,6 +305,10 @@ class PrimaryDisclosuresConnector:
                         pinned = raw_root / document["relative_path"]
                         work = raw_root / "primary_disclosures" / source_id
                         work.mkdir(parents=True,exist_ok=True)
+                        if pinned.is_file():
+                            for retained in preserve_verified_document(pinned,pinned,work,document["sha256"]):
+                                if retained not in raw_files:
+                                    raw_files.append(retained)
                         candidate = work / ("candidate" + pinned.suffix)
                         check_path = work / "remote_check.json"
                         previous = json.loads(check_path.read_text()) if check_path.exists() else {}
@@ -318,6 +347,9 @@ class PrimaryDisclosuresConnector:
                                 candidate.replace(quarantine)
                                 write_json(check,check_path)
                                 raise ValueError("changed_document_requires_extraction")
+                            for retained in preserve_verified_document(candidate,pinned,work,document["sha256"]):
+                                if retained not in raw_files:
+                                    raw_files.append(retained)
                             write_json(check,check_path)
                         except (OSError, urllib.error.URLError) as exc:
                             raise ValueError(f"failed_retrieval: {type(exc).__name__}") from exc

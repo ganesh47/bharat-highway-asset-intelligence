@@ -108,6 +108,48 @@ class PublicationHistoryTests(unittest.TestCase):
         self.assertFalse(result.manifest["remote_refresh_failed"])
         self.assertEqual(result.manifest["refresh_outcome"],"checked_unchanged")
 
+    def test_clean_runner_archives_verified_pdf_and_html_without_rebinding_facts(self):
+        for sid,suffix,content in [(self.sid,".pdf",b"%PDF-governed"),("nhai_monetisation_transactions",".html",b"<html>Governed disclosure</html>")]:
+            with self.subTest(source_id=sid):
+                original=self.root/"primary_disclosures"/sid/("document"+suffix)
+                original.parent.mkdir(parents=True,exist_ok=True);original.write_bytes(content)
+                builder=SnapshotBuilder(self.root,"2026-10-02")
+                builder.pin(sid,original,"https://example.gov.in/disclosure"+suffix)
+                builder.fact(sid,"reported_spending",10,"INR crore","p1 table1",start="2023-04-01",end="2024-03-31",published="2024-07-01")
+                builder.finish((sid,))
+                csv=self.root/"manual"/(sid+".csv");evidence_path=self.root/"manual/evidence"/(sid+".json")
+                evidence=json.loads(evidence_path.read_text());pinned=self.root/evidence["documents"][0]["relative_path"]
+                before=(csv.read_bytes(),evidence_path.read_bytes())
+                pinned.unlink();original.unlink()
+                def download(url,path,**kwargs):path.write_bytes(content);return path
+                with patch("pipelines.connectors.primary_disclosures.download_document",side_effect=download),patch.dict("os.environ",{"BHAI_PRIMARY_REMOTE_CHECK":"1"}):
+                    result=PrimaryDisclosuresConnector().run({"source_id":sid,"allow_auto_fetch":True},self.root,self.root/"processed",self.root/"manifest")
+                self.assertEqual(pinned.read_bytes(),content)
+                self.assertEqual(sha256_for_file(pinned),evidence["documents"][0]["sha256"])
+                self.assertEqual((csv.read_bytes(),evidence_path.read_bytes()),before)
+                self.assertIn(str(pinned),[item["path"] for item in result.manifest["manifest"]["raw_files"]])
+                self.assertEqual(list(pd.read_parquet(result.output_table_path).data_as_of),["2024-03-31"])
+                archived_mtime=pinned.stat().st_mtime_ns
+                with patch("pipelines.connectors.primary_disclosures.download_document",side_effect=AssertionError("No repeat download needed")),patch.dict("os.environ",{"BHAI_PRIMARY_REMOTE_CHECK":"1"}):
+                    PrimaryDisclosuresConnector().run({"source_id":sid,"allow_auto_fetch":True},self.root,self.root/"processed",self.root/"manifest")
+                self.assertEqual(pinned.stat().st_mtime_ns,archived_mtime)
+
+    def test_changed_or_failed_retrieval_preserves_archive_and_quarantines_changed_bytes(self):
+        self.builder("first",2024,10,published="2024-07-01").finish((self.sid,))
+        evidence=json.loads(self.evidence.read_text());pinned=self.root/evidence["documents"][0]["relative_path"]
+        before=(pinned.read_bytes(),pinned.stat().st_mtime_ns,self.csv.read_bytes(),self.evidence.read_bytes())
+        changed=b"%PDF-changed-source"
+        def download(url,path,**kwargs):path.write_bytes(changed);return path
+        with patch("pipelines.connectors.primary_disclosures.download_document",side_effect=download),patch.dict("os.environ",{"BHAI_PRIMARY_REMOTE_CHECK":"1"}):
+            result=PrimaryDisclosuresConnector().run({"source_id":self.sid,"allow_auto_fetch":True},self.root,self.root/"processed",self.root/"manifest")
+        self.assertTrue(result.manifest["remote_refresh_failed"])
+        work=self.root/"primary_disclosures"/self.sid
+        self.assertEqual([path.read_bytes() for path in (work/"quarantine").iterdir()],[changed])
+        self.assertEqual(list((work/"versions").iterdir()),[pinned])
+        with patch("pipelines.connectors.primary_disclosures.download_document",side_effect=ValueError("Response is not a PDF")),patch.dict("os.environ",{"BHAI_PRIMARY_REMOTE_CHECK":"1"}):
+            PrimaryDisclosuresConnector().run({"source_id":self.sid,"allow_auto_fetch":True},self.root,self.root/"processed",self.root/"manifest")
+        self.assertEqual((pinned.read_bytes(),pinned.stat().st_mtime_ns,self.csv.read_bytes(),self.evidence.read_bytes()),before)
+
     def test_first_publication_keeps_governed_local_facts_after_remote_failure(self):
         import yaml
         self.builder("first",2024,10,published="2024-07-01").finish((self.sid,))
