@@ -97,6 +97,10 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
 
+      - name: Reconcile checkout evidence availability
+        run: |
+          python -m pipelines.ingest --inventory research/source_inventory.yaml --refresh-quality-only
+
       - name: Validate generated artifacts
         run: |
           python scripts/validate_artifacts.py --inventory research/source_inventory.yaml --catalog data/manifests/catalog.json --manifests data/manifests ${{ inputs.fail_on_warnings && '--fail-on-warning' || '' }}

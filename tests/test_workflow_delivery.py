@@ -68,6 +68,15 @@ class ResearchDeliveryTests(unittest.TestCase):
         self.assertLess(names.index("Download correlated workspace"), names.index("Reconcile governed evidence bindings"))
         self.assertLess(names.index("Reconcile governed evidence bindings"), names.index("Validate generated artifacts"))
 
+    def test_clean_checkout_reconciles_archive_availability_without_refetch(self):
+        workflow = yaml.safe_load((ROOT / ".github/workflows/reusable-ci-quality.yml").read_text())
+        steps = workflow["jobs"]["artifact_validation"]["steps"]
+        reconcile = next(step for step in steps if step.get("name") == "Reconcile checkout evidence availability")
+        self.assertIn("--refresh-quality-only", reconcile["run"])
+        self.assertNotIn("--allow-auto-fetch", reconcile["run"])
+        names = [step.get("name") for step in steps]
+        self.assertLess(names.index("Reconcile checkout evidence availability"), names.index("Validate generated artifacts"))
+
     def test_deploy_requires_artifact_from_triggering_research_run(self):
         workflow = yaml.safe_load((ROOT / ".github/workflows/github-pages.yml").read_text())
         job = workflow["jobs"]["build"]
