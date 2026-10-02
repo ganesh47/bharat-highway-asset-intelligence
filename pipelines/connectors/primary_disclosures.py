@@ -287,7 +287,13 @@ class PrimaryDisclosuresConnector:
                             checked_retrieval_at=previous.get("checked_at")
                             continue
                         try:
-                            download_document(document["url"], candidate)
+                            if source.get("max_document_bytes") is not None:
+                                limit=int(source["max_document_bytes"])
+                                if not 0 < limit <= 150_000_000:
+                                    raise ValueError("Invalid primary document size limit")
+                                download_document(document["url"],candidate,max_bytes=limit)
+                            else:
+                                download_document(document["url"], candidate)
                             checked_retrieval_at = now
                             current_hash = sha256_for_file(candidate)
                             check={"checked_date":now[:10],"checked_at":now,"sha256":current_hash,"pinned_sha256":document["sha256"],"url":document["url"],"outcome":"checked_unchanged" if current_hash==document["sha256"] else "changed_document_requires_extraction"}

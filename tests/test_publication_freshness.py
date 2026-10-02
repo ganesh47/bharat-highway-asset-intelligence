@@ -10,6 +10,17 @@ from pipelines.common import sha256_for_file
 from pipelines.connectors.primary_disclosures import SnapshotBuilder, PrimaryDisclosuresConnector, validate_facts, research_cutoff
 from pipelines.ingest import run_ingestion
 from pipelines.metric_coverage import metric_coverage, quarter_context
+from scripts.validate_artifacts import _dashboard_contract_errors
+
+
+class DashboardFreshnessContractTests(unittest.TestCase):
+    def test_dynamic_periods_pass_and_stale_fixed_period_or_missing_units_fail(self):
+        app = (Path(__file__).resolve().parents[1]/"apps/web/src/app.js").read_text()
+        self.assertEqual(_dashboard_contract_errors(app), [])
+        fixed = app.replace("Official NH fatalities: ${", "Official NH fatalities: 2020-2022 ${")
+        self.assertTrue(any("Official NH fatalities" in error for error in _dashboard_contract_errors(fixed)))
+        missing_unit = app.replace("Common-period GSDP at current prices (₹ crore)", "Common-period GSDP")
+        self.assertTrue(any("₹ crore" in error for error in _dashboard_contract_errors(missing_unit)))
 
 
 class PublicationHistoryTests(unittest.TestCase):
@@ -84,6 +95,19 @@ class PublicationHistoryTests(unittest.TestCase):
         with patch.dict("os.environ",{"BHAI_RESEARCH_CUTOFF":"2027-01-02"}):
             self.assertEqual(research_cutoff(),"2027-01-02")
 
+    def test_declared_large_official_document_uses_bounded_source_limit(self):
+        self.builder("first",2024,10).finish((self.sid,))
+        original=self.root/json.loads(self.evidence.read_text())["documents"][0]["relative_path"]
+        calls=[]
+        def download(url,path,max_bytes):
+            calls.append(max_bytes);path.write_bytes(original.read_bytes());return path
+        with patch("pipelines.connectors.primary_disclosures.download_document",side_effect=download),patch.dict("os.environ",{"BHAI_PRIMARY_REMOTE_CHECK":"1"}):
+            result=PrimaryDisclosuresConnector().run({"source_id":self.sid,"allow_auto_fetch":True,"max_document_bytes":100_000_000},
+                                                     self.root,self.root/"processed",self.root/"manifest")
+        self.assertEqual(calls,[100_000_000])
+        self.assertFalse(result.manifest["remote_refresh_failed"])
+        self.assertEqual(result.manifest["refresh_outcome"],"checked_unchanged")
+
     def test_first_publication_keeps_governed_local_facts_after_remote_failure(self):
         import yaml
         self.builder("first",2024,10,published="2024-07-01").finish((self.sid,))
@@ -101,6 +125,20 @@ class PublicationHistoryTests(unittest.TestCase):
         self.assertEqual(entry["publication_date"],"2024-07-01")
         self.assertEqual(entry["last_successful_retrieval_at"],evidence["retrieved_at"])
         self.assertEqual(list(pd.read_parquet(self.root/"processed"/f"{self.sid}.parquet").value),[10])
+        # A subsequent failed probe must preserve the last successful check,
+        # rather than roll it back to the original manual capture timestamp.
+        previous=entry.copy(); previous["last_successful_retrieval_at"]="2026-10-02T01:00:00+00:00"
+        catalog=self.root/"manifests/catalog.json"
+        payload=json.loads(catalog.read_text());payload["datasets"][0]=previous;catalog.write_text(json.dumps(payload))
+        with patch("pipelines.connectors.primary_disclosures.download_document",side_effect=ValueError("Response is not a PDF")),patch.dict("os.environ",{"BHAI_PRIMARY_REMOTE_CHECK":"1"}):
+            retained=run_ingestion(str(inventory),raw_root=self.root,processed_root=self.root/"processed",
+                                   manifest_root=self.root/"manifests",catalog_path=catalog,cutoff="2026-10-02")[self.sid]
+        self.assertEqual(retained["last_successful_retrieval_at"],previous["last_successful_retrieval_at"])
+        with patch.dict("os.environ",{"BHAI_PRIMARY_REMOTE_CHECK":"0"}):
+            recovered=run_ingestion(str(inventory),raw_root=self.root,processed_root=self.root/"processed",
+                                    manifest_root=self.root/"manifests",catalog_path=catalog,cutoff="2026-10-02")[self.sid]
+        self.assertEqual(recovered["refresh_outcome"],"checked_unchanged")
+        self.assertNotIn("remote_refresh_failed",recovered)
 
 
 class MetricFreshnessTests(unittest.TestCase):
@@ -155,6 +193,15 @@ class MetricFreshnessTests(unittest.TestCase):
         record=metric_coverage(frame,{"source_id":"monthly"},self.entry,"2026-08-05")[0]
         self.assertEqual(record["coverage_status"],"official_provisional")
         self.assertEqual(record["current_quarter_coverage"],"partial_reported")
+        self.assertEqual(record["publication_lag_days"],4)
+
+    def test_later_reprint_of_old_period_does_not_change_latest_observation_publication_lag(self):
+        frame=self.monthly([7,8])
+        frame["published_at"]=["2026-10-01","2026-09-04"]
+        record=metric_coverage(frame,{"source_id":"monthly"},self.entry,"2026-10-02")[0]
+        self.assertEqual(record["latest_observation_date"],"2026-08-31")
+        self.assertEqual(record["latest_publication_date"],"2026-09-04")
+        self.assertEqual(record["latest_disclosure_publication_date"],"2026-10-01")
         self.assertEqual(record["publication_lag_days"],4)
 
 

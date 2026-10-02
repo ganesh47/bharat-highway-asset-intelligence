@@ -7,7 +7,7 @@ from datetime import date
 
 import pandas as pd
 
-SCOPE = ["metric", "unit", "agency", "road_class", "period_basis", "statement_basis", "estimate_type", "price_basis", "base_year"]
+SCOPE = ["metric", "unit", "entity_type", "agency", "road_class", "period_basis", "statement_basis", "estimate_type", "price_basis", "base_year"]
 HISTORIC_ACCIDENT_METRICS = {
     "data_gov_in_road_accidents_nhs_2003_2016": "road_accidents_nh",
     "data_gov_in_road_accidents_india_2003_2016": "road_accidents_all_roads",
@@ -49,7 +49,8 @@ def _legacy_rows(df, source, entry):
     scope = entry.get("analytical_scope", {})
     for original in df.to_dict("records"):
         entity = next((str(original[key]) for key in ["entity_id", "state", "state/ut", "states/ut", "states/uts"] if key in original and pd.notna(original[key])), "All India")
-        base = {"entity_id": entity, "agency": scope.get("agency", source.get("publisher_org", "Unknown")),
+        base = {"entity_id": entity, "entity_type": scope.get("entity_type", source.get("entity_type", "unspecified")),
+                "agency": scope.get("agency", source.get("publisher_org", "Unknown")),
                 "road_class": scope.get("road_class", "unspecified"), "statement_basis": "source_specific_reported",
                 "estimate_type": "actual", "observation_status": original.get("series_status", "reported"),
                 "published_at": entry.get("publication_date"), "unit": original.get("unit", "source_specific"),
@@ -85,7 +86,7 @@ def _legacy_rows(df, source, entry):
                         continue
                     start,end,basis = _period(match[1])
                     yield base | {"metric": metric, "period_start": start, "period_end": end, "period_basis": basis,
-                                  "data_as_of": end, "price_basis": "current" if "current_prices" in metric else "constant" if "constant_prices" in metric else "",
+                                  "data_as_of": end, "price_basis": "current_prices" if "current_prices" in metric else "constant_prices" if "constant_prices" in metric else "",
                                   "base_year": "2011-12" if "constant_prices" in metric else ""}
 
 
@@ -115,6 +116,7 @@ def metric_coverage(df: pd.DataFrame, source: dict, entry: dict, cutoff: str) ->
         publications = sorted({_date(row.get("published_at")) for row in items} - {None})
         latest = observations[-1] if observations else None
         newest_rows = [row for row in items if _date(row.get("data_as_of")) == latest] if latest else items
+        latest_observation_publications = sorted({_date(row.get("published_at")) for row in newest_rows} - {None})
         statuses = sorted({str(row.get("observation_status") or "reported") for row in newest_rows})
         periods = sorted({str(row.get("period_end") or "") for row in items} - {""})
         next_date = _date(source.get("next_expected_publication_at"))
@@ -169,7 +171,8 @@ def metric_coverage(df: pd.DataFrame, source: dict, entry: dict, cutoff: str) ->
         result.append(scope | {"source_id": source["source_id"], "coverage_status": status,
                               "latest_observation_date": latest, "earliest_entity_cutoff": min(value for value in entity_cutoffs.values() if value) if any(entity_cutoffs.values()) else None,
                               "latest_available_period_end": periods[-1] if periods else None,
-                              "latest_publication_date": publications[-1] if publications else None,
+                              "latest_publication_date": latest_observation_publications[-1] if latest_observation_publications else None,
+                              "latest_disclosure_publication_date": publications[-1] if publications else None,
                               "publication_lag_days": max(lags) if lags else None,
                               "observation_status": statuses, "next_expected_publication_at": next_date,
                               "latest_complete_quarter_end": max(complete_quarters) if complete_quarters else None,

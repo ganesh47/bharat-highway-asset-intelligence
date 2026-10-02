@@ -119,9 +119,14 @@ def _write_metric_registry(entries: dict, sources: dict, path: Path, cutoff: str
     for sid, source in sources.items():
         entry = entries.get(sid,{})
         output = Path(entry.get("output_table_path", "__missing_source__"))
-        coverage = metric_coverage(_read_frame(output),source,entry,cutoff)
+        frame = _read_frame(output)
+        if sid in entries:
+            entry = _annotate(copy.deepcopy(entry),source | {"research_cutoff":cutoff},frame,output.parent)
+            entries[sid] = entry
+        coverage = metric_coverage(frame,source,entry,cutoff)
         if sid in entries:
             entries[sid]["metric_coverage"] = coverage
+            write_json(entries[sid],path.parent/f"{sid}.json")
         rows.extend(coverage)
         source_rows.append({"source_id": sid, "metric_count": len(coverage), "analytical_ready": entry.get("analytical_ready",False),
                             "disclosure_ready": entry.get("disclosure_ready",False), "refresh_outcome": entry.get("refresh_outcome","not_checked"),
@@ -342,6 +347,10 @@ def run_ingestion(
                     entry["remote_refresh_error"] = candidate.get("remote_refresh_error")
                     entry["refresh_error"] = candidate.get("remote_refresh_error")
                     entry["local_seed_used"] = candidate.get("local_seed_used", False)
+                    entry["last_successful_retrieval_at"] = (previous or {}).get("last_successful_retrieval_at") or entry.get("last_successful_retrieval_at")
+                else:
+                    for field in ("remote_refresh_failed", "remote_refresh_error", "local_seed_used"):
+                        entry.pop(field,None)
                 published_df = _read_frame(output)
             entry["source_id"] = source_id
             entry.setdefault("metric_category", source.get("metric_category", "official_measured"))
@@ -364,6 +373,10 @@ def run_ingestion(
                                    "extraction_status": entry["extraction_status"],
                                    "row_count": len(published_df), "error": failure or entry.get("refresh_error")}
     _write_metric_registry(entries,source_map,manifest_root/"metric_coverage.json",cutoff)
+    for sid,row in outcomes.items():
+        if sid in source_map and sid in entries:
+            for field in ("analytical_ready", "disclosure_ready", "extraction_status", "evidence_status", "source_as_of_date", "publication_date"):
+                row[field] = entries[sid].get(field)
     write_catalog(catalog_path, list(entries.values()))
     rows = [outcomes[sid] for sid in source_map if sid in outcomes]
     write_json({"generated_at": datetime.now(timezone.utc).isoformat(), "started_at": started, "research_cutoff": cutoff,
@@ -400,6 +413,10 @@ def refresh_quality_only(inventory_path: str, selected_sources: list[str] | None
                 for field in ("source_as_of_date", "publication_date", "evidence_status"):
                     row[field] = entry.get(field)
     _write_metric_registry(entries,sources,manifest_root/"metric_coverage.json",cutoff)
+    for row in report.get("sources", []):
+        if row["source_id"] in entries:
+            for field in ("analytical_ready", "disclosure_ready", "extraction_status", "evidence_status", "source_as_of_date", "publication_date"):
+                row[field] = entries[row["source_id"]].get(field)
     write_catalog(catalog_path, list(entries.values()))
     if report:
         report["analytical_ready_source_count"] = sum(row.get("analytical_ready", False) for row in report.get("sources", []))

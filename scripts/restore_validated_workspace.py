@@ -100,10 +100,14 @@ def _validated(data: Path, workspace: Path, source: dict) -> tuple[dict, str | N
         if source.get("observation_date_unknown") is True:
             entry["source_as_of_date"] = None
         for generation in entry.get("publication_generations", []):
+            if not re.fullmatch(r"[0-9a-f]{64}",str(generation.get("observation_checksum", ""))):
+                raise ValueError("Invalid archived generation identity")
             archive_path = Path("processed/publication_history") / source_id / (generation["observation_checksum"]+".parquet")
             archived = data / archive_path
             if not archived.is_file() or sha256_for_file(archived) != generation.get("sha256"):
                 raise ValueError("Archived publication generation checksum mismatch")
+            if dataframe_checksum(pd.read_parquet(archived)) != generation["observation_checksum"]:
+                raise ValueError("Archived publication observation checksum mismatch")
         if not frame.empty and {"entity_id", "citation_url", "source_document_sha256", "analytical_eligible"} <= set(frame.columns):
             from pipelines.connectors.primary_disclosures import validate_facts
             evidence = _json(workspace / "data/raw/manual/evidence" / f"{source_id}.json")

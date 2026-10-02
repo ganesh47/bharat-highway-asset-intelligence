@@ -93,6 +93,26 @@ class PublicationTests(unittest.TestCase):
         self.assertEqual(first["data_changed_at"], second["data_changed_at"])
         self.assertLess(second["recency_score"], 1)
 
+    def test_metadata_refresh_reapplies_current_policy_without_refetching_retained_rows(self):
+        first=self.run_fixture(FixtureConnector(self.frame))
+        output=self.processed/"fixture_source.parquet"
+        before=output.read_bytes()
+        self.source.update(analytical_eligible=False,observation_date_unknown=True)
+        self.inventory.write_text(yaml.safe_dump({"sources":[self.source]}))
+        with patch("pipelines.ingest.find_connector_for_source",side_effect=AssertionError("Metadata-only refresh must not fetch")):
+            entry=refresh_quality_only(str(self.inventory),processed_root=self.processed,manifest_root=self.manifests,
+                                       catalog_path=self.catalog,cutoff="2026-10-02")["fixture_source"]
+        self.assertFalse(entry["analytical_ready"])
+        self.assertTrue(entry["disclosure_ready"])
+        self.assertIsNone(entry["source_as_of_date"])
+        self.assertEqual(output.read_bytes(),before)
+        self.assertEqual(entry["last_checked_at"],first["last_checked_at"])
+        self.assertEqual(entry["data_changed_at"],first["data_changed_at"])
+        saved=json.loads((self.manifests/"fixture_source.json").read_text())
+        self.assertEqual(saved["metric_coverage"],entry["metric_coverage"])
+        report=json.loads((self.manifests/"refresh_report.json").read_text())
+        self.assertEqual(report["analytical_ready_source_count"],0)
+
     def test_unverified_manual_is_quarantined_without_erasing_existing_file(self):
         output = self.processed / "fixture_source.parquet"
         write_parquet(self.frame, output)

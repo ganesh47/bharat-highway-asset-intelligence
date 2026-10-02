@@ -373,12 +373,8 @@ def _resolve_column_by_tokens(columns: List[str], required_tokens: List[str]) ->
     return None
 
 
-def _validate_dashboard_semantics(errors: List[str], warnings: List[str]) -> None:
-    app_path = ROOT / "apps/web/src/app.js"
-    if not app_path.exists():
-        errors.append("Dashboard app.js is missing")
-        return
-    app_text = app_path.read_text(encoding="utf-8")
+def _dashboard_contract_errors(app_text: str) -> List[str]:
+    errors: List[str] = []
     forbidden_titles = [
         "GDP & Infrastructure Context",
         "Model Risk Trajectory by State (proxy-informed)",
@@ -388,7 +384,7 @@ def _validate_dashboard_semantics(errors: List[str], warnings: List[str]) -> Non
             errors.append(f"Dashboard contains forbidden legacy title: {title}")
 
     required_titles = [
-        "NH Fatality Trend by State/UT (official, 2020-2022)",
+        "NH Fatality Trend by State/UT (official)",
         "Economic Scale vs NH Extent by State/UT",
         "Delay Burden Relative to Economic Scale",
     ]
@@ -397,12 +393,28 @@ def _validate_dashboard_semantics(errors: List[str], warnings: List[str]) -> Non
             errors.append(f"Dashboard is missing required title: {title}")
 
     required_markers = [
-        "Latest available current-price GSDP year varies by state",
-        "Official NH fatalities: 2020-2022",
+        "Official NH fatalities: ${",
+        "analytics?.accidentLatestYear",
+        "Common GSDP period: ${",
+        "analytics?.gsdpRows?.[0]?.gsdp_year",
+        "Common-period GSDP at current prices (₹ crore)",
+        "NH length (km)",
+        "Delayed NH projects",
+        "missing states are excluded",
     ]
     for marker in required_markers:
         if marker not in app_text:
             errors.append(f"Dashboard is missing required semantic marker: {marker}")
+    return errors
+
+
+def _validate_dashboard_semantics(errors: List[str], warnings: List[str]) -> None:
+    app_path = ROOT / "apps/web/src/app.js"
+    if not app_path.exists():
+        errors.append("Dashboard app.js is missing")
+        return
+    app_text = app_path.read_text(encoding="utf-8")
+    errors.extend(_dashboard_contract_errors(app_text))
 
     model_path = ROOT / "data/processed/highway_project_risk_and_access_panel.parquet"
     if model_path.exists():
