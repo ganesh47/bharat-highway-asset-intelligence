@@ -62,7 +62,7 @@ async def _assert_canvas_text_bounds(card, integer_years: bool = False):
         raise RuntimeError('Chart has no accessible unit/axis description')
     if integer_years:
         labels = audit['labels'].split('|')
-        if not labels or labels[0] != '2020' or labels[-1] != '2022' or any(label not in {'2020', '2021', '2022'} for label in labels):
+        if len(labels) < 2 or any(not re.fullmatch(r'\d{4}', label) for label in labels) or labels != sorted(set(labels)):
             raise RuntimeError(f"Year ticks must use observed ungrouped integer years: {labels}")
     return audit
 
@@ -194,10 +194,10 @@ REQUIRED_CHARTS = [
         "empty_markers": ["No records available."],
     },
     {
-        "title": "NH Fatality Burden by State/UT (official NH fatalities, 2022)",
+        "title": "NH Fatality Burden by State/UT (official NH fatalities)",
         "data_selector": ".bar-row",
         "min_points": 1,
-        "meta_markers": ["Fatalities: 2022 | NH length denominator: 2024-12-31"],
+        "meta_markers": ["NH length denominator: 2024-12-31"],
         "note_markers": [
             "normalized by each State/UT's validated MoRTH Appendix 2 NH-length snapshot",
             "Higher bars mean more recorded NH deaths relative to network length",
@@ -216,11 +216,11 @@ REQUIRED_CHARTS = [
         "empty_markers": ["No ranked-dot data available."],
     },
     {
-        "title": "NH Fatality Trend by State/UT (official, 2020-2022)",
+        "title": "NH Fatality Trend by State/UT (official)",
         "axes": True,
         "data_selector": ".line-path",
         "min_points": 1,
-        "meta_markers": ["Official NH fatalities: 2020-2022"],
+        "meta_markers": ["Official NH fatalities:"],
         "empty_markers": ["No records available."],
     },
     {
@@ -228,7 +228,7 @@ REQUIRED_CHARTS = [
         "axes": True,
         "data_selector": ".point",
         "min_points": 1,
-        "meta_markers": ["Latest available GSDP by state: 2017-18 to 2022-23 | NH length: 2024-12-31 | Delayed projects: March 2024"],
+        "meta_markers": ["Common GSDP period:"],
         "legend_labels": ["Each point: State / UT", "Bubble size: Delayed NH projects"],
         "empty_markers": ["No scatter points."],
     },
@@ -282,8 +282,10 @@ else:
 
 def _frontend_fixture_script(source: str) -> str:
     """Exercise the deployed pure calculation functions, including invalid joins."""
-    names = ["num", "observedAxisTicks", "completeSum", "statePortfolioObservation", "unrectifiedShare", "fmtNum", "sourceTypeTag", "analyticalReady", "disclosureReady", "confidenceFromSources", "humanMetric", "disclosureTheme", "validCitation", "disclosureCutoffKnown", "disclosureEligible", "disclosureMeasured", "disclosureVisible", "disclosureQualifier", "csvText", "deriveDisclosureInsights", "netcPaymentHighlights", "netcPaymentSeries", "netcMonthTick"]
-    blocks = []
+    names = ["num", "observedAxisTicks", "completeSum", "statePortfolioObservation", "unrectifiedShare", "fmtNum", "sourceTypeTag", "analyticalReady", "disclosureReady", "confidenceFromSources", "humanMetric", "disclosureTheme", "validCitation", "disclosureCutoffKnown", "disclosureEligible", "disclosureMeasured", "disclosureVisible", "disclosureQualifier", "csvText", "deriveDisclosureInsights", "netcPaymentHighlights", "netcPaymentSeries", "netcMonthTick", "wideYearFacts", "selectPeriodView", "observationLabel", "completeCalendarQuarterFlows", "normalizeState", "isAggregateStateLabel"]
+    aliases = re.search(r'const STATE_ALIASES = \{.*?^\};', source, re.MULTILINE | re.DOTALL)
+    if not aliases: raise RuntimeError('Missing state geography aliases')
+    blocks = [aliases.group(0)]
     for name in names:
         start = re.search(r"^function " + re.escape(name) + r"\(", source, re.MULTILINE)
         if start is None:
@@ -371,6 +373,20 @@ def _frontend_fixture_script(source: str) -> str:
     check(derive([actual,{...budget,estimate_vintage:''}]).length === 0, 'unknown estimate vintage suppresses utilisation');
     check(derive([{...actual,data_as_of:'',disclosure_as_of:'2026-02-01'},{...budget,data_as_of:'',disclosure_as_of:'2026-02-01'}]).length === 0, 'shared later reporting date cannot substitute for missing cutoffs');
     check(csvText([{metric:'=1+1'}],['metric']).includes("'=1+1"), 'CSV spreadsheet text safety');
+    const wide=wideYearFacts([{'state/ut':'Kerala','length_constructed_km._2024-25':0,'length_constructed_km._2025-26':12,'unrelated_2027':999}],/^length_constructed_km\._(\d{4}-\d{2})$/,['state/ut'],'fixture');
+    check(wide.length===2 && wide[1].period==='2025-26' && wide[0].value===0,'new fiscal columns are discovered without fixed year SQL, observed zero retained');
+    const annual=(entity,end,value)=>({...base,entity_id:entity,metric:'gsdp',period_start:`${Number(end.slice(0,4))-1}-04-01`,period_end:end,data_as_of:end,value,unit:'INR crore'});
+    const vintage=[annual('A','2024-03-31',100),annual('B','2024-03-31',200),annual('A','2025-03-31',150)];
+    check(selectPeriodView(vintage,'latest').find(row=>row.entity_id==='A').value===150,'latest observed per entity');
+    check(selectPeriodView(vintage,'common').length===2 && selectPeriodView(vintage,'common').every(row=>row.period_end==='2024-03-31'),'common comparison excludes incomplete state-year coverage');
+    check(completeCalendarQuarterFlows([july,netcActual]).length===0,'August partial quarter cannot become Q3 total');
+    const september={...netcActual,period_start:'2026-09-01',period_end:'2026-09-30',data_as_of:'2026-09-30',value:200};
+    check(completeCalendarQuarterFlows([july,netcActual,september])[0]?.value===300,'complete three-month comparable flows aggregate');
+    check(completeCalendarQuarterFlows([july,netcActual,{...september,unit:'PCU'}]).length===0,'quarter requires compatible units');
+    check(completeCalendarQuarterFlows([july,netcActual,{...september,observation_status:'provisional'}]).length===0,'quarter cannot silently mix observation statuses');
+    check(completeCalendarQuarterFlows([july,netcActual,{...september,period_basis:'project_snapshot'}]).length===0,'project stocks are not monthly flows');
+    check(completeCalendarQuarterFlows([july,netcActual,september,september]).length===0,'duplicate month breaks quarter');
+
     return failures;
     """
     return "() => {\n" + "\n".join(blocks) + assertions + "\n}"
@@ -439,7 +455,7 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
 
         async def wait_for_expected_chart_titles() -> None:
             expected_titles = [
-                "NH Fatality Trend by State/UT (official, 2020-2022)",
+                "NH Fatality Trend by State/UT (official)",
                 "Economic Scale vs NH Extent by State/UT",
             ]
             last_seen = ""
@@ -599,7 +615,7 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
             for viewport in [{'width': 1440, 'height': 1100}, {'width': 390, 'height': 844}]:
                 await page.set_viewport_size(viewport)
                 await page.wait_for_timeout(250)
-                for title, integer_years in [('NH Fatality Trend by State/UT (official, 2020-2022)', True), ('Economic Scale vs NH Extent by State/UT', False)]:
+                for title, integer_years in [('NH Fatality Trend by State/UT (official)', True), ('Economic Scale vs NH Extent by State/UT', False)]:
                     card = page.locator('.insight-chart').filter(has=page.locator('.chart-title', has_text=title))
                     await _assert_canvas_text_bounds(card, integer_years)
             await page.set_viewport_size({'width': 1280, 'height': 720})
@@ -611,10 +627,10 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
             if semantic_failures:
                 raise RuntimeError(f'Frontend semantic fixtures failed: {semantic_failures}')
             await page.get_by_role("heading", name="Finance & infrastructure disclosures", exact=True).wait_for()
-            for label in ["Agency", "Road class", "Reporting period", "Estimate type", "Evidence class", "Metric", "Entity search"]:
+            for label in ["Agency", "Road class", "Reporting period", "Estimate type", "Evidence class", "Metric", "Entity search", "Period view", "Observation status", "Assurance"]:
                 if await page.get_by_label(label, exact=True).count() != 1:
                     raise RuntimeError(f"Missing or ambiguous disclosure filter: {label}")
-            table = page.locator('.evidence-table')
+            table = page.locator('.analyst-evidence-panel .evidence-table')
             if await table.count() != 1 or await table.locator('tbody tr').count() < 1:
                 raise RuntimeError("Funding disclosures have no validated evidence rows")
             for label in ["Value / unit", "Period / estimate / basis", "Observation / publication", "Evidence / source"]:
@@ -627,7 +643,7 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
             download = await download_info.value
             download_path = await download.path()
             csv_text = Path(download_path).read_text(encoding='utf-8-sig')
-            for field in ['original_unit', 'period_basis', 'statement_basis', 'disclosure_as_of', 'estimate_vintage', 'reported_period', 'citation_url', 'table_page', 'source_document_sha256']:
+            for field in ['observation_status', 'assurance', 'revision_identity', 'price_basis', 'base_year', 'original_unit', 'period_basis', 'statement_basis', 'disclosure_as_of', 'estimate_vintage', 'reported_period', 'citation_url', 'table_page', 'source_document_sha256']:
                 if field not in csv_text.splitlines()[0]:
                     raise RuntimeError(f"CSV lost lineage field: {field}")
             if len(csv_text.splitlines()) < 2:
