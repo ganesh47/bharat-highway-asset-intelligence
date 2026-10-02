@@ -1,0 +1,1588 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1"><title>
+	Press Release Page | Press Information Bureau
+</title><link href="css/style.css" rel="stylesheet" type="text/css" /><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><link rel="alternate stylesheet" href="css/change.css" media="screen" title="change" /><link rel="alternate stylesheet" href="css/green.css" media="screen" title="green" /><link rel="alternate stylesheet" href="css/yellow.css" media="screen" title="yellow" /><link rel="stylesheet" type="text/css" href="css/prtint.css" media="print" /><link rel="stylesheet" href="css/style3.1.css" type="text/css" /><link id="pibA11yCss" rel="stylesheet" href="/css/accessibility.css?v=3" type="text/css" />
+      <script type="text/javascript">
+        /* Stamps the saved theme on <html> before the page paints. The
+           switcher in js/accessibility.js settles the rest, but on inner
+           pages it does not run until the end of the body and inside the
+           release frame it is a separate download - either way the reader
+           would otherwise watch a light page turn dark in front of them. */
+        (function (d) {
+            var t = "";
+            try {
+                t = window.localStorage.getItem("pibStyle") || "";
+            } catch (e) {
+                t = "";
+            }
+            if (t === "orange") {
+                t = "yellow";
+            }
+            var c = t === "change" ? " pib-hc"
+                : t === "green" ? " pib-theme-green"
+                : t === "yellow" ? " pib-theme-yellow" : "";
+            d.documentElement.className += c + " pib-a11y-content";
+        }(document));
+      </script>
+
+
+      <script src="js/jquery.min.js" type="text/javascript"></script>
+      <script type="text/javascript" src="/js/accessibility.js?v=7"></script>
+
+      <script type="text/javascript">
+            $(document).ready(function () {
+                  function getParameterByName(name) {
+                        var url = window.location.href;
+                        name = name.replace(/[\[\]]/g, '\\$&');
+                        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                              results = regex.exec(url);
+                        if (!results) return null;
+                        if (!results[2]) return '';
+                        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+                  }
+                  // Get the IDs from the current page's URL
+                  let prid = parseInt(getParameterByName('PRID'), 10);
+
+                  if (!isNaN(prid) && prid > 0) {
+                        $.ajax({
+                              type: "POST",
+                              url: "AjaxMethod.aspx/UpdatePRHitCount",
+                              async: false,
+                              data: JSON.stringify({ 'PermId': prid }),
+                              contentType: "application/json; charset=utf-8",
+                              dataType: "json",
+                              success: function (response) {
+                                    console.log(response);
+                              },
+                              error: function (error) {
+                                    console.log("Error in AJAX request", error);
+                              }
+                        });
+                  } else {
+                        console.log("Invalid parameters:", prid);
+                  }
+
+            });
+      </script>
+      <style type="text/css">
+            .table-responsive {
+                  width: 100%;
+                  overflow-x: auto;
+            }
+
+            .banner {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  background-color: #000;
+                  color: #fff;
+                  padding: 20px;
+            }
+
+            full-width {
+                  width: 100%;
+            }
+
+            .logo-left, .logo-center, .countdown {
+                  display: flex;
+                  align-items: center;
+            }
+
+                  .logo-left img, .logo-center img {
+                        height: 70px;
+                  }
+
+            .countdown {
+                  text-align: center;
+                  background-color: #444;
+                  border-radius: 10px;
+                  padding: 10px;
+                  border: 2px solid grey;
+            }
+
+            .firstnumber {
+                  color: #000000;
+                  position: absolute;
+                  top: 50px;
+                  right: 90px;
+                  font-size: 30px;
+            }
+
+            .secondnumber {
+                  position: absolute;
+                  color: #000000;
+                  right: 45px;
+                  top: 50px;
+                  font-size: 30px;
+            }
+
+            .countdown .days {
+                  font-size: 35px;
+                  color: gold;
+            }
+
+            .countdown p {
+                  margin: 0;
+            }
+
+            .countdown .text {
+                  font-size: 16px;
+            }
+
+            a {
+                  word-break: break-all;
+            }
+
+            iframe, img {
+                  max-width: 100%;
+            }
+
+            @media(max-width:1199px) {
+                  .firstnumber {
+                        top: 40px;
+                        right: 72px;
+                        font-size: 30px;
+                  }
+
+                  .secondnumber {
+                        right: 35px;
+                        top: 40px;
+                        font-size: 30px;
+                  }
+            }
+
+            @media(max-width:990px) {
+                  .firstnumber {
+                        top: 25px;
+                        right: 54px;
+                        font-size: 30px;
+                  }
+
+                  .secondnumber {
+                        right: 25px;
+                        top: 25px;
+                        font-size: 30px;
+                  }
+            }
+
+            @media(max-width:768px) {
+                  .countdown, .days {
+                        font-size: 12px !important;
+                  }
+
+
+                  .firstnumber {
+                        top: 25%;
+                        right: 8%;
+                        font-size: 30px;
+                  }
+
+                  .secondnumber {
+                        right: 4.5%;
+                        top: 25%;
+                        font-size: 30px;
+                  }
+            }
+
+            @media(max-width:475px) {
+                  .countdown, .days {
+                        font-size: 10px !important;
+                        top: 20%;
+                  }
+
+                  .bannerimgdiv {
+                        padding: 0 !important;
+                  }
+
+                  .bannerimg {
+                        width: 108% !important;
+                  }
+            }
+      </style>
+      <script type="text/javascript">
+            $(function () {
+                  $("[id*=printPDF]").click(function () {
+                        $("[id*=hfGridHtml]").val($("#PdfDiv").html());
+                  });
+            });
+            $(function () {
+                  $("[id*=printPDFEvent]").click(function () {
+                        $("[id*=hfGridHtml]").val($("#PdfDiv").html());
+                  });
+            });
+      </script>
+
+      
+
+      <link id="pibConsentCss" href="/css/consent.css?v=1" rel="stylesheet" type="text/css" /><meta property="og:title" content="Quarterly release of Performance Monitoring Dashboard of Infrastructure Sector in India" /><meta property="og:url" content="www.pib.gov.in/Pressreleaseshare.aspx?PRID=2285365" /><meta property="og:description" content="The Ministry of Statistics and Programme Implementation (MoSPI) is releasing the quarterly update of" /><meta property="og:image" content="https:/pib.gov.in/images/indian-emblem.png" />
+                                <script>!function(e){var n="https://s.go-mpulse.net/boomerang/";if("False"=="True")e.BOOMR_config=e.BOOMR_config||{},e.BOOMR_config.PageParams=e.BOOMR_config.PageParams||{},e.BOOMR_config.PageParams.pci=!0,n="https://s2.go-mpulse.net/boomerang/";if(window.BOOMR_API_key="C4E7H-KSCMC-422L4-W3EM5-U36MF",function(){function e(){if(!i){var e=document.createElement("script");e.id="boomr-scr-as",e.src=window.BOOMR.url,e.async=!0,o.parentNode.appendChild(e),i=!0}}function t(e){i=!0;var n,t,a,r,d=document,O=window;if(window.BOOMR.snippetMethod=e?"if":"i",t=function(e,n){var t=d.createElement("script");t.id=n||"boomr-if-as",t.src=window.BOOMR.url,BOOMR_lstart=(new Date).getTime(),e=e||d.body,e.appendChild(t)},!window.addEventListener&&window.attachEvent&&navigator.userAgent.match(/MSIE [67]\./))return window.BOOMR.snippetMethod="s",void t(o.parentNode,"boomr-async");a=document.createElement("IFRAME"),a.src="about:blank",a.title="",a.role="presentation",a.loading="eager",r=(a.frameElement||a).style,r.width=0,r.height=0,r.border=0,r.display="none",o.parentNode.appendChild(a);try{O=a.contentWindow,d=O.document.open()}catch(_){n=document.domain,a.src="javascript:var d=document.open();d.domain='"+n+"';void(0);",O=a.contentWindow,d=O.document.open()}if(n)d._boomrl=function(){this.domain=n,t()},d.write("<bo"+"dy onload='document._boomrl();'>");else if(O._boomrl=function(){t()},O.addEventListener)O.addEventListener("load",O._boomrl,!1);else if(O.attachEvent)O.attachEvent("onload",O._boomrl);d.close()}function a(e){window.BOOMR_onload=e&&e.timeStamp||(new Date).getTime()}if(!window.BOOMR||!window.BOOMR.version&&!window.BOOMR.snippetExecuted){window.BOOMR=window.BOOMR||{},window.BOOMR.snippetStart=(new Date).getTime(),window.BOOMR.snippetExecuted=!0,window.BOOMR.snippetVersion=12,window.BOOMR.url=n+"C4E7H-KSCMC-422L4-W3EM5-U36MF";var o=document.currentScript||document.getElementsByTagName("script")[0],i=!1,r=document.createElement("link");if(r.relList&&"function"==typeof r.relList.supports&&r.relList.supports("preload")&&"as"in r)window.BOOMR.snippetMethod="p",r.href=window.BOOMR.url,r.rel="preload",r.as="script",r.addEventListener("load",e),r.addEventListener("error",function(){t(!0)}),setTimeout(function(){if(!i)t(!0)},3e3),BOOMR_lstart=(new Date).getTime(),o.parentNode.appendChild(r);else t(!1);if(window.addEventListener)window.addEventListener("load",a,!1);else if(window.attachEvent)window.attachEvent("onload",a)}}(),"".length>0)if(e&&"performance"in e&&e.performance&&"function"==typeof e.performance.setResourceTimingBufferSize)e.performance.setResourceTimingBufferSize();!function(){if(BOOMR=e.BOOMR||{},BOOMR.plugins=BOOMR.plugins||{},!BOOMR.plugins.AK){var n=""=="true"?1:0,t="",a="niz2saqxzvsyc2v7hj4q-f-eb607ed90-clientnsv4-s.akamaihd.net",o="false"=="true"?2:1,i={"ak.v":"41","ak.cp":"1825201","ak.ai":parseInt("1215205",10),"ak.ol":"0","ak.cr":6,"ak.ipv":4,"ak.proto":"http/1.1","ak.rid":"4785d06","ak.r":39570,"ak.a2":n,"ak.m":"dscb","ak.n":"ff","ak.cport":3891,"ak.gh":"23.205.101.167","ak.quicv":"","ak.tlsv":"tls1.3","ak.0rtt":"","ak.0rtt.ed":"","ak.csrc":"-","ak.acc":"bbr","ak.t":"1790917241","ak.ak":"hOBiQwZUYzCg5VSAfCLimQ==ChxHlAGkwvHqKSAALRva1b6NYwRKNoCSc3La5fxUsY9cOWQKr6HnjKlEVcLsH+cEqM67B6ukhWSC+rYRjQDmmwZi9G0aieM8LH5GlpDXiWYhwiUMEE3ZgZf06UMhrqoCN0lDrCMMChcxiZ8vkU/9pLEwdlSu5zIsX+6J6J0U7vJbdLIcQ7EBRowT1lZFyvYhqFF+wFr/Bjo50JCUoLa4Ky+2D+zwqeLpFF29LgcXebRx0xcEZP023jNWGGh9hoH1dZfpG+sIrAvUtSZ0u4yNBzLjinrV01IeWeIUgYqEJCR4UB6piHFIAis5iyke/kKVhB6UDNOK/L6FAAZ1SICXdRcSTSL8Ks62ryLHTsNdt1h0nCK474JYr64k8gQfYGvCflAJ5xlSwt/+pA+5MzVUKzKvO2ZjL6Hnkdb5rP2AIq0=","ak.pv":"9","ak.dpoabenc":"","ak.tf":o};if(""!==t)i["ak.ruds"]=t;var r={i:!1,av:function(n){var t="http.initiator";if(n&&(!n[t]||"spa_hard"===n[t]))i["ak.feo"]=void 0!==e.aFeoApplied?1:0,BOOMR.addVar(i)},rv:function(){var e=["ak.cport","ak.cr","ak.csrc","ak.gh","ak.ipv","ak.m","ak.n","ak.ol","ak.proto","ak.quicv","ak.tlsv","ak.0rtt","ak.0rtt.ed","ak.r","ak.acc","ak.t","ak.tf"];BOOMR.removeVar(e)}};BOOMR.plugins.AK={akVars:i,akDNSPreFetchDomain:a,init:function(){if(!r.i){var e=BOOMR.subscribe;e("before_beacon",r.av,null,null),e("onbeacon",r.rv,null,null),r.i=!0}return this},is_complete:function(){return!0}}}}()}(window);</script></head>
+<body>
+    
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
+     style="position:absolute;width:0;height:0;overflow:hidden" id="dbim-icon-sprite">
+    <defs>
+        <symbol id="icon-angle-double-left" viewBox="0 0 24 24"><path d="M11.6 4.6 4.2 12l7.4 7.4 2.2-2.2L8.6 12l5.2-5.2z"/><path d="M19 4.6 11.6 12 19 19.4l2.2-2.2L16 12l5.2-5.2z"/></symbol>
+        <symbol id="icon-angle-double-right" viewBox="0 0 24 24"><path d="M12.4 4.6 10.2 6.8 15.4 12l-5.2 5.2 2.2 2.2L19.8 12z"/><path d="M5 4.6 2.8 6.8 8 12l-5.2 5.2L5 19.4 12.4 12z"/></symbol>
+        <symbol id="icon-arrow-left" viewBox="0 0 24 24"><path d="M20.8 10.6H9.6v2.8h11.2z"/><path d="M10.8 5.6 3.2 12l7.6 6.4z"/></symbol>
+        <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M3.2 10.6h11.2v2.8H3.2z"/><path d="M13.2 5.6 20.8 12l-7.6 6.4z"/></symbol>
+        <symbol id="icon-calendar" viewBox="0 0 24 24"><path d="M7.6 2.4H10v2.4H7.6z"/><path d="M14 2.4h2.4v2.4H14z"/><path fill-rule="evenodd" d="M4 4.8h16a1.6 1.6 0 0 1 1.6 1.6v13.2a1.6 1.6 0 0 1-1.6 1.6H4a1.6 1.6 0 0 1-1.6-1.6V6.4A1.6 1.6 0 0 1 4 4.8zm.4 5.6v8.4h15.2v-8.4z"/><path d="M6.4 12.4h3.2v3.2H6.4z"/></symbol>
+        <symbol id="icon-chevron-left" viewBox="0 0 24 24"><path d="M15.4 4.6 8 12l7.4 7.4 2.2-2.2L12.4 12l5.2-5.2z"/></symbol>
+        <symbol id="icon-chevron-right" viewBox="0 0 24 24"><path d="M8.6 4.6 6.4 6.8 11.6 12l-5.2 5.2 2.2 2.2L16 12z"/></symbol>
+        <symbol id="icon-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/></symbol>
+        <symbol id="icon-download" viewBox="0 0 24 24"><path d="M10.8 3h2.4v7.6h3.4L12 16.6l-4.6-6h3.4z"/><path d="M4 17.2h2.4v2.4h11.2v-2.4H20v3.2a1.4 1.4 0 0 1-1.4 1.4H5.4A1.4 1.4 0 0 1 4 20.4z"/></symbol>
+        <symbol id="icon-facebook" viewBox="0 0 24 24"><path d="M13.6 21.6v-8.4h2.8l.42-3.3h-3.22V7.8c0-.95.27-1.6 1.64-1.6h1.74V3.26a23 23 0 0 0-2.54-.13c-2.5 0-4.22 1.53-4.22 4.34v2.43H7.4v3.3h2.82v8.4z"/></symbol>
+        <symbol id="icon-hashtag" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M8.8 3h2.4l-1 6h3.2l1-6h2.4l-1 6h3.4v2.4h-3.8l-.6 3.2h3.6V17h-4l-1 5h-2.4l1-5h-3.2l-1 5H5.4l1-5H3V14.6h3.8l.6-3.2H3.8V9h4zm.6 8.4-.6 3.2h3.2l.6-3.2z"/></symbol>
+        <symbol id="icon-home" viewBox="0 0 24 24"><path d="M12 3.4 2.8 11.6h2.4v8.4a1 1 0 0 0 1 1h3.3v-5.4h5v5.4h3.3a1 1 0 0 0 1-1v-8.4h2.4z"/></symbol>
+        <symbol id="icon-instagram" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M7.6 2.4h8.8a5.2 5.2 0 0 1 5.2 5.2v8.8a5.2 5.2 0 0 1-5.2 5.2H7.6a5.2 5.2 0 0 1-5.2-5.2V7.6a5.2 5.2 0 0 1 5.2-5.2zm0 2.4a2.8 2.8 0 0 0-2.8 2.8v8.8a2.8 2.8 0 0 0 2.8 2.8h8.8a2.8 2.8 0 0 0 2.8-2.8V7.6a2.8 2.8 0 0 0-2.8-2.8z"/><path fill-rule="evenodd" d="M12 6.8a5.2 5.2 0 1 0 0 10.4 5.2 5.2 0 0 0 0-10.4zm0 2.4a2.8 2.8 0 1 1 0 5.6 2.8 2.8 0 0 1 0-5.6z"/><circle cx="17.3" cy="6.7" r="1.3"/></symbol>
+        <symbol id="icon-linkedin" viewBox="0 0 24 24"><path d="M4.8 8.8h3.6v12H4.8z"/><circle cx="6.6" cy="5.4" r="2.1"/><path d="M10.8 8.8h3.45v1.65h.05c.48-.9 1.65-1.85 3.4-1.85 3.63 0 4.3 2.35 4.3 5.4v6.6h-3.6v-5.85c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1v5.95h-3.6z"/></symbol>
+        <symbol id="icon-mail" viewBox="0 0 24 24"><path d="M2.4 7.6v9.2a1.6 1.6 0 0 0 1.6 1.6h16a1.6 1.6 0 0 0 1.6-1.6V7.6L12 14z"/><path d="M21.2 5.4H2.8L12 11.8z"/></symbol>
+        <symbol id="icon-mail-open" viewBox="0 0 24 24"><path d="M2.4 9.8h19.2v9.6A1.6 1.6 0 0 1 20 21H4a1.6 1.6 0 0 1-1.6-1.6z"/><path d="M12 2.6 21.6 9.2h-3.8L12 5.3 6.2 9.2H2.4z"/><path d="m3.9 11.2 8.1 5.4 8.1-5.4 1.5 1.3-9.6 6.4-9.6-6.4z"/></symbol>
+        <symbol id="icon-map-marker" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2.4a7 7 0 0 0-7 7c0 5.2 7 12.2 7 12.2s7-7 7-12.2a7 7 0 0 0-7-7zm0 9.6a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2z"/></symbol>
+        <symbol id="icon-newspaper" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M2.8 4.4h14.8v15.2H2.8zm2 2v11.2h10.8V6.4z"/><path d="M6 7.6h8.4v1.6H6z"/><path d="M6 10.8h8.4v1.6H6z"/><path d="M6 14h5.2v1.6H6z"/><path d="M18.4 8.4h2.8v9.6a1.4 1.4 0 0 1-2.8 0z"/></symbol>
+        <symbol id="icon-pause" viewBox="0 0 24 24"><rect x="7.4" y="4" width="3.6" height="16" rx="0.9"/><rect x="13" y="4" width="3.6" height="16" rx="0.9"/></symbol>
+        <symbol id="icon-picture" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M2.4 5.2h19.2v13.6H2.4zm2 2v9.6h15.2V7.2z"/><path d="M5.6 16.4 10 11l2.6 3 2-2.2 4 4.6z"/><circle cx="8" cy="10.4" r="1.5"/></symbol>
+        <symbol id="icon-press-conference" viewBox="0 0 24 24"><circle cx="12" cy="5.2" r="2.6"/><path d="M7.6 12.2a4.4 4.4 0 0 1 8.8 0z"/><circle cx="4.9" cy="9.6" r="2.2"/><path d="M1.8 15.2a3.1 3.1 0 0 1 6.2 0z"/><circle cx="19.1" cy="9.6" r="2.2"/><path d="M16 15.2a3.1 3.1 0 0 1 6.2 0z"/><path d="M6.6 13.6h10.8l2.2 7.8H4.4z"/></symbol>
+        <symbol id="icon-print" viewBox="0 0 24 24"><path d="M6.4 2.8h11.2v4.4H6.4z"/><path d="M4 8.4h16a1.6 1.6 0 0 1 1.6 1.6v5.6a1.6 1.6 0 0 1-1.6 1.6h-1.6v-2.8H6v2.8H4a1.6 1.6 0 0 1-1.6-1.6V10A1.6 1.6 0 0 1 4 8.4z"/><path d="M7.2 15.6h9.6v5.6H7.2z"/></symbol>
+        <symbol id="icon-rss" viewBox="0 0 24 24"><circle cx="4.8" cy="19.2" r="2.4"/><path d="M2.4 11.2v3.2a6.4 6.4 0 0 1 6.4 6.4H12A9.6 9.6 0 0 0 2.4 11.2z"/><path d="M2.4 4.8V8A13.6 13.6 0 0 1 16 21.6h3.2A16.8 16.8 0 0 0 2.4 4.8z"/></symbol>
+        <symbol id="icon-search-plus" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M10 2.8a7.2 7.2 0 1 0 0 14.4 7.2 7.2 0 0 0 0-14.4zm0 2.4a4.8 4.8 0 1 1 0 9.6 4.8 4.8 0 0 1 0-9.6z"/><path d="M15.3 14.6 21.2 20.5l-1.5 1.5-5.9-5.9z"/><path d="M9.2 6.8h1.6v2.4h2.4v1.6h-2.4v2.4H9.2v-2.4H6.8V9.2h2.4z"/></symbol>
+        <symbol id="icon-share" viewBox="0 0 24 24"><circle cx="18" cy="5.6" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="18.4" r="3"/><path d="M8.3 10.9 15.7 7.2l.9 1.8-7.4 3.7z"/><path d="M9.2 13.1 16.6 16.8l-.9 1.8-7.4-3.7z"/></symbol>
+        <symbol id="icon-twitter" viewBox="0 0 24 24"><path d="M4.2 3h4.3l11.3 18h-4.3z"/><path d="M19.3 3h-2.6L4.2 21h2.6z"/></symbol>
+        <symbol id="icon-university" viewBox="0 0 24 24"><path d="M12 2.4 21.6 7.2v1.6H2.4V7.2z"/><path d="M4.8 10.4h2.4v8H4.8z"/><path d="M9.2 10.4h2.4v8H9.2z"/><path d="M13.4 10.4h2.4v8h-2.4z"/><path d="M17.6 10.4H20v8h-2.4z"/><path d="M3.2 19.8h17.6v1.8H3.2z"/></symbol>
+        <symbol id="icon-volume-up" viewBox="0 0 24 24"><path d="M3.2 9.2h3.3l5-4.2v14l-5-4.2H3.2z"/><path d="M14.6 8.4a5 5 0 0 1 0 7.2l1.6 1.6a7.2 7.2 0 0 0 0-10.4z"/><path d="M17.4 5.6a8.8 8.8 0 0 1 0 12.8l1.5 1.5a10.9 10.9 0 0 0 0-15.8z"/></symbol>
+    </defs>
+</svg>
+
+      <form method="post" action="./PressReleasePage.aspx?PRID=2285365&amp;lang=1&amp;reg=48" id="form1">
+<input type="hidden" name="sc_HiddenField" id="sc_HiddenField" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+
+
+<script src="/ScriptResource.axd?d=x6wALODbMJK5e0eRC_p1LdIxBJXt0U_WW5GWfJqHAqo6frgCmGRfEywglicTersO2OKrFhK1gAIp0Wk2al2YrpdR3uWqH6f4nfjBsCyRUfTUUVmb0&amp;t=ffffffffecf8d3f2" type="text/javascript"></script>
+<script src="/PressReleasePage.aspx?_TSM_HiddenField_=sc_HiddenField&amp;_TSM_CombinedScripts_=%3b%3bAjaxControlToolkit%2c+Version%3d3.5.7.123%2c+Culture%3dneutral%2c+PublicKeyToken%3d28f01b0e84b6d53e%3aen-US%3a5a4df314-b4a2-4da2-a207-9284f1b1e96c%3ade1feab2%3af2c8e708%3a8613aea7%3af9cec9bc%3a3202a5a2%3aab09e3fe%3a87104b7c%3a720a52bf%3a589eaa30%3aa67c2700%3abe6fb298" type="text/javascript"></script>
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="59B53027" />
+<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="M2RAlRCD8mj69r/5Qqipbx4MEXsDlV1H9EgfTyB2DXH1DZFS3EMF5KMkxJAcHPO/JOFSSNb6bLwS1+JAJBRwHYwKDmlKN4ts5azSw84Tqrl5XWU0wZh5/DksPfvXMsbjWXhTQYEVL/kJlRD1FPRtNuQa3Jm1SsT0zwj7bBT5LmKWcR9bVc0/2NfQNP4sC0n983WWWp/6SNyV2W7u0wv1zzsGqsgZVL3DsEDE5fCiksdoDKaDF8j1jyF0YpD8T6nb+roDZ7C4cygmld3WJcuw6CeLAIA=" />
+                              
+            <div id="templateCss"></div>
+            
+            <input type="hidden" name="hfGridHtml" id="hfGridHtml" />
+            <div class="container" style='margin-bottom: 50px;'>
+                  <div id="accessories">
+
+                        
+                        <div class="pull-right" style="display: flex">
+                              <div id="voll"></div>
+                              <div id="vollDT"></div>
+                              
+                              
+<div class="print-icons">
+<input type="image" name="Print1$print" id="Print1_print" aria-label="Print" src="images/printer_icon.png" alt="print page button" style="padding: 5px 10px 5px 10px;" />
+</div>
+                        </div>
+                  </div>
+                  <input type="hidden" name="hydpermid" id="hydpermid" value="2285365" />
+                  
+
+
+
+                  <div class="innner-page-main-about-us-content-right-part">
+
+                        <div id="MinistryName" class="MinistryNameSubhead text-center">
+                              Ministry of Statistics & Programme Implementation
+                        </div>
+                        
+                        <div id="lg_g"><div class='log_oo'>  <img src='https://static.pib.gov.in/WriteReadData/specificdocs/photo/2026/sep/ph_9768_20260902_10000501.png' alt='azadi ka amrit mahotsav' /> </div></div>
+
+
+
+
+
+                        <div class="text-center event-heading-background">
+                              
+                              <h1 id="Titleh2">
+                                    Quarterly release of Performance Monitoring Dashboard of Infrastructure Sector in India
+                              </h1>
+                              <h3 id="Subtitleh3">
+                                    <span id="ltrSubtitle"><br/>Strengthening evidence-based monitoring of infrastructure sub-sectors through timely dissemination of updated performance indicators</span>
+                              </h3>
+                        </div>
+
+                        <div id="PrDateTime" class="ReleaseDateSubHeaddateTime text-center pt20">
+                              Posted On:
+                16 JUL 2026 4:00PM by PIB Delhi
+                        </div>
+                        
+                        <div class='pt20'>
+                        </div>
+                        <input type="hidden" name="hydphotoUrl" id="hydphotoUrl" />
+                        
+                        <p style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px">The Ministry of Statistics and Programme Implementation (MoSPI) is releasing the quarterly update of the PAIMANA (Project Assessment, Infrastructure Monitoring &amp; Analytics for Nation-building) Performance Dashboard, presenting the performance of key infrastructure sectors through a set of standardized indicators. The dashboard was launched on 16<sup>th</sup> April 2026 to strengthen infrastructure monitoring and evidence-based policymaking to provide a comprehensive view of the performance of key infrastructure sub-sectors. The latest quarterly update incorporates the most recent data across selected performance indicators, enabling timely monitoring, informed decision-making, and greater public access to official statistics.</span></span></p>
+
+<p style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Key Highlights of the quarterly update of the Performance Monitoring Dashboard:</strong></span></span></p>
+
+<table border="1" bordercolor="#ccc" cellpadding="5" cellspacing="0" style="border-collapse:collapse">
+	<tbody>
+		<tr>
+			<td>
+			<div>
+			<ul style="margin-left:40px">
+				<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">The quarterly update incorporates the latest data received from the respective Ministries/Departments, ensuring the timely dissemination of official infrastructure performance statistics.</span></span></span></li>
+				<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">The Performance Monitoring Dashboard has now been <strong>expanded to 165 </strong>indicators. This expansion includes the <strong>addition of</strong>&nbsp;<strong>54</strong> <strong>new indicators</strong>, significantly enhancing the comprehensiveness of infrastructure performance monitoring. </span></span></span></li>
+				<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">Quarterly update enhances transparency by making the latest infrastructure performance statistics available through a single, publicly accessible platform.</span></span></span></li>
+				<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">Sector-wise narratives highlighting key trends and performance across selected indicators have been incorporated to facilitate better interpretation and understanding of the data.</span></span></span></li>
+			</ul>
+			</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<p style="text-align:justify">&nbsp;</p>
+
+<ul style="margin-left:40px">
+	<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px">The PAIMANA-Performance Monitoring Dashboard provides a unified digital interface for monitoring sector-wise performance with interactive visualization and time-series analysis for improved accessibility for policymakers, researchers and stakeholders.</span></span></li>
+	<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px">The dashboard continues to monitor infrastructure performance using a standardized framework based on five dimensions - Access, Quality, Fiscal Cost &amp; Revenue, Utilization, and Affordability.</span></span></li>
+</ul>
+
+<ul style="margin-left:40px">
+	<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Distribution of Performance Indicators Across Infrastructure Sub-sectors:</strong></span></span></li>
+</ul>
+
+<table align="center" border="1" bordercolor="#ccc" cellpadding="5" cellspacing="0" class="Table" style="border-collapse:collapse">
+	<tbody>
+		<tr>
+			<td style="width:44.25pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong><span style="color:black">S. No</span></strong></span></span></p>
+			</td>
+			<td style="width:196.7pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong><span style="color:black">Infrastructure sub-sector</span></strong></span></span></p>
+			</td>
+			<td style="width:233.9pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong><span style="color:black">Total number of indicators as on 16<sup>th</sup> July, 2026</span></strong></span></span></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:44.25pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">1</span></span></span></p>
+			</td>
+			<td style="width:196.7pt">
+			<p><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">Civil Aviation</span></span></span></p>
+			</td>
+			<td style="width:233.9pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">31</span></span></span></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:44.25pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">2</span></span></span></p>
+			</td>
+			<td style="width:196.7pt">
+			<p><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">Roads</span></span></span></p>
+			</td>
+			<td style="width:233.9pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">8</span></span></span></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:44.25pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">3</span></span></span></p>
+			</td>
+			<td style="width:196.7pt">
+			<p><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">Power</span></span></span></p>
+			</td>
+			<td style="width:233.9pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">14</span></span></span></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:44.25pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">4</span></span></span></p>
+			</td>
+			<td style="width:196.7pt">
+			<p><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">Ports, Shipping &amp; Waterways</span></span></span></p>
+			</td>
+			<td style="width:233.9pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">62</span></span></span></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:44.25pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">5</span></span></span></p>
+			</td>
+			<td style="width:196.7pt">
+			<p><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">Telecommunications</span></span></span></p>
+			</td>
+			<td style="width:233.9pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">13</span></span></span></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:44.25pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">6</span></span></span></p>
+			</td>
+			<td style="width:196.7pt">
+			<p><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">Railways</span></span></span></p>
+			</td>
+			<td style="width:233.9pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">37</span></span></span></p>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="width:240.95pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong><span style="color:black">Total</span></strong></span></span></p>
+			</td>
+			<td style="width:233.9pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong><span style="color:black">165</span></strong></span></span></p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<p><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Sector-wise highlights from the quarterly update:</strong></span></span></p>
+
+<table border="1" bordercolor="#ccc" cellpadding="5" cellspacing="0" style="border-collapse:collapse">
+	<tbody>
+		<tr>
+			<td>
+			<div>
+			<ul style="margin-left:40px">
+				<li style="text-align:justify;"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">Civil Aviation: <strong>Cargo carried in April 2026 is 98,920.1 tonnes registering 11.8% growth</strong> over April 2025. The number of aerodromes has increased to 165 with an increase of 91 since 2014.</span></span></span></li>
+				<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">The Telecommunication sector sustained strong digital growth, with <strong>wireless/mobile data consumption reaching 2,85,376 petabytes (PB) during FY 2025&ndash;26 (24.7% YoY)</strong>. The number of telephone subscribers also increased from 120.17 crore in FY 2024&ndash;25 to 133.06 crore in FY 2025&ndash;26, recording a 10.7% growth. </span></span></span></li>
+				<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">Road Transport and Highways sector maintained steady progress, with <strong>9,360 km of National Highways constructed during FY 2025&ndash;26</strong>, contributing to enhanced road connectivity across the country. </span></span></span></li>
+				<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">Ports, Shipping &amp; Waterways sector recorded steady growth with <strong>2.06 crore passenger traffic</strong> at non-major ports during FY 2024&ndash;25. <strong>Coastal cargo handling increased to 196,808.7 thousand tonnes (3.09% YoY)</strong> at major ports and 142,219.4 thousand tonnes at non-major ports.</span></span></span></li>
+				<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">Railways sector improved <strong>freight and passenger performance</strong>, with the average carrying capacity of Broad Gauge wagons increasing to a record 64.0 tonnes per wagon in 2024&ndash;25, compared to 60.8 tonnes in 2015&ndash;16 and average number of passengers carried per day reached 19.98 million, in 2024-25 (5.8% YoY). </span></span></span></li>
+				<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">Power sector is poised for significant expansion in energy storage, <strong>with storage requirements projected to increase more than tenfold, from 87 GWh in 2027&ndash;28 to 888 GWh by 2035&ndash;36</strong>, driven by the rapid deployment of Battery Energy Storage Systems (BESS) and Pumped Storage Plants (PSPs).</span></span></span></li>
+			</ul>
+			</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<ul style="margin-left:40px">
+	<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Civil Aviation: </strong>In FY 2026-27 (up to May), <strong>passenger traffic reached 7.1 crore</strong> and <strong>cargo handled stood at 7.3 lakh tonnes</strong> (10.7% YoY), reflecting sustained demand. The sector also facilitated 10.52 lakh foreign tourist arrivals during April&ndash;May FY 2026&ndash;27, reinforcing its role in boosting trade, tourism and global connectivity.</span></span></li>
+</ul>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><img id="Picture_x0020_7" src="https://static.pib.gov.in/WriteReadData/userfiles/image/image003K9NJ.png" /> </span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><em>Number of foreign nationals arriving in India from FY 2015-16 onwards</em></span></span></p>
+
+<ul style="margin-left:40px">
+	<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Power: </strong>Energy storage capacity is projected to increase significantly across both major technologies, with <strong>Pumped Storage Plant (PSP) and Battery Energy Storage System (BESS) capacities reaching 94 GW and 80 GW, respectively, by 2035&ndash;36.</strong> The sustained growth reflects India&#39;s strategic focus on strengthening grid reliability and enabling higher renewable energy integration.</span></span></li>
+</ul>
+
+<p style="margin-right:9.2pt; text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><img id="Picture_x0020_9" src="https://static.pib.gov.in/WriteReadData/userfiles/image/image004A5HD.png" /> </span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><em>Energy storage capacity estimates till FY 2035-36</em></span></span></p>
+
+<ul style="margin-left:40px">
+	<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Telecommunications sector </strong>witnessed robust growth, with telecom infrastructure expanding to <strong>8.55 lakh towers (3.7% YoY) and 32.25 lakh Base Transceiver Stations (BTS) (7.4% YoY),</strong> while tele-density improved to 93.26% in FY 2025&ndash;26, reflecting deeper digital connectivity. </span></span></li>
+</ul>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong><img id="_x0000_i1031" src="https://static.pib.gov.in/WriteReadData/userfiles/image/image005TLB4.png" /> </strong></span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><em>Number of Mobile Towers &amp; Base Transceiver Stations from FY 2015-16 onwards</em></span></span></p>
+
+<ul style="margin-left:40px">
+	<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Road Transport and Highways sector:</strong> Digital tolling also strengthened, with electronic toll collection transactions rising to 88.1 crores (40.3% YoY) in FY 2026-27 (up to May), indicating <strong>wider adoption of cashless toll systems</strong>.</span></span></li>
+</ul>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><img id="_x0000_i1030" src="https://static.pib.gov.in/WriteReadData/userfiles/image/image006U94K.png" /> </span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><em>Quarterly electronic toll collection transactions</em></span></span></p>
+
+<ul style="margin-left:40px">
+	<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Railways Sector</strong> has enhanced both freight efficiency and network capacity, with average freight load per wagon increasing to about 68 tonnes and the rail network expanding to over 1.37 lakh track kilometers in 2024&ndash;25.<strong><em> </em></strong></span></span></li>
+</ul>
+
+<p style="margin-right:9.2pt; text-align:justify">&nbsp;</p>
+
+<p style="margin-right:9.2pt; text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong><em><img id="Picture_x0020_6" src="https://static.pib.gov.in/WriteReadData/userfiles/image/image007A08L.png" /> </em></strong><em>&nbsp;</em></span></span></p>
+
+<p style="margin-right:9.2pt; text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><em>Total length of railway tracks available for train operations</em> <em>from FY 2015-16 onwards</em></span></span></p>
+
+<p style="margin-right:9.2pt; text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><img id="Picture_x0020_5" src="https://static.pib.gov.in/WriteReadData/userfiles/image/image0083MB7.png" /> </span></span></p>
+
+<p style="margin-right:9.2pt; text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><em>Average quantity of freight (tonnes) carried by each Broad-Gauge wagon from FY 2015-16 onwards</em></span></span></p>
+
+<ul style="margin-left:40px">
+	<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Ports, Shipping and Waterways sector</strong> recorded strong growth, with India&#39;s fleet expanding to 1,592 vessels in 2025 (3% YoY), sea-borne trade for India nearly doubling from 76 million tonnes in 2015 to 145 million tonnes in 2023, and the inland water vessel fleet stands at 10,623 in 2024-25. The sector&#39;s growth was further supported by the expansion of total length of waterways to 29,151.9 km in FY 2024&ndash;25, strengthening multimodal logistics and enhancing maritime and inland water connectivity across the country.</span></span></li>
+</ul>
+
+<p style="margin-left:35.45pt; margin-right:0cm; text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><img id="Picture_x0020_3" src="https://static.pib.gov.in/WriteReadData/userfiles/image/image0093MJ2.png" /></span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><em>Sea-borne trade for India from 2015 onwards</em></span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong><img id="Picture_x0020_4" src="https://static.pib.gov.in/WriteReadData/userfiles/image/image010KA2Q.png" /> </strong></span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><em>Inland water vessel fleet from FY 2015-16 onwards</em></span></span></p>
+
+<p style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px">With the release of the quarterly update, the PAIMANA Performance Monitoring Dashboard continues to represent a major step towards enhancing transparency, efficiency, and accountability in infrastructure monitoring. Regular quarterly updates to the dashboard will continue to enhance transparency, facilitate evidence-based policymaking, and support informed decision-making for sustainable and inclusive infrastructure development.</span></span></p>
+
+<p style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Next date of Press Release:</strong> Dashboards for Performance Monitoring will be updated on a quarterly basis. Next update would be on 16<sup>th</sup> Oct 2026.</span></span></p>
+
+<p style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><em>Note</em>: <em>The press release summarizes highlights from the newly launched MoSPI&rsquo;s performance monitoring dashboard, available at </em><a href="https://paimana-perf.mospi.gov.in" target="_blank"><em>https://paimana-perf.mospi.gov.in</em></a><em> or via the QR code</em></span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><img id="Picture_x0020_8" src="https://static.pib.gov.in/WriteReadData/userfiles/image/image011ZTJL.png" /> </span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px">***</span></span></p>
+
+<p style="text-align:justify"><strong><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px">Samrat</span></span></strong></p>
+
+
+                        
+                        <div id="reel_pic">
+                        </div>
+
+
+
+                        
+                        <br />
+                        <span id="ReleaseId">(Release ID: 2285365)</span>
+                        <span id="lblViews">Visitor Counter : 2029</span>
+                        <div>
+                              
+                        </div>
+                        
+
+                        <span id="lblRefPhoto"></span>
+
+                        <div class="BackgroundRelease">
+                              
+                        </div>
+                        <div>
+                              
+                        </div>
+                        <div class="ReleaseLang">Read this release in: 
+                        
+                                    
+                                    <a href='https://pib.gov.in/PressReleasePage.aspx?PRID=2285443' target="_blank">
+                                          Urdu </a>
+                              
+                                    ,
+                              
+                                    
+                                    <a href='https://pib.gov.in/PressReleasePage.aspx?PRID=2285456' target="_blank">
+                                          हिन्दी </a>
+                              
+                        </div>
+
+                        <div class="RelTag">
+                              <ul>
+                                    
+                              </ul>
+                        </div>
+                        <div class="clear">
+                        </div>
+                        <div id="RelLink" class="RelLink">
+                              <ul>
+                                    
+                                    
+                              </ul>
+                        </div>
+                        <center>
+                              
+                        </center>
+                  </div>
+
+                  <div id="update12">
+	
+                              
+                              <input type="hidden" name="Hidden" id="Hidden" />
+                              <div id="P_CategoryManagement" class="ModalWindow" style="display: none">
+		
+                                    <div>
+                                          <input type="image" name="btnClose" id="btnClose" src="images/close_flat_icon.png" />
+                                    </div>
+                                    <div id="description">
+                                    </div>
+                                    <div class="text-center">
+                                          <h2>
+                                                
+                                                <br>
+                                                
+                                          </h2>
+                                    </div>
+                                    <br />
+                                    <div class="clear">
+                                    </div>
+                                    
+                              
+	</div>
+                        
+</div>
+            </div>
+            
+            <div id="PdfDiv" style="display: none;">
+                  <table width="100%">
+                        <tr>
+                              <td style="font-weight: 200; text-align: center">
+                                    Ministry of Statistics & Programme Implementation
+                                    <div style="height: 30px; width: 100%;">
+                                    </div>
+                                    <div style="font-weight: 200; text-align: center; font-size: 30px;">
+                                          Quarterly release of Performance Monitoring Dashboard of Infrastructure Sector in India
+                                    </div>
+                                    <div style="height: 30px; width: 100%;">
+                                    </div>
+                                    <div style="font-weight: 200; text-align: center; font-size: 30px;">
+                                          <div style='height:30px;width:100%;'></div>Strengthening evidence-based monitoring of infrastructure sub-sectors through timely dissemination of updated performance indicators
+                                    </div>
+                                    <div style="height: 30px; width: 100%;">
+                                    </div>
+                                    <div style="text-align: center; font-size: 14px;">
+                                          Posted On:
+                        16 JUL 2026 4:00PM by PIB Delhi
+                                    </div>
+                                    <div style="height: 30px; width: 100%;">
+                                    </div>
+                                    <div style="font-weight: 200; text-align: left; font-size: 16px;">
+                                          <p style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px">The Ministry of Statistics and Programme Implementation (MoSPI) is releasing the quarterly update of the PAIMANA (Project Assessment, Infrastructure Monitoring &amp; Analytics for Nation-building) Performance Dashboard, presenting the performance of key infrastructure sectors through a set of standardized indicators. The dashboard was launched on 16<sup>th</sup> April 2026 to strengthen infrastructure monitoring and evidence-based policymaking to provide a comprehensive view of the performance of key infrastructure sub-sectors. The latest quarterly update incorporates the most recent data across selected performance indicators, enabling timely monitoring, informed decision-making, and greater public access to official statistics.</span></span></p>
+
+<p style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Key Highlights of the quarterly update of the Performance Monitoring Dashboard:</strong></span></span></p>
+
+<table border="1" bordercolor="#ccc" cellpadding="5" cellspacing="0" style="border-collapse:collapse">
+	<tbody>
+		<tr>
+			<td>
+			<div>
+			<ul style="margin-left:40px">
+				<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">The quarterly update incorporates the latest data received from the respective Ministries/Departments, ensuring the timely dissemination of official infrastructure performance statistics.</span></span></span></li>
+				<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">The Performance Monitoring Dashboard has now been <strong>expanded to 165 </strong>indicators. This expansion includes the <strong>addition of</strong>&nbsp;<strong>54</strong> <strong>new indicators</strong>, significantly enhancing the comprehensiveness of infrastructure performance monitoring. </span></span></span></li>
+				<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">Quarterly update enhances transparency by making the latest infrastructure performance statistics available through a single, publicly accessible platform.</span></span></span></li>
+				<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">Sector-wise narratives highlighting key trends and performance across selected indicators have been incorporated to facilitate better interpretation and understanding of the data.</span></span></span></li>
+			</ul>
+			</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<p style="text-align:justify">&nbsp;</p>
+
+<ul style="margin-left:40px">
+	<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px">The PAIMANA-Performance Monitoring Dashboard provides a unified digital interface for monitoring sector-wise performance with interactive visualization and time-series analysis for improved accessibility for policymakers, researchers and stakeholders.</span></span></li>
+	<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px">The dashboard continues to monitor infrastructure performance using a standardized framework based on five dimensions - Access, Quality, Fiscal Cost &amp; Revenue, Utilization, and Affordability.</span></span></li>
+</ul>
+
+<ul style="margin-left:40px">
+	<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Distribution of Performance Indicators Across Infrastructure Sub-sectors:</strong></span></span></li>
+</ul>
+
+<table align="center" border="1" bordercolor="#ccc" cellpadding="5" cellspacing="0" class="Table" style="border-collapse:collapse">
+	<tbody>
+		<tr>
+			<td style="width:44.25pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong><span style="color:black">S. No</span></strong></span></span></p>
+			</td>
+			<td style="width:196.7pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong><span style="color:black">Infrastructure sub-sector</span></strong></span></span></p>
+			</td>
+			<td style="width:233.9pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong><span style="color:black">Total number of indicators as on 16<sup>th</sup> July, 2026</span></strong></span></span></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:44.25pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">1</span></span></span></p>
+			</td>
+			<td style="width:196.7pt">
+			<p><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">Civil Aviation</span></span></span></p>
+			</td>
+			<td style="width:233.9pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">31</span></span></span></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:44.25pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">2</span></span></span></p>
+			</td>
+			<td style="width:196.7pt">
+			<p><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">Roads</span></span></span></p>
+			</td>
+			<td style="width:233.9pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">8</span></span></span></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:44.25pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">3</span></span></span></p>
+			</td>
+			<td style="width:196.7pt">
+			<p><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">Power</span></span></span></p>
+			</td>
+			<td style="width:233.9pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">14</span></span></span></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:44.25pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">4</span></span></span></p>
+			</td>
+			<td style="width:196.7pt">
+			<p><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">Ports, Shipping &amp; Waterways</span></span></span></p>
+			</td>
+			<td style="width:233.9pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">62</span></span></span></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:44.25pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">5</span></span></span></p>
+			</td>
+			<td style="width:196.7pt">
+			<p><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">Telecommunications</span></span></span></p>
+			</td>
+			<td style="width:233.9pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">13</span></span></span></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:44.25pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">6</span></span></span></p>
+			</td>
+			<td style="width:196.7pt">
+			<p><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">Railways</span></span></span></p>
+			</td>
+			<td style="width:233.9pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="color:black">37</span></span></span></p>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="width:240.95pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong><span style="color:black">Total</span></strong></span></span></p>
+			</td>
+			<td style="width:233.9pt">
+			<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong><span style="color:black">165</span></strong></span></span></p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<p><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Sector-wise highlights from the quarterly update:</strong></span></span></p>
+
+<table border="1" bordercolor="#ccc" cellpadding="5" cellspacing="0" style="border-collapse:collapse">
+	<tbody>
+		<tr>
+			<td>
+			<div>
+			<ul style="margin-left:40px">
+				<li style="text-align:justify;"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">Civil Aviation: <strong>Cargo carried in April 2026 is 98,920.1 tonnes registering 11.8% growth</strong> over April 2025. The number of aerodromes has increased to 165 with an increase of 91 since 2014.</span></span></span></li>
+				<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">The Telecommunication sector sustained strong digital growth, with <strong>wireless/mobile data consumption reaching 2,85,376 petabytes (PB) during FY 2025&ndash;26 (24.7% YoY)</strong>. The number of telephone subscribers also increased from 120.17 crore in FY 2024&ndash;25 to 133.06 crore in FY 2025&ndash;26, recording a 10.7% growth. </span></span></span></li>
+				<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">Road Transport and Highways sector maintained steady progress, with <strong>9,360 km of National Highways constructed during FY 2025&ndash;26</strong>, contributing to enhanced road connectivity across the country. </span></span></span></li>
+				<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">Ports, Shipping &amp; Waterways sector recorded steady growth with <strong>2.06 crore passenger traffic</strong> at non-major ports during FY 2024&ndash;25. <strong>Coastal cargo handling increased to 196,808.7 thousand tonnes (3.09% YoY)</strong> at major ports and 142,219.4 thousand tonnes at non-major ports.</span></span></span></li>
+				<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">Railways sector improved <strong>freight and passenger performance</strong>, with the average carrying capacity of Broad Gauge wagons increasing to a record 64.0 tonnes per wagon in 2024&ndash;25, compared to 60.8 tonnes in 2015&ndash;16 and average number of passengers carried per day reached 19.98 million, in 2024-25 (5.8% YoY). </span></span></span></li>
+				<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><span style="background-color:#e7e6e6">Power sector is poised for significant expansion in energy storage, <strong>with storage requirements projected to increase more than tenfold, from 87 GWh in 2027&ndash;28 to 888 GWh by 2035&ndash;36</strong>, driven by the rapid deployment of Battery Energy Storage Systems (BESS) and Pumped Storage Plants (PSPs).</span></span></span></li>
+			</ul>
+			</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<ul style="margin-left:40px">
+	<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Civil Aviation: </strong>In FY 2026-27 (up to May), <strong>passenger traffic reached 7.1 crore</strong> and <strong>cargo handled stood at 7.3 lakh tonnes</strong> (10.7% YoY), reflecting sustained demand. The sector also facilitated 10.52 lakh foreign tourist arrivals during April&ndash;May FY 2026&ndash;27, reinforcing its role in boosting trade, tourism and global connectivity.</span></span></li>
+</ul>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><img id="Picture_x0020_7" src="https://static.pib.gov.in/WriteReadData/userfiles/image/image003K9NJ.png" /> </span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><em>Number of foreign nationals arriving in India from FY 2015-16 onwards</em></span></span></p>
+
+<ul style="margin-left:40px">
+	<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Power: </strong>Energy storage capacity is projected to increase significantly across both major technologies, with <strong>Pumped Storage Plant (PSP) and Battery Energy Storage System (BESS) capacities reaching 94 GW and 80 GW, respectively, by 2035&ndash;36.</strong> The sustained growth reflects India&#39;s strategic focus on strengthening grid reliability and enabling higher renewable energy integration.</span></span></li>
+</ul>
+
+<p style="margin-right:9.2pt; text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><img id="Picture_x0020_9" src="https://static.pib.gov.in/WriteReadData/userfiles/image/image004A5HD.png" /> </span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><em>Energy storage capacity estimates till FY 2035-36</em></span></span></p>
+
+<ul style="margin-left:40px">
+	<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Telecommunications sector </strong>witnessed robust growth, with telecom infrastructure expanding to <strong>8.55 lakh towers (3.7% YoY) and 32.25 lakh Base Transceiver Stations (BTS) (7.4% YoY),</strong> while tele-density improved to 93.26% in FY 2025&ndash;26, reflecting deeper digital connectivity. </span></span></li>
+</ul>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong><img id="_x0000_i1031" src="https://static.pib.gov.in/WriteReadData/userfiles/image/image005TLB4.png" /> </strong></span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><em>Number of Mobile Towers &amp; Base Transceiver Stations from FY 2015-16 onwards</em></span></span></p>
+
+<ul style="margin-left:40px">
+	<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Road Transport and Highways sector:</strong> Digital tolling also strengthened, with electronic toll collection transactions rising to 88.1 crores (40.3% YoY) in FY 2026-27 (up to May), indicating <strong>wider adoption of cashless toll systems</strong>.</span></span></li>
+</ul>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><img id="_x0000_i1030" src="https://static.pib.gov.in/WriteReadData/userfiles/image/image006U94K.png" /> </span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><em>Quarterly electronic toll collection transactions</em></span></span></p>
+
+<ul style="margin-left:40px">
+	<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Railways Sector</strong> has enhanced both freight efficiency and network capacity, with average freight load per wagon increasing to about 68 tonnes and the rail network expanding to over 1.37 lakh track kilometers in 2024&ndash;25.<strong><em> </em></strong></span></span></li>
+</ul>
+
+<p style="margin-right:9.2pt; text-align:justify">&nbsp;</p>
+
+<p style="margin-right:9.2pt; text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong><em><img id="Picture_x0020_6" src="https://static.pib.gov.in/WriteReadData/userfiles/image/image007A08L.png" /> </em></strong><em>&nbsp;</em></span></span></p>
+
+<p style="margin-right:9.2pt; text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><em>Total length of railway tracks available for train operations</em> <em>from FY 2015-16 onwards</em></span></span></p>
+
+<p style="margin-right:9.2pt; text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><img id="Picture_x0020_5" src="https://static.pib.gov.in/WriteReadData/userfiles/image/image0083MB7.png" /> </span></span></p>
+
+<p style="margin-right:9.2pt; text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><em>Average quantity of freight (tonnes) carried by each Broad-Gauge wagon from FY 2015-16 onwards</em></span></span></p>
+
+<ul style="margin-left:40px">
+	<li style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Ports, Shipping and Waterways sector</strong> recorded strong growth, with India&#39;s fleet expanding to 1,592 vessels in 2025 (3% YoY), sea-borne trade for India nearly doubling from 76 million tonnes in 2015 to 145 million tonnes in 2023, and the inland water vessel fleet stands at 10,623 in 2024-25. The sector&#39;s growth was further supported by the expansion of total length of waterways to 29,151.9 km in FY 2024&ndash;25, strengthening multimodal logistics and enhancing maritime and inland water connectivity across the country.</span></span></li>
+</ul>
+
+<p style="margin-left:35.45pt; margin-right:0cm; text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><img id="Picture_x0020_3" src="https://static.pib.gov.in/WriteReadData/userfiles/image/image0093MJ2.png" /></span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><em>Sea-borne trade for India from 2015 onwards</em></span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong><img id="Picture_x0020_4" src="https://static.pib.gov.in/WriteReadData/userfiles/image/image010KA2Q.png" /> </strong></span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><em>Inland water vessel fleet from FY 2015-16 onwards</em></span></span></p>
+
+<p style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px">With the release of the quarterly update, the PAIMANA Performance Monitoring Dashboard continues to represent a major step towards enhancing transparency, efficiency, and accountability in infrastructure monitoring. Regular quarterly updates to the dashboard will continue to enhance transparency, facilitate evidence-based policymaking, and support informed decision-making for sustainable and inclusive infrastructure development.</span></span></p>
+
+<p style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><strong>Next date of Press Release:</strong> Dashboards for Performance Monitoring will be updated on a quarterly basis. Next update would be on 16<sup>th</sup> Oct 2026.</span></span></p>
+
+<p style="text-align:justify"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><em>Note</em>: <em>The press release summarizes highlights from the newly launched MoSPI&rsquo;s performance monitoring dashboard, available at </em><a href="https://paimana-perf.mospi.gov.in" target="_blank"><em>https://paimana-perf.mospi.gov.in</em></a><em> or via the QR code</em></span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px"><img id="Picture_x0020_8" src="https://static.pib.gov.in/WriteReadData/userfiles/image/image011ZTJL.png" /> </span></span></p>
+
+<p style="text-align:center"><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px">***</span></span></p>
+
+<p style="text-align:justify"><strong><span style="font-family:Times New Roman,Times,serif"><span style="font-size:16px">Samrat</span></span></strong></p>
+
+                                    </div>
+                                    <div style="height: 30px; width: 100%;">
+                                    </div>
+                                    <div style="height: 30px; width: 100%;">
+                                    </div>
+                                    <div style="font-weight: 100; text-align: left; font-size: 16px;">
+                                          (Release ID: 2285365)
+                                    </div>
+                                    <div style="height: 30px; width: 100%;">
+                                    </div>
+                              </td>
+                        </tr>
+                        <tr>
+                              <td style="font-weight: 200; text-align: center; font-size: 24px;"></td>
+                        </tr>
+                  </table>
+            </div>
+            <div class="clearfix">
+            </div>
+
+            
+
+            <div class="section1">
+                  <div id="frst_t">
+                        <div id="arr_rm"><div class='sticky-social_mb'><ul class='social_mb'><a href='http://www.facebook.com/share.php?u=https://pib.gov.in/PressReleasePage.aspx?PRID=2285365' target='_blank'><li class='fb_b'   ><img  src='https://static.pib.gov.in/WriteReadData/userfiles/socialmedianew/facebook.jpg' alt='Share on facebook'  width='40' /></li></a><a href='https://twitter.com/intent/tweet?url=https://pib.gov.in/PressReleasePage.aspx?PRID=2285365&text=Quarterly release of Performance Monitoring Dashboard of Infrastructure Sector in India' target='_blank'><li class='twitter_r'  ><img  src='https://static.pib.gov.in/WriteReadData/specificdocs/photo/2023/aug/ph2023818240601.jpg' alt='Share on twitter' width='40' /> </li></a><a href='https://api.whatsapp.com/send?text=https://pib.gov.in/PressReleasePage.aspx?PRID=2285365' target='_blank'><li class='whatsapp_r'  ><img  src='https://static.pib.gov.in/WriteReadData/userfiles/socialmedianew/whatsapp1.png' alt='Share on whatsapp' width='40' /></li></a><a href='https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=&su=Quarterly release of Performance Monitoring Dashboard of Infrastructure Sector in India&body=https://pib.gov.in/PressReleasePage.aspx?PRID=2285365&ui=2&tf=1&pli=1' title='Share by Email' target='_blank'><li class='fa-envelope_r' ><img  src='https://static.pib.gov.in/WriteReadData/userfiles/socialmedianew/email1.png' alt='Share on email'  width='40' /></li></a><a href='https://www.linkedin.com/shareArticle?mini=true&url=https://pib.gov.in/PressReleasePage.aspx?PRID=2285365&title=Quarterly release of Performance Monitoring Dashboard of Infrastructure Sector in India&summary=My%20favorite%20developer%20program&source=LinkedIn' target='_blank'><li class='fa-linkedin_r'  ><img  src='https://static.pib.gov.in/WriteReadData/userfiles/socialmedianew/linkedin.png' alt='Share on linkedin' width='40' /></li></a></ul></div></div>
+                  </div>
+                  <div id="second_t">
+                        <div id="sndr_rm"><div class='sticky-social'><ul class='social'><a href='http://www.facebook.com/share.php?u=https://pib.gov.in/PressReleasePage.aspx?PRID=2285365' target='_blank'><li class='fb_b'   ><img  src='https://static.pib.gov.in/WriteReadData/userfiles/socialmedianew/facebook.jpg' alt='Share on facebook'  width='35' /></li></a><a href='https://twitter.com/intent/tweet?url=https://pib.gov.in/PressReleasePage.aspx?PRID=2285365&text=Quarterly release of Performance Monitoring Dashboard of Infrastructure Sector in India' target='_blank'><li class='twitter_r'  ><img  src='https://static.pib.gov.in/WriteReadData/specificdocs/photo/2023/aug/ph2023818240601.jpg' alt='Share on twitter' width='35' /> </li></a><a href='https://api.whatsapp.com/send?text=https://pib.gov.in/PressReleasePage.aspx?PRID=2285365' target='_blank'><li class='whatsapp_r'  ><img  src='https://static.pib.gov.in/WriteReadData/userfiles/socialmedianew/whatsapp1.png' alt='Share on whatsapp' width='35' /></li></a><a href='https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=&su=Quarterly release of Performance Monitoring Dashboard of Infrastructure Sector in India&body=https://pib.gov.in/PressReleasePage.aspx?PRID=2285365&ui=2&tf=1&pli=1' title='Share by Email' target='_blank'><li class='fa-envelope_r' ><img  src='https://static.pib.gov.in/WriteReadData/userfiles/socialmedianew/email1.png' alt='Share on email'  width='35' /></li></a><a href='https://www.linkedin.com/shareArticle?mini=true&url=https://pib.gov.in/PressReleasePage.aspx?PRID=2285365&title=Quarterly release of Performance Monitoring Dashboard of Infrastructure Sector in India&summary=My%20favorite%20developer%20program&source=LinkedIn' target='_blank'><li class='fa-linkedin_r'  ><img  src='https://static.pib.gov.in/WriteReadData/userfiles/socialmedianew/linkedin.png' alt='Share on linkedin' width='35' /></li></a></ul></div></div>
+                  </div>
+            </div>
+            <input type="hidden" name="ltrTitlee" id="ltrTitlee" value="Quarterly release of Performance Monitoring Dashboard of Infrastructure Sector in India" />
+            <input type="hidden" name="ltrSubtitlee" id="ltrSubtitlee" value="&lt;br/>Strengthening evidence-based monitoring of infrastructure sub-sectors through timely dissemination of updated performance indicators" />
+            <input type="hidden" name="ltrDescriptionn" id="ltrDescriptionn" value="&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>The Ministry of Statistics and Programme Implementation (MoSPI) is releasing the quarterly update of the PAIMANA (Project Assessment, Infrastructure Monitoring &amp;amp; Analytics for Nation-building) Performance Dashboard, presenting the performance of key infrastructure sectors through a set of standardized indicators. The dashboard was launched on 16th April 2026 to strengthen infrastructure monitoring and evidence-based policymaking to provide a comprehensive view of the performance of key infrastructure sub-sectors. The latest quarterly update incorporates the most recent data across selected performance indicators, enabling timely monitoring, informed decision-making, and greater public access to official statistics.&lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;strong>Key Highlights of the quarterly update of the Performance Monitoring Dashboard:&lt;/strong>&lt;/span>&lt;/span>&lt;/p>
+
+&lt;table border=&quot;1&quot; bordercolor=&quot;#ccc&quot; cellpadding=&quot;5&quot; cellspacing=&quot;0&quot; style=&quot;border-collapse:collapse&quot;>
+	&lt;tbody>
+		&lt;tr>
+			&lt;td>
+			&lt;div>
+			&lt;ul style=&quot;margin-left:40px&quot;>
+				&lt;li style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;background-color:#e7e6e6&quot;>The quarterly update incorporates the latest data received from the respective Ministries/Departments, ensuring the timely dissemination of official infrastructure performance statistics.&lt;/span>&lt;/span>&lt;/span>&lt;/li>
+				&lt;li style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;background-color:#e7e6e6&quot;>The Performance Monitoring Dashboard has now been &lt;strong>expanded to 165 &lt;/strong>indicators. This expansion includes the &lt;strong>addition of&lt;/strong>&amp;nbsp;&lt;strong>54&lt;/strong> &lt;strong>new indicators&lt;/strong>, significantly enhancing the comprehensiveness of infrastructure performance monitoring. &lt;/span>&lt;/span>&lt;/span>&lt;/li>
+				&lt;li style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;background-color:#e7e6e6&quot;>Quarterly update enhances transparency by making the latest infrastructure performance statistics available through a single, publicly accessible platform.&lt;/span>&lt;/span>&lt;/span>&lt;/li>
+				&lt;li style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;background-color:#e7e6e6&quot;>Sector-wise narratives highlighting key trends and performance across selected indicators have been incorporated to facilitate better interpretation and understanding of the data.&lt;/span>&lt;/span>&lt;/span>&lt;/li>
+			&lt;/ul>
+			&lt;/div>
+			&lt;/td>
+		&lt;/tr>
+	&lt;/tbody>
+&lt;/table>
+
+&lt;p style=&quot;text-align:justify&quot;>&amp;nbsp;&lt;/p>
+
+&lt;ul style=&quot;margin-left:40px&quot;>
+	&lt;li style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>The PAIMANA-Performance Monitoring Dashboard provides a unified digital interface for monitoring sector-wise performance with interactive visualization and time-series analysis for improved accessibility for policymakers, researchers and stakeholders.&lt;/span>&lt;/span>&lt;/li>
+	&lt;li style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>The dashboard continues to monitor infrastructure performance using a standardized framework based on five dimensions - Access, Quality, Fiscal Cost &amp;amp; Revenue, Utilization, and Affordability.&lt;/span>&lt;/span>&lt;/li>
+&lt;/ul>
+
+&lt;ul style=&quot;margin-left:40px&quot;>
+	&lt;li style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;strong>Distribution of Performance Indicators Across Infrastructure Sub-sectors:&lt;/strong>&lt;/span>&lt;/span>&lt;/li>
+&lt;/ul>
+
+&lt;table align=&quot;center&quot; border=&quot;1&quot; bordercolor=&quot;#ccc&quot; cellpadding=&quot;5&quot; cellspacing=&quot;0&quot; class=&quot;Table&quot; style=&quot;border-collapse:collapse&quot;>
+	&lt;tbody>
+		&lt;tr>
+			&lt;td style=&quot;width:44.25pt&quot;>
+			&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;strong>&lt;span style=&quot;color:black&quot;>S. No&lt;/span>&lt;/strong>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+			&lt;td style=&quot;width:196.7pt&quot;>
+			&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;strong>&lt;span style=&quot;color:black&quot;>Infrastructure sub-sector&lt;/span>&lt;/strong>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+			&lt;td style=&quot;width:233.9pt&quot;>
+			&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;strong>&lt;span style=&quot;color:black&quot;>Total number of indicators as on 16th July, 2026&lt;/span>&lt;/strong>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+		&lt;/tr>
+		&lt;tr>
+			&lt;td style=&quot;width:44.25pt&quot;>
+			&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;color:black&quot;>1&lt;/span>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+			&lt;td style=&quot;width:196.7pt&quot;>
+			&lt;p>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;color:black&quot;>Civil Aviation&lt;/span>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+			&lt;td style=&quot;width:233.9pt&quot;>
+			&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;color:black&quot;>31&lt;/span>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+		&lt;/tr>
+		&lt;tr>
+			&lt;td style=&quot;width:44.25pt&quot;>
+			&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;color:black&quot;>2&lt;/span>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+			&lt;td style=&quot;width:196.7pt&quot;>
+			&lt;p>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;color:black&quot;>Roads&lt;/span>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+			&lt;td style=&quot;width:233.9pt&quot;>
+			&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;color:black&quot;>8&lt;/span>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+		&lt;/tr>
+		&lt;tr>
+			&lt;td style=&quot;width:44.25pt&quot;>
+			&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;color:black&quot;>3&lt;/span>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+			&lt;td style=&quot;width:196.7pt&quot;>
+			&lt;p>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;color:black&quot;>Power&lt;/span>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+			&lt;td style=&quot;width:233.9pt&quot;>
+			&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;color:black&quot;>14&lt;/span>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+		&lt;/tr>
+		&lt;tr>
+			&lt;td style=&quot;width:44.25pt&quot;>
+			&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;color:black&quot;>4&lt;/span>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+			&lt;td style=&quot;width:196.7pt&quot;>
+			&lt;p>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;color:black&quot;>Ports, Shipping &amp;amp; Waterways&lt;/span>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+			&lt;td style=&quot;width:233.9pt&quot;>
+			&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;color:black&quot;>62&lt;/span>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+		&lt;/tr>
+		&lt;tr>
+			&lt;td style=&quot;width:44.25pt&quot;>
+			&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;color:black&quot;>5&lt;/span>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+			&lt;td style=&quot;width:196.7pt&quot;>
+			&lt;p>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;color:black&quot;>Telecommunications&lt;/span>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+			&lt;td style=&quot;width:233.9pt&quot;>
+			&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;color:black&quot;>13&lt;/span>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+		&lt;/tr>
+		&lt;tr>
+			&lt;td style=&quot;width:44.25pt&quot;>
+			&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;color:black&quot;>6&lt;/span>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+			&lt;td style=&quot;width:196.7pt&quot;>
+			&lt;p>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;color:black&quot;>Railways&lt;/span>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+			&lt;td style=&quot;width:233.9pt&quot;>
+			&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;color:black&quot;>37&lt;/span>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+		&lt;/tr>
+		&lt;tr>
+			&lt;td colspan=&quot;2&quot; style=&quot;width:240.95pt&quot;>
+			&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;strong>&lt;span style=&quot;color:black&quot;>Total&lt;/span>&lt;/strong>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+			&lt;td style=&quot;width:233.9pt&quot;>
+			&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;strong>&lt;span style=&quot;color:black&quot;>165&lt;/span>&lt;/strong>&lt;/span>&lt;/span>&lt;/p>
+			&lt;/td>
+		&lt;/tr>
+	&lt;/tbody>
+&lt;/table>
+
+&lt;p>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;strong>Sector-wise highlights from the quarterly update:&lt;/strong>&lt;/span>&lt;/span>&lt;/p>
+
+&lt;table border=&quot;1&quot; bordercolor=&quot;#ccc&quot; cellpadding=&quot;5&quot; cellspacing=&quot;0&quot; style=&quot;border-collapse:collapse&quot;>
+	&lt;tbody>
+		&lt;tr>
+			&lt;td>
+			&lt;div>
+			&lt;ul style=&quot;margin-left:40px&quot;>
+				&lt;li style=&quot;text-align:justify;&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;background-color:#e7e6e6&quot;>Civil Aviation: &lt;strong>Cargo carried in April 2026 is 98,920.1 tonnes registering 11.8% growth&lt;/strong> over April 2025. The number of aerodromes has increased to 165 with an increase of 91 since 2014.&lt;/span>&lt;/span>&lt;/span>&lt;/li>
+				&lt;li style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;background-color:#e7e6e6&quot;>The Telecommunication sector sustained strong digital growth, with &lt;strong>wireless/mobile data consumption reaching 2,85,376 petabytes (PB) during FY 2025&amp;ndash;26 (24.7% YoY)&lt;/strong>. The number of telephone subscribers also increased from 120.17 crore in FY 2024&amp;ndash;25 to 133.06 crore in FY 2025&amp;ndash;26, recording a 10.7% growth. &lt;/span>&lt;/span>&lt;/span>&lt;/li>
+				&lt;li style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;background-color:#e7e6e6&quot;>Road Transport and Highways sector maintained steady progress, with &lt;strong>9,360 km of National Highways constructed during FY 2025&amp;ndash;26&lt;/strong>, contributing to enhanced road connectivity across the country. &lt;/span>&lt;/span>&lt;/span>&lt;/li>
+				&lt;li style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;background-color:#e7e6e6&quot;>Ports, Shipping &amp;amp; Waterways sector recorded steady growth with &lt;strong>2.06 crore passenger traffic&lt;/strong> at non-major ports during FY 2024&amp;ndash;25. &lt;strong>Coastal cargo handling increased to 196,808.7 thousand tonnes (3.09% YoY)&lt;/strong> at major ports and 142,219.4 thousand tonnes at non-major ports.&lt;/span>&lt;/span>&lt;/span>&lt;/li>
+				&lt;li style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;background-color:#e7e6e6&quot;>Railways sector improved &lt;strong>freight and passenger performance&lt;/strong>, with the average carrying capacity of Broad Gauge wagons increasing to a record 64.0 tonnes per wagon in 2024&amp;ndash;25, compared to 60.8 tonnes in 2015&amp;ndash;16 and average number of passengers carried per day reached 19.98 million, in 2024-25 (5.8% YoY). &lt;/span>&lt;/span>&lt;/span>&lt;/li>
+				&lt;li style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;span style=&quot;background-color:#e7e6e6&quot;>Power sector is poised for significant expansion in energy storage, &lt;strong>with storage requirements projected to increase more than tenfold, from 87 GWh in 2027&amp;ndash;28 to 888 GWh by 2035&amp;ndash;36&lt;/strong>, driven by the rapid deployment of Battery Energy Storage Systems (BESS) and Pumped Storage Plants (PSPs).&lt;/span>&lt;/span>&lt;/span>&lt;/li>
+			&lt;/ul>
+			&lt;/div>
+			&lt;/td>
+		&lt;/tr>
+	&lt;/tbody>
+&lt;/table>
+
+&lt;ul style=&quot;margin-left:40px&quot;>
+	&lt;li style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;strong>Civil Aviation: &lt;/strong>In FY 2026-27 (up to May), &lt;strong>passenger traffic reached 7.1 crore&lt;/strong> and &lt;strong>cargo handled stood at 7.3 lakh tonnes&lt;/strong> (10.7% YoY), reflecting sustained demand. The sector also facilitated 10.52 lakh foreign tourist arrivals during April&amp;ndash;May FY 2026&amp;ndash;27, reinforcing its role in boosting trade, tourism and global connectivity.&lt;/span>&lt;/span>&lt;/li>
+&lt;/ul>
+
+&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;img id=&quot;Picture_x0020_7&quot; src=&quot;https://static.pib.gov.in/WriteReadData/userfiles/image/image003K9NJ.png&quot; /> &lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;em>Number of foreign nationals arriving in India from FY 2015-16 onwards&lt;/em>&lt;/span>&lt;/span>&lt;/p>
+
+&lt;ul style=&quot;margin-left:40px&quot;>
+	&lt;li style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;strong>Power: &lt;/strong>Energy storage capacity is projected to increase significantly across both major technologies, with &lt;strong>Pumped Storage Plant (PSP) and Battery Energy Storage System (BESS) capacities reaching 94 GW and 80 GW, respectively, by 2035&amp;ndash;36.&lt;/strong> The sustained growth reflects India&amp;#39;s strategic focus on strengthening grid reliability and enabling higher renewable energy integration.&lt;/span>&lt;/span>&lt;/li>
+&lt;/ul>
+
+&lt;p style=&quot;margin-right:9.2pt; text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;img id=&quot;Picture_x0020_9&quot; src=&quot;https://static.pib.gov.in/WriteReadData/userfiles/image/image004A5HD.png&quot; /> &lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;em>Energy storage capacity estimates till FY 2035-36&lt;/em>&lt;/span>&lt;/span>&lt;/p>
+
+&lt;ul style=&quot;margin-left:40px&quot;>
+	&lt;li style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;strong>Telecommunications sector &lt;/strong>witnessed robust growth, with telecom infrastructure expanding to &lt;strong>8.55 lakh towers (3.7% YoY) and 32.25 lakh Base Transceiver Stations (BTS) (7.4% YoY),&lt;/strong> while tele-density improved to 93.26% in FY 2025&amp;ndash;26, reflecting deeper digital connectivity. &lt;/span>&lt;/span>&lt;/li>
+&lt;/ul>
+
+&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;strong>&lt;img id=&quot;_x0000_i1031&quot; src=&quot;https://static.pib.gov.in/WriteReadData/userfiles/image/image005TLB4.png&quot; /> &lt;/strong>&lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;em>Number of Mobile Towers &amp;amp; Base Transceiver Stations from FY 2015-16 onwards&lt;/em>&lt;/span>&lt;/span>&lt;/p>
+
+&lt;ul style=&quot;margin-left:40px&quot;>
+	&lt;li style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;strong>Road Transport and Highways sector:&lt;/strong> Digital tolling also strengthened, with electronic toll collection transactions rising to 88.1 crores (40.3% YoY) in FY 2026-27 (up to May), indicating &lt;strong>wider adoption of cashless toll systems&lt;/strong>.&lt;/span>&lt;/span>&lt;/li>
+&lt;/ul>
+
+&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;img id=&quot;_x0000_i1030&quot; src=&quot;https://static.pib.gov.in/WriteReadData/userfiles/image/image006U94K.png&quot; /> &lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;em>Quarterly electronic toll collection transactions&lt;/em>&lt;/span>&lt;/span>&lt;/p>
+
+&lt;ul style=&quot;margin-left:40px&quot;>
+	&lt;li style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;strong>Railways Sector&lt;/strong> has enhanced both freight efficiency and network capacity, with average freight load per wagon increasing to about 68 tonnes and the rail network expanding to over 1.37 lakh track kilometers in 2024&amp;ndash;25.&lt;strong>&lt;em> &lt;/em>&lt;/strong>&lt;/span>&lt;/span>&lt;/li>
+&lt;/ul>
+
+&lt;p style=&quot;margin-right:9.2pt; text-align:justify&quot;>&amp;nbsp;&lt;/p>
+
+&lt;p style=&quot;margin-right:9.2pt; text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;strong>&lt;em>&lt;img id=&quot;Picture_x0020_6&quot; src=&quot;https://static.pib.gov.in/WriteReadData/userfiles/image/image007A08L.png&quot; /> &lt;/em>&lt;/strong>&lt;em>&amp;nbsp;&lt;/em>&lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;margin-right:9.2pt; text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;em>Total length of railway tracks available for train operations&lt;/em> &lt;em>from FY 2015-16 onwards&lt;/em>&lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;margin-right:9.2pt; text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;img id=&quot;Picture_x0020_5&quot; src=&quot;https://static.pib.gov.in/WriteReadData/userfiles/image/image0083MB7.png&quot; /> &lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;margin-right:9.2pt; text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;em>Average quantity of freight (tonnes) carried by each Broad-Gauge wagon from FY 2015-16 onwards&lt;/em>&lt;/span>&lt;/span>&lt;/p>
+
+&lt;ul style=&quot;margin-left:40px&quot;>
+	&lt;li style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;strong>Ports, Shipping and Waterways sector&lt;/strong> recorded strong growth, with India&amp;#39;s fleet expanding to 1,592 vessels in 2025 (3% YoY), sea-borne trade for India nearly doubling from 76 million tonnes in 2015 to 145 million tonnes in 2023, and the inland water vessel fleet stands at 10,623 in 2024-25. The sector&amp;#39;s growth was further supported by the expansion of total length of waterways to 29,151.9 km in FY 2024&amp;ndash;25, strengthening multimodal logistics and enhancing maritime and inland water connectivity across the country.&lt;/span>&lt;/span>&lt;/li>
+&lt;/ul>
+
+&lt;p style=&quot;margin-left:35.45pt; margin-right:0cm; text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;img id=&quot;Picture_x0020_3&quot; src=&quot;https://static.pib.gov.in/WriteReadData/userfiles/image/image0093MJ2.png&quot; />&lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;em>Sea-borne trade for India from 2015 onwards&lt;/em>&lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;strong>&lt;img id=&quot;Picture_x0020_4&quot; src=&quot;https://static.pib.gov.in/WriteReadData/userfiles/image/image010KA2Q.png&quot; /> &lt;/strong>&lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;em>Inland water vessel fleet from FY 2015-16 onwards&lt;/em>&lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>With the release of the quarterly update, the PAIMANA Performance Monitoring Dashboard continues to represent a major step towards enhancing transparency, efficiency, and accountability in infrastructure monitoring. Regular quarterly updates to the dashboard will continue to enhance transparency, facilitate evidence-based policymaking, and support informed decision-making for sustainable and inclusive infrastructure development.&lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;strong>Next date of Press Release:&lt;/strong> Dashboards for Performance Monitoring will be updated on a quarterly basis. Next update would be on 16th Oct 2026.&lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:justify&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;em>Note&lt;/em>: &lt;em>The press release summarizes highlights from the newly launched MoSPI&amp;rsquo;s performance monitoring dashboard, available at &lt;/em>&lt;a href=&quot;https://paimana-perf.mospi.gov.in&quot; target=&quot;_blank&quot;>&lt;em>https://paimana-perf.mospi.gov.in&lt;/em>&lt;/a>&lt;em> or via the QR code&lt;/em>&lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>&lt;img id=&quot;Picture_x0020_8&quot; src=&quot;https://static.pib.gov.in/WriteReadData/userfiles/image/image011ZTJL.png&quot; /> &lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:center&quot;>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>***&lt;/span>&lt;/span>&lt;/p>
+
+&lt;p style=&quot;text-align:justify&quot;>&lt;strong>&lt;span style=&quot;font-family:Times New Roman,Times,serif&quot;>&lt;span style=&quot;font-size:16px&quot;>Samrat&lt;/span>&lt;/span>&lt;/strong>&lt;/p>
+" />
+            <script type="text/javascript">
+                  var mPlayer = document.getElementById("background_music");
+                  var mPlayAction = document.getElementById("playbutton");
+
+                  var isPlaying = false;
+
+                  function playAudio() {
+                        mPlayer.play();
+                        isPlaying = true;
+                        document.getElementById('stopA').style.display = "block";
+                        document.getElementById('playA').style.display = "none";
+                  }
+
+                  function pauseAudio() {
+                        mPlayer.pause();
+                        isPlaying = false;
+                        document.getElementById('playA').style.display = "block";
+                        document.getElementById('stopA').style.display = "none";
+                  }
+                  //function HandleAudio() {
+                  //    if (isPlaying == true) {
+                  //        //Playing already Pause it
+                  //        pauseAudio();
+                  //    } else {
+                  //        //Play the music
+                  //        playAudio();
+                  //    }
+                  //}
+            </script>
+            <script type="text/javascript">
+                  var synth = window.speechSynthesis;
+
+            
+                  function CleanHtml(html) {
+
+                        html = html.replace(/<script[\s\S]*?<\/script>/gi, '');
+
+                        return html;
+                  }
+                  function stripHtml(html) {
+                        let tmp = document.createElement("DIV");
+                        tmp.innerHTML = CleanHtml(html);
+                        return tmp.textContent || tmp.innerText || "";
+                  }
+            </script>
+            <script type="text/javascript">
+                  $(document).ready(function () {
+                        //for responsive tables
+                        $("table").each(function () {
+                              if (!$(this).closest(".table-responsive").length) {
+                                    $(this).wrap("<div class='table-responsive'></div>");
+                              }
+                        });
+
+                        var width = $(window).width();
+                        if (width < 768) {
+
+                              // Extra Small Device
+                              document.getElementById('frst_t').style.display = "block";
+                              document.getElementById('second_t').style.display = "none";
+
+                        } else if (width < 991) {
+                              document.getElementById('frst_t').style.display = "block";
+                              document.getElementById('second_t').style.display = "none";
+                              // Small Device
+
+                        } else if (width < 1199) {
+                              document.getElementById('frst_t').style.display = "none";
+                              document.getElementById('second_t').style.display = "block";
+                              // Medium Device
+
+                        } else {
+                              document.getElementById('frst_t').style.display = "none";
+                              document.getElementById('second_t').style.display = "block";
+                              // Large Device
+
+                        }
+                  });
+            </script>
+            <script type="text/javascript">
+                  $(document).ready(function () {
+                        var width = $(window).width();
+                        if (width < 768) {
+
+                              // Extra Small Device
+                              document.getElementById('frst_t').style.display = "block";
+                              document.getElementById('second_t').style.display = "none";
+
+                        } else if (width < 991) {
+                              document.getElementById('frst_t').style.display = "block";
+                              document.getElementById('second_t').style.display = "none";
+                              // Small Device
+
+                        } else if (width < 1199) {
+                              document.getElementById('frst_t').style.display = "none";
+                              document.getElementById('second_t').style.display = "block";
+                              // Medium Device
+
+                        } else {
+                              document.getElementById('frst_t').style.display = "none";
+                              document.getElementById('second_t').style.display = "block";
+                              // Large Device
+
+                        }
+                  });
+            </script>
+            
+            <style type="text/css">
+                  @media print {
+                        .sticky-social, .sticky-social_mb, .pull-right, #printPDF {
+                              display: none !important;
+                        }
+                  }
+
+                  .f_vl {
+                        padding-right: 30px;
+                        font-size: 17px;
+                        cursor: pointer;
+                  }
+
+                  .log_oo {
+                        // width: 20%;
+                        display: flex;
+                        justify-content: space-between;
+                  }
+
+                        .log_oo img {
+                              width: 150px;
+                              /*width: 100%;
+                    height: auto;*/
+                        }
+
+                  .sticky-social_mb {
+                        position: fixed;
+                        bottom: 0px;
+                        padding: 0px;
+                        margin: 0px;
+                        width: 100%;
+                  }
+
+                  .social_mb {
+                        list-style: none;
+                        display: flex;
+                        width: 100%;
+                        margin-bottom: -8px;
+                  }
+
+                        .social_mb a {
+                              padding: 8px 0px;
+                              font-size: 30px;
+                              transition: all 0.8s ease-in-out;
+                              width: 20% !important;
+                              text-align: center;
+                        }
+            </style>
+            <style type="text/css">
+                  .section1 {
+                        position: relative;
+                        padding: 10px 0px;
+                        width: 100%;
+                  }
+
+
+
+                  .sticky-social {
+                        position: fixed;
+                        top: 20px;
+                        left: 0px;
+                        padding: 0px;
+                        margin: 0px;
+                  }
+
+                  .social {
+                        list-style: none;
+                  }
+
+                        .social a li {
+                              padding: 8px 12px;
+                              font-size: 25px;
+                              transition: all 0.8s ease-in-out;
+                        }
+
+                              .social a li:hover {
+                                    margin-right: -30px;
+                                    box-shadow: 2px 5px 10px grey;
+                              }
+
+                                    .social a li:hover .fa {
+                                          margin-left: 20px;
+                                    }
+
+                  .fb_b {
+                        /* background-color: rgb(59, 89, 152);*/
+                        background-color: rgba(65,103,178,255);
+                  }
+
+                  .twitter_r {
+                        /* background-color: rgb(29, 161, 242);*/
+                        background-color: #000000;
+                  }
+
+                  .whatsapp_r {
+                        /* background-color: rgb(77, 194, 71);*/
+                        background-color: rgba(13,191,67,255);
+                  }
+
+                  .fa-envelope_r {
+                        /* background-color: rgb(219, 68, 55);*/
+                        background-color: #e2123d;
+                  }
+
+                  .fa-linkedin_r {
+                        background-color: rgb(0, 119, 181);
+                  }
+            </style>
+            <style type="text/css">
+                  @media only screen and (max-device-width: 767px) {
+                        p span img {
+                              max-width: 90% !important;
+                              height: auto !important;
+                        }
+
+                        p img {
+                              max-width: 90% !important;
+                              height: auto !important;
+                        }
+
+                        h2 {
+                              font-size: var(--dbim-h2, 20px);   /* was 20px !important - the !important blocked A+/A- */
+                              font-weight: 600 !important;
+                        }
+
+                        h3 {
+                              font-size: var(--dbim-h3, 16px);   /* was 16px !important */
+                              font-weight: 600 !important;
+                        }
+                  }
+            </style>
+            <style type="text/css">
+                  /* === Film Roll Badge Styling(IFFI2025 countdown) === */
+                  .film-roll-badge {
+                        position: absolute;
+                        top:82%;
+                        right: 20px;
+                        width: 230px;
+                        height: 70px;
+                        background: repeating-linear-gradient( to right, #9a2375 0px, #9a2375 18px, #6e2b8b 18px, #6e2b8b 36px );
+                        border-top: 8px solid #9a2375;
+                        border-bottom: 8px solid #9a2375;
+                        border-radius: 8px;
+                        overflow: hidden;
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+                        animation: moveFilm 8s linear infinite;
+                        z-index: 10;
+                  }
+
+                        /* film sprocket holes */
+                        .film-roll-badge::before,
+                        .film-roll-badge::after {
+                              content: "";
+                              position: absolute;
+                              width: 100%;
+                              height: 10px;
+                              background: repeating-linear-gradient( to right, #9a2375 0px, #9a2375 10px, #fff 10px, #fff 20px );
+                              left: 0;
+                              z-index: 2;
+                        }
+
+                        .film-roll-badge::before {
+                              top: -4px;
+                        }
+
+                        .film-roll-badge::after {
+                              bottom: -4px;
+                        }
+
+                  .film-roll-inner {
+                        position: relative;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        animation: flicker 2s infinite ease-in-out;
+                  }
+
+                  .countdown-text {
+                        font-size: 1.3rem;
+                        font-weight: 700;
+                        color: #fff;
+                        text-shadow: 0 0 6px rgba(255, 255, 255, 0.4), 0 0 10px #000;
+                        white-space: nowrap;
+                  }
+
+                  /* === Animations === */
+                  @keyframes moveFilm {
+                        0% {
+                              background-position: 0 0;
+                        }
+
+                        100% {
+                              background-position: 120px 0;
+                        }
+                  }
+
+                  @keyframes flicker {
+                        0%, 100% {
+                              opacity: 1;
+                        }
+
+                        50% {
+                              opacity: 0.9;
+                        }
+
+                        25% {
+                              opacity: 0.95;
+                        }
+
+                        75% {
+                              opacity: 0.85;
+                        }
+                  }
+
+                  /* === Responsive Adjustments === */
+                  @media (max-width: 1500px) {
+                        .film-roll-badge {
+                              top: 68%;
+                              right: 18px;
+                              /* width: 220px; */
+                              height: 65px;
+                              font-size: 0.85rem;
+                        }
+
+                        .press-section {
+                              margin-top: 35px;
+                        }
+                  }
+
+                  @media (max-width: 992px) {
+                        .film-roll-badge {
+                              top: 52%;
+                              right: 10px;
+                               width: 200px; 
+                              height: 60px;
+                        }
+                  }
+
+                  @media (max-width: 768px) {
+                        .film-roll-badge {
+                              top: 56%;
+                              right: 10px;
+                               width: 124px; 
+                              height: 55px;
+                        }
+
+                        .countdown-text {
+                              font-size: 0.9rem;
+                        }
+                  }
+
+                  @media (max-width: 576px) {
+                        .film-roll-badge {
+                              top: 59%;
+                              right: 5px;
+                              /* width: 160px; */
+                              height: 50px;
+                        }
+
+                        .countdown-text {
+                              font-size: 0.85rem;
+                        }
+                  }
+            </style>
+          <script type="text/javascript">
+                const festivalStart = new Date("2025-11-20T00:00:00").getTime();
+                const festivalEnd = new Date("2025-11-28T23:59:59").getTime();
+
+                const countdownElement = document.getElementById("countdown");
+
+                const interval = setInterval(() => {
+                      const now = new Date().getTime();
+
+                      // BEFORE FESTIVAL — show days + hours left
+                      if (now < festivalStart) {
+                            const diff = festivalStart - now;
+                            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+                            countdownElement.innerHTML = `
+              ${days} Day${days !== 1 ? 's' : ''} 
+              ${hours} Hour${hours !== 1 ? 's' : ''} to go
+          `;
+
+                      }
+
+                      // DURING FESTIVAL — show 56th IFFI - Day X
+                      else if (now >= festivalStart && now <= festivalEnd) {
+                            const dayNumber = Math.floor((now - festivalStart) / (1000 * 60 * 60 * 24)) + 1;
+                            countdownElement.innerHTML = `56th IFFI - Day ${dayNumber}`;
+                      }
+
+                      // AFTER FESTIVAL — new message
+                      else {
+                            countdownElement.innerHTML = `✨ IFFI closes but never ends…`;
+
+                            // Width change logic
+                            const elements = document.querySelectorAll('.film-roll-badge');
+                            elements.forEach(el => el.style.width = "350px");
+
+                            clearInterval(interval);
+                      }
+
+                }, 1000);
+          </script>
+ <script type="text/javascript">
+
+               const miffStart = new Date("2026-06-15T00:00:00").getTime();
+               const miffEnd = new Date("2026-06-15T23:59:59").getTime();
+
+               const miffElement = document.getElementById("miff");
+
+               if (miffElement) {
+
+                   const miffInterval = setInterval(() => {
+
+                       const now = new Date().getTime();
+
+                       // Before MIFF
+                       if (now < miffStart) {
+
+                           const diff = miffStart - now;
+                           const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                           const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+        
+
+                   /*  miffElement.innerHTML = `${days} Day${days !== 1 ? 's' : ''} ${hours} Hour${hours !== 1 ? 's' : ''} to MIFF`;*/
+                           miffElement.innerHTML = `${days} Day${days === 1 ? '' : 's'} to MIFF ...`;
+
+
+                     }
+
+                       // During MIFF
+                       else if (now >= miffStart && now <= miffEnd) {
+
+                           const dayNumber =
+                               Math.floor((now - miffStart) / (1000 * 60 * 60 * 24)) + 1;
+
+                           miffElement.innerHTML = `19th MIFF - Day ${dayNumber}`;
+                       }
+
+                       // After MIFF
+                       else {
+
+                           miffElement.innerHTML = `✨ MIFF concludes, cinema lives on...`;
+
+                           document.querySelectorAll('.film-roll-badge')
+                               .forEach(el => el.style.width = "350px");
+
+                           clearInterval(miffInterval);
+                       }
+
+                   }, 1000);
+               }
+
+</script>
+
+      
+
+<script type="text/javascript">
+//<![CDATA[
+(function() {var fn = function() {$get("sc_HiddenField").value = '';Sys.Application.remove_init(fn);};Sys.Application.add_init(fn);})();Sys.Application.add_init(function() {
+    $create(Sys.Extended.UI.ModalPopupBehavior, {"BackgroundCssClass":"modalBackground","PopupControlID":"P_CategoryManagement","dynamicServicePath":"/PressReleasePage.aspx","id":"mpe"}, null, null, $get("Hidden"));
+});
+//]]>
+</script>
+<input type="hidden" name="__ncforminfo" value="WR6Ws6RHD6-bTecYOrzHAxKjDLmsIXdJ2bVhqSsUeIx0O-j0PUS9ba3vakDvQiaitnMmBlePWuX0Rpoi87Zrr8hO0S_5pa4j"/></form>
+      
+      
+
+<script type="application/json" id="pibConsentConfig">{"ga4Id":"G-Q414Y0X6EE,G-QJJ6LZ8LHV","policyUrl":"/CookiePolicy.aspx","text":{"bannerLabel":"Cookie consent","title":"Cookies on this website","body":"We use essential cookies to make this website work. We also set analytics cookies when you arrive, so we can see how the site is used and improve it - you can switch these off below or at any time from the Cookie Policy page. Cookies from embedded social media content are set only if you allow them.","policyLink":"Read our Cookie Policy","accept":"Accept all","reject":"Reject optional","customize":"Customise","prefsTitle":"Cookie preferences","prefsIntro":"Choose which cookies this website may set. Essential cookies cannot be switched off because the site does not work without them. Analytics cookies are on unless you turn them off. Social media cookies stay off until you allow them. You can change these choices at any time from the Cookie Policy page.","essentialName":"Essential cookies","essentialDesc":"Needed for the site to function. These remember your session, your language and region, your text size and colour theme, and verify the security check on forms. They are always on.","analyticsName":"Analytics cookies","analyticsDesc":"Help us understand how visitors use the site - which pages are read and how long people stay - so it can be improved. The information is collected in a form that does not directly identify you. These are on when you arrive; switching them off here stops them and deletes the ones already set.","socialName":"Social media cookies","socialDesc":"Set by content embedded from X, Facebook and YouTube, such as timelines and videos. These platforms may use them to track you across websites. They stay off until you allow them.","save":"Save preferences","cancel":"Cancel"}}</script>
+<script type="text/javascript" src='/js/consent.js?v=9'></script>
+
+<script type="text/javascript" src='/js/consent-embeds.js?v=9'></script>
+
+</body>
+</html>
+
