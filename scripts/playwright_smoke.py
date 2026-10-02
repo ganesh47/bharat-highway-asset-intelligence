@@ -13,6 +13,60 @@ from typing import Union
 import pandas as pd
 
 
+CANVAS_TEXT_AUDIT = r"""(() => {
+    const prototype = CanvasRenderingContext2D.prototype;
+    const originalClear = prototype.clearRect;
+    const originalText = prototype.fillText;
+    prototype.clearRect = function(...args) {
+        this.canvas.__textAudit = [];
+        return originalClear.apply(this, args);
+    };
+    prototype.fillText = function(text, x, y, ...args) {
+        const result = originalText.call(this, text, x, y, ...args);
+        const metrics = this.measureText(String(text));
+        const transform = this.getTransform();
+        const corners = [
+            [x - metrics.actualBoundingBoxLeft, y - metrics.actualBoundingBoxAscent],
+            [x + metrics.actualBoundingBoxRight, y - metrics.actualBoundingBoxAscent],
+            [x - metrics.actualBoundingBoxLeft, y + metrics.actualBoundingBoxDescent],
+            [x + metrics.actualBoundingBoxRight, y + metrics.actualBoundingBoxDescent],
+        ].map(([px, py]) => transform.transformPoint(new DOMPoint(px, py)));
+        (this.canvas.__textAudit ||= []).push({
+            text: String(text),
+            left: Math.min(...corners.map(point => point.x)),
+            right: Math.max(...corners.map(point => point.x)),
+            top: Math.min(...corners.map(point => point.y)),
+            bottom: Math.max(...corners.map(point => point.y)),
+        });
+        return result;
+    };
+})();"""
+
+
+async def _assert_canvas_text_bounds(card, integer_years: bool = False):
+    canvas = card.locator('canvas')
+    audit = await canvas.evaluate("""canvas => ({
+        width: canvas.width, height: canvas.height,
+        labels: canvas.getAttribute('data-x-tick-labels') || '',
+        records: canvas.__textAudit || [],
+        name: canvas.getAttribute('aria-label') || '',
+    })""")
+    if not audit['records']:
+        raise RuntimeError('Chart has no audited text')
+    clipped = [record['text'] for record in audit['records']
+               if record['left'] < -1 or record['right'] > audit['width'] + 1
+               or record['top'] < -1 or record['bottom'] > audit['height'] + 1]
+    if clipped:
+        raise RuntimeError(f"Canvas axis labels clipped: {clipped}")
+    if not audit['name']:
+        raise RuntimeError('Chart has no accessible unit/axis description')
+    if integer_years:
+        labels = audit['labels'].split('|')
+        if not labels or labels[0] != '2020' or labels[-1] != '2022' or any(label not in {'2020', '2021', '2022'} for label in labels):
+            raise RuntimeError(f"Year ticks must use observed ungrouped integer years: {labels}")
+    return audit
+
+
 async def _canvas_non_transparent_pixels(canvas_locator) -> int:
     return await canvas_locator.evaluate(
         """(canvas) => {
@@ -228,7 +282,7 @@ else:
 
 def _frontend_fixture_script(source: str) -> str:
     """Exercise the deployed pure calculation functions, including invalid joins."""
-    names = ["num", "completeSum", "statePortfolioObservation", "unrectifiedShare", "fmtNum", "sourceTypeTag", "analyticalReady", "disclosureReady", "confidenceFromSources", "humanMetric", "disclosureTheme", "validCitation", "disclosureCutoffKnown", "disclosureEligible", "disclosureMeasured", "disclosureVisible", "disclosureQualifier", "csvText", "deriveDisclosureInsights", "netcPaymentHighlights", "netcPaymentSeries", "netcMonthTick"]
+    names = ["num", "observedAxisTicks", "completeSum", "statePortfolioObservation", "unrectifiedShare", "fmtNum", "sourceTypeTag", "analyticalReady", "disclosureReady", "confidenceFromSources", "humanMetric", "disclosureTheme", "validCitation", "disclosureCutoffKnown", "disclosureEligible", "disclosureMeasured", "disclosureVisible", "disclosureQualifier", "csvText", "deriveDisclosureInsights", "netcPaymentHighlights", "netcPaymentSeries", "netcMonthTick"]
     blocks = []
     for name in names:
         start = re.search(r"^function " + re.escape(name) + r"\(", source, re.MULTILINE)
@@ -241,6 +295,8 @@ def _frontend_fixture_script(source: str) -> str:
     const failures = [];
     const check = (condition, label) => { if (!condition) failures.push(label); };
     check(num(null) === null && num('') === null && num(0) === 0, 'missing values versus observed zero');
+    check(JSON.stringify(observedAxisTicks([2022,2020,2020,2021,null,''],6)) === '[2020,2021,2022]', 'year ticks retain only observed sorted years');
+    check(JSON.stringify(observedAxisTicks([2020,2021,2022],2)) === '[2020,2022]', 'narrow year axes retain observed endpoints');
     check(completeSum([10,20,0,30,40]) === 100, 'five observed construction years summed');
     check(completeSum([0,0,0,0,0]) === 0, 'five observed zero years retained');
     check(completeSum([10,20,null,30,40]) === null, 'partial construction years are not a full five-year total');
@@ -334,6 +390,7 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         context = await browser.new_context()
+        await context.add_init_script(script=CANVAS_TEXT_AUDIT)
         page = await context.new_page()
 
         page.on("console", lambda message: _handle_console(message, console_errors))
@@ -539,6 +596,13 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
             if not any("Issuer disclosures:" in text for text in summary_text):
                 raise RuntimeError("Issuer disclosure coverage missing")
             await validate_charts(REQUIRED_CHARTS)
+            for viewport in [{'width': 1440, 'height': 1100}, {'width': 390, 'height': 844}]:
+                await page.set_viewport_size(viewport)
+                await page.wait_for_timeout(250)
+                for title, integer_years in [('NH Fatality Trend by State/UT (official, 2020-2022)', True), ('Economic Scale vs NH Extent by State/UT', False)]:
+                    card = page.locator('.insight-chart').filter(has=page.locator('.chart-title', has_text=title))
+                    await _assert_canvas_text_bounds(card, integer_years)
+            await page.set_viewport_size({'width': 1280, 'height': 720})
             module_url = await page.evaluate("new URL('src/app.js', location.href).href")
             module_response = await page.request.get(module_url)
             if not module_response.ok:

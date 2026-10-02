@@ -653,6 +653,13 @@ function axisTicks(min, max, count = 5) {
   return Array.from({ length: count }, (_, index) => min + step * index);
 }
 
+function observedAxisTicks(values, count = 6) {
+  const observed = [...new Set(values.map((value) => num(value)).filter(Number.isFinite))].sort((a, b) => a - b);
+  const limit = Math.max(2, Math.floor(count));
+  if (observed.length <= limit) return observed;
+  return Array.from({ length: limit }, (_, index) => observed[Math.round(index * (observed.length - 1) / (limit - 1))]);
+}
+
 function formatTick(value, asYear = false) {
   const v = num(value, null);
   if (v === null || !Number.isFinite(v)) {
@@ -1152,16 +1159,13 @@ function MultiLineChart({
   const xMax = xRange.max;
   const yMin = yRange.min;
   const yMax = yRange.max;
-  const xAxisTicks = axisTicks(xMin, xMax, 6);
   const yAxisTicks = axisTicks(yMin, yMax, 5);
 
-  const width = 980;
   const computedHeight = Number.isFinite(num(chartHeight))
     ? Math.round(num(chartHeight))
     : Math.round(290 * chartScale);
   const height = Math.max(120, computedHeight);
-  const pad = { top: 16, right: 16, bottom: 26, left: 42 };
-  const plotW = width - pad.left - pad.right;
+  const pad = { top: 16, right: 16, bottom: 50, left: 110 };
   const plotH = height - pad.top - pad.bottom;
   const palette = ['#1b4d91', '#0a8f52', '#b07a00', '#a0182d', '#5f4eeb', '#5f8a4e'];
   const chartRef = useRef(null);
@@ -1192,10 +1196,16 @@ function MultiLineChart({
       return;
     }
 
+    const logicalWidth = rect.width;
+    const plotW = logicalWidth - pad.left - pad.right;
+    const tickCount = clamp(Math.floor(plotW / 100) + 1, 2, 6);
+    const yearAxis = /^year$/i.test(String(xAxisLabel).trim()) && allSeries.every((point) => Number.isInteger(num(point.x)));
+    const xAxisTicks = yearAxis ? observedAxisTicks(allSeries.map((point) => point.x), tickCount) : axisTicks(xMin, xMax, tickCount);
+    const tickLabel = (tick) => yearAxis ? String(tick) : xTick ? String(xTick(tick)) : formatTick(tick);
+    canvas.setAttribute('data-x-tick-labels', xAxisTicks.map(tickLabel).join('|'));
     const xScale = (value) => pad.left + ((num(value) - xMin) / (xMax - xMin)) * plotW;
     const yScale = (value) => pad.top + (1 - (num(value) - yMin) / (yMax - yMin)) * plotH;
     const dpr = window.devicePixelRatio || 1;
-    const logicalWidth = width;
     const logicalHeight = height;
     const scaleX = rect.width / logicalWidth;
     const scaleY = rect.height / logicalHeight;
@@ -1216,12 +1226,12 @@ function MultiLineChart({
 
     ctx.beginPath();
     ctx.moveTo(pad.left * scaleX, (pad.top + plotH) * scaleY);
-    ctx.lineTo((width - pad.right) * scaleX, (pad.top + plotH) * scaleY);
+    ctx.lineTo((logicalWidth - pad.right) * scaleX, (pad.top + plotH) * scaleY);
     ctx.moveTo(pad.left * scaleX, pad.top * scaleY);
     ctx.lineTo(pad.left * scaleX, (pad.top + plotH) * scaleY);
     ctx.stroke();
 
-    xAxisTicks.forEach((tick) => {
+    xAxisTicks.forEach((tick, index) => {
       const x = xScale(tick) * scaleX;
       const baseline = (pad.top + plotH) * scaleY;
       ctx.beginPath();
@@ -1231,8 +1241,9 @@ function MultiLineChart({
       ctx.stroke();
       ctx.fillStyle = '#3b5068';
       ctx.font = '11px Trebuchet MS, Segoe UI, Arial, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText(formatTick(tick, true), x, baseline + 17);
+      ctx.textAlign = xAxisTicks.length === 1 ? 'center' : index === 0 ? 'left' : index === xAxisTicks.length - 1 ? 'right' : 'center';
+      ctx.textBaseline = 'alphabetic';
+      ctx.fillText(tickLabel(tick), x, baseline + 17);
     });
 
     yAxisTicks.forEach((tick) => {
@@ -1280,7 +1291,7 @@ function MultiLineChart({
     ctx.textAlign = 'center';
     ctx.textBaseline = 'bottom';
     ctx.font = '12px Trebuchet MS, Segoe UI, Arial, sans-serif';
-    ctx.fillText(xAxisLabel, width * 0.5 * scaleX, height - 2);
+    ctx.fillText(xAxisLabel, logicalWidth * 0.5 * scaleX, height - 2);
     ctx.save();
     ctx.translate(12, height * 0.5 * scaleY);
     ctx.rotate(-Math.PI / 2);
@@ -1288,7 +1299,7 @@ function MultiLineChart({
     ctx.textBaseline = 'top';
     ctx.fillText(yAxisLabel, 0, 0);
     ctx.restore();
-  }, [allSeries, flattenedLayers, xMin, xMax, yMin, yMax, width, height, pad.left, pad.right, pad.top, pad.bottom, xAxisTicks, yAxisTicks, xAxisLabel, yAxisLabel, multiResizeTick]);
+  }, [allSeries, flattenedLayers, xMin, xMax, yMin, yMax, height, pad.left, pad.right, pad.top, pad.bottom, yAxisTicks, xTick, xAxisLabel, yAxisLabel, multiResizeTick]);
 
   useEffect(() => {
     const canvas = chartRef.current;
@@ -1318,11 +1329,10 @@ function MultiLineChart({
     const rect = chartRef.current.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-    const scaleX = rect.width / width;
     const scaleY = rect.height / height;
-    const plotW = width - pad.left - pad.right;
+    const plotW = rect.width - pad.left - pad.right;
     const plotH = height - pad.top - pad.bottom;
-    const xScaleToPixel = (value) => (pad.left + ((num(value) - xMin) / (xMax - xMin)) * plotW) * scaleX;
+    const xScaleToPixel = (value) => pad.left + ((num(value) - xMin) / (xMax - xMin)) * plotW;
     const yScaleToPixel = (value) => (pad.top + (1 - (num(value) - yMin) / (yMax - yMin)) * plotH) * scaleY;
 
     let best = null;
@@ -1371,6 +1381,8 @@ function MultiLineChart({
       React.createElement('canvas', {
         ref: chartRef,
         className: 'chart-canvas',
+        role: 'img',
+        'aria-label': `${title}. ${xAxisLabel}; ${yAxisLabel}. ${allSeries.length} observations.`,
         style: { width: '100%', height: `${height}px`, display: 'block' },
         onMouseMove: (event) => {
           const point = nearestPoint(event);
@@ -1668,13 +1680,11 @@ function ScatterChart({
   ];
 
 
-  const width = 980;
   const computedHeight = Number.isFinite(num(chartHeight))
     ? Math.round(num(chartHeight))
     : Math.round(300 * chartScale);
   const height = Math.max(120, computedHeight);
-  const pad = { top: 20, right: 20, bottom: 28, left: 42 };
-  const plotW = width - pad.left - pad.right;
+  const pad = { top: 20, right: 20, bottom: 50, left: 110 };
   const plotH = height - pad.top - pad.bottom;
 
   const xMinRaw = points.map((point) => num(point.x));
@@ -1687,7 +1697,6 @@ function ScatterChart({
   const xMax = xRange.max;
   const yMin = yRange.min;
   const yMax = yRange.max;
-  const xAxisTicks = axisTicks(xMin, xMax, 6);
   const yAxisTicks = axisTicks(yMin, yMax, 5);
   const observedRadii = points.map((point) => num(point.radius)).filter(Number.isFinite);
   const rMin = observedRadii.length ? Math.min(...observedRadii) : 0;
@@ -1716,10 +1725,13 @@ function ScatterChart({
       return;
     }
 
+    const logicalWidth = rect.width;
+    const plotW = logicalWidth - pad.left - pad.right;
+    const xAxisTicks = axisTicks(xMin, xMax, clamp(Math.floor(plotW / 110) + 1, 2, 6));
+    canvas.setAttribute('data-x-tick-labels', xAxisTicks.map((tick) => formatTick(tick)).join('|'));
     const xScale = (x) => pad.left + ((num(x) - xMin) / (xMax - xMin)) * plotW;
     const yScale = (y) => pad.top + (1 - (num(y) - yMin) / (yMax - yMin)) * plotH;
     const dpr = window.devicePixelRatio || 1;
-    const logicalWidth = width;
     const logicalHeight = height;
     const scaleX = rect.width / logicalWidth;
     const scaleY = rect.height / logicalHeight;
@@ -1739,12 +1751,12 @@ function ScatterChart({
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(pad.left * scaleX, (pad.top + plotH) * scaleY);
-    ctx.lineTo((width - pad.right) * scaleX, (pad.top + plotH) * scaleY);
+    ctx.lineTo((logicalWidth - pad.right) * scaleX, (pad.top + plotH) * scaleY);
     ctx.moveTo(pad.left * scaleX, pad.top * scaleY);
     ctx.lineTo(pad.left * scaleX, (pad.top + plotH) * scaleY);
     ctx.stroke();
 
-    xAxisTicks.forEach((tick) => {
+    xAxisTicks.forEach((tick, index) => {
       const x = xScale(tick) * scaleX;
       const baseline = (pad.top + plotH) * scaleY;
       ctx.beginPath();
@@ -1754,7 +1766,8 @@ function ScatterChart({
       ctx.stroke();
       ctx.fillStyle = '#3b5068';
       ctx.font = '11px Trebuchet MS, Segoe UI, Arial, sans-serif';
-      ctx.textAlign = 'center';
+      ctx.textAlign = index === 0 ? 'left' : index === xAxisTicks.length - 1 ? 'right' : 'center';
+      ctx.textBaseline = 'alphabetic';
       ctx.fillText(formatTick(tick), x, baseline + 17);
     });
 
@@ -1785,7 +1798,7 @@ function ScatterChart({
     ctx.textAlign = 'center';
     ctx.textBaseline = 'bottom';
     ctx.font = '12px Trebuchet MS, Segoe UI, Arial, sans-serif';
-    ctx.fillText(resolvedXAxisLabel, width * 0.5 * scaleX, height - 2);
+    ctx.fillText(resolvedXAxisLabel, logicalWidth * 0.5 * scaleX, height - 2);
     ctx.save();
     ctx.translate(12, height * 0.5 * scaleY);
     ctx.rotate(-Math.PI / 2);
@@ -1793,7 +1806,7 @@ function ScatterChart({
     ctx.textBaseline = 'top';
     ctx.fillText(resolvedYAxisLabel, 0, 0);
     ctx.restore();
-  }, [points, xMin, xMax, yMin, yMax, width, height, pad.left, pad.right, pad.top, pad.bottom, xAxisTicks, yAxisTicks, resolvedXAxisLabel, resolvedYAxisLabel, rMin, rMax, scatterResizeTick]);
+  }, [points, xMin, xMax, yMin, yMax, height, pad.left, pad.right, pad.top, pad.bottom, yAxisTicks, resolvedXAxisLabel, resolvedYAxisLabel, rMin, rMax, scatterResizeTick]);
 
   useEffect(() => {
     const canvas = chartRef.current;
@@ -1823,11 +1836,10 @@ function ScatterChart({
     const rect = chartRef.current.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-    const scaleX = rect.width / width;
     const scaleY = rect.height / height;
-    const plotW = width - pad.left - pad.right;
+    const plotW = rect.width - pad.left - pad.right;
     const plotH = height - pad.top - pad.bottom;
-    const xScaleToPixel = (value) => (pad.left + ((num(value) - xMin) / (xMax - xMin)) * plotW) * scaleX;
+    const xScaleToPixel = (value) => pad.left + ((num(value) - xMin) / (xMax - xMin)) * plotW;
     const yScaleToPixel = (value) => (pad.top + (1 - (num(value) - yMin) / (yMax - yMin)) * plotH) * scaleY;
 
     let best = null;
@@ -1872,6 +1884,8 @@ function ScatterChart({
       React.createElement('canvas', {
         ref: chartRef,
         className: 'chart-canvas',
+        role: 'img',
+        'aria-label': `${title}. ${resolvedXAxisLabel}; ${resolvedYAxisLabel}. ${points.length} observations.`,
         style: { width: '100%', height: `${height}px`, display: 'block' },
         onMouseMove: (event) => {
           const point = nearestPoint(event);
