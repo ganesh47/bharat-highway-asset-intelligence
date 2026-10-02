@@ -1,0 +1,195 @@
+{
+  "research_cutoff": "2026-10-02",
+  "scope": "National highways finance, issuer disclosures, project progress and latest network/safety publication checks",
+  "primary_discovery_evidence": [
+    {
+      "url": "https://nhai.gov.in/nhai/api/rest_api",
+      "method": "POST",
+      "http_status": 200,
+      "retrieved_at": "2026-10-02T08:11:07.894205+00:00",
+      "sha256": "c4be0fbe8ba16c840b5d66bcdcbe5fe0251789f1523d87300ccc294da6471039",
+      "size_bytes": 3675,
+      "snapshot_path": "manual/evidence/national_issuer_completion_discovery/nhai-audited-results.json",
+      "discovery_contract": "Multipart nid=audited-results, language=en; endpoint and route from official Angular CMS chunk"
+    },
+    {
+      "url": "https://nhai.gov.in/nhai/api/rest_api",
+      "method": "POST",
+      "http_status": 200,
+      "retrieved_at": "2026-10-02T08:11:07.949857+00:00",
+      "sha256": "eb0cd5d291389874c19614bee230a08eef4c3d11960f2d2f981edeca2950dc64",
+      "size_bytes": 18748,
+      "snapshot_path": "manual/evidence/national_issuer_completion_discovery/nhai-quarterly-financials.json",
+      "discovery_contract": "Multipart nid=quarterly-financials, language=en; endpoint and route from official Angular CMS chunk"
+    },
+    {
+      "url": "https://morth.gov.in/backend/api/reports",
+      "method": "GET",
+      "http_status": 200,
+      "retrieved_at": "2026-10-02T08:13:08.311549+00:00",
+      "sha256": "ade7acfc9a0b32532338c9434064eb3e901f0325bbf8ea315fdbd3e0135b35d2",
+      "size_bytes": 90787,
+      "snapshot_path": "manual/evidence/national_issuer_completion_discovery/morth_reports.json",
+      "discovery_contract": "Reports API firstpage, official website JS"
+    },
+    {
+      "url": "https://morth.gov.in/backend/api/reports?page=2",
+      "method": "GET",
+      "http_status": 200,
+      "retrieved_at": "2026-10-02T08:18:26.998246+00:00",
+      "sha256": "463e416c135523c62194dd719ea3cf96e6cf62abfa12ac37df885647b92d1e6e",
+      "size_bytes": 32899,
+      "snapshot_path": "manual/evidence/national_issuer_completion_discovery/morth_reports_page2.json",
+      "discovery_contract": "Official response pagination lastpage2; secondpage inspected"
+    },
+    {
+      "url": "https://nhit.co.in/reports/",
+      "method": "GET",
+      "http_status": 200,
+      "retrieved_at": "2026-10-02T08:03:02.561737+00:00",
+      "sha256": "e29e22bfb529be216b84978217fed54c04f12544276e5e8c344100b2bdd0ebd9",
+      "size_bytes": 413070,
+      "snapshot_path": "manual/evidence/national_issuer_completion_discovery/nhit_reports.html",
+      "discovery_contract": "Issuer publication index; financial presentations/filings inspected"
+    }
+  ],
+  "outcomes": [
+    {
+      "source_id": "nhai_financial_results_2025_26_to_2026_06",
+      "outcome": "new_validated_publications",
+      "observed_periods": [
+        "2025-06-30",
+        "2025-09-30",
+        "2025-12-31",
+        "2026-03-31",
+        "2026-06-30"
+      ],
+      "fact_count": 196,
+      "eligible_fact_count": 196,
+      "typed_original_filing_versions": 5,
+      "canonical_versions": 1,
+      "explicit_revision_records": 34,
+      "publication_date": null,
+      "assurance": "limited_review_unaudited",
+      "extraction_notes": "Five retrieved source PDFs rendered/visually reviewed. No publication day inferred. June2026 notes(g),(i) support March2026 comparative recasts. Cash/debt/gross receipts/CFI/claim cutoffs separated; clipped or ambiguous comparative cells explicitly omitted."
+    },
+    {
+      "source_id": "nhai_audited_results_pdf",
+      "outcome": "checked_index_no_newer_audited_filing",
+      "latest_index_period": "FY2023-24",
+      "index_periods": [
+        "FY2023-24",
+        "FY2022-23",
+        "FY2021-22"
+      ],
+      "notes": "Official audited-results CMS lists these three years. No FY2024-25/FY2025-26 audited PDF found there; absence is index-scope discovery, not universal nonexistence. December2025/March2026 filings refer to FY2024-25 under-audit revisions. June2026 notes cite statutory-auditor observations on FY2025-26 and explicitly restate March2026; every selected current statement column remains labelled unaudited/limited-review, not relabelled audited."
+    },
+    {
+      "source_id": "nhit_quarterly_operations_finance",
+      "outcome": "checked_current",
+      "observed_period": "2026-06-30",
+      "publication_date": "2026-08-31",
+      "url": "https://nhit.co.in/pdf/investor-presentations/Investor%20Presentation%20June%202026.pdf",
+      "existing_fact_count": 117,
+      "notes": "31August2026 publication already represented,117facts.5June2026 investor presentation concerns31March2026. No September-quarter financial disclosure found in checked issuer index on2October2026; September trading-window notice is not a quarterly financial statement. No duplicate source/facts added."
+    },
+    {
+      "source_id": "nhit_annual_report",
+      "outcome": "checked_current",
+      "observed_period": "2026-03-31",
+      "existing_fact_count": 62,
+      "url": "https://nhit.co.in/pdf/annual-report/NHIT_Annual%20Report%20FY%202025-26.pdf",
+      "notes": "FY2025-26 annual report already validated. Printed maturity dashes remain omitted, not invented zero."
+    },
+    {
+      "source_id": "upeida_ganga_progress_2026_04_27",
+      "outcome": "new_validated_publication",
+      "observed_period": "2026-04-27",
+      "publication_date": "2026-04-27",
+      "fact_count": 8,
+      "eligible_fact_count": 8,
+      "sha256": "b387e33686b57676bdf259f5e18ba239a17789cd33f3b968e89a0ae7adc9a399",
+      "notes": "One-page source PDF accessibleHTTP200. Native extraction misses Hindi-font date; rendered original explicitly dated27.04.2026. Independent official link-table upload27-04-2026. Overall98%,5components100%,1498total/completedstructures; not post-inauguration current progress or fiscal data."
+    },
+    {
+      "source_id": "upeida_expressway_projects",
+      "outcome": "retained_legacy_gap_with_validated_companion",
+      "notes": "Old undated HTML figures remain quarantined; dated PDF companion adds actual physical progress without silently dating/replacing unrelated undated project lengths/costs."
+    },
+    {
+      "source_id": "msrdc_financial_disclosures",
+      "outcome": "restricted_retrieval_requires_manual_publisher_bytes",
+      "attempts": [
+        {
+          "url": "https://msrdc.in/site/upload/pdf/MSRDC-STANDALONE-31032019.pdf",
+          "failure": "ConnectTimeout",
+          "connect_timeout_seconds": 12
+        },
+        {
+          "url": "https://msrdc.in/site/upload/pdf/MIPL_Financial%20Statement%20%26%20Audit%20Report_FY%2023-24_compressed.pdf",
+          "failure": "ConnectTimeout",
+          "connect_timeout_seconds": 12
+        },
+        {
+          "url": "https://msrdc.in/site/upload/pdf/MREL%20Scanned%20Signed%20Financials%2023-24_0001.pdf",
+          "failure": "ConnectTimeout",
+          "connect_timeout_seconds": 12
+        },
+        {
+          "url": "https://msrdc.in/Site/Upload/GR/Monthly%20Toll%20Collection%20Data%20NH%2048%20-%20Jan%202026.pdf",
+          "failure": "ConnectTimeout",
+          "connect_timeout_seconds": 12
+        }
+      ],
+      "notes": "Actual official parentFY2018-19 and MIPL/MREL subsidiaryFY2023-24 download URLs attempted, plus indexedJan2026NH48tollPDF. Requests connect-timeout; web retrieval also timed out or exceeded PDF transport cap. CUA browser inventory unavailable to this worker. Search snippets/index labels not promoted into measurements. Parent/subsidiary entities and annual-pass receivables require separate future extraction."
+    },
+    {
+      "source_id": "adb_state_road_projects",
+      "outcome": "checked_validated_historical_with_restricted_new_project_candidate",
+      "observed_period": "2025-05-19",
+      "existing_fact_count": 77,
+      "eligible_fact_count": 70,
+      "pinned_document_url": "https://www.adb.org/sites/default/files/project-documents/52298/52298-001-apfs-en_3.pdf",
+      "pinned_document_sha256": "d8d949023e38e46929f39edf948b642fcc670d34332e841ba186121d0b955ffd",
+      "candidate_project_url": "https://www.adb.org/projects/52298-002/main",
+      "candidate_accounts_index_url": "https://www.adb.org/projects/documents/ind-52298-002-apfs-0",
+      "candidate_retrieval_status": 403,
+      "notes": "Existing project52298-001 final cash accounts through19May2025 remain validated. Related project52298-002 APFSFY2024-25 index identified; direct project/indexHTTP403. No verified PDFhref/document bytes for new candidate; no invented PDF suffix or numerical search-snippet facts. Loan utilisation, cash project expenditures and road-finance agency scopes remain separate."
+    },
+    {
+      "source_id": "morth_road_accidents_2024_final",
+      "outcome": "checked_official_index_current",
+      "latest_available_observed_period": "2024-12-31",
+      "api_latest_title": "Road Accidents in India2024",
+      "notes": "Both pages of reports API inspected.2024 is latest road-accident report listed; no2025report found. APIpublished_date2024-01-01 is a year-placeholder and not used as publication day."
+    },
+    {
+      "source_id": "morth_state_highway_network",
+      "outcome": "checked_official_index_current",
+      "latest_report_period": "Basic Road Statistics of India2020-22",
+      "notes": "Both pages reports API inspected; no2023-24BRS found. APIpublished_date2020-01-01 is a placeholder. Latest network fact from newer annual report uses31December2025NHstock; it does not advance old SHnetwork tables."
+    },
+    {
+      "source_id": "morth_annual_report_2025_26",
+      "outcome": "checked_official_index_current",
+      "latest_network_observed_period": "2025-12-31",
+      "publication_date": "2026-03-30",
+      "notes": "FY2025-26annual report remains latest official reports API entry. Report year is not observation cutoff; no new all-state SH2026stock inferred."
+    },
+    {
+      "source_id": "npci_netc_monthly_statistics",
+      "outcome": "rendered_primary_checked_unchanged",
+      "latest_available_complete_month": "2026-08",
+      "observed_period": "2026-08-31",
+      "verification_channel": "Parent agent rendered official NPCI IAB tab9 on2October2026",
+      "verified_top_row": {
+        "month": "August-2026",
+        "issuers": "40banks",
+        "issuances": "129085045",
+        "volume_million_transactions": "351.00",
+        "amount_inr_crore": "7185.03"
+      },
+      "notes": "FY2026-27primary table top rowAugust2026 followedJuly/June/May/April, noSeptembermonthlyrow. Exact exclusion Annual pass and Maharashtra Electric Vehicle exempted data is not included in the NETC transaction data. Existing governedcapture unchanged; thirdparty partialSeptembersearchresults not promoted."
+    }
+  ]
+}

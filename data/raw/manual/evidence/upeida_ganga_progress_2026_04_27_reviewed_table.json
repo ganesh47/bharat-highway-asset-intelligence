@@ -1,0 +1,66 @@
+{
+  "source_id": "upeida_ganga_progress_2026_04_27",
+  "document_sha256": "b387e33686b57676bdf259f5e18ba239a17789cd33f3b968e89a0ae7adc9a399",
+  "reviewed_at": "2026-10-02",
+  "review_method": "pdftoppm one-page rendered PDF inspected visually; printed Hindi date27.04.2026 verified directly; native text cannot reproduce date because font encoding omits it",
+  "data_as_of": "2026-04-27",
+  "published_at": "2026-04-27",
+  "publication_support": {
+    "url": "https://upeida.up.gov.in/en/article/ganga-expressway",
+    "snapshot_path": "manual/evidence/upeida_ganga_progress_2026_04_27_official_index.html",
+    "sha256": "ab7c4c9364eeb352f44d6f9e91a0eabc547717d2341e7481fc5dc4a91cab711c",
+    "link_table_upload_date": "27-04-2026",
+    "exact_link": "downloadmedia/siteContent/202604271802004244Ganga Pdf.pdf"
+  },
+  "facts": [
+    {
+      "metric": "earthwork_main_carriageway_progress_percent",
+      "label": "Earth Work in Main Carriageway",
+      "cell": "100",
+      "unit": "percent"
+    },
+    {
+      "metric": "clearing_grubbing_main_carriageway_progress_percent",
+      "label": "C&G in Main Carriageway",
+      "cell": "100",
+      "unit": "percent"
+    },
+    {
+      "metric": "gsb_main_carriageway_progress_percent",
+      "label": "GSB in Main Carriageway",
+      "cell": "100",
+      "unit": "percent"
+    },
+    {
+      "metric": "wmm_main_carriageway_progress_percent",
+      "label": "WMM in Main Carriageway",
+      "cell": "100",
+      "unit": "percent"
+    },
+    {
+      "metric": "dbm_main_carriageway_progress_percent",
+      "label": "DBM in Main Carriageway",
+      "cell": "100",
+      "unit": "percent"
+    },
+    {
+      "metric": "total_structures_count",
+      "label": "Total Structures",
+      "cell": "1498",
+      "unit": "count"
+    },
+    {
+      "metric": "completed_structures_count",
+      "label": "Completed structures",
+      "cell": "1498",
+      "unit": "count"
+    },
+    {
+      "metric": "overall_progress_percent",
+      "label": "Over all Progress",
+      "cell": "98",
+      "unit": "percent"
+    }
+  ],
+  "scope_notes": "DatedGanga physical snapshot27Apr2026; explicit date printed in PDF. Upload date separately confirmed in official index; neither pagefooter nor laterinauguration29Apr2026 used as cutoff. No financial facts or Octobercurrent progress asserted."
+}

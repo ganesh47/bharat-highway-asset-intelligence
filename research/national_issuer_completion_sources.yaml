@@ -1,0 +1,65 @@
+sources:
+  - source_id: nhai_financial_results_2025_26_to_2026_06
+    official_flag: true
+    publisher_org: National Highways Authority of India
+    publisher_type: government
+    domain: nhai.gov.in
+    dataset_title: NHAI unaudited quarterly financial results June2025 to June2026, with explicit restatements and original filing vintages
+    theme: finance_debt
+    access_type: PDF
+    auth: none
+    update_frequency: quarterly
+    geographic_granularity: agency_national
+    temporal_coverage: Quarter flows June2025 through June2026; FY2025-26 annual and fiscal YTD; Sept2025/March2026 classic balance sheets; dated quarterly working debt stocks and March2025/March2026 contingent claims
+    license_terms: Public authority financial filings; attribution, original statement scope and PDF page citation required. No separate open-data license inferred.
+    retrieval_method: Five exact official PDF links discovered from NHAI public Angular CMS rest_api, checksum-pinned PDFs and rendered visually reviewed tables; typed per-document history and explicit comparative recast merge
+    reliability_grade: A
+    reliability_justification: Official authority statements; all selected filings explicitly unaudited and limited-review. Selected sources/applications, income/expenditure and cash movement relationships reconciled in original INR lakh.
+    known_limitations: Not CAG-audited accounts. Publication days are unknown. Quarterly financial deficit is not a commercial operating margin. Classic balance sheet and SEBI Working stock are separate statement scopes. Gross toll, CFI deposits and adjusted ploughback are separate movements. Clipped December2025 deposit amount and March2026 ambiguously labelled comparative toll/deposit are omitted. Quarterly claims in June2026 filing remain observed31March2026. No September2026 financial filing found in checked official index on2October2026; absence is a discovery result, not a publication schedule promise.
+    allow_auto_fetch: true
+    max_document_bytes: 10000000
+    url: https://nhai.gov.in/nhai/sites/default/files/mix_file/Quarterly_Financials_for_the_Quarter_ended_on_30th_June_2026.pdf
+    resource_page_url: https://nhai.gov.in/#/quarterly-financials
+    resource_file_urls:
+      - https://nhai.gov.in/nhai/sites/default/files/mix_file/Quarterly_Financials_for_the_Quarter_ended-on_30_June_2025.pdf
+      - https://nhai.gov.in/nhai/sites/default/files/mix_file/Quarterly_Financials_for_the_Quarter_ended_on_30th_September_2025.pdf
+      - https://nhai.gov.in/nhai/sites/default/files/mix_file/Quarterly_Financials_for_the_Quarter_ended_on_31st_December_2025.pdf
+      - https://nhai.gov.in/nhai/sites/default/files/mix_file/Quarterly_Financials_for_the_Quarter_ended_on_31st_March_2026.pdf
+      - https://nhai.gov.in/nhai/sites/default/files/mix_file/Quarterly_Financials_for_the_Quarter_ended_on_30th_June_2026.pdf
+    permanent_identifier_hint: Quarterly financials CMS entry; five quarter-ended PDFs30June2025,30September2025,31December2025,31March2026,30June2026
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2026-06-30'
+    publication_date: null
+    publication_date_unknown: true
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Original INR lakh×0.01 to crore. June2026 notes(g),(i) explicitly recast March2026 income/expenditure and working stocks; September2025 notes(g) recast June2025 toll/claim comparatives. Canonical view retains supported revised cells with observation_status revised and revision_identity source PDF SHA. Five original typed filing snapshots retained in immutable manual/history, plus canonical snapshot; changed publisher bytes require new review. Per-row cutoff is its own financial/claim period, never latest disclosure period or retrieval time. Lease/current-maturity/operations dash cells remain missing.
+  - source_id: upeida_ganga_progress_2026_04_27
+    official_flag: true
+    publisher_org: Uttar Pradesh Expressways Industrial Development Authority
+    publisher_type: government
+    domain: upeida.up.gov.in
+    dataset_title: Ganga Expressway dated construction progress27April2026
+    theme: construction
+    access_type: PDF
+    auth: none
+    update_frequency: irregular_project_snapshot
+    geographic_granularity: project
+    temporal_coverage: Ganga Expressway physical snapshot explicitly dated27April2026, before29April2026 inauguration
+    license_terms: Public authority project-progress disclosure; attribution and exact table/page citation required. No separate open-data license inferred.
+    retrieval_method: Exact downloadable one-page publisher PDF, rendered visual verification including Hindi-font date missed by native text extraction; official index dated upload separately archived
+    reliability_grade: A
+    reliability_justification: Printed table has explicit27.04.2026 heading; five component100% cells, overall98% and1498 total/completed structures checked against the rendered original.
+    known_limitations: Historical construction snapshot, not October2026 current progress or a statement of toll receipts/spending. Components are distinct from overall progress. Project is an Uttar Pradesh expressway, not NHAI-wide or all-state-highway inventory. Later inauguration date does not advance observation cutoff.
+    allow_auto_fetch: true
+    url: https://upeida.up.gov.in/downloadmedia/siteContent/202604271802004244Ganga%20Pdf.pdf
+    resource_page_url: https://upeida.up.gov.in/en/article/ganga-expressway
+    permanent_identifier_hint: Official Ganga construction table date27.04.2026; index upload27-04-2026
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2026-04-27'
+    publication_date: '2026-04-27'
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Eight measured administrative project cells. Count of structures1498 is not road length.100% earthwork/clearing/GSB/WMM/DBM coexists with98% overall progress; no imposed100% total. Native PDF Hindi-font text omits the date; checksum-bound rendered review establishes cutoff, while archived official link-table HTML supports publication independently.

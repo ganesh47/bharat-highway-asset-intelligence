@@ -1,0 +1,13 @@
+{
+  "source_id": "upeida_ganga_progress_2026_04_27",
+  "versions": [
+    {
+      "version_id": "68841183368b595d6cf764e1faebafb9b3245396d0c4dff2112a053b5882412a",
+      "csv_sha256": "e81acc5082869cb88a0fb51dd7cc2442b42cbd0bee9c81b312f048e053fc4b33",
+      "row_count": 8,
+      "facts_path": "history/upeida_ganga_progress_2026_04_27/68841183368b595d6cf764e1faebafb9b3245396d0c4dff2112a053b5882412a/facts.csv",
+      "evidence_path": "history/upeida_ganga_progress_2026_04_27/68841183368b595d6cf764e1faebafb9b3245396d0c4dff2112a053b5882412a/evidence.json"
+    }
+  ],
+  "revisions": []
+}

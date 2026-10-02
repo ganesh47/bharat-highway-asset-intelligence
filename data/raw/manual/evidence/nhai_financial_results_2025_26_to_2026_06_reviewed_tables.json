@@ -1,0 +1,670 @@
+{
+  "source_id": "nhai_financial_results_2025_26_to_2026_06",
+  "reviewed_at": "2026-10-02",
+  "review_method": "pdftoppm PNG render inspected visually; Tesseract assists location only; exact original table cells and missing dashes retained; no unreviewed OCR becomes facts",
+  "flow_metrics": [
+    "other_income_inr_crore",
+    "interest_gross_inr_crore",
+    "total_income_inr_crore",
+    "work_expenses_inr_crore",
+    "personnel_administrative_expenses_inr_crore",
+    "finance_charges_inr_crore",
+    "depreciation_inr_crore",
+    "small_value_assets_charged_off_inr_crore",
+    "total_expenditure_inr_crore",
+    "profit_loss_before_prior_items_inr_crore",
+    "prior_period_net_items_inr_crore",
+    "net_profit_loss_inr_crore"
+  ],
+  "balance_sheet_metrics": [
+    "capital_inr_crore",
+    "reserves_surplus_inr_crore",
+    "secured_borrowings_inr_crore",
+    "unsecured_borrowings_inr_crore",
+    "balance_sheet_sources_total_inr_crore",
+    "fixed_assets_gross_block_inr_crore",
+    "accumulated_depreciation_inr_crore",
+    "fixed_assets_net_block_inr_crore",
+    "completed_road_capital_inr_crore",
+    "road_capital_work_in_progress_inr_crore",
+    "reported_capital_road_work_total_inr_crore",
+    "investments_inr_crore",
+    "deposits_loans_advances_inr_crore",
+    "cash_bank_balance_inr_crore",
+    "current_assets_inr_crore",
+    "current_liabilities_inr_crore",
+    "provisions_inr_crore",
+    "current_liabilities_provisions_inr_crore",
+    "net_current_assets_inr_crore",
+    "profit_loss_debit_balance_inr_crore",
+    "balance_sheet_applications_total_inr_crore"
+  ],
+  "cash_flow_metrics": [
+    "cash_flow_operating_net_inr_crore",
+    "capital_road_work_cash_inr_crore",
+    "cash_flow_investing_net_inr_crore",
+    "cess_funds_cash_received_inr_crore",
+    "additional_budget_cash_receipts_inr_crore",
+    "invit_proceeds_cash_inr_crore",
+    "eap_grant_cash_inr_crore",
+    "toll_adjusted_ploughback_cash_inr_crore",
+    "adb_loan_repayment_cash_inr_crore",
+    "54ec_bonds_net_cash_inr_crore",
+    "nssf_term_loans_net_cash_inr_crore",
+    "ncd_redemption_cash_inr_crore",
+    "bond_interest_other_expenditure_cash_inr_crore",
+    "cash_flow_financing_net_inr_crore",
+    "cash_flow_net_change_inr_crore",
+    "cash_flow_opening_balance_inr_crore",
+    "cash_flow_closing_balance_inr_crore"
+  ],
+  "working_metrics": [
+    "debt_total_inr_crore",
+    "net_worth_inr_crore",
+    "current_assets_inr_crore",
+    "current_liabilities_provisions_inr_crore",
+    "total_assets_inr_crore",
+    "secured_borrowings_inr_crore"
+  ],
+  "documents": [
+    {
+      "file": "quarter_4.pdf",
+      "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Quarterly_Financials_for_the_Quarter_ended-on_30_June_2025.pdf",
+      "sha256": "ceec789c08d5a5e81cac05776bbd82030c1f9d9765798fc7133080387efdfe85",
+      "quarter_end": "2025-06-30",
+      "published_at": "",
+      "flow": {
+        "page": 2,
+        "columns": [
+          {
+            "start": "2025-04-01",
+            "end": "2025-06-30",
+            "basis": "quarter",
+            "status": "reported",
+            "cells": [
+              "72,262.31",
+              "-",
+              "72,262.31",
+              "1,13,520.76",
+              "14,616.78",
+              "641.70",
+              "2.05",
+              "3.45",
+              "1,28,784.74",
+              "(56,522.43)",
+              "(2,633.55)",
+              "(59,155.98)"
+            ]
+          }
+        ]
+      },
+      "note_facts": {
+        "page": 5,
+        "facts": [
+          {
+            "metric": "toll_collection_inr_crore",
+            "cell": "7,97,011.49",
+            "start": "2025-04-01",
+            "end": "2025-06-30",
+            "basis": "quarter",
+            "status": "reported"
+          },
+          {
+            "metric": "toll_deposit_cfi_inr_crore",
+            "cell": "8,07,197.31",
+            "start": "2025-04-01",
+            "end": "2025-06-30",
+            "basis": "quarter",
+            "status": "reported"
+          },
+          {
+            "metric": "arbitration_contingent_claims_inr_crore",
+            "cell": "1,19,74,800.00",
+            "start": "",
+            "end": "2025-03-31",
+            "basis": "balance_sheet_snapshot",
+            "status": "reported"
+          },
+          {
+            "metric": "court_contingent_claims_inr_crore",
+            "cell": "37,22,893.00",
+            "start": "",
+            "end": "2025-03-31",
+            "basis": "balance_sheet_snapshot",
+            "status": "reported"
+          }
+        ]
+      },
+      "working": {
+        "page": 4,
+        "columns": [
+          {
+            "end": "2025-06-30",
+            "status": "reported",
+            "cells": [
+              "2,41,61,222.04",
+              "10,05,41,146.52",
+              "86,55,418.23",
+              "45,51,968.91",
+              "13,09,37,154.79",
+              "1,93,75,920.76"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "file": "quarter_3.pdf",
+      "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Quarterly_Financials_for_the_Quarter_ended_on_30th_September_2025.pdf",
+      "sha256": "175094a77bd0bfe7b9022afd00b0c9959692bb10a55e571949276b141a765f07",
+      "quarter_end": "2025-09-30",
+      "published_at": "",
+      "flow": {
+        "page": 3,
+        "columns": [
+          {
+            "start": "2025-07-01",
+            "end": "2025-09-30",
+            "basis": "quarter",
+            "status": "reported",
+            "cells": [
+              "73,676.52",
+              "4.05",
+              "73,680.57",
+              "1,70,075.85",
+              "25,026.03",
+              "1,357.78",
+              "4.70",
+              "5.34",
+              "1,96,469.70",
+              "(1,22,789.13)",
+              "(1,253.75)",
+              "(1,24,042.88)"
+            ]
+          },
+          {
+            "start": "2025-04-01",
+            "end": "2025-09-30",
+            "basis": "fiscal_year_ytd",
+            "status": "reported",
+            "cells": [
+              "1,45,938.83",
+              "4.05",
+              "1,45,942.88",
+              "2,83,596.61",
+              "39,642.81",
+              "1,999.48",
+              "6.75",
+              "8.79",
+              "3,25,254.44",
+              "(1,79,311.56)",
+              "(3,887.30)",
+              "(1,83,198.86)"
+            ]
+          }
+        ]
+      },
+      "note_facts": {
+        "page": 7,
+        "facts": [
+          {
+            "metric": "toll_collection_inr_crore",
+            "cell": "9,23,689.85",
+            "start": "2025-07-01",
+            "end": "2025-09-30",
+            "basis": "quarter",
+            "status": "reported"
+          },
+          {
+            "metric": "toll_deposit_cfi_inr_crore",
+            "cell": "8,92,321.41",
+            "start": "2025-07-01",
+            "end": "2025-09-30",
+            "basis": "quarter",
+            "status": "reported"
+          },
+          {
+            "metric": "toll_collection_inr_crore",
+            "cell": "8,02,811.52",
+            "start": "2025-04-01",
+            "end": "2025-06-30",
+            "basis": "quarter",
+            "status": "revised"
+          },
+          {
+            "metric": "toll_deposit_cfi_inr_crore",
+            "cell": "8,07,197.33",
+            "start": "2025-04-01",
+            "end": "2025-06-30",
+            "basis": "quarter",
+            "status": "revised"
+          },
+          {
+            "metric": "arbitration_contingent_claims_inr_crore",
+            "cell": "1,19,74,800.00",
+            "start": "",
+            "end": "2025-03-31",
+            "basis": "balance_sheet_snapshot",
+            "status": "revised"
+          },
+          {
+            "metric": "court_contingent_claims_inr_crore",
+            "cell": "14,13,808.10",
+            "start": "",
+            "end": "2025-03-31",
+            "basis": "balance_sheet_snapshot",
+            "status": "revised"
+          }
+        ]
+      },
+      "balance_sheet": {
+        "page": 2,
+        "end": "2025-09-30",
+        "cells": [
+          "11,06,47,528.85",
+          "7,65,320.41",
+          "1,92,59,758.66",
+          "47,85,301.28",
+          "13,54,57,909.20",
+          "46,835.00",
+          "23,204.00",
+          "23,631.00",
+          "5,86,48,427.05",
+          "6,59,76,364.82",
+          "12,46,48,422.87",
+          "8,95,961.24",
+          "73,99,870.42",
+          "71,09,304.60",
+          "1,45,09,175.02",
+          "39,98,811.25",
+          "5,96,838.68",
+          "45,95,649.93",
+          "99,13,525.09",
+          "-",
+          "13,54,57,909.20"
+        ]
+      },
+      "working": {
+        "page": 6,
+        "columns": [
+          {
+            "end": "2025-09-30",
+            "status": "reported",
+            "cells": [
+              "2,40,45,059.94",
+              "11,14,12,849.26",
+              "1,45,09,175.02",
+              "45,95,649.93",
+              "14,00,53,559.13",
+              "1,92,59,758.66"
+            ]
+          }
+        ],
+        "column_selection": "Year-to-date stock column for current quarter; current-asset three-month column differs by 0.02 lakh; same end-date YTD column matches classic balance sheet."
+      }
+    },
+    {
+      "file": "quarter_2.pdf",
+      "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Quarterly_Financials_for_the_Quarter_ended_on_31st_December_2025.pdf",
+      "sha256": "84d6384e7ab6c246d80df7732ad640053c999a9339d16757f64a91185506a443",
+      "quarter_end": "2025-12-31",
+      "published_at": "",
+      "flow": {
+        "page": 2,
+        "columns": [
+          {
+            "start": "2025-10-01",
+            "end": "2025-12-31",
+            "basis": "quarter",
+            "status": "reported",
+            "cells": [
+              "1,14,801.37",
+              "29,220.98",
+              "1,44,022.35",
+              "2,61,036.69",
+              "(2,058.73)",
+              "(1,852.71)",
+              "7.19",
+              "4.95",
+              "2,57,137.39",
+              "(1,13,115.04)",
+              "(399.96)",
+              "(1,13,515.00)"
+            ]
+          },
+          {
+            "start": "2025-04-01",
+            "end": "2025-12-31",
+            "basis": "fiscal_year_ytd",
+            "status": "reported",
+            "cells": [
+              "2,60,740.20",
+              "29,225.03",
+              "2,89,965.23",
+              "5,44,633.30",
+              "37,584.08",
+              "146.77",
+              "13.94",
+              "13.74",
+              "5,82,391.83",
+              "(2,92,426.60)",
+              "(4,287.26)",
+              "(2,96,713.86)"
+            ]
+          }
+        ]
+      },
+      "note_facts": {
+        "page": 5,
+        "facts": [
+          {
+            "metric": "toll_collection_inr_crore",
+            "cell": "8,49,402.21",
+            "start": "2025-10-01",
+            "end": "2025-12-31",
+            "basis": "quarter",
+            "status": "reported"
+          }
+        ]
+      },
+      "working": {
+        "page": 4,
+        "columns": [
+          {
+            "end": "2025-12-31",
+            "status": "reported",
+            "cells": [
+              "2,37,31,583.04",
+              "11,29,52,720.53",
+              "1,58,13,729.35",
+              "46,36,536.16",
+              "14,13,20,839.73",
+              "1,91,91,531.76"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "file": "quarter_1.pdf",
+      "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Quarterly_Financials_for_the_Quarter_ended_on_31st_March_2026.pdf",
+      "sha256": "f5ec8c532d75ee286d62ec1663e25258f11eac3e6023b27094818081e81b9804",
+      "quarter_end": "2026-03-31",
+      "published_at": "",
+      "flow": {
+        "page": 3,
+        "columns": [
+          {
+            "start": "2026-01-01",
+            "end": "2026-03-31",
+            "basis": "quarter",
+            "status": "reported",
+            "cells": [
+              "81,947.71",
+              "(29,070.41)",
+              "52,877.30",
+              "3,85,862.86",
+              "69,227.85",
+              "29.54",
+              "2,766.56",
+              "10.72",
+              "4,57,897.53",
+              "(4,05,020.23)",
+              "(6,460.23)",
+              "(4,11,480.46)"
+            ]
+          },
+          {
+            "start": "2025-04-01",
+            "end": "2026-03-31",
+            "basis": "fiscal_year",
+            "status": "reported",
+            "cells": [
+              "3,42,687.91",
+              "154.62",
+              "3,42,842.53",
+              "9,30,496.16",
+              "1,06,811.93",
+              "176.31",
+              "2,780.50",
+              "24.46",
+              "10,40,289.36",
+              "(6,97,446.83)",
+              "(10,747.49)",
+              "(7,08,194.32)"
+            ]
+          }
+        ]
+      },
+      "note_facts": {
+        "page": 7,
+        "facts": [
+          {
+            "metric": "toll_collection_inr_crore",
+            "cell": "10,53,952.87",
+            "start": "2026-01-01",
+            "end": "2026-03-31",
+            "basis": "quarter",
+            "status": "reported"
+          },
+          {
+            "metric": "toll_deposit_cfi_inr_crore",
+            "cell": "10,16,938.05",
+            "start": "2026-01-01",
+            "end": "2026-03-31",
+            "basis": "quarter",
+            "status": "reported"
+          }
+        ]
+      },
+      "balance_sheet": {
+        "page": 2,
+        "end": "2026-03-31",
+        "cells": [
+          "11,80,96,529.81",
+          "7,75,344.76",
+          "1,88,21,657.22",
+          "14,05,914.51",
+          "13,90,99,446.30",
+          "48,225.96",
+          "25,794.20",
+          "22,431.76",
+          "7,84,98,805.55",
+          "5,54,25,308.78",
+          "13,39,46,546.09",
+          "10,01,391.29",
+          "47,39,709.71",
+          "40,54,637.21",
+          "87,94,346.92",
+          "46,35,603.03",
+          "15,33,484.10",
+          "61,69,087.13",
+          "26,25,259.79",
+          "15,26,249.13",
+          "13,90,99,446.30"
+        ]
+      },
+      "cash_flow": {
+        "page": 4,
+        "start": "2025-04-01",
+        "end": "2026-03-31",
+        "basis": "fiscal_year",
+        "cells": [
+          "73,320.81",
+          "(1,64,57,900.73)",
+          "(1,60,89,950.98)",
+          "1,19,71,652.50",
+          "50,02,734.79",
+          "1,09,905.46",
+          "16,500.00",
+          "45,35,700.00",
+          "(7,141.89)",
+          "(3,42,730.60)",
+          "(36,19,565.34)",
+          "(2,63,637.74)",
+          "(18,51,605.00)",
+          "1,55,51,812.18",
+          "(4,64,817.99)",
+          "45,19,455.20",
+          "40,54,637.21"
+        ]
+      },
+      "working": {
+        "page": 6,
+        "columns": [
+          {
+            "end": "2026-03-31",
+            "status": "reported",
+            "cells": [
+              "2,02,27,571.73",
+              "11,73,45,625.44",
+              "87,94,346.92",
+              "61,69,087.13",
+              "14,37,42,284.30",
+              "1,88,21,657.22"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "file": "quarter_0.pdf",
+      "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Quarterly_Financials_for_the_Quarter_ended_on_30th_June_2026.pdf",
+      "sha256": "d3eb43cde399c827cfc0d7f12384559ec76120450bef526cfc75f3c1d7b799d0",
+      "quarter_end": "2026-06-30",
+      "published_at": "",
+      "flow": {
+        "page": 2,
+        "columns": [
+          {
+            "start": "2026-04-01",
+            "end": "2026-06-30",
+            "basis": "quarter",
+            "status": "reported",
+            "cells": [
+              "77,067.73",
+              "1.58",
+              "77,069.31",
+              "1,90,136.63",
+              "23,559.30",
+              "0.86",
+              "1.23",
+              "10.87",
+              "2,13,708.89",
+              "(1,36,639.58)",
+              "(3,103.97)",
+              "(1,39,743.55)"
+            ]
+          },
+          {
+            "start": "2026-01-01",
+            "end": "2026-03-31",
+            "basis": "quarter",
+            "status": "revised",
+            "cells": [
+              "1,10,691.31",
+              "(29,224.32)",
+              "81,466.99",
+              "3,90,150.20",
+              "24,672.76",
+              "29.55",
+              "2,646.97",
+              "10.72",
+              "4,17,510.20",
+              "(3,36,043.21)",
+              "(6,452.58)",
+              "(3,42,495.79)"
+            ]
+          },
+          {
+            "start": "2025-04-01",
+            "end": "2026-03-31",
+            "basis": "fiscal_year",
+            "status": "revised",
+            "cells": [
+              "3,71,431.51",
+              "0.71",
+              "3,71,432.22",
+              "9,34,783.50",
+              "62,256.84",
+              "176.32",
+              "2,660.91",
+              "24.46",
+              "9,99,902.03",
+              "(6,28,469.81)",
+              "(10,739.84)",
+              "(6,39,209.65)"
+            ]
+          }
+        ]
+      },
+      "note_facts": {
+        "page": 5,
+        "facts": [
+          {
+            "metric": "toll_collection_inr_crore",
+            "cell": "10,69,206.25",
+            "start": "2026-04-01",
+            "end": "2026-06-30",
+            "basis": "quarter",
+            "status": "reported"
+          },
+          {
+            "metric": "toll_deposit_cfi_inr_crore",
+            "cell": "10,70,086.66",
+            "start": "2026-04-01",
+            "end": "2026-06-30",
+            "basis": "quarter",
+            "status": "reported"
+          },
+          {
+            "metric": "arbitration_contingent_claims_inr_crore",
+            "cell": "1,23,56,777.5",
+            "start": "",
+            "end": "2026-03-31",
+            "basis": "balance_sheet_snapshot",
+            "status": "reported"
+          },
+          {
+            "metric": "court_contingent_claims_inr_crore",
+            "cell": "12,32,000.10",
+            "start": "",
+            "end": "2026-03-31",
+            "basis": "balance_sheet_snapshot",
+            "status": "reported"
+          }
+        ]
+      },
+      "working": {
+        "page": 4,
+        "columns": [
+          {
+            "end": "2026-06-30",
+            "status": "reported",
+            "cells": [
+              "1,95,30,371.17",
+              "12,22,11,999.12",
+              "87,16,407.42",
+              "48,41,884.21",
+              "14,65,84,254.50",
+              "1,87,30,371.17"
+            ]
+          },
+          {
+            "end": "2026-03-31",
+            "status": "revised",
+            "cells": [
+              "2,02,27,571.73",
+              "11,73,87,579.35",
+              "86,85,389.30",
+              "61,71,082.81",
+              "14,37,86,233.89",
+              "1,88,21,657.22"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "scope_notes": "All selected filings explicitly unaudited and limited-review, not C&AG audited results. Publication dates unknown. Current canonical March2026 income/expenditure uses explicit June2026 restatement; per-document typed vintages archived. No income-from-operations metric: NHAI acts for Government. Debt-stock, classic balance sheet, gross toll receipts, CFI deposits and net adjusted ploughback cash flow have separate statement scopes. December2025 PDF clips deposit amount; omitted. March2026 notes call849402.21 second-quarter despite Dec2025 filing reporting it as third-quarter; ambiguous comparative not promoted. Claims for March2026 published in June filing remain dated March2026, not June. September working stock uses same-date YTD column (14509175.02 lakh current assets), consistent with its classic balance sheet; three-month cell14509175.00 is retained as a document diagnostic, not a duplicate observation."
+}

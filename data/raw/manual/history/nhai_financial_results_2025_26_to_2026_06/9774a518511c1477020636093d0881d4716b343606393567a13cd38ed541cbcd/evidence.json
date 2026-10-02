@@ -1,0 +1,21 @@
+{
+  "source_id": "nhai_financial_results_2025_26_to_2026_06",
+  "documents": [
+    {
+      "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Quarterly_Financials_for_the_Quarter_ended_on_31st_December_2025.pdf",
+      "relative_path": "primary_disclosures/nhai_financial_results_2025_26_to_2026_06/versions/84d6384e7ab6c246d80df7732ad640053c999a9339d16757f64a91185506a443.pdf",
+      "sha256": "84d6384e7ab6c246d80df7732ad640053c999a9339d16757f64a91185506a443",
+      "size_bytes": 1298498
+    }
+  ],
+  "extraction_status": "validated",
+  "research_cutoff": "2026-10-02",
+  "reviewed_table_sha256": "bcf15368774b2e4878cae134b5f624e595525c39dd23f69e3c94fcab595d712e",
+  "filing_period_end": "2025-12-31",
+  "published_at": null,
+  "assurance": "limited_review_unaudited",
+  "row_count": 31,
+  "csv_sha256": "c962a97e6812adb2756d8a58523d094bcf5c371a8f71772cd6039e19f210e859",
+  "version_id": "9774a518511c1477020636093d0881d4716b343606393567a13cd38ed541cbcd",
+  "observation_checksum": "5d61e7763749a3efb76d6fb6e356c6efe87acda18e12dc77525cee554016e4b4"
+}

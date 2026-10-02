@@ -1,0 +1,46 @@
+{
+  "source_id": "nhai_financial_results_2025_26_to_2026_06",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-02T08:11:59.943381+00:00",
+  "last_checked_at": "2026-10-02T08:50:14.360888+00:00",
+  "documents": [
+    {
+      "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Quarterly_Financials_for_the_Quarter_ended-on_30_June_2025.pdf",
+      "relative_path": "primary_disclosures/nhai_financial_results_2025_26_to_2026_06/versions/ceec789c08d5a5e81cac05776bbd82030c1f9d9765798fc7133080387efdfe85.pdf",
+      "sha256": "ceec789c08d5a5e81cac05776bbd82030c1f9d9765798fc7133080387efdfe85",
+      "size_bytes": 1007501
+    },
+    {
+      "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Quarterly_Financials_for_the_Quarter_ended_on_30th_September_2025.pdf",
+      "relative_path": "primary_disclosures/nhai_financial_results_2025_26_to_2026_06/versions/175094a77bd0bfe7b9022afd00b0c9959692bb10a55e571949276b141a765f07.pdf",
+      "sha256": "175094a77bd0bfe7b9022afd00b0c9959692bb10a55e571949276b141a765f07",
+      "size_bytes": 2181072
+    },
+    {
+      "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Quarterly_Financials_for_the_Quarter_ended_on_31st_December_2025.pdf",
+      "relative_path": "primary_disclosures/nhai_financial_results_2025_26_to_2026_06/versions/84d6384e7ab6c246d80df7732ad640053c999a9339d16757f64a91185506a443.pdf",
+      "sha256": "84d6384e7ab6c246d80df7732ad640053c999a9339d16757f64a91185506a443",
+      "size_bytes": 1298498
+    },
+    {
+      "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Quarterly_Financials_for_the_Quarter_ended_on_31st_March_2026.pdf",
+      "relative_path": "primary_disclosures/nhai_financial_results_2025_26_to_2026_06/versions/f5ec8c532d75ee286d62ec1663e25258f11eac3e6023b27094818081e81b9804.pdf",
+      "sha256": "f5ec8c532d75ee286d62ec1663e25258f11eac3e6023b27094818081e81b9804",
+      "size_bytes": 2695740
+    },
+    {
+      "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Quarterly_Financials_for_the_Quarter_ended_on_30th_June_2026.pdf",
+      "relative_path": "primary_disclosures/nhai_financial_results_2025_26_to_2026_06/versions/d3eb43cde399c827cfc0d7f12384559ec76120450bef526cfc75f3c1d7b799d0.pdf",
+      "sha256": "d3eb43cde399c827cfc0d7f12384559ec76120450bef526cfc75f3c1d7b799d0",
+      "size_bytes": 1749943
+    }
+  ],
+  "extraction_status": "validated",
+  "row_count": 196,
+  "notes": "All selected filings explicitly unaudited and limited-review, not C&AG audited results. Publication dates unknown. Current canonical March2026 income/expenditure uses explicit June2026 restatement; per-document typed vintages archived. No income-from-operations metric: NHAI acts for Government. Debt-stock, classic balance sheet, gross toll receipts, CFI deposits and net adjusted ploughback cash flow have separate statement scopes. December2025 PDF clips deposit amount; omitted. March2026 notes call849402.21 second-quarter despite Dec2025 filing reporting it as third-quarter; ambiguous comparative not promoted. Claims for March2026 published in June filing remain dated March2026, not June. September working stock uses same-date YTD column (14509175.02 lakh current assets), consistent with its classic balance sheet; three-month cell14509175.00 is retained as a document diagnostic, not a duplicate observation.",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "csv_sha256": "72214508e9e6568e36dc11b00a199f868c7863446fd9291e43d9e713ff343314",
+  "version_id": "cc9c029c1b53f4182ffb5a22250e6c2258c4ab25e49f1f36ab84977d406636e2",
+  "observation_checksum": "01b6e993c660dea5d7cf1ff8eb5874a2d044d5745e9da4e4fc1b517945b90b00"
+}
