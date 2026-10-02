@@ -41,7 +41,8 @@ class ResearchDeliveryTests(unittest.TestCase):
         workflow = yaml.safe_load((ROOT / ".github/workflows/research-pipeline.yml").read_text())
         expected = {"bhai-nhai-source-parquet": "data/processed", "bhai-base-workspace": "data",
                     "bhai-nhai-merged-ocr": "data/processed", "bhai-refreshed-workspace": "data",
-                    "bhai-correlated-workspace": "data", "bhai-inventory-reports": "research"}
+                    "bhai-correlated-workspace": "data", "bhai-inventory-reports": "research",
+                    "bhai-source-evidence": "data/raw"}
         for job in workflow["jobs"].values():
             for step in job.get("steps", []):
                 if str(step.get("uses", "")).startswith("actions/download-artifact"):
@@ -51,6 +52,21 @@ class ResearchDeliveryTests(unittest.TestCase):
         condition = workflow["jobs"]["build_correlation"]["if"]
         self.assertIn("needs.changes.outputs.run_nhai_ocr != 'true'", condition)
         self.assertIn("needs.refresh_nhai_confidence.result == 'success'", condition)
+
+    def test_final_validation_uses_same_run_evidence_before_reconciliation(self):
+        workflow = yaml.safe_load((ROOT / ".github/workflows/research-pipeline.yml").read_text())
+        steps = workflow["jobs"]["validate_research"]["steps"]
+        names = [step.get("name") for step in steps]
+        evidence = next(step for step in steps if step.get("name") == "Download source evidence")
+        self.assertTrue(evidence["uses"].startswith("actions/download-artifact"))
+        self.assertEqual(evidence["with"]["name"], "bhai-source-evidence")
+        self.assertEqual(evidence["with"]["path"], "data/raw")
+        self.assertNotIn("run-id", evidence["with"])
+        reconcile = next(step for step in steps if step.get("name") == "Reconcile governed evidence bindings")
+        self.assertIn("--refresh-quality-only", reconcile["run"])
+        self.assertLess(names.index("Download source evidence"), names.index("Reconcile governed evidence bindings"))
+        self.assertLess(names.index("Download correlated workspace"), names.index("Reconcile governed evidence bindings"))
+        self.assertLess(names.index("Reconcile governed evidence bindings"), names.index("Validate generated artifacts"))
 
     def test_deploy_requires_artifact_from_triggering_research_run(self):
         workflow = yaml.safe_load((ROOT / ".github/workflows/github-pages.yml").read_text())
