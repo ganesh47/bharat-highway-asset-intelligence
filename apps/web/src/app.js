@@ -2286,7 +2286,7 @@ function completeCalendarQuarterFlows(rows) {
     const end = new Date(`${row.period_end}T00:00:00Z`);
     if (!Number.isFinite(end.getTime()) || row.period_start !== `${row.period_end.slice(0,7)}-01` || new Date(Date.UTC(end.getUTCFullYear(),end.getUTCMonth()+1,0)).toISOString().slice(0,10) !== row.period_end) continue;
     const q = Math.floor(end.getUTCMonth()/3);
-    const key = [row.source_id,row.entity_id,row.metric,row.unit,row.road_class,row.statement_basis,row.observation_status || '',row.assurance || '',end.getUTCFullYear(),q].join('::');
+    const key = [row.source_id,row.entity_type,row.entity_id,row.agency,row.metric,row.unit,row.road_class,row.statement_basis,row.observation_status || '',row.assurance || '',end.getUTCFullYear(),q].join('::');
     if (!quarters.has(key)) quarters.set(key, []);
     quarters.get(key).push(row);
   }
@@ -2458,7 +2458,7 @@ function selectPeriodView(rows, mode) {
   if (mode === 'all') return rows;
   const groups = new Map();
   for (const row of rows) {
-    const key = ['source_id', 'metric', 'agency', 'road_class', 'unit', 'period_basis', 'statement_basis', 'estimate_type', 'observation_status', 'assurance', 'price_basis', 'base_year'].map((field) => row[field] || '').join('::');
+    const key = ['source_id', 'entity_type', 'metric', 'agency', 'road_class', 'unit', 'period_basis', 'statement_basis', 'estimate_type', 'observation_status', 'assurance', 'price_basis', 'base_year'].map((field) => row[field] || '').join('::');
     groups.set(key, [...(groups.get(key) || []), row]);
   }
   const chosen = [];
@@ -2492,7 +2492,7 @@ function observationLabel(row) {
 function MetricCoverage({ rows, catalog }) {
   const groups = new Map();
   for (const row of rows) {
-    const key = [row.source_id, row.metric, row.agency, row.road_class, row.unit, row.period_basis, row.statement_basis, row.estimate_type, row.price_basis, row.base_year].join('::');
+    const key = [row.source_id, row.entity_type, row.metric, row.agency, row.road_class, row.unit, row.period_basis, row.statement_basis, row.estimate_type, row.price_basis, row.base_year].join('::');
     groups.set(key, [...(groups.get(key) || []), row]);
   }
   const coverage = [...groups.entries()].map(([key, facts]) => {
@@ -2509,7 +2509,7 @@ function MetricCoverage({ rows, catalog }) {
       React.createElement('thead', null, React.createElement('tr', null, ...['Source / metric', 'Scope / unit', 'Latest observation / coverage', 'Publication / last checked', 'Next release / retrieval'].map((label) => React.createElement('th', { scope: 'col', key: label }, label)))),
       React.createElement('tbody', null, ...coverage.map((item) => {
         const entry = catalog[item.row.source_id] || {};
-        const coverage = (entry.metric_coverage || []).find((scope) => ['metric','unit','agency','road_class','period_basis','statement_basis','estimate_type','price_basis','base_year'].every((key) => (scope[key] || '') === (item.row[key] || ''))) || {};
+        const coverage = (entry.metric_coverage || []).find((scope) => ['entity_type','metric','unit','agency','road_class','period_basis','statement_basis','estimate_type','price_basis','base_year'].every((key) => (scope[key] || '') === (item.row[key] || ''))) || {};
         return React.createElement('tr', { key: item.key },
           React.createElement('td', null, React.createElement('a', { href: validCitation(item.row.citation_url), target: '_blank', rel: 'noreferrer' }, item.row.source_id), React.createElement('small', null, humanMetric(item.row.metric))),
           React.createElement('td', null, `${item.row.agency} · ${item.row.road_class}`, React.createElement('small', null, `${unitLabel(item.row.unit)} · ${item.row.statement_basis} · ${item.row.estimate_type}`)),
