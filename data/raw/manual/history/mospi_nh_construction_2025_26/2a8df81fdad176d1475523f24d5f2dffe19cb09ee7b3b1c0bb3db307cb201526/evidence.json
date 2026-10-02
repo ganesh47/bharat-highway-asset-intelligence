@@ -1,0 +1,24 @@
+{
+  "source_id": "mospi_nh_construction_2025_26",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-02T05:00:42.130838+00:00",
+  "last_checked_at": "2026-10-02T05:01:54.323451+00:00",
+  "documents": [
+    {
+      "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2285365&lang=1&reg=48",
+      "relative_path": "primary_disclosures/mospi_nh_construction_2025_26/versions/dd7a83c27691f4aacb501a95c408de803dcc6234dfda5878a8dcaf924cfe5066.html",
+      "sha256": "dd7a83c27691f4aacb501a95c408de803dcc6234dfda5878a8dcaf924cfe5066",
+      "size_bytes": 190876,
+      "extractor": "pipelines.national_freshness; source-pinned reviewed table or labelled release extraction",
+      "semantic_document_sha256": "bd3d641baea3fb60b0e1544a13adb1bb0a10d01167afc8db9ea126d0c9d9ad38"
+    }
+  ],
+  "extraction_status": "validated",
+  "row_count": 1,
+  "notes": "Official16July2026 MoSPI performance release reports9,360km all-NH construction inFY2025–26. Administrative reported fiscal-year actual; date31March2026, separate from publication16July2026. Distinct from NHAI5,313km and the PAIMANA-PROJ threshold portfolio.",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "csv_sha256": "6ce595997aa6b4e163e920deda5371c015636bbef8cbc24407a96c2df554e53a",
+  "version_id": "2a8df81fdad176d1475523f24d5f2dffe19cb09ee7b3b1c0bb3db307cb201526",
+  "observation_checksum": "42fc5751832147ff8c99996282ba0212e745cc0aa40e564cf7dc84deb767c6a7"
+}

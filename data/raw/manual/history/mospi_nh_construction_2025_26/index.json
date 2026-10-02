@@ -1,0 +1,13 @@
+{
+  "source_id": "mospi_nh_construction_2025_26",
+  "versions": [
+    {
+      "version_id": "2a8df81fdad176d1475523f24d5f2dffe19cb09ee7b3b1c0bb3db307cb201526",
+      "csv_sha256": "6ce595997aa6b4e163e920deda5371c015636bbef8cbc24407a96c2df554e53a",
+      "row_count": 1,
+      "facts_path": "history/mospi_nh_construction_2025_26/2a8df81fdad176d1475523f24d5f2dffe19cb09ee7b3b1c0bb3db307cb201526/facts.csv",
+      "evidence_path": "history/mospi_nh_construction_2025_26/2a8df81fdad176d1475523f24d5f2dffe19cb09ee7b3b1c0bb3db307cb201526/evidence.json"
+    }
+  ],
+  "revisions": []
+}

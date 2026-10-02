@@ -115,3 +115,31 @@ sources:
     research_verified_at: '2026-10-02'
     manual_fallback: true
     notes: Original INRlakh multiplied by0.01. Stock dates are actual column balance dates; flow dates are own fiscal years. Prior audited comparative remains distinct from current limited-review unaudited statement. Publication is never filled from URL filename, file metadata or retrieval date.
+  - source_id: mospi_nh_construction_2025_26
+    official_flag: true
+    publisher_org: Ministry of Statistics and Programme Implementation / Ministry of Road Transport and Highways / Press Information Bureau
+    publisher_type: government
+    domain: pib.gov.in
+    dataset_title: MoSPI July2026 Performance Dashboard release, all-NH construction FY2025-26
+    theme: construction
+    access_type: HTML
+    auth: none
+    update_frequency: quarterly_release
+    geographic_granularity: national_ministry
+    temporal_coverage: Complete FY2025-26 National Highways constructed, reported by the16July2026 performance update
+    license_terms: Public official press release; attribution and release identifier required.
+    retrieval_method: exact pinned PIB PRID2285365, reporting-period-specific labelled text extraction
+    reliability_grade: A
+    reliability_justification: Official MoSPI release explicitly reports9360km all-NH construction duringFY2025-26 and identifies ministry-provided performance indicators.
+    known_limitations: Administrative reported indicator, not audited accounts. All-NH MoRTH scope is distinct from NHAI-only5313km. Quarterly publication is not a current-quarter construction flow. Performance Dashboard differs from PAIMANA-PROJ infrastructure projects ofINR150crore and above; no portfolio coverage implied. Later quarterly update announced16October2026 is after cutoff and not ingested.
+    allow_auto_fetch: false
+    url: https://www.pib.gov.in/PressReleasePage.aspx?PRID=2285365&lang=1&reg=48
+    resource_page_url: https://www.pib.gov.in/PressReleasePage.aspx?PRID=2285365&lang=1&reg=48
+    permanent_identifier_hint: PIB Release2285365, MoSPI Performance Monitoring Dashboard,16July2026
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2026-03-31'
+    publication_date: '2026-07-16'
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: FullFY2025-26 construction9360km has31March2026 observation cutoff and16July2026 publication/disclosure. Governing HTML bytes and visible-text digest pinned; wrapper counters prevent unreviewed automatic refresh. Separate metric family/statement scope avoids summing project portfolio or NHAI-only observations.

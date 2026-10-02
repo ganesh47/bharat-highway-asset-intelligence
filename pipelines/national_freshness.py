@@ -19,9 +19,10 @@ DOCUMENTS = {
     "nhai_fy2025_26_performance": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2247870&lang=1&reg=3",
     "morth_annual_report_2025_26": "https://morth.gov.in/backend/documents/uploaded/RTH%20Annual%20Report%20English.pdf",
     "nhai_financial_results_2025_03_unaudited": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Q_F_f_tQended_on_31-March-2025.pdf",
+    "mospi_nh_construction_2025_26": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2285365&lang=1&reg=48",
 }
 SOURCE_IDS = tuple(DOCUMENTS)
-HTML_SOURCE_IDS = ("nhai_fy2025_26_performance",)
+HTML_SOURCE_IDS = ("nhai_fy2025_26_performance", "mospi_nh_construction_2025_26")
 # PIB wrapper counters vary independently of the article. This snapshot uses
 # a governed review until an article-only semantic recheck is configured.
 HTML_RECHECK_SOURCE_IDS: tuple[str, ...] = ()
@@ -30,6 +31,7 @@ PINNED_SHA256 = {
     "nhai_fy2025_26_performance": "0f5de32b5f62870df66f4df9bb54b65262e6f89f296675f286e1a61852d0bfb3",
     "morth_annual_report_2025_26": "d0dd808600a8a2d0013b1fe4772d104f14dc18fc810c21a09a16aad01ea5624a",
     "nhai_financial_results_2025_03_unaudited": "d08837c303f72abf4d131e796f71eb93450be10cfdd96ee7fd4f921c3ac38c97",
+    "mospi_nh_construction_2025_26": "dd7a83c27691f4aacb501a95c408de803dcc6234dfda5878a8dcaf924cfe5066",
 }
 REVIEWED_TABLE_FILES = {
     "morth_road_accidents_2024_final": "morth_road_accidents_2024_reviewed_tables.json",
@@ -46,7 +48,7 @@ SAFETY_METRICS = {"road_accidents_count", "road_fatalities_count", "road_injurie
 
 
 def document_path(raw_root: Path, sid: str) -> Path:
-    suffix = ".html" if sid == "nhai_fy2025_26_performance" else ".pdf"
+    suffix = ".html" if sid in HTML_SOURCE_IDS else ".pdf"
     return raw_root / "primary_disclosures" / sid / ("document" + suffix)
 
 
@@ -121,6 +123,17 @@ def extract_performance(content: str) -> dict[str, float]:
     if values["capital_expenditure_inr_crore"] != values["government_budgetary_support_inr_crore"] + values["own_resources_funding_inr_crore"]:
         raise ValueError("Reported NHAI capital funding does not reconcile")
     return values
+
+
+def extract_all_nh_construction(content: str) -> float:
+    from pipelines.connectors.primary_disclosures import html_text
+    text = html_text(content)
+    if not all(anchor in text for anchor in ["Release ID: 2285365", "16 JUL 2026", "Ministry of Statistics", "Performance Monitoring Dashboard"]):
+        raise ValueError("Wrong MoSPI performance release or publication")
+    matches = re.findall(r"([\d,]+) km of National Highways constructed during FY 2025[–-]26", text)
+    if not matches or len(set(matches)) != 1:
+        raise ValueError("MoSPI all-NH construction reporting-period contract changed")
+    return cell_number(matches[0])
 
 
 def _pin(builder: Any, sid: str) -> None:
@@ -223,9 +236,16 @@ def _financial(builder: Any) -> None:
     builder.notes[sid] = "74 validated financial facts:38 balance-sheet cells,33 annual cash-flow cells (one current dash omitted),3 dated debt balances. Current FY2024–25 limited-review/unaudited; FY2023–24 comparator labelled audited. No balance cutoff derived from publication, no dash converted to zero, and no later quarter assumed available."
 
 
+def _all_nh_performance(builder: Any) -> None:
+    sid = "mospi_nh_construction_2025_26"
+    value = extract_all_nh_construction(document_path(builder.raw_root, sid).read_text())
+    builder.fact(sid, "constructed_length_km", value, "km", "PIB PRID2285365; Sector-wise highlights, Road Transport and Highways FY2025–26 construction", agency="MoRTH", start="2025-04-01", end="2026-03-31", statement="MoSPI_PAIMANA_all_NH_performance", published="2026-07-16", disclosure_as_of="2026-07-16", reported_period="FY2025-26", observation_status="reported", assurance="administrative_reported", notes="MoSPI official quarterly performance release reproduces MoRTH-wide NH construction, not NHAI-only construction. Complete FY2025–26 flow ends31March2026; quarterly publication does not make this a June2026 quarter flow. Performance Dashboard sector indicator is distinct from PAIMANA-PROJ monitored projects of₹150crore and above; no restricted-project portfolio or project-cost denominator inferred. Next dashboard release announced16October2026, after research cutoff.")
+    builder.notes[sid] = "Official16July2026 MoSPI performance release reports9,360km all-NH construction inFY2025–26. Administrative reported fiscal-year actual; date31March2026, separate from publication16July2026. Distinct from NHAI5,313km and the PAIMANA-PROJ threshold portfolio."
+
+
 def extend_snapshots(builder: Any) -> None:
     """Add exact national publication vintages to the shared governed builder."""
-    functions = {SOURCE_IDS[0]:_safety, SOURCE_IDS[1]:_performance, SOURCE_IDS[2]:_annual, SOURCE_IDS[3]:_financial}
+    functions = {SOURCE_IDS[0]:_safety, SOURCE_IDS[1]:_performance, SOURCE_IDS[2]:_annual, SOURCE_IDS[3]:_financial, SOURCE_IDS[4]:_all_nh_performance}
     for sid in SOURCE_IDS:
         builder.rows.setdefault(sid, [])
         builder.documents.setdefault(sid, [])

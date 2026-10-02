@@ -156,6 +156,27 @@ class NationalFreshnessTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Wrong PIB'):
             national.extract_performance(fixture.replace('2247870', '1234567'))
 
+    def test_mospi_all_nh_release_preserves_year_and_ministry_scope(self):
+        fixture = '''Ministry of Statistics & Programme Implementation Release ID: 2285365
+        Posted On: 16 JUL 2026 Performance Monitoring Dashboard
+        Road Transport and Highways:9,360 km of National Highways constructed during FY 2025–26.'''
+        self.assertEqual(national.extract_all_nh_construction(fixture), 9360)
+        with self.assertRaisesRegex(ValueError, 'reporting-period contract'):
+            national.extract_all_nh_construction(fixture.replace('2025–26', '2026–27'))
+        sid = 'mospi_nh_construction_2025_26'
+        rows = pd.read_csv(RAW / 'manual' / (sid + '.csv'), keep_default_na=False)
+        self.assertEqual(len(rows), 1)
+        row = rows.iloc[0]
+        self.assertEqual(row.agency, 'MoRTH')
+        self.assertEqual(row.period_start, '2025-04-01')
+        self.assertEqual(row.period_end, '2026-03-31')
+        self.assertEqual(row.data_as_of, '2026-03-31')
+        self.assertEqual(row.published_at, '2026-07-16')
+        self.assertEqual(row.period_basis, 'fiscal_year')
+        self.assertEqual(row.project_name, '')
+        self.assertEqual(row.statement_basis, 'MoSPI_PAIMANA_all_NH_performance')
+        self.assertNotEqual(row.source_id, 'mospi_paimana_monthly_projects')
+
     def test_all_scanned_fact_lineage_passes_shared_quality_gate(self):
         builder = builder_with_pinned_lineage()
         for sid, function in [('morth_road_accidents_2024_final', national._safety), ('morth_annual_report_2025_26', national._annual), ('nhai_financial_results_2025_03_unaudited', national._financial)]:
@@ -168,7 +189,7 @@ class NationalFreshnessTests(unittest.TestCase):
 
     def test_committed_snapshots_keep_checksum_target_and_lineage_contract(self):
         from pipelines.common import sha256_for_file
-        counts = {'morth_road_accidents_2024_final': (1776,1776), 'nhai_fy2025_26_performance': (5,4), 'morth_annual_report_2025_26': (207,157), 'nhai_financial_results_2025_03_unaudited': (74,74)}
+        counts = {'morth_road_accidents_2024_final': (1776,1776), 'nhai_fy2025_26_performance': (5,4), 'morth_annual_report_2025_26': (207,157), 'nhai_financial_results_2025_03_unaudited': (74,74), 'mospi_nh_construction_2025_26': (1,1)}
         for sid, expected in counts.items():
             path = RAW / 'manual' / (sid + '.csv')
             evidence = json.loads((RAW / 'manual/evidence' / (sid + '.json')).read_text())
