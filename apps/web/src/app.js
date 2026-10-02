@@ -2113,9 +2113,9 @@ const DISCLOSURE_SOURCE_IDS = [
 const ANALYST_THEMES = [
   { id: 'safety', title: 'Road safety', note: 'Person fatalities, injuries, accidents and fatal crashes are distinct. NH includes expressways only where the report states it. Agency responsibility is not inferred from road class. Final and provisional statistical vintages remain visible separately.' },
   { id: 'economic', title: 'State economic context', note: 'Current-price GSDP retains publication vintage, revisions and missing state-years. Common-period selection chooses the greatest observed entity coverage among the latest three periods, within compatible source and accounting scopes. Older geographic boundaries remain distinct.' },
-  { id: 'funding', title: 'Funding & outcomes', note: 'BE and RE are estimates; actual and YTD observations have separate cutoffs. A later disclosure date does not change the observation period. Estimates with an undisclosed vintage stay visible but are excluded from comparisons. Gross, net and recoveries are separate lines. Funding utilisation does not measure construction progress.' },
-  { id: 'debt', title: 'Debt & repayments', note: 'NHAI, state corporations, concession SPVs and InvIT trusts have distinct balance sheets. DSCR is shown only when disclosed by the issuer. State government debt and guarantees cover all sectors; guarantees are contingent exposures and are not added to debt or attributed to road corporations. Disclosed contractual maturity buckets are separate from carrying-value debt balances. NHAI and NHIT are different obligors; undisclosed repayment schedules are unavailable, not zero.' },
-  { id: 'toll', title: 'Toll & traffic', note: 'NETC payments cover a national payment network; they are not NHAI toll receipts, corridor revenue, vehicle counts or PCU traffic. NPCI excludes annual-pass and Maharashtra EV-exempt transactions from this published series. Issuer traffic in PCU, toll receipts and payment transactions remain separate metrics. Reporting exclusions can break comparisons across periods.' },
+  { id: 'funding', title: 'Funding & outcomes', note: 'BE and RE are estimates; actual and YTD observations have separate cutoffs. A later disclosure date does not change the observation period. Estimates with an undisclosed vintage stay visible but are excluded from comparisons. Gross, net and recoveries are separate lines. Authority income/expenditure and cash-flow funding retain separate statement bases and annual/quarterly periods. Funding utilisation does not measure construction progress.' },
+  { id: 'debt', title: 'Debt & repayments', note: 'NHAI, state corporations, concession SPVs and InvIT trusts have distinct balance sheets. DSCR is shown only when disclosed by the issuer. State government debt and guarantees cover all sectors; guarantees are contingent exposures and are not added to debt or attributed to road corporations. NHAI contingent claims are disclosed exposures, not actual borrowings, and are not added to reported debt. Assets, net worth, classic balance sheets and debt-working tables retain separate accounting scopes. Limited-review unaudited figures are not CAG-audited. Disclosed contractual maturity buckets are separate from carrying-value debt balances. NHAI and NHIT are different obligors; undisclosed repayment schedules are unavailable, not zero.' },
+  { id: 'toll', title: 'Toll & traffic', note: 'NETC payments cover a national payment network; they are not NHAI toll receipts, corridor revenue, vehicle counts or PCU traffic. NPCI excludes annual-pass and Maharashtra EV-exempt transactions from this published series. NHAI gross toll collections, deposits to the Consolidated Fund of India (CFI) and annual cash ploughback are separate disclosures and are not added as revenue. Issuer traffic in PCU, toll receipts and payment transactions remain separate metrics. Reporting exclusions can break comparisons across periods.' },
   { id: 'monetisation', title: 'TOT & InvIT', note: 'Concession values, realised proceeds, enterprise valuations and distributions have different meanings. Valuations are estimates. Failed or unawarded bundles are not completed sales. DPU may include interest, dividend or capital repayment.' },
   { id: 'network', title: 'NH & SH networks', note: 'Network stock, constructed length and project length are separate measures. State Highways and state expressways remain distinct from National Highways. Published all-state tables may contain older observation dates by state; ownership is not inferred from location.' },
   { id: 'state_finance', title: 'State road spending', note: 'RBI Roads and Bridges expenditure covers a wider function than State Highways. Compare the same fiscal year, estimate type and unit. State government finances and corporation accounts are separate entities; no double-counted national total is computed.' },
@@ -2124,6 +2124,13 @@ const ANALYST_THEMES = [
 
 function disclosureTheme(row) {
   const metric = String(row.metric || '');
+  if (row.source_id === 'nhai_financial_results_2025_26_to_2026_06') {
+    if (/^toll_/.test(metric)) return 'toll';
+    if (/^tot_|^invit_/.test(metric)) return 'monetisation';
+    if (['NHAI_standalone_balance_sheet', 'NHAI_standalone_debt_working', 'NHAI_contingent_claims'].includes(row.statement_basis)
+      || /repayment|redemption|bonds_net_cash|term_loans_net_cash|bond_interest|finance_charges/.test(metric)) return 'debt';
+    return 'funding';
+  }
   if (/accident|fatalit|persons_killed|injur|fatal_crash|deaths/.test(metric)) return 'safety';
   if (/^gsdp_/.test(metric)) return 'economic';
   if (/^roads_bridges_/.test(metric)) return 'state_finance';
@@ -2242,14 +2249,15 @@ function deriveDisclosureInsights(rows) {
 
 function analystHighlights(rows) {
   const selections = [
-    ['NHAI debt snapshot', 'parliament_nhai_debt_tot_invit', 'debt_outstanding_inr_crore'],
+    ['NHAI standalone debt (unaudited)', 'nhai_financial_results_2025_26_to_2026_06', 'debt_total_inr_crore', 'NHAI_standalone_debt_working'],
     ['NHIT disclosed DSCR', 'nhit_quarterly_operations_finance', 'dscr_ratio'],
     ['Realised monetisation', 'nhai_monetisation_transactions', 'monetisation_realised_inr_crore'],
   ];
-  return selections.map(([label, source, metric]) => {
-    const candidates = rows.filter((row) => row.source_id === source && row.metric === metric)
+  return selections.map(([label, source, metric, basis]) => {
+    const candidates = rows.filter((row) => row.source_id === source && row.metric === metric && (!basis || row.statement_basis === basis))
       .sort((a, b) => String(b.data_as_of || b.period_end || '').localeCompare(String(a.data_as_of || a.period_end || '')));
-    return { label, row: candidates[0] };
+    const latest = candidates.filter((row) => row.data_as_of === candidates[0]?.data_as_of);
+    return { label, row: basis ? (latest.length === 1 ? latest[0] : undefined) : candidates[0] };
   });
 }
 
@@ -2393,7 +2401,7 @@ function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter })
     React.createElement('div', { className: 'analyst-highlights' }, ...highlights.map(({ label, row }) => React.createElement('article', { className: 'card analyst-highlight', key: label },
       React.createElement('h3', null, label),
       React.createElement('strong', null, row ? `${fmtNum(row.value, { compact: false })} ${unitLabel(row.unit)}` : 'Unavailable for this selection'),
-      row ? React.createElement('p', { className: 'insight-note' }, `${row.agency} · ${row.entity_id} · ${row.statement_basis || 'basis not disclosed'} · ${row.estimate_type} · as of ${row.data_as_of || row.period_end || 'date not disclosed'}`) : null,
+      row ? React.createElement('p', { className: 'insight-note' }, `${row.agency} · ${row.entity_id} · ${row.statement_basis || 'basis not disclosed'} · ${row.estimate_type} · ${observationLabel(row)} · as of ${row.data_as_of || row.period_end || 'date not disclosed'}`) : null,
       row ? React.createElement('a', { href: validCitation(row.citation_url), target: '_blank', rel: 'noreferrer' }, `Source · ${row.table_page || 'document'}`) : null))),
     React.createElement('div', { className: 'analyst-tabs', role: 'group', 'aria-label': 'Analyst themes' }, ...ANALYST_THEMES.map((item) => React.createElement('button', {
       key: item.id, type: 'button', className: theme === item.id ? 'active' : '', 'aria-pressed': theme === item.id,

@@ -283,7 +283,7 @@ else:
 
 def _frontend_fixture_script(source: str) -> str:
     """Exercise the deployed pure calculation functions, including invalid joins."""
-    names = ["num", "observedAxisTicks", "completeSum", "statePortfolioObservation", "unrectifiedShare", "fmtNum", "sourceTypeTag", "analyticalReady", "disclosureReady", "confidenceFromSources", "humanMetric", "disclosureTheme", "validCitation", "disclosureCutoffKnown", "disclosureEligible", "disclosureMeasured", "disclosureVisible", "disclosureQualifier", "csvText", "deriveDisclosureInsights", "netcPaymentHighlights", "netcPaymentSeries", "netcMonthTick", "wideYearFacts", "selectPeriodView", "observationLabel", "completeCalendarQuarterFlows", "normalizeState", "isAggregateStateLabel", "selectionPeriodCoverage", "latestGsdpPeriod", "reportedScheduleDate", "latestNetworkStock", "nhidclPortfolioSnapshot", "portfolioScheduleBurden"]
+    names = ["num", "observedAxisTicks", "completeSum", "statePortfolioObservation", "unrectifiedShare", "fmtNum", "sourceTypeTag", "analyticalReady", "disclosureReady", "confidenceFromSources", "humanMetric", "disclosureTheme", "validCitation", "disclosureCutoffKnown", "disclosureEligible", "disclosureMeasured", "disclosureVisible", "disclosureQualifier", "csvText", "deriveDisclosureInsights", "analystHighlights", "netcPaymentHighlights", "netcPaymentSeries", "netcMonthTick", "wideYearFacts", "selectPeriodView", "observationLabel", "completeCalendarQuarterFlows", "normalizeState", "isAggregateStateLabel", "selectionPeriodCoverage", "latestGsdpPeriod", "reportedScheduleDate", "latestNetworkStock", "nhidclPortfolioSnapshot", "portfolioScheduleBurden"]
     aliases = re.search(r'const STATE_ALIASES = \{.*?^\};', source, re.MULTILINE | re.DOTALL)
     if not aliases: raise RuntimeError('Missing state geography aliases')
     blocks = [aliases.group(0)]
@@ -412,6 +412,24 @@ def _frontend_fixture_script(source: str) -> str:
     check(portfolioScheduleBurden(portfolio.rows,[{state:'Assam',gsdp_current_price:null}]).length===0 && portfolioScheduleBurden(portfolio.rows,[{state:'Assam',gsdp_current_price:0}]).length===0, 'missing or zero economic denominators never create a zero burden');
     check(portfolioScheduleBurden([{state:'Assam',ongoing_past_schedule:0,ongoing_unknown_schedule:0}],[{state:'Assam',gsdp_current_price:100000}])[0].value===0, 'observed zero schedule exposure retained');
     check(selectionPeriodCoverage([gsdp],'latest',3).includes('2024-04-01 → 2025-03-31') && selectionPeriodCoverage([gsdp],'latest',3).includes('3 historical or undated'), 'latest coverage dates and retained history explicit');
+
+
+    const reviewedNhai={source_id:'nhai_financial_results_2025_26_to_2026_06',entity_id:'nhai',agency:'NHAI',entity_type:'agency',metric:'debt_total_inr_crore',statement_basis:'NHAI_standalone_debt_working',assurance:'limited_review_unaudited',observation_status:'reported',value:195303.7117,unit:'INR crore',data_as_of:'2026-06-30',period_end:'2026-06-30',estimate_type:'actual',evidence_class:'official_measured',analytical_eligible:true,citation_url:'https://nhai.gov.in/financial-results'};
+    check(disclosureTheme(reviewedNhai)==='debt' && disclosureTheme({...reviewedNhai,metric:'net_worth_inr_crore'})==='debt', 'NHAI reviewed debt and net worth use debt panel');
+    check(disclosureTheme({...reviewedNhai,metric:'current_assets_inr_crore',statement_basis:'NHAI_standalone_balance_sheet'})==='debt', 'NHAI classic balance sheet has its own finance scope');
+    check(disclosureTheme({...reviewedNhai,metric:'arbitration_contingent_claims_inr_crore',statement_basis:'NHAI_contingent_claims'})==='debt', 'NHAI contingent claims remain disclosed exposures');
+    check(disclosureTheme({...reviewedNhai,metric:'toll_collection_inr_crore',statement_basis:'NHAI_gross_toll_collections'})==='toll' && disclosureTheme({...reviewedNhai,metric:'toll_deposit_cfi_inr_crore',statement_basis:'NHAI_toll_deposits_CFI'})==='toll', 'NHAI gross toll and CFI deposits route without combining accounting scopes');
+    check(disclosureTheme({...reviewedNhai,metric:'toll_adjusted_ploughback_cash_inr_crore',statement_basis:'NHAI_standalone_cash_flow'})==='toll', 'NHAI annual toll cash ploughback stays distinct from quarterly collections');
+    check(disclosureTheme({...reviewedNhai,metric:'other_income_inr_crore',statement_basis:'NHAI_standalone_income_expenditure'})==='funding' && disclosureTheme({...reviewedNhai,metric:'capital_road_work_cash_inr_crore',statement_basis:'NHAI_standalone_cash_flow'})==='funding', 'NHAI authority income and cash funding do not imply project delivery or InvIT earnings');
+    check(disclosureTheme({...reviewedNhai,metric:'invit_proceeds_cash_inr_crore',statement_basis:'NHAI_standalone_cash_flow'})==='monetisation' && disclosureTheme({...reviewedNhai,metric:'ncd_redemption_cash_inr_crore',statement_basis:'NHAI_standalone_cash_flow'})==='debt', 'NHAI cash proceeds and debt redemption preserve their economic roles');
+    check(disclosureTheme({source_id:'nhit_quarterly_operations_finance',metric:'ebitda_inr_crore'})==='monetisation' && disclosureTheme({source_id:'nhit_quarterly_operations_finance',metric:'dscr_ratio'})==='debt', 'existing NHIT routes remain unchanged');
+    check(observationLabel(reviewedNhai).includes('reported · limited_review_unaudited'), 'NHAI review assurance retained without audited classification');
+    const reviewedCatalog={[reviewedNhai.source_id]:{source_id:reviewedNhai.source_id,metric_category:'official_measured',analytical_ready:true,disclosure_ready:true,manifest:{row_count:1}}};
+    check(disclosureMeasured(reviewedNhai,reviewedCatalog) && !disclosureVisible({...reviewedNhai,value:'-'},reviewedCatalog), 'reviewed reported facts visible; missing filing dashes never become zero');
+    const earlierReviewed={...reviewedNhai,value:200000,data_as_of:'2026-03-31',period_end:'2026-03-31',observation_status:'revised'};
+    check(analystHighlights([earlierReviewed,reviewedNhai,{...reviewedNhai,value:999999,statement_basis:'different_basis'}])[0].row?.value===195303.7117, 'NHAI headline uses exact reviewed standalone basis and latest observation regardless revision status');
+    check(!analystHighlights([reviewedNhai,reviewedNhai])[0].row, 'ambiguous current reviewed debt headline suppressed');
+    check(selectPeriodView([{...reviewedNhai,metric:'current_assets_inr_crore'},{...reviewedNhai,metric:'current_assets_inr_crore',statement_basis:'NHAI_standalone_balance_sheet'}],'latest').length===2, 'classic and working asset definitions are not folded together');
 
     return failures;
     """
@@ -694,6 +712,51 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
             coverage_summary = await page.get_by_test_id('selection-period-coverage').inner_text()
             if not all(marker in coverage_summary for marker in ['periods may differ', 'Selected reporting periods', 'Observation cutoffs', 'All history', 'Unknown estimate vintages']):
                 raise RuntimeError('Latest table view must disclose selected periods and retained history')
+
+            reviewed_debt_card = page.locator('.analyst-highlight').filter(has=page.get_by_role('heading', name='NHAI standalone debt (unaudited)', exact=True))
+            reviewed_debt_text = await reviewed_debt_card.inner_text()
+            if not all(marker in reviewed_debt_text for marker in ['1,95,303.71', 'limited_review_unaudited', 'NHAI_standalone_debt_working', '2026-06-30']):
+                raise RuntimeError('Latest NHAI standalone debt card lost figure, review class, scope or cutoff')
+            async def selected_csv_rows():
+                async with page.expect_download() as event:
+                    await page.get_by_role('button', name='Download filtered evidence CSV', exact=True).click()
+                downloaded = await event.value
+                return list(csv.DictReader(io.StringIO(Path(await downloaded.path()).read_text(encoding='utf-8-sig'))))
+            await page.get_by_role('button', name='Debt & repayments', exact=False).click()
+            await page.get_by_label('Agency', exact=True).select_option('NHAI')
+            await page.get_by_label('Metric', exact=True).select_option('debt_total_inr_crore')
+            await page.get_by_label('Reporting period', exact=True).select_option('? → 2026-06-30 (balance_sheet_snapshot)')
+            reviewed_debt = await selected_csv_rows()
+            if len(reviewed_debt) != 1 or abs(float(reviewed_debt[0]['value']) - 195303.7117) > .000001 or reviewed_debt[0]['statement_basis'] != 'NHAI_standalone_debt_working':
+                raise RuntimeError('June reviewed NHAI debt filter lost canonical single-scope record')
+            if not all(reviewed_debt[0][field] == value for field, value in [('unit','INR crore'),('original_unit','INR lakh'),('assurance','limited_review_unaudited'),('data_as_of','2026-06-30'),('published_at','')]):
+                raise RuntimeError('Reviewed NHAI debt export lost units, assurance or unknown publication date')
+            if 'contingent claims are disclosed exposures, not actual borrowings' not in await page.locator('.analyst-evidence-panel').inner_text():
+                raise RuntimeError('Contingent claims must not imply actual borrowings')
+            await page.get_by_role('button', name='Funding & outcomes', exact=False).click()
+            await page.get_by_label('Agency', exact=True).select_option('NHAI')
+            await page.get_by_label('Metric', exact=True).select_option('total_income_inr_crore')
+            await page.get_by_label('Reporting period', exact=True).select_option('2026-04-01 → 2026-06-30 (fiscal_quarter)')
+            if await table.locator('tbody tr').count() != 1 or 'NHAI_standalone_income_expenditure' not in await table.inner_text():
+                raise RuntimeError('NHAI authority earnings must be scoped funding evidence')
+            await page.get_by_role('button', name='Toll & traffic', exact=False).click()
+            await page.get_by_label('Agency', exact=True).select_option('NHAI')
+            await page.get_by_label('Reporting period', exact=True).select_option('2026-04-01 → 2026-06-30 (fiscal_quarter)')
+            reviewed_toll = await selected_csv_rows()
+            if len(reviewed_toll) != 2 or {row['metric'] for row in reviewed_toll} != {'toll_collection_inr_crore','toll_deposit_cfi_inr_crore'} or len({row['statement_basis'] for row in reviewed_toll}) != 2:
+                raise RuntimeError('NHAI quarter gross toll and CFI deposits must remain separate records')
+            if {row['metric']:round(float(row['value']),4) for row in reviewed_toll} != {'toll_collection_inr_crore':10692.0625,'toll_deposit_cfi_inr_crore':10700.8666}:
+                raise RuntimeError('June NHAI toll/deposit evidence differs from reviewed source figures')
+            await page.get_by_role('button', name='Project delivery', exact=False).click()
+            await page.get_by_label('Agency', exact=True).select_option('UPEIDA')
+            await page.get_by_label('Reporting period', exact=True).select_option('? → 2026-04-27 (project_snapshot)')
+            ganga = await selected_csv_rows()
+            if len(ganga) != 8 or any(row['source_id'] != 'upeida_ganga_progress_2026_04_27' or row['data_as_of'] != '2026-04-27' for row in ganga):
+                raise RuntimeError('Ganga dated project progress lost its explicit snapshot cutoff or project scope')
+            if next((float(row['value']) for row in ganga if row['metric'] == 'overall_progress_percent'), None) != 98:
+                raise RuntimeError('Ganga reported overall progress must remain 98 percent')
+            await page.get_by_role('button', name='Funding & outcomes', exact=False).click()
+
             # Explicitly retain historical and unknown-vintage estimate coverage in history mode.
             await page.get_by_label('Period view', exact=True).select_option('all')
             await page.get_by_label('Estimate type', exact=True).select_option('BE')
