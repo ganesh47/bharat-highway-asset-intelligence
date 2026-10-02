@@ -14,4 +14,6 @@ Publication discovery produces candidate links rather than numerical facts. Docu
 
 The state-accounts catalogue audit covers all 36 jurisdictions. Indexed statements awaiting extraction are labelled extraction pending, separately from restricted retrieval and missing releases. Account heads 3054 and 5054 cover Roads and Bridges across road classes; their expenditure is not presented as SH-only spending. MoRTH's newer national network total differs from its state sum by 2 km; the published total remains visible but excluded from reconciliation-based calculations.
 
+The release audit found stale manifest input hashes for the RBI GSDP and Karnataka/Maharashtra accounts extracts after CSV row-order changes. An independent canonical comparison found exact equality across all fact columns, dates, citations and assurance fields (455, 3 and 3 rows respectively), with no duplicate or missing keys. Governed input bindings are reconciled only after validated fact-payload equality; observation dates and Parquet bytes are preserved. Existing raw-file checksum mismatches are now publication errors. Document archive availability remains explicit when publisher retrieval fails.
+
 Release evidence and final coverage counts are recorded after CI and deployed-site validation.
