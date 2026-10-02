@@ -1,6 +1,6 @@
 import unittest
 from pathlib import Path
-from pipelines.state_supplement_completion import parse_accounts,parse_delhi,parse_puducherry
+from pipelines.state_supplement_completion import parse_accounts,parse_delhi,parse_puducherry,parse_rajasthan_state_highways
 F=Path(__file__).parent/'fixtures/state_supplement_completion'
 class StateSupplementTests(unittest.TestCase):
  def test_reversed_column_orders_select_annual_capital(self):
@@ -13,6 +13,10 @@ class StateSupplementTests(unittest.TestCase):
   fun=(F/'jk_function.txt').read_text();cap=(F/'jk_capital.txt').read_text()
   for changed in [cap.replace('crore','lakh'),cap.replace('2,256.69','2,256.68'),cap.replace('13,708.19','13,708.20',1),cap.replace('yet to be apportioned','unknown balances')]:
    with self.assertRaises(ValueError):parse_accounts(fun,changed,current_first=False)
+ def test_sh_minorhead_preserves_signed_net_cash_and_distinct_scope(self):
+  values=parse_rajasthan_state_highways((F/'rajasthan_sh_revenue.txt').read_text(),(F/'rajasthan_sh_capital.txt').read_text())
+  self.assertEqual(values,dict(revenue_2024_25=-13131.04,revenue_2023_24=-13797.32,capital_2024_25=294585.08,capital_2023_24=272123.66))
+  with self.assertRaises(ValueError):parse_rajasthan_state_highways((F/'rajasthan_sh_revenue.txt').read_text(),(F/'rajasthan_sh_capital.txt').read_text().replace('2,94,585.08','2,94,586.08'))
  def test_rounded_puducherry_actual_keeps_audit_qualification(self):
   text=(F/'puducherry_capital.txt').read_text()
   self.assertEqual(parse_puducherry(text),{'capital_2024_25':144.0})

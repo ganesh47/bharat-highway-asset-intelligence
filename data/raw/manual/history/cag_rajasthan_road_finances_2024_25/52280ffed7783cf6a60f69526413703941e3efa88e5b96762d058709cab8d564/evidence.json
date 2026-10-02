@@ -16,14 +16,7 @@
   "notes": "Recovered regional/UT primary publication; dated audited annual actuals with labelled reconciliation and no inferred publication day.",
   "gap_reason": "",
   "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
-  "active_document_sha256": [
-    "44f59878f57f8640217e3ba84691491032e0dbe7348f1f7c59b053b06b09c547"
-  ],
-  "csv_sha256": "c11d28bbb2f7bb4b6455308df88034650708db3112f488c53b77272a63370005",
-  "history": {
-    "index_path": "history/cag_rajasthan_road_finances_2024_25/index.json",
-    "version_count": 4,
-    "revision_count": 0,
-    "candidate_version_id": "52280ffed7783cf6a60f69526413703941e3efa88e5b96762d058709cab8d564"
-  }
+  "csv_sha256": "efe6383b560822ad15e3db75974803c4febd5e719a394710ad5bd41fa311047a",
+  "version_id": "52280ffed7783cf6a60f69526413703941e3efa88e5b96762d058709cab8d564",
+  "observation_checksum": "15d688cb316b6717fdd54cbe7c237c0e71b6ce654b8f918152194b114e560993"
 }

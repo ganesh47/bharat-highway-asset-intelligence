@@ -2,7 +2,7 @@
   "source_id": "cag_jammu_and_kashmir_road_finances_2024_25",
   "research_cutoff": "2026-10-02",
   "retrieved_at": "2026-10-02T08:02:56.080208+00:00",
-  "last_checked_at": "2026-10-02T08:17:37.400930+00:00",
+  "last_checked_at": "2026-10-02T08:14:27.672986+00:00",
   "documents": [
     {
       "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-JK-Finance-Accounts-2024-25-Vol-I-15-12-2025-069d79132701351-89156562.pdf",
@@ -22,8 +22,10 @@
   "csv_sha256": "432c9a5b6c3ac9224c75b8f24061674583c6369d874a3dc4466a8f836fa4fe84",
   "history": {
     "index_path": "history/cag_jammu_and_kashmir_road_finances_2024_25/index.json",
-    "version_count": 3,
+    "version_count": 2,
     "revision_count": 0,
     "candidate_version_id": "b33c7c88835956cd0509eb717c656153c8e8815baaa1322a3da2c6f50f1be37d"
-  }
+  },
+  "version_id": "924517c3b20c382a41c1c828001432a9e533f5a46b248f226b65a776c4716a78",
+  "observation_checksum": "c8b0e0109be2e5b9cac07c4b55af0fad01d23831680370ba79bea472ebee3ebc"
 }

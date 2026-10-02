@@ -2,7 +2,7 @@
   "source_id": "cag_puducherry_road_finances_2024_25",
   "research_cutoff": "2026-10-02",
   "retrieved_at": "2026-10-02T08:06:08.799429+00:00",
-  "last_checked_at": "2026-10-02T08:17:37.435005+00:00",
+  "last_checked_at": "2026-10-02T08:14:27.698250+00:00",
   "documents": [
     {
       "url": "https://cag.gov.in/uploads/download_audit_report/2025/UTFAR-ENGLISH-06a9995af301932.89506359.pdf",
@@ -22,8 +22,10 @@
   "csv_sha256": "943574c30e69cefee35c55aedc7d2a25d2a3e2d8b4fd68e62bf5cf9fc7a9a537",
   "history": {
     "index_path": "history/cag_puducherry_road_finances_2024_25/index.json",
-    "version_count": 2,
+    "version_count": 1,
     "revision_count": 0,
     "candidate_version_id": "52df9bd50a61bcf8a4ac1a6587701e01a42d1eed1e75bed9883673c0c72d5de4"
-  }
+  },
+  "version_id": "7120a9fe1789e7fa08b0df0daaa97d9637efbfebf62405a69e26a41ca016f233",
+  "observation_checksum": "53b962e2758d6143812feac01fad65accdc51e6da0aef04d2ef5a4dc362afbf2"
 }

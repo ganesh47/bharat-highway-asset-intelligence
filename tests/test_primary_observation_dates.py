@@ -6,10 +6,19 @@ import pandas as pd
 
 from pipelines.quality import observation_date, observed_row_mask
 from pipelines.ingest import _annotate
-from scripts.build_coverage_report import dates
+from scripts.build_coverage_report import dates, coverage_buckets
 
 
 class PrimaryObservationDateTests(unittest.TestCase):
+    def test_coverage_discovers_new_finance_and_network_sources_by_scope(self):
+        frames = {"new_state_accounts": pd.DataFrame({"metric": ["roads_bridges_capital_outlay_inr_crore"]}),
+                  "new_network": pd.DataFrame({"metric": ["nh_network_length_km", "constructed_length_km"]}),
+                  "flow_only": pd.DataFrame({"metric": ["constructed_length_km"]})}
+        buckets = coverage_buckets(frames)
+        self.assertIn("new_state_accounts", buckets[2])
+        self.assertIn("new_network", buckets[0])
+        self.assertFalse(any("flow_only" in bucket for bucket in buckets))
+
     def test_explicit_unknown_clears_stale_inferred_cutoff(self):
         frame = pd.DataFrame({"data_as_of": [None], "period_end": [None],
                               "year": [2026], "source_document_sha256": ["pinned"],

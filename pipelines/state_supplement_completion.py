@@ -53,6 +53,17 @@ def parse_accounts(function: str, capital: str, *, current_first: bool) -> dict[
  if not math.isclose(vals[1],current,abs_tol=.005) or not math.isclose(sum(vals[:-1]),vals[-1],abs_tol=.015):raise ValueError('Annual capital reconciliation failed')
  return dict(revenue_2024_25=vals[0],capital_2024_25=current,capital_2023_24=previous)
 
+def parse_rajasthan_state_highways(revenue: str, capital: str) -> dict[str,float]:
+ """Minor head03 actuals are net cash flows, including published recoveries."""
+ if not all(x in revenue for x in ['2024-25','2023-24','State Highways','lakh','Minus expenditure']) or not all(x in capital for x in ['2024-25','2023-24','State Highways','lakh','Deduct']):raise ValueError('SH net expenditure headings changed')
+ def row(text):
+  lines=[line for line in text.splitlines() if 'TOTAL - 03' in line]
+  if len(lines)!=1:raise ValueError('SH subtotal ambiguous')
+  return _numeric_tokens(lines[0])
+ r,c=row(revenue),row(capital)
+ if len(r)!=4 or len(c)!=6 or not math.isclose(c[0]+c[1],c[2],abs_tol=.005):raise ValueError('SH subtotal columns/reconciliation changed')
+ return {'revenue_2024_25':r[1],'revenue_2023_24':r[2],'capital_2024_25':c[2],'capital_2023_24':c[3]}
+
 def parse_delhi(text: str) -> dict[str,float]:
  text=' '.join(text.split())
  if not all(x in text for x in ['2023-24','2024-25','crore','5054','Roads and Bridges']):raise ValueError('Delhi capital narrative contract changed')
@@ -90,6 +101,13 @@ def extend_snapshots(builder: Any) -> None:
    if c['state']=='Puducherry':notes+='Reported rounded whole-crore road capital figure, visually verified in scanned SFAR printedp25. Audit reports aggregate capital misclassification INR25.59crore; no unsupported deduction from the road subtotal. Revenue3054/prior5054 remain unavailable in this disclosure. '
    if c['state']=='Delhi':notes+='State Finances Audit Report capital narrative; revenue head3054 is not separately disclosed in this extract and remains a gap. '
    builder.fact(sid,metric,value,'INR crore',f"PDF p{pages[key]}; "+('SFAR chapter1 printedp25 Roads and Bridges narrative' if c['state']=='Puducherry' else ('SFAR chapter1 printedp7 MH5054 narrative' if c['state']=='Delhi' else 'Finance Accounts Statements4A/5 Roads and Bridges')),entity_id='state_'+c['directory'],entity_name=c['state'],entity_type='state_aggregate',agency='CAG / Government of '+c['state'],state=c['state'],road_class='roads_and_bridges_all_classes',start=f'{year}-04-01',end=f'{year+1}-03-31',basis='fiscal_year',estimate='actual',statement='state_finance_audit_report_rounded_cash_capital_expenditure' if c['state']=='Puducherry' else 'state_finance_accounts_cash_expenditure_as_reported',reported_period=f'{year}-{str(year+1)[2:]}',published=c.get('published',''),observation_status='final',assurance='audited_state_finances_report' if c['state']=='Puducherry' else 'audited_finance_accounts',notes=notes)
+  if c['state']=='Rajasthan':
+   with pdfplumber.open(path) as pdf:
+    sh=parse_rajasthan_state_highways(pdf.pages[208].extract_text(layout=True),pdf.pages[275].extract_text(layout=True))
+   for key,value in sh.items():
+    year=2024 if key.endswith('2024_25') else 2023
+    is_revenue=key.startswith('revenue')
+    builder.fact(sid,'roads_bridges_revenue_expenditure_inr_crore' if is_revenue else 'roads_bridges_capital_outlay_inr_crore',value,'INR crore',f"PDF p{209 if is_revenue else 276}; printedp{181 if is_revenue else 248}; Statement{15 if is_revenue else 16}, major head{3054 if is_revenue else 5054}, minorhead03 State Highways TOTAL",original_unit='INR lakh',entity_id='state_rajasthan',entity_name='Rajasthan',entity_type='state_aggregate',agency='CAG / Government of Rajasthan',state='Rajasthan',road_class='State Highway',start=f'{year}-04-01',end=f'{year+1}-03-31',basis='fiscal_year',estimate='actual',statement='state_finance_accounts_net_minor_head_03_expenditure',reported_period=f'{year}-{str(year+1)[2:]}',published='',observation_status='final',assurance='audited_finance_accounts',notes='Audited SH minorhead03 net annual cash expenditure, not gross construction cost. Revenue is negative because receipts/recoveries exceed expenditure as footnote(a) explicitly reports. Capital is net of Central Road Fund and State Road Development Fund recoveries. Included in the all-road-class major-head subtotal; never add both scopes together. Original INRlakh normalized to crore.')
   builder.notes[sid]='Recovered regional/UT primary publication; dated audited annual actuals with labelled reconciliation and no inferred publication day.'
 
 if __name__=='__main__':

@@ -48,6 +48,22 @@ def dates(df: pd.DataFrame, fallback: str | None = None) -> str:
     return fallback or "Unknown"
 
 
+def coverage_buckets(frames: dict[str, pd.DataFrame]) -> list[set[str]]:
+    """Discover measured scopes from metrics rather than freezing old source IDs."""
+    buckets = [{"morth_annual_report_pdf"}, set(), set(),
+               {"nhidcl_monthly_project_progress", "upeida_expressway_projects",
+                "msrdc_financial_disclosures", "adb_state_road_projects", "mospi_paimana_monthly_projects"}]
+    for sid, frame in frames.items():
+        metrics = set(frame["metric"].dropna().astype(str)) if "metric" in frame else set()
+        if "nh_network_length_km" in metrics:
+            buckets[0].add(sid)
+        if metrics & {"sh_network_length_km", "sh_surfaced_length_km"}:
+            buckets[1].add(sid)
+        if any(metric.startswith("roads_bridges_") for metric in metrics):
+            buckets[2].add(sid)
+    return buckets
+
+
 def build(inventory_path: Path, catalog_path: Path, out: Path, root: Path = ROOT) -> dict:
     inventory = load_inventory(inventory_path)
     sources = {item["source_id"]: item for item in inventory.sources}
@@ -109,11 +125,10 @@ def build(inventory_path: Path, catalog_path: Path, out: Path, root: Path = ROOT
                   "Each cell lists disclosed metrics and their own periods. Project portfolios are not highway network stocks. Roads and Bridges expenditure has a broader scope than State Highways. A zero published in a primary table is a reported value; an empty cell below means no eligible observations.", "",
                   "| State / UT | NH network stock | SH network stock | Roads and Bridges spending | Detailed corridor / delivery evidence |",
                   "|---|---|---|---|---|"])
-    buckets = [{"morth_annual_report_pdf"}, {"morth_state_highway_network"}, {"rbi_state_road_finances"},
-               {"nhidcl_monthly_project_progress", "upeida_expressway_projects", "msrdc_financial_disclosures", "adb_state_road_projects"}]
+    buckets = coverage_buckets(frames)
     for state in STATES:
         values = []
-        for bucket in buckets:
+        for bucket_index, bucket in enumerate(buckets):
             evidence = []
             for sid in sorted(bucket & frames.keys()):
                 df = frames[sid]
@@ -125,8 +140,12 @@ def build(inventory_path: Path, catalog_path: Path, out: Path, root: Path = ROOT
                 if state == "Dadra and Nagar Haveli and Daman and Diu" and sid == "morth_state_highway_network":
                     part = df[df[state_col].isin(["Dadra & Nagar Haveli", "Daman & Diu"])]
                     historical_regions = ["Separate historical entities; no combined stock inferred"]
-                if sid == "rbi_state_road_finances" and "metric" in part:
+                if bucket_index == 2 and "metric" in part:
                     part = part[part["metric"].str.startswith("roads_bridges_")]
+                if bucket_index == 0 and "metric" in part:
+                    part = part[part["metric"].eq("nh_network_length_km")]
+                if bucket_index == 1 and "metric" in part:
+                    part = part[part["metric"].isin(["sh_network_length_km", "sh_surfaced_length_km"])]
                 if sid == "morth_annual_report_pdf" and "metric_name" in part:
                     part = part[part["metric_name"].eq("appendix2_statewise_nh_length_km")]
                 if part.empty:
