@@ -1,0 +1,2853 @@
+{
+  "research_cutoff": "2026-10-02",
+  "audit_scope": "Resolution of all 36 current jurisdictions for FY2024-25 government Roads and Bridges actuals; document discovery, disclosed amounts, reconciliation and assurance remain distinct.",
+  "prior_discovery_audit": {
+    "path": "research/state_publication_audit_2026_10_02.json",
+    "sha256": "db39acf4a115cb6412e980a93e744c78526241ec8846ab8e2ee5c44f868302ac",
+    "preserved_as_history": true,
+    "note": "This resolution supersedes extraction-pending statuses, not original checked URLs/HTTP outcomes or publication evidence. Prior audit retained unchanged."
+  },
+  "summary": {
+    "jurisdiction_count": 36,
+    "current_fy2024_25_cag_jurisdictions_with_extracted_road_capital": 30,
+    "detailed_finance_accounts_jurisdictions": 28,
+    "sfar_capital_narrative_only_jurisdictions": 2,
+    "completed_existing_five": 5,
+    "completed_indexed_twenty_one": 21,
+    "completed_regional_or_ut": 4,
+    "goa_alternate_budget_in_progress": 1,
+    "nonlegislative_union_territory_head_specific_gaps": 5,
+    "governed_fact_count": 93,
+    "eligible_fact_count": 89,
+    "unreconciled_fact_count": 4,
+    "current_revenue_jurisdictions_with_eligible_values": 28,
+    "current_capital_jurisdictions_with_disclosed_values": 30,
+    "current_capital_jurisdictions_with_eligible_values": 28,
+    "prior_capital_jurisdictions_with_eligible_values": 29
+  },
+  "jurisdictions": [
+    {
+      "jurisdiction": "Andaman and Nicobar Islands",
+      "jurisdiction_type": "union_territory",
+      "historical_discovery_status": "not_listed_in_state_selector",
+      "historical_latest_indexed_account_year": null,
+      "source_ids": [],
+      "governed_fact_count": 0,
+      "eligible_fact_count": 0,
+      "evidence": [],
+      "documents": [],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        },
+        "capital_5054_fy2024_25": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        }
+      },
+      "observation_cutoffs": [],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "resolution_status": "union_territory_head_specific_account_gap",
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?show_ut_only=1"
+      ],
+      "scope_notes": [
+        "No separate state Finance Accounts selector found in original discovery audit. Head-specific expenditure needs Union/territory appropriation-account investigation.",
+        "Nonlegislative UT administration is financed through Union appropriations; state-budget absence never means zero road expenditure. No present UT measure inferred from historic boundaries or combined J&K balances."
+      ],
+      "remaining_metric_gaps": [
+        "Verified comparable current head 3054/5054 annual road amounts are unavailable in this extraction; Union appropriation scope cannot be silently substituted for state-budget accounts."
+      ]
+    },
+    {
+      "jurisdiction": "Andhra Pradesh",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_andhra_pradesh_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_andhra_pradesh_road_finances_2024_25.csv",
+          "csv_sha256": "bced7b1017a5a15d0c6956f9114017faa4248d5001f5efc1b33a50ee6c82c0ba",
+          "evidence_path": "data/raw/manual/evidence/cag_andhra_pradesh_road_finances_2024_25.json",
+          "document_sha256": [
+            "40a303fb86e66b321e5a29b1896c268fd6353a8257d63c43b8422f2b8de11a03"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2024-25-069aadb8ce9dd98-48257159.pdf",
+          "relative_path": "primary_disclosures/cag_andhra_pradesh_road_finances_2024_25/versions/40a303fb86e66b321e5a29b1896c268fd6353a8257d63c43b8422f2b8de11a03.pdf",
+          "sha256": "40a303fb86e66b321e5a29b1896c268fd6353a8257d63c43b8422f2b8de11a03",
+          "size_bytes": 14487063,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=64"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "855.79"
+          ],
+          "table_pages": [
+            "PDF p32; printed p23; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "2728.07"
+          ],
+          "table_pages": [
+            "PDF p43; printed p34; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "870.3"
+          ],
+          "table_pages": [
+            "PDF p43; printed p34; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=64"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Arunachal Pradesh",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_arunachal_pradesh_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_arunachal_pradesh_road_finances_2024_25.csv",
+          "csv_sha256": "7013d71e511212ee4c74a90d3d163cc075e8fc02b4f305abd17a3b77c78acc09",
+          "evidence_path": "data/raw/manual/evidence/cag_arunachal_pradesh_road_finances_2024_25.json",
+          "document_sha256": [
+            "95ad64b54938bc46e27563002f307ac07eef8f6869d6ee2829901bf557cf1f6c"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-VOLUME-1-2024-25-Arunachal-Pradesh-19-12-2025-Final-for-net-uplouding-069b7e107e0c908-00595685.pdf",
+          "relative_path": "primary_disclosures/cag_arunachal_pradesh_road_finances_2024_25/versions/95ad64b54938bc46e27563002f307ac07eef8f6869d6ee2829901bf557cf1f6c.pdf",
+          "sha256": "95ad64b54938bc46e27563002f307ac07eef8f6869d6ee2829901bf557cf1f6c",
+          "size_bytes": 5591458,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=65"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1696.26"
+          ],
+          "table_pages": [
+            "PDF p35; printed p14; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "3672.7"
+          ],
+          "table_pages": [
+            "PDF p43; printed p22; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "2952.08"
+          ],
+          "table_pages": [
+            "PDF p43; printed p22; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=65"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Assam",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_assam_road_finances_2024_25"
+      ],
+      "governed_fact_count": 4,
+      "eligible_fact_count": 2,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_assam_road_finances_2024_25.csv",
+          "csv_sha256": "e9c35bd61f512e058d2f46942883aeedea175cc8c3926af47e057d30fa9fbb9e",
+          "evidence_path": "data/raw/manual/evidence/cag_assam_road_finances_2024_25.json",
+          "document_sha256": [
+            "06ad76451cb68f9dc07acadc8f3c63a54335f848972d53ac1530426d18a97c09"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-24-25-Assam-24-12-2025-0699bdca0253803-90088290.pdf",
+          "relative_path": "primary_disclosures/cag_assam_road_finances_2024_25/versions/06ad76451cb68f9dc07acadc8f3c63a54335f848972d53ac1530426d18a97c09.pdf",
+          "sha256": "06ad76451cb68f9dc07acadc8f3c63a54335f848972d53ac1530426d18a97c09",
+          "size_bytes": 3318228,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=66"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1044.69"
+          ],
+          "table_pages": [
+            "PDF p34; printed p16; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "disclosed_unreconciled_calculation_excluded",
+          "fact_count": 1,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [
+            "9307.46"
+          ],
+          "table_pages": [
+            "PDF p40; printed p22; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "6865.46"
+          ],
+          "table_pages": [
+            "PDF p40; printed p22; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "unreconciled_facts": [
+        {
+          "metric": "roads_bridges_capital_outlay_inr_crore",
+          "value_inr_crore": "9307.46",
+          "statement_basis": "state_finance_accounts_cash_expenditure_as_reported",
+          "table_page": "PDF p40; printed p22; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column",
+          "analytical_eligible": false
+        },
+        {
+          "metric": "roads_bridges_capital_outlay_functional_inr_crore",
+          "value_inr_crore": "9307.45",
+          "statement_basis": "state_finance_accounts_cash_expenditure_as_reported",
+          "table_page": "PDF p34; printed p16; Statement4A expenditure by function; Capital column, alternative published functional Roads and Bridges cell",
+          "analytical_eligible": false
+        }
+      ],
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=66"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations.",
+        "Two published current capital cells differ by INR 0.01 crore: both remain visible with separate statement bases and neither enters calculations; no synthetic correction or balancing."
+      ],
+      "remaining_metric_gaps": [
+        "Reconciliation of the two FY2024-25 capital totals; current capital arithmetic is quarantined."
+      ]
+    },
+    {
+      "jurisdiction": "Bihar",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_bihar_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_bihar_road_finances_2024_25.csv",
+          "csv_sha256": "e3a119ffd8a65b6f7e24825e895dd2be16e1309e63e9abf4f3dd3de37403fe90",
+          "evidence_path": "data/raw/manual/evidence/cag_bihar_road_finances_2024_25.json",
+          "document_sha256": [
+            "f7bd2666e69af57bf9bb1f7833edad7842bee1a6341b8a8642be22f40cea1e0d"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Account-Volume-I-ENGLISH-2024-25-BIHAR-31-01-2026-069a011be9935a9-80886549.pdf",
+          "relative_path": "primary_disclosures/cag_bihar_road_finances_2024_25/versions/f7bd2666e69af57bf9bb1f7833edad7842bee1a6341b8a8642be22f40cea1e0d.pdf",
+          "sha256": "f7bd2666e69af57bf9bb1f7833edad7842bee1a6341b8a8642be22f40cea1e0d",
+          "size_bytes": 5247370,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=67"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "5518.86"
+          ],
+          "table_pages": [
+            "PDF p31; printed p13; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "7064.05"
+          ],
+          "table_pages": [
+            "PDF p36; printed p18; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "6931.88"
+          ],
+          "table_pages": [
+            "PDF p36; printed p18; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=67"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Chandigarh",
+      "jurisdiction_type": "union_territory",
+      "historical_discovery_status": "not_listed_in_state_selector",
+      "historical_latest_indexed_account_year": null,
+      "source_ids": [],
+      "governed_fact_count": 0,
+      "eligible_fact_count": 0,
+      "evidence": [],
+      "documents": [],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        },
+        "capital_5054_fy2024_25": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        }
+      },
+      "observation_cutoffs": [],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "resolution_status": "union_territory_head_specific_account_gap",
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?show_ut_only=1",
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=382&show_ut_only=1"
+      ],
+      "scope_notes": [
+        "Alternate current UT selector was checked: Ladakh has no annual account file; Chandigarh presents monthly accounts, not a verified FY2024-25 annual head-specific road actual. Original discovery audit did not list this selector.",
+        "Nonlegislative UT administration is financed through Union appropriations; state-budget absence never means zero road expenditure. No present UT measure inferred from historic boundaries or combined J&K balances."
+      ],
+      "remaining_metric_gaps": [
+        "Verified comparable current head 3054/5054 annual road amounts are unavailable in this extraction; Union appropriation scope cannot be silently substituted for state-budget accounts."
+      ]
+    },
+    {
+      "jurisdiction": "Chhattisgarh",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_chhattisgarh_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_chhattisgarh_road_finances_2024_25.csv",
+          "csv_sha256": "4c6dc24324d37ba3f03d1c05e4b8a77e4c466432518b0421d37526d50a93f5e2",
+          "evidence_path": "data/raw/manual/evidence/cag_chhattisgarh_road_finances_2024_25.json",
+          "document_sha256": [
+            "f969fb28df5fca1a607a63a790c5ad63d27f892d8dd2bf81dbb0709dd119818f"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-FINANCE-ACCOUNTS-VOL-01-English-069bb95632bd096-37549772.pdf",
+          "relative_path": "primary_disclosures/cag_chhattisgarh_road_finances_2024_25/versions/f969fb28df5fca1a607a63a790c5ad63d27f892d8dd2bf81dbb0709dd119818f.pdf",
+          "sha256": "f969fb28df5fca1a607a63a790c5ad63d27f892d8dd2bf81dbb0709dd119818f",
+          "size_bytes": 7986113,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=68"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "792.0"
+          ],
+          "table_pages": [
+            "PDF p36; printed p19; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "6288.66"
+          ],
+          "table_pages": [
+            "PDF p46; printed p29; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "3466.99"
+          ],
+          "table_pages": [
+            "PDF p46; printed p29; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=68"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Dadra and Nagar Haveli and Daman and Diu",
+      "jurisdiction_type": "union_territory",
+      "historical_discovery_status": "not_listed_in_state_selector",
+      "historical_latest_indexed_account_year": null,
+      "source_ids": [],
+      "governed_fact_count": 0,
+      "eligible_fact_count": 0,
+      "evidence": [],
+      "documents": [],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        },
+        "capital_5054_fy2024_25": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        }
+      },
+      "observation_cutoffs": [],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "resolution_status": "union_territory_head_specific_account_gap",
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?show_ut_only=1"
+      ],
+      "scope_notes": [
+        "No separate state Finance Accounts selector found in original discovery audit. Head-specific expenditure needs Union/territory appropriation-account investigation.",
+        "Nonlegislative UT administration is financed through Union appropriations; state-budget absence never means zero road expenditure. No present UT measure inferred from historic boundaries or combined J&K balances."
+      ],
+      "remaining_metric_gaps": [
+        "Verified comparable current head 3054/5054 annual road amounts are unavailable in this extraction; Union appropriation scope cannot be silently substituted for state-budget accounts."
+      ]
+    },
+    {
+      "jurisdiction": "Delhi",
+      "jurisdiction_type": "union_territory",
+      "historical_discovery_status": "no_finance_account_files_discovered",
+      "historical_latest_indexed_account_year": null,
+      "source_ids": [
+        "cag_delhi_road_finances_2024_25"
+      ],
+      "governed_fact_count": 2,
+      "eligible_fact_count": 2,
+      "resolution_status": "completed_state_finances_audit_report_capital_only",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_delhi_road_finances_2024_25.csv",
+          "csv_sha256": "dd0222c4933fbb043c3bab0fb7be2129f54d2b8e7aa9ee77929dce4371765ad6",
+          "evidence_path": "data/raw/manual/evidence/cag_delhi_road_finances_2024_25.json",
+          "document_sha256": [
+            "8db2505cae00b0d29892cbfa88b96655dd0f37534a9c8ca4eef0c827cb43e274"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/webroot/uploads/download_audit_report/2025/Report_No_2_of_2026_SFAR_English-06a7ae58e197ee5.14833566.pdf",
+          "relative_path": "primary_disclosures/cag_delhi_road_finances_2024_25/versions/8db2505cae00b0d29892cbfa88b96655dd0f37534a9c8ca4eef0c827cb43e274.pdf",
+          "sha256": "8db2505cae00b0d29892cbfa88b96655dd0f37534a9c8ca4eef0c827cb43e274",
+          "size_bytes": 5441255
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "909.3"
+          ],
+          "table_pages": [
+            "PDF p29; SFAR chapter1 printedp7 MH5054 narrative"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1936.14"
+          ],
+          "table_pages": [
+            "PDF p29; SFAR chapter1 printedp7 MH5054 narrative"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [
+        "2026-08-10"
+      ],
+      "publication_date_unknown": false,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=69",
+        "https://cag.gov.in/en/audit-report?gt=49&state%5B0%5D=69"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations.",
+        "CAG State Finances Audit Report capital narrative, not extraction of detailed Finance Accounts; assurance/statement basis must retain this source distinction."
+      ],
+      "remaining_metric_gaps": [
+        "FY2024-25 revenue head 3054 not identified in reviewed publication; unavailable, not zero."
+      ]
+    },
+    {
+      "jurisdiction": "Goa",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "no_finance_account_files_discovered",
+      "historical_latest_indexed_account_year": null,
+      "source_ids": [],
+      "governed_fact_count": 0,
+      "eligible_fact_count": 0,
+      "evidence": [],
+      "documents": [],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        },
+        "capital_5054_fy2024_25": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        }
+      },
+      "observation_cutoffs": [],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "resolution_status": "alternate_official_publication_retrieval_blocked",
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=70",
+        "https://goabudget.gov.in/",
+        "https://goabudget.gov.in/assets/documents/2026-27/BudgetSpeech_2026-2027.pdf"
+      ],
+      "scope_notes": [
+        "Central CAG discovery tab contains no current Finance Accounts files. Alternate official portal/budget publication retrieval is blocked by repeated timeouts or TLS errors; absence from this index is not proof no publication exists. FY2024-25 road actual extraction remains in progress."
+      ],
+      "remaining_metric_gaps": [
+        "No validated FY2024-25 Roads and Bridges 3054/5054 snapshot admitted yet. Budget actuals, if verified, require a separate assurance/statement basis from CAG accounts."
+      ]
+    },
+    {
+      "jurisdiction": "Gujarat",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "roads_bridges_fy2024_25_extracted",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_gujarat_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_existing_five",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_gujarat_road_finances_2024_25.csv",
+          "csv_sha256": "bea521a0a78255f0899d1fe94bf78814bfe1c6a21fed125e6dceccc969c6bf99",
+          "evidence_path": "data/raw/manual/evidence/cag_gujarat_road_finances_2024_25.json",
+          "document_sha256": [
+            "2c5c3b75ad46e7de9e40d24d871874a1e4c89b0c79f829f9cb7ca186d0aed46c"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-VOL-I-2024-25-069c52aa2b34bf9-63690940.pdf",
+          "relative_path": "primary_disclosures/cag_gujarat_road_finances_2024_25/versions/2c5c3b75ad46e7de9e40d24d871874a1e4c89b0c79f829f9cb7ca186d0aed46c.pdf",
+          "sha256": "2c5c3b75ad46e7de9e40d24d871874a1e4c89b0c79f829f9cb7ca186d0aed46c",
+          "size_bytes": 1082160
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "2916.39"
+          ],
+          "table_pages": [
+            "PDF p33; printed p15; Statement4A functional expenditure, Roads and Bridges, Revenue"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "16513.22"
+          ],
+          "table_pages": [
+            "PDF p39; printed p21; Statement5, major head5054, expenditure during2024-25"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "11146.0"
+          ],
+          "table_pages": [
+            "PDF p39; printed p21; Statement5, major head5054, expenditure during2023-24 comparative"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=71"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Haryana",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_haryana_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_haryana_road_finances_2024_25.csv",
+          "csv_sha256": "6bcff3406851867912664eac2fd16e1610c7ed94dee7242495d2359432f9703e",
+          "evidence_path": "data/raw/manual/evidence/cag_haryana_road_finances_2024_25.json",
+          "document_sha256": [
+            "4c2de512daa2070af7d5ab9ef91d4f011bf82ee7acfb95d4311ab7d35f55466e"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2024-25-1-06949342f0c1bd1-60544781.pdf",
+          "relative_path": "primary_disclosures/cag_haryana_road_finances_2024_25/versions/4c2de512daa2070af7d5ab9ef91d4f011bf82ee7acfb95d4311ab7d35f55466e.pdf",
+          "sha256": "4c2de512daa2070af7d5ab9ef91d4f011bf82ee7acfb95d4311ab7d35f55466e",
+          "size_bytes": 3135537,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=72"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1639.94"
+          ],
+          "table_pages": [
+            "PDF p35; printed p17; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "2309.89"
+          ],
+          "table_pages": [
+            "PDF p42; printed p24; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "2651.0"
+          ],
+          "table_pages": [
+            "PDF p42; printed p24; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=72"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Himachal Pradesh",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_himachal_pradesh_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_himachal_pradesh_road_finances_2024_25.csv",
+          "csv_sha256": "f856300f3fc96b14e1f160f5a5667dedc257b3d54d8036fb92d9d8a0b8a126fa",
+          "evidence_path": "data/raw/manual/evidence/cag_himachal_pradesh_road_finances_2024_25.json",
+          "document_sha256": [
+            "f4aba05f295806bc1c6d61a15be52bba0a925b74e1a5a7f5e3c54bba9c0e87a2"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-I-2024-25-English-26-12-2025-069ccf778436f33-49613332.pdf",
+          "relative_path": "primary_disclosures/cag_himachal_pradesh_road_finances_2024_25/versions/f4aba05f295806bc1c6d61a15be52bba0a925b74e1a5a7f5e3c54bba9c0e87a2.pdf",
+          "sha256": "f4aba05f295806bc1c6d61a15be52bba0a925b74e1a5a7f5e3c54bba9c0e87a2",
+          "size_bytes": 1026181,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=73"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1567.78"
+          ],
+          "table_pages": [
+            "PDF p29; printed p13; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1768.55"
+          ],
+          "table_pages": [
+            "PDF p36; printed p20; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "2065.12"
+          ],
+          "table_pages": [
+            "PDF p36; printed p20; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=73"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Jammu and Kashmir",
+      "jurisdiction_type": "union_territory",
+      "historical_discovery_status": "no_finance_account_files_discovered",
+      "historical_latest_indexed_account_year": null,
+      "source_ids": [
+        "cag_jammu_and_kashmir_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_regional_accounts",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_jammu_and_kashmir_road_finances_2024_25.csv",
+          "csv_sha256": "432c9a5b6c3ac9224c75b8f24061674583c6369d874a3dc4466a8f836fa4fe84",
+          "evidence_path": "data/raw/manual/evidence/cag_jammu_and_kashmir_road_finances_2024_25.json",
+          "document_sha256": [
+            "658c6fb7d2289942b1ca7612e0691a25fef2cd68bf6175363df3cd60652d9e93"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-JK-Finance-Accounts-2024-25-Vol-I-15-12-2025-069d79132701351-89156562.pdf",
+          "relative_path": "primary_disclosures/cag_jammu_and_kashmir_road_finances_2024_25/versions/658c6fb7d2289942b1ca7612e0691a25fef2cd68bf6175363df3cd60652d9e93.pdf",
+          "sha256": "658c6fb7d2289942b1ca7612e0691a25fef2cd68bf6175363df3cd60652d9e93",
+          "size_bytes": 844031
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "392.76"
+          ],
+          "table_pages": [
+            "PDF p35; Finance Accounts Statements4A/5 Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "2256.69"
+          ],
+          "table_pages": [
+            "PDF p47; Finance Accounts Statements4A/5 Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "2427.77"
+          ],
+          "table_pages": [
+            "PDF p47; Finance Accounts Statements4A/5 Roads and Bridges"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=74",
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=380&show_ut_only=1"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations.",
+        "Present UT boundary; annual flows exclude bold unapportioned pre-31 October 2019 legacy balances and do not represent combined historical J&K/Ladakh."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Jharkhand",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_jharkhand_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_jharkhand_road_finances_2024_25.csv",
+          "csv_sha256": "27304cb7dd26d696863cd0aeb861150597034ffa72269865cdaec101c4547b7d",
+          "evidence_path": "data/raw/manual/evidence/cag_jharkhand_road_finances_2024_25.json",
+          "document_sha256": [
+            "0b818a52708b21f89490d876c6cfa216c294666ee6549118beb4c13371181739"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-1-2024-25-ENGLISH-FINAL-0693c0e9a47b758-34211409.pdf",
+          "relative_path": "primary_disclosures/cag_jharkhand_road_finances_2024_25/versions/0b818a52708b21f89490d876c6cfa216c294666ee6549118beb4c13371181739.pdf",
+          "sha256": "0b818a52708b21f89490d876c6cfa216c294666ee6549118beb4c13371181739",
+          "size_bytes": 1662629,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=75"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "569.09"
+          ],
+          "table_pages": [
+            "PDF p39; printed p17; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "5163.85"
+          ],
+          "table_pages": [
+            "PDF p47; printed p25; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "5206.8"
+          ],
+          "table_pages": [
+            "PDF p47; printed p25; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=75"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Karnataka",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "roads_bridges_fy2024_25_extracted",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_karnataka_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_existing_five",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_karnataka_road_finances_2024_25.csv",
+          "csv_sha256": "cb1b12ac8109d8b28a41672fd5fb1313d925d97db0ffb5b4499285b15469a4c6",
+          "evidence_path": "data/raw/manual/evidence/cag_karnataka_road_finances_2024_25.json",
+          "document_sha256": [
+            "a60e4f514b0fa63dc3862db3de74c2c778b832bd09cc05341e5ec0381fadf9a5"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-2-Finance-Accounts-Vol-I-2024-25-government-of-karnataka-06948f82bb28817-62582478.pdf",
+          "relative_path": "primary_disclosures/cag_karnataka_road_finances_2024_25/versions/a60e4f514b0fa63dc3862db3de74c2c778b832bd09cc05341e5ec0381fadf9a5.pdf",
+          "sha256": "a60e4f514b0fa63dc3862db3de74c2c778b832bd09cc05341e5ec0381fadf9a5",
+          "size_bytes": 10685712
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1898.59"
+          ],
+          "table_pages": [
+            "PDF p41; printed p22; Statement4A functional expenditure, Roads and Bridges, Revenue"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "7939.05"
+          ],
+          "table_pages": [
+            "PDF p51; printed p32; Statement5, major head5054, expenditure during2024-25"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "8760.8"
+          ],
+          "table_pages": [
+            "PDF p51; printed p32; Statement5, major head5054, expenditure during2023-24 comparative"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=76",
+        "https://cag.gov.in/ae/karnataka/en/state-accounts-report?defuat_account_report_type=359"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Kerala",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_kerala_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_kerala_road_finances_2024_25.csv",
+          "csv_sha256": "faad1dd24aa47221e86af04e026459a6e6f73af7221f70f3fe89c7025692caca",
+          "evidence_path": "data/raw/manual/evidence/cag_kerala_road_finances_2024_25.json",
+          "document_sha256": [
+            "a4cf0c21d439e6a1ce20ff7eb90f1b761bc1250c31b605a1e409f921275061ba"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finace-Accounts-Vol-I-2024-25-0699d360b32af96-97221491.pdf",
+          "relative_path": "primary_disclosures/cag_kerala_road_finances_2024_25/versions/a4cf0c21d439e6a1ce20ff7eb90f1b761bc1250c31b605a1e409f921275061ba.pdf",
+          "sha256": "a4cf0c21d439e6a1ce20ff7eb90f1b761bc1250c31b605a1e409f921275061ba",
+          "size_bytes": 5709595,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=77"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1019.29"
+          ],
+          "table_pages": [
+            "PDF p36; printed p18; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1859.35"
+          ],
+          "table_pages": [
+            "PDF p46; printed p28; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "2123.78"
+          ],
+          "table_pages": [
+            "PDF p46; printed p28; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=77"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Ladakh",
+      "jurisdiction_type": "union_territory",
+      "historical_discovery_status": "not_listed_in_state_selector",
+      "historical_latest_indexed_account_year": null,
+      "source_ids": [],
+      "governed_fact_count": 0,
+      "eligible_fact_count": 0,
+      "evidence": [],
+      "documents": [],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        },
+        "capital_5054_fy2024_25": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        }
+      },
+      "observation_cutoffs": [],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "resolution_status": "union_territory_head_specific_account_gap",
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?show_ut_only=1",
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=381&show_ut_only=1"
+      ],
+      "scope_notes": [
+        "Alternate current UT selector was checked: Ladakh has no annual account file; Chandigarh presents monthly accounts, not a verified FY2024-25 annual head-specific road actual. Original discovery audit did not list this selector.",
+        "Nonlegislative UT administration is financed through Union appropriations; state-budget absence never means zero road expenditure. No present UT measure inferred from historic boundaries or combined J&K balances."
+      ],
+      "remaining_metric_gaps": [
+        "Verified comparable current head 3054/5054 annual road amounts are unavailable in this extraction; Union appropriation scope cannot be silently substituted for state-budget accounts."
+      ]
+    },
+    {
+      "jurisdiction": "Lakshadweep",
+      "jurisdiction_type": "union_territory",
+      "historical_discovery_status": "not_listed_in_state_selector",
+      "historical_latest_indexed_account_year": null,
+      "source_ids": [],
+      "governed_fact_count": 0,
+      "eligible_fact_count": 0,
+      "evidence": [],
+      "documents": [],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        },
+        "capital_5054_fy2024_25": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        }
+      },
+      "observation_cutoffs": [],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "resolution_status": "union_territory_head_specific_account_gap",
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?show_ut_only=1"
+      ],
+      "scope_notes": [
+        "No separate state Finance Accounts selector found in original discovery audit. Head-specific expenditure needs Union/territory appropriation-account investigation.",
+        "Nonlegislative UT administration is financed through Union appropriations; state-budget absence never means zero road expenditure. No present UT measure inferred from historic boundaries or combined J&K balances."
+      ],
+      "remaining_metric_gaps": [
+        "Verified comparable current head 3054/5054 annual road amounts are unavailable in this extraction; Union appropriation scope cannot be silently substituted for state-budget accounts."
+      ]
+    },
+    {
+      "jurisdiction": "Madhya Pradesh",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_madhya_pradesh_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_madhya_pradesh_road_finances_2024_25.csv",
+          "csv_sha256": "e3ae278bf4a3a81f46b1a9ace8ff0a2028f1ed67fb58ef926860c36fa3462dfb",
+          "evidence_path": "data/raw/manual/evidence/cag_madhya_pradesh_road_finances_2024_25.json",
+          "document_sha256": [
+            "43198ecbd5e99e46ccc9978633bc8c7c659853b0280b99f5e8f7e9feb9f79919"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-VOLUME-I-2024-25-Gwalior-MP-English-06932b1d027cce6-16383283.pdf",
+          "relative_path": "primary_disclosures/cag_madhya_pradesh_road_finances_2024_25/versions/43198ecbd5e99e46ccc9978633bc8c7c659853b0280b99f5e8f7e9feb9f79919.pdf",
+          "sha256": "43198ecbd5e99e46ccc9978633bc8c7c659853b0280b99f5e8f7e9feb9f79919",
+          "size_bytes": 2107334,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=78"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1547.9"
+          ],
+          "table_pages": [
+            "PDF p29; printed p15; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "9644.77"
+          ],
+          "table_pages": [
+            "PDF p35; printed p21; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "11319.87"
+          ],
+          "table_pages": [
+            "PDF p35; printed p21; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=78"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Maharashtra",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "roads_bridges_fy2024_25_extracted",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_maharashtra_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_existing_five",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_maharashtra_road_finances_2024_25.csv",
+          "csv_sha256": "7da3a73b647a989c8866a9c053f53ec7474fb94ff67ced68a499c24c27d47e68",
+          "evidence_path": "data/raw/manual/evidence/cag_maharashtra_road_finances_2024_25.json",
+          "document_sha256": [
+            "711cf4d8d72af4dbb87d75dca8974e6ba3785ed78bc24b145d775bd671742cbb"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-CD-ENGLISH-FINANCE-ACCOUNTS-VOL-I-06944f1e510c216-51074266.pdf",
+          "relative_path": "primary_disclosures/cag_maharashtra_road_finances_2024_25/versions/711cf4d8d72af4dbb87d75dca8974e6ba3785ed78bc24b145d775bd671742cbb.pdf",
+          "sha256": "711cf4d8d72af4dbb87d75dca8974e6ba3785ed78bc24b145d775bd671742cbb",
+          "size_bytes": 9319392
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "6837.87"
+          ],
+          "table_pages": [
+            "PDF p29; printed p13; Statement4A functional expenditure, Roads and Bridges, Revenue"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "32251.54"
+          ],
+          "table_pages": [
+            "PDF p34; printed p18; Statement5, major head5054, expenditure during2024-25"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "26374.51"
+          ],
+          "table_pages": [
+            "PDF p34; printed p18; Statement5, major head5054, expenditure during2023-24 comparative"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=79",
+        "https://cag.gov.in/ae/mumbai/en/state-accounts-report?defuat_account_report_type=359"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Manipur",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_manipur_road_finances_2024_25"
+      ],
+      "governed_fact_count": 4,
+      "eligible_fact_count": 2,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_manipur_road_finances_2024_25.csv",
+          "csv_sha256": "4c9fcffe087c7ec2aba03ef5be143c6d497353b6a0b4c554bce5fb744e56c17e",
+          "evidence_path": "data/raw/manual/evidence/cag_manipur_road_finances_2024_25.json",
+          "document_sha256": [
+            "7fdf6891e25fbce8d03e944d33c07f8beb46424e8eecc86d06fe47f235df9ae6"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-Manipur-2024-25-069c124bdb2ab84-33248794.pdf",
+          "relative_path": "primary_disclosures/cag_manipur_road_finances_2024_25/versions/7fdf6891e25fbce8d03e944d33c07f8beb46424e8eecc86d06fe47f235df9ae6.pdf",
+          "sha256": "7fdf6891e25fbce8d03e944d33c07f8beb46424e8eecc86d06fe47f235df9ae6",
+          "size_bytes": 2004209,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=80"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "87.8"
+          ],
+          "table_pages": [
+            "PDF p31; printed p15; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "disclosed_unreconciled_calculation_excluded",
+          "fact_count": 1,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [
+            "617.36"
+          ],
+          "table_pages": [
+            "PDF p39; printed p23; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "714.64"
+          ],
+          "table_pages": [
+            "PDF p39; printed p23; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "unreconciled_facts": [
+        {
+          "metric": "roads_bridges_capital_outlay_inr_crore",
+          "value_inr_crore": "617.36",
+          "statement_basis": "state_finance_accounts_cash_expenditure_as_reported",
+          "table_page": "PDF p39; printed p23; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column",
+          "analytical_eligible": false
+        },
+        {
+          "metric": "roads_bridges_capital_outlay_functional_inr_crore",
+          "value_inr_crore": "617.35",
+          "statement_basis": "state_finance_accounts_cash_expenditure_as_reported",
+          "table_page": "PDF p31; printed p15; Statement4A expenditure by function; Capital column, alternative published functional Roads and Bridges cell",
+          "analytical_eligible": false
+        }
+      ],
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=80"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations.",
+        "Two published current capital cells differ by INR 0.01 crore: both remain visible with separate statement bases and neither enters calculations; no synthetic correction or balancing."
+      ],
+      "remaining_metric_gaps": [
+        "Reconciliation of the two FY2024-25 capital totals; current capital arithmetic is quarantined."
+      ]
+    },
+    {
+      "jurisdiction": "Meghalaya",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_meghalaya_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_meghalaya_road_finances_2024_25.csv",
+          "csv_sha256": "75655b9043082e737e5d2d417b343ee4a9b7b732536e3f63d76c49c2470a4f51",
+          "evidence_path": "data/raw/manual/evidence/cag_meghalaya_road_finances_2024_25.json",
+          "document_sha256": [
+            "8f3500976f6320d4d820673e8ba6bb04483ed7f520175e78fe3a45984af1d661"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-069a184d5a6e4c7-22331771.pdf",
+          "relative_path": "primary_disclosures/cag_meghalaya_road_finances_2024_25/versions/8f3500976f6320d4d820673e8ba6bb04483ed7f520175e78fe3a45984af1d661.pdf",
+          "sha256": "8f3500976f6320d4d820673e8ba6bb04483ed7f520175e78fe3a45984af1d661",
+          "size_bytes": 4240085,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=81"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "496.26"
+          ],
+          "table_pages": [
+            "PDF p34; printed p22; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1589.18"
+          ],
+          "table_pages": [
+            "PDF p40; printed p28; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1197.74"
+          ],
+          "table_pages": [
+            "PDF p40; printed p28; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=81"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Mizoram",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_mizoram_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_mizoram_road_finances_2024_25.csv",
+          "csv_sha256": "c3c9f86afb48d2bea370697e7ef804a78899268546b560da9a28b28909f38dab",
+          "evidence_path": "data/raw/manual/evidence/cag_mizoram_road_finances_2024_25.json",
+          "document_sha256": [
+            "791f92d1d029032ae2c87afa593dba00ee10c30e5ec90d8fe4bcfbc73aaacfa2"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Account-Volume-I-2024-25-069cced70026997-67273227.pdf",
+          "relative_path": "primary_disclosures/cag_mizoram_road_finances_2024_25/versions/791f92d1d029032ae2c87afa593dba00ee10c30e5ec90d8fe4bcfbc73aaacfa2.pdf",
+          "sha256": "791f92d1d029032ae2c87afa593dba00ee10c30e5ec90d8fe4bcfbc73aaacfa2",
+          "size_bytes": 3673789,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=82"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "414.47"
+          ],
+          "table_pages": [
+            "PDF p31; printed p23; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "336.16"
+          ],
+          "table_pages": [
+            "PDF p38; printed p30; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "441.2"
+          ],
+          "table_pages": [
+            "PDF p38; printed p30; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=82"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Nagaland",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_nagaland_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_nagaland_road_finances_2024_25.csv",
+          "csv_sha256": "c636d124b014441b29d5f270e9ae24033145cc3ad4bd0955cc434c3986de651d",
+          "evidence_path": "data/raw/manual/evidence/cag_nagaland_road_finances_2024_25.json",
+          "document_sha256": [
+            "d7647dcfc0c6b0c3e4a73d08bfe98f71f82c8ddd29787c44ec4bdd81fafcbd21"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2024-25-Vol-I-069d62e19e78f46-07358682.pdf",
+          "relative_path": "primary_disclosures/cag_nagaland_road_finances_2024_25/versions/d7647dcfc0c6b0c3e4a73d08bfe98f71f82c8ddd29787c44ec4bdd81fafcbd21.pdf",
+          "sha256": "d7647dcfc0c6b0c3e4a73d08bfe98f71f82c8ddd29787c44ec4bdd81fafcbd21",
+          "size_bytes": 31965602,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=83"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "395.61"
+          ],
+          "table_pages": [
+            "PDF p31; printed p20; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "853.08"
+          ],
+          "table_pages": [
+            "PDF p38; printed p27; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "879.36"
+          ],
+          "table_pages": [
+            "PDF p38; printed p27; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=83"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations.",
+        "Statement4B reports INR 46.30 crore CRIF-transfer classification under Object Head 13 Major Works; no specific head 3054 cell is identified and no road subtotal deduction is inferred."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Odisha",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_odisha_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_odisha_road_finances_2024_25.csv",
+          "csv_sha256": "52a117fdbca1a5c669f591292a5d2a01c3e5d0242b8e793b1dde7d838e35c132",
+          "evidence_path": "data/raw/manual/evidence/cag_odisha_road_finances_2024_25.json",
+          "document_sha256": [
+            "85f480e4cdcdccc099043a84a58b00d89aae6fadde7a61f3fca9b21ba49cf1b1"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-06937f859281575-44134628.pdf",
+          "relative_path": "primary_disclosures/cag_odisha_road_finances_2024_25/versions/85f480e4cdcdccc099043a84a58b00d89aae6fadde7a61f3fca9b21ba49cf1b1.pdf",
+          "sha256": "85f480e4cdcdccc099043a84a58b00d89aae6fadde7a61f3fca9b21ba49cf1b1",
+          "size_bytes": 11784010,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=84"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "3297.41"
+          ],
+          "table_pages": [
+            "PDF p35; printed p17; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "16203.33"
+          ],
+          "table_pages": [
+            "PDF p42; printed p24; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "13027.77"
+          ],
+          "table_pages": [
+            "PDF p42; printed p24; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=84"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Puducherry",
+      "jurisdiction_type": "union_territory",
+      "historical_discovery_status": "no_finance_account_files_discovered",
+      "historical_latest_indexed_account_year": null,
+      "source_ids": [
+        "cag_puducherry_road_finances_2024_25"
+      ],
+      "governed_fact_count": 1,
+      "eligible_fact_count": 1,
+      "resolution_status": "completed_state_finances_audit_report_capital_only",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_puducherry_road_finances_2024_25.csv",
+          "csv_sha256": "943574c30e69cefee35c55aedc7d2a25d2a3e2d8b4fd68e62bf5cf9fc7a9a537",
+          "evidence_path": "data/raw/manual/evidence/cag_puducherry_road_finances_2024_25.json",
+          "document_sha256": [
+            "b3d9726e438fab89d26d2548e2eaaae6fb28760a5483a02f08a59246e22ef8be"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/download_audit_report/2025/UTFAR-ENGLISH-06a9995af301932.89506359.pdf",
+          "relative_path": "primary_disclosures/cag_puducherry_road_finances_2024_25/versions/b3d9726e438fab89d26d2548e2eaaae6fb28760a5483a02f08a59246e22ef8be.pdf",
+          "sha256": "b3d9726e438fab89d26d2548e2eaaae6fb28760a5483a02f08a59246e22ef8be",
+          "size_bytes": 80428077
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "144.0"
+          ],
+          "table_pages": [
+            "PDF p51; SFAR chapter1 printedp25 Roads and Bridges narrative"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "unavailable",
+          "fact_count": 0,
+          "eligible_fact_count": 0,
+          "value_inr_crore": [],
+          "table_pages": []
+        }
+      },
+      "observation_cutoffs": [
+        "2025-03-31"
+      ],
+      "publication_dates": [
+        "2026-08-31"
+      ],
+      "publication_date_unknown": false,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=366",
+        "https://cag.gov.in/en/audit-report/details/126307",
+        "https://dat.py.gov.in/annual-accounts"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations.",
+        "CAG State Finances Audit Report capital narrative, not extraction of detailed Finance Accounts; assurance/statement basis must retain this source distinction.",
+        "Directorate of Accounts and Treasuries annual-account index lists only through FY2023-24; no FY2024-25 detailed Finance Accounts link was identified. The newer CAG SFAR provides current rounded road capital separately.",
+        "Capital is a rounded INR 144 crore narrative figure; aggregate capital misclassification INR 25.59 crore is retained as a report qualification, without an unsupported deduction from Roads and Bridges."
+      ],
+      "remaining_metric_gaps": [
+        "FY2024-25 revenue head 3054 not identified in reviewed publication; unavailable, not zero.",
+        "FY2023-24 capital head 5054 comparative is not available in this extraction."
+      ]
+    },
+    {
+      "jurisdiction": "Punjab",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_punjab_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_punjab_road_finances_2024_25.csv",
+          "csv_sha256": "22710a3a3d305126aee498c01de3304823fa88e5fbfce8017ae8197dd7dd23f1",
+          "evidence_path": "data/raw/manual/evidence/cag_punjab_road_finances_2024_25.json",
+          "document_sha256": [
+            "3f22bf8ea3d235943ce13c56309e957878cd921e8a280344ebf5af168a78edad"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-069b7e8a11653b5-25892762.pdf",
+          "relative_path": "primary_disclosures/cag_punjab_road_finances_2024_25/versions/3f22bf8ea3d235943ce13c56309e957878cd921e8a280344ebf5af168a78edad.pdf",
+          "sha256": "3f22bf8ea3d235943ce13c56309e957878cd921e8a280344ebf5af168a78edad",
+          "size_bytes": 52317947,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=85"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "230.01"
+          ],
+          "table_pages": [
+            "PDF p31; printed p14; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1343.89"
+          ],
+          "table_pages": [
+            "PDF p37; printed p20; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "932.22"
+          ],
+          "table_pages": [
+            "PDF p37; printed p20; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=85"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Rajasthan",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "no_finance_account_files_discovered",
+      "historical_latest_indexed_account_year": null,
+      "source_ids": [
+        "cag_rajasthan_road_finances_2024_25"
+      ],
+      "governed_fact_count": 7,
+      "eligible_fact_count": 7,
+      "resolution_status": "completed_regional_accounts",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_rajasthan_road_finances_2024_25.csv",
+          "csv_sha256": "c11d28bbb2f7bb4b6455308df88034650708db3112f488c53b77272a63370005",
+          "evidence_path": "data/raw/manual/evidence/cag_rajasthan_road_finances_2024_25.json",
+          "document_sha256": [
+            "44f59878f57f8640217e3ba84691491032e0dbe7348f1f7c59b053b06b09c547"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-2024-25-Vol-I-E-002-06985d5ed9f3be2-90457272.pdf",
+          "relative_path": "primary_disclosures/cag_rajasthan_road_finances_2024_25/versions/44f59878f57f8640217e3ba84691491032e0dbe7348f1f7c59b053b06b09c547.pdf",
+          "sha256": "44f59878f57f8640217e3ba84691491032e0dbe7348f1f7c59b053b06b09c547",
+          "size_bytes": 15591110
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "3221.39"
+          ],
+          "table_pages": [
+            "PDF p37; Finance Accounts Statements4A/5 Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "9621.18"
+          ],
+          "table_pages": [
+            "PDF p46; Finance Accounts Statements4A/5 Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "6472.88"
+          ],
+          "table_pages": [
+            "PDF p46; Finance Accounts Statements4A/5 Roads and Bridges"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "state_highway_minor_head_03_fact_count": 4,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=86",
+        "https://cag.gov.in/ae/rajasthan/en/state-accounts-report?defuat_account_report_type=359"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations.",
+        "Four additional SH minor head 03 actuals preserve original INR lakh, including negative net revenue caused by receipts/recoveries. Minorhead subset is included in major-head totals and must not be added to them."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Sikkim",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_sikkim_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_sikkim_road_finances_2024_25.csv",
+          "csv_sha256": "65747d8279db37c64e2520ed2d6b5651d5046f5abcadad4eadb1b5ac687ec278",
+          "evidence_path": "data/raw/manual/evidence/cag_sikkim_road_finances_2024_25.json",
+          "document_sha256": [
+            "3f90ad2af39ddb42fd268eb9233b270bbe6a82661cc84d25da6da872dd29c9c2"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-06a6ae045d18578-14615692.pdf",
+          "relative_path": "primary_disclosures/cag_sikkim_road_finances_2024_25/versions/3f90ad2af39ddb42fd268eb9233b270bbe6a82661cc84d25da6da872dd29c9c2.pdf",
+          "sha256": "3f90ad2af39ddb42fd268eb9233b270bbe6a82661cc84d25da6da872dd29c9c2",
+          "size_bytes": 4253465,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=87"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "297.58"
+          ],
+          "table_pages": [
+            "PDF p32; printed p13; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "392.24"
+          ],
+          "table_pages": [
+            "PDF p38; printed p19; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "429.15"
+          ],
+          "table_pages": [
+            "PDF p38; printed p19; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=87"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Tamil Nadu",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_tamil_nadu_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_tamil_nadu_road_finances_2024_25.csv",
+          "csv_sha256": "7c5f0923919d8073b639ac2c8a66ba72045976d563fa813a7830b1626a66b773",
+          "evidence_path": "data/raw/manual/evidence/cag_tamil_nadu_road_finances_2024_25.json",
+          "document_sha256": [
+            "58828bcd7172dd20fc7dfdd15d4faa634f859ecc88c564b522a303516bcac4a6"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-VOL-I-2024-25-069985766ce7b13-16162327.pdf",
+          "relative_path": "primary_disclosures/cag_tamil_nadu_road_finances_2024_25/versions/58828bcd7172dd20fc7dfdd15d4faa634f859ecc88c564b522a303516bcac4a6.pdf",
+          "sha256": "58828bcd7172dd20fc7dfdd15d4faa634f859ecc88c564b522a303516bcac4a6",
+          "size_bytes": 5806779,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=88"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1508.45"
+          ],
+          "table_pages": [
+            "PDF p39; printed p19; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "16222.62"
+          ],
+          "table_pages": [
+            "PDF p50; printed p30; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "16147.95"
+          ],
+          "table_pages": [
+            "PDF p50; printed p30; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=88"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations.",
+        "Published head 5054 includes identified financial investments/assistance in footnotes; retained as reported, not reclassified as pure construction."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Telangana",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "roads_bridges_fy2024_25_extracted",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_telangana_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_existing_five",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_telangana_road_finances_2024_25.csv",
+          "csv_sha256": "dd79516d3e17cb02211ea74d36a8e14a6cd71990ee9e15f235f9907bb4ba4b6a",
+          "evidence_path": "data/raw/manual/evidence/cag_telangana_road_finances_2024_25.json",
+          "document_sha256": [
+            "1c4ce5bab8dc25efcd6ae17cd28152e6bf11a1b184922d5ad782ef49b2fadcba"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2024-25-069ce501b30f835-70020121.pdf",
+          "relative_path": "primary_disclosures/cag_telangana_road_finances_2024_25/versions/1c4ce5bab8dc25efcd6ae17cd28152e6bf11a1b184922d5ad782ef49b2fadcba.pdf",
+          "sha256": "1c4ce5bab8dc25efcd6ae17cd28152e6bf11a1b184922d5ad782ef49b2fadcba",
+          "size_bytes": 21101550
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "589.95"
+          ],
+          "table_pages": [
+            "PDF p35; printed p23; Statement4A functional expenditure, Roads and Bridges, Revenue"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1237.07"
+          ],
+          "table_pages": [
+            "PDF p47; printed p35; Statement5, major head5054, expenditure during2024-25"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "947.74"
+          ],
+          "table_pages": [
+            "PDF p47; printed p35; Statement5, major head5054, expenditure during2023-24 comparative"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=93"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Tripura",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_tripura_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_tripura_road_finances_2024_25.csv",
+          "csv_sha256": "01a3179713c9a600cc5ef58748e34e091fcf82df5e4819325423107a5f7ad217",
+          "evidence_path": "data/raw/manual/evidence/cag_tripura_road_finances_2024_25.json",
+          "document_sha256": [
+            "353d6d6fb229d856a34a5a3b76a0b39abed4933a42b5e464c733b0e8fbb06f12"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-PRINT-069c11f2a724454-49441218.pdf",
+          "relative_path": "primary_disclosures/cag_tripura_road_finances_2024_25/versions/353d6d6fb229d856a34a5a3b76a0b39abed4933a42b5e464c733b0e8fbb06f12.pdf",
+          "sha256": "353d6d6fb229d856a34a5a3b76a0b39abed4933a42b5e464c733b0e8fbb06f12",
+          "size_bytes": 2184166,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=89"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "554.87"
+          ],
+          "table_pages": [
+            "PDF p35; printed p17; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1133.93"
+          ],
+          "table_pages": [
+            "PDF p45; printed p27; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "749.43"
+          ],
+          "table_pages": [
+            "PDF p45; printed p27; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=89"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Uttar Pradesh",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "roads_bridges_fy2024_25_extracted",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_uttar_pradesh_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_existing_five",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_uttar_pradesh_road_finances_2024_25.csv",
+          "csv_sha256": "434c3604b2426c8d4ebb94764a488d1353a654f5a55e887d4fbfa347072303aa",
+          "evidence_path": "data/raw/manual/evidence/cag_uttar_pradesh_road_finances_2024_25.json",
+          "document_sha256": [
+            "50343d23a580af96f455acaf086546d1282c571bb854055541771f99915eb411"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-English-06964e82777f6d2-05539712.pdf",
+          "relative_path": "primary_disclosures/cag_uttar_pradesh_road_finances_2024_25/versions/50343d23a580af96f455acaf086546d1282c571bb854055541771f99915eb411.pdf",
+          "sha256": "50343d23a580af96f455acaf086546d1282c571bb854055541771f99915eb411",
+          "size_bytes": 6809225
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "8127.11"
+          ],
+          "table_pages": [
+            "PDF p24; printed p13; Statement4A functional expenditure, Roads and Bridges, Revenue"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "29220.27"
+          ],
+          "table_pages": [
+            "PDF p30; printed p19; Statement5, major head5054, expenditure during2024-25"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "25994.74"
+          ],
+          "table_pages": [
+            "PDF p30; printed p19; Statement5, major head5054, expenditure during2023-24 comparative"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=90"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "Uttarakhand",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_uttarakhand_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_uttarakhand_road_finances_2024_25.csv",
+          "csv_sha256": "4decb36b720df84fbfce4af52160ecaa153d88f31154ed0ea524bd7ab619ede2",
+          "evidence_path": "data/raw/manual/evidence/cag_uttarakhand_road_finances_2024_25.json",
+          "document_sha256": [
+            "5254ec88acec4042b85e2efa727c31af74e8de479308898a376ad689c5dcd27b"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2024-25-Vol-I-069ba8ba24d8b91-33490234.pdf",
+          "relative_path": "primary_disclosures/cag_uttarakhand_road_finances_2024_25/versions/5254ec88acec4042b85e2efa727c31af74e8de479308898a376ad689c5dcd27b.pdf",
+          "sha256": "5254ec88acec4042b85e2efa727c31af74e8de479308898a376ad689c5dcd27b",
+          "size_bytes": 11423819,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=91"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1090.64"
+          ],
+          "table_pages": [
+            "PDF p32; printed p14; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1348.08"
+          ],
+          "table_pages": [
+            "PDF p39; printed p21; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1337.28"
+          ],
+          "table_pages": [
+            "PDF p39; printed p21; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=91"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    },
+    {
+      "jurisdiction": "West Bengal",
+      "jurisdiction_type": "state",
+      "historical_discovery_status": "account_files_discovered_extraction_pending",
+      "historical_latest_indexed_account_year": "2024-25",
+      "source_ids": [
+        "cag_west_bengal_road_finances_2024_25"
+      ],
+      "governed_fact_count": 3,
+      "eligible_fact_count": 3,
+      "resolution_status": "completed_indexed_twenty_one",
+      "evidence": [
+        {
+          "csv_path": "data/raw/manual/cag_west_bengal_road_finances_2024_25.csv",
+          "csv_sha256": "1fc51b616665fa9d8e03c41aea646c2d82d57391b83cd87e117b6d73f1315dca",
+          "evidence_path": "data/raw/manual/evidence/cag_west_bengal_road_finances_2024_25.json",
+          "document_sha256": [
+            "a34aaf556a4f714388f0bc79ef96baab58b58d1a21e0a9ecddc7cc461f2b394d"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-WB-Finance-Accounts-Vol-I-2024-25-06a95158ec642d0-32051830.pdf",
+          "relative_path": "primary_disclosures/cag_west_bengal_road_finances_2024_25/versions/a34aaf556a4f714388f0bc79ef96baab58b58d1a21e0a9ecddc7cc461f2b394d.pdf",
+          "sha256": "a34aaf556a4f714388f0bc79ef96baab58b58d1a21e0a9ecddc7cc461f2b394d",
+          "size_bytes": 5109107,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=92"
+        }
+      ],
+      "metric_coverage": {
+        "revenue_3054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "1229.48"
+          ],
+          "table_pages": [
+            "PDF p35; printed p15; Statement4A expenditure by function; Revenue column, functional Roads and Bridges"
+          ]
+        },
+        "capital_5054_fy2024_25": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "4138.69"
+          ],
+          "table_pages": [
+            "PDF p43; printed p23; Statement5 progressive capital expenditure; 5054, expenditure during2024-25 column"
+          ]
+        },
+        "capital_5054_fy2023_24_comparative": {
+          "status": "verified_eligible",
+          "fact_count": 1,
+          "eligible_fact_count": 1,
+          "value_inr_crore": [
+            "5882.34"
+          ],
+          "table_pages": [
+            "PDF p43; printed p23; Statement5 progressive capital expenditure; 5054, expenditure during2023-24 comparative column"
+          ]
+        }
+      },
+      "observation_cutoffs": [
+        "2024-03-31",
+        "2025-03-31"
+      ],
+      "publication_dates": [],
+      "publication_date_unknown": true,
+      "primary_catalogue_urls": [
+        "https://cag.gov.in/en/state-accounts-report?defuat_state_id=92"
+      ],
+      "scope_notes": [
+        "Government Roads and Bridges head totals cover all road classes; no road-corporation debt, project cost, construction output or SH-only spending inferred.",
+        "Current annual flows end31 March 2025; FY2023-24 comparatives retain31 March 2024. Publication/retrieval dates do not freshen observations."
+      ],
+      "remaining_metric_gaps": []
+    }
+  ],
+  "global_limits": [
+    "Counts refer to these governed CAG road-account families, not all source families in the national dashboard.",
+    "93 heterogeneous disclosures include comparatives and four SH subset observations; they must not be summed as30 jurisdiction expenditure or added to RBI editions.",
+    "Assam/Manipur four current capital cells remain readable but calculation-ineligible until reconciled. No missing value becomes zero.",
+    "No invented publication dates, release dates inferred from filenames, or annual actual cutoffs advanced to download/publication dates.",
+    "Goa alternate-budget review remains in progress; closure requires exact source/page/period/units and independent assurance label."
+  ]
+}
