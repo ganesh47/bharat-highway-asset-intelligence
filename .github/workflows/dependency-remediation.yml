@@ -73,7 +73,7 @@ jobs:
         if: steps.diff.outputs.changed == 'true'
         run: |
           python -m compileall -q .
-          python scripts/validate_artifacts.py --inventory research/source_inventory.yaml --catalog data/manifests/catalog.json --manifests data/manifests
+          python scripts/validate_checkout_artifacts.py --inventory research/source_inventory.yaml --catalog data/manifests/catalog.json --manifests data/manifests
 
       - name: Create remediation pull request
         if: steps.diff.outputs.changed == 'true'

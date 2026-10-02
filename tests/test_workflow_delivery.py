@@ -17,6 +17,7 @@ from scripts.research_change_detection import requires_ocr
 from scripts.nhai_annual_report_merge import _validate_shard_manifests
 from scripts.nhai_annual_report_extractor import preserve_failed_documents
 from scripts import nhai_annual_report_extractor as extractor
+from scripts.validate_checkout_artifacts import validate_checkout
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -86,6 +87,42 @@ class ResearchDeliveryTests(unittest.TestCase):
         self.assertIn("research_run.outputs.run_id", restore["with"]["run-id"])
         self.assertIn("schedule", job["if"])
         self.assertIn("head_repository.full_name == github.repository", job["if"])
+        raw = next(step for step in job["steps"] if step.get("name") == "Restore matching source evidence")
+        self.assertEqual(raw["with"]["name"], "bhai-source-evidence")
+        self.assertEqual(raw["with"]["path"], "data/raw")
+        self.assertEqual(raw["with"]["run-id"], restore["with"]["run-id"])
+        self.assertEqual(raw["with"]["github-token"], restore["with"]["github-token"])
+        names = [step.get("name") for step in job["steps"]]
+        self.assertLess(names.index("Restore matching source evidence"), names.index("Validate generated artifacts"))
+
+    def test_checkout_validation_keeps_manifests_unchanged_and_propagates_failure(self):
+        with tempfile.TemporaryDirectory() as folder:
+            manifests = Path(folder) / "manifests"
+            manifests.mkdir()
+            catalog = manifests / "catalog.json"
+            catalog.write_text('{"datasets":[]}')
+            before = catalog.read_bytes()
+            def reconcile(*args, **kwargs):
+                self.assertNotEqual(kwargs["manifest_root"], manifests)
+                self.assertEqual(kwargs["processed_root"], Path("data/processed"))
+                self.assertEqual(kwargs["raw_root"], Path("data/raw"))
+                kwargs["catalog_path"].write_text('{"reconciled":true}')
+            with patch("scripts.validate_checkout_artifacts.refresh_quality_only", side_effect=reconcile), \
+                 patch("scripts.validate_checkout_artifacts.subprocess.run", return_value=Mock(returncode=7)) as validate:
+                self.assertEqual(validate_checkout(Path("inventory.yaml"), catalog, manifests, True), 7)
+            self.assertEqual(catalog.read_bytes(), before)
+            command = validate.call_args.args[0]
+            self.assertIn("--fail-on-warning", command)
+            self.assertNotEqual(Path(command[command.index("--catalog") + 1]), catalog)
+
+    def test_dependency_consumers_validate_without_staging_availability_metadata(self):
+        workflow = yaml.safe_load((ROOT / ".github/workflows/dependency-remediation.yml").read_text())
+        steps = [step for job in workflow["jobs"].values() for step in job.get("steps", [])]
+        check = next(step for step in steps if step.get("name") == "Run CI-quality validation")
+        self.assertIn("scripts/validate_checkout_artifacts.py", check["run"])
+        shell = (ROOT / "scripts/dependency_pr_codex_loop.sh").read_text()
+        self.assertEqual(shell.count("python3 scripts/validate_checkout_artifacts.py"), 2)
+        self.assertNotIn("--refresh-quality-only", shell)
 
     def test_failed_required_ocr_blocks_publication_but_intentional_skip_does_not(self):
         workflow = yaml.safe_load((ROOT / ".github/workflows/research-pipeline.yml").read_text())

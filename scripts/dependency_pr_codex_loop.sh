@@ -116,7 +116,7 @@ Rules:
 
 Required local validation commands:
 1. python3 -m compileall -q .
-2. python3 scripts/validate_artifacts.py --inventory research/source_inventory.yaml --catalog data/manifests/catalog.json --manifests data/manifests
+2. python3 scripts/validate_checkout_artifacts.py --inventory research/source_inventory.yaml --catalog data/manifests/catalog.json --manifests data/manifests
 
 PR context JSON path:
 $CONTEXT_JSON
@@ -127,7 +127,7 @@ codex exec --cwd "$REPO_DIR" --input "$PROMPT_TXT" 2>&1 | tee "$RUN_LOG"
 
 log "Running validation after Codex"
 python3 -m compileall -q .
-python3 scripts/validate_artifacts.py --inventory research/source_inventory.yaml --catalog data/manifests/catalog.json --manifests data/manifests
+python3 scripts/validate_checkout_artifacts.py --inventory research/source_inventory.yaml --catalog data/manifests/catalog.json --manifests data/manifests
 
 if git diff --quiet; then
   log "No changes produced by Codex, exiting"
