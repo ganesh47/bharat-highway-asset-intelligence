@@ -1,0 +1,20 @@
+{
+  "source_id": "cag_delhi_road_finances_2024_25",
+  "versions": [
+    {
+      "version_id": "a359a0f94921419114ffb1f093ac2f8b36546783ca2be3705e4d374df2fc4178",
+      "csv_sha256": "b0b94444cbca8bd690c692a8b8c4684ac2b15357b869759cc38d9d94464efe8a",
+      "row_count": 2,
+      "facts_path": "history/cag_delhi_road_finances_2024_25/a359a0f94921419114ffb1f093ac2f8b36546783ca2be3705e4d374df2fc4178/facts.csv",
+      "evidence_path": "history/cag_delhi_road_finances_2024_25/a359a0f94921419114ffb1f093ac2f8b36546783ca2be3705e4d374df2fc4178/evidence.json"
+    },
+    {
+      "version_id": "d8dd91890ccd7651bb888213c4e5807866fcddb7a668d10bc555389dae0c7026",
+      "csv_sha256": "b0b94444cbca8bd690c692a8b8c4684ac2b15357b869759cc38d9d94464efe8a",
+      "row_count": 2,
+      "facts_path": "history/cag_delhi_road_finances_2024_25/d8dd91890ccd7651bb888213c4e5807866fcddb7a668d10bc555389dae0c7026/facts.csv",
+      "evidence_path": "history/cag_delhi_road_finances_2024_25/d8dd91890ccd7651bb888213c4e5807866fcddb7a668d10bc555389dae0c7026/evidence.json"
+    }
+  ],
+  "revisions": []
+}
