@@ -2,7 +2,7 @@
   "source_id": "rbi_gsdp_current_prices_2024_25",
   "research_cutoff": "2026-10-02",
   "retrieved_at": "2026-10-02T04:29:25.393770+00:00",
-  "last_checked_at": "2026-10-02T04:32:36.181111+00:00",
+  "last_checked_at": "2026-10-02T04:50:55.297549+00:00",
   "documents": [
     {
       "url": "https://rbidocs.rbi.org.in/rdocs/Publications/PDFs/21T_11122025D994949B48C44B68B4465FBB9ADDFF3D.PDF",
@@ -21,10 +21,10 @@
   "active_document_sha256": [
     "6e48293426935a2ef796c0163edbedeeb6dd165b21db8f018ac912502b3cc287"
   ],
-  "csv_sha256": "899ebc62ac69f921924f472117842785ca3cf919d0cd493d0e13b2da9b34841c",
+  "csv_sha256": "6dd5c6d946ed3a810193820dc74663fa497fe87b0cab22dd620420d587942945",
   "history": {
     "index_path": "history/rbi_gsdp_current_prices_2024_25/index.json",
-    "version_count": 1,
+    "version_count": 2,
     "revision_count": 0,
     "candidate_version_id": "466ef038f6365e38024cd6f2a6ed26c5d24a8a436f2ee28dc099a5b6f5695f9c"
   }

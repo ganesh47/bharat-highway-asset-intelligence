@@ -64,7 +64,7 @@
   "output_table_path": "data/processed/rbi_mospi_macro_indicators.parquet",
   "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
   "data_checksum": "0babd8a82e56f03b0cbafe1247d7373003c298e4f6b33a7f881d4b5cf4c7a08b",
-  "last_checked_at": "2026-10-01T20:10:06.726899+00:00",
+  "last_checked_at": "2026-10-02T04:58:29.936499+00:00",
   "refresh_outcome": "manual_evidence_required",
   "analytical_scope": {
     "observation_date_unknown": true
@@ -78,5 +78,23 @@
   "recency_basis": "unknown",
   "validation_errors": [],
   "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date",
-  "last_quality_check_at": "2026-10-01T22:14:43.651858+00:00"
+  "last_quality_check_at": "2026-10-01T22:14:43.651858+00:00",
+  "metric_coverage": [
+    {
+      "source_id": "rbi_mospi_macro_indicators",
+      "metric": "dataset",
+      "coverage_status": "not_calculation_ready",
+      "latest_observation_date": null,
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 6,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "research_cutoff": "2026-10-02",
+  "next_expected_publication_at": null
 }

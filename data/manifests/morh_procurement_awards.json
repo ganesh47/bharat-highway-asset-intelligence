@@ -65,7 +65,7 @@
   "output_table_path": "data/processed/morh_procurement_awards.parquet",
   "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
   "data_checksum": "255386f168077c123f70388692b72603ce6456fdfd987f071d85d9070b7d7032",
-  "last_checked_at": "2026-10-01T20:29:44.030852+00:00",
+  "last_checked_at": "2026-10-02T04:58:32.113609+00:00",
   "refresh_outcome": "restricted",
   "analytical_scope": {
     "observation_date_unknown": true
@@ -79,5 +79,23 @@
   "recency_basis": "unknown",
   "validation_errors": [],
   "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date",
-  "last_quality_check_at": "2026-10-01T22:14:43.653523+00:00"
+  "last_quality_check_at": "2026-10-01T22:14:43.653523+00:00",
+  "metric_coverage": [
+    {
+      "source_id": "morh_procurement_awards",
+      "metric": "dataset",
+      "coverage_status": "not_calculation_ready",
+      "latest_observation_date": null,
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 6,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "research_cutoff": "2026-10-02",
+  "next_expected_publication_at": null
 }

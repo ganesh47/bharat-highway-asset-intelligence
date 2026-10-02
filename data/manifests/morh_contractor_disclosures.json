@@ -66,7 +66,7 @@
   "output_table_path": "data/processed/morh_contractor_disclosures.parquet",
   "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
   "data_checksum": "f60dfd6c412eec5eb39100ccd13b0b188da130b47b348f67baa12cff886a27ff",
-  "last_checked_at": "2026-10-01T20:29:44.082882+00:00",
+  "last_checked_at": "2026-10-02T04:58:32.126857+00:00",
   "refresh_outcome": "restricted",
   "analytical_scope": {
     "observation_date_unknown": true
@@ -80,5 +80,23 @@
   "recency_basis": "unknown",
   "validation_errors": [],
   "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date",
-  "last_quality_check_at": "2026-10-01T22:14:43.655100+00:00"
+  "last_quality_check_at": "2026-10-01T22:14:43.655100+00:00",
+  "metric_coverage": [
+    {
+      "source_id": "morh_contractor_disclosures",
+      "metric": "dataset",
+      "coverage_status": "not_calculation_ready",
+      "latest_observation_date": null,
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 2,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "research_cutoff": "2026-10-02",
+  "next_expected_publication_at": null
 }

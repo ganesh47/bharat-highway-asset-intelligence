@@ -1,0 +1,215 @@
+{
+  "source_id": "mospi_nh_construction_2025_26",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "refresh_outcome": "updated",
+  "last_checked_at": "2026-10-02T05:04:27.346366+00:00",
+  "last_successful_retrieval_at": "2026-10-02T05:00:42.130838+00:00",
+  "data_changed_at": "2026-10-02T05:04:27.346366+00:00",
+  "publication_date": "2026-07-16",
+  "source_as_of_date": "2026-03-31",
+  "analytical_ready": true,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "",
+  "source": {
+    "publisher": "Ministry of Statistics and Programme Implementation / Ministry of Road Transport and Highways / Press Information Bureau",
+    "title": "MoSPI July2026 Performance Dashboard release, all-NH construction FY2025-26",
+    "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2285365&lang=1&reg=48",
+    "retrieved_at": "2026-10-02T05:00:42.130838+00:00",
+    "official_flag": true,
+    "publisher_type": "government",
+    "license_terms": "Public official press release; attribution and release identifier required.",
+    "domain": "pib.gov.in"
+  },
+  "citations": {
+    "permanent_identifier": "mospi_nh_construction_2025_26",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "Official16July2026 MoSPI performance release reports9,360km all-NH construction inFY2025–26. Administrative reported fiscal-year actual; date31March2026, separate from publication16July2026. Distinct from NHAI5,313km and the PAIMANA-PROJ threshold portfolio."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/evidence/mospi_nh_construction_2025_26.json",
+        "sha256": "4341cc523831324063b1bf7a2dff31841ef5f1929e2a685d06043b192f0b5d4f",
+        "size_bytes": 1731
+      },
+      {
+        "path": "data/raw/primary_disclosures/mospi_nh_construction_2025_26/versions/dd7a83c27691f4aacb501a95c408de803dcc6234dfda5878a8dcaf924cfe5066.html",
+        "sha256": "dd7a83c27691f4aacb501a95c408de803dcc6234dfda5878a8dcaf924cfe5066",
+        "size_bytes": 190876
+      },
+      {
+        "path": "data/raw/manual/mospi_nh_construction_2025_26.csv",
+        "sha256": "6ce595997aa6b4e163e920deda5371c015636bbef8cbc24407a96c2df554e53a",
+        "size_bytes": 1921
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2285365&lang=1&reg=48",
+        "relative_path": "primary_disclosures/mospi_nh_construction_2025_26/versions/dd7a83c27691f4aacb501a95c408de803dcc6234dfda5878a8dcaf924cfe5066.html",
+        "sha256": "dd7a83c27691f4aacb501a95c408de803dcc6234dfda5878a8dcaf924cfe5066",
+        "size_bytes": 190876,
+        "extractor": "pipelines.national_freshness; source-pinned reviewed table or labelled release extraction",
+        "semantic_document_sha256": "bd3d641baea3fb60b0e1544a13adb1bb0a10d01167afc8db9ea126d0c9d9ad38"
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/mospi_nh_construction_2025_26.parquet",
+        "format": "parquet",
+        "sha256": "9283bee8b53b8b8a3542328d926cf65a070dcc4add86567b007fe161d3af89a6"
+      }
+    ],
+    "row_count": 1,
+    "columns": [
+      "entity_id",
+      "entity_name",
+      "entity_type",
+      "agency",
+      "state",
+      "road_class",
+      "metric",
+      "value",
+      "unit",
+      "original_value",
+      "original_unit",
+      "period_start",
+      "period_end",
+      "period_basis",
+      "estimate_type",
+      "statement_basis",
+      "data_as_of",
+      "published_at",
+      "source_id",
+      "citation_url",
+      "table_page",
+      "evidence_class",
+      "analytical_eligible",
+      "source_document_sha256",
+      "notes",
+      "entity",
+      "year",
+      "metric_name",
+      "metric_value",
+      "metric_category",
+      "source_type",
+      "asset_id",
+      "project_name",
+      "nh_number",
+      "project_stage",
+      "scheduled_completion_date",
+      "likely_completion_date",
+      "actual_completion_date",
+      "comparison_group",
+      "asset_owner_id",
+      "implementing_agency_id",
+      "operator_id",
+      "concessionaire_id",
+      "financing_entity_id",
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period",
+      "observation_status",
+      "assurance",
+      "revision_identity",
+      "price_basis",
+      "base_year"
+    ]
+  },
+  "retrieved_at": "2026-10-02T05:00:42.130838+00:00",
+  "semantic_rechecks": [],
+  "publication_history": {
+    "index_path": "history/mospi_nh_construction_2025_26/index.json",
+    "version_count": 1,
+    "revision_count": 0,
+    "candidate_version_id": "2a8df81fdad176d1475523f24d5f2dffe19cb09ee7b3b1c0bb3db307cb201526"
+  },
+  "research_cutoff": "2026-10-02",
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/mospi_nh_construction_2025_26.parquet",
+  "data_checksum": "42fc5751832147ff8c99996282ba0212e745cc0aa40e564cf7dc84deb767c6a7",
+  "publication_generations": [
+    {
+      "source_id": "mospi_nh_construction_2025_26",
+      "observation_checksum": "42fc5751832147ff8c99996282ba0212e745cc0aa40e564cf7dc84deb767c6a7",
+      "path": "data/processed/publication_history/mospi_nh_construction_2025_26/42fc5751832147ff8c99996282ba0212e745cc0aa40e564cf7dc84deb767c6a7.parquet",
+      "sha256": "9283bee8b53b8b8a3542328d926cf65a070dcc4add86567b007fe161d3af89a6",
+      "row_count": 1,
+      "source_as_of_date": "2026-03-31",
+      "publication_date": "2026-07-16",
+      "citations": {
+        "permanent_identifier": "mospi_nh_construction_2025_26",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "Official16July2026 MoSPI performance release reports9,360km all-NH construction inFY2025–26. Administrative reported fiscal-year actual; date31March2026, separate from publication16July2026. Distinct from NHAI5,313km and the PAIMANA-PROJ threshold portfolio."
+      },
+      "source_documents": [
+        {
+          "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2285365&lang=1&reg=48",
+          "relative_path": "primary_disclosures/mospi_nh_construction_2025_26/versions/dd7a83c27691f4aacb501a95c408de803dcc6234dfda5878a8dcaf924cfe5066.html",
+          "sha256": "dd7a83c27691f4aacb501a95c408de803dcc6234dfda5878a8dcaf924cfe5066",
+          "size_bytes": 190876,
+          "extractor": "pipelines.national_freshness; source-pinned reviewed table or labelled release extraction",
+          "semantic_document_sha256": "bd3d641baea3fb60b0e1544a13adb1bb0a10d01167afc8db9ea126d0c9d9ad38"
+        }
+      ],
+      "data_changed_at": "2026-10-02T05:00:42.130838+00:00"
+    }
+  ],
+  "last_ingested_at": "2026-10-02T05:04:27.346366+00:00",
+  "analytical_scope": {
+    "source_as_of_date": "2026-03-31",
+    "publisher_type": "government"
+  },
+  "next_expected_publication_at": "2026-10-16",
+  "metric_coverage": [
+    {
+      "metric": "constructed_length_km",
+      "unit": "km",
+      "entity_type": "agency",
+      "agency": "MoRTH",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "MoSPI_PAIMANA_all_NH_performance",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "mospi_nh_construction_2025_26",
+      "coverage_status": "publication_pending",
+      "latest_observation_date": "2026-03-31",
+      "earliest_entity_cutoff": "2026-03-31",
+      "latest_available_period_end": "2026-03-31",
+      "latest_publication_date": "2026-07-16",
+      "latest_disclosure_publication_date": "2026-07-16",
+      "publication_lag_days": 107,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": "2026-10-16",
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "morth": "2026-03-31"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "last_quality_check_at": "2026-10-02T05:06:19.953217+00:00"
+}

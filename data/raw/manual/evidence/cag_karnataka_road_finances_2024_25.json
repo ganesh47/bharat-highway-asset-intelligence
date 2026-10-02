@@ -2,7 +2,7 @@
   "source_id": "cag_karnataka_road_finances_2024_25",
   "research_cutoff": "2026-10-02",
   "retrieved_at": "2026-10-02T04:22:43.569547+00:00",
-  "last_checked_at": "2026-10-02T04:32:36.262334+00:00",
+  "last_checked_at": "2026-10-02T04:50:55.457778+00:00",
   "documents": [
     {
       "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-2-Finance-Accounts-Vol-I-2024-25-government-of-karnataka-06948f82bb28817-62582478.pdf",
@@ -19,10 +19,10 @@
   "active_document_sha256": [
     "a60e4f514b0fa63dc3862db3de74c2c778b832bd09cc05341e5ec0381fadf9a5"
   ],
-  "csv_sha256": "9bc9aaee5d68516a452986d2a6db5698e3c174eb46b02df8841a2fcb44d125d7",
+  "csv_sha256": "cb1b12ac8109d8b28a41672fd5fb1313d925d97db0ffb5b4499285b15469a4c6",
   "history": {
     "index_path": "history/cag_karnataka_road_finances_2024_25/index.json",
-    "version_count": 1,
+    "version_count": 2,
     "revision_count": 0,
     "candidate_version_id": "8cf7fee5e11bb39da6fa7b16a7fe364cf034fc98a780376cb10c102d3798c514"
   }

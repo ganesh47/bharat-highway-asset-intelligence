@@ -64,8 +64,8 @@
   "output_table_path": "data/processed/parliament_qa_nh_blackspots_state.parquet",
   "data_checksum": "406b27770ee6541bb6624b87a8536ba815fedb4f0657a48f13a2563e4cdd5afd",
   "last_successful_retrieval_at": "2026-03-16T08:52:20.431774+00:00",
-  "last_ingested_at": "2026-10-01T20:10:06.704312+00:00",
-  "last_checked_at": "2026-10-01T20:10:06.704312+00:00",
+  "last_ingested_at": "2026-10-02T04:58:29.905461+00:00",
+  "last_checked_at": "2026-10-02T04:58:29.905461+00:00",
   "refresh_outcome": "checked_unchanged",
   "analytical_scope": {
     "agency": "MoRTH",
@@ -79,5 +79,23 @@
   "analytical_ready": true,
   "extraction_status": "validated",
   "recency_basis": "observation_date",
-  "validation_errors": []
+  "validation_errors": [],
+  "metric_coverage": [
+    {
+      "source_id": "parliament_qa_nh_blackspots_state",
+      "metric": "dataset",
+      "coverage_status": "date_unknown",
+      "latest_observation_date": "2020-12-31",
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 32,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "research_cutoff": "2026-10-02",
+  "next_expected_publication_at": null
 }

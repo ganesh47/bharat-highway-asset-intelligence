@@ -1,17 +1,17 @@
 # Source Gap Analysis
 
-Generated: 2026-10-01T23:17:26.741032+00:00 UTC
+Generated: 2026-10-02T05:05:31.339111+00:00 UTC
 
 Tracks missing dimensions before ETL and recommends official avenues to fill them.
 
 ## Missing dimensions
 
 - Theme: **projects**
-  - Missing reason: 4 of 15 sources require manual evidence, validated extraction, or restricted access; discovery is not analytical coverage
+  - Missing reason: 9 of 16 sources require manual evidence, validated extraction, or restricted access; discovery is not analytical coverage
   - Suggested action: Use MoRTH/NHAI annual publications, PMGSY and State PWD handover statements.
   - Priority: evidence_required
 
-  - Sources: data_gov_in_nhai_projects_district_target_2023, data_gov_in_nhai_state_projects_api, nhai_constructed_length_series_official, nhai_press_release_index
+  - Sources: data_gov_in_nhai_district_projects_implemented, data_gov_in_nhai_himachal_nhai_projects_ongoing, data_gov_in_nhai_projects_api, data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs, data_gov_in_nhai_projects_district_target_2023, data_gov_in_nhai_punjab_42_projects_implementation, data_gov_in_nhai_state_projects_api, nhai_constructed_length_series_official, nhai_press_release_index
 
 - Theme: **finance**
   - Missing reason: 3 of 8 sources require manual evidence, validated extraction, or restricted access; discovery is not analytical coverage
@@ -28,14 +28,14 @@ Tracks missing dimensions before ETL and recommends official avenues to fill the
   - Sources: ncrb_toll_fastag_claims
 
 - Theme: **safety**
-  - Missing reason: 4 of 8 sources require manual evidence, validated extraction, or restricted access; discovery is not analytical coverage
+  - Missing reason: 4 of 9 sources require manual evidence, validated extraction, or restricted access; discovery is not analytical coverage
   - Suggested action: Pull state/year tables from NCRB official annual publications and Road Accident query tables.
   - Priority: evidence_required
 
   - Sources: highway_project_risk_and_access_panel, ncrb_road_accidents_state_year, parliament_qa_highway_queries, parliament_qa_nh_blackspots_state
 
 - Theme: **macro**
-  - Missing reason: 1 of 2 sources require manual evidence, validated extraction, or restricted access; discovery is not analytical coverage
+  - Missing reason: 1 of 3 sources require manual evidence, validated extraction, or restricted access; discovery is not analytical coverage
   - Suggested action: Use RBI/MOSPI open download endpoints with official methodology notes and circular references.
   - Priority: evidence_required
 

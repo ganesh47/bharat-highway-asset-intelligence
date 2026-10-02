@@ -11,7 +11,7 @@
     "url": "https://www.data.gov.in/resource/district-wise-details-project-target-length-national-highways-during-2023-24",
     "retrieval_method": "direct download",
     "access_type": "HTML",
-    "retrieved_at": "2026-03-11T05:17:08.158375+00:00",
+    "retrieved_at": "2026-10-02T04:55:32.909985+00:00",
     "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
     "official_flag": true,
     "evidence_class": "mixed_actual_target",
@@ -31,7 +31,7 @@
   "manifest": {
     "raw_files": [
       {
-        "path": "data/raw/data_gov_in_nhai_projects_district_target_2023/data_gov_in_nhai_projects_district_target_2023/raw_20260311_051708.csv",
+        "path": "data/raw/data_gov_in_nhai_projects_district_target_2023/data_gov_in_nhai_projects_district_target_2023/raw_20261002_045532.csv",
         "sha256": "2793579e2f510ea5c6ad77a6d73b8a2efb41f14020bc9c88216acd694bf49f3a",
         "size_bytes": 5633
       }
@@ -40,7 +40,7 @@
       {
         "path": "data/processed/data_gov_in_nhai_projects_district_target_2023.parquet",
         "format": "parquet",
-        "sha256": "9f84949782f9d94f3b480fac7e40f912281f4f4d6e105df3fa369c0369941e84"
+        "sha256": "83af531b0d970d4f55d9c35ae0287187afaf3ad6c1e1af0cb80a043521349f39"
       }
     ],
     "row_count": 47,
@@ -58,7 +58,7 @@
       "retrieved_at"
     ]
   },
-  "retrieved_at": "2026-03-11T05:17:08.158375+00:00",
+  "retrieved_at": "2026-10-02T04:55:32.909985+00:00",
   "completeness_score": 0.969,
   "recency_score": 0.4,
   "provenance_score": 0.85,
@@ -68,12 +68,56 @@
     "Recency is stale against claimed update frequency",
     "Planned/estimated disclosure is readable evidence and excluded from measured calculations"
   ],
+  "source_as_of_date": "2024-02-07",
+  "recency_basis": "observation_date",
+  "validation_errors": [],
   "output_table_path": "data/processed/data_gov_in_nhai_projects_district_target_2023.parquet",
-  "data_checksum": "b0b36cf12244b5cf2dade7b44bcf486a81dd759f0f3f561cbaf7e5312db5c0bf",
-  "last_successful_retrieval_at": "2026-10-01T20:08:25.281276+00:00",
-  "last_ingested_at": "2026-10-01T20:08:25.281276+00:00",
-  "last_checked_at": "2026-10-01T20:08:25.281276+00:00",
-  "refresh_outcome": "checked_unchanged",
+  "data_checksum": "0c396f26ce407e23884968c2c737c1f781d1269b90d2211700dc5b7498a4a3ef",
+  "publication_generations": [
+    {
+      "source_id": "data_gov_in_nhai_projects_district_target_2023",
+      "observation_checksum": "b0b36cf12244b5cf2dade7b44bcf486a81dd759f0f3f561cbaf7e5312db5c0bf",
+      "path": "data/processed/publication_history/data_gov_in_nhai_projects_district_target_2023/b0b36cf12244b5cf2dade7b44bcf486a81dd759f0f3f561cbaf7e5312db5c0bf.parquet",
+      "sha256": "5c9c0e429d99f3e78da809448d86e590f5dd64010d1f4e06e9f76acfb0bf1247",
+      "row_count": 47,
+      "source_as_of_date": "2024-02-07",
+      "publication_date": "2024-02-07",
+      "citations": {
+        "permanent_identifier": "uuid 7d3d0adf-dce6-4440-afd5-bd88b7c3d653 or resource file RS_Session_263_AS_52_A_0.csv",
+        "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_263_AS_52_A_0.csv",
+        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic.",
+        "primary_reference": {
+          "url": "https://sansad.in/getFile/annex/263/AS52.pdf?source=pqars",
+          "sha256": "ca3280b26827d35995e5a947cef02c34df1902111d25725d6bd60ecf583ecdb4",
+          "table_page": "3-6",
+          "evidence_metadata_path": "data/raw/manual/evidence/data_gov_in_nhai_projects_district_target_2023.json"
+        }
+      },
+      "source_documents": [],
+      "data_changed_at": null
+    },
+    {
+      "source_id": "data_gov_in_nhai_projects_district_target_2023",
+      "observation_checksum": "0c396f26ce407e23884968c2c737c1f781d1269b90d2211700dc5b7498a4a3ef",
+      "path": "data/processed/publication_history/data_gov_in_nhai_projects_district_target_2023/0c396f26ce407e23884968c2c737c1f781d1269b90d2211700dc5b7498a4a3ef.parquet",
+      "sha256": "83af531b0d970d4f55d9c35ae0287187afaf3ad6c1e1af0cb80a043521349f39",
+      "row_count": 47,
+      "source_as_of_date": "2024-02-07",
+      "publication_date": null,
+      "citations": {
+        "permanent_identifier": "uuid 7d3d0adf-dce6-4440-afd5-bd88b7c3d653 or resource file RS_Session_263_AS_52_A_0.csv",
+        "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_263_AS_52_A_0.csv",
+        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+      },
+      "source_documents": [],
+      "data_changed_at": null
+    }
+  ],
+  "data_changed_at": "2026-10-02T04:55:32.904625+00:00",
+  "last_successful_retrieval_at": "2026-10-02T04:55:32.904625+00:00",
+  "last_ingested_at": "2026-10-02T04:55:32.904625+00:00",
+  "last_checked_at": "2026-10-02T04:55:32.904625+00:00",
+  "refresh_outcome": "updated",
   "analytical_scope": {
     "entity_type": "project",
     "source_as_of_date": "2024-02-07",
@@ -81,12 +125,26 @@
     "analytical_eligible": false
   },
   "evidence_status": "validated",
-  "source_as_of_date": "2024-02-07",
   "publication_date": "2024-02-07",
   "disclosure_ready": true,
   "analytical_ready": false,
   "extraction_status": "validated",
-  "recency_basis": "observation_date",
-  "validation_errors": [],
-  "last_quality_check_at": "2026-10-01T20:53:56.648366+00:00"
+  "research_cutoff": "2026-10-02",
+  "next_expected_publication_at": null,
+  "metric_coverage": [
+    {
+      "source_id": "data_gov_in_nhai_projects_district_target_2023",
+      "metric": "dataset",
+      "coverage_status": "date_unknown",
+      "latest_observation_date": "2024-02-07",
+      "latest_publication_date": "2024-02-07",
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 47,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ]
 }

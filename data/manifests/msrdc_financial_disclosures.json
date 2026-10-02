@@ -78,7 +78,7 @@
   "connector": "primary_disclosures",
   "version": "1.0.0",
   "refresh_outcome": "manual_evidence_required",
-  "last_checked_at": "2026-10-01T23:17:26.176064+00:00",
+  "last_checked_at": "2026-10-02T04:58:48.697466+00:00",
   "data_changed_at": null,
   "publication_date": null,
   "source_as_of_date": null,
@@ -109,5 +109,23 @@
     "Not eligible for measured analyst calculations"
   ],
   "recency_basis": "unknown",
-  "validation_errors": []
+  "validation_errors": [],
+  "metric_coverage": [
+    {
+      "source_id": "msrdc_financial_disclosures",
+      "metric": "dataset",
+      "coverage_status": "not_calculation_ready",
+      "latest_observation_date": null,
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 0,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "research_cutoff": "2026-10-02",
+  "next_expected_publication_at": null
 }

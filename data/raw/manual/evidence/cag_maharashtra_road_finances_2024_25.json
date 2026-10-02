@@ -2,7 +2,7 @@
   "source_id": "cag_maharashtra_road_finances_2024_25",
   "research_cutoff": "2026-10-02",
   "retrieved_at": "2026-10-02T04:22:48.988928+00:00",
-  "last_checked_at": "2026-10-02T04:32:36.282851+00:00",
+  "last_checked_at": "2026-10-02T04:50:55.489760+00:00",
   "documents": [
     {
       "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-CD-ENGLISH-FINANCE-ACCOUNTS-VOL-I-06944f1e510c216-51074266.pdf",
@@ -19,10 +19,10 @@
   "active_document_sha256": [
     "711cf4d8d72af4dbb87d75dca8974e6ba3785ed78bc24b145d775bd671742cbb"
   ],
-  "csv_sha256": "8168b54d6111c60766ff3ea8578bc2303dee02977aa09dbfbc4a5ccb2943ceb2",
+  "csv_sha256": "7da3a73b647a989c8866a9c053f53ec7474fb94ff67ced68a499c24c27d47e68",
   "history": {
     "index_path": "history/cag_maharashtra_road_finances_2024_25/index.json",
-    "version_count": 1,
+    "version_count": 2,
     "revision_count": 0,
     "candidate_version_id": "519142cb38198ef617ab931d656085bae28e69ef6963073e79f376244ce8b614"
   }

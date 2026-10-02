@@ -1,0 +1,16 @@
+{
+  "source_id": "data_gov_in_nhai_district_projects_implemented",
+  "observation_checksum": "481d643ccb1c809e3e3b25a8bafbe733979f6c444fc5d337b9461f47ba7aeded",
+  "path": "data/processed/publication_history/data_gov_in_nhai_district_projects_implemented/481d643ccb1c809e3e3b25a8bafbe733979f6c444fc5d337b9461f47ba7aeded.parquet",
+  "sha256": "3e6f440013f13cc03dd395d090aa68f84232b581eef1055413f8457b7aafb871",
+  "row_count": 40,
+  "source_as_of_date": null,
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "nid=7693241 (resource page) / file RS_Session_259_AU_3287_1.i.csv",
+    "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_259_AU_3287_1.i.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "source_documents": [],
+  "data_changed_at": null
+}

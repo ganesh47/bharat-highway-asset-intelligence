@@ -5,9 +5,9 @@
   "status": "manual_ingest",
   "metric_category": "official_measured",
   "refresh_outcome": "updated",
-  "last_checked_at": "2026-10-01T23:17:25.844958+00:00",
-  "last_successful_retrieval_at": "2026-10-01T19:28:46.561911+00:00",
-  "data_changed_at": "2026-10-01T23:17:25.844958+00:00",
+  "last_checked_at": "2026-10-02T04:58:41.686501+00:00",
+  "last_successful_retrieval_at": "2026-10-02T04:58:41.690684+00:00",
+  "data_changed_at": "2026-10-02T04:58:41.686501+00:00",
   "publication_date": "2026-02-05",
   "source_as_of_date": "2026-02-05",
   "analytical_ready": true,
@@ -60,7 +60,7 @@
       {
         "path": "data/processed/parliament_nhai_debt_tot_invit.parquet",
         "format": "parquet",
-        "sha256": "e4affb90ee3cd4479bf5a4607b34c191bb6b3fdb08f8be24fe1afb072180f18a"
+        "sha256": "06efef1ea65583dce60ca82685f3cbcc9c7322c777d5617bd4b3168952b9e05b"
       }
     ],
     "row_count": 33,
@@ -112,11 +112,18 @@
       "contractor_name",
       "disclosure_as_of",
       "estimate_vintage",
-      "reported_period"
+      "reported_period",
+      "assurance",
+      "revision_identity",
+      "base_year",
+      "observation_status",
+      "price_basis"
     ]
   },
   "retrieved_at": "2026-10-01T19:28:46.561911+00:00",
   "semantic_rechecks": [],
+  "publication_history": null,
+  "research_cutoff": "2026-10-02",
   "completeness_score": 0.98,
   "recency_score": 0.98,
   "provenance_score": 0.98,
@@ -126,10 +133,400 @@
   "recency_basis": "observation_date",
   "validation_errors": [],
   "output_table_path": "data/processed/parliament_nhai_debt_tot_invit.parquet",
-  "data_checksum": "11a76787d58488000f21ef15adaa4f9f48fa035859c5173b561dd1258069d98a",
-  "last_ingested_at": "2026-10-01T23:17:25.844958+00:00",
+  "data_checksum": "c7cc2fecf53817916514fc94cb25de737922c0c5e8a1f81bebf635b3c4d76b5a",
+  "publication_generations": [
+    {
+      "source_id": "parliament_nhai_debt_tot_invit",
+      "observation_checksum": "11a76787d58488000f21ef15adaa4f9f48fa035859c5173b561dd1258069d98a",
+      "path": "data/processed/publication_history/parliament_nhai_debt_tot_invit/11a76787d58488000f21ef15adaa4f9f48fa035859c5173b561dd1258069d98a.parquet",
+      "sha256": "e4affb90ee3cd4479bf5a4607b34c191bb6b3fdb08f8be24fe1afb072180f18a",
+      "row_count": 33,
+      "source_as_of_date": "2026-02-05",
+      "publication_date": "2026-02-05",
+      "citations": {
+        "permanent_identifier": "parliament_nhai_debt_tot_invit",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": ""
+      },
+      "source_documents": [
+        {
+          "url": "https://sansad.in/getFile/loksabhaquestions/annex/187/AU963_8iM1pC.pdf?source=pqals",
+          "relative_path": "primary_disclosures/parliament_nhai_debt_tot_invit/document.pdf",
+          "sha256": "a8fc9ba166a457d2644c4d9defd18e860b680de96cad1b7daeca489813e7efc7",
+          "size_bytes": 191392
+        }
+      ],
+      "data_changed_at": "2026-10-01T23:17:25.844958+00:00"
+    },
+    {
+      "source_id": "parliament_nhai_debt_tot_invit",
+      "observation_checksum": "c7cc2fecf53817916514fc94cb25de737922c0c5e8a1f81bebf635b3c4d76b5a",
+      "path": "data/processed/publication_history/parliament_nhai_debt_tot_invit/c7cc2fecf53817916514fc94cb25de737922c0c5e8a1f81bebf635b3c4d76b5a.parquet",
+      "sha256": "06efef1ea65583dce60ca82685f3cbcc9c7322c777d5617bd4b3168952b9e05b",
+      "row_count": 33,
+      "source_as_of_date": "2026-02-05",
+      "publication_date": "2026-02-05",
+      "citations": {
+        "permanent_identifier": "parliament_nhai_debt_tot_invit",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": ""
+      },
+      "source_documents": [
+        {
+          "url": "https://sansad.in/getFile/loksabhaquestions/annex/187/AU963_8iM1pC.pdf?source=pqals",
+          "relative_path": "primary_disclosures/parliament_nhai_debt_tot_invit/document.pdf",
+          "sha256": "a8fc9ba166a457d2644c4d9defd18e860b680de96cad1b7daeca489813e7efc7",
+          "size_bytes": 191392
+        }
+      ],
+      "data_changed_at": "2026-10-01T19:28:46.561911+00:00"
+    }
+  ],
+  "last_ingested_at": "2026-10-02T04:58:41.686501+00:00",
   "analytical_scope": {
     "source_as_of_date": "2026-02-05",
     "publisher_type": "government"
-  }
+  },
+  "next_expected_publication_at": null,
+  "metric_coverage": [
+    {
+      "metric": "debt_outstanding_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "agency",
+      "agency": "NHAI",
+      "road_class": "National Highway",
+      "period_basis": "stock",
+      "statement_basis": "parliament_reply",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "parliament_nhai_debt_tot_invit",
+      "coverage_status": "latest_reported",
+      "latest_observation_date": "2025-12-31",
+      "earliest_entity_cutoff": "2025-12-31",
+      "latest_available_period_end": "2025-12-31",
+      "latest_publication_date": "2026-02-05",
+      "latest_disclosure_publication_date": "2026-02-05",
+      "publication_lag_days": 36,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_yet_reported",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "nhai": "2025-12-31"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "invit_concession_value_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "InvIT_round",
+      "agency": "NHAI",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "parliament_receipts",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "parliament_nhai_debt_tot_invit",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2024-03-31",
+      "earliest_entity_cutoff": "2022-03-31",
+      "latest_available_period_end": "2024-03-31",
+      "latest_publication_date": "2026-02-05",
+      "latest_disclosure_publication_date": "2026-02-05",
+      "publication_lag_days": 676,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 3,
+      "entity_cutoffs": {
+        "nhit_round_1": "2022-03-31",
+        "nhit_round_2": "2023-03-31",
+        "nhit_round_3": "2024-03-31"
+      },
+      "row_count": 3,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "invit_concession_value_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "InvIT_round",
+      "agency": "NHAI",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year_to_date",
+      "statement_basis": "parliament_receipts",
+      "estimate_type": "YTD",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "parliament_nhai_debt_tot_invit",
+      "coverage_status": "latest_reported",
+      "latest_observation_date": "2026-02-05",
+      "earliest_entity_cutoff": "2026-02-05",
+      "latest_available_period_end": "2026-02-05",
+      "latest_publication_date": "2026-02-05",
+      "latest_disclosure_publication_date": "2026-02-05",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_yet_reported",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "nhit_round_4": "2026-02-05"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "invit_portfolio_length_km",
+      "unit": "km",
+      "entity_type": "InvIT_round",
+      "agency": "NHAI",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "parliament_receipts",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "parliament_nhai_debt_tot_invit",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2024-03-31",
+      "earliest_entity_cutoff": "2022-03-31",
+      "latest_available_period_end": "2024-03-31",
+      "latest_publication_date": "2026-02-05",
+      "latest_disclosure_publication_date": "2026-02-05",
+      "publication_lag_days": 676,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 3,
+      "entity_cutoffs": {
+        "nhit_round_1": "2022-03-31",
+        "nhit_round_2": "2023-03-31",
+        "nhit_round_3": "2024-03-31"
+      },
+      "row_count": 3,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "invit_portfolio_length_km",
+      "unit": "km",
+      "entity_type": "InvIT_round",
+      "agency": "NHAI",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year_to_date",
+      "statement_basis": "parliament_receipts",
+      "estimate_type": "YTD",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "parliament_nhai_debt_tot_invit",
+      "coverage_status": "latest_reported",
+      "latest_observation_date": "2026-02-05",
+      "earliest_entity_cutoff": "2026-02-05",
+      "latest_available_period_end": "2026-02-05",
+      "latest_publication_date": "2026-02-05",
+      "latest_disclosure_publication_date": "2026-02-05",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_yet_reported",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "nhit_round_4": "2026-02-05"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "tot_concession_value_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "TOT_bundle",
+      "agency": "NHAI",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "receipts_deposited_CFI",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "parliament_nhai_debt_tot_invit",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2025-03-31",
+      "earliest_entity_cutoff": "2019-03-31",
+      "latest_available_period_end": "2025-03-31",
+      "latest_publication_date": "2026-02-05",
+      "latest_disclosure_publication_date": "2026-02-05",
+      "publication_lag_days": 311,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 11,
+      "entity_cutoffs": {
+        "tot_1": "2019-03-31",
+        "tot_3": "2021-03-31",
+        "tot_5a1": "2022-03-31",
+        "tot_5a2": "2023-03-31",
+        "tot_7": "2023-03-31",
+        "tot_9": "2023-03-31",
+        "tot_11": "2024-03-31",
+        "tot_12": "2024-03-31",
+        "tot_13": "2024-03-31",
+        "tot_14": "2024-03-31",
+        "tot_16": "2025-03-31"
+      },
+      "row_count": 11,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "tot_concession_value_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "TOT_bundle",
+      "agency": "NHAI",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year_to_date",
+      "statement_basis": "receipts_deposited_CFI",
+      "estimate_type": "YTD",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "parliament_nhai_debt_tot_invit",
+      "coverage_status": "latest_reported",
+      "latest_observation_date": "2026-02-05",
+      "earliest_entity_cutoff": "2026-02-05",
+      "latest_available_period_end": "2026-02-05",
+      "latest_publication_date": "2026-02-05",
+      "latest_disclosure_publication_date": "2026-02-05",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_yet_reported",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "tot_17": "2026-02-05"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "tot_portfolio_length_km",
+      "unit": "km",
+      "entity_type": "TOT_bundle",
+      "agency": "NHAI",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "receipts_deposited_CFI",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "parliament_nhai_debt_tot_invit",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2025-03-31",
+      "earliest_entity_cutoff": "2019-03-31",
+      "latest_available_period_end": "2025-03-31",
+      "latest_publication_date": "2026-02-05",
+      "latest_disclosure_publication_date": "2026-02-05",
+      "publication_lag_days": 311,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 11,
+      "entity_cutoffs": {
+        "tot_1": "2019-03-31",
+        "tot_3": "2021-03-31",
+        "tot_5a1": "2022-03-31",
+        "tot_5a2": "2023-03-31",
+        "tot_7": "2023-03-31",
+        "tot_9": "2023-03-31",
+        "tot_11": "2024-03-31",
+        "tot_12": "2024-03-31",
+        "tot_13": "2024-03-31",
+        "tot_14": "2024-03-31",
+        "tot_16": "2025-03-31"
+      },
+      "row_count": 11,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "tot_portfolio_length_km",
+      "unit": "km",
+      "entity_type": "TOT_bundle",
+      "agency": "NHAI",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year_to_date",
+      "statement_basis": "receipts_deposited_CFI",
+      "estimate_type": "YTD",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "parliament_nhai_debt_tot_invit",
+      "coverage_status": "latest_reported",
+      "latest_observation_date": "2026-02-05",
+      "earliest_entity_cutoff": "2026-02-05",
+      "latest_available_period_end": "2026-02-05",
+      "latest_publication_date": "2026-02-05",
+      "latest_disclosure_publication_date": "2026-02-05",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_yet_reported",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "tot_17": "2026-02-05"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ]
 }

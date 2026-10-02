@@ -1,0 +1,22 @@
+{
+  "source_id": "data_gov_in_nhai_state_projects_api",
+  "observation_checksum": "87bc99b352cb0c99447ef24399e7356039d455145430280cc74745b69aa8316c",
+  "path": "data/processed/publication_history/data_gov_in_nhai_state_projects_api/87bc99b352cb0c99447ef24399e7356039d455145430280cc74745b69aa8316c.parquet",
+  "sha256": "47685abcd332f86c8811c9397d8cae5f337d1ab01972583520afc384ecbe6681",
+  "row_count": 5,
+  "source_as_of_date": null,
+  "publication_date": "2021-12-23",
+  "citations": {
+    "permanent_identifier": "uuid b358bfbb-1eee-4e3f-9ebd-956cae5040a7",
+    "anchor": "resource_file:https://data.gov.in/sites/default/files/dataurl08122021/RS_Session_253_AU2230.C.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic.",
+    "primary_reference": {
+      "url": "https://www.data.gov.in/resource/state-wise-number-nh-and-road-projects-relating-are-included-national-infrastructure",
+      "sha256": "2a8166c46e56457603daa0048acba207646f2534f48c33b739890e9b9737caf9",
+      "table_page": null,
+      "evidence_metadata_path": "data/raw/manual/evidence/data_gov_in_nhai_state_projects_api.json"
+    }
+  },
+  "source_documents": [],
+  "data_changed_at": "2026-10-01T20:08:24.675139+00:00"
+}

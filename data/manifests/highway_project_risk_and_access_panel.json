@@ -95,9 +95,9 @@
   ],
   "output_table_path": "data/processed/highway_project_risk_and_access_panel.parquet",
   "data_checksum": "1598884e476359c87a2bfe3e5b2853906359af5f76e1e88e976cdf420626bf19",
-  "last_successful_retrieval_at": "2026-10-01T20:09:57.160720+00:00",
-  "last_ingested_at": "2026-10-01T20:09:57.160720+00:00",
-  "last_checked_at": "2026-10-01T20:09:57.160720+00:00",
+  "last_successful_retrieval_at": "2026-10-02T04:58:20.463093+00:00",
+  "last_ingested_at": "2026-10-02T04:58:20.463093+00:00",
+  "last_checked_at": "2026-10-02T04:58:20.463093+00:00",
   "refresh_outcome": "checked_unchanged",
   "analytical_scope": {
     "road_class": "unspecified",
@@ -111,5 +111,23 @@
   "extraction_status": "pending",
   "recency_basis": "unknown",
   "validation_errors": [],
-  "last_quality_check_at": "2026-10-01T21:28:26.597606+00:00"
+  "last_quality_check_at": "2026-10-01T21:28:26.597606+00:00",
+  "metric_coverage": [
+    {
+      "source_id": "highway_project_risk_and_access_panel",
+      "metric": "dataset",
+      "coverage_status": "not_calculation_ready",
+      "latest_observation_date": null,
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 219996,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "research_cutoff": "2026-10-02",
+  "next_expected_publication_at": null
 }

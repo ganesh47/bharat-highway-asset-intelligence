@@ -65,7 +65,7 @@
   "output_table_path": "data/processed/quality_maintenance_indicators.parquet",
   "refresh_error": "Unsupported roughness unit km_per_km",
   "data_checksum": "92a7af924750b51381e4cb92a9aa4385a7c3b453df7e6ad2171329ec4ab8d25b",
-  "last_checked_at": "2026-10-01T20:10:12.926382+00:00",
+  "last_checked_at": "2026-10-02T04:58:32.162549+00:00",
   "refresh_outcome": "manual_evidence_required",
   "analytical_scope": {
     "observation_date_unknown": true
@@ -81,5 +81,23 @@
     "Unsupported roughness unit km_per_km"
   ],
   "quarantine_reason": "Unsupported roughness unit km_per_km",
-  "last_quality_check_at": "2026-10-01T22:14:43.660580+00:00"
+  "last_quality_check_at": "2026-10-01T22:14:43.660580+00:00",
+  "metric_coverage": [
+    {
+      "source_id": "quality_maintenance_indicators",
+      "metric": "dataset",
+      "coverage_status": "not_calculation_ready",
+      "latest_observation_date": null,
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 6,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "research_cutoff": "2026-10-02",
+  "next_expected_publication_at": null
 }

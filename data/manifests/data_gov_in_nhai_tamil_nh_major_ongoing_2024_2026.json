@@ -85,10 +85,10 @@
   "output_table_path": "data/processed/data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026.parquet",
   "data_checksum": "18bdc9608527ec12fd5e293a7e18095cb9194a260740e097dfd2c50a5ddff0f8",
   "data_changed_at": "2026-10-01T20:22:52.808482+00:00",
-  "last_successful_retrieval_at": "2026-10-01T20:22:52.808482+00:00",
-  "last_ingested_at": "2026-10-01T20:22:52.808482+00:00",
-  "last_checked_at": "2026-10-01T20:22:52.808482+00:00",
-  "refresh_outcome": "updated",
+  "last_successful_retrieval_at": "2026-10-02T04:56:18.185523+00:00",
+  "last_ingested_at": "2026-10-02T04:56:18.185523+00:00",
+  "last_checked_at": "2026-10-02T04:56:18.185523+00:00",
+  "refresh_outcome": "checked_unchanged",
   "analytical_scope": {
     "source_as_of_date": "2024-07-24"
   },
@@ -96,5 +96,23 @@
   "publication_date": "2024-07-24",
   "disclosure_ready": true,
   "analytical_ready": true,
-  "extraction_status": "validated"
+  "extraction_status": "validated",
+  "metric_coverage": [
+    {
+      "source_id": "data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026",
+      "metric": "dataset",
+      "coverage_status": "date_unknown",
+      "latest_observation_date": "2024-07-24",
+      "latest_publication_date": "2024-07-24",
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 55,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "research_cutoff": "2026-10-02",
+  "next_expected_publication_at": null
 }
