@@ -1,0 +1,29 @@
+{
+  "source_id": "cag_uttar_pradesh_road_finances_2024_25",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-02T04:41:07.400529+00:00",
+  "last_checked_at": "2026-10-02T04:50:55.544917+00:00",
+  "documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-English-06964e82777f6d2-05539712.pdf",
+      "relative_path": "primary_disclosures/cag_uttar_pradesh_road_finances_2024_25/versions/50343d23a580af96f455acaf086546d1282c571bb854055541771f99915eb411.pdf",
+      "sha256": "50343d23a580af96f455acaf086546d1282c571bb854055541771f99915eb411",
+      "size_bytes": 6809225
+    }
+  ],
+  "extraction_status": "validated",
+  "row_count": 3,
+  "notes": "CAG Uttar Pradesh FY2024-25 audited accounts; revenue and capital Roads/Bridges amounts validated against labelled pages. FY2023-24 capital comparative retained. Publication date unknown; excludes corporation/SH-only attribution.",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "active_document_sha256": [
+    "50343d23a580af96f455acaf086546d1282c571bb854055541771f99915eb411"
+  ],
+  "csv_sha256": "434c3604b2426c8d4ebb94764a488d1353a654f5a55e887d4fbfa347072303aa",
+  "history": {
+    "index_path": "history/cag_uttar_pradesh_road_finances_2024_25/index.json",
+    "version_count": 1,
+    "revision_count": 0,
+    "candidate_version_id": "7f821f1b76b839fc692634ebfae5c13fbbf3460876bc3dc34cb43d4c39479794"
+  }
+}

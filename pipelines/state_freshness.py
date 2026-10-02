@@ -25,18 +25,27 @@ DOCUMENTS = {
     "rbi_gsdp_current_prices_2024_25": "https://rbidocs.rbi.org.in/rdocs/Publications/PDFs/21T_11122025D994949B48C44B68B4465FBB9ADDFF3D.PDF",
     "cag_karnataka_road_finances_2024_25": "https://cag.gov.in/uploads/state_accounts_report/account-report-2-Finance-Accounts-Vol-I-2024-25-government-of-karnataka-06948f82bb28817-62582478.pdf",
     "cag_maharashtra_road_finances_2024_25": "https://cag.gov.in/uploads/state_accounts_report/account-report-CD-ENGLISH-FINANCE-ACCOUNTS-VOL-I-06944f1e510c216-51074266.pdf",
+    "cag_gujarat_road_finances_2024_25": "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-VOL-I-2024-25-069c52aa2b34bf9-63690940.pdf",
+    "cag_uttar_pradesh_road_finances_2024_25": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-English-06964e82777f6d2-05539712.pdf",
+    "cag_telangana_road_finances_2024_25": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2024-25-069ce501b30f835-70020121.pdf",
 }
 SOURCE_IDS = tuple(DOCUMENTS)
 PINNED_SHA256 = {
     "rbi_gsdp_current_prices_2024_25": "6e48293426935a2ef796c0163edbedeeb6dd165b21db8f018ac912502b3cc287",
     "cag_karnataka_road_finances_2024_25": "a60e4f514b0fa63dc3862db3de74c2c778b832bd09cc05341e5ec0381fadf9a5",
     "cag_maharashtra_road_finances_2024_25": "711cf4d8d72af4dbb87d75dca8974e6ba3785ed78bc24b145d775bd671742cbb",
+    "cag_gujarat_road_finances_2024_25": "2c5c3b75ad46e7de9e40d24d871874a1e4c89b0c79f829f9cb7ca186d0aed46c",
+    "cag_uttar_pradesh_road_finances_2024_25": "50343d23a580af96f455acaf086546d1282c571bb854055541771f99915eb411",
+    "cag_telangana_road_finances_2024_25": "1c4ce5bab8dc25efcd6ae17cd28152e6bf11a1b184922d5ad782ef49b2fadcba",
 }
 GSDP_PUBLICATION = "2025-12-11"
 GSDP_VINTAGE = "RBI Handbook of Statistics on Indian States 2024-25; Table 21; 11 December 2025"
 ACCOUNT_PAGES = {
     "cag_karnataka_road_finances_2024_25": {"state": "Karnataka", "function": 41, "function_printed": 22, "capital": 51, "capital_printed": 32},
     "cag_maharashtra_road_finances_2024_25": {"state": "Maharashtra", "function": 29, "function_printed": 13, "capital": 34, "capital_printed": 18},
+    "cag_gujarat_road_finances_2024_25": {"state": "Gujarat", "function": 33, "function_printed": 15, "capital": 39, "capital_printed": 21},
+    "cag_uttar_pradesh_road_finances_2024_25": {"state": "Uttar Pradesh", "function": 24, "function_printed": 13, "capital": 30, "capital_printed": 19},
+    "cag_telangana_road_finances_2024_25": {"state": "Telangana", "function": 35, "function_printed": 23, "capital": 47, "capital_printed": 35, "layout_reader": "pdfplumber"},
 }
 GSDP_MISSING_LATEST = {"Andaman and Nicobar Islands", "Chandigarh", "Goa", "Gujarat", "Ladakh", "Manipur", "Mizoram", "Nagaland", "Sikkim"}
 JURISDICTIONS = ["Andaman and Nicobar Islands", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chandigarh", "Chhattisgarh", "Dadra and Nagar Haveli and Daman and Diu", "Delhi", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka", "Kerala", "Ladakh", "Lakshadweep", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Puducherry", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"]
@@ -171,9 +180,15 @@ def audit_catalogues(raw_root: Path, output: Path) -> dict[str, Any]:
         metadata = _retrieve_public_page(url, path)
         reports = catalogue_finance_documents(path.read_text()) if metadata["outcome"] == "retrieved" else {}
         status = "account_files_discovered_extraction_pending" if reports else "retrieval_blocked" if metadata["outcome"] != "retrieved" else "no_finance_account_files_discovered"
-        if state in {"Karnataka", "Maharashtra"} and "2024-25" in reports:
+        if state in {entry["state"] for entry in ACCOUNT_PAGES.values()} and "2024-25" in reports:
             status = "roads_bridges_fy2024_25_extracted"
-        return {"jurisdiction": state, "status": status, "catalogue": metadata, "finance_accounts": reports, "latest_indexed_account_year": max(reports, default=None), "scope_review_required": state == "Jammu and Kashmir", "notes": "Discovery index uses a legacy pre30October2019 J&K selector label; current document scope must be verified." if state == "Jammu and Kashmir" else "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."}
+        entry = {"jurisdiction": state, "status": status, "catalogue": metadata, "finance_accounts": reports, "latest_indexed_account_year": max(reports, default=None), "scope_review_required": state == "Jammu and Kashmir", "notes": "Discovery index uses a legacy pre30October2019 J&K selector label; current document scope must be verified." if state == "Jammu and Kashmir" else "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."}
+        pending = raw_root / "state_freshness/cag_tamil_nadu_road_finances_2024_25/retrieval.json"
+        if state == "Tamil Nadu" and pending.exists():
+            entry["document_retrieval"] = json.loads(pending.read_text())
+            entry["extraction_status"] = "pending_ocr_and_table_validation"
+            entry["notes"] += " FY2024-25 Vol I PDF retrieved, but native font encoding and rotated table text prevent reliable row/column extraction. OCR and statement reconciliation remain pending; no numerical facts admitted."
+        return entry
 
     with ThreadPoolExecutor(max_workers=4) as executor:
         jurisdictions = list(executor.map(check, JURISDICTIONS))
@@ -184,7 +199,7 @@ def audit_catalogues(raw_root: Path, output: Path) -> dict[str, Any]:
         url = entry.get("catalogue", {}).get("url") or entry.get("alternative_catalogue_url")
         citation = f"[CAG]({url})" if url else "No state selector found"
         lines.append(f"| {entry['jurisdiction']} | {entry.get('latest_indexed_account_year') or 'Unknown'} | {entry['status']} | {citation} |")
-    lines += ["", "Karnataka and Maharashtra FY2024-25 Roads/Bridges actuals are extracted and independently reconciled. Other state account links remain extraction-pending. Delhi/Puducherry/currentJ&K and territories need document/entity-scope review; state corporation debt is never inferred from these state-government accounts.", "", "The RBI December2025 SH table endsMarch2020 and does not supersede existing MoRTHMarch2022 stock. Maharashtra DES candidate failed TLS hostname validation; no network amount/date admitted.", ""]
+    lines += ["", "Audited FY2024-25 Roads/Bridges actuals are extracted and independently reconciled for: " + ", ".join(sorted(entry["state"] for entry in ACCOUNT_PAGES.values())) + ". Other state account links remain extraction-pending. Delhi/Puducherry/currentJ&K and territories need document/entity-scope review; state corporation debt is never inferred from these state-government accounts.", "", "Tamil Nadu FY2024-25 Vol I was retrieved. Native font encoding and a rotated table prevent reliable extraction; OCR and statement reconciliation remain pending, with no numerical facts admitted.", "", "The RBI December2025 SH table endsMarch2020 and does not supersede existing MoRTHMarch2022 stock. Maharashtra DES candidate failed TLS hostname validation; no network amount/date admitted.", ""]
     output.with_suffix(".md").write_text("\n".join(lines))
     return payload
 
@@ -210,6 +225,16 @@ def audit_monthly_publications(raw_root: Path, output: Path) -> dict[str, Any]:
             check["note"] = "A restricted response does not prove that September data are unavailable or unreleased. Retain the existing verified observation cutoff and request primary rendered-table verification."
         checks.append(check)
     payload = {"research_cutoff": "2026-10-02", "checks": checks, "method": "TLS-verified official index discovery; publisher metadata/footer is not measurement evidence. No inferred September2026 monthly values or Q2FY27 financial results."}
+    rendered = Path(__file__).resolve().parents[1] / "research/rendered_publication_checks_2026_10_02.json"
+    if rendered.exists():
+        recheck = json.loads(rendered.read_text())
+        payload["rendered_listing_recheck"] = {"evidence_path": "research/rendered_publication_checks_2026_10_02.json", "sha256": hashlib.sha256(rendered.read_bytes()).hexdigest(), "checked_at": recheck["checked_at"], "method": recheck["method"], "scope": recheck["scope"]}
+        for check in checks:
+            key = "npci" if check["source_id"] == "npci_netc" else check["source_id"]
+            if key in recheck:
+                check["rendered_verification"] = {"checked_at": recheck["checked_at"], "url": recheck[key]["url"], "latest_displayed_month": recheck[key].get("latest_month"), "latest_displayed_financial_quarter_end": recheck[key].get("latest_financial_quarter_end"), "september_status": recheck[key]["september_status"], "scope": "Listing/table recheck only; original observation, publication and snapshot retrieval dates unchanged."}
+                if key == "npci":
+                    check["rendered_verification"]["exclusions"] = recheck[key]["exclusions"]
     write_json(payload, output)
     return payload
 
@@ -287,24 +312,35 @@ def parse_gsdp_pdf(path: Path) -> tuple[list[dict[str, Any]], list[dict[str, str
 
 
 def _numeric_tokens(text: str) -> list[float]:
-    return [float(value.replace(",", "")) for value in re.findall(r"(?<![\d.])[\d,]+\.\d{2}(?!\d)", text)]
+    return [(-1 if sign else 1) * float(value.replace(",", "")) for sign, value in re.findall(r"(?<![\d.])(\(-\)\s*)?([\d,]+\.\d{2})(?!\d)", text)]
 
 
 def parse_account_pages(function_text: str, capital_text: str) -> dict[str, float]:
     """Cross-check annual capital outlay in two independently labelled tables."""
-    if not all(token in function_text for token in ["Revenue", "Capital", "Loans", "Total", "Roads and Bridges"]):
+    function_text = " ".join(function_text.split())
+    capital_text = " ".join(capital_text.split())
+    capital_text = capital_text.replace("2023-2024", "2023-24").replace("2024-2025", "2024-25").replace("2024 -25", "2024-25")
+    if not all(token in function_text for token in ["Revenue", "Capital", "Total", "Roads and Bridges"]):
         raise ValueError("CAG functional expenditure headings changed")
+    if not any(token in function_text for token in ["Loan", "L & A"]):
+        raise ValueError("CAG loans/advances heading missing")
     row = re.search(r"Roads and Bridges(.*?)Road Transport", function_text, re.S)
     capital = re.search(r"5054\s*-?\s*Capital Outlay on Roads and Bridges(.*?)5055", capital_text, re.S)
     if row is None or capital is None or not all(year in capital_text for year in ["2023-24", "2024-25"]):
         raise ValueError("CAG Roads/Bridges page contract changed")
     functional = _numeric_tokens(row.group(1))
     progressive = _numeric_tokens(capital.group(1))
-    if len(functional) != 3 or len(progressive) != 5:
+    if len(progressive) == 7 and all(label in capital_text for label in ["un-apportioned expenditure", "allocated to", "Telangana"]):
+        # In this labelled layout the bold sub-row reports unchanged legacy
+        # cumulative balances. It has no annual-flow or allocated amount.
+        if progressive[-2] != progressive[-1]:
+            raise ValueError("CAG unapportioned legacy balance changed; review row geometry")
+        progressive = progressive[:5]
+    if len(functional) not in {3, 4} or len(progressive) != 5:
         raise ValueError("Unexpected CAG amount columns; no guessed column positions")
-    revenue, current, total = functional
+    revenue, current, total = functional[0], functional[1], functional[-1]
     previous, _, corroboration, _, _ = progressive
-    if not math.isclose(current, corroboration, abs_tol=.005) or not math.isclose(revenue + current, total, abs_tol=.015):
+    if not math.isclose(current, corroboration, abs_tol=.005) or not math.isclose(sum(functional[:-1]), total, abs_tol=.015):
         raise ValueError("CAG capital cross-table reconciliation failed")
     return {"revenue_2024_25": revenue, "capital_2024_25": current, "capital_2023_24": previous}
 
@@ -344,8 +380,14 @@ def extend_snapshots(builder: Any) -> None:
         from pypdf import PdfReader
         contract = ACCOUNT_PAGES[sid]
         reader = PdfReader(path)
-        function_text = reader.pages[contract["function"] - 1].extract_text()
-        capital_text = reader.pages[contract["capital"] - 1].extract_text()
+        if contract.get("layout_reader") == "pdfplumber":
+            import pdfplumber
+            with pdfplumber.open(path) as document:
+                function_text = document.pages[contract["function"] - 1].extract_text()
+                capital_text = document.pages[contract["capital"] - 1].extract_text()
+        else:
+            function_text = reader.pages[contract["function"] - 1].extract_text()
+            capital_text = reader.pages[contract["capital"] - 1].extract_text()
         values = parse_account_pages(function_text, capital_text)
         state = contract["state"]
         for metric, key, year, page, printed, table in [
@@ -356,7 +398,9 @@ def extend_snapshots(builder: Any) -> None:
             notes = "Audited state-government cash accounts, functional Roads and Bridges covering multiple road classes; not State Highway-only spending or a corporation's financial statement. Excludes separate Road Transport head5055. Annual flow is distinct from the neighbouring progressive/cumulative expenditure column. Publication/signing date is not source-supported here and stays unknown; retrieval date never becomes the cutoff. Current capital independently reconciled to Statement4A."
             if state == "Karnataka":
                 notes += " Statement4B printedp27 notes INR92.59crore interest on off-budget borrowing under MH3054; finance cost is not automatically construction expenditure."
-            builder.fact(sid, metric, values[key], "INR crore", f"PDF p{page}; printed p{printed}; {table}", entity_id="state_" + state.lower(), entity_name=state, entity_type="state_aggregate", agency=f"CAG / Government of {state}", state=state, road_class="roads_and_bridges_all_classes", start=f"{year}-04-01", end=f"{year+1}-03-31", basis="fiscal_year", estimate="actual", statement="state_finance_accounts_cash_expenditure_as_reported", reported_period=f"{year}-{str(year+1)[2:]}", published="", observation_status="final", assurance="audited_finance_accounts", revision_identity="Finance Accounts2024-25 published vintage", notes=notes)
+            if state == "Telangana":
+                notes += " Statement5 contains a separate allocation/unapportioned legacy column; that column and cumulative expenditure are not added to annual spending."
+            builder.fact(sid, metric, values[key], "INR crore", f"PDF p{page}; printed p{printed}; {table}", entity_id="state_" + state.lower().replace(" ", "_"), entity_name=state, entity_type="state_aggregate", agency=f"CAG / Government of {state}", state=state, road_class="roads_and_bridges_all_classes", start=f"{year}-04-01", end=f"{year+1}-03-31", basis="fiscal_year", estimate="actual", statement="state_finance_accounts_cash_expenditure_as_reported", reported_period=f"{year}-{str(year+1)[2:]}", published="", observation_status="final", assurance="audited_finance_accounts", revision_identity="Finance Accounts2024-25 published vintage", notes=notes)
         write_json({"source_id": sid, "state": state, "source_as_of_date": "2025-03-31", "publication_date": None, "values_inr_crore": values, "reconciliation": "current-year capital agrees between Statement4A and Statement5; annual flow selected instead of cumulative", "row_count": 3}, path.parent / "extraction_summary.json")
         builder.notes[sid] = f"CAG {state} FY2024-25 audited accounts; revenue and capital Roads/Bridges amounts validated against labelled pages. FY2023-24 capital comparative retained. Publication date unknown; excludes corporation/SH-only attribution."
 

@@ -1,0 +1,29 @@
+{
+  "source_id": "cag_gujarat_road_finances_2024_25",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-02T04:41:06.708076+00:00",
+  "last_checked_at": "2026-10-02T04:50:55.525030+00:00",
+  "documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-VOL-I-2024-25-069c52aa2b34bf9-63690940.pdf",
+      "relative_path": "primary_disclosures/cag_gujarat_road_finances_2024_25/versions/2c5c3b75ad46e7de9e40d24d871874a1e4c89b0c79f829f9cb7ca186d0aed46c.pdf",
+      "sha256": "2c5c3b75ad46e7de9e40d24d871874a1e4c89b0c79f829f9cb7ca186d0aed46c",
+      "size_bytes": 1082160
+    }
+  ],
+  "extraction_status": "validated",
+  "row_count": 3,
+  "notes": "CAG Gujarat FY2024-25 audited accounts; revenue and capital Roads/Bridges amounts validated against labelled pages. FY2023-24 capital comparative retained. Publication date unknown; excludes corporation/SH-only attribution.",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "active_document_sha256": [
+    "2c5c3b75ad46e7de9e40d24d871874a1e4c89b0c79f829f9cb7ca186d0aed46c"
+  ],
+  "csv_sha256": "bea521a0a78255f0899d1fe94bf78814bfe1c6a21fed125e6dceccc969c6bf99",
+  "history": {
+    "index_path": "history/cag_gujarat_road_finances_2024_25/index.json",
+    "version_count": 1,
+    "revision_count": 0,
+    "candidate_version_id": "95d405821a5d67227a4e0e5dbabe010a982e2a41a2d6fbe34a05c399cc60ce25"
+  }
+}

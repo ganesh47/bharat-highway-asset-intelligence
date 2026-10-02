@@ -1,12 +1,14 @@
 import json
+import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import pandas as pd
 
 from pipelines.connectors.primary_disclosures import validate_facts
 from pipelines.state_freshness import (
-    GSDP_MISSING_LATEST, SOURCE_IDS, catalogue_finance_documents, parse_account_pages, parse_gsdp,
+    GSDP_MISSING_LATEST, SOURCE_IDS, audit_monthly_publications, catalogue_finance_documents, parse_account_pages, parse_gsdp,
     parse_gsdp_pdf,
 )
 
@@ -22,6 +24,26 @@ class StateFreshnessTests(unittest.TestCase):
         self.assertEqual(set(result), {"2024-25", "2023-24"})
         self.assertEqual(result["2024-25"], ["https://cag.gov.in/uploads/finance2024.pdf"])
         self.assertEqual(catalogue_finance_documents('<div id="tab-360">2026-27'), {})
+
+    def test_rendered_recheck_preserves_http_failure_and_observation_cutoffs(self):
+        with tempfile.TemporaryDirectory() as directory, patch(
+            "pipelines.state_freshness._retrieve_public_page",
+            side_effect=lambda *_: {"outcome": "retrieval_blocked", "http_status": 403, "reason": "HTTP 403"},
+        ):
+            root = Path(directory)
+            payload = audit_monthly_publications(root, root / "checks.json")
+        checks = {entry["source_id"]: entry for entry in payload["checks"]}
+        for entry in checks.values():
+            self.assertEqual(entry["http_status"], 403)
+            self.assertEqual(entry["outcome"], "retrieval_blocked")
+            self.assertFalse(entry["newer_publication_verified"])
+            self.assertIsNone(entry["publication_date"])
+        self.assertEqual(checks["npci_netc"]["last_verified_observation"], "2026-08-31")
+        self.assertEqual(checks["nhit"]["last_verified_observation"], "2026-06-30")
+        rendered = ROOT / "research/rendered_publication_checks_2026_10_02.json"
+        if rendered.exists():
+            self.assertEqual(checks["npci_netc"]["rendered_verification"]["latest_displayed_month"], "2026-08")
+            self.assertEqual(checks["nhit"]["rendered_verification"]["latest_displayed_financial_quarter_end"], "2026-06-30")
 
     def test_full_gsdp_vintage_pdf_matches_index_and_missing_positions(self):
         records, gaps = parse_gsdp_pdf(GSDP / "document.pdf")
@@ -58,6 +80,9 @@ class StateFreshnessTests(unittest.TestCase):
         for state, expected in [
             ("karnataka", {"revenue_2024_25": 1898.59, "capital_2024_25": 7939.05, "capital_2023_24": 8760.8}),
             ("maharashtra", {"revenue_2024_25": 6837.87, "capital_2024_25": 32251.54, "capital_2023_24": 26374.51}),
+            ("gujarat", {"revenue_2024_25": 2916.39, "capital_2024_25": 16513.22, "capital_2023_24": 11146.00}),
+            ("uttar_pradesh", {"revenue_2024_25": 8127.11, "capital_2024_25": 29220.27, "capital_2023_24": 25994.74}),
+            ("telangana", {"revenue_2024_25": 589.95, "capital_2024_25": 1237.07, "capital_2023_24": 947.74}),
         ]:
             function = (FIXTURES / f"{state}_function.txt").read_text()
             capital = (FIXTURES / f"{state}_capital.txt").read_text()
@@ -67,6 +92,18 @@ class StateFreshnessTests(unittest.TestCase):
                 parse_account_pages(function, changed)
             with self.assertRaisesRegex(ValueError, "headings"):
                 parse_account_pages(function.replace("Revenue", "Unknown"), capital)
+
+    def test_telangana_legacy_balance_is_not_an_annual_flow(self):
+        function = (FIXTURES / "telangana_function.txt").read_text()
+        capital = (FIXTURES / "telangana_capital.txt").read_text()
+        values = parse_account_pages(function, capital)
+        self.assertEqual(values["capital_2024_25"], 1237.07)
+        self.assertNotEqual(values["capital_2024_25"], 1237.07 + 17182.89)
+        with self.assertRaisesRegex(ValueError, "legacy balance"):
+            parse_account_pages(function, capital.replace("17,182.89", "17,183.89", 1))
+        # An unlabeled extra amount column must never be silently discarded.
+        with self.assertRaisesRegex(ValueError, "amount columns"):
+            parse_account_pages(function, capital.replace("un-apportioned expenditure", "unidentified amount"))
 
     def test_governed_facts_keep_units_assurance_and_unknown_release_dates(self):
         for sid in SOURCE_IDS:

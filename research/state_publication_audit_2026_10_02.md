@@ -14,7 +14,7 @@ Research cutoff:2October2026. Availability is distinct from extracted measuremen
 | Dadra and Nagar Haveli and Daman and Diu | Unknown | not_listed_in_state_selector | [CAG](https://cag.gov.in/en/state-accounts-report?show_ut_only=1) |
 | Delhi | Unknown | no_finance_account_files_discovered | [CAG](https://cag.gov.in/en/state-accounts-report?defuat_state_id=69) |
 | Goa | Unknown | no_finance_account_files_discovered | [CAG](https://cag.gov.in/en/state-accounts-report?defuat_state_id=70) |
-| Gujarat | 2024-25 | account_files_discovered_extraction_pending | [CAG](https://cag.gov.in/en/state-accounts-report?defuat_state_id=71) |
+| Gujarat | 2024-25 | roads_bridges_fy2024_25_extracted | [CAG](https://cag.gov.in/en/state-accounts-report?defuat_state_id=71) |
 | Haryana | 2024-25 | account_files_discovered_extraction_pending | [CAG](https://cag.gov.in/en/state-accounts-report?defuat_state_id=72) |
 | Himachal Pradesh | 2024-25 | account_files_discovered_extraction_pending | [CAG](https://cag.gov.in/en/state-accounts-report?defuat_state_id=73) |
 | Jammu and Kashmir | Unknown | no_finance_account_files_discovered | [CAG](https://cag.gov.in/en/state-accounts-report?defuat_state_id=74) |
@@ -35,12 +35,14 @@ Research cutoff:2October2026. Availability is distinct from extracted measuremen
 | Rajasthan | Unknown | no_finance_account_files_discovered | [CAG](https://cag.gov.in/en/state-accounts-report?defuat_state_id=86) |
 | Sikkim | 2024-25 | account_files_discovered_extraction_pending | [CAG](https://cag.gov.in/en/state-accounts-report?defuat_state_id=87) |
 | Tamil Nadu | 2024-25 | account_files_discovered_extraction_pending | [CAG](https://cag.gov.in/en/state-accounts-report?defuat_state_id=88) |
-| Telangana | 2024-25 | account_files_discovered_extraction_pending | [CAG](https://cag.gov.in/en/state-accounts-report?defuat_state_id=93) |
+| Telangana | 2024-25 | roads_bridges_fy2024_25_extracted | [CAG](https://cag.gov.in/en/state-accounts-report?defuat_state_id=93) |
 | Tripura | 2024-25 | account_files_discovered_extraction_pending | [CAG](https://cag.gov.in/en/state-accounts-report?defuat_state_id=89) |
-| Uttar Pradesh | 2024-25 | account_files_discovered_extraction_pending | [CAG](https://cag.gov.in/en/state-accounts-report?defuat_state_id=90) |
+| Uttar Pradesh | 2024-25 | roads_bridges_fy2024_25_extracted | [CAG](https://cag.gov.in/en/state-accounts-report?defuat_state_id=90) |
 | Uttarakhand | 2024-25 | account_files_discovered_extraction_pending | [CAG](https://cag.gov.in/en/state-accounts-report?defuat_state_id=91) |
 | West Bengal | 2024-25 | account_files_discovered_extraction_pending | [CAG](https://cag.gov.in/en/state-accounts-report?defuat_state_id=92) |
 
-Karnataka and Maharashtra FY2024-25 Roads/Bridges actuals are extracted and independently reconciled. Other state account links remain extraction-pending. Delhi/Puducherry/currentJ&K and territories need document/entity-scope review; state corporation debt is never inferred from these state-government accounts.
+Audited FY2024-25 Roads/Bridges actuals are extracted and independently reconciled for: Gujarat, Karnataka, Maharashtra, Telangana, Uttar Pradesh. Other state account links remain extraction-pending. Delhi/Puducherry/currentJ&K and territories need document/entity-scope review; state corporation debt is never inferred from these state-government accounts.
+
+Tamil Nadu FY2024-25 Vol I was retrieved. Native font encoding and a rotated table prevent reliable extraction; OCR and statement reconciliation remain pending, with no numerical facts admitted.
 
 The RBI December2025 SH table endsMarch2020 and does not supersede existing MoRTHMarch2022 stock. Maharashtra DES candidate failed TLS hostname validation; no network amount/date admitted.

@@ -83,3 +83,121 @@ sources:
     research_verified_at: '2026-10-02'
     manual_fallback: true
     notes: Revenue INR6837.87crore and capital INR32251.54crore forFY2024-25; comparative capital INR26374.51crore. Separate state-government aggregate from concessionaire/corporation disclosures and all-sector liabilities; no inferred release date or construction cost.
+  - source_id: cag_gujarat_road_finances_2024_25
+    official_flag: true
+    publisher_org: Comptroller and Auditor General of India / Government of Gujarat
+    publisher_type: government
+    domain: cag.gov.in
+    dataset_title: Gujarat Finance Accounts 2024-25 Vol I, audited Roads and Bridges
+      expenditure
+    theme: state_finance
+    access_type: PDF
+    auth: none
+    update_frequency: annual
+    geographic_granularity: state
+    temporal_coverage: FY2024-25 annual actuals plus FY2023-24 capital comparative
+    license_terms: Public government accounts; attribution and statement/page citation
+      required.
+    retrieval_method: pinned primary PDF and reproducible labelled table extraction
+      with cross-table reconciliation
+    reliability_grade: A
+    reliability_justification: Audited annual state accounts; current-year capital agrees
+      between Statements4A and5.
+    known_limitations: Functional all-road-class Roads and Bridges, not SH-only or corporation
+      finances. Annual flows are distinct from cumulative columns. Publication/signature
+      date remains unknown. No SH-only or state road corporation attribution.
+    allow_auto_fetch: true
+    url: https://cag.gov.in/uploads/state_accounts_report/account-report-FA-VOL-I-2024-25-069c52aa2b34bf9-63690940.pdf
+    resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=71
+    permanent_identifier_hint: Gujarat Finance Accounts 2024-25, Vol I Statements 4A
+      and 5
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2025-03-31'
+    publication_date: null
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Revenue INR 2,916.39 crore and capital INR 16,513.22 crore for FY2024-25;
+      comparative capital INR 11,146.00 crore. No SH-only or state road corporation
+      attribution. State-government cash-account figures; no inferred publication date,
+      corporation debt or construction cost per km.
+  - source_id: cag_uttar_pradesh_road_finances_2024_25
+    official_flag: true
+    publisher_org: Comptroller and Auditor General of India / Government of Uttar Pradesh
+    publisher_type: government
+    domain: cag.gov.in
+    dataset_title: Uttar Pradesh Finance Accounts 2024-25 Vol I, audited Roads and Bridges
+      expenditure
+    theme: state_finance
+    access_type: PDF
+    auth: none
+    update_frequency: annual
+    geographic_granularity: state
+    temporal_coverage: FY2024-25 annual actuals plus FY2023-24 capital comparative
+    license_terms: Public government accounts; attribution and statement/page citation
+      required.
+    retrieval_method: pinned primary PDF and reproducible labelled table extraction
+      with cross-table reconciliation
+    reliability_grade: A
+    reliability_justification: Audited annual state accounts; current-year capital agrees
+      between Statements4A and5.
+    known_limitations: Functional all-road-class Roads and Bridges, not SH-only or corporation
+      finances. Annual flows are distinct from cumulative columns. Publication/signature
+      date remains unknown. The separate loans and advances column reports a real zero
+      and reconciles to the functional total.
+    allow_auto_fetch: true
+    url: https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-English-06964e82777f6d2-05539712.pdf
+    resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=90
+    permanent_identifier_hint: Uttar Pradesh Finance Accounts 2024-25, Vol I Statements
+      4A and 5
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2025-03-31'
+    publication_date: null
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Revenue INR 8,127.11 crore and capital INR 29,220.27 crore for FY2024-25;
+      comparative capital INR 25,994.74 crore. The separate loans and advances column
+      reports a real zero and reconciles to the functional total. State-government cash-account
+      figures; no inferred publication date, corporation debt or construction cost per
+      km.
+  - source_id: cag_telangana_road_finances_2024_25
+    official_flag: true
+    publisher_org: Comptroller and Auditor General of India / Government of Telangana
+    publisher_type: government
+    domain: cag.gov.in
+    dataset_title: Telangana Finance Accounts 2024-25 Vol I, audited Roads and Bridges
+      expenditure
+    theme: state_finance
+    access_type: PDF
+    auth: none
+    update_frequency: annual
+    geographic_granularity: state
+    temporal_coverage: FY2024-25 annual actuals plus FY2023-24 capital comparative
+    license_terms: Public government accounts; attribution and statement/page citation
+      required.
+    retrieval_method: pinned primary PDF and reproducible labelled table extraction
+      with cross-table reconciliation
+    reliability_grade: A
+    reliability_justification: Audited annual state accounts; current-year capital agrees
+      between Statements4A and5.
+    known_limitations: Functional all-road-class Roads and Bridges, not SH-only or corporation
+      finances. Annual flows are distinct from cumulative columns. Publication/signature
+      date remains unknown. Unapportioned legacy cumulative balances and allocated amounts
+      are separate from annual expenditure and never added to the annual flow.
+    allow_auto_fetch: true
+    url: https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2024-25-069ce501b30f835-70020121.pdf
+    resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=93
+    permanent_identifier_hint: Telangana Finance Accounts 2024-25, Vol I Statements
+      4A and 5
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2025-03-31'
+    publication_date: null
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Revenue INR 589.95 crore and capital INR 1,237.07 crore for FY2024-25; comparative
+      capital INR 947.74 crore. Unapportioned legacy cumulative balances and allocated
+      amounts are separate from annual expenditure and never added to the annual flow.
+      State-government cash-account figures; no inferred publication date, corporation
+      debt or construction cost per km.
