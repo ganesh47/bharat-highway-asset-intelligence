@@ -1,11 +1,10 @@
 # Primary finance and highway disclosure methodology
 
-Research cutoff: 2 October 2026. The inventory adds 16 government, issuer,
-payment-system and multilateral sources. Government authority does not establish
+Research cutoff: 2 October 2026. The original enrichment added 16 government, issuer, payment-system and multilateral sources. The subsequent freshness pass adds 11 separately identified sources. Government authority does not establish
 extract quality; issuer disclosures are not classified as government measurements.
 
-The governed snapshots contain **4,179 numerical facts**, of which **3,852** are
-eligible for scoped calculations, from 15 retrieved sources.
+The governed snapshots contain **10,639 numerical facts**, of which **10,261** are
+eligible for scoped calculations, from 26 sources with validated numerical snapshots.
 One source has a typed empty snapshot and an explicit evidence gap. Every
 nonempty row records its source URL, physical document/table/page anchor, source
 SHA256, original units, normalized value, entity, road class, period, statement
@@ -215,3 +214,24 @@ and do not enter measured calculations. The report's publication day is unknown.
 Issuer/multilateral public disclosure is not blanket permission to redistribute
 whole reports. CSV extracts link to originals and cite only relevant tables;
 no blanket OGL licence is asserted for those documents.
+
+
+## Additional freshness evidence
+
+The 2 October freshness pass adds 6,460 numerical facts from 11 sources:
+
+| Source family | New observations | Qualification |
+|---|---:|---|
+| PAIMANA August 2026 flash report | 3,928 cost, cumulative expenditure and physical-progress facts for 982 highway projects | Monitored projects of at least ₹150 crore; portfolio scope, not network length or all projects. Cross-publisher project IDs need a verified crosswalk before aggregation. |
+| MoRTH Road Accidents 2024 | 1,776 national and state road-class observations | Final statistical tables; calendar years 2021–24 in state annexures. All 48 state-column totals reconcile. Implementing-agency responsibility tables have distinct statement bases. |
+| NHAI FY2025–26 performance release | 5 administrative facts | Four eligible measured facts; construction target excluded. Administrative expenditure is not audited accounts. |
+| MoRTH FY2025–26 annual report | 207 observations | 157 eligible. Individual cutoffs govern stock, spending and construction; 146,572 km national stock differs from state sum 146,570 km, so the national assertion is quarantined for reconciliation. |
+| NHAI March 2025 financial results | 74 financial facts | Unaudited, limited-review statements; audited prior comparators retain separate assurance and periods. |
+| RBI GSDP Table 21, December 2025 vintage | 455 current-price state observations | FY2011–12 to FY2024–25, ₹lakh × 0.01 = ₹crore. Fifteen missing cells are omitted. State-specific revision/estimate status is not disclosed; price basis and vintage remain explicit. |
+| CAG state Finance Accounts FY2024–25 | 15 road-spending facts for five states | Karnataka, Maharashtra, Gujarat, Uttar Pradesh and Telangana; current revenue/capital and prior-year capital. Heads 3054/5054 cover Roads and Bridges across road classes. |
+
+The quarterly explorer distinguishes observation status, assurance, price basis and revision identity. Publication lag belongs to the latest observation, while later reprints of historical figures retain their own disclosure dates. An official index is a discovery signal, not evidence of numerical extraction. The all-jurisdiction CAG audit separately records available statements awaiting extraction.
+
+The rendered NPCI and NHIT listing recheck is saved in `research/rendered_publication_checks_2026_10_02.json`. The latest verified NETC month and NHIDCL project cutoff remain August 2026; NHIT financial statements remain June 2026. These checks do not overwrite capture dates or imply that September statements have been published.
+
+`research/construction_vintage_reconciliation_2026_10_02.json` records all eight overlapping construction years and six disagreements. Both source vintages remain accessible; they are not spliced into a single series.

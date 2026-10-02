@@ -1,0 +1,74 @@
+{
+  "checked_at": "2026-10-02",
+  "source_ids": [
+    "data_gov_in_nhai_yearwise_nh_constructed_2014_15",
+    "nhai_constructed_length_series_official"
+  ],
+  "policy": "Source series remain distinct. The dashboard uses the governed NHAI series. No automatic revision of OGD values or combined totals. Primary scope/vintage reconciliation remains required.",
+  "rows": [
+    {
+      "period": "2014-15",
+      "ogd_reported_km": 1502.0,
+      "nhai_governed_km": 1510.0,
+      "conflict": true,
+      "governed_citation": "https://nhai.gov.in/nhai/sites/default/files/2025-09/NHAI-Annual_Report_2023-24_English.pdf",
+      "governed_anchor": "nhai_annual_report_2023_24_section_8_1"
+    },
+    {
+      "period": "2015-16",
+      "ogd_reported_km": 1988.0,
+      "nhai_governed_km": 1937.0,
+      "conflict": true,
+      "governed_citation": "https://nhai.gov.in/nhai/sites/default/files/2025-09/NHAI-Annual_Report_2023-24_English.pdf",
+      "governed_anchor": "nhai_annual_report_2023_24_section_8_1"
+    },
+    {
+      "period": "2016-17",
+      "ogd_reported_km": 2628.0,
+      "nhai_governed_km": 2588.0,
+      "conflict": true,
+      "governed_citation": "https://nhai.gov.in/nhai/sites/default/files/2025-09/NHAI-Annual_Report_2023-24_English.pdf",
+      "governed_anchor": "nhai_annual_report_2023_24_section_8_1"
+    },
+    {
+      "period": "2017-18",
+      "ogd_reported_km": 3070.0,
+      "nhai_governed_km": 2993.0,
+      "conflict": true,
+      "governed_citation": "https://nhai.gov.in/nhai/sites/default/files/2025-09/NHAI-Annual_Report_2023-24_English.pdf",
+      "governed_anchor": "nhai_annual_report_2023_24_section_8_1"
+    },
+    {
+      "period": "2018-19",
+      "ogd_reported_km": 3380.0,
+      "nhai_governed_km": 3264.0,
+      "conflict": true,
+      "governed_citation": "https://nhai.gov.in/nhai/sites/default/files/2025-09/NHAI-Annual_Report_2023-24_English.pdf",
+      "governed_anchor": "nhai_annual_report_2023_24_section_8_1"
+    },
+    {
+      "period": "2019-20",
+      "ogd_reported_km": 3979.0,
+      "nhai_governed_km": 3979.0,
+      "conflict": false,
+      "governed_citation": "https://nhai.gov.in/nhai/sites/default/files/2025-09/NHAI-Annual_Report_2023-24_English.pdf",
+      "governed_anchor": "nhai_annual_report_2023_24_section_8_1"
+    },
+    {
+      "period": "2020-21",
+      "ogd_reported_km": 4218.0,
+      "nhai_governed_km": 4218.0,
+      "conflict": false,
+      "governed_citation": "https://nhai.gov.in/nhai/sites/default/files/2025-09/NHAI-Annual_Report_2023-24_English.pdf",
+      "governed_anchor": "nhai_annual_report_2023_24_section_8_1"
+    },
+    {
+      "period": "2021-22",
+      "ogd_reported_km": 3024.0,
+      "nhai_governed_km": 4331.0,
+      "conflict": true,
+      "governed_citation": "https://nhai.gov.in/nhai/sites/default/files/2025-09/NHAI-Annual_Report_2023-24_English.pdf",
+      "governed_anchor": "nhai_annual_report_2023_24_section_8_1"
+    }
+  ]
+}

@@ -31,7 +31,7 @@ SUCCESSORS = {
  'data_gov_in_nhai_project_finance_api':['nhai_fy2025_26_performance'],
  'morth_annual_report_pdf':['morth_annual_report_2025_26'],
  'nhai_audited_results_pdf':['nhai_financial_results_2025_03_unaudited'],
- 'rbi_state_road_finances':['cag_karnataka_road_finances_2024_25','cag_maharashtra_road_finances_2024_25'],
+ 'rbi_state_road_finances':['cag_karnataka_road_finances_2024_25','cag_maharashtra_road_finances_2024_25','cag_gujarat_road_finances_2024_25','cag_uttar_pradesh_road_finances_2024_25','cag_telangana_road_finances_2024_25'],
 }
 HISTORICAL = {'cag_bharatmala_performance_audit','adb_state_road_projects','data_gov_in_nhai_state_projects_api','data_gov_in_nhai_projects_district_target_2023'}
 

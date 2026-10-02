@@ -120,8 +120,8 @@ jobs:
           cp -r data/manifests/* /tmp/gh-pages/apps/web/data/manifests/
           cp -r data/processed/* /tmp/gh-pages/apps/web/data/processed/
           mkdir -p /tmp/gh-pages/research /tmp/gh-pages/apps/web/research
-          cp research/source_inventory.json research/gaps.md docs/coverage_matrix.md /tmp/gh-pages/research/
-          cp research/source_inventory.json research/gaps.md docs/coverage_matrix.md /tmp/gh-pages/apps/web/research/
+          cp research/source_inventory.json research/gaps.md docs/coverage_matrix.md research/state_publication_audit_2026_10_02.* research/monthly_publication_checks_2026_10_02.json research/rendered_publication_checks_2026_10_02.json /tmp/gh-pages/research/
+          cp research/source_inventory.json research/gaps.md docs/coverage_matrix.md research/state_publication_audit_2026_10_02.* research/monthly_publication_checks_2026_10_02.json research/rendered_publication_checks_2026_10_02.json /tmp/gh-pages/apps/web/research/
           curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-eh.wasm https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-eh.wasm
           curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-mvp.wasm https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-mvp.wasm
           curl -fsSL -o /tmp/gh-pages/duckdb/duckdb-browser.mjs https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist/duckdb-browser.mjs

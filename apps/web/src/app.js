@@ -2369,7 +2369,9 @@ function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter })
       React.createElement('div', { className: 'evidence-links' },
         React.createElement('a', { href: candidateAssetPaths('methodology.html')[0] }, 'Definitions & comparability'),
         React.createElement('a', { href: candidateAssetPaths('data/manifests/catalog.json')[0].replace('data/manifests/catalog.json', 'research/coverage_matrix.md'), download: 'highway-source-state-coverage.md' }, 'Download source & state coverage'),
-        React.createElement('a', { href: candidateAssetPaths('data/manifests/catalog.json')[0].replace('data/manifests/catalog.json', 'research/source_inventory.json'), download: 'highway-source-inventory.json' }, 'Source inventory'))),
+        React.createElement('a', { href: candidateAssetPaths('data/manifests/catalog.json')[0].replace('data/manifests/catalog.json', 'research/source_inventory.json'), download: 'highway-source-inventory.json' }, 'Source inventory'),
+        React.createElement('a', { href: candidateAssetPaths('data/manifests/publication_discovery.json')[0], download: 'publication-discovery.json' }, 'Publication discovery'),
+        React.createElement('a', { href: candidateAssetPaths('research/state_publication_audit_2026_10_02.md')[0], download: 'state-accounts-publication-audit.md' }, 'State accounts audit'))),
     React.createElement('p', { className: 'analyst-intro' }, 'National and State Highways, state expressways and financing entities. Every observation retains its unit, period, agency and primary citation. No national total is inferred from overlapping portfolios.'),
     React.createElement('div', { className: 'analyst-highlights' }, ...highlights.map(({ label, row }) => React.createElement('article', { className: 'card analyst-highlight', key: label },
       React.createElement('h3', null, label),
@@ -2490,7 +2492,7 @@ function observationLabel(row) {
 function MetricCoverage({ rows, catalog }) {
   const groups = new Map();
   for (const row of rows) {
-    const key = [row.source_id, row.metric, row.agency, row.road_class, row.unit, row.statement_basis, row.estimate_type].join('::');
+    const key = [row.source_id, row.metric, row.agency, row.road_class, row.unit, row.period_basis, row.statement_basis, row.estimate_type, row.price_basis, row.base_year].join('::');
     groups.set(key, [...(groups.get(key) || []), row]);
   }
   const coverage = [...groups.entries()].map(([key, facts]) => {
@@ -2507,7 +2509,7 @@ function MetricCoverage({ rows, catalog }) {
       React.createElement('thead', null, React.createElement('tr', null, ...['Source / metric', 'Scope / unit', 'Latest observation / coverage', 'Publication / last checked', 'Next release / retrieval'].map((label) => React.createElement('th', { scope: 'col', key: label }, label)))),
       React.createElement('tbody', null, ...coverage.map((item) => {
         const entry = catalog[item.row.source_id] || {};
-        const coverage = (entry.metric_coverage || []).find((scope) => ['metric','unit','agency','road_class','statement_basis','estimate_type'].every((key) => (scope[key] || '') === (item.row[key] || ''))) || {};
+        const coverage = (entry.metric_coverage || []).find((scope) => ['metric','unit','agency','road_class','period_basis','statement_basis','estimate_type','price_basis','base_year'].every((key) => (scope[key] || '') === (item.row[key] || ''))) || {};
         return React.createElement('tr', { key: item.key },
           React.createElement('td', null, React.createElement('a', { href: validCitation(item.row.citation_url), target: '_blank', rel: 'noreferrer' }, item.row.source_id), React.createElement('small', null, humanMetric(item.row.metric))),
           React.createElement('td', null, `${item.row.agency} · ${item.row.road_class}`, React.createElement('small', null, `${unitLabel(item.row.unit)} · ${item.row.statement_basis} · ${item.row.estimate_type}`)),
@@ -3140,13 +3142,13 @@ function App() {
       finance: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('project_finance_api'))),
       portfolio: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('state_projects_api'))),
       status: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('statewise_nh_project_status'))),
-      safety: confidenceFromSources(entries.filter((item) => ['data_gov_in_nh_fatalities_injuries_state_year', 'parliament_qa_nh_blackspots_state', 'morth_annual_report_pdf'].includes(item.source_id))),
-      economic: confidenceFromSources(entries.filter((item) => ['data_gov_in_gsdp_stateut_current_prices_2017_23', 'morth_annual_report_pdf', 'data_gov_in_nhai_stateut_project_delay_status_2024'].includes(item.source_id))),
+      safety: confidenceFromSources(entries.filter((item) => [...(analytics?.officialSafetyTrendRows || []).map(row => row.source), 'parliament_qa_nh_blackspots_state', 'morth_annual_report_pdf'].includes(item.source_id))),
+      economic: confidenceFromSources(entries.filter((item) => [...(analytics?.gsdpRows || []).map(row => row.source), 'morth_annual_report_pdf', 'data_gov_in_nhai_stateut_project_delay_status_2024'].includes(item.source_id))),
       morthReport: confidenceFromSources(entries.filter((item) => item.source_id === 'morth_annual_report_pdf')),
       model: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('highway_project_risk_and_access_panel') || item.source_type === 'model_output')),
       macro: confidenceFromSources(entries.filter((item) => String(item.source_id).includes('rbi_mospi_macro_indicators') || String(item.source_id).includes('ncrb_road_accidents_state_year') || String(item.source_id).includes('quality_maintenance_indicators'))),
     };
-  }, [catalog]);
+  }, [catalog, analytics]);
 
   const filteredStateRows = useMemo(() => {
     if (!analytics) return null;

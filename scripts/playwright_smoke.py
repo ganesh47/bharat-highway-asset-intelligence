@@ -813,6 +813,29 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
                 if 'No validated observations' not in (await page.locator('.analyst-evidence-panel').inner_text()):
                     raise RuntimeError("Empty state/finance selection must show unavailable evidence")
                 await state_selector.select_option('All')
+            await page.get_by_role('button', name='Safety', exact=False).click()
+            await page.get_by_label('Reporting period', exact=True).select_option('2024-01-01 → 2024-12-31 (calendar_year)')
+            await page.get_by_label('Road class', exact=True).select_option('National Highway')
+            if 'morth_road_accidents_2024_final' not in await table.inner_text():
+                raise RuntimeError('Final 2024 NH safety evidence is missing')
+            await page.get_by_role('button', name='Economic context', exact=False).click()
+            await page.get_by_label('Period view', exact=True).select_option('latest')
+            await page.get_by_label('Reporting period', exact=True).select_option('2024-04-01 → 2025-03-31 (fiscal_year)')
+            if not all(marker in await table.inner_text() for marker in ['rbi_gsdp_current_prices_2024_25', 'current', '2025-03-31']):
+                raise RuntimeError('Latest GSDP evidence lost source, price basis or observation cutoff')
+            await page.get_by_role('button', name='State road spending', exact=False).click()
+            for state, sid in [('Karnataka','cag_karnataka_road_finances_2024_25'), ('Maharashtra','cag_maharashtra_road_finances_2024_25'), ('Gujarat','cag_gujarat_road_finances_2024_25'), ('Uttar Pradesh','cag_uttar_pradesh_road_finances_2024_25'), ('Telangana','cag_telangana_road_finances_2024_25')]:
+                await state_selector.select_option(state)
+                await page.get_by_label('Reporting period', exact=True).select_option('2024-04-01 → 2025-03-31 (fiscal_year)')
+                if sid not in await table.inner_text():
+                    raise RuntimeError(f'Audited FY2024-25 road finance evidence missing for {state}')
+            await state_selector.select_option('All')
+            coverage = page.get_by_test_id('metric-coverage')
+            await coverage.locator('summary').click()
+            coverage_text = await coverage.inner_text()
+            if not all(marker in coverage_text for marker in ['2026-08-31', 'Published:', 'Checked:', 'publication lag:', 'Schedule not disclosed', 'not_yet_reported']):
+                raise RuntimeError('Metric freshness lost publication gaps or separate observation/check dates')
+            await coverage.locator('summary').click()
             await page.get_by_role('button', name='Funding & outcomes', exact=False).click()
 
             await page.set_viewport_size({'width': 390, 'height': 844})
