@@ -1,0 +1,25 @@
+{
+  "source_id": "nhai_financial_results_2025_03_unaudited",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-02T04:22:45.891884+00:00",
+  "last_checked_at": "2026-10-02T04:54:57.102180+00:00",
+  "documents": [
+    {
+      "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Q_F_f_tQended_on_31-March-2025.pdf",
+      "relative_path": "primary_disclosures/nhai_financial_results_2025_03_unaudited/versions/d08837c303f72abf4d131e796f71eb93450be10cfdd96ee7fd4f921c3ac38c97.pdf",
+      "sha256": "d08837c303f72abf4d131e796f71eb93450be10cfdd96ee7fd4f921c3ac38c97",
+      "size_bytes": 1952928,
+      "extractor": "pipelines.national_freshness; source-pinned reviewed table or labelled release extraction",
+      "reviewed_table_relative_path": "manual/evidence/nhai_financial_results_2025_03_reviewed_tables.json",
+      "reviewed_table_sha256": "8900ae420de56dfe2f360a0b36135ffdc2e0e8c51faa5394f29639cbc4bac034"
+    }
+  ],
+  "extraction_status": "validated",
+  "row_count": 74,
+  "notes": "74 validated financial facts:38 balance-sheet cells,33 annual cash-flow cells (one current dash omitted),3 dated debt balances. Current FY2024–25 limited-review/unaudited; FY2023–24 comparator labelled audited. No balance cutoff derived from publication, no dash converted to zero, and no later quarter assumed available.",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "csv_sha256": "281b119a680a81243a9acb7f3f3aceabd29c3e50360765ecbd5d1ac83227c4c5",
+  "version_id": "5992ddccf4ad916508351c582ea3b346838771b3e22a927109a74fa706d2e677",
+  "observation_checksum": "bef7e672a0c5384681db364e4ea46e10ad32c50fc48c48151f8bfb841ba5481c"
+}

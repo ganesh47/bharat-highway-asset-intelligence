@@ -1,0 +1,4220 @@
+{
+  "source_id": "morth_road_accidents_2024_final",
+  "document_sha256": "b45b0e4d8e14a8d4653790f9080a01b9b95b79008359ba93dc12497064be69b2",
+  "review_method": "Pinned official PDF rendered at 300dpi. Count cells checked against rendered annexures; rotated wide tables manually transcribed. All 48 state-column sums match printed national totals. OCR ranks/shares/density columns excluded.",
+  "reviewed_at": "2026-10-02",
+  "tables": [
+    {
+      "page": 167,
+      "printed_page": 114,
+      "annexure": 2,
+      "road_class": "All roads",
+      "metric": "road_accidents_count",
+      "years": [
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "rows": [
+        {
+          "state": "Andhra Pradesh",
+          "original_cells": [
+            "21556",
+            "21249",
+            "19949",
+            "19557"
+          ]
+        },
+        {
+          "state": "Arunachal Pradesh",
+          "original_cells": [
+            "283",
+            "227",
+            "287",
+            "277"
+          ]
+        },
+        {
+          "state": "Assam",
+          "original_cells": [
+            "7411",
+            "7023",
+            "7421",
+            "7848"
+          ]
+        },
+        {
+          "state": "Bihar",
+          "original_cells": [
+            "9553",
+            "10801",
+            "11014",
+            "11610"
+          ]
+        },
+        {
+          "state": "Chhattisgarh",
+          "original_cells": [
+            "12375",
+            "13279",
+            "13468",
+            "14857"
+          ]
+        },
+        {
+          "state": "Goa",
+          "original_cells": [
+            "2849",
+            "3011",
+            "2846",
+            "2682"
+          ]
+        },
+        {
+          "state": "Gujarat",
+          "original_cells": [
+            "15186",
+            "15751",
+            "16349",
+            "15588"
+          ]
+        },
+        {
+          "state": "Haryana",
+          "original_cells": [
+            "9933",
+            "10429",
+            "10463",
+            "9806"
+          ]
+        },
+        {
+          "state": "Himachal Pradesh",
+          "original_cells": [
+            "2404",
+            "2597",
+            "2253",
+            "2156"
+          ]
+        },
+        {
+          "state": "Jharkhand",
+          "original_cells": [
+            "4728",
+            "5175",
+            "5315",
+            "5196"
+          ]
+        },
+        {
+          "state": "Karnataka",
+          "original_cells": [
+            "34647",
+            "39762",
+            "43440",
+            "43062"
+          ]
+        },
+        {
+          "state": "Kerala",
+          "original_cells": [
+            "33296",
+            "43910",
+            "48091",
+            "48834"
+          ]
+        },
+        {
+          "state": "Madhya Pradesh",
+          "original_cells": [
+            "48877",
+            "54432",
+            "55327",
+            "56669"
+          ]
+        },
+        {
+          "state": "Maharashtra",
+          "original_cells": [
+            "29477",
+            "33383",
+            "35243",
+            "36118"
+          ]
+        },
+        {
+          "state": "Manipur",
+          "original_cells": [
+            "366",
+            "508",
+            "398",
+            "299"
+          ]
+        },
+        {
+          "state": "Meghalaya",
+          "original_cells": [
+            "245",
+            "246",
+            "223",
+            "269"
+          ]
+        },
+        {
+          "state": "Mizoram",
+          "original_cells": [
+            "69",
+            "133",
+            "106",
+            "118"
+          ]
+        },
+        {
+          "state": "Nagaland",
+          "original_cells": [
+            "746",
+            "489",
+            "303",
+            "129"
+          ]
+        },
+        {
+          "state": "Odisha",
+          "original_cells": [
+            "10983",
+            "11663",
+            "11992",
+            "12375"
+          ]
+        },
+        {
+          "state": "Punjab",
+          "original_cells": [
+            "5871",
+            "6138",
+            "6269",
+            "6063"
+          ]
+        },
+        {
+          "state": "Rajasthan",
+          "original_cells": [
+            "20951",
+            "23614",
+            "24694",
+            "24838"
+          ]
+        },
+        {
+          "state": "Sikkim",
+          "original_cells": [
+            "155",
+            "211",
+            "182",
+            "149"
+          ]
+        },
+        {
+          "state": "Tamil Nadu",
+          "original_cells": [
+            "55682",
+            "64105",
+            "67213",
+            "67526"
+          ]
+        },
+        {
+          "state": "Telangana",
+          "original_cells": [
+            "21315",
+            "21619",
+            "22903",
+            "25986"
+          ]
+        },
+        {
+          "state": "Tripura",
+          "original_cells": [
+            "479",
+            "575",
+            "577",
+            "578"
+          ]
+        },
+        {
+          "state": "Uttarakhand",
+          "original_cells": [
+            "1405",
+            "1674",
+            "1691",
+            "1747"
+          ]
+        },
+        {
+          "state": "Uttar Pradesh",
+          "original_cells": [
+            "37729",
+            "41746",
+            "44534",
+            "46052"
+          ]
+        },
+        {
+          "state": "West Bengal",
+          "original_cells": [
+            "11937",
+            "13686",
+            "13795",
+            "13702"
+          ]
+        },
+        {
+          "state": "Andaman and Nicobar Islands",
+          "original_cells": [
+            "115",
+            "141",
+            "143",
+            "135"
+          ]
+        },
+        {
+          "state": "Chandigarh",
+          "original_cells": [
+            "208",
+            "237",
+            "182",
+            "169"
+          ]
+        },
+        {
+          "state": "Dadra and Nagar Haveli and Daman and Diu",
+          "original_cells": [
+            "140",
+            "196",
+            "182",
+            "152"
+          ]
+        },
+        {
+          "state": "Delhi",
+          "original_cells": [
+            "4720",
+            "5652",
+            "5834",
+            "5657"
+          ]
+        },
+        {
+          "state": "Jammu & Kashmir",
+          "original_cells": [
+            "5452",
+            "6092",
+            "6298",
+            "5808"
+          ]
+        },
+        {
+          "state": "Ladakh",
+          "original_cells": [
+            "236",
+            "374",
+            "289",
+            "264"
+          ]
+        },
+        {
+          "state": "Lakshadweep",
+          "original_cells": [
+            "4",
+            "3",
+            "1",
+            "0"
+          ]
+        },
+        {
+          "state": "Puducherry",
+          "original_cells": [
+            "1049",
+            "1181",
+            "1308",
+            "1431"
+          ]
+        }
+      ],
+      "published_total": [
+        412432,
+        461312,
+        480583,
+        487707
+      ],
+      "column_sum": [
+        412432,
+        461312,
+        480583,
+        487707
+      ]
+    },
+    {
+      "page": 168,
+      "printed_page": 115,
+      "annexure": 3,
+      "road_class": "All roads",
+      "metric": "road_fatalities_count",
+      "years": [
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "rows": [
+        {
+          "state": "Andhra Pradesh",
+          "original_cells": [
+            "8186",
+            "8293",
+            "8137",
+            "8346"
+          ]
+        },
+        {
+          "state": "Arunachal Pradesh",
+          "original_cells": [
+            "157",
+            "148",
+            "145",
+            "168"
+          ]
+        },
+        {
+          "state": "Assam",
+          "original_cells": [
+            "3036",
+            "2994",
+            "3296",
+            "3351"
+          ]
+        },
+        {
+          "state": "Bihar",
+          "original_cells": [
+            "7660",
+            "8898",
+            "8873",
+            "9347"
+          ]
+        },
+        {
+          "state": "Chhattisgarh",
+          "original_cells": [
+            "5371",
+            "5834",
+            "6166",
+            "6945"
+          ]
+        },
+        {
+          "state": "Goa",
+          "original_cells": [
+            "226",
+            "271",
+            "290",
+            "286"
+          ]
+        },
+        {
+          "state": "Gujarat",
+          "original_cells": [
+            "7452",
+            "7618",
+            "7854",
+            "7717"
+          ]
+        },
+        {
+          "state": "Haryana",
+          "original_cells": [
+            "4706",
+            "4915",
+            "4968",
+            "4689"
+          ]
+        },
+        {
+          "state": "Himachal Pradesh",
+          "original_cells": [
+            "1052",
+            "1032",
+            "889",
+            "869"
+          ]
+        },
+        {
+          "state": "Jharkhand",
+          "original_cells": [
+            "3513",
+            "3898",
+            "4173",
+            "4114"
+          ]
+        },
+        {
+          "state": "Karnataka",
+          "original_cells": [
+            "10038",
+            "11702",
+            "12321",
+            "12390"
+          ]
+        },
+        {
+          "state": "Kerala",
+          "original_cells": [
+            "3429",
+            "4317",
+            "4080",
+            "3880"
+          ]
+        },
+        {
+          "state": "Madhya Pradesh",
+          "original_cells": [
+            "12057",
+            "13427",
+            "13798",
+            "14791"
+          ]
+        },
+        {
+          "state": "Maharashtra",
+          "original_cells": [
+            "13528",
+            "15224",
+            "15366",
+            "15715"
+          ]
+        },
+        {
+          "state": "Manipur",
+          "original_cells": [
+            "110",
+            "127",
+            "73",
+            "72"
+          ]
+        },
+        {
+          "state": "Meghalaya",
+          "original_cells": [
+            "187",
+            "162",
+            "168",
+            "197"
+          ]
+        },
+        {
+          "state": "Mizoram",
+          "original_cells": [
+            "56",
+            "113",
+            "96",
+            "110"
+          ]
+        },
+        {
+          "state": "Nagaland",
+          "original_cells": [
+            "55",
+            "73",
+            "86",
+            "62"
+          ]
+        },
+        {
+          "state": "Odisha",
+          "original_cells": [
+            "5081",
+            "5467",
+            "5739",
+            "6142"
+          ]
+        },
+        {
+          "state": "Punjab",
+          "original_cells": [
+            "4589",
+            "4756",
+            "4829",
+            "4759"
+          ]
+        },
+        {
+          "state": "Rajasthan",
+          "original_cells": [
+            "10043",
+            "11104",
+            "11762",
+            "11790"
+          ]
+        },
+        {
+          "state": "Sikkim",
+          "original_cells": [
+            "56",
+            "92",
+            "57",
+            "67"
+          ]
+        },
+        {
+          "state": "Tamil Nadu",
+          "original_cells": [
+            "15384",
+            "17884",
+            "18347",
+            "18449"
+          ]
+        },
+        {
+          "state": "Telangana",
+          "original_cells": [
+            "7557",
+            "7559",
+            "7660",
+            "7949"
+          ]
+        },
+        {
+          "state": "Tripura",
+          "original_cells": [
+            "194",
+            "241",
+            "261",
+            "226"
+          ]
+        },
+        {
+          "state": "Uttarakhand",
+          "original_cells": [
+            "820",
+            "1042",
+            "1054",
+            "1090"
+          ]
+        },
+        {
+          "state": "Uttar Pradesh",
+          "original_cells": [
+            "21227",
+            "22595",
+            "23652",
+            "24118"
+          ]
+        },
+        {
+          "state": "West Bengal",
+          "original_cells": [
+            "5800",
+            "6002",
+            "6027",
+            "6676"
+          ]
+        },
+        {
+          "state": "Andaman and Nicobar Islands",
+          "original_cells": [
+            "20",
+            "19",
+            "24",
+            "29"
+          ]
+        },
+        {
+          "state": "Chandigarh",
+          "original_cells": [
+            "96",
+            "83",
+            "67",
+            "75"
+          ]
+        },
+        {
+          "state": "Dadra and Nagar Haveli and Daman and Diu",
+          "original_cells": [
+            "76",
+            "90",
+            "74",
+            "95"
+          ]
+        },
+        {
+          "state": "Delhi",
+          "original_cells": [
+            "1239",
+            "1461",
+            "1457",
+            "1551"
+          ]
+        },
+        {
+          "state": "Jammu & Kashmir",
+          "original_cells": [
+            "774",
+            "805",
+            "893",
+            "831"
+          ]
+        },
+        {
+          "state": "Ladakh",
+          "original_cells": [
+            "56",
+            "62",
+            "59",
+            "61"
+          ]
+        },
+        {
+          "state": "Lakshadweep",
+          "original_cells": [
+            "1",
+            "2",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "state": "Puducherry",
+          "original_cells": [
+            "140",
+            "181",
+            "149",
+            "218"
+          ]
+        }
+      ],
+      "published_total": [
+        153972,
+        168491,
+        172890,
+        177175
+      ],
+      "column_sum": [
+        153972,
+        168491,
+        172890,
+        177175
+      ]
+    },
+    {
+      "page": 169,
+      "printed_page": 116,
+      "annexure": 4,
+      "road_class": "All roads",
+      "metric": "road_injuries_count",
+      "years": [
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "rows": [
+        {
+          "state": "Andhra Pradesh",
+          "original_cells": [
+            "21040",
+            "21340",
+            "20409",
+            "19894"
+          ]
+        },
+        {
+          "state": "Arunachal Pradesh",
+          "original_cells": [
+            "347",
+            "186",
+            "257",
+            "204"
+          ]
+        },
+        {
+          "state": "Assam",
+          "original_cells": [
+            "5763",
+            "5637",
+            "5917",
+            "7129"
+          ]
+        },
+        {
+          "state": "Bihar",
+          "original_cells": [
+            "7946",
+            "7068",
+            "6539",
+            "7090"
+          ]
+        },
+        {
+          "state": "Chhattisgarh",
+          "original_cells": [
+            "10683",
+            "11695",
+            "11723",
+            "12484"
+          ]
+        },
+        {
+          "state": "Goa",
+          "original_cells": [
+            "843",
+            "1091",
+            "1178",
+            "1041"
+          ]
+        },
+        {
+          "state": "Gujarat",
+          "original_cells": [
+            "13690",
+            "15089",
+            "15383",
+            "14940"
+          ]
+        },
+        {
+          "state": "Haryana",
+          "original_cells": [
+            "8121",
+            "8519",
+            "8346",
+            "7914"
+          ]
+        },
+        {
+          "state": "Himachal Pradesh",
+          "original_cells": [
+            "3454",
+            "4063",
+            "3304",
+            "3226"
+          ]
+        },
+        {
+          "state": "Jharkhand",
+          "original_cells": [
+            "3227",
+            "3747",
+            "3585",
+            "3266"
+          ]
+        },
+        {
+          "state": "Karnataka",
+          "original_cells": [
+            "40754",
+            "48154",
+            "52547",
+            "52591"
+          ]
+        },
+        {
+          "state": "Kerala",
+          "original_cells": [
+            "36775",
+            "49307",
+            "54320",
+            "54796"
+          ]
+        },
+        {
+          "state": "Madhya Pradesh",
+          "original_cells": [
+            "48956",
+            "55168",
+            "55769",
+            "58202"
+          ]
+        },
+        {
+          "state": "Maharashtra",
+          "original_cells": [
+            "23071",
+            "27239",
+            "29764",
+            "30535"
+          ]
+        },
+        {
+          "state": "Manipur",
+          "original_cells": [
+            "504",
+            "817",
+            "634",
+            "462"
+          ]
+        },
+        {
+          "state": "Meghalaya",
+          "original_cells": [
+            "263",
+            "310",
+            "259",
+            "228"
+          ]
+        },
+        {
+          "state": "Mizoram",
+          "original_cells": [
+            "65",
+            "107",
+            "116",
+            "129"
+          ]
+        },
+        {
+          "state": "Nagaland",
+          "original_cells": [
+            "380",
+            "291",
+            "257",
+            "178"
+          ]
+        },
+        {
+          "state": "Odisha",
+          "original_cells": [
+            "9782",
+            "10302",
+            "10369",
+            "10770"
+          ]
+        },
+        {
+          "state": "Punjab",
+          "original_cells": [
+            "3072",
+            "3324",
+            "3206",
+            "3333"
+          ]
+        },
+        {
+          "state": "Rajasthan",
+          "original_cells": [
+            "19344",
+            "22293",
+            "23041",
+            "22927"
+          ]
+        },
+        {
+          "state": "Sikkim",
+          "original_cells": [
+            "244",
+            "354",
+            "362",
+            "264"
+          ]
+        },
+        {
+          "state": "Tamil Nadu",
+          "original_cells": [
+            "55996",
+            "67703",
+            "72292",
+            "71493"
+          ]
+        },
+        {
+          "state": "Telangana",
+          "original_cells": [
+            "20107",
+            "20209",
+            "21022",
+            "23658"
+          ]
+        },
+        {
+          "state": "Tripura",
+          "original_cells": [
+            "547",
+            "541",
+            "609",
+            "622"
+          ]
+        },
+        {
+          "state": "Uttarakhand",
+          "original_cells": [
+            "1091",
+            "1613",
+            "1488",
+            "1547"
+          ]
+        },
+        {
+          "state": "Uttar Pradesh",
+          "original_cells": [
+            "24897",
+            "28541",
+            "31098",
+            "34665"
+          ]
+        },
+        {
+          "state": "West Bengal",
+          "original_cells": [
+            "10454",
+            "12843",
+            "12615",
+            "12518"
+          ]
+        },
+        {
+          "state": "Andaman and Nicobar Islands",
+          "original_cells": [
+            "97",
+            "136",
+            "154",
+            "139"
+          ]
+        },
+        {
+          "state": "Chandigarh",
+          "original_cells": [
+            "172",
+            "203",
+            "171",
+            "133"
+          ]
+        },
+        {
+          "state": "Dadra and Nagar Haveli and Daman and Diu",
+          "original_cells": [
+            "171",
+            "273",
+            "233",
+            "136"
+          ]
+        },
+        {
+          "state": "Delhi",
+          "original_cells": [
+            "4273",
+            "5201",
+            "5470",
+            "5224"
+          ]
+        },
+        {
+          "state": "Jammu & Kashmir",
+          "original_cells": [
+            "6972",
+            "8372",
+            "8469",
+            "7820"
+          ]
+        },
+        {
+          "state": "Ladakh",
+          "original_cells": [
+            "242",
+            "346",
+            "340",
+            "323"
+          ]
+        },
+        {
+          "state": "Lakshadweep",
+          "original_cells": [
+            "6",
+            "2",
+            "1",
+            "0"
+          ]
+        },
+        {
+          "state": "Puducherry",
+          "original_cells": [
+            "1099",
+            "1282",
+            "1578",
+            "1560"
+          ]
+        }
+      ],
+      "published_total": [
+        384448,
+        443366,
+        462825,
+        471441
+      ],
+      "column_sum": [
+        384448,
+        443366,
+        462825,
+        471441
+      ]
+    },
+    {
+      "page": 170,
+      "printed_page": 117,
+      "annexure": 5,
+      "road_class": "All roads",
+      "metric": "fatal_road_accidents_count",
+      "years": [
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "rows": [
+        {
+          "state": "Andhra Pradesh",
+          "original_cells": [
+            "7,585",
+            "7,688",
+            "7,516",
+            "7,722"
+          ]
+        },
+        {
+          "state": "Arunachal Pradesh",
+          "original_cells": [
+            "150",
+            "123",
+            "124",
+            "138"
+          ]
+        },
+        {
+          "state": "Assam",
+          "original_cells": [
+            "2,893",
+            "2,837",
+            "3,101",
+            "3,176"
+          ]
+        },
+        {
+          "state": "Bihar",
+          "original_cells": [
+            "7,061",
+            "8,242",
+            "8,286",
+            "8,504"
+          ]
+        },
+        {
+          "state": "Chhattisgarh",
+          "original_cells": [
+            "4,982",
+            "5,446",
+            "5,743",
+            "6,463"
+          ]
+        },
+        {
+          "state": "Goa",
+          "original_cells": [
+            "218",
+            "253",
+            "272",
+            "271"
+          ]
+        },
+        {
+          "state": "Gujarat",
+          "original_cells": [
+            "6,825",
+            "6,999",
+            "7,225",
+            "7,088"
+          ]
+        },
+        {
+          "state": "Haryana",
+          "original_cells": [
+            "4,403",
+            "4,593",
+            "4,652",
+            "4,389"
+          ]
+        },
+        {
+          "state": "Himachal Pradesh",
+          "original_cells": [
+            "871",
+            "864",
+            "727",
+            "741"
+          ]
+        },
+        {
+          "state": "Jharkhand",
+          "original_cells": [
+            "3,221",
+            "3,570",
+            "3,799",
+            "3,773"
+          ]
+        },
+        {
+          "state": "Karnataka",
+          "original_cells": [
+            "9,458",
+            "10,854",
+            "11,603",
+            "11,616"
+          ]
+        },
+        {
+          "state": "Kerala",
+          "original_cells": [
+            "3,262",
+            "4,104",
+            "3,884",
+            "3,702"
+          ]
+        },
+        {
+          "state": "Madhya Pradesh",
+          "original_cells": [
+            "10,806",
+            "12,183",
+            "12,745",
+            "13,661"
+          ]
+        },
+        {
+          "state": "Maharashtra",
+          "original_cells": [
+            "12,554",
+            "14,058",
+            "14,119",
+            "14,565"
+          ]
+        },
+        {
+          "state": "Manipur",
+          "original_cells": [
+            "99",
+            "109",
+            "71",
+            "68"
+          ]
+        },
+        {
+          "state": "Meghalaya",
+          "original_cells": [
+            "150",
+            "147",
+            "151",
+            "179"
+          ]
+        },
+        {
+          "state": "Mizoram",
+          "original_cells": [
+            "48",
+            "94",
+            "80",
+            "101"
+          ]
+        },
+        {
+          "state": "Nagaland",
+          "original_cells": [
+            "56",
+            "67",
+            "75",
+            "56"
+          ]
+        },
+        {
+          "state": "Odisha",
+          "original_cells": [
+            "4,756",
+            "5,140",
+            "5,395",
+            "5,779"
+          ]
+        },
+        {
+          "state": "Punjab",
+          "original_cells": [
+            "4,250",
+            "4,418",
+            "4,516",
+            "4,445"
+          ]
+        },
+        {
+          "state": "Rajasthan",
+          "original_cells": [
+            "9,055",
+            "10,061",
+            "10,657",
+            "10,775"
+          ]
+        },
+        {
+          "state": "Sikkim",
+          "original_cells": [
+            "40",
+            "58",
+            "56",
+            "63"
+          ]
+        },
+        {
+          "state": "Tamil Nadu",
+          "original_cells": [
+            "14,747",
+            "17,080",
+            "17,526",
+            "17,640"
+          ]
+        },
+        {
+          "state": "Telangana",
+          "original_cells": [
+            "7,080",
+            "7,057",
+            "7,186",
+            "7,495"
+          ]
+        },
+        {
+          "state": "Tripura",
+          "original_cells": [
+            "181",
+            "232",
+            "242",
+            "213"
+          ]
+        },
+        {
+          "state": "Uttarakhand",
+          "original_cells": [
+            "742",
+            "851",
+            "925",
+            "929"
+          ]
+        },
+        {
+          "state": "Uttar Pradesh",
+          "original_cells": [
+            "19,026",
+            "20,524",
+            "21,653",
+            "22,013"
+          ]
+        },
+        {
+          "state": "West Bengal",
+          "original_cells": [
+            "5,405",
+            "5,626",
+            "5,664",
+            "6,172"
+          ]
+        },
+        {
+          "state": "Andaman and Nicobar Islands",
+          "original_cells": [
+            "19",
+            "19",
+            "23",
+            "26"
+          ]
+        },
+        {
+          "state": "Chandigarh",
+          "original_cells": [
+            "94",
+            "79",
+            "64",
+            "72"
+          ]
+        },
+        {
+          "state": "Dadra and Nagar Haveli and Daman and Diu",
+          "original_cells": [
+            "71",
+            "88",
+            "73",
+            "88"
+          ]
+        },
+        {
+          "state": "Delhi",
+          "original_cells": [
+            "1,206",
+            "1,428",
+            "1,432",
+            "1,504"
+          ]
+        },
+        {
+          "state": "Jammu & Kashmir",
+          "original_cells": [
+            "642",
+            "654",
+            "730",
+            "676"
+          ]
+        },
+        {
+          "state": "Ladakh",
+          "original_cells": [
+            "48",
+            "60",
+            "49",
+            "59"
+          ]
+        },
+        {
+          "state": "Lakshadweep",
+          "original_cells": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "state": "Puducherry",
+          "original_cells": [
+            "158",
+            "175",
+            "145",
+            "216"
+          ]
+        }
+      ],
+      "published_total": [
+        142163,
+        155781,
+        160509,
+        164378
+      ],
+      "column_sum": [
+        142163,
+        155781,
+        160509,
+        164378
+      ]
+    },
+    {
+      "page": 174,
+      "printed_page": 121,
+      "annexure": 9,
+      "road_class": "National Highway",
+      "metric": "road_accidents_count",
+      "years": [
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "rows": [
+        {
+          "state": "Andhra Pradesh",
+          "original_cells": [
+            "8,241",
+            "8,650",
+            "8,276",
+            "8,258"
+          ]
+        },
+        {
+          "state": "Arunachal Pradesh",
+          "original_cells": [
+            "147",
+            "131",
+            "156",
+            "145"
+          ]
+        },
+        {
+          "state": "Assam",
+          "original_cells": [
+            "3,408",
+            "3,244",
+            "3,427",
+            "3,766"
+          ]
+        },
+        {
+          "state": "Bihar",
+          "original_cells": [
+            "4,349",
+            "4,601",
+            "4,925",
+            "4,681"
+          ]
+        },
+        {
+          "state": "Chhattisgarh",
+          "original_cells": [
+            "3,610",
+            "4,115",
+            "4,144",
+            "4,156"
+          ]
+        },
+        {
+          "state": "Goa",
+          "original_cells": [
+            "1,116",
+            "1,259",
+            "1,125",
+            "920"
+          ]
+        },
+        {
+          "state": "Gujarat",
+          "original_cells": [
+            "3,406",
+            "3,536",
+            "3,607",
+            "3,519"
+          ]
+        },
+        {
+          "state": "Haryana",
+          "original_cells": [
+            "3,174",
+            "3,727",
+            "3,642",
+            "3,844"
+          ]
+        },
+        {
+          "state": "Himachal Pradesh",
+          "original_cells": [
+            "1,179",
+            "1,258",
+            "1,074",
+            "1,018"
+          ]
+        },
+        {
+          "state": "Jharkhand",
+          "original_cells": [
+            "1,890",
+            "2,125",
+            "1,994",
+            "2,039"
+          ]
+        },
+        {
+          "state": "Karnataka",
+          "original_cells": [
+            "11,462",
+            "13,384",
+            "14,270",
+            "14,208"
+          ]
+        },
+        {
+          "state": "Kerala",
+          "original_cells": [
+            "8,048",
+            "17,627",
+            "10,640",
+            "9,757"
+          ]
+        },
+        {
+          "state": "Madhya Pradesh",
+          "original_cells": [
+            "11,030",
+            "13,860",
+            "14,561",
+            "13,937"
+          ]
+        },
+        {
+          "state": "Maharashtra",
+          "original_cells": [
+            "7,501",
+            "9,417",
+            "10,881",
+            "11,285"
+          ]
+        },
+        {
+          "state": "Manipur",
+          "original_cells": [
+            "236",
+            "313",
+            "272",
+            "210"
+          ]
+        },
+        {
+          "state": "Meghalaya",
+          "original_cells": [
+            "153",
+            "157",
+            "114",
+            "135"
+          ]
+        },
+        {
+          "state": "Mizoram",
+          "original_cells": [
+            "29",
+            "77",
+            "57",
+            "69"
+          ]
+        },
+        {
+          "state": "Nagaland",
+          "original_cells": [
+            "488",
+            "304",
+            "201",
+            "86"
+          ]
+        },
+        {
+          "state": "Odisha",
+          "original_cells": [
+            "4,087",
+            "4,317",
+            "4,587",
+            "4,555"
+          ]
+        },
+        {
+          "state": "Punjab",
+          "original_cells": [
+            "2,288",
+            "2,293",
+            "2,388",
+            "1,912"
+          ]
+        },
+        {
+          "state": "Rajasthan",
+          "original_cells": [
+            "6,424",
+            "7,093",
+            "7,179",
+            "7,174"
+          ]
+        },
+        {
+          "state": "Sikkim",
+          "original_cells": [
+            "73",
+            "74",
+            "83",
+            "56"
+          ]
+        },
+        {
+          "state": "Tamil Nadu",
+          "original_cells": [
+            "16,869",
+            "18,972",
+            "20,582",
+            "20,672"
+          ]
+        },
+        {
+          "state": "Telangana",
+          "original_cells": [
+            "7,214",
+            "7,505",
+            "8,103",
+            "8,599"
+          ]
+        },
+        {
+          "state": "Tripura",
+          "original_cells": [
+            "199",
+            "241",
+            "255",
+            "242"
+          ]
+        },
+        {
+          "state": "Uttarakhand",
+          "original_cells": [
+            "711",
+            "827",
+            "840",
+            "828"
+          ]
+        },
+        {
+          "state": "Uttar Pradesh",
+          "original_cells": [
+            "14,540",
+            "14,990",
+            "15,184",
+            "17,113"
+          ]
+        },
+        {
+          "state": "West Bengal",
+          "original_cells": [
+            "3,821",
+            "3,993",
+            "3,841",
+            "4,172"
+          ]
+        },
+        {
+          "state": "Andaman and Nicobar Islands",
+          "original_cells": [
+            "41",
+            "43",
+            "39",
+            "52"
+          ]
+        },
+        {
+          "state": "Chandigarh",
+          "original_cells": [
+            "29",
+            "29",
+            "11",
+            "13"
+          ]
+        },
+        {
+          "state": "Dadra and Nagar Haveli and Daman and Diu",
+          "original_cells": [
+            "0",
+            "14",
+            "3",
+            "2"
+          ]
+        },
+        {
+          "state": "Delhi",
+          "original_cells": [
+            "457",
+            "799",
+            "745",
+            "593"
+          ]
+        },
+        {
+          "state": "Jammu & Kashmir",
+          "original_cells": [
+            "1,899",
+            "2,378",
+            "2,342",
+            "2,120"
+          ]
+        },
+        {
+          "state": "Ladakh",
+          "original_cells": [
+            "119",
+            "196",
+            "132",
+            "191"
+          ]
+        },
+        {
+          "state": "Lakshadweep",
+          "original_cells": [
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "state": "Puducherry",
+          "original_cells": [
+            "587",
+            "448",
+            "497",
+            "631"
+          ]
+        }
+      ],
+      "published_total": [
+        128825,
+        151997,
+        150177,
+        150958
+      ],
+      "column_sum": [
+        128825,
+        151997,
+        150177,
+        150958
+      ]
+    },
+    {
+      "page": 175,
+      "printed_page": 122,
+      "annexure": 10,
+      "road_class": "National Highway",
+      "metric": "road_fatalities_count",
+      "years": [
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "rows": [
+        {
+          "state": "Andhra Pradesh",
+          "original_cells": [
+            "3,602",
+            "3,793",
+            "3,806",
+            "4,014"
+          ]
+        },
+        {
+          "state": "Arunachal Pradesh",
+          "original_cells": [
+            "87",
+            "73",
+            "88",
+            "96"
+          ]
+        },
+        {
+          "state": "Assam",
+          "original_cells": [
+            "1,574",
+            "1,428",
+            "1,564",
+            "1,722"
+          ]
+        },
+        {
+          "state": "Bihar",
+          "original_cells": [
+            "3,517",
+            "3,953",
+            "4,078",
+            "4,012"
+          ]
+        },
+        {
+          "state": "Chhattisgarh",
+          "original_cells": [
+            "1,663",
+            "1,885",
+            "1,910",
+            "1,952"
+          ]
+        },
+        {
+          "state": "Goa",
+          "original_cells": [
+            "83",
+            "127",
+            "102",
+            "108"
+          ]
+        },
+        {
+          "state": "Gujarat",
+          "original_cells": [
+            "2,077",
+            "2,109",
+            "2,233",
+            "2,192"
+          ]
+        },
+        {
+          "state": "Haryana",
+          "original_cells": [
+            "1,766",
+            "2,038",
+            "2,033",
+            "2,052"
+          ]
+        },
+        {
+          "state": "Himachal Pradesh",
+          "original_cells": [
+            "425",
+            "443",
+            "365",
+            "312"
+          ]
+        },
+        {
+          "state": "Jharkhand",
+          "original_cells": [
+            "1,496",
+            "1,699",
+            "1,672",
+            "1,686"
+          ]
+        },
+        {
+          "state": "Karnataka",
+          "original_cells": [
+            "3,487",
+            "4,164",
+            "4,383",
+            "4,278"
+          ]
+        },
+        {
+          "state": "Kerala",
+          "original_cells": [
+            "975",
+            "1,197",
+            "1,056",
+            "940"
+          ]
+        },
+        {
+          "state": "Madhya Pradesh",
+          "original_cells": [
+            "3,389",
+            "4,025",
+            "4,476",
+            "4,644"
+          ]
+        },
+        {
+          "state": "Maharashtra",
+          "original_cells": [
+            "4,080",
+            "4,923",
+            "5,780",
+            "5,812"
+          ]
+        },
+        {
+          "state": "Manipur",
+          "original_cells": [
+            "77",
+            "74",
+            "51",
+            "49"
+          ]
+        },
+        {
+          "state": "Meghalaya",
+          "original_cells": [
+            "112",
+            "98",
+            "78",
+            "102"
+          ]
+        },
+        {
+          "state": "Mizoram",
+          "original_cells": [
+            "23",
+            "72",
+            "47",
+            "66"
+          ]
+        },
+        {
+          "state": "Nagaland",
+          "original_cells": [
+            "25",
+            "55",
+            "60",
+            "37"
+          ]
+        },
+        {
+          "state": "Odisha",
+          "original_cells": [
+            "1,933",
+            "2,043",
+            "2,180",
+            "2,358"
+          ]
+        },
+        {
+          "state": "Punjab",
+          "original_cells": [
+            "1,950",
+            "1,881",
+            "1,895",
+            "1,562"
+          ]
+        },
+        {
+          "state": "Rajasthan",
+          "original_cells": [
+            "3,829",
+            "4,156",
+            "4,172",
+            "4,285"
+          ]
+        },
+        {
+          "state": "Sikkim",
+          "original_cells": [
+            "23",
+            "27",
+            "24",
+            "24"
+          ]
+        },
+        {
+          "state": "Tamil Nadu",
+          "original_cells": [
+            "5,263",
+            "5,978",
+            "6,258",
+            "6,376"
+          ]
+        },
+        {
+          "state": "Telangana",
+          "original_cells": [
+            "2,735",
+            "3,010",
+            "3,058",
+            "3,066"
+          ]
+        },
+        {
+          "state": "Tripura",
+          "original_cells": [
+            "94",
+            "105",
+            "129",
+            "114"
+          ]
+        },
+        {
+          "state": "Uttarakhand",
+          "original_cells": [
+            "430",
+            "545",
+            "564",
+            "543"
+          ]
+        },
+        {
+          "state": "Uttar Pradesh",
+          "original_cells": [
+            "8,506",
+            "8,479",
+            "8,446",
+            "9,560"
+          ]
+        },
+        {
+          "state": "West Bengal",
+          "original_cells": [
+            "2,177",
+            "2,017",
+            "1,957",
+            "2,113"
+          ]
+        },
+        {
+          "state": "Andaman and Nicobar Islands",
+          "original_cells": [
+            "5",
+            "11",
+            "6",
+            "14"
+          ]
+        },
+        {
+          "state": "Chandigarh",
+          "original_cells": [
+            "21",
+            "9",
+            "4",
+            "3"
+          ]
+        },
+        {
+          "state": "Dadra and Nagar Haveli and Daman and Diu",
+          "original_cells": [
+            "0",
+            "9",
+            "2",
+            "1"
+          ]
+        },
+        {
+          "state": "Delhi",
+          "original_cells": [
+            "201",
+            "252",
+            "230",
+            "258"
+          ]
+        },
+        {
+          "state": "Jammu & Kashmir",
+          "original_cells": [
+            "268",
+            "259",
+            "294",
+            "271"
+          ]
+        },
+        {
+          "state": "Ladakh",
+          "original_cells": [
+            "27",
+            "30",
+            "37",
+            "45"
+          ]
+        },
+        {
+          "state": "Lakshadweep",
+          "original_cells": [
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "state": "Puducherry",
+          "original_cells": [
+            "87",
+            "71",
+            "74",
+            "105"
+          ]
+        }
+      ],
+      "published_total": [
+        56007,
+        61038,
+        63112,
+        64772
+      ],
+      "column_sum": [
+        56007,
+        61038,
+        63112,
+        64772
+      ]
+    },
+    {
+      "page": 176,
+      "printed_page": 123,
+      "annexure": 11,
+      "road_class": "National Highway",
+      "metric": "road_injuries_count",
+      "years": [
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "rows": [
+        {
+          "state": "Andhra Pradesh",
+          "original_cells": [
+            "8,323",
+            "8,890",
+            "8,507",
+            "8,603"
+          ]
+        },
+        {
+          "state": "Arunachal Pradesh",
+          "original_cells": [
+            "150",
+            "106",
+            "144",
+            "102"
+          ]
+        },
+        {
+          "state": "Assam",
+          "original_cells": [
+            "2,631",
+            "2,541",
+            "2,770",
+            "3,446"
+          ]
+        },
+        {
+          "state": "Bihar",
+          "original_cells": [
+            "3,534",
+            "3,063",
+            "2,901",
+            "3,167"
+          ]
+        },
+        {
+          "state": "Chhattisgarh",
+          "original_cells": [
+            "2,906",
+            "3,400",
+            "3,539",
+            "3,323"
+          ]
+        },
+        {
+          "state": "Goa",
+          "original_cells": [
+            "228",
+            "327",
+            "345",
+            "257"
+          ]
+        },
+        {
+          "state": "Gujarat",
+          "original_cells": [
+            "2,781",
+            "3,228",
+            "3,049",
+            "3,130"
+          ]
+        },
+        {
+          "state": "Haryana",
+          "original_cells": [
+            "2,514",
+            "3,197",
+            "2,835",
+            "2,866"
+          ]
+        },
+        {
+          "state": "Himachal Pradesh",
+          "original_cells": [
+            "1,645",
+            "1,983",
+            "1,581",
+            "1,563"
+          ]
+        },
+        {
+          "state": "Jharkhand",
+          "original_cells": [
+            "1,138",
+            "1,410",
+            "1,252",
+            "1,185"
+          ]
+        },
+        {
+          "state": "Karnataka",
+          "original_cells": [
+            "13,229",
+            "16,337",
+            "17,360",
+            "18,020"
+          ]
+        },
+        {
+          "state": "Kerala",
+          "original_cells": [
+            "8,984",
+            "17,799",
+            "12,105",
+            "11,060"
+          ]
+        },
+        {
+          "state": "Madhya Pradesh",
+          "original_cells": [
+            "10,468",
+            "13,911",
+            "14,393",
+            "13,922"
+          ]
+        },
+        {
+          "state": "Maharashtra",
+          "original_cells": [
+            "5,901",
+            "8,174",
+            "9,474",
+            "9,723"
+          ]
+        },
+        {
+          "state": "Manipur",
+          "original_cells": [
+            "320",
+            "466",
+            "462",
+            "338"
+          ]
+        },
+        {
+          "state": "Meghalaya",
+          "original_cells": [
+            "175",
+            "204",
+            "109",
+            "107"
+          ]
+        },
+        {
+          "state": "Mizoram",
+          "original_cells": [
+            "27",
+            "59",
+            "47",
+            "69"
+          ]
+        },
+        {
+          "state": "Nagaland",
+          "original_cells": [
+            "240",
+            "192",
+            "160",
+            "132"
+          ]
+        },
+        {
+          "state": "Odisha",
+          "original_cells": [
+            "3,520",
+            "3,746",
+            "3,997",
+            "4,257"
+          ]
+        },
+        {
+          "state": "Punjab",
+          "original_cells": [
+            "1,100",
+            "1,172",
+            "1,315",
+            "1,171"
+          ]
+        },
+        {
+          "state": "Rajasthan",
+          "original_cells": [
+            "6,065",
+            "6,924",
+            "6,955",
+            "6,809"
+          ]
+        },
+        {
+          "state": "Sikkim",
+          "original_cells": [
+            "110",
+            "166",
+            "146",
+            "110"
+          ]
+        },
+        {
+          "state": "Tamil Nadu",
+          "original_cells": [
+            "17,596",
+            "21,138",
+            "23,575",
+            "23,292"
+          ]
+        },
+        {
+          "state": "Telangana",
+          "original_cells": [
+            "6,916",
+            "6,949",
+            "7,116",
+            "7,876"
+          ]
+        },
+        {
+          "state": "Tripura",
+          "original_cells": [
+            "207",
+            "224",
+            "252",
+            "282"
+          ]
+        },
+        {
+          "state": "Uttarakhand",
+          "original_cells": [
+            "546",
+            "908",
+            "749",
+            "730"
+          ]
+        },
+        {
+          "state": "Uttar Pradesh",
+          "original_cells": [
+            "9,512",
+            "10,195",
+            "10,464",
+            "12,677"
+          ]
+        },
+        {
+          "state": "West Bengal",
+          "original_cells": [
+            "3,570",
+            "3,927",
+            "3,570",
+            "3,868"
+          ]
+        },
+        {
+          "state": "Andaman and Nicobar Islands",
+          "original_cells": [
+            "44",
+            "39",
+            "38",
+            "73"
+          ]
+        },
+        {
+          "state": "Chandigarh",
+          "original_cells": [
+            "21",
+            "21",
+            "11",
+            "12"
+          ]
+        },
+        {
+          "state": "Dadra and Nagar Haveli and Daman and Diu",
+          "original_cells": [
+            "0",
+            "13",
+            "3",
+            "2"
+          ]
+        },
+        {
+          "state": "Delhi",
+          "original_cells": [
+            "427",
+            "717",
+            "657",
+            "508"
+          ]
+        },
+        {
+          "state": "Jammu & Kashmir",
+          "original_cells": [
+            "2,175",
+            "2,319",
+            "2,456",
+            "2,270"
+          ]
+        },
+        {
+          "state": "Ladakh",
+          "original_cells": [
+            "119",
+            "179",
+            "192",
+            "239"
+          ]
+        },
+        {
+          "state": "Lakshadweep",
+          "original_cells": [
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "state": "Puducherry",
+          "original_cells": [
+            "643",
+            "428",
+            "502",
+            "679"
+          ]
+        }
+      ],
+      "published_total": [
+        117765,
+        144352,
+        143031,
+        145868
+      ],
+      "column_sum": [
+        117765,
+        144352,
+        143031,
+        145868
+      ]
+    },
+    {
+      "page": 177,
+      "printed_page": 124,
+      "annexure": 12,
+      "road_class": "National Highway",
+      "metric": "fatal_road_accidents_count",
+      "years": [
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "rows": [
+        {
+          "state": "Andhra Pradesh",
+          "original_cells": [
+            "3,226",
+            "3,439",
+            "3,432",
+            "3,627"
+          ]
+        },
+        {
+          "state": "Arunachal Pradesh",
+          "original_cells": [
+            "85",
+            "73",
+            "78",
+            "85"
+          ]
+        },
+        {
+          "state": "Assam",
+          "original_cells": [
+            "1,479",
+            "1,315",
+            "1,463",
+            "1,573"
+          ]
+        },
+        {
+          "state": "Bihar",
+          "original_cells": [
+            "3,242",
+            "3,636",
+            "3,775",
+            "3,554"
+          ]
+        },
+        {
+          "state": "Chhattisgarh",
+          "original_cells": [
+            "1,505",
+            "1,703",
+            "1,765",
+            "1,799"
+          ]
+        },
+        {
+          "state": "Goa",
+          "original_cells": [
+            "79",
+            "118",
+            "95",
+            "103"
+          ]
+        },
+        {
+          "state": "Gujarat",
+          "original_cells": [
+            "1,867",
+            "1,899",
+            "2,032",
+            "1,967"
+          ]
+        },
+        {
+          "state": "Haryana",
+          "original_cells": [
+            "1,729",
+            "1,991",
+            "1,796",
+            "1,895"
+          ]
+        },
+        {
+          "state": "Himachal Pradesh",
+          "original_cells": [
+            "381",
+            "375",
+            "305",
+            "283"
+          ]
+        },
+        {
+          "state": "Jharkhand",
+          "original_cells": [
+            "1,357",
+            "1,532",
+            "1,498",
+            "1,513"
+          ]
+        },
+        {
+          "state": "Karnataka",
+          "original_cells": [
+            "3,228",
+            "3,758",
+            "4,003",
+            "3,943"
+          ]
+        },
+        {
+          "state": "Kerala",
+          "original_cells": [
+            "912",
+            "1,122",
+            "994",
+            "883"
+          ]
+        },
+        {
+          "state": "Madhya Pradesh",
+          "original_cells": [
+            "3,033",
+            "3,680",
+            "4,058",
+            "4,267"
+          ]
+        },
+        {
+          "state": "Maharashtra",
+          "original_cells": [
+            "3,678",
+            "4,459",
+            "5,116",
+            "5,290"
+          ]
+        },
+        {
+          "state": "Manipur",
+          "original_cells": [
+            "66",
+            "68",
+            "49",
+            "46"
+          ]
+        },
+        {
+          "state": "Meghalaya",
+          "original_cells": [
+            "91",
+            "88",
+            "74",
+            "89"
+          ]
+        },
+        {
+          "state": "Mizoram",
+          "original_cells": [
+            "22",
+            "55",
+            "41",
+            "60"
+          ]
+        },
+        {
+          "state": "Nagaland",
+          "original_cells": [
+            "26",
+            "48",
+            "49",
+            "35"
+          ]
+        },
+        {
+          "state": "Odisha",
+          "original_cells": [
+            "1,812",
+            "1,917",
+            "2,020",
+            "2,186"
+          ]
+        },
+        {
+          "state": "Punjab",
+          "original_cells": [
+            "1,714",
+            "1,754",
+            "1,731",
+            "1,446"
+          ]
+        },
+        {
+          "state": "Rajasthan",
+          "original_cells": [
+            "3,270",
+            "3,574",
+            "3,653",
+            "3,694"
+          ]
+        },
+        {
+          "state": "Sikkim",
+          "original_cells": [
+            "21",
+            "23",
+            "24",
+            "24"
+          ]
+        },
+        {
+          "state": "Tamil Nadu",
+          "original_cells": [
+            "4,944",
+            "5,582",
+            "5,850",
+            "5,957"
+          ]
+        },
+        {
+          "state": "Telangana",
+          "original_cells": [
+            "2,507",
+            "2,764",
+            "2,808",
+            "2,832"
+          ]
+        },
+        {
+          "state": "Tripura",
+          "original_cells": [
+            "86",
+            "99",
+            "121",
+            "103"
+          ]
+        },
+        {
+          "state": "Uttarakhand",
+          "original_cells": [
+            "393",
+            "448",
+            "508",
+            "482"
+          ]
+        },
+        {
+          "state": "Uttar Pradesh",
+          "original_cells": [
+            "7,630",
+            "7,582",
+            "7,706",
+            "8,737"
+          ]
+        },
+        {
+          "state": "West Bengal",
+          "original_cells": [
+            "1,989",
+            "1,860",
+            "1,807",
+            "1,923"
+          ]
+        },
+        {
+          "state": "Andaman and Nicobar Islands",
+          "original_cells": [
+            "5",
+            "11",
+            "6",
+            "11"
+          ]
+        },
+        {
+          "state": "Chandigarh",
+          "original_cells": [
+            "21",
+            "8",
+            "4",
+            "3"
+          ]
+        },
+        {
+          "state": "Dadra and Nagar Haveli and Daman and Diu",
+          "original_cells": [
+            "0",
+            "9",
+            "2",
+            "1"
+          ]
+        },
+        {
+          "state": "Delhi",
+          "original_cells": [
+            "200",
+            "242",
+            "219",
+            "233"
+          ]
+        },
+        {
+          "state": "Jammu & Kashmir",
+          "original_cells": [
+            "234",
+            "239",
+            "284",
+            "252"
+          ]
+        },
+        {
+          "state": "Ladakh",
+          "original_cells": [
+            "24",
+            "30",
+            "30",
+            "43"
+          ]
+        },
+        {
+          "state": "Lakshadweep",
+          "original_cells": [
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "state": "Puducherry",
+          "original_cells": [
+            "97",
+            "70",
+            "71",
+            "104"
+          ]
+        }
+      ],
+      "published_total": [
+        50953,
+        55571,
+        57467,
+        59043
+      ],
+      "column_sum": [
+        50953,
+        55571,
+        57467,
+        59043
+      ]
+    },
+    {
+      "page": 185,
+      "printed_page": 132,
+      "annexure": 14,
+      "road_class": "State Highway",
+      "metric": "road_accidents_count",
+      "years": [
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "rows": [
+        {
+          "state": "Andhra Pradesh",
+          "original_cells": [
+            "4,704",
+            "4,843",
+            "4,499",
+            "4,406"
+          ]
+        },
+        {
+          "state": "Arunachal Pradesh",
+          "original_cells": [
+            "75",
+            "71",
+            "80",
+            "73"
+          ]
+        },
+        {
+          "state": "Assam",
+          "original_cells": [
+            "1,782",
+            "1,758",
+            "1,750",
+            "1,485"
+          ]
+        },
+        {
+          "state": "Bihar",
+          "original_cells": [
+            "2,115",
+            "2,428",
+            "2,248",
+            "2,501"
+          ]
+        },
+        {
+          "state": "Chhattisgarh",
+          "original_cells": [
+            "2,166",
+            "2,140",
+            "2,136",
+            "2,305"
+          ]
+        },
+        {
+          "state": "Goa",
+          "original_cells": [
+            "444",
+            "446",
+            "410",
+            "304"
+          ]
+        },
+        {
+          "state": "Gujarat",
+          "original_cells": [
+            "4,394",
+            "4,053",
+            "4,059",
+            "3,936"
+          ]
+        },
+        {
+          "state": "Haryana",
+          "original_cells": [
+            "1,662",
+            "1,660",
+            "1,368",
+            "1,310"
+          ]
+        },
+        {
+          "state": "Himachal Pradesh",
+          "original_cells": [
+            "517",
+            "542",
+            "419",
+            "344"
+          ]
+        },
+        {
+          "state": "Jharkhand",
+          "original_cells": [
+            "1,041",
+            "1,069",
+            "1,044",
+            "1,113"
+          ]
+        },
+        {
+          "state": "Karnataka",
+          "original_cells": [
+            "8,820",
+            "9,800",
+            "10,956",
+            "10,757"
+          ]
+        },
+        {
+          "state": "Kerala",
+          "original_cells": [
+            "7,290",
+            "9,441",
+            "10,830",
+            "10,946"
+          ]
+        },
+        {
+          "state": "Madhya Pradesh",
+          "original_cells": [
+            "11,475",
+            "11,829",
+            "11,621",
+            "11,318"
+          ]
+        },
+        {
+          "state": "Maharashtra",
+          "original_cells": [
+            "6,328",
+            "6,902",
+            "6,056",
+            "5,814"
+          ]
+        },
+        {
+          "state": "Manipur",
+          "original_cells": [
+            "75",
+            "107",
+            "55",
+            "45"
+          ]
+        },
+        {
+          "state": "Meghalaya",
+          "original_cells": [
+            "46",
+            "31",
+            "36",
+            "41"
+          ]
+        },
+        {
+          "state": "Mizoram",
+          "original_cells": [
+            "40",
+            "35",
+            "41",
+            "38"
+          ]
+        },
+        {
+          "state": "Nagaland",
+          "original_cells": [
+            "143",
+            "135",
+            "77",
+            "14"
+          ]
+        },
+        {
+          "state": "Odisha",
+          "original_cells": [
+            "2,339",
+            "2,648",
+            "2,396",
+            "2,270"
+          ]
+        },
+        {
+          "state": "Punjab",
+          "original_cells": [
+            "1,825",
+            "1,888",
+            "1,762",
+            "1,273"
+          ]
+        },
+        {
+          "state": "Rajasthan",
+          "original_cells": [
+            "3,560",
+            "4,160",
+            "4,258",
+            "4,306"
+          ]
+        },
+        {
+          "state": "Sikkim",
+          "original_cells": [
+            "53",
+            "62",
+            "45",
+            "49"
+          ]
+        },
+        {
+          "state": "Tamil Nadu",
+          "original_cells": [
+            "18,656",
+            "22,633",
+            "23,166",
+            "22,004"
+          ]
+        },
+        {
+          "state": "Telangana",
+          "original_cells": [
+            "2,192",
+            "2,183",
+            "1,860",
+            "2,028"
+          ]
+        },
+        {
+          "state": "Tripura",
+          "original_cells": [
+            "171",
+            "193",
+            "209",
+            "237"
+          ]
+        },
+        {
+          "state": "Uttarakhand",
+          "original_cells": [
+            "294",
+            "256",
+            "283",
+            "297"
+          ]
+        },
+        {
+          "state": "Uttar Pradesh",
+          "original_cells": [
+            "11,096",
+            "12,068",
+            "10,447",
+            "9,876"
+          ]
+        },
+        {
+          "state": "West Bengal",
+          "original_cells": [
+            "2,126",
+            "2,403",
+            "2,494",
+            "3,326"
+          ]
+        },
+        {
+          "state": "Andaman and Nicobar Islands",
+          "original_cells": [
+            "31",
+            "44",
+            "49",
+            "37"
+          ]
+        },
+        {
+          "state": "Chandigarh",
+          "original_cells": [
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "state": "Dadra and Nagar Haveli and Daman and Diu",
+          "original_cells": [
+            "56",
+            "57",
+            "60",
+            "55"
+          ]
+        },
+        {
+          "state": "Delhi",
+          "original_cells": [
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "state": "Jammu & Kashmir",
+          "original_cells": [
+            "662",
+            "599",
+            "730",
+            "622"
+          ]
+        },
+        {
+          "state": "Ladakh",
+          "original_cells": [
+            "82",
+            "104",
+            "84",
+            "59"
+          ]
+        },
+        {
+          "state": "Lakshadweep",
+          "original_cells": [
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "state": "Puducherry",
+          "original_cells": [
+            "122",
+            "94",
+            "134",
+            "349"
+          ]
+        }
+      ],
+      "published_total": [
+        96382,
+        106682,
+        105662,
+        103538
+      ],
+      "column_sum": [
+        96382,
+        106682,
+        105662,
+        103538
+      ]
+    },
+    {
+      "page": 186,
+      "printed_page": 133,
+      "annexure": 15,
+      "road_class": "State Highway",
+      "metric": "road_fatalities_count",
+      "years": [
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "rows": [
+        {
+          "state": "Andhra Pradesh",
+          "original_cells": [
+            "1,904",
+            "1,869",
+            "1,887",
+            "1,909"
+          ]
+        },
+        {
+          "state": "Arunachal Pradesh",
+          "original_cells": [
+            "39",
+            "44",
+            "38",
+            "43"
+          ]
+        },
+        {
+          "state": "Assam",
+          "original_cells": [
+            "629",
+            "635",
+            "707",
+            "620"
+          ]
+        },
+        {
+          "state": "Bihar",
+          "original_cells": [
+            "1,747",
+            "1,997",
+            "1,797",
+            "2,094"
+          ]
+        },
+        {
+          "state": "Chhattisgarh",
+          "original_cells": [
+            "998",
+            "1,027",
+            "1,078",
+            "1,154"
+          ]
+        },
+        {
+          "state": "Goa",
+          "original_cells": [
+            "30",
+            "45",
+            "51",
+            "25"
+          ]
+        },
+        {
+          "state": "Gujarat",
+          "original_cells": [
+            "2,391",
+            "2,265",
+            "2,233",
+            "2,229"
+          ]
+        },
+        {
+          "state": "Haryana",
+          "original_cells": [
+            "902",
+            "758",
+            "732",
+            "664"
+          ]
+        },
+        {
+          "state": "Himachal Pradesh",
+          "original_cells": [
+            "203",
+            "193",
+            "177",
+            "128"
+          ]
+        },
+        {
+          "state": "Jharkhand",
+          "original_cells": [
+            "795",
+            "812",
+            "814",
+            "872"
+          ]
+        },
+        {
+          "state": "Karnataka",
+          "original_cells": [
+            "2,777",
+            "3,278",
+            "3,448",
+            "3,444"
+          ]
+        },
+        {
+          "state": "Kerala",
+          "original_cells": [
+            "768",
+            "986",
+            "939",
+            "871"
+          ]
+        },
+        {
+          "state": "Madhya Pradesh",
+          "original_cells": [
+            "3,022",
+            "3,157",
+            "2,960",
+            "3,245"
+          ]
+        },
+        {
+          "state": "Maharashtra",
+          "original_cells": [
+            "3,411",
+            "3,820",
+            "3,215",
+            "3,169"
+          ]
+        },
+        {
+          "state": "Manipur",
+          "original_cells": [
+            "21",
+            "23",
+            "9",
+            "10"
+          ]
+        },
+        {
+          "state": "Meghalaya",
+          "original_cells": [
+            "39",
+            "25",
+            "34",
+            "25"
+          ]
+        },
+        {
+          "state": "Mizoram",
+          "original_cells": [
+            "33",
+            "27",
+            "36",
+            "33"
+          ]
+        },
+        {
+          "state": "Nagaland",
+          "original_cells": [
+            "16",
+            "10",
+            "19",
+            "9"
+          ]
+        },
+        {
+          "state": "Odisha",
+          "original_cells": [
+            "1,099",
+            "1,274",
+            "1,150",
+            "1,163"
+          ]
+        },
+        {
+          "state": "Punjab",
+          "original_cells": [
+            "1,363",
+            "1,381",
+            "1,330",
+            "1,023"
+          ]
+        },
+        {
+          "state": "Rajasthan",
+          "original_cells": [
+            "1,945",
+            "2,224",
+            "2,380",
+            "2,343"
+          ]
+        },
+        {
+          "state": "Sikkim",
+          "original_cells": [
+            "18",
+            "20",
+            "15",
+            "24"
+          ]
+        },
+        {
+          "state": "Tamil Nadu",
+          "original_cells": [
+            "5,112",
+            "6,364",
+            "6,325",
+            "6,069"
+          ]
+        },
+        {
+          "state": "Telangana",
+          "original_cells": [
+            "864",
+            "820",
+            "717",
+            "686"
+          ]
+        },
+        {
+          "state": "Tripura",
+          "original_cells": [
+            "60",
+            "77",
+            "85",
+            "73"
+          ]
+        },
+        {
+          "state": "Uttarakhand",
+          "original_cells": [
+            "174",
+            "149",
+            "167",
+            "183"
+          ]
+        },
+        {
+          "state": "Uttar Pradesh",
+          "original_cells": [
+            "6,266",
+            "6,405",
+            "5,698",
+            "5,242"
+          ]
+        },
+        {
+          "state": "West Bengal",
+          "original_cells": [
+            "1,187",
+            "1,192",
+            "1,244",
+            "1,750"
+          ]
+        },
+        {
+          "state": "Andaman and Nicobar Islands",
+          "original_cells": [
+            "4",
+            "2",
+            "5",
+            "7"
+          ]
+        },
+        {
+          "state": "Chandigarh",
+          "original_cells": [
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "state": "Dadra and Nagar Haveli and Daman and Diu",
+          "original_cells": [
+            "29",
+            "22",
+            "28",
+            "33"
+          ]
+        },
+        {
+          "state": "Delhi",
+          "original_cells": [
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "state": "Jammu & Kashmir",
+          "original_cells": [
+            "78",
+            "84",
+            "91",
+            "75"
+          ]
+        },
+        {
+          "state": "Ladakh",
+          "original_cells": [
+            "20",
+            "17",
+            "13",
+            "14"
+          ]
+        },
+        {
+          "state": "Lakshadweep",
+          "original_cells": [
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "state": "Puducherry",
+          "original_cells": [
+            "19",
+            "10",
+            "17",
+            "48"
+          ]
+        }
+      ],
+      "published_total": [
+        37963,
+        41012,
+        39439,
+        39277
+      ],
+      "column_sum": [
+        37963,
+        41012,
+        39439,
+        39277
+      ]
+    },
+    {
+      "page": 187,
+      "printed_page": 134,
+      "annexure": 16,
+      "road_class": "State Highway",
+      "metric": "road_injuries_count",
+      "years": [
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "rows": [
+        {
+          "state": "Andhra Pradesh",
+          "original_cells": [
+            "4,786",
+            "4,931",
+            "4,595",
+            "4,369"
+          ]
+        },
+        {
+          "state": "Arunachal Pradesh",
+          "original_cells": [
+            "106",
+            "48",
+            "69",
+            "62"
+          ]
+        },
+        {
+          "state": "Assam",
+          "original_cells": [
+            "1,460",
+            "1,514",
+            "1,454",
+            "1,394"
+          ]
+        },
+        {
+          "state": "Bihar",
+          "original_cells": [
+            "1,927",
+            "1,679",
+            "1,391",
+            "1,455"
+          ]
+        },
+        {
+          "state": "Chhattisgarh",
+          "original_cells": [
+            "2,056",
+            "2,303",
+            "2,029",
+            "2,015"
+          ]
+        },
+        {
+          "state": "Goa",
+          "original_cells": [
+            "103",
+            "206",
+            "188",
+            "153"
+          ]
+        },
+        {
+          "state": "Gujarat",
+          "original_cells": [
+            "4,350",
+            "4,310",
+            "4,389",
+            "4,309"
+          ]
+        },
+        {
+          "state": "Haryana",
+          "original_cells": [
+            "1,334",
+            "1,461",
+            "1,410",
+            "1,102"
+          ]
+        },
+        {
+          "state": "Himachal Pradesh",
+          "original_cells": [
+            "784",
+            "839",
+            "593",
+            "575"
+          ]
+        },
+        {
+          "state": "Jharkhand",
+          "original_cells": [
+            "733",
+            "836",
+            "673",
+            "746"
+          ]
+        },
+        {
+          "state": "Karnataka",
+          "original_cells": [
+            "11,507",
+            "12,839",
+            "14,685",
+            "14,328"
+          ]
+        },
+        {
+          "state": "Kerala",
+          "original_cells": [
+            "8,161",
+            "11,002",
+            "12,505",
+            "12,446"
+          ]
+        },
+        {
+          "state": "Madhya Pradesh",
+          "original_cells": [
+            "12,052",
+            "12,471",
+            "12,294",
+            "12,107"
+          ]
+        },
+        {
+          "state": "Maharashtra",
+          "original_cells": [
+            "5,078",
+            "5,418",
+            "4,953",
+            "4,603"
+          ]
+        },
+        {
+          "state": "Manipur",
+          "original_cells": [
+            "99",
+            "177",
+            "66",
+            "68"
+          ]
+        },
+        {
+          "state": "Meghalaya",
+          "original_cells": [
+            "48",
+            "30",
+            "48",
+            "44"
+          ]
+        },
+        {
+          "state": "Mizoram",
+          "original_cells": [
+            "38",
+            "33",
+            "49",
+            "34"
+          ]
+        },
+        {
+          "state": "Nagaland",
+          "original_cells": [
+            "82",
+            "62",
+            "74",
+            "14"
+          ]
+        },
+        {
+          "state": "Odisha",
+          "original_cells": [
+            "2,129",
+            "2,373",
+            "2,127",
+            "1,877"
+          ]
+        },
+        {
+          "state": "Punjab",
+          "original_cells": [
+            "994",
+            "1,051",
+            "939",
+            "674"
+          ]
+        },
+        {
+          "state": "Rajasthan",
+          "original_cells": [
+            "3,385",
+            "4,143",
+            "3,998",
+            "4,111"
+          ]
+        },
+        {
+          "state": "Sikkim",
+          "original_cells": [
+            "79",
+            "96",
+            "142",
+            "101"
+          ]
+        },
+        {
+          "state": "Tamil Nadu",
+          "original_cells": [
+            "18,409",
+            "23,387",
+            "24,420",
+            "22,908"
+          ]
+        },
+        {
+          "state": "Telangana",
+          "original_cells": [
+            "2,075",
+            "2,042",
+            "1,705",
+            "1,815"
+          ]
+        },
+        {
+          "state": "Tripura",
+          "original_cells": [
+            "243",
+            "181",
+            "225",
+            "251"
+          ]
+        },
+        {
+          "state": "Uttarakhand",
+          "original_cells": [
+            "238",
+            "182",
+            "223",
+            "274"
+          ]
+        },
+        {
+          "state": "Uttar Pradesh",
+          "original_cells": [
+            "7,155",
+            "8,264",
+            "7,361",
+            "7,647"
+          ]
+        },
+        {
+          "state": "West Bengal",
+          "original_cells": [
+            "1,935",
+            "2,444",
+            "2,441",
+            "2,858"
+          ]
+        },
+        {
+          "state": "Andaman and Nicobar Islands",
+          "original_cells": [
+            "25",
+            "45",
+            "54",
+            "27"
+          ]
+        },
+        {
+          "state": "Chandigarh",
+          "original_cells": [
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "state": "Dadra and Nagar Haveli and Daman and Diu",
+          "original_cells": [
+            "66",
+            "68",
+            "51",
+            "38"
+          ]
+        },
+        {
+          "state": "Delhi",
+          "original_cells": [
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "state": "Jammu & Kashmir",
+          "original_cells": [
+            "958",
+            "1,868",
+            "1,763",
+            "1,508"
+          ]
+        },
+        {
+          "state": "Ladakh",
+          "original_cells": [
+            "71",
+            "81",
+            "66",
+            "72"
+          ]
+        },
+        {
+          "state": "Lakshadweep",
+          "original_cells": [
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "state": "Puducherry",
+          "original_cells": [
+            "117",
+            "101",
+            "140",
+            "385"
+          ]
+        }
+      ],
+      "published_total": [
+        92583,
+        106485,
+        107120,
+        104370
+      ],
+      "column_sum": [
+        92583,
+        106485,
+        107120,
+        104370
+      ]
+    },
+    {
+      "page": 188,
+      "printed_page": 135,
+      "annexure": 17,
+      "road_class": "State Highway",
+      "metric": "fatal_road_accidents_count",
+      "years": [
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "rows": [
+        {
+          "state": "Andhra Pradesh",
+          "original_cells": [
+            "1,781",
+            "1,750",
+            "1,752",
+            "1,791"
+          ]
+        },
+        {
+          "state": "Arunachal Pradesh",
+          "original_cells": [
+            "36",
+            "38",
+            "31",
+            "32"
+          ]
+        },
+        {
+          "state": "Assam",
+          "original_cells": [
+            "601",
+            "646",
+            "655",
+            "607"
+          ]
+        },
+        {
+          "state": "Bihar",
+          "original_cells": [
+            "1,598",
+            "1,840",
+            "1,685",
+            "1,900"
+          ]
+        },
+        {
+          "state": "Chhattisgarh",
+          "original_cells": [
+            "924",
+            "944",
+            "959",
+            "1,057"
+          ]
+        },
+        {
+          "state": "Goa",
+          "original_cells": [
+            "30",
+            "42",
+            "47",
+            "25"
+          ]
+        },
+        {
+          "state": "Gujarat",
+          "original_cells": [
+            "2,150",
+            "2,041",
+            "2,009",
+            "2,007"
+          ]
+        },
+        {
+          "state": "Haryana",
+          "original_cells": [
+            "891",
+            "753",
+            "688",
+            "588"
+          ]
+        },
+        {
+          "state": "Himachal Pradesh",
+          "original_cells": [
+            "161",
+            "159",
+            "147",
+            "111"
+          ]
+        },
+        {
+          "state": "Jharkhand",
+          "original_cells": [
+            "724",
+            "744",
+            "749",
+            "801"
+          ]
+        },
+        {
+          "state": "Karnataka",
+          "original_cells": [
+            "2,609",
+            "3,046",
+            "3,261",
+            "3,221"
+          ]
+        },
+        {
+          "state": "Kerala",
+          "original_cells": [
+            "731",
+            "927",
+            "902",
+            "832"
+          ]
+        },
+        {
+          "state": "Madhya Pradesh",
+          "original_cells": [
+            "2,674",
+            "2,825",
+            "2,786",
+            "2,968"
+          ]
+        },
+        {
+          "state": "Maharashtra",
+          "original_cells": [
+            "3,151",
+            "3,447",
+            "2,934",
+            "2,916"
+          ]
+        },
+        {
+          "state": "Manipur",
+          "original_cells": [
+            "21",
+            "21",
+            "9",
+            "10"
+          ]
+        },
+        {
+          "state": "Meghalaya",
+          "original_cells": [
+            "29",
+            "24",
+            "28",
+            "24"
+          ]
+        },
+        {
+          "state": "Mizoram",
+          "original_cells": [
+            "26",
+            "24",
+            "31",
+            "31"
+          ]
+        },
+        {
+          "state": "Nagaland",
+          "original_cells": [
+            "16",
+            "12",
+            "19",
+            "8"
+          ]
+        },
+        {
+          "state": "Odisha",
+          "original_cells": [
+            "1,001",
+            "1,202",
+            "1,073",
+            "1,075"
+          ]
+        },
+        {
+          "state": "Punjab",
+          "original_cells": [
+            "1,266",
+            "1,272",
+            "1,238",
+            "941"
+          ]
+        },
+        {
+          "state": "Rajasthan",
+          "original_cells": [
+            "1,687",
+            "1,984",
+            "2,094",
+            "2,156"
+          ]
+        },
+        {
+          "state": "Sikkim",
+          "original_cells": [
+            "14",
+            "15",
+            "15",
+            "20"
+          ]
+        },
+        {
+          "state": "Tamil Nadu",
+          "original_cells": [
+            "4,911",
+            "6,107",
+            "6,041",
+            "5,811"
+          ]
+        },
+        {
+          "state": "Telangana",
+          "original_cells": [
+            "807",
+            "735",
+            "674",
+            "643"
+          ]
+        },
+        {
+          "state": "Tripura",
+          "original_cells": [
+            "56",
+            "76",
+            "78",
+            "73"
+          ]
+        },
+        {
+          "state": "Uttarakhand",
+          "original_cells": [
+            "152",
+            "140",
+            "151",
+            "169"
+          ]
+        },
+        {
+          "state": "Uttar Pradesh",
+          "original_cells": [
+            "5,669",
+            "5,822",
+            "5,230",
+            "4,777"
+          ]
+        },
+        {
+          "state": "West Bengal",
+          "original_cells": [
+            "1,106",
+            "1,113",
+            "1,168",
+            "1,627"
+          ]
+        },
+        {
+          "state": "Andaman and Nicobar Islands",
+          "original_cells": [
+            "3",
+            "2",
+            "5",
+            "7"
+          ]
+        },
+        {
+          "state": "Chandigarh",
+          "original_cells": [
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "state": "Dadra and Nagar Haveli and Daman and Diu",
+          "original_cells": [
+            "28",
+            "21",
+            "28",
+            "33"
+          ]
+        },
+        {
+          "state": "Delhi",
+          "original_cells": [
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "state": "Jammu & Kashmir",
+          "original_cells": [
+            "59",
+            "62",
+            "81",
+            "69"
+          ]
+        },
+        {
+          "state": "Ladakh",
+          "original_cells": [
+            "18",
+            "17",
+            "10",
+            "14"
+          ]
+        },
+        {
+          "state": "Lakshadweep",
+          "original_cells": [
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "state": "Puducherry",
+          "original_cells": [
+            "16",
+            "10",
+            "17",
+            "48"
+          ]
+        }
+      ],
+      "published_total": [
+        34946,
+        37861,
+        36595,
+        36392
+      ],
+      "column_sum": [
+        34946,
+        37861,
+        36595,
+        36392
+      ]
+    }
+  ]
+}

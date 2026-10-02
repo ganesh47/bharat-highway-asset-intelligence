@@ -1,0 +1,320 @@
+{
+  "source_id": "nhai_financial_results_2025_03_unaudited",
+  "document_sha256": "d08837c303f72abf4d131e796f71eb93450be10cfdd96ee7fd4f921c3ac38c97",
+  "review_method": "Pinned official seven-page scanned statement rendered at200dpi; Balance Sheet PDF p2, Cash Flow p4 and Working total-debt p6 visually checked. Parentheses are negative. Dashes remain missing. Current column unaudited/limited-review, prior-year comparative labelled audited.",
+  "reviewed_at": "2026-10-02",
+  "original_unit": "INR lakh",
+  "years": [
+    2025,
+    2024
+  ],
+  "balance_sheet": [
+    {
+      "metric": "capital_inr_crore",
+      "label": "Capital",
+      "original_cells": [
+        "95777912.96",
+        "72408496.18"
+      ]
+    },
+    {
+      "metric": "secured_borrowings_inr_crore",
+      "label": "Secured Loans",
+      "original_cells": [
+        "19434926.69",
+        "19893104.95"
+      ]
+    },
+    {
+      "metric": "unsecured_borrowings_inr_crore",
+      "label": "Unsecured Loans",
+      "original_cells": [
+        "5025479.85",
+        "13644214.71"
+      ]
+    },
+    {
+      "metric": "balance_sheet_sources_total_inr_crore",
+      "label": "Total Sources of Funds",
+      "original_cells": [
+        "120238319.50",
+        "105945815.84"
+      ]
+    },
+    {
+      "metric": "fixed_assets_gross_block_inr_crore",
+      "label": "Gross Block",
+      "original_cells": [
+        "45395.04",
+        "44042.27"
+      ]
+    },
+    {
+      "metric": "accumulated_depreciation_inr_crore",
+      "label": "Accumulated Depreciation",
+      "original_cells": [
+        "22763.98",
+        "20295.99"
+      ]
+    },
+    {
+      "metric": "fixed_assets_net_block_inr_crore",
+      "label": "Net Block",
+      "original_cells": [
+        "22631.06",
+        "23746.28"
+      ]
+    },
+    {
+      "metric": "completed_road_capital_inr_crore",
+      "label": "Capital Work Completed and Capitalized",
+      "original_cells": [
+        "52151370.31",
+        "44778244.69"
+      ]
+    },
+    {
+      "metric": "road_capital_work_in_progress_inr_crore",
+      "label": "Capital Work in Progress",
+      "original_cells": [
+        "63176737.41",
+        "55975047.20"
+      ]
+    },
+    {
+      "metric": "reported_capital_road_work_total_inr_crore",
+      "label": "Reported Total Capital Work on Road Assets including Net Block",
+      "original_cells": [
+        "115350738.78",
+        "100777038.17"
+      ]
+    },
+    {
+      "metric": "investments_inr_crore",
+      "label": "Investments",
+      "original_cells": [
+        "977217.61",
+        "832990.45"
+      ]
+    },
+    {
+      "metric": "deposits_loans_advances_inr_crore",
+      "label": "Deposits Loans and Advances",
+      "original_cells": [
+        "4445689.49",
+        "5644536.88"
+      ]
+    },
+    {
+      "metric": "cash_bank_balance_inr_crore",
+      "label": "Cash and Bank Balances",
+      "original_cells": [
+        "4575472.68",
+        "3638287.61"
+      ]
+    },
+    {
+      "metric": "current_assets_inr_crore",
+      "label": "Subtotal Current Assets",
+      "original_cells": [
+        "9021162.17",
+        "9282824.49"
+      ]
+    },
+    {
+      "metric": "current_liabilities_inr_crore",
+      "label": "Current Liabilities",
+      "original_cells": [
+        "5078835.81",
+        "4913794.98"
+      ]
+    },
+    {
+      "metric": "provisions_inr_crore",
+      "label": "Provisions",
+      "original_cells": [
+        "31963.25",
+        "33242.29"
+      ]
+    },
+    {
+      "metric": "current_liabilities_provisions_inr_crore",
+      "label": "Current Liabilities and Provisions",
+      "original_cells": [
+        "5110799.06",
+        "4947037.27"
+      ]
+    },
+    {
+      "metric": "net_current_assets_inr_crore",
+      "label": "Net Current Assets",
+      "original_cells": [
+        "3910363.11",
+        "4335787.22"
+      ]
+    },
+    {
+      "metric": "balance_sheet_applications_total_inr_crore",
+      "label": "Total Applications of Funds",
+      "original_cells": [
+        "120238319.50",
+        "105945815.84"
+      ]
+    }
+  ],
+  "cash_flow": [
+    {
+      "metric": "cash_flow_operating_net_inr_crore",
+      "label": "Net Cash Generated from Operating Activities",
+      "original_cells": [
+        "1277006.20",
+        "-1339576.08"
+      ]
+    },
+    {
+      "metric": "cash_flow_investing_net_inr_crore",
+      "label": "Net Cash Used in Investing Activities",
+      "original_cells": [
+        "-12283707.10",
+        "-13534815.30"
+      ]
+    },
+    {
+      "metric": "cash_flow_financing_net_inr_crore",
+      "label": "Net Cash Generated from Financing Activities",
+      "original_cells": [
+        "11943885.99",
+        "18136973.14"
+      ]
+    },
+    {
+      "metric": "cess_funds_cash_received_inr_crore",
+      "label": "Cess Funds Received from Government of India",
+      "original_cells": [
+        "11795000.00",
+        "12772741.78"
+      ]
+    },
+    {
+      "metric": "additional_budget_cash_receipts_inr_crore",
+      "label": "Capital Additional Budgetary Receipts",
+      "original_cells": [
+        "5610324.50",
+        "4053587.00"
+      ]
+    },
+    {
+      "metric": "invit_proceeds_cash_inr_crore",
+      "label": "Proceeds from InvIT Projects",
+      "original_cells": [
+        "1773794.54",
+        "1569988.18"
+      ]
+    },
+    {
+      "metric": "eap_grant_cash_inr_crore",
+      "label": "EAP Grant Received and Utilized towards Revenue Expenditure",
+      "original_cells": [
+        "178419.00",
+        "62528.03"
+      ]
+    },
+    {
+      "metric": "toll_adjusted_ploughback_cash_inr_crore",
+      "label": "Adjusted Plough Back of Toll Remittance etc",
+      "original_cells": [
+        "4011878.74",
+        "3042265.31"
+      ]
+    },
+    {
+      "metric": "adb_loan_repayment_cash_inr_crore",
+      "label": "Repayment of ADB Loan including Exchange Fluctuation",
+      "original_cells": [
+        "-13083.26",
+        "-11255.65"
+      ]
+    },
+    {
+      "metric": "54ec_bonds_net_cash_inr_crore",
+      "label": "Proceeds or Repayment of 54EC Capital Gains Tax Free Bonds",
+      "original_cells": [
+        "-445095.00",
+        "-470634.60"
+      ]
+    },
+    {
+      "metric": "nssf_term_loans_net_cash_inr_crore",
+      "label": "Proceeds or Repayment from NSSF Loan and Term Loans",
+      "original_cells": [
+        "-8618734.86",
+        "-169356.72"
+      ]
+    },
+    {
+      "metric": "ncd_redemption_cash_inr_crore",
+      "label": "Redemption of Tax Free Secured Redeemable Non Convertible Bonds",
+      "original_cells": [
+        "-",
+        "-122856.92"
+      ]
+    },
+    {
+      "metric": "bond_interest_other_expenditure_cash_inr_crore",
+      "label": "Interest and Other Expenditure on Bond",
+      "original_cells": [
+        "-2348617.67",
+        "-2590033.28"
+      ]
+    },
+    {
+      "metric": "cash_flow_net_change_inr_crore",
+      "label": "Net Increase or Decrease in Cash and Cash Equivalents",
+      "original_cells": [
+        "937185.07",
+        "3262581.75"
+      ]
+    },
+    {
+      "metric": "cash_flow_opening_balance_inr_crore",
+      "label": "Opening Cash and Cash Equivalents",
+      "original_cells": [
+        "3638287.61",
+        "375705.86"
+      ]
+    },
+    {
+      "metric": "cash_flow_closing_balance_inr_crore",
+      "label": "Closing Cash and Cash Equivalents",
+      "original_cells": [
+        "4575472.68",
+        "3638287.61"
+      ]
+    },
+    {
+      "metric": "capital_road_work_cash_inr_crore",
+      "label": "Increase or Decrease in Capital Work on Road Assets Entrusted to NHAI",
+      "original_cells": [
+        "-12409151.80",
+        "-13803396.49"
+      ]
+    }
+  ],
+  "debt": [
+    {
+      "end": "2025-03-31",
+      "original_value": "24460406.54",
+      "assurance": "limited_review_unaudited"
+    },
+    {
+      "end": "2024-12-31",
+      "original_value": "27604608.87",
+      "assurance": "unaudited_comparator"
+    },
+    {
+      "end": "2024-03-31",
+      "original_value": "33537319.66",
+      "assurance": "audited_comparator"
+    }
+  ]
+}

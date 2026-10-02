@@ -1,0 +1,653 @@
+{
+  "source_id": "morth_annual_report_2025_26",
+  "document_sha256": "d0dd808600a8a2d0013b1fe4772d104f14dc18fc810c21a09a16aad01ea5624a",
+  "review_method": "Pinned scanned official PDF rendered at 200dpi; state network Appendix 2 and Appendices 3, 5, 6 count/currency cells checked visually. OCR draft rejected where digits differed (FY2003-04 CRIF release778.94). No automatic OCR facts.",
+  "reviewed_at": "2026-10-02",
+  "network": [
+    {
+      "page": 127,
+      "state": "Andhra Pradesh",
+      "nh_count": "55",
+      "length_km": "8704"
+    },
+    {
+      "page": 127,
+      "state": "Arunachal Pradesh",
+      "nh_count": "14",
+      "length_km": "4367"
+    },
+    {
+      "page": 127,
+      "state": "Assam",
+      "nh_count": "38",
+      "length_km": "4077"
+    },
+    {
+      "page": 127,
+      "state": "Bihar",
+      "nh_count": "57",
+      "length_km": "6400"
+    },
+    {
+      "page": 127,
+      "state": "Chandigarh",
+      "nh_count": "1",
+      "length_km": "15"
+    },
+    {
+      "page": 127,
+      "state": "Chhattisgarh",
+      "nh_count": "20",
+      "length_km": "3620"
+    },
+    {
+      "page": 127,
+      "state": "Delhi",
+      "nh_count": "12",
+      "length_km": "157"
+    },
+    {
+      "page": 127,
+      "state": "Goa",
+      "nh_count": "6",
+      "length_km": "299"
+    },
+    {
+      "page": 128,
+      "state": "Gujarat",
+      "nh_count": "45",
+      "length_km": "8135"
+    },
+    {
+      "page": 128,
+      "state": "Haryana",
+      "nh_count": "38",
+      "length_km": "3332"
+    },
+    {
+      "page": 128,
+      "state": "Himachal Pradesh",
+      "nh_count": "19",
+      "length_km": "2602"
+    },
+    {
+      "page": 128,
+      "state": "Jammu & Kashmir",
+      "nh_count": "11",
+      "length_km": "1935"
+    },
+    {
+      "page": 128,
+      "state": "Jharkhand",
+      "nh_count": "32",
+      "length_km": "3633"
+    },
+    {
+      "page": 128,
+      "state": "Karnataka",
+      "nh_count": "49",
+      "length_km": "8191"
+    },
+    {
+      "page": 128,
+      "state": "Kerala",
+      "nh_count": "12",
+      "length_km": "1858"
+    },
+    {
+      "page": 128,
+      "state": "Ladakh",
+      "nh_count": "3",
+      "length_km": "806"
+    },
+    {
+      "page": 128,
+      "state": "Madhya Pradesh",
+      "nh_count": "46",
+      "length_km": "9263"
+    },
+    {
+      "page": 129,
+      "state": "Maharashtra",
+      "nh_count": "102",
+      "length_km": "18462"
+    },
+    {
+      "page": 129,
+      "state": "Manipur",
+      "nh_count": "11",
+      "length_km": "1840"
+    },
+    {
+      "page": 129,
+      "state": "Meghalaya",
+      "nh_count": "5",
+      "length_km": "1156"
+    },
+    {
+      "page": 129,
+      "state": "Mizoram",
+      "nh_count": "9",
+      "length_km": "1499"
+    },
+    {
+      "page": 129,
+      "state": "Nagaland",
+      "nh_count": "12",
+      "length_km": "1670"
+    },
+    {
+      "page": 129,
+      "state": "Odisha",
+      "nh_count": "32",
+      "length_km": "5897"
+    },
+    {
+      "page": 129,
+      "state": "Puducherry",
+      "nh_count": "2",
+      "length_km": "64"
+    },
+    {
+      "page": 129,
+      "state": "Punjab",
+      "nh_count": "38",
+      "length_km": "4264"
+    },
+    {
+      "page": 129,
+      "state": "Rajasthan",
+      "nh_count": "53",
+      "length_km": "10733"
+    },
+    {
+      "page": 130,
+      "state": "Sikkim",
+      "nh_count": "9",
+      "length_km": "721"
+    },
+    {
+      "page": 130,
+      "state": "Tamil Nadu",
+      "nh_count": "50",
+      "length_km": "6951"
+    },
+    {
+      "page": 130,
+      "state": "Telangana",
+      "nh_count": "30",
+      "length_km": "4926"
+    },
+    {
+      "page": 130,
+      "state": "Tripura",
+      "nh_count": "6",
+      "length_km": "889"
+    },
+    {
+      "page": 130,
+      "state": "Uttar Pradesh",
+      "nh_count": "91",
+      "length_km": "12134"
+    },
+    {
+      "page": 130,
+      "state": "Uttarakhand",
+      "nh_count": "26",
+      "length_km": "3670"
+    },
+    {
+      "page": 130,
+      "state": "West Bengal",
+      "nh_count": "35",
+      "length_km": "3910"
+    },
+    {
+      "page": 130,
+      "state": "Andaman and Nicobar Islands",
+      "nh_count": "1",
+      "length_km": "331"
+    },
+    {
+      "page": 130,
+      "state": "Dadra and Nagar Haveli",
+      "nh_count": "2",
+      "length_km": "37"
+    },
+    {
+      "page": 130,
+      "state": "Daman and Diu",
+      "nh_count": "2",
+      "length_km": "22"
+    }
+  ],
+  "network_published_total_km": 146572,
+  "network_published_total_count": 670,
+  "crif": [
+    {
+      "fiscal_year": "2000-01",
+      "allocation": "985.00",
+      "release": "332.01"
+    },
+    {
+      "fiscal_year": "2001-02",
+      "allocation": "962.03",
+      "release": "300.00"
+    },
+    {
+      "fiscal_year": "2002-03",
+      "allocation": "980.00",
+      "release": "950.28"
+    },
+    {
+      "fiscal_year": "2003-04",
+      "allocation": "910.76",
+      "release": "778.94"
+    },
+    {
+      "fiscal_year": "2004-05",
+      "allocation": "868.00",
+      "release": "607.40"
+    },
+    {
+      "fiscal_year": "2005-06",
+      "allocation": "1535.36",
+      "release": "1299.27"
+    },
+    {
+      "fiscal_year": "2006-07",
+      "allocation": "1535.46",
+      "release": "1426.29"
+    },
+    {
+      "fiscal_year": "2007-08",
+      "allocation": "1565.32",
+      "release": "1322.19"
+    },
+    {
+      "fiscal_year": "2008-09",
+      "allocation": "1271.64",
+      "release": "2122.00"
+    },
+    {
+      "fiscal_year": "2009-10",
+      "allocation": "1786.56",
+      "release": "1344.98"
+    },
+    {
+      "fiscal_year": "2010-11",
+      "allocation": "2714.87",
+      "release": "2460.29"
+    },
+    {
+      "fiscal_year": "2011-12",
+      "allocation": "2288.65",
+      "release": "1927.39"
+    },
+    {
+      "fiscal_year": "2012-13",
+      "allocation": "2359.91",
+      "release": "2350.37"
+    },
+    {
+      "fiscal_year": "2013-14",
+      "allocation": "2359.91",
+      "release": "2226.60"
+    },
+    {
+      "fiscal_year": "2014-15",
+      "allocation": "2642.63",
+      "release": "2094.78"
+    },
+    {
+      "fiscal_year": "2015-16",
+      "allocation": "2852.64",
+      "release": "2369.47"
+    },
+    {
+      "fiscal_year": "2016-17",
+      "allocation": "7175.00",
+      "release": "5069.82"
+    },
+    {
+      "fiscal_year": "2017-18",
+      "allocation": "6744.07",
+      "release": "6367.11"
+    },
+    {
+      "fiscal_year": "2018-19",
+      "allocation": "6998.93",
+      "release": "6784.50"
+    },
+    {
+      "fiscal_year": "2019-20",
+      "allocation": "7421.58",
+      "release": "6868.66"
+    },
+    {
+      "fiscal_year": "2020-21",
+      "allocation": "6820.00",
+      "release": "6613.30"
+    },
+    {
+      "fiscal_year": "2021-22",
+      "allocation": "6945.22",
+      "release": "6926.58"
+    },
+    {
+      "fiscal_year": "2022-23",
+      "allocation": "7974.31",
+      "release": "7551.98"
+    },
+    {
+      "fiscal_year": "2023-24",
+      "allocation": "8835.80",
+      "release": "8646.23"
+    },
+    {
+      "fiscal_year": "2024-25",
+      "allocation": "8799.60",
+      "release": "8743.44"
+    },
+    {
+      "fiscal_year": "2025-26",
+      "allocation": "9933.01",
+      "release": "6971.18"
+    }
+  ],
+  "permit": [
+    {
+      "state": "Andhra Pradesh",
+      "original_INR": "653604480"
+    },
+    {
+      "state": "Arunachal Pradesh",
+      "original_INR": "1134730"
+    },
+    {
+      "state": "Assam",
+      "original_INR": "253044790"
+    },
+    {
+      "state": "Bihar",
+      "original_INR": "823813980"
+    },
+    {
+      "state": "Chandigarh",
+      "original_INR": "230350190"
+    },
+    {
+      "state": "Chhattisgarh",
+      "original_INR": "323398050"
+    },
+    {
+      "state": "Dadra and Nagar Haveli and Daman and Diu",
+      "original_INR": "166805310"
+    },
+    {
+      "state": "Delhi",
+      "original_INR": "756864910"
+    },
+    {
+      "state": "Goa",
+      "original_INR": "115742460"
+    },
+    {
+      "state": "Gujarat",
+      "original_INR": "1142673110"
+    },
+    {
+      "state": "Haryana",
+      "original_INR": "898706160"
+    },
+    {
+      "state": "Himachal Pradesh",
+      "original_INR": "335880080"
+    },
+    {
+      "state": "Jammu & Kashmir",
+      "original_INR": "96452050"
+    },
+    {
+      "state": "Jharkhand",
+      "original_INR": "753460720"
+    },
+    {
+      "state": "Karnataka",
+      "original_INR": "1460397510"
+    },
+    {
+      "state": "Kerala",
+      "original_INR": "453892000"
+    },
+    {
+      "state": "Madhya Pradesh",
+      "original_INR": "1781526100"
+    },
+    {
+      "state": "Maharashtra",
+      "original_INR": "1856418280"
+    },
+    {
+      "state": "Manipur",
+      "original_INR": "2269460"
+    },
+    {
+      "state": "Meghalaya",
+      "original_INR": "20425140"
+    },
+    {
+      "state": "Mizoram",
+      "original_INR": "3404190"
+    },
+    {
+      "state": "Nagaland",
+      "original_INR": "15886220"
+    },
+    {
+      "state": "Odisha",
+      "original_INR": "541266210"
+    },
+    {
+      "state": "Punjab",
+      "original_INR": "628640420"
+    },
+    {
+      "state": "Puducherry",
+      "original_INR": "173613690"
+    },
+    {
+      "state": "Rajasthan",
+      "original_INR": "1380966410"
+    },
+    {
+      "state": "Sikkim",
+      "original_INR": "1134730"
+    },
+    {
+      "state": "Tamil Nadu",
+      "original_INR": "637718260"
+    },
+    {
+      "state": "Telangana",
+      "original_INR": "234889110"
+    },
+    {
+      "state": "Tripura",
+      "original_INR": "11347300"
+    },
+    {
+      "state": "Uttarakhand",
+      "original_INR": "453892000"
+    },
+    {
+      "state": "Uttar Pradesh",
+      "original_INR": "1851879360"
+    },
+    {
+      "state": "West Bengal",
+      "original_INR": "661547590"
+    }
+  ],
+  "permit_published_total_INR": 18723045000,
+  "major_heads": [
+    {
+      "id": "mh3451",
+      "label": "Secretariat",
+      "BE": "176.04",
+      "YTD": "130.66"
+    },
+    {
+      "id": "mh3054",
+      "label": "Roads and Bridges",
+      "BE": "9628.00",
+      "YTD": "8459.81"
+    },
+    {
+      "id": "mh3055",
+      "label": "Road Transport",
+      "BE": "1170.04",
+      "YTD": "611.33"
+    },
+    {
+      "id": "mh3601",
+      "label": "Grants in Aid to State Governments",
+      "BE": "18685.06",
+      "YTD": "16084.67"
+    },
+    {
+      "id": "mh3602",
+      "label": "Grants in Aid to Union Territories",
+      "BE": "388.84",
+      "YTD": "324.02"
+    },
+    {
+      "id": "gross_revenue",
+      "label": "Gross Revenue Section",
+      "BE": "30047.98",
+      "YTD": "25610.49"
+    },
+    {
+      "id": "revenue_recoveries",
+      "label": "Revenue Recoveries",
+      "BE": "-14955.97",
+      "YTD": "-10456.84"
+    },
+    {
+      "id": "net_revenue",
+      "label": "Net Revenue Section",
+      "BE": "15092.01",
+      "YTD": "15153.65"
+    },
+    {
+      "id": "mh4552",
+      "label": "North Eastern Areas",
+      "BE": "19499.09",
+      "YTD": "0"
+    },
+    {
+      "id": "mh5054_voted",
+      "label": "Capital Outlay on Roads and Bridges Voted",
+      "BE": "312757.09",
+      "YTD": "269038.07"
+    },
+    {
+      "id": "mh5054_charged",
+      "label": "Bharatmala Charged",
+      "BE": "5.00",
+      "YTD": "0"
+    },
+    {
+      "id": "mh5055",
+      "label": "Capital Outlay on Road Transport",
+      "BE": "60.00",
+      "YTD": "22.04"
+    },
+    {
+      "id": "mh5475",
+      "label": "Other Economic Services",
+      "BE": "4.00",
+      "YTD": "1.72"
+    },
+    {
+      "id": "gross_capital",
+      "label": "Gross Capital Section",
+      "BE": "332325.18",
+      "YTD": "269061.83"
+    },
+    {
+      "id": "capital_recoveries",
+      "label": "Capital Recoveries",
+      "BE": "-60084.03",
+      "YTD": "-40109.47"
+    },
+    {
+      "id": "net_capital_voted",
+      "label": "Net Capital Section Voted",
+      "BE": "272236.15",
+      "YTD": "228952.36"
+    },
+    {
+      "id": "net_capital_charged",
+      "label": "Net Capital Section Charged",
+      "BE": "5.00",
+      "YTD": "0"
+    },
+    {
+      "id": "net_capital",
+      "label": "Net Capital Section",
+      "BE": "272241.15",
+      "YTD": "228952.36"
+    },
+    {
+      "id": "gross_total_voted",
+      "label": "Gross Total Voted",
+      "BE": "362368.16",
+      "YTD": "294672.32"
+    },
+    {
+      "id": "gross_total_charged",
+      "label": "Gross Total Charged",
+      "BE": "5.00",
+      "YTD": "0"
+    },
+    {
+      "id": "total_recoveries",
+      "label": "Total Recoveries",
+      "BE": "-75040.00",
+      "YTD": "-50566.31"
+    },
+    {
+      "id": "net_total",
+      "label": "Net Total",
+      "BE": "287333.16",
+      "YTD": "244106.01"
+    }
+  ],
+  "operational": [
+    {
+      "metric": "constructed_length_km",
+      "value": "4989",
+      "page": 12,
+      "start": "2025-04-01",
+      "end": "2025-12-31",
+      "estimate": "YTD_actual"
+    },
+    {
+      "metric": "awarded_length_km",
+      "value": "2257",
+      "page": 12,
+      "start": "2025-04-01",
+      "end": "2025-12-31",
+      "estimate": "YTD_actual"
+    },
+    {
+      "metric": "awarded_length_km",
+      "value": "7538",
+      "page": 12,
+      "start": "2024-04-01",
+      "end": "2025-03-31",
+      "estimate": "actual"
+    }
+  ]
+}

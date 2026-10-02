@@ -1,0 +1,117 @@
+sources:
+  - source_id: morth_road_accidents_2024_final
+    official_flag: true
+    publisher_org: Ministry of Road Transport and Highways
+    publisher_type: government
+    domain: morth.gov.in
+    dataset_title: Road Accidents in India 2024, final state and road-class statistics
+    theme: safety
+    access_type: PDF
+    auth: none
+    update_frequency: annual
+    geographic_granularity: state_ut_road_class
+    temporal_coverage: Calendar years2021-2024, current report vintage; all roads, National Highways including Expressways, and State Highways
+    license_terms: Public government statistical report; attribution and table/page citation required. No separate open-data license inferred.
+    retrieval_method: pinned official PDF, rendered/OCR-assisted and visually reviewed annexures with 48 column-sum reconciliations
+    reliability_grade: A
+    reliability_justification: Official final statistical report, count columns checked against rendered original tables and printed totals.
+    known_limitations: Calendar2024 is the latest observed year here, not2026. Earlier figures are this report's revised comparative vintage and do not overwrite old reports. National Highways include Expressways. All-roads totals are distinct from NH/SH counts. Publication day is not asserted from the portal featured date11June2026; ranks and density columns are excluded.
+    allow_auto_fetch: true
+    url: https://morth.gov.in/backend/documents/uploaded/1781177676_V1gUW8tJWT.pdf
+    resource_page_url: https://morth.gov.in/backend/api/home-page-data
+    permanent_identifier_hint: Road Accidents in India2024 Annexures2-5,9-12,14-17
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2024-12-31'
+    publication_date: null
+    publication_date_unknown: true
+    listing_date: '2026-06-11'
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Observation cutoffs are31December of each calendar year. The official home-page-data featured date is discovery metadata, not a verified publication day. Explicit printed zeros are retained; missing cells never become zero. Full PDF SHA256 pinned in governed evidence.
+  - source_id: nhai_fy2025_26_performance
+    official_flag: true
+    publisher_org: Ministry of Road Transport and Highways / National Highways Authority of India / Press Information Bureau
+    publisher_type: government
+    domain: pib.gov.in
+    dataset_title: NHAI FY2025-26 construction, capital expenditure and funding administrative actuals
+    theme: finance_construction
+    access_type: HTML
+    auth: none
+    update_frequency: annual_release
+    geographic_granularity: agency_national
+    temporal_coverage: FY2025-26 complete fiscal-year administrative actuals and separately labelled construction target
+    license_terms: Public official press release; attribution and release identifier required.
+    retrieval_method: exact pinned PIB PRID2247870, labelled text extraction and funding reconciliation
+    reliability_grade: A
+    reliability_justification: Exact official release reports FY2025-26 NHAI construction and capital funding amounts; administrative assurance is explicitly distinguished from audit.
+    known_limitations: Press-release administrative actuals, not audited financial statements or a balance sheet. Own resources funding is not gross toll revenue. Construction target remains excluded from actual calculations. No MoRTH-wide/NHAI scope merging.
+    allow_auto_fetch: false
+    url: https://www.pib.gov.in/PressReleasePage.aspx?PRID=2247870&lang=1&reg=3
+    resource_page_url: https://www.pib.gov.in/PressReleasePage.aspx?PRID=2247870&lang=1&reg=3
+    permanent_identifier_hint: PIB Release2247870, published1April2026
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2026-03-31'
+    publication_date: '2026-04-01'
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: INR244362crore capex = INR238384crore Government Budgetary Support + INR5978crore own resources. NHAI constructed5313km against target4640km. Raw wrapper bytes and normalized visible-text digest pinned; no invented live API. Pinned governed extract retained between manually reviewed release revisions.
+  - source_id: morth_annual_report_2025_26
+    official_flag: true
+    publisher_org: Ministry of Road Transport and Highways
+    publisher_type: government
+    domain: morth.gov.in
+    dataset_title: MoRTH Annual Report2025-26, network, construction, CRIF, permit-fee and major-head expenditure tables
+    theme: finance_network_construction
+    access_type: PDF
+    auth: none
+    update_frequency: annual
+    geographic_granularity: state_ut_and_ministry
+    temporal_coverage: Network stock31December2025; FY2025-26 YTD through December2025; historical CRIF FY2000-01 onwards; reported FY2025-26 BE with unknown original vintage
+    license_terms: Public government report; attribution and appendix/page citation required. No separate open-data license inferred.
+    retrieval_method: pinned scanned PDF, OCR-assisted visually reviewed selected tables and reconciled original units
+    reliability_grade: A
+    reliability_justification: Official ministry annual report; pinned source bytes and table cells reviewed against rendered pages.
+    known_limitations: Report year is not the observation cutoff. Appendix2 state lengths sum146570km while published total is146572km; national total retained but excluded from arithmetic. Published national NH count670 is not additive across state counts. Historical separate Dadra/Nagar Haveli and Daman/Diu labels retained. Appendix6 BE original vintage unknown and excluded from arithmetic; YTD expenditure is administrative reported cash expenditure. Permit fees are transport receipts/disbursements, not toll or SH-only expenditure. Narrative capital expenditure differs from detailed Appendix6 and is not substituted.
+    allow_auto_fetch: true
+    max_document_bytes: 100000000
+    url: https://morth.gov.in/backend/documents/uploaded/RTH%20Annual%20Report%20English.pdf
+    resource_page_url: https://morth.gov.in/backend/api/reports
+    permanent_identifier_hint: Official reports API publication30March2026; Annual Report2025-26 Appendices2,3,5,6
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2025-12-31'
+    publication_date: '2026-03-30'
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Exact official reports API record publishes30March2026.81.37MB scanned PDF is checksum pinned; fresh changed document requires reviewed re-extraction. Per-row fiscal, stock and YTD cutoffs preserved independently of publication. No fullFY2025-26 cash actuals inferred from report title.
+  - source_id: nhai_financial_results_2025_03_unaudited
+    official_flag: true
+    publisher_org: National Highways Authority of India
+    publisher_type: government
+    domain: nhai.gov.in
+    dataset_title: NHAI standalone unaudited results31March2025, limited-review balance sheet, annual cash flows and debt comparatives
+    theme: finance_debt
+    access_type: PDF
+    auth: none
+    update_frequency: quarterly_annual_statement
+    geographic_granularity: agency_national
+    temporal_coverage: FY2024-25 unaudited/limited-review annual cash flows and31March2025 balances; FY2023-24 audited comparator;31December2024 unaudited debt comparator
+    license_terms: Public authority financial statement; attribution and original statement/page citation required.
+    retrieval_method: pinned official seven-page scanned financial statement, rendered and visually reviewed balance-sheet/cash-flow/debt cells
+    reliability_grade: A
+    reliability_justification: Exact authority financial filing with assurance explicitly preserved per comparative column; accounting unit INRlakh retained and normalized to INRcrore.
+    known_limitations: Current period is unaudited with limited review, not a CAG audited annual report. Publication/signature day unverified and remains unknown. NHAI is implementing agency for Government assets, so conventional corporate profit/interest ratios can mislead. Cash-flow bond interest differs from establishment finance cost; toll adjusted ploughback differs from gross toll receipts. Dashes/NA remain missing. No claim this is the latest quarterly filing worldwide; later authoritative availability remains separately assessed.
+    allow_auto_fetch: true
+    url: https://nhai.gov.in/nhai/sites/default/files/mix_file/Q_F_f_tQended_on_31-March-2025.pdf
+    resource_page_url: https://nhai.gov.in/nhai/sites/default/files/mix_file/Q_F_f_tQended_on_31-March-2025.pdf
+    permanent_identifier_hint: Quarter and year ended31March2025, PDF pages2,4,6
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2025-03-31'
+    publication_date: null
+    publication_date_unknown: true
+    research_verified_at: '2026-10-02'
+    manual_fallback: true
+    notes: Original INRlakh multiplied by0.01. Stock dates are actual column balance dates; flow dates are own fiscal years. Prior audited comparative remains distinct from current limited-review unaudited statement. Publication is never filled from URL filename, file metadata or retrieval date.
