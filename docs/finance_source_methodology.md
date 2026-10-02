@@ -1,10 +1,10 @@
 # Primary finance and highway disclosure methodology
 
-Research cutoff: 2 October 2026. The original enrichment added 16 government, issuer, payment-system and multilateral sources. The subsequent freshness pass adds 11 separately identified sources. Government authority does not establish
+Research cutoff: 2 October 2026. The original enrichment added 16 government, issuer, payment-system and multilateral sources. The subsequent freshness pass adds 12 separately identified sources. Government authority does not establish
 extract quality; issuer disclosures are not classified as government measurements.
 
-The governed snapshots contain **10,639 numerical facts**, of which **10,261** are
-eligible for scoped calculations, from 26 sources with validated numerical snapshots.
+The governed snapshots contain **10,640 numerical facts**, of which **10,262** are
+eligible for scoped calculations, from 27 sources with validated numerical snapshots.
 One source has a typed empty snapshot and an explicit evidence gap. Every
 nonempty row records its source URL, physical document/table/page anchor, source
 SHA256, original units, normalized value, entity, road class, period, statement
@@ -218,12 +218,13 @@ no blanket OGL licence is asserted for those documents.
 
 ## Additional freshness evidence
 
-The 2 October freshness pass adds 6,460 numerical facts from 11 sources:
+The 2 October freshness pass adds 6,461 numerical facts from 12 sources:
 
 | Source family | New observations | Qualification |
 |---|---:|---|
 | PAIMANA August 2026 flash report | 3,928 cost, cumulative expenditure and physical-progress facts for 982 highway projects | Monitored projects of at least ₹150 crore; portfolio scope, not network length or all projects. Cross-publisher project IDs need a verified crosswalk before aggregation. |
 | MoRTH Road Accidents 2024 | 1,776 national and state road-class observations | Final statistical tables; calendar years 2021–24 in state annexures. All 48 state-column totals reconcile. Implementing-agency responsibility tables have distinct statement bases. |
+| MoSPI all-NH FY2025–26 construction release | 1 fact, 9,360 route-km | Administrative complete-year MoRTH scope, published 16 July 2026; distinct from NHAI-only 5,313 km. |
 | NHAI FY2025–26 performance release | 5 administrative facts | Four eligible measured facts; construction target excluded. Administrative expenditure is not audited accounts. |
 | MoRTH FY2025–26 annual report | 207 observations | 157 eligible. Individual cutoffs govern stock, spending and construction; 146,572 km national stock differs from state sum 146,570 km, so the national assertion is quarantined for reconciliation. |
 | NHAI March 2025 financial results | 74 financial facts | Unaudited, limited-review statements; audited prior comparators retain separate assurance and periods. |

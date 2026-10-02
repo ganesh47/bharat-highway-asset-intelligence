@@ -237,7 +237,7 @@ REQUIRED_CHARTS = [
         "data_selector": ".bar-row",
         "min_points": 1,
         "meta_markers": ["As of"],
-        "note_markers": ["Latest available current-price GSDP year varies by state", "relative delivery burden"],
+        "note_markers": ["Common-period current-price GSDP uses greatest available compatible state coverage", "relative delivery burden"],
         "empty_markers": ["No records available."],
     },
 
@@ -386,6 +386,9 @@ def _frontend_fixture_script(source: str) -> str:
     check(completeCalendarQuarterFlows([july,netcActual,{...september,observation_status:'provisional'}]).length===0,'quarter cannot silently mix observation statuses');
     check(completeCalendarQuarterFlows([july,netcActual,{...september,period_basis:'project_snapshot'}]).length===0,'project stocks are not monthly flows');
     check(completeCalendarQuarterFlows([july,netcActual,september,september]).length===0,'duplicate month breaks quarter');
+    check(completeCalendarQuarterFlows([july,netcActual,september].map(row=>({...row,metric:'debt_outstanding_inr_crore'}))).length===0,'monthly-labelled debt stocks are not additive flows');
+    check(selectPeriodView([annual('A','2024-03-31',1),{...annual('A','2025-03-31',2),period_basis:'calendar_quarter'}],'latest').length===2,'latest view preserves different period bases');
+    check(selectPeriodView([{...annual('A','2024-03-31',1),observation_status:'final'},{...annual('A','2025-03-31',2),observation_status:'provisional'}],'latest').length===2,'latest view preserves final and provisional scopes');
 
     return failures;
     """
@@ -821,7 +824,8 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
             await page.get_by_role('button', name='Economic context', exact=False).click()
             await page.get_by_label('Period view', exact=True).select_option('latest')
             await page.get_by_label('Reporting period', exact=True).select_option('2024-04-01 → 2025-03-31 (fiscal_year)')
-            if not all(marker in await table.inner_text() for marker in ['rbi_gsdp_current_prices_2024_25', 'current', '2025-03-31']):
+            latest_gsdp_text = await table.inner_text()
+            if not all(marker in latest_gsdp_text for marker in ['rbi_gsdp_current_prices_2024_25', 'current', '2025-03-31']):
                 raise RuntimeError('Latest GSDP evidence lost source, price basis or observation cutoff')
             await page.get_by_role('button', name='State road spending', exact=False).click()
             for state, sid in [('Karnataka','cag_karnataka_road_finances_2024_25'), ('Maharashtra','cag_maharashtra_road_finances_2024_25'), ('Gujarat','cag_gujarat_road_finances_2024_25'), ('Uttar Pradesh','cag_uttar_pradesh_road_finances_2024_25'), ('Telangana','cag_telangana_road_finances_2024_25')]:

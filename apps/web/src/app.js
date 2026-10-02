@@ -2282,7 +2282,7 @@ function netcPaymentSeries(rows, metric, unit) {
 function completeCalendarQuarterFlows(rows) {
   const quarters = new Map();
   for (const row of rows) {
-    if (row.period_basis !== 'calendar_month' || row.estimate_type !== 'actual' || row.data_as_of !== row.period_end || !Number.isFinite(num(row.value))) continue;
+    if (!['netc_payment_transactions', 'netc_payment_amount_inr_crore'].includes(row.metric) || row.period_basis !== 'calendar_month' || row.estimate_type !== 'actual' || row.data_as_of !== row.period_end || !Number.isFinite(num(row.value))) continue;
     const end = new Date(`${row.period_end}T00:00:00Z`);
     if (!Number.isFinite(end.getTime()) || row.period_start !== `${row.period_end.slice(0,7)}-01` || new Date(Date.UTC(end.getUTCFullYear(),end.getUTCMonth()+1,0)).toISOString().slice(0,10) !== row.period_end) continue;
     const q = Math.floor(end.getUTCMonth()/3);
@@ -2414,7 +2414,7 @@ function DisclosureExplorer({ rows = [], catalog, selectedState, sourceFilter })
           React.createElement('a', { href: validCitation(item.numerator.citation_url), target: '_blank', rel: 'noreferrer' }, `Numerator · ${item.numerator.table_page}`), ' / ',
           React.createElement('a', { href: validCitation(item.denominator.citation_url), target: '_blank', rel: 'noreferrer' }, `Denominator · ${item.denominator.table_page}`)))
           : React.createElement('p', { className: 'insight-note' }, 'No disclosed compatible numerator/denominator pair for this selection. Calculations require the same entity, agency, period, accounting basis and source; cost/km also requires kilometre units and the same cutoff. Missing pairs are not inferred.')) : null,
-      React.createElement('p', { className: 'metric-meta', role: 'status', 'aria-live': 'polite' }, `${ordered.length.toLocaleString('en-IN')} observations · ${new Set(ordered.map((row) => row.source_id)).size} sources · ${new Set(ordered.map((row) => normalizeState(row.state)).filter((state) => state && !isAggregateStateLabel(state))).size} State/UT locations. Missing or omitted evidence is not zero.`),
+      React.createElement('p', { className: 'metric-meta', role: 'status', 'aria-live': 'polite' }, `${ordered.length.toLocaleString('en-IN')} observations · ${new Set(ordered.map((row) => row.source_id)).size} sources · ${new Set(ordered.map((row) => normalizeState(row.state)).filter((state) => state && !isAggregateStateLabel(state))).size} distinct disclosed location labels (including historical and multi-state scopes). Missing or omitted evidence is not zero.`),
       ordered.length ? React.createElement('div', { className: 'evidence-table-wrap', tabIndex: 0, role: 'region', 'aria-label': 'Scrollable disclosure evidence table' },
         React.createElement('table', { className: 'evidence-table', 'aria-describedby': 'analyst-comparability' },
           React.createElement('caption', null, `${activeTheme.title}: rows ${activePage * pageSize + 1}–${Math.min((activePage + 1) * pageSize, ordered.length)} of ${ordered.length}. CSV includes all filtered rows and original units.`),
@@ -2458,7 +2458,7 @@ function selectPeriodView(rows, mode) {
   if (mode === 'all') return rows;
   const groups = new Map();
   for (const row of rows) {
-    const key = ['source_id', 'metric', 'agency', 'road_class', 'unit', 'statement_basis', 'estimate_type', 'assurance', 'price_basis', 'base_year'].map((field) => row[field] || '').join('::');
+    const key = ['source_id', 'metric', 'agency', 'road_class', 'unit', 'period_basis', 'statement_basis', 'estimate_type', 'observation_status', 'assurance', 'price_basis', 'base_year'].map((field) => row[field] || '').join('::');
     groups.set(key, [...(groups.get(key) || []), row]);
   }
   const chosen = [];
