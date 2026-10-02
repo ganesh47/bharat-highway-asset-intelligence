@@ -1,0 +1,30 @@
+sources:
+  - source_id: mospi_paimana_monthly_projects
+    official_flag: true
+    publisher_org: Ministry of Statistics and Programme Implementation / MoRTH reporting agencies
+    publisher_type: government
+    domain: paimana-proj.mospi.gov.in
+    dataset_title: PAIMANA August2026 monitored highway projects costing ₹150crore and above
+    theme: projects
+    access_type: PDF
+    auth: none
+    update_frequency: monthly
+    geographic_granularity: project
+    temporal_coverage: August2026 project snapshot; agency submissions through24September2026
+    license_terms: Public government disclosure; attribution and page/table citation required. No blanket OGL licence asserted.
+    retrieval_method: published report catalogue discovery + checksum-pinned validated PDF tables
+    resource_page_url: https://paimana-proj.mospi.gov.in/ReportPage
+    discovery_url: https://paimana-proj.mospi.gov.in/ReportPage/Report?fyear=N&month=0&quater=0&reportType=F
+    reliability_grade: A
+    reliability_justification: Official dated MoSPI report; reconciled982unique MoRTH-monitored projects.
+    known_limitations: Thresholded monitored portfolio, not allNHAI projects or budget spending. Revised cost0 means no separate revision reported. Month-only completion dates retained without invented days. Agency submitted data provisional; overlaps with NHIDCL cannot be summed.
+    allow_auto_fetch: true
+    url: https://paimana-proj.mospi.gov.in/ReportPage/ViewPdf?id=1323&path=Content%5CArchiveReport%5Cflash%5C2026-27/FlashReport_August_2026.pdf
+    permanent_identifier_hint: PAIMANA August2026 report1323; Table6 project codes
+    connector: primary_disclosures
+    metric_category: official_measured
+    source_as_of_date: '2026-08-31'
+    publication_date: '2026-09-25'
+    next_expected_publication_at: '2026-10-26'
+    manual_fallback: true
+    notes: September2026 flash report announced26October2026 by PIBPRID2314852. Original project costs/cumulative expenditure are snapshots, never monthly flows. Cross-source IDs require a verified crosswalk.

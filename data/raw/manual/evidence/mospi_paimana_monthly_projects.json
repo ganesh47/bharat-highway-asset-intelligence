@@ -1,0 +1,29 @@
+{
+  "source_id": "mospi_paimana_monthly_projects",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-02T04:23:23.894230+00:00",
+  "last_checked_at": "2026-10-02T04:30:36.719997+00:00",
+  "documents": [
+    {
+      "url": "https://paimana-proj.mospi.gov.in/ReportPage/ViewPdf?id=1323&path=Content%5CArchiveReport%5Cflash%5C2026-27/FlashReport_August_2026.pdf",
+      "relative_path": "primary_disclosures/mospi_paimana_monthly_projects/versions/af9fad425ca081ab4c1fa49fedc1640ac0e6b199f04372761a31507754a03b02.pdf",
+      "sha256": "af9fad425ca081ab4c1fa49fedc1640ac0e6b199f04372761a31507754a03b02",
+      "size_bytes": 6468411
+    }
+  ],
+  "extraction_status": "validated",
+  "row_count": 3928,
+  "notes": "982 unique MoRTH-monitored road projects reconcile toAugust2026 report. Administrative reported snapshots, not audited accounts/allNHAI census. Stable PAIMANA IDs retained; NHIDCL/PMP and legacy OCMS IDs are distinct. September report announced26October2026; no September observations inferred.",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "active_document_sha256": [
+    "af9fad425ca081ab4c1fa49fedc1640ac0e6b199f04372761a31507754a03b02"
+  ],
+  "csv_sha256": "759b98ad518a95811fa54aee56433346e44116aac4dcef5ae892245ec12c26e3",
+  "history": {
+    "index_path": "history/mospi_paimana_monthly_projects/index.json",
+    "version_count": 1,
+    "revision_count": 0,
+    "candidate_version_id": "63e1f2eca10c7bebce772d6269d279acf876ed29faa6b4055788b0e7ee121a30"
+  }
+}
