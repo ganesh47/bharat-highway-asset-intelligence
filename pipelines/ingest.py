@@ -113,7 +113,75 @@ def _archive_generation(frame: pd.DataFrame, entry: dict, processed_root: Path, 
     return read_json(metadata_path)
 
 
-def _write_metric_registry(entries: dict, sources: dict, path: Path, cutoff: str) -> None:
+def _reconcile_governed_binding(entry: dict, source: dict, frame: pd.DataFrame, raw_root: Path) -> dict:
+    """Rebind current input bytes only after proving the published facts match."""
+    from pipelines.connectors.primary_disclosures import FACT_COLUMNS, all_source_ids, validate_facts
+    sid=source["source_id"]
+    metadata=entry.setdefault("manifest", {})
+    csv=raw_root/"manual"/(sid+".csv")
+    evidence_path=raw_root/"manual/evidence"/(sid+".json")
+    if sid in all_source_ids() and csv.is_file() and evidence_path.is_file():
+        try:
+            evidence=read_json(evidence_path)
+            if sha256_for_file(csv)!=evidence.get("csv_sha256"):
+                raise ValueError("Governed CSV checksum mismatch")
+            governed=validate_facts(pd.read_csv(csv,keep_default_na=False),sid,evidence,source.get("research_cutoff"))
+            published=governed.iloc[:0].copy() if frame.empty and governed.empty else validate_facts(frame.copy(),sid,evidence,source.get("research_cutoff"))
+            if dataframe_checksum(governed.reindex(columns=FACT_COLUMNS))!=dataframe_checksum(published.reindex(columns=FACT_COLUMNS)):
+                raise ValueError("Published facts differ from current governed extract")
+            suffixes=(f"manual/{sid}.csv",f"manual/evidence/{sid}.json")
+            retained=[item for item in metadata.get("raw_files", [])
+                      if not str(item.get("path", "")).replace("\\", "/").endswith(suffixes)]
+            retained.extend({"path":str(path),"sha256":sha256_for_file(path),"size_bytes":path.stat().st_size}
+                            for path in (csv,evidence_path))
+            for document in evidence.get("documents", []):
+                document_path=raw_root/document["relative_path"]
+                if document_path.is_file():
+                    if sha256_for_file(document_path)!=document["sha256"]:
+                        raise ValueError("Governed document checksum mismatch")
+                    if not any(item.get("path")==str(document_path) for item in retained):
+                        retained.append({"path":str(document_path),"sha256":document["sha256"],"size_bytes":document_path.stat().st_size})
+            metadata["raw_files"]=retained
+            metadata["source_documents"]=copy.deepcopy(evidence.get("documents", []))
+            entry["publication_history"]=evidence.get("history")
+            entry["governed_extract_binding_status"]="empty_gap_snapshot" if governed.empty else "validated_current_extract"
+            entry.pop("governed_extract_binding_error",None)
+        except (OSError,ValueError,KeyError,TypeError) as exc:
+            entry["governed_extract_binding_status"]="current_extract_not_bound"
+            entry["governed_extract_binding_error"]=str(exc)
+    unsupported=entry.get("evidence_status") in {"unverified","manual_unverified","synthetic"} or entry.get("metric_category") in {"proxy_derived","model_output"}
+    unbound={item["path"]:item for item in metadata.get("unbound_raw_evidence", [])}
+    bound=[]
+    for item in metadata.get("raw_files", []):
+        path=Path(item.get("path", ""))
+        if unsupported and path.is_file() and sha256_for_file(path)!=item.get("sha256"):
+            unbound[str(path)]={"path":str(path),"expected_sha256":item.get("sha256"),"available_sha256":sha256_for_file(path),"original_binding":copy.deepcopy(item),"availability":"present_unbound","binding_status":"quarantined","reason":"unsupported_legacy_input_checksum_mismatch"}
+        else:
+            bound.append(item)
+    metadata["raw_files"]=bound
+    for item in unbound.values():
+        path=Path(item["path"])
+        item["availability"]="present_unbound" if path.is_file() else "not_archived"
+        item["available_sha256"]=sha256_for_file(path) if path.is_file() else None
+        item["available_size_bytes"]=path.stat().st_size if path.is_file() else None
+    metadata["unbound_raw_evidence"]=list(unbound.values())
+    gaps=[]
+    for item in bound:
+        path=Path(item.get("path", ""))
+        if not path.is_file():
+            gaps.append({"path":str(path),"sha256":item.get("sha256"),"availability":"not_archived","reason":"primary_document_archive_missing" if path.suffix.lower() in {".pdf", ".html"} else "raw_input_archive_missing"})
+    for document in metadata.get("source_documents", []):
+        if not document.get("relative_path"):
+            continue
+        path=raw_root/document["relative_path"]
+        document["availability"]="archived" if path.is_file() else "not_archived"
+        if not path.is_file():
+            gaps.append({"path":str(path),"sha256":document.get("sha256"),"availability":"not_archived","reason":"primary_document_archive_missing"})
+    metadata["raw_evidence_gaps"]=list({(row["path"],row["sha256"]):row for row in gaps}.values())
+    return entry
+
+
+def _write_metric_registry(entries: dict, sources: dict, path: Path, cutoff: str, raw_root: Path) -> None:
     rows = []
     source_rows = []
     for sid, source in sources.items():
@@ -121,6 +189,7 @@ def _write_metric_registry(entries: dict, sources: dict, path: Path, cutoff: str
         output = Path(entry.get("output_table_path", "__missing_source__"))
         frame = _read_frame(output)
         if sid in entries:
+            entry = _reconcile_governed_binding(copy.deepcopy(entry),source | {"research_cutoff":cutoff},frame,raw_root)
             entry = _annotate(copy.deepcopy(entry),source | {"research_cutoff":cutoff},frame,output.parent)
             entries[sid] = entry
         coverage = metric_coverage(frame,source,entry,cutoff)
@@ -320,6 +389,13 @@ def run_ingestion(
                     # Retain exact bytes + collection lineage; only the check time advances.
                     entry = copy.deepcopy(previous) if previous else entry
                     entry["data_checksum"] = new_checksum
+                    # Current validated input bytes may have a different order
+                    # or serialization while describing the exact same facts.
+                    # Preserve published Parquet/collection dates, but bind the
+                    # checked inputs rather than obsolete raw-file fingerprints.
+                    for field in ("raw_files", "source_documents"):
+                        if field in candidate.get("manifest", {}):
+                            entry.setdefault("manifest", {})[field]=copy.deepcopy(candidate["manifest"][field])
                     outcome = "checked_unchanged"
                 else:
                     if entry.get("metric_category") != "model_output":
@@ -372,7 +448,7 @@ def run_ingestion(
                                    "disclosure_ready": entry["disclosure_ready"],
                                    "extraction_status": entry["extraction_status"],
                                    "row_count": len(published_df), "error": failure or entry.get("refresh_error")}
-    _write_metric_registry(entries,source_map,manifest_root/"metric_coverage.json",cutoff)
+    _write_metric_registry(entries,source_map,manifest_root/"metric_coverage.json",cutoff,raw_root)
     for sid,row in outcomes.items():
         if sid in source_map and sid in entries:
             for field in ("analytical_ready", "disclosure_ready", "extraction_status", "evidence_status", "source_as_of_date", "publication_date"):
@@ -390,9 +466,11 @@ def run_ingestion(
 def refresh_quality_only(inventory_path: str, selected_sources: list[str] | None = None,
                          processed_root: Path = Path("data/processed"),
                          manifest_root: Path = Path("data/manifests"),
-                         catalog_path: Path = Path("data/manifests/catalog.json"), cutoff: str | None = None) -> Dict[str, dict]:
+                         catalog_path: Path = Path("data/manifests/catalog.json"), cutoff: str | None = None,
+                         raw_root: Path | None = None) -> Dict[str, dict]:
     """Attach extraction results to their exact inputs; never refetch or rewrite parquet."""
     cutoff = research_cutoff(cutoff)
+    raw_root = raw_root or processed_root.parent/"raw"
     sources = {source["source_id"]: source | {"research_cutoff":cutoff} for source in load_inventory(inventory_path).sources}
     targets = selected_sources or sorted(DOCUMENT_SOURCES & sources.keys())
     entries = {entry["source_id"]: entry for entry in read_json(catalog_path).get("datasets", [])}
@@ -412,7 +490,7 @@ def refresh_quality_only(inventory_path: str, selected_sources: list[str] | None
                 row["extraction_status"] = entry["extraction_status"]
                 for field in ("source_as_of_date", "publication_date", "evidence_status"):
                     row[field] = entry.get(field)
-    _write_metric_registry(entries,sources,manifest_root/"metric_coverage.json",cutoff)
+    _write_metric_registry(entries,sources,manifest_root/"metric_coverage.json",cutoff,raw_root)
     for row in report.get("sources", []):
         if row["source_id"] in entries:
             for field in ("analytical_ready", "disclosure_ready", "extraction_status", "evidence_status", "source_as_of_date", "publication_date"):

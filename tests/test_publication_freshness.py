@@ -8,9 +8,9 @@ import pandas as pd
 
 from pipelines.common import sha256_for_file
 from pipelines.connectors.primary_disclosures import SnapshotBuilder, PrimaryDisclosuresConnector, validate_facts, research_cutoff
-from pipelines.ingest import run_ingestion
+from pipelines.ingest import run_ingestion, refresh_quality_only, _reconcile_governed_binding
 from pipelines.metric_coverage import metric_coverage, quarter_context
-from scripts.validate_artifacts import _dashboard_contract_errors
+from scripts.validate_artifacts import _dashboard_contract_errors, _validate_raw_lineage
 
 
 class DashboardFreshnessContractTests(unittest.TestCase):
@@ -21,6 +21,36 @@ class DashboardFreshnessContractTests(unittest.TestCase):
         self.assertTrue(any("Official NH fatalities" in error for error in _dashboard_contract_errors(fixed)))
         missing_unit = app.replace("Common-period GSDP at current prices (₹ crore)", "Common-period GSDP")
         self.assertTrue(any("₹ crore" in error for error in _dashboard_contract_errors(missing_unit)))
+
+    def test_raw_lineage_rejects_stale_hashes_and_requires_explicit_missing_pdf_gap(self):
+        with tempfile.TemporaryDirectory() as temp:
+            csv=Path(temp)/"facts.csv";csv.write_text("value\n10\n")
+            pdf=Path(temp)/"document.pdf";expected="a"*64
+            entry={"source_id":"fixture","manifest":{"raw_files":[{"path":str(csv),"sha256":"0"*64},{"path":str(pdf),"sha256":expected}]}}
+            errors=[];_validate_raw_lineage(entry,errors)
+            self.assertTrue(any("checksum mismatch" in error for error in errors))
+            self.assertTrue(any("missing without an explicit" in error for error in errors))
+            entry["manifest"]["raw_files"][0]["sha256"]=sha256_for_file(csv)
+            entry["manifest"]["raw_evidence_gaps"]=[{"path":str(pdf),"sha256":expected,"availability":"not_archived","reason":"primary_document_archive_missing"}]
+            errors=[];_validate_raw_lineage(entry,errors);self.assertEqual(errors,[])
+            pdf.write_bytes(b"%PDF-wrong")
+            errors=[];_validate_raw_lineage(entry,errors)
+            self.assertTrue(any("checksum mismatch" in error for error in errors))
+
+    def test_unverified_legacy_evidence_is_visible_and_verified_sources_cannot_waive_bindings(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);csv=root/"legacy.csv";csv.write_text("example\n10\n");missing=root/"old-response.json"
+            entry={"source_id":"legacy","evidence_status":"unverified","analytical_ready":False,"manifest":{"raw_files":[{"path":str(csv),"sha256":"0"*64},{"path":str(missing),"sha256":"1"*64}]}}
+            reconciled=_reconcile_governed_binding(entry,{"source_id":"legacy"},pd.DataFrame(),root)
+            unbound=reconciled["manifest"]["unbound_raw_evidence"][0]
+            self.assertEqual(unbound["expected_sha256"],"0"*64)
+            self.assertEqual(unbound["available_sha256"],sha256_for_file(csv))
+            self.assertEqual(unbound["binding_status"],"quarantined")
+            self.assertEqual(reconciled["manifest"]["raw_evidence_gaps"][0]["availability"],"not_archived")
+            errors=[];_validate_raw_lineage(reconciled,errors,root);self.assertEqual(errors,[])
+            reconciled.update(evidence_status="verified",analytical_ready=True)
+            errors=[];_validate_raw_lineage(reconciled,errors,root)
+            self.assertTrue(any("cannot waive" in error for error in errors))
 
 
 class PublicationHistoryTests(unittest.TestCase):
@@ -149,6 +179,66 @@ class PublicationHistoryTests(unittest.TestCase):
         with patch("pipelines.connectors.primary_disclosures.download_document",side_effect=ValueError("Response is not a PDF")),patch.dict("os.environ",{"BHAI_PRIMARY_REMOTE_CHECK":"1"}):
             PrimaryDisclosuresConnector().run({"source_id":self.sid,"allow_auto_fetch":True},self.root,self.root/"processed",self.root/"manifest")
         self.assertEqual((pinned.read_bytes(),pinned.stat().st_mtime_ns,self.csv.read_bytes(),self.evidence.read_bytes()),before)
+
+    def published_fixture(self):
+        import yaml
+        self.builder("first",2024,10,published="2024-07-01").finish((self.sid,))
+        inventory=self.root/"inventory.yaml"
+        inventory.write_text(yaml.safe_dump({"sources":[{"source_id":self.sid,"allow_auto_fetch":True,"official_flag":True,"publisher_org":"Official","publisher_type":"government","update_frequency":"annual","license_terms":"Public attribution"}]}))
+        with patch.dict("os.environ",{"BHAI_PRIMARY_REMOTE_CHECK":"0"}):
+            entry=run_ingestion(str(inventory),raw_root=self.root,processed_root=self.root/"processed",manifest_root=self.root/"manifests",catalog_path=self.root/"manifests/catalog.json",cutoff="2026-10-02")[self.sid]
+        return inventory,entry
+
+    def reorder_governed_csv(self):
+        frame=pd.read_csv(self.csv,keep_default_na=False)
+        frame[list(reversed(frame.columns))].to_csv(self.csv,index=False,lineterminator="\r\n")
+        evidence=json.loads(self.evidence.read_text());evidence["csv_sha256"]=sha256_for_file(self.csv)
+        evidence["notes"]="Reordered serialization; governed facts and dates are unchanged."
+        self.evidence.write_text(json.dumps(evidence))
+
+    def test_quality_only_rebinds_equal_governed_payload_without_new_freshness_or_parquet(self):
+        inventory,entry=self.published_fixture();output=self.root/"processed"/(self.sid+".parquet")
+        before=output.read_bytes();self.reorder_governed_csv()
+        with patch("pipelines.ingest.find_connector_for_source",side_effect=AssertionError("Quality-only cannot fetch")):
+            updated=refresh_quality_only(str(inventory),[self.sid],processed_root=self.root/"processed",manifest_root=self.root/"manifests",catalog_path=self.root/"manifests/catalog.json",cutoff="2026-10-02",raw_root=self.root)[self.sid]
+        self.assertEqual(output.read_bytes(),before)
+        for field in ("source_as_of_date","publication_date","last_checked_at","data_changed_at","last_successful_retrieval_at"):
+            self.assertEqual(updated.get(field),entry.get(field))
+        for path in (self.csv,self.evidence):
+            bound=next(item for item in updated["manifest"]["raw_files"] if item["path"]==str(path))
+            self.assertEqual(bound["sha256"],sha256_for_file(path))
+        self.assertEqual(updated["governed_extract_binding_status"],"validated_current_extract")
+        changed=pd.read_csv(self.csv,keep_default_na=False)
+        for field in ("value","original_value","metric_value"):changed.loc[0,field]=11
+        changed.to_csv(self.csv,index=False)
+        evidence=json.loads(self.evidence.read_text());evidence["csv_sha256"]=sha256_for_file(self.csv);self.evidence.write_text(json.dumps(evidence))
+        rejected=refresh_quality_only(str(inventory),[self.sid],processed_root=self.root/"processed",manifest_root=self.root/"manifests",catalog_path=self.root/"manifests/catalog.json",cutoff="2026-10-02",raw_root=self.root)[self.sid]
+        self.assertEqual(rejected["governed_extract_binding_status"],"current_extract_not_bound")
+        self.assertEqual(output.read_bytes(),before)
+        errors=[];_validate_raw_lineage(rejected,errors)
+        self.assertTrue(any("checksum mismatch" in error for error in errors))
+
+    def test_unchanged_failed_remote_check_rebinds_validated_seed_and_preserves_output(self):
+        inventory,entry=self.published_fixture();output=self.root/"processed"/(self.sid+".parquet")
+        before=output.read_bytes();self.reorder_governed_csv()
+        with patch("pipelines.connectors.primary_disclosures.download_document",side_effect=ValueError("Response is not a PDF")),patch.dict("os.environ",{"BHAI_PRIMARY_REMOTE_CHECK":"1"}):
+            updated=run_ingestion(str(inventory),raw_root=self.root,processed_root=self.root/"processed",manifest_root=self.root/"manifests",catalog_path=self.root/"manifests/catalog.json",cutoff="2026-10-02")[self.sid]
+        self.assertEqual(updated["refresh_outcome"],"retained_after_failure")
+        self.assertEqual(output.read_bytes(),before)
+        self.assertEqual(updated["data_changed_at"],entry["data_changed_at"])
+        self.assertEqual(updated["source_as_of_date"],entry["source_as_of_date"])
+        self.assertEqual(updated["publication_date"],entry["publication_date"])
+        self.assertEqual(updated["last_successful_retrieval_at"],entry["last_successful_retrieval_at"])
+        self.assertEqual(next(item["sha256"] for item in updated["manifest"]["raw_files"] if item["path"]==str(self.csv)),sha256_for_file(self.csv))
+
+    def test_binding_reconciliation_uses_historical_run_cutoff(self):
+        inventory,entry=self.published_fixture();output=self.root/"processed"/(self.sid+".parquet")
+        before=output.read_bytes()
+        updated=refresh_quality_only(str(inventory),[self.sid],processed_root=self.root/"processed",manifest_root=self.root/"manifests",catalog_path=self.root/"manifests/catalog.json",cutoff="2024-01-01",raw_root=self.root)[self.sid]
+        self.assertEqual(updated["governed_extract_binding_status"],"current_extract_not_bound")
+        self.assertEqual(updated["research_cutoff"],"2024-01-01")
+        self.assertEqual(updated["last_checked_at"],entry["last_checked_at"])
+        self.assertEqual(output.read_bytes(),before)
 
     def test_first_publication_keeps_governed_local_facts_after_remote_failure(self):
         import yaml

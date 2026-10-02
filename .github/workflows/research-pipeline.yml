@@ -456,6 +456,16 @@ jobs:
           name: bhai-correlated-workspace
           path: data
 
+      - name: Download source evidence
+        uses: actions/download-artifact@v8
+        with:
+          name: bhai-source-evidence
+          path: data/raw
+
+      - name: Reconcile governed evidence bindings
+        run: |
+          python -m pipelines.ingest --inventory research/source_inventory.yaml --refresh-quality-only
+
       - name: Validate generated artifacts
         run: |
           python -m research.scan --sync-catalog --inventory research/source_inventory.yaml --out research/source_inventory.json
