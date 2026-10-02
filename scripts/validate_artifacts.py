@@ -41,32 +41,42 @@ def _sha256(path: Path) -> str:
 
 
 def _validate_raw_lineage(entry: Dict, errors: List[str], raw_root: Path | None = None) -> None:
-    raw_root=raw_root or ROOT/"data/raw"
+    raw_root=(raw_root or ROOT/"data/raw").resolve()
+    def resolved_input(value: str) -> Path:
+        path=Path(value)
+        if path.is_absolute():
+            return path.resolve()
+        # Manifest input paths are repository-relative, while source document
+        # paths are relative to data/raw. Resolve both spellings to one identity.
+        if path.parts[:2]==("data","raw"):
+            return raw_root.joinpath(*path.parts[2:]).resolve()
+        return (ROOT/path).resolve()
     metadata=entry.get("manifest", {})
-    declared_gaps={(item.get("path"),item.get("sha256")) for item in metadata.get("raw_evidence_gaps", [])
+    declared_gaps={(resolved_input(item["path"]),item.get("sha256")) for item in metadata.get("raw_evidence_gaps", [])
+                   if item.get("path")
                    if item.get("reason") in {"primary_document_archive_missing","raw_input_archive_missing"} and item.get("availability")=="not_archived"}
     for item in metadata.get("raw_files", []):
-        path=Path(item.get("path", ""))
+        path=resolved_input(item.get("path", ""))
         if path.is_file():
             if _sha256(path)!=item.get("sha256"):
                 errors.append(f"Source {entry.get('source_id')} raw input checksum mismatch: {path}")
             if item.get("size_bytes") is not None and path.stat().st_size!=item["size_bytes"]:
                 errors.append(f"Source {entry.get('source_id')} raw input byte length mismatch: {path}")
-        elif (str(path),item.get("sha256")) not in declared_gaps:
+        elif (path,item.get("sha256")) not in declared_gaps:
             errors.append(f"Source {entry.get('source_id')} raw input missing without an explicit document gap: {path}")
     for item in metadata.get("unbound_raw_evidence", []):
         if entry.get("analytical_ready") or entry.get("evidence_status") not in {"unverified","manual_unverified","synthetic"} and entry.get("metric_category") not in {"proxy_derived","model_output"}:
             errors.append(f"Source {entry.get('source_id')} validated data cannot waive a mismatched input binding")
-        path=Path(item.get("path", ""))
+        path=resolved_input(item.get("path", ""))
         if item.get("binding_status")!="quarantined" or (path.is_file() and _sha256(path)!=item.get("available_sha256")):
             errors.append(f"Source {entry.get('source_id')} unbound evidence availability/checksum mismatch: {path}")
     for document in metadata.get("source_documents", []):
         if not document.get("relative_path"):
             continue
-        path=raw_root/document["relative_path"]
+        path=(raw_root/document["relative_path"]).resolve()
         if path.is_file() and _sha256(path)!=document.get("sha256"):
             errors.append(f"Source {entry.get('source_id')} primary document checksum mismatch: {path}")
-        elif not path.is_file() and (document.get("availability")!="not_archived" or (str(path),document.get("sha256")) not in declared_gaps):
+        elif not path.is_file() and (document.get("availability")!="not_archived" or (path,document.get("sha256")) not in declared_gaps):
             errors.append(f"Source {entry.get('source_id')} primary document missing without an explicit archive gap: {path}")
 
 

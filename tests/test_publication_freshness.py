@@ -52,6 +52,30 @@ class DashboardFreshnessContractTests(unittest.TestCase):
             errors=[];_validate_raw_lineage(reconciled,errors,root)
             self.assertTrue(any("cannot waive" in error for error in errors))
 
+    def test_relative_archive_gaps_match_absolute_document_and_raw_input_paths(self):
+        with tempfile.TemporaryDirectory() as temp:
+            raw_root=Path(temp)/"data/raw"
+            pdf=raw_root/"primary_disclosures/fixture/document.pdf"
+            csv=raw_root/"manual/fixture.csv"
+            pdf_hash="a"*64;csv_hash="b"*64
+            entry={"source_id":"fixture","manifest":{
+                "raw_files":[{"path":str(csv),"sha256":csv_hash}],
+                "source_documents":[{"relative_path":"primary_disclosures/fixture/document.pdf","sha256":pdf_hash,"availability":"not_archived"}],
+                "raw_evidence_gaps":[
+                    {"path":"data/raw/primary_disclosures/fixture/./document.pdf","sha256":pdf_hash,"availability":"not_archived","reason":"primary_document_archive_missing"},
+                    {"path":"data/raw/manual/fixture.csv","sha256":csv_hash,"availability":"not_archived","reason":"raw_input_archive_missing"},
+                ]}}
+            errors=[];_validate_raw_lineage(entry,errors,raw_root);self.assertEqual(errors,[])
+            entry["manifest"]["raw_files"][0]["path"]="data/raw/manual/fixture.csv"
+            errors=[];_validate_raw_lineage(entry,errors,raw_root);self.assertEqual(errors,[])
+            entry["manifest"]["raw_evidence_gaps"][1]["sha256"]="c"*64
+            errors=[];_validate_raw_lineage(entry,errors,raw_root)
+            self.assertTrue(any("raw input missing" in error for error in errors))
+            entry["manifest"]["raw_evidence_gaps"][1]["sha256"]=csv_hash
+            pdf.parent.mkdir(parents=True);pdf.write_bytes(b"%PDF-wrong")
+            errors=[];_validate_raw_lineage(entry,errors,raw_root)
+            self.assertTrue(any("primary document checksum mismatch" in error for error in errors))
+
 
 class PublicationHistoryTests(unittest.TestCase):
     def setUp(self):
