@@ -263,7 +263,7 @@ def completeness_score(df: pd.DataFrame) -> float:
     return round(max(0.0, 1 - (missing / total)), 3)
 
 
-def recency_score(last_updated: str | None, update_frequency: str | None) -> float:
+def recency_score(last_updated: str | None, update_frequency: str | None, cutoff: str | None = None) -> float:
     if not last_updated:
         return 0.25
     try:
@@ -274,7 +274,8 @@ def recency_score(last_updated: str | None, update_frequency: str | None) -> flo
         return 0.25
 
     freq_days = FREQ_TO_DAYS.get((update_frequency or "unknown").lower(), 365)
-    age = datetime.now(timezone.utc).replace(tzinfo=timezone.utc) - parsed
+    now = datetime.fromisoformat(cutoff).replace(tzinfo=timezone.utc) if cutoff else datetime.now(timezone.utc)
+    age = now - parsed
     age_days = age.total_seconds() / 86400
     if age_days < -1:
         return 0.25
@@ -441,7 +442,7 @@ def confidence_badge(scores: Dict[str, float]) -> tuple[str, list[str]]:
 def evaluate(df, item: Dict[str, Any]) -> Dict[str, Any]:
     c = completeness_score(df)
     observed_at = observation_date(df, item)
-    r = recency_score(observed_at, item.get("update_frequency"))
+    r = recency_score(observed_at, item.get("update_frequency"),item.get("research_cutoff"))
     p = provenance_score(item)
     failures = semantic_errors(df, item)
     cs = max(0.0, consistency_score(df, item.get("numeric_nonnegative")) - min(0.8, 0.25 * len(failures)))

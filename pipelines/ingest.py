@@ -15,6 +15,8 @@ from research.loader import load_inventory
 from pipelines.connectors import CONNECTORS
 from pipelines.common import ensure_dirs, write_catalog, write_json, read_json, write_parquet, sha256_for_file, dataframe_checksum
 from pipelines.quality import evaluate, evidence_status, semantic_errors, observation_date, DOCUMENT_SOURCES, UNSUPPORTED_OBSERVATION_EVIDENCE
+from pipelines.metric_coverage import metric_coverage
+from pipelines.connectors.primary_disclosures import research_cutoff
 
 NHAI_EXTRACTION_QUALITY_SOURCE_IDS = {"nhai_annual_report_documents"}
 SUCCESS_STATUSES = {"ok", "automated", "manual_ingest", "validated", "generated"}
@@ -89,6 +91,43 @@ def _base_manifest(source: dict, output_path: Path) -> dict:
 
 def _read_frame(path: Path) -> pd.DataFrame:
     return pd.read_parquet(path) if path.exists() else pd.DataFrame()
+
+
+def _archive_generation(frame: pd.DataFrame, entry: dict, processed_root: Path, manifest_root: Path) -> dict:
+    content = dataframe_checksum(frame)
+    folder = processed_root / "publication_history" / entry["source_id"]
+    path = folder / f"{content}.parquet"
+    if path.exists():
+        if dataframe_checksum(_read_frame(path)) != content:
+            raise ValueError("Archived dataset generation checksum mismatch")
+    else:
+        write_parquet(frame,path)
+    record = {"source_id": entry["source_id"], "observation_checksum": content,
+              "path": str(path), "sha256": sha256_for_file(path), "row_count": len(frame),
+              "source_as_of_date": entry.get("source_as_of_date"), "publication_date": entry.get("publication_date"),
+              "citations": entry.get("citations", {}), "source_documents": entry.get("manifest", {}).get("source_documents", []),
+              "data_changed_at": entry.get("data_changed_at")}
+    metadata_path=manifest_root / "publication_history" / entry["source_id"] / f"{content}.json"
+    if not metadata_path.exists():
+        write_json(record,metadata_path)
+    return read_json(metadata_path)
+
+
+def _write_metric_registry(entries: dict, sources: dict, path: Path, cutoff: str) -> None:
+    rows = []
+    source_rows = []
+    for sid, source in sources.items():
+        entry = entries.get(sid,{})
+        output = Path(entry.get("output_table_path", "__missing_source__"))
+        coverage = metric_coverage(_read_frame(output),source,entry,cutoff)
+        if sid in entries:
+            entries[sid]["metric_coverage"] = coverage
+        rows.extend(coverage)
+        source_rows.append({"source_id": sid, "metric_count": len(coverage), "analytical_ready": entry.get("analytical_ready",False),
+                            "disclosure_ready": entry.get("disclosure_ready",False), "refresh_outcome": entry.get("refresh_outcome","not_checked"),
+                            "last_checked_at": entry.get("last_checked_at"), "next_expected_publication_at": source.get("next_expected_publication_at")})
+    write_json({"generated_at": datetime.now(timezone.utc).isoformat(), "research_cutoff": cutoff,
+                "registered_source_count": len(sources), "sources": source_rows, "metrics": rows},path)
 
 
 def _rewrite_paths(value, staged: Path, published: Path):
@@ -174,6 +213,10 @@ def _annotate(entry: dict, source: dict, df: pd.DataFrame, processed_root: Path)
     if entry.get("extraction_quality"):
         context["extraction_quality"] = entry["extraction_quality"]
     entry.update(evaluate(df, context))
+    cutoff = research_cutoff(source.get("research_cutoff"))
+    entry["research_cutoff"] = cutoff
+    entry["next_expected_publication_at"] = source.get("next_expected_publication_at")
+    entry["metric_coverage"] = metric_coverage(df,source,entry,cutoff)
     return entry
 
 
@@ -181,9 +224,11 @@ def run_ingestion(
     inventory_path: str = "research/source_inventory.yaml", selected_sources: list[str] | None = None,
     raw_root: Path = Path("data/raw"), processed_root: Path = Path("data/processed"),
     manifest_root: Path = Path("data/manifests"), catalog_path: Path = Path("data/manifests/catalog.json"),
+    cutoff: str | None = None,
 ) -> Dict[str, dict]:
     inv = load_inventory(inventory_path)
-    source_map = {s["source_id"]: s for s in inv.sources}
+    cutoff = research_cutoff(cutoff)
+    source_map = {s["source_id"]: s | {"research_cutoff": cutoff} for s in inv.sources}
     if selected_sources and set(selected_sources) - source_map.keys():
         raise ValueError(f"Unknown requested sources: {sorted(set(selected_sources) - source_map.keys())}")
     targets = selected_sources or list(source_map)
@@ -272,6 +317,12 @@ def run_ingestion(
                     entry["data_checksum"] = new_checksum
                     outcome = "checked_unchanged"
                 else:
+                    if entry.get("metric_category") != "model_output":
+                        generations = list((previous or {}).get("publication_generations", []))
+                        if previous and not old_df.empty and previous.get("evidence_status") not in UNSUPPORTED_OBSERVATION_EVIDENCE:
+                            generations.append(_archive_generation(old_df,previous,processed_root,manifest_root))
+                        generations.append(_archive_generation(candidate_df,entry,processed_root,manifest_root))
+                        entry["publication_generations"] = list({row["observation_checksum"]: row for row in generations}.values())
                     for staged_file in staged_processed.rglob("*"):
                         if staged_file.is_file() and not staged_file.is_symlink():
                             target = processed_root / staged_file.relative_to(staged_processed)
@@ -285,6 +336,12 @@ def run_ingestion(
                     entry["last_successful_retrieval_at"] = checked
                 entry["last_ingested_at"] = checked
                 entry.pop("refresh_error", None)
+                if candidate.get("remote_refresh_failed"):
+                    outcome = "retained_after_failure"
+                    entry["remote_refresh_failed"] = True
+                    entry["remote_refresh_error"] = candidate.get("remote_refresh_error")
+                    entry["refresh_error"] = candidate.get("remote_refresh_error")
+                    entry["local_seed_used"] = candidate.get("local_seed_used", False)
                 published_df = _read_frame(output)
             entry["source_id"] = source_id
             entry.setdefault("metric_category", source.get("metric_category", "official_measured"))
@@ -305,10 +362,11 @@ def run_ingestion(
                                    "analytical_ready": entry["analytical_ready"], "evidence_status": entry["evidence_status"],
                                    "disclosure_ready": entry["disclosure_ready"],
                                    "extraction_status": entry["extraction_status"],
-                                   "row_count": len(published_df), "error": failure}
+                                   "row_count": len(published_df), "error": failure or entry.get("refresh_error")}
+    _write_metric_registry(entries,source_map,manifest_root/"metric_coverage.json",cutoff)
     write_catalog(catalog_path, list(entries.values()))
     rows = [outcomes[sid] for sid in source_map if sid in outcomes]
-    write_json({"generated_at": datetime.now(timezone.utc).isoformat(), "started_at": started,
+    write_json({"generated_at": datetime.now(timezone.utc).isoformat(), "started_at": started, "research_cutoff": cutoff,
                 "registered_source_count": len(source_map), "checked_source_count": len(rows),
                 "run_source_ids": targets, "outcome_counts": dict(Counter(r["outcome"] for r in rows)),
                 "analytical_ready_source_count": sum(r["analytical_ready"] for r in rows),
@@ -319,9 +377,10 @@ def run_ingestion(
 def refresh_quality_only(inventory_path: str, selected_sources: list[str] | None = None,
                          processed_root: Path = Path("data/processed"),
                          manifest_root: Path = Path("data/manifests"),
-                         catalog_path: Path = Path("data/manifests/catalog.json")) -> Dict[str, dict]:
+                         catalog_path: Path = Path("data/manifests/catalog.json"), cutoff: str | None = None) -> Dict[str, dict]:
     """Attach extraction results to their exact inputs; never refetch or rewrite parquet."""
-    sources = {source["source_id"]: source for source in load_inventory(inventory_path).sources}
+    cutoff = research_cutoff(cutoff)
+    sources = {source["source_id"]: source | {"research_cutoff":cutoff} for source in load_inventory(inventory_path).sources}
     targets = selected_sources or sorted(DOCUMENT_SOURCES & sources.keys())
     entries = {entry["source_id"]: entry for entry in read_json(catalog_path).get("datasets", [])}
     report_path = manifest_root / "refresh_report.json"
@@ -340,6 +399,7 @@ def refresh_quality_only(inventory_path: str, selected_sources: list[str] | None
                 row["extraction_status"] = entry["extraction_status"]
                 for field in ("source_as_of_date", "publication_date", "evidence_status"):
                     row[field] = entry.get(field)
+    _write_metric_registry(entries,sources,manifest_root/"metric_coverage.json",cutoff)
     write_catalog(catalog_path, list(entries.values()))
     if report:
         report["analytical_ready_source_count"] = sum(row.get("analytical_ready", False) for row in report.get("sources", []))
@@ -353,11 +413,12 @@ def main() -> None:
     parser.add_argument("--inventory", default="research/source_inventory.yaml")
     parser.add_argument("--source", action="append", help="run only specified source_ids")
     parser.add_argument("--refresh-quality-only", action="store_true", help="Rescore existing artifacts without network access or parquet mutation")
+    parser.add_argument("--research-cutoff",default=None,help="ISO observation cutoff pinned for this run")
     args = parser.parse_args()
     if args.refresh_quality_only:
-        refresh_quality_only(args.inventory, args.source)
+        refresh_quality_only(args.inventory, args.source,cutoff=args.research_cutoff)
     else:
-        run_ingestion(args.inventory, args.source)
+        run_ingestion(args.inventory, args.source,cutoff=args.research_cutoff)
     print("Ingestion complete. Catalog and per-source refresh report written to data/manifests.")
 
 

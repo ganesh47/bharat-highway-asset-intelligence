@@ -93,6 +93,45 @@ class WorkspaceRestoreTests(unittest.TestCase):
         self.assertIn("checksum mismatch", report["sources"][0]["prior_validation_error"])
         self.assertEqual(expected, Path(current["output_table_path"]).read_bytes())
 
+    def test_current_quarantine_policy_applies_to_newer_ready_artifact_after_failed_refresh(self):
+        self.publish(self.current,10,"2026-09-01T00:00:00Z")
+        self.publish(self.prior,12,"2026-10-01T00:00:00Z")
+        self.source.update(analytical_eligible=False,observation_date_unknown=True)
+        self.inventory.write_text(yaml.safe_dump({"sources":[self.source]}))
+        restore=restore_workspace(self.prior,self.current,self.inventory)
+        self.assertEqual(restore["restored_source_count"],1)
+        restored=json.loads((self.current/"data/manifests"/f"{self.sid}.json").read_text())
+        self.assertFalse(restored["analytical_ready"])
+        self.assertTrue(restored["disclosure_ready"])
+        self.assertIsNone(restored["source_as_of_date"])
+        class Failed:
+            def run(self,*args):
+                raise RuntimeError("Publisher unavailable")
+        with patch("pipelines.ingest.find_connector_for_source",return_value=Failed()):
+            refreshed=run_ingestion(str(self.inventory),raw_root=self.current/"data/raw",processed_root=self.current/"data/processed",
+                                    manifest_root=self.current/"data/manifests",catalog_path=self.current/"data/manifests/catalog.json")[self.sid]
+        self.assertFalse(refreshed["analytical_ready"])
+        self.assertIsNone(refreshed["source_as_of_date"])
+        self.assertEqual(list(pd.read_parquet(self.current/"data/processed"/f"{self.sid}.parquet").length_km),[12])
+
+    def test_prior_generation_history_is_validated_and_restored_with_current_selection(self):
+        self.publish(self.current,10,"2026-09-01T00:00:00Z")
+        prior=self.publish(self.prior,12,"2026-10-01T00:00:00Z")
+        old=pd.DataFrame({"state":["Delhi"],"year":[2023],"length_km":[9]})
+        content=dataframe_checksum(old)
+        relative=Path("data/processed/publication_history")/self.sid/f"{content}.parquet"
+        archive=self.prior/relative
+        write_parquet(old,archive)
+        prior["publication_generations"]=[{"observation_checksum":content,"path":str(relative),"sha256":sha256_for_file(archive)}]
+        write_json(prior,self.prior/"data/manifests"/f"{self.sid}.json")
+        restore=restore_workspace(self.prior,self.current,self.inventory)
+        self.assertEqual(restore["restored_source_count"],1)
+        self.assertEqual((self.current/relative).read_bytes(),archive.read_bytes())
+        archive.write_bytes(b"corrupt archived generation")
+        restore=restore_workspace(self.prior,self.current,self.inventory)
+        self.assertEqual(restore["restored_source_count"],0)
+        self.assertIn("generation checksum mismatch",restore["sources"][0]["prior_validation_error"])
+
     def test_ocr_bundle_restores_only_for_exact_selected_document_input(self):
         self.sid = "nhai_annual_report_documents"
         self.source["source_id"] = self.sid

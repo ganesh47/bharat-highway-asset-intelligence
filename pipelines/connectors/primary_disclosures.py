@@ -10,11 +10,14 @@ import argparse
 import calendar
 import csv
 import hashlib
+import importlib
 from html import unescape
 import json
 import math
 import os
 import re
+import shutil
+import tempfile
 import urllib.request
 from datetime import date, datetime, timezone
 from pathlib import Path
@@ -40,7 +43,9 @@ FACT_COLUMNS = [
     "asset_owner_id", "implementing_agency_id", "operator_id",
     "concessionaire_id", "financing_entity_id", "contractor_name",
     "disclosure_as_of", "estimate_vintage", "reported_period",
+    "observation_status", "assurance", "revision_identity", "price_basis", "base_year",
 ]
+OPTIONAL_FACT_COLUMNS = {"observation_status", "assurance", "revision_identity", "price_basis", "base_year"}
 
 # These are documented public downloads, not guessed portal/API endpoints.
 DOCUMENTS = {
@@ -64,15 +69,55 @@ DOCUMENTS = {
 SOURCE_IDS = tuple(DOCUMENTS)
 HTML_SOURCES = {"nhai_monetisation_transactions", "npci_netc_monthly_statistics", "upeida_expressway_projects", "msrdc_financial_disclosures"}
 HTML_RECHECK_SOURCES = {"nhai_monetisation_transactions"}
-RESEARCH_CUTOFF = "2026-10-02"
+FRESHNESS_MODULES = ("pipelines.national_freshness", "pipelines.state_freshness", "pipelines.paimana_freshness")
 NETC_SOURCE_ID = "npci_netc_monthly_statistics"
 NETC_RENDERED_SNAPSHOT = Path("manual/evidence/npci_netc_rendered_snapshot_2026-10-02.json")
 RENDERED_SNAPSHOT_KIND = "governed_rendered_table_snapshot"
 ADB_PROJECT_PDF_SHA256 = "d8d949023e38e46929f39edf948b642fcc670d34332e841ba186121d0b955ffd"
 
 
+def research_cutoff(value: str | None = None) -> str:
+    """Pin an explicit run cutoff; never leave a one-off research date in code."""
+    result = value or os.environ.get("BHAI_RESEARCH_CUTOFF") or datetime.now(timezone.utc).date().isoformat()
+    return date.fromisoformat(str(result)).isoformat()
+
+
+def freshness_modules():
+    modules = []
+    for name in FRESHNESS_MODULES:
+        try:
+            modules.append(importlib.import_module(name))
+        except ModuleNotFoundError as exc:
+            if exc.name != name:
+                raise
+    return modules
+
+
+def all_source_ids() -> tuple[str, ...]:
+    return tuple(dict.fromkeys([*SOURCE_IDS, *(sid for module in freshness_modules() for sid in module.SOURCE_IDS)]))
+
+
+def html_source_ids(recheck: bool = False) -> set[str]:
+    declared = HTML_RECHECK_SOURCES if recheck else HTML_SOURCES
+    field = "HTML_RECHECK_SOURCE_IDS" if recheck else "HTML_SOURCE_IDS"
+    return set(declared) | {sid for module in freshness_modules() for sid in getattr(module,field,())}
+
+
+def with_optional_fact_columns(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
+    for column in OPTIONAL_FACT_COLUMNS:
+        if column not in df:
+            df[column] = ""
+    df["observation_status"] = df["observation_status"].fillna("").replace("", "reported")
+    df["assurance"] = df["assurance"].fillna("").replace("", "not_disclosed")
+    df["revision_identity"] = df["revision_identity"].fillna("")
+    if "source_document_sha256" in df:
+        df["revision_identity"] = df["revision_identity"].where(df["revision_identity"].ne(""), df["source_document_sha256"])
+    return df
+
+
 def document_path(raw_root: Path, source_id: str) -> Path:
-    return raw_root / "primary_disclosures" / source_id / ("document.html" if source_id in HTML_SOURCES else "document.pdf")
+    return raw_root / "primary_disclosures" / source_id / ("document.html" if source_id in html_source_ids() else "document.pdf")
 
 
 def download_document(url: str, destination: Path, max_bytes: int = 80_000_000) -> Path:
@@ -111,13 +156,14 @@ def empty_facts() -> pd.DataFrame:
     return df
 
 
-def validate_facts(df: pd.DataFrame, source_id: str, evidence: dict[str, Any]) -> pd.DataFrame:
-    missing = set(FACT_COLUMNS) - set(df.columns)
+def validate_facts(df: pd.DataFrame, source_id: str, evidence: dict[str, Any], cutoff: str | None = None) -> pd.DataFrame:
+    missing = (set(FACT_COLUMNS) - OPTIONAL_FACT_COLUMNS) - set(df.columns)
     if missing:
         raise ValueError(f"Missing fact columns: {sorted(missing)}")
     if df.empty:
         return empty_facts()
-    df = df.copy()
+    df = with_optional_fact_columns(df)
+    cutoff = research_cutoff(cutoff)
     document_hashes = {item["sha256"] for item in evidence.get("documents", []) if re.fullmatch(r"[0-9a-f]{64}", item.get("sha256", ""))}
     urls = {item["url"] for item in evidence.get("documents", [])}
     document_pairs = {(item["sha256"],item["url"]) for item in evidence.get("documents", [])}
@@ -139,12 +185,12 @@ def validate_facts(df: pd.DataFrame, source_id: str, evidence: dict[str, Any]) -
     for column in ["data_as_of", "published_at", "disclosure_as_of", "estimate_vintage"]:
         values = df[column].fillna("").astype(str)
         for value in values[values.ne("")]:
-            if date.fromisoformat(value) > date.fromisoformat(RESEARCH_CUTOFF):
+            if date.fromisoformat(value) > date.fromisoformat(cutoff):
                 raise ValueError("Fact exceeds research cutoff")
     if not df["value"].equals(df["metric_value"]):
         raise ValueError("Metric compatibility alias mismatch")
     money = df["unit"].eq("INR crore")
-    conversions = {"INR crore": 1.0, "INR lakh": 0.01, "INR million": 0.1, "INR thousand": 0.0001}
+    conversions = {"INR crore": 1.0, "INR lakh": 0.01, "INR million": 0.1, "INR thousand": 0.0001, "INR": 0.0000001}
     for _, row in df[money].iterrows():
         factor = conversions.get(row["original_unit"])
         if factor is None or not math.isclose(row["value"], row["original_value"] * factor, rel_tol=1e-9, abs_tol=1e-8):
@@ -155,8 +201,11 @@ def validate_facts(df: pd.DataFrame, source_id: str, evidence: dict[str, Any]) -
         if row["unit"] != "transactions" or factor is None or not math.isclose(row["value"], row["original_value"] * factor, rel_tol=1e-9, abs_tol=1e-8):
             raise ValueError("Invalid transaction unit conversion")
     df["analytical_eligible"] = df["analytical_eligible"].map(lambda value: str(value).lower() == "true")
-    if df.duplicated(["source_id","entity_id","metric","period_start","period_end","estimate_type","statement_basis"]).any():
+    from pipelines.publication_history import FACT_KEY
+    if df.duplicated(FACT_KEY).any():
         raise ValueError("Duplicate scoped numerical facts")
+    if not df["observation_status"].isin({"reported", "final", "provisional", "revised", "estimate", "unknown"}).all():
+        raise ValueError("Unsupported observation status")
     if (df["analytical_eligible"] & df["evidence_class"].isin(["target","valuation_estimate"])).any():
         raise ValueError("Targets and valuation assumptions cannot enter measured analytics")
     if (df["analytical_eligible"] & df["data_as_of"].fillna("").eq("")).any():
@@ -167,7 +216,7 @@ def validate_facts(df: pd.DataFrame, source_id: str, evidence: dict[str, Any]) -
     for _,row in df.iterrows():
         if row["period_start"] and row["period_end"] and date.fromisoformat(row["period_start"])>date.fromisoformat(row["period_end"]):
             raise ValueError("Reversed fact period")
-        if row["estimate_type"] in {"actual","YTD"} and row["period_end"] and row["period_end"]>RESEARCH_CUTOFF:
+        if row["estimate_type"] in {"actual","YTD"} and row["period_end"] and row["period_end"]>cutoff:
             raise ValueError("Future actual observation")
         if row["estimate_type"] in {"actual", "YTD"} and row["period_end"] and row["data_as_of"] and row["data_as_of"] > row["period_end"]:
             raise ValueError("Observation cutoff exceeds actual reporting period; use disclosure_as_of for later assertions")
@@ -178,6 +227,10 @@ def validate_facts(df: pd.DataFrame, source_id: str, evidence: dict[str, Any]) -
 
 class PrimaryDisclosuresConnector:
     spec = ConnectorSpec(name="primary_disclosures", version="1.0.0", source_ids=list(SOURCE_IDS), inputs=["verified_primary_snapshot"], outputs=["parquet"], citation_mapping={"primary_source": "citation_url", "anchor": "table_page", "permanent_identifier": "source_document_sha256", "license_terms": "license_terms"})
+
+    def __init__(self):
+        from dataclasses import replace
+        self.spec = replace(self.spec, source_ids=list(all_source_ids()))
 
     def run(self, source: dict[str, Any], raw_root: Path, processed_root: Path, manifest_root: Path) -> ConnectorResult:
         source_id = source["source_id"]
@@ -190,6 +243,7 @@ class PrimaryDisclosuresConnector:
         raw_files = []
         checked_retrieval_at = None
         semantic_rechecks = []
+        remote_refresh_failed = False
         if evidence_path.exists():
             evidence = json.loads(evidence_path.read_text())
             raw_files.append(evidence_path)
@@ -207,17 +261,27 @@ class PrimaryDisclosuresConnector:
                         if sha256_for_file(path) != document["sha256"]:
                             raise ValueError("Primary document changed; re-extraction required")
                         raw_files.append(path)
+                # Governed local bytes are a last-known-good generation even on
+                # the first CI publication. A failed remote probe must not erase
+                # their validated facts or give their dates a new meaning.
+                rows = validate_facts(pd.read_csv(csv_path, keep_default_na=False), source_id, evidence, source.get("research_cutoff"))
+                raw_files.append(csv_path)
                 # A daily refresh checks accessible primary bytes. Candidate bytes
                 # cannot overwrite the archived document behind validated rows.
                 if source.get("allow_auto_fetch") and os.environ.get("BHAI_PRIMARY_REMOTE_CHECK", "1") != "0":
+                    active = set(evidence.get("active_document_sha256", []))
                     for document in evidence.get("documents", []):
+                        if active and document["sha256"] not in active:
+                            continue
                         if document.get("artifact_kind") == RENDERED_SNAPSHOT_KIND:
                             # The pinned bytes are a governed local capture, not
                             # the publisher response at the cited page URL.
                             continue
                         pinned = raw_root / document["relative_path"]
-                        candidate = pinned.with_name("candidate" + pinned.suffix)
-                        check_path = pinned.parent / "remote_check.json"
+                        work = raw_root / "primary_disclosures" / source_id
+                        work.mkdir(parents=True,exist_ok=True)
+                        candidate = work / ("candidate" + pinned.suffix)
+                        check_path = work / "remote_check.json"
                         previous = json.loads(check_path.read_text()) if check_path.exists() else {}
                         if previous.get("checked_date") == now[:10] and previous.get("outcome") == "checked_unchanged" and previous.get("pinned_sha256",previous.get("sha256")) == document["sha256"]:
                             checked_retrieval_at=previous.get("checked_at")
@@ -231,11 +295,11 @@ class PrimaryDisclosuresConnector:
                                 # Known PIB HTML adds dynamic script/viewstate
                                 # wrappers. Re-extract all visible source text and
                                 # compare its durable digest; never rebind CSVs.
-                                if source_id in HTML_RECHECK_SOURCES and candidate.suffix==".html":
+                                if source_id in html_source_ids(recheck=True) and candidate.suffix==".html":
                                     semantic_hash=hashlib.sha256(html_text(candidate.read_text()).encode()).hexdigest()
                                     check["semantic_document_sha256"]=semantic_hash
                                     if semantic_hash==document.get("semantic_document_sha256"):
-                                        archive=pinned.parent/"wrapper_archive"/(current_hash+pinned.suffix)
+                                        archive=work/"wrapper_archive"/(current_hash+pinned.suffix)
                                         archive.parent.mkdir(parents=True,exist_ok=True)
                                         candidate.replace(archive)
                                         check.update(outcome="checked_unchanged",archive_path=str(archive))
@@ -243,7 +307,7 @@ class PrimaryDisclosuresConnector:
                                         raw_files.append(archive)
                                         write_json(check,check_path)
                                         continue
-                                quarantine=pinned.parent/"quarantine"/(current_hash+pinned.suffix)
+                                quarantine=work/"quarantine"/(current_hash+pinned.suffix)
                                 quarantine.parent.mkdir(parents=True,exist_ok=True)
                                 candidate.replace(quarantine)
                                 write_json(check,check_path)
@@ -254,12 +318,14 @@ class PrimaryDisclosuresConnector:
                         finally:
                             if candidate.exists():
                                 candidate.unlink()
-                rows = validate_facts(pd.read_csv(csv_path, keep_default_na=False), source_id, evidence)
-                raw_files.append(csv_path)
                 reason = "" if not rows.empty else "no_validated_numeric_facts"
             except (ValueError, KeyError, TypeError) as exc:
                 reason = str(exc)
-                rows = empty_facts()
+                if rows.empty:
+                    rows = empty_facts()
+                else:
+                    remote_refresh_failed = True
+                    checked_retrieval_at = None
         output = processed_root / f"{source_id}.parquet"
         ensure_dirs(str(processed_root), str(manifest_root))
         write_parquet(rows, output)
@@ -268,7 +334,7 @@ class PrimaryDisclosuresConnector:
         manifest = {
             "source_id": source_id, "connector": self.spec.name, "version": self.spec.version,
             "status": "manual_ingest" if validated else "manual_gap", "metric_category": source.get("metric_category", "issuer_disclosed" if source.get("publisher_type") == "issuer" else "official_measured"),
-            "refresh_outcome": "checked_unchanged" if ready else "unavailable", "last_checked_at": now,
+            "refresh_outcome": "retained_after_failure" if remote_refresh_failed else "checked_unchanged" if ready else "unavailable", "last_checked_at": now,
             "last_successful_retrieval_at": checked_retrieval_at or evidence.get("retrieved_at"), "data_changed_at": evidence.get("retrieved_at"),
             "publication_date": source.get("publication_date"), "source_as_of_date": source.get("source_as_of_date"),
             "analytical_ready": ready, "evidence_status": "verified" if validated else "unavailable",
@@ -279,6 +345,9 @@ class PrimaryDisclosuresConnector:
             "manifest": {"raw_files": [{"path": str(path), "sha256": sha256_for_file(path), "size_bytes": path.stat().st_size} for path in raw_files], "source_documents": evidence.get("documents", []), "output_files": [{"path": str(output), "format": "parquet", "sha256": sha256_for_file(output)}], "row_count": len(rows), "columns": list(rows.columns)},
             "retrieved_at": evidence.get("retrieved_at"),
             "semantic_rechecks": semantic_rechecks,
+            "remote_refresh_failed": remote_refresh_failed, "remote_refresh_error": reason if remote_refresh_failed else None,
+            "local_seed_used": remote_refresh_failed and validated,
+            "publication_history": evidence.get("history"), "research_cutoff": research_cutoff(source.get("research_cutoff")),
         }
         if ready:
             manifest.update(evaluate(rows, source | manifest["source"]))
@@ -309,8 +378,10 @@ class SnapshotBuilder:
     Callers download once, archive source bytes, then extract offline. Assertions
     deliberately fail on changed tables rather than guessing new column layouts.
     """
-    def __init__(self, raw_root: Path):
+    def __init__(self, raw_root: Path, cutoff: str | None = None):
         self.raw_root = raw_root
+        self.research_cutoff = research_cutoff(cutoff)
+        self.document_urls = dict(DOCUMENTS)
         self.rows: dict[str, list[dict[str, Any]]] = {sid: [] for sid in SOURCE_IDS}
         self.documents: dict[str, list[dict[str, Any]]] = {sid: [] for sid in SOURCE_IDS}
         self.notes: dict[str, str] = {}
@@ -326,21 +397,23 @@ class SnapshotBuilder:
         return self.reader(sid).pages[page - 1].extract_text()
 
     def pin(self, sid: str, path: Path | None = None, url: str | None = None) -> None:
+        self.rows.setdefault(sid, [])
+        self.documents.setdefault(sid, [])
         path = path or document_path(self.raw_root, sid)
-        self.documents[sid].append({"url": url or DOCUMENTS[sid], "relative_path": str(path.relative_to(self.raw_root)), "sha256": sha256_for_file(path), "size_bytes": path.stat().st_size})
-        if sid in HTML_RECHECK_SOURCES and path.suffix==".html":
+        self.documents[sid].append({"url": url or self.document_urls[sid], "relative_path": str(path.relative_to(self.raw_root)), "sha256": sha256_for_file(path), "size_bytes": path.stat().st_size})
+        if sid in html_source_ids(recheck=True) and path.suffix==".html":
             self.documents[sid][-1]["semantic_document_sha256"]=hashlib.sha256(html_text(path.read_text()).encode()).hexdigest()
 
     def fact(self, sid: str, metric: str, value: float, unit: str, page: str | int, *, entity_id: str = "", entity_name: str = "", entity_type: str = "agency", agency: str = "MoRTH", state: str = "All India", road_class: str = "National Highway", start: str = "", end: str = "", basis: str = "fiscal_year", estimate: str = "actual", statement: str = "agency", asof: str | None = None, published: str = "", disclosure_as_of: str = "", estimate_vintage: str = "", reported_period: str = "", evidence: str = "official_measured", eligible: bool = True, original_unit: str | None = None, notes: str = "", document_index: int = 0, **extra: Any) -> None:
         original_unit = original_unit or unit
         original_value = float(value)
         if unit == "INR crore":
-            value *= {"INR crore": 1, "INR lakh": .01, "INR million": .1, "INR thousand": .0001}[original_unit]
+            value *= {"INR crore": 1, "INR lakh": .01, "INR million": .1, "INR thousand": .0001, "INR": .0000001}[original_unit]
         elif unit == "transactions":
             value *= {"transactions": 1, "million transactions": 1_000_000}[original_unit]
         doc = self.documents[sid][document_index]
         row = {column: "" for column in FACT_COLUMNS}
-        row.update(entity_id=entity_id or identifier(agency), entity_name=entity_name or agency, entity_type=entity_type, agency=agency, state=state, road_class=road_class, metric=metric, value=float(value), unit=unit, original_value=original_value, original_unit=original_unit, period_start=start, period_end=end, period_basis=basis, estimate_type=estimate, statement_basis=statement, data_as_of=end if asof is None else asof, published_at=published, disclosure_as_of=disclosure_as_of, estimate_vintage=estimate_vintage, reported_period=reported_period, source_id=sid, citation_url=doc["url"], table_page=str(page), evidence_class=evidence, analytical_eligible=eligible, source_document_sha256=doc["sha256"], notes=notes, entity=entity_name or agency, year=int((end or asof or RESEARCH_CUTOFF)[:4]), metric_name=metric, metric_value=float(value), metric_category="issuer_disclosed" if sid.startswith("nhit_") else "official_measured", source_type="issuer" if sid.startswith("nhit_") else "official", comparison_group=f"{statement}|{road_class}")
+        row.update(entity_id=entity_id or identifier(agency), entity_name=entity_name or agency, entity_type=entity_type, agency=agency, state=state, road_class=road_class, metric=metric, value=float(value), unit=unit, original_value=original_value, original_unit=original_unit, period_start=start, period_end=end, period_basis=basis, estimate_type=estimate, statement_basis=statement, data_as_of=end if asof is None else asof, published_at=published, disclosure_as_of=disclosure_as_of, estimate_vintage=estimate_vintage, reported_period=reported_period, source_id=sid, citation_url=doc["url"], table_page=str(page), evidence_class=evidence, analytical_eligible=eligible, source_document_sha256=doc["sha256"], notes=notes, entity=entity_name or agency, year=int((end or asof or self.research_cutoff)[:4]), metric_name=metric, metric_value=float(value), metric_category="issuer_disclosed" if sid.startswith("nhit_") else "official_measured", source_type="issuer" if sid.startswith("nhit_") else "official", comparison_group=f"{statement}|{road_class}", observation_status="reported", assurance="not_disclosed", revision_identity=doc["sha256"])
         row.update(extra)
         row["analytical_eligible"] = bool(eligible and evidence not in {"target","valuation_estimate"})
         if agency=="NHIT":
@@ -765,30 +838,77 @@ class SnapshotBuilder:
             self.fact(sid, "netc_payment_amount_inr_crore", amount, "INR crore", anchor + "; Amount (In Cr) MTD", **attrs)
         self.notes[sid] = f"Governed manual browser capture of seventeen official monthly rows, April2025-August2026, captured{snapshot['captured_at']}. Publication date undisclosed. {scope} Published exclusions: {exclusions} Document SHA256 pins local rendered JSON, not publisher response bytes; future months require a new reviewed capture."
 
-    def finish(self, source_ids: tuple[str, ...] = SOURCE_IDS) -> None:
+    def finish(self, source_ids: tuple[str, ...] | None = None) -> None:
+        from pipelines.publication_history import merge_observations, record_versions
         manual=self.raw_root/"manual"; (manual/"evidence").mkdir(parents=True,exist_ok=True)
-        for sid in source_ids:
-            rows=self.rows[sid]
+        for sid in source_ids or tuple(self.rows):
+            rows=self.rows.get(sid, [])
             path=manual/f"{sid}.csv"
-            with path.open("w",newline="") as stream:
-                writer=csv.DictWriter(stream,fieldnames=FACT_COLUMNS,lineterminator="\n");writer.writeheader();writer.writerows(rows)
             retrieval_times=[doc.get("captured_at") or datetime.fromtimestamp((self.raw_root/doc["relative_path"]).stat().st_mtime,timezone.utc).isoformat() for doc in self.documents[sid]]
-            evidence={"source_id":sid,"research_cutoff":RESEARCH_CUTOFF,"retrieved_at":max(retrieval_times) if retrieval_times else None,"last_checked_at":datetime.now(timezone.utc).isoformat(),"documents":self.documents[sid],"csv_sha256":sha256_for_file(path),"extraction_status":"validated" if rows else "evidence_gap","row_count":len(rows),"notes":self.notes.get(sid,""),"gap_reason":"" if rows else self.notes.get(sid,"No verified extract available; source remains a visible gap."),"transformation":"pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"}
+            evidence={"source_id":sid,"research_cutoff":self.research_cutoff,"retrieved_at":max(retrieval_times) if retrieval_times else None,"last_checked_at":datetime.now(timezone.utc).isoformat(),"documents":self.documents[sid],"extraction_status":"validated" if rows else "evidence_gap","row_count":len(rows),"notes":self.notes.get(sid,""),"gap_reason":"" if rows else self.notes.get(sid,"No verified extract available; source remains a visible gap."),"transformation":"pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based"}
             if any(doc.get("artifact_kind") == RENDERED_SNAPSHOT_KIND for doc in self.documents[sid]):
                 evidence["transformation"] = "SnapshotBuilder.netc_manual_snapshot; original million transactions multiplied by1,000,000; INR crore unchanged; rendered table row/heading anchors; document hash pins governed local JSON rather than publisher response bytes."
-            if rows:
-                validate_facts(pd.read_csv(path,keep_default_na=False),sid,evidence)
-            write_json(evidence,manual/"evidence"/f"{sid}.json")
+            evidence_path = manual/"evidence"/f"{sid}.json"
+            previous = None
+            if path.exists() and evidence_path.exists():
+                old_evidence = json.loads(evidence_path.read_text())
+                if old_evidence.get("extraction_status") == "validated":
+                    if sha256_for_file(path) != old_evidence.get("csv_sha256"):
+                        raise ValueError(f"Prior extract checksum mismatch: {sid}")
+                    previous = (validate_facts(pd.read_csv(path,keep_default_na=False),sid,old_evidence,self.research_cutoff),old_evidence)
+            if not rows and previous and not previous[0].empty:
+                # A builder with missing/failed new evidence cannot erase a
+                # previously governed extract. Ingestion records the check gap.
+                continue
+            candidate = validate_facts(pd.DataFrame(rows,columns=FACT_COLUMNS),sid,evidence,self.research_cutoff) if rows else empty_facts()
+            # Archive document bytes under a content address before retaining
+            # historical facts that may outlive the original publisher URL.
+            for doc in evidence["documents"]:
+                if doc.get("artifact_kind") == RENDERED_SNAPSHOT_KIND:
+                    continue  # The dated committed capture is already immutable.
+                original = self.raw_root/doc["relative_path"]
+                archive = self.raw_root/"primary_disclosures"/sid/"versions"/(doc["sha256"]+original.suffix)
+                archive.parent.mkdir(parents=True,exist_ok=True)
+                if not archive.exists():
+                    shutil.copyfile(original,archive)
+                if sha256_for_file(archive) != doc["sha256"]:
+                    raise ValueError("Archived publication document mismatch")
+                doc["relative_path"] = str(archive.relative_to(self.raw_root))
+            frame,revisions = merge_observations(previous[0],candidate) if previous else (candidate,[])
+            candidate_evidence = dict(evidence)
+            evidence["active_document_sha256"] = sorted({doc["sha256"] for doc in evidence["documents"]})
+            if previous:
+                docs={(doc["sha256"],doc["url"]):doc for doc in previous[1]["documents"]}
+                docs.update({(doc["sha256"],doc["url"]):doc for doc in evidence["documents"]})
+                evidence["documents"] = list(docs.values())
+            if not frame.empty:
+                frame = validate_facts(frame,sid,evidence,self.research_cutoff)
+            with tempfile.TemporaryDirectory(prefix="bhai-extract-",dir=manual) as staged:
+                staged_path=Path(staged)/"facts.csv"
+                frame.reindex(columns=FACT_COLUMNS).to_csv(staged_path,index=False,lineterminator="\n")
+                evidence["csv_sha256"] = sha256_for_file(staged_path)
+                evidence["row_count"] = len(frame)
+                evidence["history"] = record_versions(manual/"history",sid,previous,(candidate,candidate_evidence),revisions)
+                staged_evidence=Path(staged)/"evidence.json"
+                write_json(evidence,staged_evidence)
+                staged_path.replace(path)
+                staged_evidence.replace(evidence_path)
 
 
-def build_snapshots(raw_root: Path) -> SnapshotBuilder:
-    builder=SnapshotBuilder(raw_root)
+def build_snapshots(raw_root: Path, cutoff: str | None = None) -> SnapshotBuilder:
+    builder=SnapshotBuilder(raw_root,cutoff)
     for sid in SOURCE_IDS:
         if sid != NETC_SOURCE_ID and document_path(raw_root,sid).exists():
             builder.pin(sid)
     builder.notes.update({"npci_netc_monthly_statistics":"HTTP403/JS restricted primary page; governed manual snapshot required; no invented API or search-result numerical facts.","upeida_expressway_projects":"Verified TLS retrieval failed due to missing certificate issuer; Ganga progress PDF link returns500. No unverified project progress/financial facts.","msrdc_financial_disclosures":"Public index/subsidiary FY23-24 filings identified; primary download timed out. Parent standalone latest visible FY18-19, not FY23-24. No statement facts without retrieved PDF.","adb_state_road_projects":"Official project52298-001 primary page HTTP403; financial statement April2024-May2025 disclosed in index; no unretrieved numerical facts.","rbi_state_road_finances":"Goa revenue Roads and Bridges rows contain dashes, left absent rather than invented zero. Road-corporation debt/guarantees and corridor attribution not inferred from state-government aggregates."})
     for function in (builder.budget,builder.nhit,builder.parliament_and_audit,builder.monetisation,builder.upeida,builder.nhidcl,builder.rbi,builder.brs,builder.netc_manual_snapshot,builder.adb_project_accounts):
         function()
+    for module in freshness_modules():
+        builder.document_urls.update(module.DOCUMENTS)
+        for sid in module.SOURCE_IDS:
+            builder.rows.setdefault(sid,[])
+            builder.documents.setdefault(sid,[])
+        module.extend_snapshots(builder)
     builder.finish()
     return builder
 
@@ -796,6 +916,7 @@ def build_snapshots(raw_root: Path) -> SnapshotBuilder:
 if __name__ == "__main__":
     parser=argparse.ArgumentParser(description="Rebuild verified primary financial snapshots from archived PDFs")
     parser.add_argument("--raw-root",type=Path,default=Path("data/raw"))
+    parser.add_argument("--research-cutoff",default=None,help="ISO observation cutoff pinned for this build; defaults to UTC run date")
     args=parser.parse_args()
-    snapshot=build_snapshots(args.raw_root)
+    snapshot=build_snapshots(args.raw_root,args.research_cutoff)
     print(json.dumps({sid:len(rows) for sid,rows in snapshot.rows.items()},indent=2))

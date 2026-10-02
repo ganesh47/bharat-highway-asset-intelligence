@@ -101,7 +101,7 @@ def _validate_entry(entry: Dict, manifest_root: Path, errors: List[str], warning
                 if not evidence_path.exists():
                     errors.append(f"Source {source_id} has no evidence manifest for financial facts")
                 else:
-                    validate_facts(frame, source_id, _read_json(evidence_path))
+                    validate_facts(frame, source_id, _read_json(evidence_path),entry.get("research_cutoff"))
             if source_id == "correlation_matrix" and not frame.empty:
                 if (pd.to_numeric(frame["overlap_records"], errors="coerce") < 10).any():
                     errors.append("Published correlation has fewer than ten compatible observations")
@@ -314,6 +314,39 @@ def _validate_entry(entry: Dict, manifest_root: Path, errors: List[str], warning
                     continue
                 if sha and sha != _sha256(path):
                     errors.append(f"Source {source_id} manifest sha mismatch: {path}")
+    for generation in entry.get("publication_generations", []):
+        path = Path(str(generation.get("path", "")))
+        if not path.is_file() or _sha256(path) != generation.get("sha256"):
+            errors.append(f"Source {source_id} archived generation checksum mismatch: {path}")
+        else:
+            from pipelines.common import dataframe_checksum
+            if dataframe_checksum(pd.read_parquet(path)) != generation.get("observation_checksum"):
+                errors.append(f"Source {source_id} archived observation checksum mismatch: {path}")
+
+
+def _validate_metric_registry(payload: dict, inventory_ids: set, catalog: list, errors: list) -> None:
+    if not payload:
+        if any("metric_coverage" in entry for entry in catalog):
+            errors.append("Metric coverage registry is missing")
+        return  # Compatibility with artifacts predating metric coverage.
+    ids = [source.get("source_id") for source in payload.get("sources", [])]
+    if set(ids) != inventory_ids or len(ids) != len(set(ids)):
+        errors.append("Metric coverage must account for every source exactly once")
+    if payload.get("registered_source_count") != len(inventory_ids):
+        errors.append("Metric coverage registered source count differs from inventory")
+    metrics = payload.get("metrics", [])
+    if {row.get("source_id") for row in metrics} != inventory_ids:
+        errors.append("Metric coverage has missing or unknown source IDs")
+    cutoff = payload.get("research_cutoff")
+    for row in metrics:
+        if not cutoff or (row.get("latest_observation_date") and row["latest_observation_date"] > cutoff):
+            errors.append(f"Metric coverage exceeds run cutoff: {row.get('source_id')}/{row.get('metric')}")
+        if row.get("coverage_status") == "publication_pending" and not row.get("next_expected_publication_at"):
+            errors.append("Publication pending requires a source-supported next publication date")
+    by_source = {sid: [row for row in metrics if row.get("source_id") == sid] for sid in inventory_ids}
+    for entry in catalog:
+        if entry.get("source_id") in inventory_ids and entry.get("metric_coverage") != by_source[entry["source_id"]]:
+            errors.append(f"Catalog metric coverage differs from registry: {entry['source_id']}")
 
 
 def _normalize_state_key(value: str) -> str:
@@ -507,6 +540,7 @@ def run(inventory_path: str, catalog_path: str, manifests_dir: str, fail_on_warn
         errors.append("Refresh report must declare an explicit outcome for every registered source")
     if refresh.get("registered_source_count") != len(inventory_ids):
         errors.append("Refresh report registered source count differs from inventory")
+    _validate_metric_registry(_read_json(Path(manifests_dir)/"metric_coverage.json"),inventory_ids,catalog,errors)
 
     _validate_dashboard_semantics(errors, warnings)
     _validate_deploy_docs_and_workflow(errors, warnings)

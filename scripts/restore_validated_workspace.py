@@ -91,6 +91,19 @@ def _validated(data: Path, workspace: Path, source: dict) -> tuple[dict, str | N
             issues = semantic_errors(frame, source)
             if issues:
                 raise ValueError("; ".join(issues))
+        # Current inventory policy also governs retained older artifacts. Numeric
+        # bytes may remain useful evidence while their calculation readiness is
+        # withdrawn until a primary cutoff/scope is verified.
+        if source.get("analytical_eligible") is False or source.get("evidence_class") in {"target", "forecast", "valuation_estimate"}:
+            entry["analytical_ready"] = False
+            entry.setdefault("analytical_scope", {}).update({key: source[key] for key in ("analytical_eligible", "evidence_class", "observation_date_unknown") if key in source})
+        if source.get("observation_date_unknown") is True:
+            entry["source_as_of_date"] = None
+        for generation in entry.get("publication_generations", []):
+            archive_path = Path("processed/publication_history") / source_id / (generation["observation_checksum"]+".parquet")
+            archived = data / archive_path
+            if not archived.is_file() or sha256_for_file(archived) != generation.get("sha256"):
+                raise ValueError("Archived publication generation checksum mismatch")
         if not frame.empty and {"entity_id", "citation_url", "source_document_sha256", "analytical_eligible"} <= set(frame.columns):
             from pipelines.connectors.primary_disclosures import validate_facts
             evidence = _json(workspace / "data/raw/manual/evidence" / f"{source_id}.json")
@@ -136,10 +149,17 @@ def restore_workspace(prior_root: Path, workspace: Path, inventory: Path) -> dic
         if use_prior:
             _copy(prior_data / "processed" / f"{sid}.parquet", current_data / "processed" / f"{sid}.parquet")
             write_json(prior, current_data / "manifests" / f"{sid}.json")
+            for generation in prior.get("publication_generations", []):
+                relative = Path("processed/publication_history") / sid / (generation["observation_checksum"]+".parquet")
+                _copy(prior_data / relative,current_data / relative)
+                metadata = Path("manifests/publication_history") / sid / (generation["observation_checksum"]+".json")
+                if (prior_data / metadata).is_file():
+                    _copy(prior_data / metadata,current_data / metadata)
             entries[sid] = prior
         elif current:
             # Ingestion reads its previous source generation from the catalog.
             entries[sid] = current
+            write_json(current,current_data / "manifests" / f"{sid}.json")
         decisions.append({"source_id": sid, "selected": "prior" if use_prior else "current",
                           "current_data_changed_at": current.get("data_changed_at"),
                           "prior_data_changed_at": prior.get("data_changed_at"),

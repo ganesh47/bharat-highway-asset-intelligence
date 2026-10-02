@@ -11,7 +11,7 @@ import yaml
 
 from pipelines.common import sha256_for_file
 from pipelines.connectors.primary_disclosures import (
-    DOCUMENTS, FACT_COLUMNS, SOURCE_IDS, PrimaryDisclosuresConnector,
+    DOCUMENTS, FACT_COLUMNS, OPTIONAL_FACT_COLUMNS, SOURCE_IDS, PrimaryDisclosuresConnector,
     SnapshotBuilder, validate_facts, build_snapshots, NETC_RENDERED_SNAPSHOT, NETC_SOURCE_ID, RENDERED_SNAPSHOT_KIND, ADB_PROJECT_PDF_SHA256,
 )
 
@@ -25,7 +25,7 @@ class PrimaryDisclosureTests(unittest.TestCase):
         document = self.root / "primary_disclosures/test/document.pdf"
         document.parent.mkdir(parents=True)
         document.write_bytes(b"%PDF-fixture")
-        self.builder.documents[self.sid] = [{"sha256": "a" * 64, "url": DOCUMENTS[self.sid], "relative_path": "primary_disclosures/test/document.pdf"}]
+        self.builder.documents[self.sid] = [{"sha256": sha256_for_file(document), "url": DOCUMENTS[self.sid], "relative_path": "primary_disclosures/test/document.pdf"}]
 
     def tearDown(self):
         self.temp.cleanup()
@@ -266,7 +266,7 @@ class PrimaryDisclosureTests(unittest.TestCase):
                 evidence = json.loads((raw / "manual/evidence" / f"{sid}.json").read_text())
                 self.assertEqual(sha256_for_file(path), evidence["csv_sha256"])
                 df = pd.read_csv(path, keep_default_na=False)
-                self.assertEqual(set(df.columns), set(FACT_COLUMNS))
+                self.assertTrue(set(FACT_COLUMNS) - OPTIONAL_FACT_COLUMNS <= set(df.columns) <= set(FACT_COLUMNS))
                 if evidence["row_count"]:
                     validate_facts(df, sid, evidence)
                 else:
@@ -309,7 +309,7 @@ class PrimaryDisclosureTests(unittest.TestCase):
         self.assertEqual((self.root/"manual"/f"{sid}.csv").read_bytes(),original_csv)
         self.assertTrue(list(document.parent.glob("wrapper_archive/*.html")))
 
-    def test_pib_changed_visible_fact_requires_new_extract(self):
+    def test_pib_changed_visible_fact_retains_pinned_extract_and_requires_new_extract(self):
         sid="nhai_monetisation_transactions"
         document=self.root/"primary_disclosures"/sid/"document.html"
         document.parent.mkdir(parents=True)
@@ -322,8 +322,11 @@ class PrimaryDisclosureTests(unittest.TestCase):
             return path
         with patch("pipelines.connectors.primary_disclosures.download_document",side_effect=download),patch.dict(os.environ,{"BHAI_PRIMARY_REMOTE_CHECK":"1"}):
             result=PrimaryDisclosuresConnector().run({"source_id":sid,"allow_auto_fetch":True},self.root,self.root/"processed",self.root/"manifest")
-        self.assertTrue(result.skipped)
+        self.assertFalse(result.skipped)
         self.assertEqual(result.skip_reason,"changed_document_requires_extraction")
+        self.assertTrue(result.manifest["remote_refresh_failed"])
+        self.assertEqual(result.manifest["refresh_outcome"],"retained_after_failure")
+        self.assertEqual(list(pd.read_parquet(result.output_table_path).value),[28307])
         self.assertEqual(document.read_text(),"<p>Realised28307crore</p>")
         self.assertTrue(list(document.parent.glob("quarantine/*.html")))
 
