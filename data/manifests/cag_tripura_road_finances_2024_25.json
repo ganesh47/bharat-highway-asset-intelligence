@@ -1,0 +1,259 @@
+{
+  "source_id": "cag_tripura_road_finances_2024_25",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "refresh_outcome": "updated",
+  "last_checked_at": "2026-10-02T08:28:13.574643+00:00",
+  "last_successful_retrieval_at": "2026-10-02T08:28:13.581049+00:00",
+  "data_changed_at": "2026-10-02T08:28:13.574643+00:00",
+  "publication_date": null,
+  "source_as_of_date": "2025-03-31",
+  "analytical_ready": true,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "",
+  "source": {
+    "publisher": "Comptroller and Auditor General of India / Government of Tripura",
+    "title": "Tripura Finance Accounts2024-25 VolumeI, audited Roads and Bridges expenditure",
+    "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=89",
+    "retrieved_at": "2026-10-02T08:02:05.404683+00:00",
+    "official_flag": true,
+    "publisher_type": "government",
+    "license_terms": "Public government accounts; original publisher attribution and statement/page citation required.",
+    "domain": "cag.gov.in"
+  },
+  "citations": {
+    "permanent_identifier": "cag_tripura_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "CAG Tripura FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/primary_disclosures/cag_tripura_road_finances_2024_25/versions/353d6d6fb229d856a34a5a3b76a0b39abed4933a42b5e464c733b0e8fbb06f12.pdf",
+        "sha256": "353d6d6fb229d856a34a5a3b76a0b39abed4933a42b5e464c733b0e8fbb06f12",
+        "size_bytes": 2184166
+      },
+      {
+        "path": "data/raw/manual/cag_tripura_road_finances_2024_25.csv",
+        "sha256": "01a3179713c9a600cc5ef58748e34e091fcf82df5e4819325423107a5f7ad217",
+        "size_bytes": 4968
+      },
+      {
+        "path": "data/raw/manual/evidence/cag_tripura_road_finances_2024_25.json",
+        "sha256": "cf0e0d0724bbb236438f3767ac5efd3ded86b3012e01f4e24bf5906cc7670034",
+        "size_bytes": 2050
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-PRINT-069c11f2a724454-49441218.pdf",
+        "relative_path": "primary_disclosures/cag_tripura_road_finances_2024_25/versions/353d6d6fb229d856a34a5a3b76a0b39abed4933a42b5e464c733b0e8fbb06f12.pdf",
+        "sha256": "353d6d6fb229d856a34a5a3b76a0b39abed4933a42b5e464c733b0e8fbb06f12",
+        "size_bytes": 2184166,
+        "extractor": "pipelines.state_accounts_completion",
+        "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+        "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+        "review_date": "2026-10-02",
+        "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=89",
+        "availability": "archived"
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/cag_tripura_road_finances_2024_25.parquet",
+        "format": "parquet",
+        "sha256": "8ba1cb98a1017c6dcf22d5fedfc71bc549808a3b91fff15152b7425802be3cdc"
+      }
+    ],
+    "row_count": 3,
+    "columns": [
+      "entity_id",
+      "entity_name",
+      "entity_type",
+      "agency",
+      "state",
+      "road_class",
+      "metric",
+      "value",
+      "unit",
+      "original_value",
+      "original_unit",
+      "period_start",
+      "period_end",
+      "period_basis",
+      "estimate_type",
+      "statement_basis",
+      "data_as_of",
+      "published_at",
+      "source_id",
+      "citation_url",
+      "table_page",
+      "evidence_class",
+      "analytical_eligible",
+      "source_document_sha256",
+      "notes",
+      "entity",
+      "year",
+      "metric_name",
+      "metric_value",
+      "metric_category",
+      "source_type",
+      "asset_id",
+      "project_name",
+      "nh_number",
+      "project_stage",
+      "scheduled_completion_date",
+      "likely_completion_date",
+      "actual_completion_date",
+      "comparison_group",
+      "asset_owner_id",
+      "implementing_agency_id",
+      "operator_id",
+      "concessionaire_id",
+      "financing_entity_id",
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period",
+      "observation_status",
+      "assurance",
+      "revision_identity",
+      "price_basis",
+      "base_year"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
+  },
+  "retrieved_at": "2026-10-02T08:02:05.404683+00:00",
+  "semantic_rechecks": [],
+  "publication_history": {
+    "index_path": "history/cag_tripura_road_finances_2024_25/index.json",
+    "version_count": 1,
+    "revision_count": 0,
+    "candidate_version_id": "446ec82dbfb6efc11ec6fd30644eec6be8ded5f7aa689cc9328b1359d642bcb2"
+  },
+  "research_cutoff": "2026-10-02",
+  "completeness_score": 0.98,
+  "recency_score": 0.7,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/cag_tripura_road_finances_2024_25.parquet",
+  "data_checksum": "7476910d51d48d7a6f9e5a59f9b3b1457064ae748b5ce0748d2ec7b6e981bb12",
+  "publication_generations": [
+    {
+      "source_id": "cag_tripura_road_finances_2024_25",
+      "observation_checksum": "7476910d51d48d7a6f9e5a59f9b3b1457064ae748b5ce0748d2ec7b6e981bb12",
+      "path": "data/processed/publication_history/cag_tripura_road_finances_2024_25/7476910d51d48d7a6f9e5a59f9b3b1457064ae748b5ce0748d2ec7b6e981bb12.parquet",
+      "sha256": "8ba1cb98a1017c6dcf22d5fedfc71bc549808a3b91fff15152b7425802be3cdc",
+      "row_count": 3,
+      "source_as_of_date": "2025-03-31",
+      "publication_date": null,
+      "citations": {
+        "permanent_identifier": "cag_tripura_road_finances_2024_25",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "CAG Tripura FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure."
+      },
+      "source_documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-PRINT-069c11f2a724454-49441218.pdf",
+          "relative_path": "primary_disclosures/cag_tripura_road_finances_2024_25/versions/353d6d6fb229d856a34a5a3b76a0b39abed4933a42b5e464c733b0e8fbb06f12.pdf",
+          "sha256": "353d6d6fb229d856a34a5a3b76a0b39abed4933a42b5e464c733b0e8fbb06f12",
+          "size_bytes": 2184166,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=89"
+        }
+      ],
+      "data_changed_at": "2026-10-02T08:02:05.404683+00:00"
+    }
+  ],
+  "last_ingested_at": "2026-10-02T08:28:13.574643+00:00",
+  "analytical_scope": {
+    "source_as_of_date": "2025-03-31",
+    "publisher_type": "government"
+  },
+  "next_expected_publication_at": null,
+  "metric_coverage": [
+    {
+      "metric": "roads_bridges_capital_outlay_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "state_aggregate",
+      "agency": "CAG / Government of Tripura",
+      "road_class": "roads_and_bridges_all_classes",
+      "period_basis": "fiscal_year",
+      "statement_basis": "state_finance_accounts_cash_expenditure_as_reported",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "cag_tripura_road_finances_2024_25",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2025-03-31",
+      "earliest_entity_cutoff": "2025-03-31",
+      "latest_available_period_end": "2025-03-31",
+      "latest_publication_date": null,
+      "latest_disclosure_publication_date": null,
+      "publication_lag_days": null,
+      "observation_status": [
+        "final"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "state_tripura": "2025-03-31"
+      },
+      "row_count": 2,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "roads_bridges_revenue_expenditure_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "state_aggregate",
+      "agency": "CAG / Government of Tripura",
+      "road_class": "roads_and_bridges_all_classes",
+      "period_basis": "fiscal_year",
+      "statement_basis": "state_finance_accounts_cash_expenditure_as_reported",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "cag_tripura_road_finances_2024_25",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2025-03-31",
+      "earliest_entity_cutoff": "2025-03-31",
+      "latest_available_period_end": "2025-03-31",
+      "latest_publication_date": null,
+      "latest_disclosure_publication_date": null,
+      "publication_lag_days": null,
+      "observation_status": [
+        "final"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "state_tripura": "2025-03-31"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
+}

@@ -28,7 +28,6 @@ basis, estimate type, publication date when disclosed, and observation date.
 | NPCI NETC statistics | 34 monthly payment-volume and amount facts, April2025–August2026 | Governed manual capture of the rendered official table; annual pass and Maharashtra Electric Vehicle exempted data excluded as stated by NPCI; no NHAI-receipts or traffic-count inference |
 | MSRDC financial disclosures | Evidence gap | Index/filings time out; subsidiaryFY23-24 is not parent standaloneFY23-24 |
 | ADB project52298-001 final accounts | 77 project/package finance and target facts | MPWD cash-basis accounts through19May2025;70 actuals eligible,6 targets and1 unreconciled deposit total excluded; scanned cells visually checked against exact PDF bytes |
-
 | CAG FY2024-25 road finances | 93 facts across 30 jurisdictions; 89 eligible | Audited Finance Accounts or clearly tagged Delhi/Puducherry audit narratives; four Assam/Manipur capital facts unreconciled; broad Roads and Bridges is not SH-only spending |
 | NHAI June2025–June2026 quarter filings | 196 eligible quarter/YTD/annual/stock facts, five original filing vintages | Limited-review unaudited; explicit restatements, missing cells and unknown publication days retained; toll collection, CFI deposits and ploughback differ |
 | UPEIDA Ganga27April2026 progress | Eight dated physical progress/count facts | Overall98% differs from component100%; not fiscal spending, current October progress or evidence of asset ownership |

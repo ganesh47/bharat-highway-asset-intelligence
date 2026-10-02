@@ -1,0 +1,259 @@
+{
+  "source_id": "cag_himachal_pradesh_road_finances_2024_25",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "refresh_outcome": "updated",
+  "last_checked_at": "2026-10-02T08:27:28.120546+00:00",
+  "last_successful_retrieval_at": "2026-10-02T08:27:28.126186+00:00",
+  "data_changed_at": "2026-10-02T08:27:28.120546+00:00",
+  "publication_date": null,
+  "source_as_of_date": "2025-03-31",
+  "analytical_ready": true,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "",
+  "source": {
+    "publisher": "Comptroller and Auditor General of India / Government of Himachal Pradesh",
+    "title": "Himachal Pradesh Finance Accounts2024-25 VolumeI, audited Roads and Bridges expenditure",
+    "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=73",
+    "retrieved_at": "2026-10-02T08:01:50.679314+00:00",
+    "official_flag": true,
+    "publisher_type": "government",
+    "license_terms": "Public government accounts; original publisher attribution and statement/page citation required.",
+    "domain": "cag.gov.in"
+  },
+  "citations": {
+    "permanent_identifier": "cag_himachal_pradesh_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "CAG Himachal Pradesh FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/primary_disclosures/cag_himachal_pradesh_road_finances_2024_25/versions/f4aba05f295806bc1c6d61a15be52bba0a925b74e1a5a7f5e3c54bba9c0e87a2.pdf",
+        "sha256": "f4aba05f295806bc1c6d61a15be52bba0a925b74e1a5a7f5e3c54bba9c0e87a2",
+        "size_bytes": 1026181
+      },
+      {
+        "path": "data/raw/manual/cag_himachal_pradesh_road_finances_2024_25.csv",
+        "sha256": "f856300f3fc96b14e1f160f5a5667dedc257b3d54d8036fb92d9d8a0b8a126fa",
+        "size_bytes": 5148
+      },
+      {
+        "path": "data/raw/manual/evidence/cag_himachal_pradesh_road_finances_2024_25.json",
+        "sha256": "0a207b8ead087baa6c11f15eaed49cfdc3813a5d863ace04639abfc25d1ecfb4",
+        "size_bytes": 2090
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-I-2024-25-English-26-12-2025-069ccf778436f33-49613332.pdf",
+        "relative_path": "primary_disclosures/cag_himachal_pradesh_road_finances_2024_25/versions/f4aba05f295806bc1c6d61a15be52bba0a925b74e1a5a7f5e3c54bba9c0e87a2.pdf",
+        "sha256": "f4aba05f295806bc1c6d61a15be52bba0a925b74e1a5a7f5e3c54bba9c0e87a2",
+        "size_bytes": 1026181,
+        "extractor": "pipelines.state_accounts_completion",
+        "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+        "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+        "review_date": "2026-10-02",
+        "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=73",
+        "availability": "archived"
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/cag_himachal_pradesh_road_finances_2024_25.parquet",
+        "format": "parquet",
+        "sha256": "aae55cc66776ce1583f99d79b198976671e6bbeb1e9fa42366f2a495c99565cf"
+      }
+    ],
+    "row_count": 3,
+    "columns": [
+      "entity_id",
+      "entity_name",
+      "entity_type",
+      "agency",
+      "state",
+      "road_class",
+      "metric",
+      "value",
+      "unit",
+      "original_value",
+      "original_unit",
+      "period_start",
+      "period_end",
+      "period_basis",
+      "estimate_type",
+      "statement_basis",
+      "data_as_of",
+      "published_at",
+      "source_id",
+      "citation_url",
+      "table_page",
+      "evidence_class",
+      "analytical_eligible",
+      "source_document_sha256",
+      "notes",
+      "entity",
+      "year",
+      "metric_name",
+      "metric_value",
+      "metric_category",
+      "source_type",
+      "asset_id",
+      "project_name",
+      "nh_number",
+      "project_stage",
+      "scheduled_completion_date",
+      "likely_completion_date",
+      "actual_completion_date",
+      "comparison_group",
+      "asset_owner_id",
+      "implementing_agency_id",
+      "operator_id",
+      "concessionaire_id",
+      "financing_entity_id",
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period",
+      "observation_status",
+      "assurance",
+      "revision_identity",
+      "price_basis",
+      "base_year"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
+  },
+  "retrieved_at": "2026-10-02T08:01:50.679314+00:00",
+  "semantic_rechecks": [],
+  "publication_history": {
+    "index_path": "history/cag_himachal_pradesh_road_finances_2024_25/index.json",
+    "version_count": 1,
+    "revision_count": 0,
+    "candidate_version_id": "eac2f0f74cd8308a8c3d34136a74dc5eb23d5882d1f68b7324ba01b995c314fc"
+  },
+  "research_cutoff": "2026-10-02",
+  "completeness_score": 0.98,
+  "recency_score": 0.7,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/cag_himachal_pradesh_road_finances_2024_25.parquet",
+  "data_checksum": "5c197b01d7f936e187b29a6aee0dedbfd54256d10ca16749fbaa2a274b23565f",
+  "publication_generations": [
+    {
+      "source_id": "cag_himachal_pradesh_road_finances_2024_25",
+      "observation_checksum": "5c197b01d7f936e187b29a6aee0dedbfd54256d10ca16749fbaa2a274b23565f",
+      "path": "data/processed/publication_history/cag_himachal_pradesh_road_finances_2024_25/5c197b01d7f936e187b29a6aee0dedbfd54256d10ca16749fbaa2a274b23565f.parquet",
+      "sha256": "aae55cc66776ce1583f99d79b198976671e6bbeb1e9fa42366f2a495c99565cf",
+      "row_count": 3,
+      "source_as_of_date": "2025-03-31",
+      "publication_date": null,
+      "citations": {
+        "permanent_identifier": "cag_himachal_pradesh_road_finances_2024_25",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "CAG Himachal Pradesh FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure."
+      },
+      "source_documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-I-2024-25-English-26-12-2025-069ccf778436f33-49613332.pdf",
+          "relative_path": "primary_disclosures/cag_himachal_pradesh_road_finances_2024_25/versions/f4aba05f295806bc1c6d61a15be52bba0a925b74e1a5a7f5e3c54bba9c0e87a2.pdf",
+          "sha256": "f4aba05f295806bc1c6d61a15be52bba0a925b74e1a5a7f5e3c54bba9c0e87a2",
+          "size_bytes": 1026181,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=73"
+        }
+      ],
+      "data_changed_at": "2026-10-02T08:01:50.679314+00:00"
+    }
+  ],
+  "last_ingested_at": "2026-10-02T08:27:28.120546+00:00",
+  "analytical_scope": {
+    "source_as_of_date": "2025-03-31",
+    "publisher_type": "government"
+  },
+  "next_expected_publication_at": null,
+  "metric_coverage": [
+    {
+      "metric": "roads_bridges_capital_outlay_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "state_aggregate",
+      "agency": "CAG / Government of Himachal Pradesh",
+      "road_class": "roads_and_bridges_all_classes",
+      "period_basis": "fiscal_year",
+      "statement_basis": "state_finance_accounts_cash_expenditure_as_reported",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "cag_himachal_pradesh_road_finances_2024_25",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2025-03-31",
+      "earliest_entity_cutoff": "2025-03-31",
+      "latest_available_period_end": "2025-03-31",
+      "latest_publication_date": null,
+      "latest_disclosure_publication_date": null,
+      "publication_lag_days": null,
+      "observation_status": [
+        "final"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "state_himachal_pradesh": "2025-03-31"
+      },
+      "row_count": 2,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "roads_bridges_revenue_expenditure_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "state_aggregate",
+      "agency": "CAG / Government of Himachal Pradesh",
+      "road_class": "roads_and_bridges_all_classes",
+      "period_basis": "fiscal_year",
+      "statement_basis": "state_finance_accounts_cash_expenditure_as_reported",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "cag_himachal_pradesh_road_finances_2024_25",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2025-03-31",
+      "earliest_entity_cutoff": "2025-03-31",
+      "latest_available_period_end": "2025-03-31",
+      "latest_publication_date": null,
+      "latest_disclosure_publication_date": null,
+      "publication_lag_days": null,
+      "observation_status": [
+        "final"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "state_himachal_pradesh": "2025-03-31"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
+}

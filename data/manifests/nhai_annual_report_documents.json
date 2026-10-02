@@ -170,11 +170,10 @@
   "recency_score": 0.25,
   "provenance_score": 0.85,
   "consistency_score": 1.0,
-  "overall_confidence_badge": "Low",
+  "overall_confidence_badge": "Med",
   "overall_confidence_reason": [
     "Recency is stale against claimed update frequency",
-    "Observation date is unavailable; collection time is not data freshness",
-    "Document discovery is not validated financial extraction"
+    "Observation date is unavailable; collection time is not data freshness"
   ],
   "source_as_of_date": null,
   "recency_basis": "unknown",
@@ -227,7 +226,7 @@
   "publication_date": null,
   "disclosure_ready": false,
   "analytical_ready": false,
-  "extraction_status": "checksum_mismatch",
+  "extraction_status": "extracted",
   "research_cutoff": "2026-10-02",
   "next_expected_publication_at": null,
   "metric_coverage": [
@@ -246,5 +245,56 @@
       "quarter_end": "2026-12-31"
     }
   ],
-  "last_quality_check_at": "2026-10-02T06:25:24.558005+00:00"
+  "last_quality_check_at": "2026-10-02T09:00:34.993685+00:00",
+  "extraction_quality": {
+    "generated_at": "2026-10-02T06:09:26.002009+00:00",
+    "quality": {
+      "avg_confidence": 0.797419402434526,
+      "min_confidence": 0.0,
+      "max_confidence": 1.0,
+      "low_confidence_rows": 1,
+      "low_confidence_threshold": 0.45
+    },
+    "method_mix": {
+      "table": {
+        "count": 6308,
+        "share": 0.4653633345628919
+      },
+      "ocr": {
+        "count": 5051,
+        "share": 0.37263002582073035
+      },
+      "text": {
+        "count": 2195,
+        "share": 0.16193286610106972
+      },
+      "error": {
+        "count": 1,
+        "share": 7.377351530800442e-05
+      }
+    },
+    "parser_environment": {
+      "camelot": false,
+      "pdfplumber": true,
+      "tabula": false,
+      "tesseract": true,
+      "pdftotext": true,
+      "pdftoppm": true
+    },
+    "source_parquet": "data/processed/nhai_annual_report_documents.parquet",
+    "source_parquet_sha256": "6ffe9182c4e88883634cab8a0e90252c27e3bd639f1ba31c92afeeb99a02a381",
+    "quality_report_path": "data/processed/nhai_annual_report_tables/quality_report.json",
+    "extraction_manifest_path": "data/processed/nhai_annual_report_tables/extraction_manifest.json",
+    "rows_merged": 13555,
+    "document_refresh_outcomes": []
+  },
+  "extraction_quality_reference": {
+    "quality_report_path": "data/processed/nhai_annual_report_tables/quality_report.json",
+    "extraction_manifest_path": "data/processed/nhai_annual_report_tables/extraction_manifest.json",
+    "generated_at": "2026-10-02T06:09:26.002009+00:00",
+    "source_parquet": "data/processed/nhai_annual_report_documents.parquet",
+    "source_parquet_sha256": "6ffe9182c4e88883634cab8a0e90252c27e3bd639f1ba31c92afeeb99a02a381",
+    "document_refresh_outcomes": []
+  },
+  "extraction_quality_score": 0.797
 }

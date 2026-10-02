@@ -1,0 +1,214 @@
+{
+  "source_id": "cag_puducherry_road_finances_2024_25",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "refresh_outcome": "updated",
+  "last_checked_at": "2026-10-02T08:28:37.461355+00:00",
+  "last_successful_retrieval_at": "2026-10-02T08:28:37.469068+00:00",
+  "data_changed_at": "2026-10-02T08:28:37.461355+00:00",
+  "publication_date": "2026-08-31",
+  "source_as_of_date": "2025-03-31",
+  "analytical_ready": true,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "",
+  "source": {
+    "publisher": "Comptroller and Auditor General of India / Government of Puducherry",
+    "title": "Puducherry FY2024-25 State Finances Audit Report, reported Roads and Bridges capital expenditure",
+    "url": "https://cag.gov.in/en/audit-report/details/126307",
+    "retrieved_at": "2026-10-02T08:06:08.799429+00:00",
+    "official_flag": true,
+    "publisher_type": "government",
+    "license_terms": "Public government accounts; attribution and statement/page citation required.",
+    "domain": "cag.gov.in"
+  },
+  "citations": {
+    "permanent_identifier": "cag_puducherry_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "Recovered regional/UT primary publication; dated audited annual actuals with labelled reconciliation and no inferred publication day."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/primary_disclosures/cag_puducherry_road_finances_2024_25/versions/b3d9726e438fab89d26d2548e2eaaae6fb28760a5483a02f08a59246e22ef8be.pdf",
+        "sha256": "b3d9726e438fab89d26d2548e2eaaae6fb28760a5483a02f08a59246e22ef8be",
+        "size_bytes": 80428077
+      },
+      {
+        "path": "data/raw/manual/cag_puducherry_road_finances_2024_25.csv",
+        "sha256": "943574c30e69cefee35c55aedc7d2a25d2a3e2d8b4fd68e62bf5cf9fc7a9a537",
+        "size_bytes": 2113
+      },
+      {
+        "path": "data/raw/manual/evidence/cag_puducherry_road_finances_2024_25.json",
+        "sha256": "60892ae19728f50709458e74942d1fd1b2196800e23a70a4a18654f37f9ebc35",
+        "size_bytes": 1437
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://cag.gov.in/uploads/download_audit_report/2025/UTFAR-ENGLISH-06a9995af301932.89506359.pdf",
+        "relative_path": "primary_disclosures/cag_puducherry_road_finances_2024_25/versions/b3d9726e438fab89d26d2548e2eaaae6fb28760a5483a02f08a59246e22ef8be.pdf",
+        "sha256": "b3d9726e438fab89d26d2548e2eaaae6fb28760a5483a02f08a59246e22ef8be",
+        "size_bytes": 80428077,
+        "availability": "archived"
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/cag_puducherry_road_finances_2024_25.parquet",
+        "format": "parquet",
+        "sha256": "6254132d43b5337e2abf9ec52bde32704d4a09c66b7ed7c6f0f4d5a4f0759148"
+      }
+    ],
+    "row_count": 1,
+    "columns": [
+      "entity_id",
+      "entity_name",
+      "entity_type",
+      "agency",
+      "state",
+      "road_class",
+      "metric",
+      "value",
+      "unit",
+      "original_value",
+      "original_unit",
+      "period_start",
+      "period_end",
+      "period_basis",
+      "estimate_type",
+      "statement_basis",
+      "data_as_of",
+      "published_at",
+      "source_id",
+      "citation_url",
+      "table_page",
+      "evidence_class",
+      "analytical_eligible",
+      "source_document_sha256",
+      "notes",
+      "entity",
+      "year",
+      "metric_name",
+      "metric_value",
+      "metric_category",
+      "source_type",
+      "asset_id",
+      "project_name",
+      "nh_number",
+      "project_stage",
+      "scheduled_completion_date",
+      "likely_completion_date",
+      "actual_completion_date",
+      "comparison_group",
+      "asset_owner_id",
+      "implementing_agency_id",
+      "operator_id",
+      "concessionaire_id",
+      "financing_entity_id",
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period",
+      "observation_status",
+      "assurance",
+      "revision_identity",
+      "price_basis",
+      "base_year"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
+  },
+  "retrieved_at": "2026-10-02T08:06:08.799429+00:00",
+  "semantic_rechecks": [],
+  "publication_history": {
+    "index_path": "history/cag_puducherry_road_finances_2024_25/index.json",
+    "version_count": 2,
+    "revision_count": 0,
+    "candidate_version_id": "52df9bd50a61bcf8a4ac1a6587701e01a42d1eed1e75bed9883673c0c72d5de4"
+  },
+  "research_cutoff": "2026-10-02",
+  "completeness_score": 0.98,
+  "recency_score": 0.7,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/cag_puducherry_road_finances_2024_25.parquet",
+  "data_checksum": "53b962e2758d6143812feac01fad65accdc51e6da0aef04d2ef5a4dc362afbf2",
+  "publication_generations": [
+    {
+      "source_id": "cag_puducherry_road_finances_2024_25",
+      "observation_checksum": "53b962e2758d6143812feac01fad65accdc51e6da0aef04d2ef5a4dc362afbf2",
+      "path": "data/processed/publication_history/cag_puducherry_road_finances_2024_25/53b962e2758d6143812feac01fad65accdc51e6da0aef04d2ef5a4dc362afbf2.parquet",
+      "sha256": "6254132d43b5337e2abf9ec52bde32704d4a09c66b7ed7c6f0f4d5a4f0759148",
+      "row_count": 1,
+      "source_as_of_date": "2025-03-31",
+      "publication_date": "2026-08-31",
+      "citations": {
+        "permanent_identifier": "cag_puducherry_road_finances_2024_25",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "Recovered regional/UT primary publication; dated audited annual actuals with labelled reconciliation and no inferred publication day."
+      },
+      "source_documents": [
+        {
+          "url": "https://cag.gov.in/uploads/download_audit_report/2025/UTFAR-ENGLISH-06a9995af301932.89506359.pdf",
+          "relative_path": "primary_disclosures/cag_puducherry_road_finances_2024_25/versions/b3d9726e438fab89d26d2548e2eaaae6fb28760a5483a02f08a59246e22ef8be.pdf",
+          "sha256": "b3d9726e438fab89d26d2548e2eaaae6fb28760a5483a02f08a59246e22ef8be",
+          "size_bytes": 80428077
+        }
+      ],
+      "data_changed_at": "2026-10-02T08:06:08.799429+00:00"
+    }
+  ],
+  "last_ingested_at": "2026-10-02T08:28:37.461355+00:00",
+  "analytical_scope": {
+    "source_as_of_date": "2025-03-31",
+    "publisher_type": "government"
+  },
+  "next_expected_publication_at": null,
+  "metric_coverage": [
+    {
+      "metric": "roads_bridges_capital_outlay_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "state_aggregate",
+      "agency": "CAG / Government of Puducherry",
+      "road_class": "roads_and_bridges_all_classes",
+      "period_basis": "fiscal_year",
+      "statement_basis": "state_finance_audit_report_rounded_cash_capital_expenditure",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "cag_puducherry_road_finances_2024_25",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2025-03-31",
+      "earliest_entity_cutoff": "2025-03-31",
+      "latest_available_period_end": "2025-03-31",
+      "latest_publication_date": "2026-08-31",
+      "latest_disclosure_publication_date": "2026-08-31",
+      "publication_lag_days": 518,
+      "observation_status": [
+        "final"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "state_puducherry": "2025-03-31"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
+}
