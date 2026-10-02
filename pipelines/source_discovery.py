@@ -36,6 +36,15 @@ SUCCESSORS = {
 HISTORICAL = {'cag_bharatmala_performance_audit','adb_state_road_projects','data_gov_in_nhai_state_projects_api','data_gov_in_nhai_projects_district_target_2023'}
 
 
+def verified_companions(source_id, entries):
+    candidates = list(SUCCESSORS.get(source_id, []))
+    if source_id == 'rbi_state_road_finances':
+        candidates.extend(sid for sid in entries if sid.startswith('cag_') and '_road_finances_' in sid)
+    if source_id in {'nhai_audited_results_pdf', 'nhai_financial_results_2025_03_unaudited'}:
+        candidates.append('nhai_financial_results_2025_26_to_2026_06')
+    return sorted({sid for sid in candidates if sid in entries})
+
+
 def extract_candidates(name, content):
     payload = json.loads(content) if name in {'morth_reports','paimana_reports'} else None
     candidates = []
@@ -86,7 +95,7 @@ def build(inventory, catalog, out):
     rows=[]
     for source in sources:
         sid=source['source_id'];entry=entries.get(sid,{})
-        companions=[candidate for candidate in SUCCESSORS.get(sid,[]) if candidate in entries]
+        companions=verified_companions(sid,entries)
         rows.append({'source_id':sid,'refresh_outcome':entry.get('refresh_outcome','not_checked'),'last_checked_at':entry.get('last_checked_at'),'observation_cutoff':entry.get('source_data_cutoff') or entry.get('source_as_of_date'),'publication_date':entry.get('publication_date'),'analytical_ready':entry.get('analytical_ready',False),'successor_source_ids':companions,'successor_policy':'Separate scopes/vintages; compatible metric selection only, never concatenate totals' if companions else None,'research_outcome':'historical_context' if sid in HISTORICAL else 'newer_companion_verified' if companions else 'no_verified_successor_recorded','gap_reason':entry.get('refresh_error') or entry.get('quarantine_reason') or entry.get('note') or entry.get('skip_reason')})
     report={'checked_at':checked,'research_cutoff':research_cutoff(),'registered_source_count':len(sources),'source_count':len(rows),'sources':rows,'publisher_indexes':indexes,'policy':'Candidate links are discovery evidence only. No new observation or publication date is inferred; unvalidated disclosures do not replace data.'}
     write_json(report,Path(out));return report

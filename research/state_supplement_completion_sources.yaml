@@ -11,15 +11,14 @@ sources:
   update_frequency: annual
   geographic_granularity: state
   temporal_coverage: FY2024-25 annual actuals plus FY2023-24 capital comparative
-  license_terms: Public government accounts; attribution and statement/page citation
-    required.
-  retrieval_method: pinned primary PDF and reproducible labelled table extraction
-    with cross-table reconciliation
+  license_terms: Public government accounts; attribution and statement/page citation required.
+  retrieval_method: pinned primary PDF and reproducible labelled table extraction with cross-table reconciliation
   reliability_grade: A
-  reliability_justification: Audited CAG primary disclosure with identifiable annual
-    period and major head; reviewed table extraction.
-  known_limitations: 'All-road-class Roads and Bridges government cash accounts; not
-    state-highway-only or road-corporation finances. '
+  reliability_justification: Audited CAG primary disclosure with identifiable annual period and major
+    head; reviewed table extraction.
+  known_limitations: Separate all-road-class MH3054/MH5054 aggregates and State Highway minor-head03 net
+    expenditure. Minor-head values are included in major-head totals; do not add scopes. Negative revenue
+    is an audited net recovery, not zero.
   allow_auto_fetch: true
   url: https://cag.gov.in/uploads/state_accounts_report/account-report-FA-2024-25-Vol-I-E-002-06985d5ed9f3be2-90457272.pdf
   resource_page_url: https://cag.gov.in/ae/rajasthan/en/state-accounts-report?defuat_account_report_type=359
@@ -30,13 +29,12 @@ sources:
   publication_date: null
   research_verified_at: '2026-10-02'
   manual_fallback: true
-  notes: Recovered official regional/UT publication. Annual actual flow, distinct
-    from progressive balances; original INR crore. Annual capital cross-checked to
-    functional expenditure; original table column order preserved.
+  notes: Major-head annual expenditure originally INR crore, separated from progressive balances and cross-checked
+    in Statements4A/5. State Highway minor-head03 annual net expenditure originally INR lakh in Statements15/16,
+    normalized to crore; CRF/SRDF recoveries remain visible.
 - source_id: cag_jammu_and_kashmir_road_finances_2024_25
   official_flag: true
-  publisher_org: Comptroller and Auditor General of India / Government of Jammu and
-    Kashmir
+  publisher_org: Comptroller and Auditor General of India / Government of Jammu and Kashmir
   publisher_type: government
   domain: cag.gov.in
   dataset_title: Jammu and Kashmir audited FY2024-25 Roads and Bridges annual expenditure
@@ -46,16 +44,14 @@ sources:
   update_frequency: annual
   geographic_granularity: state
   temporal_coverage: FY2024-25 annual actuals plus FY2023-24 capital comparative
-  license_terms: Public government accounts; attribution and statement/page citation
-    required.
-  retrieval_method: pinned primary PDF and reproducible labelled table extraction
-    with cross-table reconciliation
+  license_terms: Public government accounts; attribution and statement/page citation required.
+  retrieval_method: pinned primary PDF and reproducible labelled table extraction with cross-table reconciliation
   reliability_grade: A
-  reliability_justification: Audited CAG primary disclosure with identifiable annual
-    period and major head; reviewed table extraction.
-  known_limitations: 'All-road-class Roads and Bridges government cash accounts; not
-    state-highway-only or road-corporation finances. Present J&K UT: excludes bold
-    legacy pre-31October2019 unapportioned balances.'
+  reliability_justification: Audited CAG primary disclosure with identifiable annual period and major
+    head; reviewed table extraction.
+  known_limitations: 'All-road-class Roads and Bridges government cash accounts; not state-highway-only
+    or road-corporation finances. Present J&K UT: excludes bold legacy pre-31October2019 unapportioned
+    balances.'
   allow_auto_fetch: true
   url: https://cag.gov.in/uploads/state_accounts_report/account-report-JK-Finance-Accounts-2024-25-Vol-I-15-12-2025-069d79132701351-89156562.pdf
   resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=380&show_ut_only=1
@@ -66,9 +62,9 @@ sources:
   publication_date: null
   research_verified_at: '2026-10-02'
   manual_fallback: true
-  notes: Recovered official regional/UT publication. Annual actual flow, distinct
-    from progressive balances; original INR crore. Annual capital cross-checked to
-    functional expenditure; original table column order preserved.
+  notes: Recovered official regional/UT publication. Annual actual flow, distinct from progressive balances;
+    original INR crore. Annual capital cross-checked to functional expenditure; original table column
+    order preserved.
 - source_id: cag_delhi_road_finances_2024_25
   official_flag: true
   publisher_org: Comptroller and Auditor General of India / Government of Delhi
@@ -81,15 +77,13 @@ sources:
   update_frequency: annual
   geographic_granularity: state
   temporal_coverage: FY2024-25 annual actuals plus FY2023-24 capital comparative
-  license_terms: Public government accounts; attribution and statement/page citation
-    required.
-  retrieval_method: pinned primary PDF and reproducible labelled table extraction
-    with cross-table reconciliation
+  license_terms: Public government accounts; attribution and statement/page citation required.
+  retrieval_method: pinned primary PDF and reproducible labelled table extraction with cross-table reconciliation
   reliability_grade: A
-  reliability_justification: Audited CAG primary disclosure with identifiable annual
-    period and major head; reviewed table extraction.
-  known_limitations: 'All-road-class Roads and Bridges government cash accounts; not
-    state-highway-only or road-corporation finances. '
+  reliability_justification: Audited CAG primary disclosure with identifiable annual period and major
+    head; reviewed table extraction.
+  known_limitations: 'All-road-class Roads and Bridges government cash accounts; not state-highway-only
+    or road-corporation finances. '
   allow_auto_fetch: true
   url: https://cag.gov.in/webroot/uploads/download_audit_report/2025/Report_No_2_of_2026_SFAR_English-06a7ae58e197ee5.14833566.pdf
   resource_page_url: https://cag.gov.in/en/audit-report?gt=49&state%5B0%5D=69
@@ -100,45 +94,41 @@ sources:
   publication_date: '2026-08-10'
   research_verified_at: '2026-10-02'
   manual_fallback: true
-  notes: Recovered official regional/UT publication. Annual actual flow, distinct
-    from progressive balances; original INR crore. Delhi capital narrative corroborated
-    twice within SFAR; revenue head3054 remains unidentified.
+  notes: Recovered official regional/UT publication. Annual actual flow, distinct from progressive balances;
+    original INR crore. Delhi capital narrative corroborated twice within SFAR; revenue head3054 remains
+    unidentified.
 - source_id: cag_puducherry_road_finances_2024_25
   official_flag: true
   publisher_org: Comptroller and Auditor General of India / Government of Puducherry
   publisher_type: government
   domain: cag.gov.in
-  dataset_title: Puducherry FY2024-25 State Finances Audit Report, reported Roads
-    and Bridges capital expenditure
+  dataset_title: Puducherry FY2024-25 State Finances Audit Report, reported Roads and Bridges capital
+    expenditure
   theme: state_finance
   access_type: PDF
   auth: none
   update_frequency: annual
   geographic_granularity: state
   temporal_coverage: FY2024-25 rounded annual actual
-  license_terms: Public government accounts; attribution and statement/page citation
-    required.
-  retrieval_method: Source-pinned scanned primary PDF; reviewed OCR and rendered narrative
-    verification
+  license_terms: Public government accounts; attribution and statement/page citation required.
+  retrieval_method: Source-pinned scanned primary PDF; reviewed OCR and rendered narrative verification
   reliability_grade: A
-  reliability_justification: Audited CAG primary disclosure with identifiable annual
-    period and major head; reviewed table extraction.
-  known_limitations: Rounded narrative actual, distinct statement basis from detailed
-    Finance Accounts. No revenue/prior-year road subtotal, no inferred zero. Report
-    capital classification caveat retained. Roads and Bridges all classes, not SH-only.
+  reliability_justification: Audited CAG primary disclosure with identifiable annual period and major
+    head; reviewed table extraction.
+  known_limitations: Rounded narrative actual, distinct statement basis from detailed Finance Accounts.
+    No revenue/prior-year road subtotal, no inferred zero. Report capital classification caveat retained.
+    Roads and Bridges all classes, not SH-only.
   allow_auto_fetch: true
   url: https://cag.gov.in/uploads/download_audit_report/2025/UTFAR-ENGLISH-06a9995af301932.89506359.pdf
   resource_page_url: https://cag.gov.in/en/audit-report/details/126307
-  permanent_identifier_hint: ReportNo1of2026; printedp25 capital expenditure Roads
-    and Bridges narrative
+  permanent_identifier_hint: ReportNo1of2026; printedp25 capital expenditure Roads and Bridges narrative
   connector: primary_disclosures
   metric_category: official_measured
   source_as_of_date: '2025-03-31'
   publication_date: '2026-08-31'
   research_verified_at: '2026-10-02'
   manual_fallback: true
-  notes: Original report prints INR144crore rounded. Audited report qualifies aggregate
-    capital with INR25.59crore misclassification; no inferred deduction from the road
-    subtotal. Original finance accounts and revenue3054 are not published in the official
-    annual accounts index through research cutoff.
+  notes: Original report prints INR144crore rounded. Audited report qualifies aggregate capital with INR25.59crore
+    misclassification; no inferred deduction from the road subtotal. Original finance accounts and revenue3054
+    are not published in the official annual accounts index through research cutoff.
   max_document_bytes: 100000000

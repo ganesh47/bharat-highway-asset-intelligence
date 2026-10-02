@@ -61,6 +61,8 @@ def coverage_buckets(frames: dict[str, pd.DataFrame]) -> list[set[str]]:
             buckets[1].add(sid)
         if any(metric.startswith("roads_bridges_") for metric in metrics):
             buckets[2].add(sid)
+        if "entity_type" in frame and frame["entity_type"].eq("project").any() and "state" in frame:
+            buckets[3].add(sid)
     return buckets
 
 

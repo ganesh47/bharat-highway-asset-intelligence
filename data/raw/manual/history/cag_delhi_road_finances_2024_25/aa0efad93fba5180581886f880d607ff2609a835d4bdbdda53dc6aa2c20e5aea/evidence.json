@@ -16,14 +16,7 @@
   "notes": "Recovered regional/UT primary publication; dated audited annual actuals with labelled reconciliation and no inferred publication day.",
   "gap_reason": "",
   "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
-  "active_document_sha256": [
-    "8db2505cae00b0d29892cbfa88b96655dd0f37534a9c8ca4eef0c827cb43e274"
-  ],
   "csv_sha256": "dd0222c4933fbb043c3bab0fb7be2129f54d2b8e7aa9ee77929dce4371765ad6",
-  "history": {
-    "index_path": "history/cag_delhi_road_finances_2024_25/index.json",
-    "version_count": 3,
-    "revision_count": 0,
-    "candidate_version_id": "aa0efad93fba5180581886f880d607ff2609a835d4bdbdda53dc6aa2c20e5aea"
-  }
+  "version_id": "aa0efad93fba5180581886f880d607ff2609a835d4bdbdda53dc6aa2c20e5aea",
+  "observation_checksum": "403276ad304ddabbd4a7a185b78591450417c6206b016b658e23c9af6a116a8a"
 }

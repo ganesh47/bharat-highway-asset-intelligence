@@ -19,7 +19,7 @@ class DashboardFreshnessContractTests(unittest.TestCase):
         self.assertEqual(_dashboard_contract_errors(app), [])
         fixed = app.replace("Official NH fatalities: ${", "Official NH fatalities: 2020-2022 ${")
         self.assertTrue(any("Official NH fatalities" in error for error in _dashboard_contract_errors(fixed)))
-        missing_unit = app.replace("Common-period GSDP at current prices (₹ crore)", "Common-period GSDP")
+        missing_unit = app.replace("Latest-period GSDP at current prices (₹ crore)", "Latest-period GSDP")
         self.assertTrue(any("₹ crore" in error for error in _dashboard_contract_errors(missing_unit)))
 
     def test_raw_lineage_rejects_stale_hashes_and_requires_explicit_missing_pdf_gap(self):

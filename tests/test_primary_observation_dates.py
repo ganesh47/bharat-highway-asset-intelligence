@@ -13,10 +13,12 @@ class PrimaryObservationDateTests(unittest.TestCase):
     def test_coverage_discovers_new_finance_and_network_sources_by_scope(self):
         frames = {"new_state_accounts": pd.DataFrame({"metric": ["roads_bridges_capital_outlay_inr_crore"]}),
                   "new_network": pd.DataFrame({"metric": ["nh_network_length_km", "constructed_length_km"]}),
-                  "flow_only": pd.DataFrame({"metric": ["constructed_length_km"]})}
+                  "flow_only": pd.DataFrame({"metric": ["constructed_length_km"]}),
+                  "new_progress": pd.DataFrame({"metric": ["physical_progress_percent"], "entity_type": ["project"], "state": ["Uttar Pradesh"]})}
         buckets = coverage_buckets(frames)
         self.assertIn("new_state_accounts", buckets[2])
         self.assertIn("new_network", buckets[0])
+        self.assertIn("new_progress", buckets[3])
         self.assertFalse(any("flow_only" in bucket for bucket in buckets))
 
     def test_explicit_unknown_clears_stale_inferred_cutoff(self):

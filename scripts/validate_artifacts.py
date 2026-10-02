@@ -427,7 +427,8 @@ def _dashboard_contract_errors(app_text: str) -> List[str]:
     required_titles = [
         "NH Fatality Trend by State/UT (official)",
         "Economic Scale vs NH Extent by State/UT",
-        "Delay Burden Relative to Economic Scale",
+        "NHIDCL Schedule Exposure Relative to Economic Scale",
+        "NHIDCL Monitored NH Portfolio: Reported Stages & Schedule Exposure",
     ]
     for title in required_titles:
         if title not in app_text:
@@ -436,12 +437,14 @@ def _dashboard_contract_errors(app_text: str) -> List[str]:
     required_markers = [
         "Official NH fatalities: ${",
         "analytics?.accidentLatestYear",
-        "Common GSDP period: ${",
+        "Latest published GSDP period: ${",
         "analytics?.gsdpRows?.[0]?.gsdp_year",
-        "Common-period GSDP at current prices (₹ crore)",
+        "Latest-period GSDP at current prices (₹ crore)",
         "NH length (km)",
-        "Delayed NH projects",
-        "missing states are excluded",
+        "NHIDCL monitored NH projects",
+        "ongoing_unknown_schedule",
+        "Schedule exposure is not reported contractual delay",
+        "missing states and historical geographies are excluded",
     ]
     for marker in required_markers:
         if marker not in app_text:
