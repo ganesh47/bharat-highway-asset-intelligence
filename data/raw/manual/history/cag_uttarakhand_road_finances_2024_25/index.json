@@ -1,0 +1,13 @@
+{
+  "source_id": "cag_uttarakhand_road_finances_2024_25",
+  "versions": [
+    {
+      "version_id": "4d488c6b49bff20e18dd4e6222bf5b5aa1a44e07daa9ae8b9bf8590f2ad24052",
+      "csv_sha256": "4decb36b720df84fbfce4af52160ecaa153d88f31154ed0ea524bd7ab619ede2",
+      "row_count": 3,
+      "facts_path": "history/cag_uttarakhand_road_finances_2024_25/4d488c6b49bff20e18dd4e6222bf5b5aa1a44e07daa9ae8b9bf8590f2ad24052/facts.csv",
+      "evidence_path": "history/cag_uttarakhand_road_finances_2024_25/4d488c6b49bff20e18dd4e6222bf5b5aa1a44e07daa9ae8b9bf8590f2ad24052/evidence.json"
+    }
+  ],
+  "revisions": []
+}

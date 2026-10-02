@@ -1,0 +1,34 @@
+{
+  "source_id": "cag_mizoram_road_finances_2024_25",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-02T08:01:59.678296+00:00",
+  "last_checked_at": "2026-10-02T08:17:37.892302+00:00",
+  "documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Account-Volume-I-2024-25-069cced70026997-67273227.pdf",
+      "relative_path": "primary_disclosures/cag_mizoram_road_finances_2024_25/versions/791f92d1d029032ae2c87afa593dba00ee10c30e5ec90d8fe4bcfbc73aaacfa2.pdf",
+      "sha256": "791f92d1d029032ae2c87afa593dba00ee10c30e5ec90d8fe4bcfbc73aaacfa2",
+      "size_bytes": 3673789,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=82"
+    }
+  ],
+  "extraction_status": "validated",
+  "row_count": 3,
+  "notes": "CAG Mizoram FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure.",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "active_document_sha256": [
+    "791f92d1d029032ae2c87afa593dba00ee10c30e5ec90d8fe4bcfbc73aaacfa2"
+  ],
+  "csv_sha256": "c3c9f86afb48d2bea370697e7ef804a78899268546b560da9a28b28909f38dab",
+  "history": {
+    "index_path": "history/cag_mizoram_road_finances_2024_25/index.json",
+    "version_count": 1,
+    "revision_count": 0,
+    "candidate_version_id": "5ec6edee9d6fef1cfc964d0acd6534a556f193f9f6687564be6e386f404b53ca"
+  }
+}

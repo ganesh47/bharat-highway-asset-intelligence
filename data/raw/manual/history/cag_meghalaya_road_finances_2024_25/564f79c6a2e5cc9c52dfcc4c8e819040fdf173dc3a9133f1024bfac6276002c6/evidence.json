@@ -1,0 +1,27 @@
+{
+  "source_id": "cag_meghalaya_road_finances_2024_25",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-02T08:01:58.260890+00:00",
+  "last_checked_at": "2026-10-02T08:17:37.875266+00:00",
+  "documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-069a184d5a6e4c7-22331771.pdf",
+      "relative_path": "primary_disclosures/cag_meghalaya_road_finances_2024_25/versions/8f3500976f6320d4d820673e8ba6bb04483ed7f520175e78fe3a45984af1d661.pdf",
+      "sha256": "8f3500976f6320d4d820673e8ba6bb04483ed7f520175e78fe3a45984af1d661",
+      "size_bytes": 4240085,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=81"
+    }
+  ],
+  "extraction_status": "validated",
+  "row_count": 3,
+  "notes": "CAG Meghalaya FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure.",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "csv_sha256": "75655b9043082e737e5d2d417b343ee4a9b7b732536e3f63d76c49c2470a4f51",
+  "version_id": "564f79c6a2e5cc9c52dfcc4c8e819040fdf173dc3a9133f1024bfac6276002c6",
+  "observation_checksum": "572f219b8bb0da8d31c29705f321ccf037512289ede6ad0ccd59f13ed1fc8f8b"
+}

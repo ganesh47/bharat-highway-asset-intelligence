@@ -1,0 +1,48 @@
+15
+15
+STATEMENT No.4 - contd.
+A. EXPENDITURE BY FUNCTION - contd.
+(₹ in crore)
+Loans &
+Description Revenue Capital Total
+Advances
+C Economic Services
+C.1 Agriculture and Allied Activities 15,176.16 1,063.09 2,000.00 18,239.25
+Crop Husbandry 7,843.90 4.62 Nil 7,848.52
+Soil and Water Conservation 44.67 2.51 Nil 47.18
+Animal Husbandry 1,326.37 16.35 Nil 1,342.72
+Fisheries 197.79 18.68 Nil 216.47
+Forestry and Wild Life 2,046.56 708.51 Nil 2,755.07
+Food, Storage and Warehousing 2,633.67 11.69 2,000.00 4,645.36
+Agricultural Research and Education 215.70 Nil Nil 215.70
+Co-operation 867.50 300.73 Nil 1,168.23
+C.2 Rural Development 9,122.70 2,523.03 Nil 11,645.73
+Special Programmes for Rural Development 1,081.14 Nil Nil 1,081.14
+Rural Employment 2,497.25 Nil Nil 2,497.25
+Other Rural Development Programmes 5,544.31 2,523.03 Nil 8,067.34
+C.4 Irrigation and Flood Control 1,752.40 18,842.90 Nil 20,595.30
+Major Irrigation 642.94 16,459.34 Nil 17,102.28
+Medium Irrigation 1,012.73 1,591.64 Nil 2,604.37
+Minor Irrigation 91.63 520.38 Nil 612.01
+Command Area Development 5.10 Nil Nil 5.10
+Flood Control and Drainage Nil 271.54 Nil 271.54
+C.5 Energy 26,800.69 5,818.99 27.97 32,647.65
+Power 26,799.52 5,818.99 27.97 32,646.48
+New and Renewable Energy 1.17 Nil Nil 1.17
+C.6 Industry and Minerals 7,491.31 2,175.88 300.00 9,967.19
+Village and Small Industries 2,554.93 210.98 Nil 2,765.91
+Industries 2,785.90 Nil Nil 2,785.90
+Non-Ferrous Mining and Metallurgical
+2,150.48 1,106.90 Nil 3,257.38
+Industries
+Other Industries Nil 708.00 Nil 708.00
+Other Outlays on Industries and Minerals Nil 150.00 Nil 150.00
+Petro-Chemical Industries Nil Nil 300.00 300.00
+C.7 Transport 1,549.48 9,763.58 Nil 11,313.06
+Civil Aviation 1.09 118.81 Nil 119.90
+Roads and Bridges 1,547.90 9,644.77 Nil 11,192.67
+Road Transport 0.49 Nil Nil 0.49
+Other Transport Services Nil Nil Nil Nil
+C.8 Science, Technology and Environment 216.87 145.60 Nil 362.47
+Other Scientific Research 214.85 145.60 Nil 360.45
+Ecology and Environment 2.02 Nil Nil 2.02

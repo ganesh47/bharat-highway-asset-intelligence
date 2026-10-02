@@ -1,0 +1,40 @@
+23
+23
+4. STATEMENT OF EXPENDITURE (CONSOLIDATED FUND)
+A. EXPENDITURE BY FUNCTION - concld. ( in crore )
+Description Loans
+Revenue Capital and Total
+Advance
+C. Economic Services - concld.
+C.6 Industry and Minerals - concld.
+Non-ferrous Mining and Metallurgical Industries 6.81 … … 6.81
+Cement and Non-Metallic Mineral Industries … … … …
+Other Outlays on Industries and Minerals … … … …
+C.7 Transport 441.02 361.83 … 802.85
+Civil Aviation 7.84 25.02 … 32.86
+Roads and Bridges 414.47 336.16 … 750.63
+Road Transport 17.78 0.65 … 18.43
+Inland Water Transport 0.93 … 0.93
+C.8 Communications 6.55 … … 6.55
+Other Communicatons Services 6.55 … … 6.55
+C.9 Science Technology and Environment 11.25 … … 11.25
+Other Scientific Research 8.50 … … 8.50
+Ecology and Environment 2.75 … … 2.75
+Other Scientific and Environment Research … … … …
+General Economic Services 74.37 256.24 … 330.61
+Secretariat-Economic Services 17.97 … … 17.97
+Tourism 14.03 64.98 … 79.01
+Census Survey and Statistics 13.97 … … 13.97
+Civil Supplies 22.51 … … 22.51
+Other General Economic Services 5.89 191.26 … 197.15
+Total C. Economic Services 2,460.88 829.88 … 3,290.76
+E. Public Debt
+Internal Debt of the State Government … … 1,831.14 1,831.14
+Loans and Advances from the Central Government … … 27.56 27.56
+Total E. Public Debt … … 1,858.70 1,858.70
+F. Loans and Advances
+Loans for Co-operation … … 0.72 0.72
+Loans to Government Servants … … 12.60 12.60
+Miscellaneous Loans … … 3.52 3.52
+Total F. Loans and Advances 0.00 … 16.84 16.84
+Total Consolidated Fund Expenditure 11,086.76 1,996.18 1,875.54 14,958.48

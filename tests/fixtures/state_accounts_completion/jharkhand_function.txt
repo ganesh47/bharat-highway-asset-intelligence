@@ -1,0 +1,37 @@
+4. STATEMENT OF EXPENDITURE IN CONSOLIDATED FUND
+A. EXPENDITURE BY FUNCTION
+(` in crore)
+Loans and
+Description Revenue Capital Total
+Advances
+C.6 Transport 607.01 5,211.30 0.00 5,818.31
+Civil Aviation 32.86 37.28 0.00 70.14
+Roads and Bridges 569.09 5,163.85 0.00 5,732.94
+Road Transport 5.06 10.17 0.00 15.23
+Other Transport Services 0.00 0.00 0.00 0.00
+C.7 General Economic Services 1,504.75 59.13 0.00 1,563.88
+Secretariat-Economic Services 144.18 0.00 0.00 144.18
+Tourism 50.84 58.52 0.00 109.36
+Census Surveys and Statistics 15.42 0.00 0.00 15.42
+Investments in General Financal and 0.00 0.00 0.00 0.00
+Trading Institutions
+Civil Supplies 1,290.35 0.00 0.00 1,290.35
+Other General Economic Services 3.96 0.61 0.00 4.57
+Total Economic Services 22,611.25 13,110.40 4,046.11 39,767.76
+D Grants-in-aid and Contributions 0.00 0.00 0.00 0.00
+Compensation and Assignments to Local 0.00 0.00 0.00 0.00
+Bodies and Panchayati Raj Institutions
+0.00 0.00 7,679.63 7,679.63
+E Public Debt
+Internal Debt of the State Government 0.00 0.00 7,294.21 7,294.21
+Loans and Advances from the Central 0.00 0.00 385.42 385.42
+Government
+F Loans to Government Servants etc. 0.00 0.00 174.21 174.21
+Loans to Government Servants etc. 0.00 0.00 174.21 174.21
+G Inter-State Settlement 0.00 0.00 0.00 0.00
+Inter-State Settlement 0.00 0.00 0.00 0.00
+Total Loans, Grants-in-aid and 0.00 0.00 7,853.84 7,853.84
+Contributions
+Total Consolidated Fund Expenditure 86,565.06 18,409.98 11,916.72 1,16,891.76*
+* Differs from rounding-off of absolute figure by (+) ` 0.03 crore
+17

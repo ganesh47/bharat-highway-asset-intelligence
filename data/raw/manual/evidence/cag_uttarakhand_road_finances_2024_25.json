@@ -1,0 +1,34 @@
+{
+  "source_id": "cag_uttarakhand_road_finances_2024_25",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-02T08:02:10.973712+00:00",
+  "last_checked_at": "2026-10-02T08:17:38.043350+00:00",
+  "documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2024-25-Vol-I-069ba8ba24d8b91-33490234.pdf",
+      "relative_path": "primary_disclosures/cag_uttarakhand_road_finances_2024_25/versions/5254ec88acec4042b85e2efa727c31af74e8de479308898a376ad689c5dcd27b.pdf",
+      "sha256": "5254ec88acec4042b85e2efa727c31af74e8de479308898a376ad689c5dcd27b",
+      "size_bytes": 11423819,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=91"
+    }
+  ],
+  "extraction_status": "validated",
+  "row_count": 3,
+  "notes": "CAG Uttarakhand FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Statement5 orders FY2024-25 columns before FY2023-24. Column labels determine annual flow periods; no standard positional assumption.",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "active_document_sha256": [
+    "5254ec88acec4042b85e2efa727c31af74e8de479308898a376ad689c5dcd27b"
+  ],
+  "csv_sha256": "4decb36b720df84fbfce4af52160ecaa153d88f31154ed0ea524bd7ab619ede2",
+  "history": {
+    "index_path": "history/cag_uttarakhand_road_finances_2024_25/index.json",
+    "version_count": 1,
+    "revision_count": 0,
+    "candidate_version_id": "4d488c6b49bff20e18dd4e6222bf5b5aa1a44e07daa9ae8b9bf8590f2ad24052"
+  }
+}

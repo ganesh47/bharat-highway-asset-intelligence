@@ -1,0 +1,46 @@
+19
+4.STATEMENT OF EXPENDITURE IN CONSOLIDATED FUND- contd.
+A.EXPENDITURE BY FUNCTION- contd. (` in crore)
+Description Revenue Capital Loans and Total
+Advances
+C Economic Services
+C.1 Agriculture and Allied Activities 26,776.46 128.61 48.00 26,953.07
+Crop Husbandry 13,909.91 7.73 0.00 13,917.64
+Soil and Water Conservation 54.93 19.49 0.00 74.42
+Animal Husbandry 502.05 4.95 0.00 507.00
+Fisheries 128.53 1.77 0.00 130.30
+Forestry and Wild Life 1,590.40 12.11 0.00 1,602.51
+Food Storage and Ware Housing 10,019.03 0.96 0.00 10,019.99
+Agricultural Research and Education 279.36 62.96 0.00 342.32
+Co-operation 265.45 18.64 48.00 332.09
+Other Agricultural Programmes 26.80 0.00 0.00 26.80
+C.2 Rural Development 4,705.10 653.21 0.00 5,358.31
+Special Programmes for Rural
+645.81 0.00 0.00 645.81
+Development
+Rural Employment 1,177.64 0.00 0.00 1,177.64
+Other Rural Development Programmes 2,881.65 653.21 0.00 3,534.86
+C.3 Special Areas Programmes 0.00 0.00 0.00 0.00
+C.4 Irrigation and Flood Control 624.55 2,005.38 0.00 2,629.93
+Major Irrigation 115.66 565.41 0.00 681.07
+Medium Irrigation 418.17 105.45 0.00 523.62
+Minor Irrigation 90.72 1,259.03 0.00 1,349.75
+Flood Control and Drainage 0.00 75.49 0.00 75.49
+C.5 Energy 9,265.50 629.94 0.00 9,895.44
+Power 9,209.37 388.94 0.00 9,598.31
+New and Renewable Energy 56.13 241.00 0.00 297.13
+C.6 Industry and Minerals 966.35 513.63 0.00 1,479.98
+Village and Small Industries 238.77 512.33 0.00 751.10
+Industries 681.22 0.00 0.00 681.22
+Non-Ferrous Mining and Metallurgical
+46.36 1.30 0.00 47.66
+Industries
+C.7 Transport 792.48 6,336.90 0.00 7,129.38
+Civil Aviation 0.48 37.60 0.00 38.08
+Roads and Bridges 792.00 6,288.66 0.00 7,080.66
+Road Transport 0.00 10.64 0.00 10.64
+C.8 Communications 88.91 9.56 0.00 98.47
+Other Communication Service 88.91 9.56 0.00 98.47
+C.9 Science, Technology and Environment 13.94 46.07 0.00 60.01
+Other Scientific Research 13.94 46.07 0.00 60.01
+C.10 General Economic Services 141.15 126.01 0.00 267.16

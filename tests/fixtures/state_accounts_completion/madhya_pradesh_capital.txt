@@ -1,0 +1,40 @@
+21
+21
+STATEMENT NO. 5 - contd.
+(₹ in crore)
+Expenditure Progressive Expenditure Progressive Increase (+)/
+Major
+Description during expenditure during expenditure Decrease (-)
+Head
+2023-24 up to 2023-24 2024-25 up to 2024-25 in Per cent
+C. Capital Account of Economic Services – concld.
+(e) Capital Account of Energy-
+4801 Capital Outlay on Power Projects 1,174.37 35,970.01 5,818.99 41,789.00 395
+4810 Capital Outlay on New and Renewable Energy Nil 0.20 Nil 0.20 --
+Total-(e) Capital Account of Energy 1,174.37 35,970.21 5,818.99 41,789.20 395
+(f) Capital Account of Industry and Minerals -
+4851 Capital Outlay on Village and Small Industries 137.29 3,541.51 210.98 3,752.49 54
+4852 Capital Outlay on Iron and Steel Industries Nil 49.10 Nil 49.10 --
+4853 Capital Outlay on Non-Ferrous Mining and Metallurgical Industries 860.00 1,556.42 1,106.90 2,663.32 29
+4854 Capital Outlay on Cement and Non-Metallic Mineral Industries Nil 0.02 Nil 0.02 --
+4858 Capital Outlay on Engineering Industries Nil 0.13 Nil 0.13 --
+4860 Capital Outlay on Consumer Industries Nil 8.78 Nil 8.78 --
+4875 Capital Outlay on Other Industries 704.41 2,888.49 708.00 3,596.49 1
+4885 Other Capital Outlay on Industries and Minerals Nil 468.58 150.00 618.58 --
+Total-(f) Capital Account of Industry and Minerals 1,701.70 8,513.03 2,175.88 10,688.91 28
+(g) Capital Account of Transport -
+5053 Capital Outlay on Civil Aviation 22.96 713.82 118.81 832.63 417
+5054 Capital Outlay on Roads and Bridges 11,319.87 79,354.12 9,644.77 88,998.89 (-) 15
+5055 Capital Outlay on Road Transport Nil 119.46 Nil 119.46 --
+Total-(g) Capital Account of Transport 11,342.83 80,187.40 9,763.58 89,950.98 (-) 14
+(i) Capital Account of Science, Technology and Environment-
+5425 Capital Outlay on Other Scientific and Environmental Research 73.57 642.23 145.60 787.83 98
+Total - (i) Capital Account of Science, Technology and Environment 73.57 642.23 145.60 787.83 98
+(j) Capital Account of General Economic Services-
+5452 Capital Outlay on Tourism 144.49 1,518.25 283.54 1,801.79 96
+5465 Investments in General Financial and Trading Institutions Nil 0.03 Nil 0.03 --
+5475 Capital Outlay on Other General Economic Services 0.18 16.28 0.63 16.91 250
+Total-(j) Capital Account of General Economic Services 144.67 1,534.56 284.17 1,818.73 96
+TOTAL-C- Capital Account of Economic Services 33,716.45 3,04,364.54 40,617.24 3,44,981.78 20
+GRAND TOTAL 56,538.59 4,14,464.87 67,440.91 (a) 4,81,905.78 19
+(a) Differs by (+) 0.02 crore with absolute figure due to rounding off.

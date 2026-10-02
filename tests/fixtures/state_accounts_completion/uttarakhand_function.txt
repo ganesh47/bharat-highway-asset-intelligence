@@ -1,0 +1,43 @@
+14
+4. STATEMENT OF EXPENDITURE (CONSOLIDATED FUND)
+A. EXPENDITURE BY FUNCTION
+(` in crore)
+Description Revenue Capital Loans & Total
+Advances
+C Economic Services
+C.1 Agriculture and Allied Activities 2,199.98 949.54 244.15 3,393.67
+Crop Husbandry 800.50 121.50 131.85 1,053.85
+Animal Husbandry 391.43 48.20 0.00 439.63
+Dairy Development 124.55 33.25 10.00 167.80
+Fisheries 54.24 30.91 0.00 85.15
+Forestry and Wild Life 328.15 115.32 0.00 443.47
+Food, Storage and Warehousing 180.64 600.54 0.00 781.18
+Agricultural Research and Education 155.98 0.00 0.00 155.98
+Co-operation 164.49 -0.18 102.30 266.61
+C.2 Rural Development 2,153.56 1,526.75 0.00 3,680.31
+Special Programmes for Rural 122.39 0.00 0.00 122.39
+Development
+Rural Employment 252.47 0.00 0.00 252.47
+Land Reforms 13.33 0.00 0.00 13.33
+Other Rural Development Programmes 1,765.37 1,526.75 0.00 3,292.12
+C.3 Irrigation and Flood Control 603.59 1,117.16 0.00 1,720.75
+Major Irrigation 311.90 813.29 0.00 1,125.19
+Medium Irrigation 212.98 6.26 0.00 219.24
+Minor Irrigation 45.50 180.58 0.00 226.08
+Flood Control and Drainage 33.21 117.03 0.00 150.24
+C.4 Energy 29.12 785.05 408.46 1,222.63
+Power 0.28 684.28 408.46 1,093.02
+New and Renewable Energy 28.84 100.77 0.00 129.61
+C.5 Industry and Minerals 267.46 38.67 0.00 306.13
+Village and Small Industries 223.96 15.67 0.00 239.63
+Non-ferrous Mining and Metallurgical 43.50 0.00 0.00 43.50
+Industries
+Loans for Telecommunication and 0.00 23.00 0.00 23.00
+Electronic Industries
+C.6 Transport 1,337.65 1,497.84 1.61 2,837.10
+Civil Aviation 65.84 30.36 0.00 96.20
+Roads and Bridges 1,090.64 1,348.08 0.00 2,438.72
+Road Transport 181.17 119.40 1.61 302.18
+C.7 Science, Technology and Environment 70.16 0.00 0.00 70.16
+Other Scientific Research 67.63 0.00 0.00 67.63
+Ecology and Environment 2.53 0.00 0.00 2.53

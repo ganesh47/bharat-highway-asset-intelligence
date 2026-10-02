@@ -1,0 +1,13 @@
+{
+  "source_id": "cag_arunachal_pradesh_road_finances_2024_25",
+  "versions": [
+    {
+      "version_id": "5aedb330836ce729686fafdff1fb330a911fc4e1be425e258beed5e569695a5a",
+      "csv_sha256": "7013d71e511212ee4c74a90d3d163cc075e8fc02b4f305abd17a3b77c78acc09",
+      "row_count": 3,
+      "facts_path": "history/cag_arunachal_pradesh_road_finances_2024_25/5aedb330836ce729686fafdff1fb330a911fc4e1be425e258beed5e569695a5a/facts.csv",
+      "evidence_path": "history/cag_arunachal_pradesh_road_finances_2024_25/5aedb330836ce729686fafdff1fb330a911fc4e1be425e258beed5e569695a5a/evidence.json"
+    }
+  ],
+  "revisions": []
+}

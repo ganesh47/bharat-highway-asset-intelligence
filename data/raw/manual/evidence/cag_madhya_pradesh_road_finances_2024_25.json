@@ -1,0 +1,34 @@
+{
+  "source_id": "cag_madhya_pradesh_road_finances_2024_25",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-02T08:01:54.865982+00:00",
+  "last_checked_at": "2026-10-02T08:17:37.842170+00:00",
+  "documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-VOLUME-I-2024-25-Gwalior-MP-English-06932b1d027cce6-16383283.pdf",
+      "relative_path": "primary_disclosures/cag_madhya_pradesh_road_finances_2024_25/versions/43198ecbd5e99e46ccc9978633bc8c7c659853b0280b99f5e8f7e9feb9f79919.pdf",
+      "sha256": "43198ecbd5e99e46ccc9978633bc8c7c659853b0280b99f5e8f7e9feb9f79919",
+      "size_bytes": 2107334,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=78"
+    }
+  ],
+  "extraction_status": "validated",
+  "row_count": 3,
+  "notes": "CAG Madhya Pradesh FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure.",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "active_document_sha256": [
+    "43198ecbd5e99e46ccc9978633bc8c7c659853b0280b99f5e8f7e9feb9f79919"
+  ],
+  "csv_sha256": "e3ae278bf4a3a81f46b1a9ace8ff0a2028f1ed67fb58ef926860c36fa3462dfb",
+  "history": {
+    "index_path": "history/cag_madhya_pradesh_road_finances_2024_25/index.json",
+    "version_count": 1,
+    "revision_count": 0,
+    "candidate_version_id": "cd41142afb6fcfdb6b3d0096b3e8ba9dca70f4eed7a57dad7a925e6b927abbc5"
+  }
+}

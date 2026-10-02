@@ -1,0 +1,34 @@
+{
+  "source_id": "cag_kerala_road_finances_2024_25",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-02T08:01:55.705650+00:00",
+  "last_checked_at": "2026-10-02T08:17:37.825976+00:00",
+  "documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finace-Accounts-Vol-I-2024-25-0699d360b32af96-97221491.pdf",
+      "relative_path": "primary_disclosures/cag_kerala_road_finances_2024_25/versions/a4cf0c21d439e6a1ce20ff7eb90f1b761bc1250c31b605a1e409f921275061ba.pdf",
+      "sha256": "a4cf0c21d439e6a1ce20ff7eb90f1b761bc1250c31b605a1e409f921275061ba",
+      "size_bytes": 5709595,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=77"
+    }
+  ],
+  "extraction_status": "validated",
+  "row_count": 3,
+  "notes": "CAG Kerala FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. The PDF contains duplicate facing-page spreads and rotated capital text. Physical36/46 identify the single printed18/28 tables; duplicate spread not counted. Loans/advances cell is blank and omitted, never filled with zero.",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "active_document_sha256": [
+    "a4cf0c21d439e6a1ce20ff7eb90f1b761bc1250c31b605a1e409f921275061ba"
+  ],
+  "csv_sha256": "faad1dd24aa47221e86af04e026459a6e6f73af7221f70f3fe89c7025692caca",
+  "history": {
+    "index_path": "history/cag_kerala_road_finances_2024_25/index.json",
+    "version_count": 1,
+    "revision_count": 0,
+    "candidate_version_id": "5b9444452be565518a0e8383efd637acd6fdafff6a40107cbeffdf7bda5a2ee1"
+  }
+}

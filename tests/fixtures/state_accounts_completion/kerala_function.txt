@@ -1,0 +1,66 @@
+18
+( ₹ in crore )
+Description Revenue Capital
+Loans
+and
+Advances
+C.
+C.4
+Medium Irrigation 156.65 44.46 0.00
+Minor Irrigation 241.52 164.47 0.00
+Flood Control And Drainage 60.74 115.68 0.00
+C.5 Energy 543.03 6.95 25.58
+Power 518.20 6.12 3.72
+New And Renewable Energy 24.83 0.83 21.86
+C.6 Industry and Minerals 564.76 535.36 306.73
+Village And Small Industries 438.59 78.58 27.73
+Industries 34.10 0.00 0.00
+Non-Ferrous Mining And Metallurgical Industries 20.61 0.00 0.25
+Other Outlays On Industries And Minerals 71.46 302.60 20.68
+Capital Outlay On Cement And Non_Metallic Mineral Industries 0.00 0.00 3.75
+Capital Outlay On Chemicals And Pharmaceutical Industries 0.00 0.00 2.74
+Capital Outlay On Engineering Industries 0.00 2.55 41.08
+Capital Outlay On Telecommunication And Electronic Industries 0.00 140.21 9.67
+Capital Outlay On Consumer Industries 0.00 11.42 200.83
+C.7 Transport 1,168.67 3,667.59 1,748.33
+Ports And Light Houses 61.85 912.26 33.25
+Civil Aviation 0.00 5.27 51.80
+Roads And Bridges 1,019.29 1,859.35
+Road Transport 2.39 39.18 1,602.41
+Inland Water Transport 79.06 67.79 60.87
+Other Transport Services 6.08 783.74 0.00
+C.8 Science, Technology and Environment 143.11 0.00 0.00
+Other Scientific Research 129.02 0.00 0.00
+Ecology And Environment 14.09 0.00 0.00
+129.02
+14.09
+57.07
+2,878.64
+1,643.98
+207.72
+789.82
+212.25
+6,584.59
+1,007.36
+34.10
+20.86
+394.74
+3.75
+2.74
+143.11
+47.52
+1,406.85
+544.90
+201.11
+405.99
+176.42
+43.63
+149.88
+4. STATEMENT OF EXPENDITURE IN CONSOLIDATED FUND-contd
+Total
+ A. EXPENDITURE BY FUNCTION
+575.56
+528.04
+18
+Economic Services - Contd.
+Irrigation and Flood control- Concld.

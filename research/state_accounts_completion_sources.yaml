@@ -1,0 +1,827 @@
+sources:
+- source_id: cag_andhra_pradesh_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Andhra Pradesh
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Andhra Pradesh Finance Accounts2024-25 VolumeI, audited Roads and
+    Bridges expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. Statement5 has a separate amount-allocated
+    column and bold unapportioned legacy cumulative balances of INR17182.87crore.
+    Neither is an annual flow; omit both from current/prior capital facts.
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2024-25-069aadb8ce9dd98-48257159.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=64
+  permanent_identifier_hint: Andhra Pradesh Finance Accounts2024-25 VolumeI, Statements4A
+    and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval.
+    Statement5 has a separate amount-allocated column and bold unapportioned legacy
+    cumulative balances of INR17182.87crore. Neither is an annual flow; omit both
+    from current/prior capital facts.
+- source_id: cag_arunachal_pradesh_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Arunachal
+    Pradesh
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Arunachal Pradesh Finance Accounts2024-25 VolumeI, audited Roads
+    and Bridges expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: 'Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. '
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-VOLUME-1-2024-25-Arunachal-Pradesh-19-12-2025-Final-for-net-uplouding-069b7e107e0c908-00595685.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=65
+  permanent_identifier_hint: Arunachal Pradesh Finance Accounts2024-25 VolumeI, Statements4A
+    and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: 'Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval. '
+- source_id: cag_assam_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Assam
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Assam Finance Accounts2024-25 VolumeI, audited Roads and Bridges
+    expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. Published Statement4A current capital is INR9307.45crore
+    whereas Statement5 is INR9307.46crore. Both reported cells retained, no synthetic
+    correction; both current capital observations calculation-ineligible pending reconciliation.
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-24-25-Assam-24-12-2025-0699bdca0253803-90088290.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=66
+  permanent_identifier_hint: Assam Finance Accounts2024-25 VolumeI, Statements4A and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval.
+    Published Statement4A current capital is INR9307.45crore whereas Statement5 is
+    INR9307.46crore. Both reported cells retained, no synthetic correction; both current
+    capital observations calculation-ineligible pending reconciliation.
+- source_id: cag_bihar_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Bihar
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Bihar Finance Accounts2024-25 VolumeI, audited Roads and Bridges
+    expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: 'Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. '
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-Account-Volume-I-ENGLISH-2024-25-BIHAR-31-01-2026-069a011be9935a9-80886549.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=67
+  permanent_identifier_hint: Bihar Finance Accounts2024-25 VolumeI, Statements4A and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: 'Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval. '
+- source_id: cag_chhattisgarh_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Chhattisgarh
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Chhattisgarh Finance Accounts2024-25 VolumeI, audited Roads and Bridges
+    expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: 'Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. '
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-FINANCE-ACCOUNTS-VOL-01-English-069bb95632bd096-37549772.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=68
+  permanent_identifier_hint: Chhattisgarh Finance Accounts2024-25 VolumeI, Statements4A
+    and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: 'Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval. '
+- source_id: cag_haryana_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Haryana
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Haryana Finance Accounts2024-25 VolumeI, audited Roads and Bridges
+    expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: 'Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. '
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2024-25-1-06949342f0c1bd1-60544781.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=72
+  permanent_identifier_hint: Haryana Finance Accounts2024-25 VolumeI, Statements4A
+    and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: 'Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval. '
+- source_id: cag_himachal_pradesh_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Himachal
+    Pradesh
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Himachal Pradesh Finance Accounts2024-25 VolumeI, audited Roads and
+    Bridges expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: 'Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. '
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-I-2024-25-English-26-12-2025-069ccf778436f33-49613332.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=73
+  permanent_identifier_hint: Himachal Pradesh Finance Accounts2024-25 VolumeI, Statements4A
+    and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: 'Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval. '
+- source_id: cag_jharkhand_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Jharkhand
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Jharkhand Finance Accounts2024-25 VolumeI, audited Roads and Bridges
+    expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: 'Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. '
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-1-2024-25-ENGLISH-FINAL-0693c0e9a47b758-34211409.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=75
+  permanent_identifier_hint: Jharkhand Finance Accounts2024-25 VolumeI, Statements4A
+    and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: 'Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval. '
+- source_id: cag_kerala_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Kerala
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Kerala Finance Accounts2024-25 VolumeI, audited Roads and Bridges
+    expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. The PDF contains duplicate facing-page spreads
+    and rotated capital text. Physical36/46 identify the single printed18/28 tables;
+    duplicate spread not counted. Loans/advances cell is blank and omitted, never
+    filled with zero.
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-Finace-Accounts-Vol-I-2024-25-0699d360b32af96-97221491.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=77
+  permanent_identifier_hint: Kerala Finance Accounts2024-25 VolumeI, Statements4A
+    and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval.
+    The PDF contains duplicate facing-page spreads and rotated capital text. Physical36/46
+    identify the single printed18/28 tables; duplicate spread not counted. Loans/advances
+    cell is blank and omitted, never filled with zero.
+- source_id: cag_madhya_pradesh_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Madhya Pradesh
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Madhya Pradesh Finance Accounts2024-25 VolumeI, audited Roads and
+    Bridges expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: 'Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. '
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-VOLUME-I-2024-25-Gwalior-MP-English-06932b1d027cce6-16383283.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=78
+  permanent_identifier_hint: Madhya Pradesh Finance Accounts2024-25 VolumeI, Statements4A
+    and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: 'Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval. '
+- source_id: cag_manipur_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Manipur
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Manipur Finance Accounts2024-25 VolumeI, audited Roads and Bridges
+    expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. Published Statement4A current capital is INR617.35crore
+    whereas Statement5 is INR617.36crore. Both reported cells retained, no synthetic
+    correction; both current capital observations calculation-ineligible pending reconciliation.
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-Manipur-2024-25-069c124bdb2ab84-33248794.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=80
+  permanent_identifier_hint: Manipur Finance Accounts2024-25 VolumeI, Statements4A
+    and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval.
+    Published Statement4A current capital is INR617.35crore whereas Statement5 is
+    INR617.36crore. Both reported cells retained, no synthetic correction; both current
+    capital observations calculation-ineligible pending reconciliation.
+- source_id: cag_meghalaya_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Meghalaya
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Meghalaya Finance Accounts2024-25 VolumeI, audited Roads and Bridges
+    expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: 'Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. '
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-069a184d5a6e4c7-22331771.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=81
+  permanent_identifier_hint: Meghalaya Finance Accounts2024-25 VolumeI, Statements4A
+    and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: 'Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval. '
+- source_id: cag_mizoram_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Mizoram
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Mizoram Finance Accounts2024-25 VolumeI, audited Roads and Bridges
+    expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: 'Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. '
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Account-Volume-I-2024-25-069cced70026997-67273227.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=82
+  permanent_identifier_hint: Mizoram Finance Accounts2024-25 VolumeI, Statements4A
+    and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: 'Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval. '
+- source_id: cag_nagaland_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Nagaland
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Nagaland Finance Accounts2024-25 VolumeI, audited Roads and Bridges
+    expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. Scanned tables visually reviewed. Statement4B
+    printed23 (physical34) reports INR46.30crore transferred to Central Road Infrastructure
+    Fund but misclassified and booked under Object Head13 Major Works. It does not
+    identify that transfer as a separate MH3054 cell. Retain audited as-reported head
+    flows with qualification; do not attribute or synthetically reclassify the transfer.
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2024-25-Vol-I-069d62e19e78f46-07358682.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=83
+  permanent_identifier_hint: Nagaland Finance Accounts2024-25 VolumeI, Statements4A
+    and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval.
+    Scanned tables visually reviewed. Statement4B printed23 (physical34) reports INR46.30crore
+    transferred to Central Road Infrastructure Fund but misclassified and booked under
+    Object Head13 Major Works. It does not identify that transfer as a separate MH3054
+    cell. Retain audited as-reported head flows with qualification; do not attribute
+    or synthetically reclassify the transfer.
+- source_id: cag_odisha_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Odisha
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Odisha Finance Accounts2024-25 VolumeI, audited Roads and Bridges
+    expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: 'Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. '
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-06937f859281575-44134628.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=84
+  permanent_identifier_hint: Odisha Finance Accounts2024-25 VolumeI, Statements4A
+    and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: 'Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval. '
+- source_id: cag_punjab_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Punjab
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Punjab Finance Accounts2024-25 VolumeI, audited Roads and Bridges
+    expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. Scanned primary PDF tables visually reviewed
+    after rendering. Amounts are INRcrore, not INRlakh. Annual and cumulative columns
+    distinguished by their printed headers.
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-069b7e8a11653b5-25892762.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=85
+  permanent_identifier_hint: Punjab Finance Accounts2024-25 VolumeI, Statements4A
+    and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval.
+    Scanned primary PDF tables visually reviewed after rendering. Amounts are INRcrore,
+    not INRlakh. Annual and cumulative columns distinguished by their printed headers.
+- source_id: cag_sikkim_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Sikkim
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Sikkim Finance Accounts2024-25 VolumeI, audited Roads and Bridges
+    expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: 'Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. '
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-06a6ae045d18578-14615692.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=87
+  permanent_identifier_hint: Sikkim Finance Accounts2024-25 VolumeI, Statements4A
+    and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: 'Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval. '
+- source_id: cag_tamil_nadu_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Tamil Nadu
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Tamil Nadu Finance Accounts2024-25 VolumeI, audited Roads and Bridges
+    expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. Rotated Statement5 and encoded duplicate-facing-page
+    text were visually reviewed. Statement5 MH5054 footnote says current capital includes
+    INR372.06crore investment in Tamil Nadu State Transport Development Finance Corporation,
+    INR163.42crore capital assistance (KfW), and INR1500crore other state transport
+    undertakings. Keep the as-reported head scope; do not interpret as pure construction
+    or reallocate to head5055.
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-VOL-I-2024-25-069985766ce7b13-16162327.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=88
+  permanent_identifier_hint: Tamil Nadu Finance Accounts2024-25 VolumeI, Statements4A
+    and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval.
+    Rotated Statement5 and encoded duplicate-facing-page text were visually reviewed.
+    Statement5 MH5054 footnote says current capital includes INR372.06crore investment
+    in Tamil Nadu State Transport Development Finance Corporation, INR163.42crore
+    capital assistance (KfW), and INR1500crore other state transport undertakings.
+    Keep the as-reported head scope; do not interpret as pure construction or reallocate
+    to head5055.
+- source_id: cag_tripura_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Tripura
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Tripura Finance Accounts2024-25 VolumeI, audited Roads and Bridges
+    expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: 'Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. '
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-PRINT-069c11f2a724454-49441218.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=89
+  permanent_identifier_hint: Tripura Finance Accounts2024-25 VolumeI, Statements4A
+    and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: 'Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval. '
+- source_id: cag_uttarakhand_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of Uttarakhand
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: Uttarakhand Finance Accounts2024-25 VolumeI, audited Roads and Bridges
+    expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. Statement5 orders FY2024-25 columns before
+    FY2023-24. Column labels determine annual flow periods; no standard positional
+    assumption.
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2024-25-Vol-I-069ba8ba24d8b91-33490234.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=91
+  permanent_identifier_hint: Uttarakhand Finance Accounts2024-25 VolumeI, Statements4A
+    and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval.
+    Statement5 orders FY2024-25 columns before FY2023-24. Column labels determine
+    annual flow periods; no standard positional assumption.
+- source_id: cag_west_bengal_road_finances_2024_25
+  official_flag: true
+  publisher_org: Comptroller and Auditor General of India / Government of West Bengal
+  publisher_type: government
+  domain: cag.gov.in
+  dataset_title: West Bengal Finance Accounts2024-25 VolumeI, audited Roads and Bridges
+    expenditure
+  theme: state_finance
+  access_type: PDF
+  auth: none
+  update_frequency: annual
+  geographic_granularity: state
+  temporal_coverage: FY2024-25 annual actuals and FY2023-24 capital comparative
+  license_terms: Public government accounts; original publisher attribution and statement/page
+    citation required.
+  retrieval_method: pinned primary PDF and visually reviewed labelled statement cells;
+    SHA validation and annual capital cross-table reconciliation
+  reliability_grade: A
+  reliability_justification: Audited state-government cash accounts; primary rows
+    and original units visually reviewed.
+  known_limitations: 'Functional all-road-class Roads and Bridges; no SH-only, corridor
+    or state corporation attribution. Annual flows are distinct from progressive/cumulative
+    balances. Publication day unknown. '
+  allow_auto_fetch: true
+  url: https://cag.gov.in/uploads/state_accounts_report/account-report-WB-Finance-Accounts-Vol-I-2024-25-06a95158ec642d0-32051830.pdf
+  resource_page_url: https://cag.gov.in/en/state-accounts-report?defuat_state_id=92
+  permanent_identifier_hint: West Bengal Finance Accounts2024-25 VolumeI, Statements4A
+    and5
+  connector: primary_disclosures
+  metric_category: official_measured
+  source_as_of_date: '2025-03-31'
+  publication_date: null
+  research_verified_at: '2026-10-02'
+  manual_fallback: true
+  notes: 'Reviewed audited annual flow actuals, original INRcrore. Each historical
+    comparative retains31March2024 cutoff; current annual actuals31March2025. No release
+    date inferred from filename, certificate signature, PDF metadata or retrieval. '

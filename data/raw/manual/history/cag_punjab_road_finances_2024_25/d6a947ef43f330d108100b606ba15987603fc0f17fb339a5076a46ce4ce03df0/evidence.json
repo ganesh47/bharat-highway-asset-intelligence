@@ -1,0 +1,27 @@
+{
+  "source_id": "cag_punjab_road_finances_2024_25",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-02T08:02:22.000356+00:00",
+  "last_checked_at": "2026-10-02T08:17:37.959381+00:00",
+  "documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-069b7e8a11653b5-25892762.pdf",
+      "relative_path": "primary_disclosures/cag_punjab_road_finances_2024_25/versions/3f22bf8ea3d235943ce13c56309e957878cd921e8a280344ebf5af168a78edad.pdf",
+      "sha256": "3f22bf8ea3d235943ce13c56309e957878cd921e8a280344ebf5af168a78edad",
+      "size_bytes": 52317947,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=85"
+    }
+  ],
+  "extraction_status": "validated",
+  "row_count": 3,
+  "notes": "CAG Punjab FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Scanned primary PDF tables visually reviewed after rendering. Amounts are INRcrore, not INRlakh. Annual and cumulative columns distinguished by their printed headers.",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "csv_sha256": "22710a3a3d305126aee498c01de3304823fa88e5fbfce8017ae8197dd7dd23f1",
+  "version_id": "d6a947ef43f330d108100b606ba15987603fc0f17fb339a5076a46ce4ce03df0",
+  "observation_checksum": "372a84b67333c910f04f77ff6b50d447c146c27e378618d0afa3a1a796960f95"
+}

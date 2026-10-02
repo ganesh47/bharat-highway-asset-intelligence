@@ -1,0 +1,13 @@
+{
+  "source_id": "cag_west_bengal_road_finances_2024_25",
+  "versions": [
+    {
+      "version_id": "99403d746ea78a1e0ca08aa8f5210807994a280be83ad211e2d4d941d4368cbf",
+      "csv_sha256": "1fc51b616665fa9d8e03c41aea646c2d82d57391b83cd87e117b6d73f1315dca",
+      "row_count": 3,
+      "facts_path": "history/cag_west_bengal_road_finances_2024_25/99403d746ea78a1e0ca08aa8f5210807994a280be83ad211e2d4d941d4368cbf/facts.csv",
+      "evidence_path": "history/cag_west_bengal_road_finances_2024_25/99403d746ea78a1e0ca08aa8f5210807994a280be83ad211e2d4d941d4368cbf/evidence.json"
+    }
+  ],
+  "revisions": []
+}

@@ -1,0 +1,27 @@
+{
+  "source_id": "cag_chhattisgarh_road_finances_2024_25",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-02T08:01:49.822657+00:00",
+  "last_checked_at": "2026-10-02T08:17:37.761838+00:00",
+  "documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-FINANCE-ACCOUNTS-VOL-01-English-069bb95632bd096-37549772.pdf",
+      "relative_path": "primary_disclosures/cag_chhattisgarh_road_finances_2024_25/versions/f969fb28df5fca1a607a63a790c5ad63d27f892d8dd2bf81dbb0709dd119818f.pdf",
+      "sha256": "f969fb28df5fca1a607a63a790c5ad63d27f892d8dd2bf81dbb0709dd119818f",
+      "size_bytes": 7986113,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=68"
+    }
+  ],
+  "extraction_status": "validated",
+  "row_count": 3,
+  "notes": "CAG Chhattisgarh FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure.",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "csv_sha256": "4c6dc24324d37ba3f03d1c05e4b8a77e4c466432518b0421d37526d50a93f5e2",
+  "version_id": "5b5cc74eedc4264a32c02f32e57623987958105055796cba1e4b46d2620ab099",
+  "observation_checksum": "25dfca24cb8eb6d84a6b2e0ab627499a9cdbf44ae4fb9614a163bf7a258fbb6d"
+}

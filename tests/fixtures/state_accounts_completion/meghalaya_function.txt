@@ -1,0 +1,32 @@
+22
+22
+4.STATEMENT OF EXPENDITURE IN CONSOLIDATED FUND
+A. EXPENDITURE BY FUNCTION (` in crore)
+Description Revenue Capital Loans Total
+and
+Advances
+C. ECONOMIC SERVICES-concld.
+C.7 Transport 496.26 1,610.67 … 2,106.93
+Civil Aviation … 15.84 … 15.84
+Roads and Bridges 496.26 1,589.18 … 2,085.44
+Road Transport … 5.65 … 5.65
+C.8 Science Technology and Environment 11.85 … … 11.85
+Other Scientific Research 2.27 … … 2.27
+Ecology and Environment 9.58 … … 9.58
+C.9 General Economic Services 1,043.57 817.66 … 1,861.23
+Secretariat-Economic Services 880.54 … … 880.54
+Tourism 17.34 15.95 … 33.29
+Census Survey and Statistics 30.52 … … 30.52
+Civil Supplies 107.41 … … 107.41
+Other General Economic Services 7.76 801.71 … 809.47
+Total C-ECONOMIC SERVICES 4,992.55 3,368.36 10.42 8,371.33
+E. PUBLIC DEBT
+Internal Debt of the State Government … … 11,144.22 11,144.22
+Loans and Advances from the Central Government … … 26.62 26.62
+Total E- PUBLIC DEBT … … 11,170.84 11,170.84
+F. LOANS AND ADVANCES
+Loans to Government Servants etc. … … 22.30 22.30
+Miscellaneous Loans … … … …
+Total F-LOANS AND ADVANCES … … 22.30 22.30
+Appropriation to the Contingency Fund … … … …
+Total Expenditure out of Consolidated Fund 17,081.19 5,245.98 11,203.56 33,530.73

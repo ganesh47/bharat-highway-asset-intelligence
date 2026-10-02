@@ -1,0 +1,52 @@
+16
+16
+4 STATEMENT OF EXPENDITURE
+(CONSOLIDATED FUND)
+(₹ in Crore)
+L&A/PD/
+Description Revenue Capital Total
+CF
+C.4 Irrigation and Flood Control 1,052.50 1,980.47 … 3,032.97
+Medium Irrigation 192.19 19.94 ... 212.13
+Minor Irrigation 465.57 334.94 ... 800.51
+Command Area Development 5.61 1.40 ... 7.01
+Flood Control and Drainage 389.13 1,624.19 ... 2,013.32
+C.5 Energy 410.79 3,490.21 … 3,901.00
+Power 410.06 3,490.21 ... 3,900.27
+New and Renewable Energy 0.73 ... ... 0.73
+C.6 Industry and Minerals 633.47 519.30 1.00 1,153.77
+Village and Small Industries 359.98 1.82 1.00 362.80
+Industries 256.55 ... ... 256.55
+Non-ferrous Mining and Metallurgical Industries 16.94 0.44 ... 17.38
+Other Outlays on Industries and Minerals ... 517.04 ... 517.04
+C.7 Transport 1,308.80 9,515.69 … 10,824.49
+Roads and Bridges 1,044.69 9,307.45 ... 10,352.14
+Road Transport 91.10 46.63 ... 137.73
+Inland Water Transport 173.01 161.61 ... 334.62
+C.8 Science Technology and Environment 19.67 31.21 … 50.88
+Other Scientific Research 18.67 31.21 ... 49.88
+Ecology and Environment 1.00 ... ... 1.00
+C.9 General Economic Services 740.38 14.67 2.00 757.05
+Secretariat-Economic Services 637.49 ... ... 637.49
+Tourism 35.16 8.37 ... 43.53
+Census Surveys and Statistics 41.55 ... ... 41.55
+Civil Supplies 3.76 ... ... 3.76
+General Financial and Trading Institutions ... ... 2.00 2.00
+Other General Economic Services 22.42 6.30 ... 28.72
+Total C - ECONOMIC SERVICES 12,293.24 16,111.83 3.00 28,408.07
+D. GRANTS-IN-AID AND CONTRIBUTIONS
+Compensation & Assignments to Local Bodies & Panchayati
+351.67 ... ... 351.67
+Raj Institutions
+Total D - GRANTS-IN-AID AND CONTRIBUTIONS 351.67 - - 351.67
+E. PUBLIC DEBT
+Internal Debt of the State Government ... ... 16,944.81 16,944.81
+Loans and Advances from the Central Government ... ... 68.14 68.14
+Total E - PUBLIC DEBT : - - 17,012.95 17,012.95
+F. LOANS AND ADVANCES
+Loans to Government Servants etc. ... ... 0.11 0.11
+Total F - LOANS AND ADVANCES - - 0.11 0.11
+H. TRANSFER TO CONTINGENCY FUND
+Appropriation to the Contingency Fund ... ... ... ...
+Total H - TRANSFER TO CONTINGENCY FUND - - - -
+Total CFS Expenditure : 99,907.96 26,404.20 17,017.52 1,43,329.68

@@ -1,0 +1,34 @@
+{
+  "source_id": "cag_andhra_pradesh_road_finances_2024_25",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-02T08:01:52.734535+00:00",
+  "last_checked_at": "2026-10-02T08:17:37.689078+00:00",
+  "documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2024-25-069aadb8ce9dd98-48257159.pdf",
+      "relative_path": "primary_disclosures/cag_andhra_pradesh_road_finances_2024_25/versions/40a303fb86e66b321e5a29b1896c268fd6353a8257d63c43b8422f2b8de11a03.pdf",
+      "sha256": "40a303fb86e66b321e5a29b1896c268fd6353a8257d63c43b8422f2b8de11a03",
+      "size_bytes": 14487063,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=64"
+    }
+  ],
+  "extraction_status": "validated",
+  "row_count": 3,
+  "notes": "CAG Andhra Pradesh FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Statement5 has a separate amount-allocated column and bold unapportioned legacy cumulative balances of INR17182.87crore. Neither is an annual flow; omit both from current/prior capital facts.",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "active_document_sha256": [
+    "40a303fb86e66b321e5a29b1896c268fd6353a8257d63c43b8422f2b8de11a03"
+  ],
+  "csv_sha256": "bced7b1017a5a15d0c6956f9114017faa4248d5001f5efc1b33a50ee6c82c0ba",
+  "history": {
+    "index_path": "history/cag_andhra_pradesh_road_finances_2024_25/index.json",
+    "version_count": 1,
+    "revision_count": 0,
+    "candidate_version_id": "0eaaa986699af5099eed7cf7be3c8e299abe95600c7d0e406cc3ed385612d8c6"
+  }
+}

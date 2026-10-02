@@ -1,0 +1,1123 @@
+{
+  "schema_version": 1,
+  "research_cutoff": "2026-10-02",
+  "reviewed_at": "2026-10-02",
+  "review_method": "TLS-verified CAG primary PDFs; Poppler physical-page rendering and visual cell/header/units/footnote review; native text and bounded Tesseract discovery where useful. Printed page numbers differ from physical PDF indexes. Published statement discrepancies are retained and quarantined, not corrected.",
+  "documents": {
+    "cag_andhra_pradesh_road_finances_2024_25": {
+      "source_id": "cag_andhra_pradesh_road_finances_2024_25",
+      "state": "Andhra Pradesh",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2024-25-069aadb8ce9dd98-48257159.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=64",
+      "sha256": "40a303fb86e66b321e5a29b1896c268fd6353a8257d63c43b8422f2b8de11a03",
+      "size": 14487063,
+      "pages": 102,
+      "document_title": "Government of Andhra Pradesh Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 32,
+        "printed_page": 23,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "855.79",
+          "capital": "2728.07",
+          "loans_and_advances": "...",
+          "total": "3583.86"
+        }
+      },
+      "capital": {
+        "physical_page": 43,
+        "printed_page": 34,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "allocated_amount",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "870.30",
+          "progressive_2023_24": "10160.45",
+          "expenditure_2024_25": "2728.07",
+          "progressive_2024_25": "12888.52",
+          "allocated_amount": "..."
+        }
+      },
+      "cross_table_discrepancy": false,
+      "notes": "Statement5 has a separate amount-allocated column and bold unapportioned legacy cumulative balances of INR17182.87crore. Neither is an annual flow; omit both from current/prior capital facts.",
+      "visual_review_complete": true
+    },
+    "cag_arunachal_pradesh_road_finances_2024_25": {
+      "source_id": "cag_arunachal_pradesh_road_finances_2024_25",
+      "state": "Arunachal Pradesh",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-VOLUME-1-2024-25-Arunachal-Pradesh-19-12-2025-Final-for-net-uplouding-069b7e107e0c908-00595685.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=65",
+      "sha256": "95ad64b54938bc46e27563002f307ac07eef8f6869d6ee2829901bf557cf1f6c",
+      "size": 5591458,
+      "pages": 90,
+      "document_title": "Government of Arunachal Pradesh Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 35,
+        "printed_page": 14,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "1696.26",
+          "capital": "3672.70",
+          "loans_and_advances": "...",
+          "total": "5368.96"
+        }
+      },
+      "capital": {
+        "physical_page": 43,
+        "printed_page": 22,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "2952.08",
+          "progressive_2023_24": "25042.38",
+          "expenditure_2024_25": "3672.70",
+          "progressive_2024_25": "28715.08"
+        }
+      },
+      "cross_table_discrepancy": false,
+      "notes": "Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure.",
+      "visual_review_complete": true
+    },
+    "cag_assam_road_finances_2024_25": {
+      "source_id": "cag_assam_road_finances_2024_25",
+      "state": "Assam",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-24-25-Assam-24-12-2025-0699bdca0253803-90088290.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=66",
+      "sha256": "06ad76451cb68f9dc07acadc8f3c63a54335f848972d53ac1530426d18a97c09",
+      "size": 3318228,
+      "pages": 96,
+      "document_title": "Government of Assam Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 34,
+        "printed_page": 16,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "1044.69",
+          "capital": "9307.45",
+          "loans_and_advances": "...",
+          "total": "10352.14"
+        }
+      },
+      "capital": {
+        "physical_page": 40,
+        "printed_page": 22,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "6865.46",
+          "progressive_2023_24": "58281.25",
+          "expenditure_2024_25": "9307.46",
+          "progressive_2024_25": "67588.71"
+        }
+      },
+      "cross_table_discrepancy": true,
+      "notes": "Published Statement4A current capital is INR9307.45crore whereas Statement5 is INR9307.46crore. Both reported cells retained, no synthetic correction; both current capital observations calculation-ineligible pending reconciliation.",
+      "visual_review_complete": true
+    },
+    "cag_bihar_road_finances_2024_25": {
+      "source_id": "cag_bihar_road_finances_2024_25",
+      "state": "Bihar",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Account-Volume-I-ENGLISH-2024-25-BIHAR-31-01-2026-069a011be9935a9-80886549.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=67",
+      "sha256": "f7bd2666e69af57bf9bb1f7833edad7842bee1a6341b8a8642be22f40cea1e0d",
+      "size": 5247370,
+      "pages": 75,
+      "document_title": "Government of Bihar Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 31,
+        "printed_page": 13,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "5518.86",
+          "capital": "7064.05",
+          "loans_and_advances": "0.00",
+          "total": "12582.91"
+        }
+      },
+      "capital": {
+        "physical_page": 36,
+        "printed_page": 18,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "6931.88",
+          "progressive_2023_24": "73371.49",
+          "expenditure_2024_25": "7064.05",
+          "progressive_2024_25": "80435.54"
+        }
+      },
+      "cross_table_discrepancy": false,
+      "notes": "Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure.",
+      "visual_review_complete": true
+    },
+    "cag_chhattisgarh_road_finances_2024_25": {
+      "source_id": "cag_chhattisgarh_road_finances_2024_25",
+      "state": "Chhattisgarh",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-FINANCE-ACCOUNTS-VOL-01-English-069bb95632bd096-37549772.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=68",
+      "sha256": "f969fb28df5fca1a607a63a790c5ad63d27f892d8dd2bf81dbb0709dd119818f",
+      "size": 7986113,
+      "pages": 102,
+      "document_title": "Government of Chhattisgarh Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 36,
+        "printed_page": 19,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "792.00",
+          "capital": "6288.66",
+          "loans_and_advances": "0.00",
+          "total": "7080.66"
+        }
+      },
+      "capital": {
+        "physical_page": 46,
+        "printed_page": 29,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "3466.99",
+          "progressive_2023_24": "45541.29",
+          "expenditure_2024_25": "6288.66",
+          "progressive_2024_25": "51829.95"
+        }
+      },
+      "cross_table_discrepancy": false,
+      "notes": "Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure.",
+      "visual_review_complete": true
+    },
+    "cag_haryana_road_finances_2024_25": {
+      "source_id": "cag_haryana_road_finances_2024_25",
+      "state": "Haryana",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2024-25-1-06949342f0c1bd1-60544781.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=72",
+      "sha256": "4c2de512daa2070af7d5ab9ef91d4f011bf82ee7acfb95d4311ab7d35f55466e",
+      "size": 3135537,
+      "pages": 92,
+      "document_title": "Government of Haryana Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 35,
+        "printed_page": 17,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "1639.94",
+          "capital": "2309.89",
+          "loans_and_advances": "..",
+          "total": "3949.83"
+        }
+      },
+      "capital": {
+        "physical_page": 42,
+        "printed_page": 24,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "2651.00",
+          "progressive_2023_24": "28446.49",
+          "expenditure_2024_25": "2309.89",
+          "progressive_2024_25": "30756.38"
+        }
+      },
+      "cross_table_discrepancy": false,
+      "notes": "Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure.",
+      "visual_review_complete": true
+    },
+    "cag_himachal_pradesh_road_finances_2024_25": {
+      "source_id": "cag_himachal_pradesh_road_finances_2024_25",
+      "state": "Himachal Pradesh",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-I-2024-25-English-26-12-2025-069ccf778436f33-49613332.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=73",
+      "sha256": "f4aba05f295806bc1c6d61a15be52bba0a925b74e1a5a7f5e3c54bba9c0e87a2",
+      "size": 1026181,
+      "pages": 82,
+      "document_title": "Government of Himachal Pradesh Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 29,
+        "printed_page": 13,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "1567.78",
+          "capital": "1768.55",
+          "loans_and_advances": "...",
+          "total": "3336.33"
+        }
+      },
+      "capital": {
+        "physical_page": 36,
+        "printed_page": 20,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "2065.12",
+          "progressive_2023_24": "24556.36",
+          "expenditure_2024_25": "1768.55",
+          "progressive_2024_25": "26324.91"
+        }
+      },
+      "cross_table_discrepancy": false,
+      "notes": "Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure.",
+      "visual_review_complete": true
+    },
+    "cag_jharkhand_road_finances_2024_25": {
+      "source_id": "cag_jharkhand_road_finances_2024_25",
+      "state": "Jharkhand",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-1-2024-25-ENGLISH-FINAL-0693c0e9a47b758-34211409.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=75",
+      "sha256": "0b818a52708b21f89490d876c6cfa216c294666ee6549118beb4c13371181739",
+      "size": 1662629,
+      "pages": 112,
+      "document_title": "Government of Jharkhand Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 39,
+        "printed_page": 17,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "569.09",
+          "capital": "5163.85",
+          "loans_and_advances": "0.00",
+          "total": "5732.94"
+        }
+      },
+      "capital": {
+        "physical_page": 47,
+        "printed_page": 25,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "5206.80",
+          "progressive_2023_24": "44706.51",
+          "expenditure_2024_25": "5163.85",
+          "progressive_2024_25": "49870.36"
+        }
+      },
+      "cross_table_discrepancy": false,
+      "notes": "Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure.",
+      "visual_review_complete": true
+    },
+    "cag_kerala_road_finances_2024_25": {
+      "source_id": "cag_kerala_road_finances_2024_25",
+      "state": "Kerala",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finace-Accounts-Vol-I-2024-25-0699d360b32af96-97221491.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=77",
+      "sha256": "a4cf0c21d439e6a1ce20ff7eb90f1b761bc1250c31b605a1e409f921275061ba",
+      "size": 5709595,
+      "pages": 98,
+      "document_title": "Government of Kerala Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 36,
+        "printed_page": 18,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "1019.29",
+          "capital": "1859.35",
+          "loans_and_advances": "",
+          "total": "2878.64"
+        }
+      },
+      "capital": {
+        "physical_page": 46,
+        "printed_page": 28,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "2123.78",
+          "progressive_2023_24": "35869.90",
+          "expenditure_2024_25": "1859.35",
+          "progressive_2024_25": "37729.25"
+        }
+      },
+      "cross_table_discrepancy": false,
+      "notes": "The PDF contains duplicate facing-page spreads and rotated capital text. Physical36/46 identify the single printed18/28 tables; duplicate spread not counted. Loans/advances cell is blank and omitted, never filled with zero.",
+      "visual_review_complete": true
+    },
+    "cag_madhya_pradesh_road_finances_2024_25": {
+      "source_id": "cag_madhya_pradesh_road_finances_2024_25",
+      "state": "Madhya Pradesh",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-VOLUME-I-2024-25-Gwalior-MP-English-06932b1d027cce6-16383283.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=78",
+      "sha256": "43198ecbd5e99e46ccc9978633bc8c7c659853b0280b99f5e8f7e9feb9f79919",
+      "size": 2107334,
+      "pages": 74,
+      "document_title": "Government of Madhya Pradesh Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 29,
+        "printed_page": 15,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "1547.90",
+          "capital": "9644.77",
+          "loans_and_advances": "Nil",
+          "total": "11192.67"
+        }
+      },
+      "capital": {
+        "physical_page": 35,
+        "printed_page": 21,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "11319.87",
+          "progressive_2023_24": "79354.12",
+          "expenditure_2024_25": "9644.77",
+          "progressive_2024_25": "88998.89"
+        }
+      },
+      "cross_table_discrepancy": false,
+      "notes": "Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure.",
+      "visual_review_complete": true
+    },
+    "cag_manipur_road_finances_2024_25": {
+      "source_id": "cag_manipur_road_finances_2024_25",
+      "state": "Manipur",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-Manipur-2024-25-069c124bdb2ab84-33248794.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=80",
+      "sha256": "7fdf6891e25fbce8d03e944d33c07f8beb46424e8eecc86d06fe47f235df9ae6",
+      "size": 2004209,
+      "pages": 81,
+      "document_title": "Government of Manipur Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 31,
+        "printed_page": 15,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "87.80",
+          "capital": "617.35",
+          "loans_and_advances": "...",
+          "total": "705.15"
+        }
+      },
+      "capital": {
+        "physical_page": 39,
+        "printed_page": 23,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "714.64",
+          "progressive_2023_24": "6732.22",
+          "expenditure_2024_25": "617.36",
+          "progressive_2024_25": "7349.58"
+        }
+      },
+      "cross_table_discrepancy": true,
+      "notes": "Published Statement4A current capital is INR617.35crore whereas Statement5 is INR617.36crore. Both reported cells retained, no synthetic correction; both current capital observations calculation-ineligible pending reconciliation.",
+      "visual_review_complete": true
+    },
+    "cag_meghalaya_road_finances_2024_25": {
+      "source_id": "cag_meghalaya_road_finances_2024_25",
+      "state": "Meghalaya",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-069a184d5a6e4c7-22331771.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=81",
+      "sha256": "8f3500976f6320d4d820673e8ba6bb04483ed7f520175e78fe3a45984af1d661",
+      "size": 4240085,
+      "pages": 83,
+      "document_title": "Government of Meghalaya Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 34,
+        "printed_page": 22,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "496.26",
+          "capital": "1589.18",
+          "loans_and_advances": "...",
+          "total": "2085.44"
+        }
+      },
+      "capital": {
+        "physical_page": 40,
+        "printed_page": 28,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "1197.74",
+          "progressive_2023_24": "10819.89",
+          "expenditure_2024_25": "1589.18",
+          "progressive_2024_25": "12409.07"
+        }
+      },
+      "cross_table_discrepancy": false,
+      "notes": "Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure.",
+      "visual_review_complete": true
+    },
+    "cag_mizoram_road_finances_2024_25": {
+      "source_id": "cag_mizoram_road_finances_2024_25",
+      "state": "Mizoram",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Account-Volume-I-2024-25-069cced70026997-67273227.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=82",
+      "sha256": "791f92d1d029032ae2c87afa593dba00ee10c30e5ec90d8fe4bcfbc73aaacfa2",
+      "size": 3673789,
+      "pages": 100,
+      "document_title": "Government of Mizoram Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 31,
+        "printed_page": 23,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "414.47",
+          "capital": "336.16",
+          "loans_and_advances": "...",
+          "total": "750.63"
+        }
+      },
+      "capital": {
+        "physical_page": 38,
+        "printed_page": 30,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "441.20",
+          "progressive_2023_24": "5436.27",
+          "expenditure_2024_25": "336.16",
+          "progressive_2024_25": "5772.43"
+        }
+      },
+      "cross_table_discrepancy": false,
+      "notes": "Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure.",
+      "visual_review_complete": true
+    },
+    "cag_nagaland_road_finances_2024_25": {
+      "source_id": "cag_nagaland_road_finances_2024_25",
+      "state": "Nagaland",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2024-25-Vol-I-069d62e19e78f46-07358682.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=83",
+      "sha256": "d7647dcfc0c6b0c3e4a73d08bfe98f71f82c8ddd29787c44ec4bdd81fafcbd21",
+      "size": 31965602,
+      "pages": 82,
+      "document_title": "Government of Nagaland Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 31,
+        "printed_page": 20,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "395.61",
+          "capital": "853.08",
+          "loans_and_advances": "..",
+          "total": "1248.69"
+        }
+      },
+      "capital": {
+        "physical_page": 38,
+        "printed_page": 27,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "879.36",
+          "progressive_2023_24": "6782.27",
+          "expenditure_2024_25": "853.08",
+          "progressive_2024_25": "7635.35"
+        }
+      },
+      "cross_table_discrepancy": false,
+      "notes": "Scanned tables visually reviewed. Statement4B printed23 (physical34) reports INR46.30crore transferred to Central Road Infrastructure Fund but misclassified and booked under Object Head13 Major Works. It does not identify that transfer as a separate MH3054 cell. Retain audited as-reported head flows with qualification; do not attribute or synthetically reclassify the transfer.",
+      "visual_review_complete": true
+    },
+    "cag_odisha_road_finances_2024_25": {
+      "source_id": "cag_odisha_road_finances_2024_25",
+      "state": "Odisha",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-06937f859281575-44134628.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=84",
+      "sha256": "85f480e4cdcdccc099043a84a58b00d89aae6fadde7a61f3fca9b21ba49cf1b1",
+      "size": 11784010,
+      "pages": 96,
+      "document_title": "Government of Odisha Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 35,
+        "printed_page": 17,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "3297.41",
+          "capital": "16203.33",
+          "loans_and_advances": "..",
+          "total": "19500.74"
+        }
+      },
+      "capital": {
+        "physical_page": 42,
+        "printed_page": 24,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "13027.77",
+          "progressive_2023_24": "87148.55",
+          "expenditure_2024_25": "16203.33",
+          "progressive_2024_25": "103351.88"
+        }
+      },
+      "cross_table_discrepancy": false,
+      "notes": "Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure.",
+      "visual_review_complete": true
+    },
+    "cag_punjab_road_finances_2024_25": {
+      "source_id": "cag_punjab_road_finances_2024_25",
+      "state": "Punjab",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-069b7e8a11653b5-25892762.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=85",
+      "sha256": "3f22bf8ea3d235943ce13c56309e957878cd921e8a280344ebf5af168a78edad",
+      "size": 52317947,
+      "pages": 82,
+      "document_title": "Government of Punjab Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 31,
+        "printed_page": 14,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "230.01",
+          "capital": "1343.89",
+          "loans_and_advances": "..",
+          "total": "1573.90"
+        }
+      },
+      "capital": {
+        "physical_page": 37,
+        "printed_page": 20,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "932.22",
+          "progressive_2023_24": "12735.98",
+          "expenditure_2024_25": "1343.89",
+          "progressive_2024_25": "14079.87"
+        }
+      },
+      "cross_table_discrepancy": false,
+      "notes": "Scanned primary PDF tables visually reviewed after rendering. Amounts are INRcrore, not INRlakh. Annual and cumulative columns distinguished by their printed headers.",
+      "visual_review_complete": true
+    },
+    "cag_sikkim_road_finances_2024_25": {
+      "source_id": "cag_sikkim_road_finances_2024_25",
+      "state": "Sikkim",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-06a6ae045d18578-14615692.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=87",
+      "sha256": "3f90ad2af39ddb42fd268eb9233b270bbe6a82661cc84d25da6da872dd29c9c2",
+      "size": 4253465,
+      "pages": 79,
+      "document_title": "Government of Sikkim Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 32,
+        "printed_page": 13,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "297.58",
+          "capital": "392.24",
+          "loans_and_advances": "...",
+          "total": "689.82"
+        }
+      },
+      "capital": {
+        "physical_page": 38,
+        "printed_page": 19,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "429.15",
+          "progressive_2023_24": "5594.04",
+          "expenditure_2024_25": "392.24",
+          "progressive_2024_25": "5986.28"
+        }
+      },
+      "cross_table_discrepancy": false,
+      "notes": "Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure.",
+      "visual_review_complete": true
+    },
+    "cag_tamil_nadu_road_finances_2024_25": {
+      "source_id": "cag_tamil_nadu_road_finances_2024_25",
+      "state": "Tamil Nadu",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-VOL-I-2024-25-069985766ce7b13-16162327.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=88",
+      "sha256": "58828bcd7172dd20fc7dfdd15d4faa634f859ecc88c564b522a303516bcac4a6",
+      "size": 5806779,
+      "pages": 103,
+      "document_title": "Government of Tamil Nadu Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 39,
+        "printed_page": 19,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "1508.45",
+          "capital": "16222.62",
+          "loans_and_advances": "..",
+          "total": "17731.07"
+        }
+      },
+      "capital": {
+        "physical_page": 50,
+        "printed_page": 30,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "16147.95",
+          "progressive_2023_24": "124838.72",
+          "expenditure_2024_25": "16222.62",
+          "progressive_2024_25": "141061.34"
+        }
+      },
+      "cross_table_discrepancy": false,
+      "notes": "Rotated Statement5 and encoded duplicate-facing-page text were visually reviewed. Statement5 MH5054 footnote says current capital includes INR372.06crore investment in Tamil Nadu State Transport Development Finance Corporation, INR163.42crore capital assistance (KfW), and INR1500crore other state transport undertakings. Keep the as-reported head scope; do not interpret as pure construction or reallocate to head5055.",
+      "visual_review_complete": true
+    },
+    "cag_tripura_road_finances_2024_25": {
+      "source_id": "cag_tripura_road_finances_2024_25",
+      "state": "Tripura",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-PRINT-069c11f2a724454-49441218.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=89",
+      "sha256": "353d6d6fb229d856a34a5a3b76a0b39abed4933a42b5e464c733b0e8fbb06f12",
+      "size": 2184166,
+      "pages": 100,
+      "document_title": "Government of Tripura Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 35,
+        "printed_page": 17,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "554.87",
+          "capital": "1133.93",
+          "loans_and_advances": "...",
+          "total": "1688.80"
+        }
+      },
+      "capital": {
+        "physical_page": 45,
+        "printed_page": 27,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "749.43",
+          "progressive_2023_24": "7337.68",
+          "expenditure_2024_25": "1133.93",
+          "progressive_2024_25": "8471.61"
+        }
+      },
+      "cross_table_discrepancy": false,
+      "notes": "Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure.",
+      "visual_review_complete": true
+    },
+    "cag_uttarakhand_road_finances_2024_25": {
+      "source_id": "cag_uttarakhand_road_finances_2024_25",
+      "state": "Uttarakhand",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2024-25-Vol-I-069ba8ba24d8b91-33490234.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=91",
+      "sha256": "5254ec88acec4042b85e2efa727c31af74e8de479308898a376ad689c5dcd27b",
+      "size": 11423819,
+      "pages": 88,
+      "document_title": "Government of Uttarakhand Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 32,
+        "printed_page": 14,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "1090.64",
+          "capital": "1348.08",
+          "loans_and_advances": "0.00",
+          "total": "2438.72"
+        }
+      },
+      "capital": {
+        "physical_page": 39,
+        "printed_page": 21,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2024_25",
+          "progressive_2024_25",
+          "expenditure_2023_24",
+          "progressive_2023_24"
+        ],
+        "cells": {
+          "expenditure_2023_24": "1337.28",
+          "progressive_2023_24": "20659.72",
+          "expenditure_2024_25": "1348.08",
+          "progressive_2024_25": "22007.80"
+        }
+      },
+      "cross_table_discrepancy": false,
+      "notes": "Statement5 orders FY2024-25 columns before FY2023-24. Column labels determine annual flow periods; no standard positional assumption.",
+      "visual_review_complete": true
+    },
+    "cag_west_bengal_road_finances_2024_25": {
+      "source_id": "cag_west_bengal_road_finances_2024_25",
+      "state": "West Bengal",
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-WB-Finance-Accounts-Vol-I-2024-25-06a95158ec642d0-32051830.pdf",
+      "index": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=92",
+      "sha256": "a34aaf556a4f714388f0bc79ef96baab58b58d1a21e0a9ecddc7cc461f2b394d",
+      "size": 5109107,
+      "pages": 88,
+      "document_title": "Government of West Bengal Finance Accounts2024-25 VolumeI",
+      "publication_date": null,
+      "unit": "INR crore",
+      "reporting_period": "2024-25",
+      "function": {
+        "physical_page": 35,
+        "printed_page": 15,
+        "statement": "Statement4A expenditure by function",
+        "row_label": "Roads and Bridges",
+        "columns": [
+          "revenue",
+          "capital",
+          "loans_and_advances",
+          "total"
+        ],
+        "cells": {
+          "revenue": "1229.48",
+          "capital": "4138.69",
+          "loans_and_advances": "0.00",
+          "total": "5368.17"
+        }
+      },
+      "capital": {
+        "physical_page": 43,
+        "printed_page": 23,
+        "statement": "Statement5 progressive capital expenditure",
+        "major_head": "5054",
+        "row_label": "Capital Outlay on Roads and Bridges",
+        "columns": [
+          "expenditure_2023_24",
+          "progressive_2023_24",
+          "expenditure_2024_25",
+          "progressive_2024_25"
+        ],
+        "cells": {
+          "expenditure_2023_24": "5882.34",
+          "progressive_2023_24": "44117.45",
+          "expenditure_2024_25": "4138.69",
+          "progressive_2024_25": "48256.14"
+        }
+      },
+      "cross_table_discrepancy": false,
+      "notes": "Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure.",
+      "visual_review_complete": true
+    }
+  }
+}

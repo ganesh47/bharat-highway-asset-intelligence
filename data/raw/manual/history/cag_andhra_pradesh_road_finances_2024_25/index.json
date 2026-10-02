@@ -1,0 +1,13 @@
+{
+  "source_id": "cag_andhra_pradesh_road_finances_2024_25",
+  "versions": [
+    {
+      "version_id": "0eaaa986699af5099eed7cf7be3c8e299abe95600c7d0e406cc3ed385612d8c6",
+      "csv_sha256": "bced7b1017a5a15d0c6956f9114017faa4248d5001f5efc1b33a50ee6c82c0ba",
+      "row_count": 3,
+      "facts_path": "history/cag_andhra_pradesh_road_finances_2024_25/0eaaa986699af5099eed7cf7be3c8e299abe95600c7d0e406cc3ed385612d8c6/facts.csv",
+      "evidence_path": "history/cag_andhra_pradesh_road_finances_2024_25/0eaaa986699af5099eed7cf7be3c8e299abe95600c7d0e406cc3ed385612d8c6/evidence.json"
+    }
+  ],
+  "revisions": []
+}

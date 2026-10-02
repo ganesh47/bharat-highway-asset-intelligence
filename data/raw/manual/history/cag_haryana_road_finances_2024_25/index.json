@@ -1,0 +1,13 @@
+{
+  "source_id": "cag_haryana_road_finances_2024_25",
+  "versions": [
+    {
+      "version_id": "4c51ea1d7a93d300f22ad5405b6799c3d3f4ab5fdca7b9605886960846bd7fdf",
+      "csv_sha256": "6bcff3406851867912664eac2fd16e1610c7ed94dee7242495d2359432f9703e",
+      "row_count": 3,
+      "facts_path": "history/cag_haryana_road_finances_2024_25/4c51ea1d7a93d300f22ad5405b6799c3d3f4ab5fdca7b9605886960846bd7fdf/facts.csv",
+      "evidence_path": "history/cag_haryana_road_finances_2024_25/4c51ea1d7a93d300f22ad5405b6799c3d3f4ab5fdca7b9605886960846bd7fdf/evidence.json"
+    }
+  ],
+  "revisions": []
+}

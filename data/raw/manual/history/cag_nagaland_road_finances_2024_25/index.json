@@ -1,0 +1,13 @@
+{
+  "source_id": "cag_nagaland_road_finances_2024_25",
+  "versions": [
+    {
+      "version_id": "32f8ec3d05b092e61238e1cc14366e0c741cb11b99d4743c440caafe2767d10f",
+      "csv_sha256": "c636d124b014441b29d5f270e9ae24033145cc3ad4bd0955cc434c3986de651d",
+      "row_count": 3,
+      "facts_path": "history/cag_nagaland_road_finances_2024_25/32f8ec3d05b092e61238e1cc14366e0c741cb11b99d4743c440caafe2767d10f/facts.csv",
+      "evidence_path": "history/cag_nagaland_road_finances_2024_25/32f8ec3d05b092e61238e1cc14366e0c741cb11b99d4743c440caafe2767d10f/evidence.json"
+    }
+  ],
+  "revisions": []
+}

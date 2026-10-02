@@ -1,0 +1,13 @@
+{
+  "source_id": "cag_kerala_road_finances_2024_25",
+  "versions": [
+    {
+      "version_id": "5b9444452be565518a0e8383efd637acd6fdafff6a40107cbeffdf7bda5a2ee1",
+      "csv_sha256": "faad1dd24aa47221e86af04e026459a6e6f73af7221f70f3fe89c7025692caca",
+      "row_count": 3,
+      "facts_path": "history/cag_kerala_road_finances_2024_25/5b9444452be565518a0e8383efd637acd6fdafff6a40107cbeffdf7bda5a2ee1/facts.csv",
+      "evidence_path": "history/cag_kerala_road_finances_2024_25/5b9444452be565518a0e8383efd637acd6fdafff6a40107cbeffdf7bda5a2ee1/evidence.json"
+    }
+  ],
+  "revisions": []
+}

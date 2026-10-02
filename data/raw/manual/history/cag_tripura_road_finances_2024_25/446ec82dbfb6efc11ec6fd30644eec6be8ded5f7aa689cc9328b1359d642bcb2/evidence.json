@@ -1,0 +1,27 @@
+{
+  "source_id": "cag_tripura_road_finances_2024_25",
+  "research_cutoff": "2026-10-02",
+  "retrieved_at": "2026-10-02T08:02:05.404683+00:00",
+  "last_checked_at": "2026-10-02T08:17:38.027904+00:00",
+  "documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-PRINT-069c11f2a724454-49441218.pdf",
+      "relative_path": "primary_disclosures/cag_tripura_road_finances_2024_25/versions/353d6d6fb229d856a34a5a3b76a0b39abed4933a42b5e464c733b0e8fbb06f12.pdf",
+      "sha256": "353d6d6fb229d856a34a5a3b76a0b39abed4933a42b5e464c733b0e8fbb06f12",
+      "size_bytes": 2184166,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=89"
+    }
+  ],
+  "extraction_status": "validated",
+  "row_count": 3,
+  "notes": "CAG Tripura FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure.",
+  "gap_reason": "",
+  "transformation": "pipelines.connectors.primary_disclosures.SnapshotBuilder; raw units preserved and INR crore normalized; physical PDF pages are one-based",
+  "csv_sha256": "01a3179713c9a600cc5ef58748e34e091fcf82df5e4819325423107a5f7ad217",
+  "version_id": "446ec82dbfb6efc11ec6fd30644eec6be8ded5f7aa689cc9328b1359d642bcb2",
+  "observation_checksum": "7476910d51d48d7a6f9e5a59f9b3b1457064ae748b5ce0748d2ec7b6e981bb12"
+}

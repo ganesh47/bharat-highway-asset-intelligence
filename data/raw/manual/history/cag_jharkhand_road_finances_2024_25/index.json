@@ -1,0 +1,13 @@
+{
+  "source_id": "cag_jharkhand_road_finances_2024_25",
+  "versions": [
+    {
+      "version_id": "cc6075a78237eeee009662b7572da19aba32398d6d1948e5f1b8c78f70132865",
+      "csv_sha256": "27304cb7dd26d696863cd0aeb861150597034ffa72269865cdaec101c4547b7d",
+      "row_count": 3,
+      "facts_path": "history/cag_jharkhand_road_finances_2024_25/cc6075a78237eeee009662b7572da19aba32398d6d1948e5f1b8c78f70132865/facts.csv",
+      "evidence_path": "history/cag_jharkhand_road_finances_2024_25/cc6075a78237eeee009662b7572da19aba32398d6d1948e5f1b8c78f70132865/evidence.json"
+    }
+  ],
+  "revisions": []
+}

@@ -1,0 +1,13 @@
+{
+  "source_id": "cag_bihar_road_finances_2024_25",
+  "versions": [
+    {
+      "version_id": "fcd1bf837a5975c1d694df7319b691bfe57c580c88cc59a290774275b856184b",
+      "csv_sha256": "e3a119ffd8a65b6f7e24825e895dd2be16e1309e63e9abf4f3dd3de37403fe90",
+      "row_count": 3,
+      "facts_path": "history/cag_bihar_road_finances_2024_25/fcd1bf837a5975c1d694df7319b691bfe57c580c88cc59a290774275b856184b/facts.csv",
+      "evidence_path": "history/cag_bihar_road_finances_2024_25/fcd1bf837a5975c1d694df7319b691bfe57c580c88cc59a290774275b856184b/evidence.json"
+    }
+  ],
+  "revisions": []
+}

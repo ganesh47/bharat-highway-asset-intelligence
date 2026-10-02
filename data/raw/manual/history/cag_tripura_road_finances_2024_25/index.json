@@ -1,0 +1,13 @@
+{
+  "source_id": "cag_tripura_road_finances_2024_25",
+  "versions": [
+    {
+      "version_id": "446ec82dbfb6efc11ec6fd30644eec6be8ded5f7aa689cc9328b1359d642bcb2",
+      "csv_sha256": "01a3179713c9a600cc5ef58748e34e091fcf82df5e4819325423107a5f7ad217",
+      "row_count": 3,
+      "facts_path": "history/cag_tripura_road_finances_2024_25/446ec82dbfb6efc11ec6fd30644eec6be8ded5f7aa689cc9328b1359d642bcb2/facts.csv",
+      "evidence_path": "history/cag_tripura_road_finances_2024_25/446ec82dbfb6efc11ec6fd30644eec6be8ded5f7aa689cc9328b1359d642bcb2/evidence.json"
+    }
+  ],
+  "revisions": []
+}

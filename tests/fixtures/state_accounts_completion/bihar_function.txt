@@ -1,0 +1,42 @@
+STATEMENT 4: STATEMENT OF EXPENDITURE (CONSOLIDATED FUND)
+A. EXPENDITURE BY FUNCTION
+( in crore)
+Description Revenue Capital L&A Total
+C.4 Energy
+Power 16,100.95 2,943.53 64.19 19,108.67
+New and Renewable Energy 109.91 1,108.06 0.00 1217.97
+C.5 Industry and Minerals
+Village and Small Industries 662.76 14.50 429.67 1,106.93
+Industries 1,225.82 0.00 0.00 1,225.82
+Non-ferrous Mining and Metallurgical Industries 44.88 0.00 0.00 44.88
+Telecommunication and Electronic Industries 0.00 117.27 0.00 117.27
+Industries and Minerals 0.00 50.00 28.26 78.26
+C.6 Transport
+Civil Aviation 6.50 70.07 0.00 76.57
+Roads and Bridges 5,518.86 7,064.05 0.00 12,582.91
+Road Transport 114.23 6.28 0.00 120.51
+Other Transport Services 0.80 253.72 324.90 579.42
+C.7 Science Technology and Environment
+Ecology and Environment 3.95 0.00 0.00 3.95
+C.8 General Economic Services
+Secretariat- Economic Services 236.76 0.00 0.00 236.76
+Tourism 137.60 684.43 0.00 822.03
+Census Surveys and Statistics 80.62 0.00 0.00 80.62
+Meteorology 2.77 0.00 0.00 2.77
+Civil Supplies 931.47 0.00 0.00 931.47
+General Financial and Trading Institutions 0.00 105.00 0.00 105.00
+Other General Economic Services 26.93 17.56 0.00 44.49
+#
+Total - Economic Services 48,820.82## 24,814.44 847.03 74,482.29
+E Public Debt
+Internal Debt of the State Government 0.00 20,612.41 0.00 20,612.41
+Loans and Advances from the Central Government 0.00 1,331.26 0.00 1,331.26
+Total : E 0.00 21,943.67 0.00 21,943.67
+F Loans and Advances
+Loans to Government Servants etc. 0.00 0.00 6.36 6.36
+Total : F 0.00 0.00 6.36 6.36
+Total - Consolidated Fund Expenditure 2,19,015.21 60,470.70 2,453.39 2,81,939.30
+#Expenditure of Loans and Advances on Economic Services differs with Statement No. 7 & 18 by ₹0.01 crore is due to rounding.
+##Revenue Expenditure on Economic Services differs with Statement No. 15 by ₹(-)0.02 crore is due to rounding.
+13
+13
