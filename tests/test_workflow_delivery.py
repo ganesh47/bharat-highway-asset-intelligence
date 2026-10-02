@@ -118,6 +118,60 @@ class ResearchDeliveryTests(unittest.TestCase):
             with self.assertRaisesRegex(SystemExit, "checksum"):
                 _validate_shard_manifests([shard], source, allow_incomplete=False)
 
+    def test_indexed_annual_report_whitespace_and_camelcase_url_are_included(self):
+        observed_url = "https://nhai.gov.in/nhai/sites/default/files/2021-03/AnnualReport20092010.pdf"
+        documents = pd.DataFrame([
+            {"document_title": "NHAI  Annual  Report  of  2009-2010",
+             "source_document_url": observed_url, "financial_year": "2009"},
+            {"document_title": "Publication download", "source_document_url": observed_url,
+             "financial_year": "2009"},
+            {"document_title": "Annual Report 2023-24", "source_document_url": "https://example.org/report.pdf",
+             "financial_year": "2023"},
+            {"document_title": "Press release", "source_document_url": "https://example.org/press.pdf",
+             "financial_year": "2026"},
+        ])
+        included = extractor._filter_annual_rows(documents)
+        self.assertEqual(included.index.tolist(), [0, 1, 2])
+        shards = [extractor._select_shard_rows(included, 3, index)[1] for index in range(3)]
+        self.assertEqual(sum(map(len, shards)), 3)
+        self.assertIn(f"2009|{observed_url}|NHAI Annual Report of 2009-2010",
+                      [key for shard in shards for key in shard])
+
+    def test_previously_skipped_annual_report_attempt_replaces_legacy_failure_zero(self):
+        observed_url = "https://nhai.gov.in/nhai/sites/default/files/2021-03/AnnualReport20092010.pdf"
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "source.parquet"
+            pd.DataFrame([{"source_document_url": observed_url,
+                           "document_title": "NHAI  Annual  Report  of  2009-2010",
+                           "financial_year": "2009", "document_checksum": "a" * 64}]).to_parquet(source, index=False)
+            yearly = root / "tables/yearly"
+            yearly.mkdir(parents=True)
+            legacy = extractor._coerce_frame(pd.DataFrame([{
+                "source_document_url": observed_url, "source_document_sha256": "",
+                "extraction_method": "pypdf", "record_type": "error", "report_year": "2009",
+                "metric_value_numeric": 0.0, "metric_value_text": "text_extraction_failed",
+                "extraction_confidence": 0.0, "dataset_created_at": "2026-03-11"}]))
+            legacy.to_parquet(yearly / "nhai_annual_report_2009.parquet", index=False)
+            canonical = root / "canonical.parquet"
+            legacy.to_parquet(canonical, index=False)
+            quality = root / "tables/quality.json"
+            argv = ["extract", "--source-parquet", str(source), "--output-root", str(root / "tables"),
+                    "--canonical-output", str(canonical), "--quality-report-output", str(quality)]
+            with patch.object(sys, "argv", argv), patch.object(extractor, "_download_pdf",
+                    return_value=(None, "HTTP 503")) as download, patch("builtins.print"):
+                extractor.main()
+            download.assert_called_once_with(observed_url)
+            rows = pd.read_parquet(canonical)
+            self.assertEqual(rows["source_document_url"].tolist(), [observed_url])
+            self.assertEqual(rows["metric_name"].tolist(), ["document_download_failed"])
+            self.assertEqual(rows["metric_value_text"].tolist(), ["HTTP 503"])
+            self.assertTrue(rows["metric_value_numeric"].isna().all())
+            self.assertTrue(rows["source_document_sha256"].fillna("").eq("").all())
+            manifest = json.loads((root / "tables/extraction_manifest.json").read_text())
+            self.assertEqual(manifest["rows_input"], 1)
+            self.assertEqual(manifest["source_parquet_sha256"], hashlib.sha256(source.read_bytes()).hexdigest())
+
     def test_failed_document_extraction_retains_historical_values_and_dates(self):
         previous = pd.DataFrame([{"source_document_url": "https://example.org/report.pdf",
                                   "source_document_sha256": "a" * 64, "extraction_method": "table",

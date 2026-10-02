@@ -1080,8 +1080,8 @@ def _coerce_year(value: str) -> str:
 def _filter_annual_rows(df: pd.DataFrame) -> pd.DataFrame:
     if df.empty:
         return df
-    mask = df["document_title"].fillna("").str.contains("Annual Report", case=False, na=False)
-    mask |= df["source_document_url"].fillna("").str.contains("Annual_Report|annual-report|annual_report", case=False, regex=True, na=False)
+    mask = df["document_title"].fillna("").str.contains(r"Annual\s+Report", case=False, regex=True, na=False)
+    mask |= df["source_document_url"].fillna("").str.contains(r"Annual[_-]?Report", case=False, regex=True, na=False)
     return df.loc[mask].copy()
 
 
