@@ -113,6 +113,7 @@ jobs:
       - name: Validate generated artifacts
         run: |
           python scripts/validate_artifacts.py --inventory research/source_inventory.yaml --catalog data/manifests/catalog.json --manifests data/manifests --fail-on-warning
+          python scripts/validate_story_evidence.py
 
       - name: Package static site
         run: |
@@ -127,6 +128,11 @@ jobs:
           mkdir -p /tmp/gh-pages/apps/web/data/manifests /tmp/gh-pages/apps/web/data/processed /tmp/gh-pages/apps/web/duckdb
           cp -r data/manifests/* /tmp/gh-pages/apps/web/data/manifests/
           cp -r data/processed/* /tmp/gh-pages/apps/web/data/processed/
+          mkdir -p /tmp/gh-pages/data/research/nhai-nhit /tmp/gh-pages/apps/web/data/research/nhai-nhit
+          for name in observations.v1.json calculations.v1.json sources.v1.json; do
+            cp "data/research/nhai-nhit/${name}" /tmp/gh-pages/data/research/nhai-nhit/
+            cp "data/research/nhai-nhit/${name}" /tmp/gh-pages/apps/web/data/research/nhai-nhit/
+          done
           mkdir -p /tmp/gh-pages/research /tmp/gh-pages/apps/web/research
           cp research/source_inventory.json research/gaps.md docs/coverage_matrix.md research/state_publication_audit_2026_10_02.* research/monthly_publication_checks_2026_10_02.json research/rendered_publication_checks_2026_10_02.json /tmp/gh-pages/research/
           cp research/source_inventory.json research/gaps.md docs/coverage_matrix.md research/state_publication_audit_2026_10_02.* research/monthly_publication_checks_2026_10_02.json research/rendered_publication_checks_2026_10_02.json /tmp/gh-pages/apps/web/research/
@@ -349,7 +355,7 @@ jobs:
           # Retry the full smoke check with backoff rather than weakening chart assertions.
           target_url="${PAGE_URL%/}/apps/web/"
           for attempt in 1 2 3; do
-            if python scripts/check_deployed_provenance.py --url "${PAGE_URL}" --bundle-sha "${DEPLOY_BUNDLE_SHA256}" && python scripts/playwright_smoke.py --url "${target_url}"; then
+            if python scripts/check_deployed_provenance.py --url "${PAGE_URL}" --bundle-sha "${DEPLOY_BUNDLE_SHA256}" && python scripts/playwright_smoke.py --url "${target_url}" && python scripts/playwright_story.py --url "${target_url}story.html" --out buildcheck/story; then
               exit 0
             fi
             if [ "${attempt}" -eq 3 ]; then
