@@ -1,4 +1,4 @@
-import {evidenceIndex, exhibits, formatValue, EVIDENCE_HASHES} from './story-model.mjs';
+import {evidenceIndex, exhibits, formatValue, formatSummaryValue, EVIDENCE_HASHES} from './story-model.mjs';
 window.dispatchEvent(new Event('story-runtime-started'));
 
 const create = (tag, text, className) => {
@@ -101,14 +101,15 @@ function cashWaterfall(index) {
 
 function sourceDetail(row,index) {
   const detail=create('details',undefined,'source-record');detail.id='claim-'+row.id;
-  detail.append(create('summary',row.metric+' · '+formatValue(row)+(row.value===null?'':' '+row.unit)+' · '+row.entity+' · '+row.reporting_period));
+  const recipe=index.recipes.get(row.id);
+  detail.append(create('summary',row.metric+' · '+formatSummaryValue(row,recipe)+(row.value===null?'':' '+row.unit)+' · '+row.entity+' · '+row.reporting_period));
   const dl=create('dl');
   for (const [label,value] of [['Observation ID',row.id],['Entity and perimeter',row.entity+' · '+row.perimeter],['Period and cutoff',row.reporting_period+' · '+row.as_of],['Value status',row.value_status.replaceAll('_',' ')],['Assurance',row.audit_status],['Definition',row.definition],['Caveats',row.uncertainty],['Comparison context',row.comparison_status || row.comparability_group || 'Not supplied; this does not imply comparability'],['Evidence stage',stages[row.evidence_stage] || 'Read the stated evidence context'],['Source document date',row.source_document_date || 'Not supplied'],['Original value / normalization',String(row.original_value ?? 'Not supplied')+' · '+(row.normalization || 'Not supplied')]]) {
     dl.append(create('dt',label),create('dd',value));
   }
+  if (recipe) dl.append(create('dt','Exact stored calculation (Decimal)'),create('dd',row.value+' '+row.unit,'calculation-exact-value'));
   detail.append(dl);
   const source=create('a',new URL(row.source_url).hostname+' · '+row.document_page);source.href=row.source_url;source.target='_blank';source.rel='noopener noreferrer';detail.append(source);
-  const recipe=index.recipes.get(row.id);
   if (recipe) {
     detail.append(create('p','Analyst calculation: '+recipe.operation+'. Decimal precision 28; growth uses (current / prior − 1) × 100. Assurance limits are inherited from the inputs.'));
     const inputs=create('ul');

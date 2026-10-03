@@ -2,7 +2,7 @@ import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {EVIDENCE_HASHES, evidenceIndex, exhibits, formatValue} from '../apps/web/src/story-model.mjs';
+import {EVIDENCE_HASHES, evidenceIndex, exhibits, formatValue, formatSummaryValue} from '../apps/web/src/story-model.mjs';
 
 const bytes=Object.keys(EVIDENCE_HASHES).map(name=>readFileSync(new URL('../data/research/nhai-nhit/'+name,import.meta.url)));
 const documents=()=>bytes.map(buffer=>JSON.parse(buffer));
@@ -26,6 +26,18 @@ test('reported decimal precision is preserved; missing values have no numeric pr
   assert.equal(formatValue({value:'12345678901234567890.0010'}),'1,23,45,67,89,01,23,45,67,890.0010');
   assert.equal(formatValue({value:'-27.040'}),'−27.040');
   assert.equal(formatValue({value:null},2),'Unavailable');
+});
+
+test('derived catalog summaries respect display precision while stored Decimals remain exact',()=>{
+  const index=evidenceIndex(...documents());
+  const share=index.get('CALC-new_spv_share');
+  assert.equal(formatSummaryValue(share,index.recipes.get(share.id)),'87.07');
+  assert.equal(share.value,'87.07207644627828775873815899');
+  const residual=index.get('CALC-growth_rounding_residual');
+  assert.equal(formatSummaryValue(residual,index.recipes.get(residual.id)),'0.0065');
+  assert.equal(formatSummaryValue(index.get('NHAI-C148')),'14,65,842.545');
+  assert.equal(formatSummaryValue({value:'12.3456',value_status:'derived',unit:'percent'}),'12.35');
+  assert.equal(formatSummaryValue({value:null,value_status:'unavailable'}),'Unavailable');
 });
 
 test('failed lineage and removed accounting context cannot render',()=>{

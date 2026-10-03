@@ -160,6 +160,13 @@ async def run(args, url):
                         assert await search.input_value() == ''
                         assert await page.locator('#claim-TECH-atms_scope').get_attribute('open') is not None
                         assert 'Tender' in await page.locator('#claim-TECH-atms_scope').inner_text()
+                        await page.evaluate("location.hash='#claim-CALC-new_spv_share'")
+                        await page.wait_for_function('document.getElementById("claim-CALC-new_spv_share").open')
+                        share=page.locator('#claim-CALC-new_spv_share')
+                        summary=await share.locator('summary').inner_text()
+                        assert '87.07 percent' in summary and '87.072076' not in summary
+                        assert await share.locator('.calculation-exact-value').inner_text()=='87.07207644627828775873815899 percent'
+                        await share.screenshot(path=str(args.out/(name+'-rounded-calculation.png')))
                     if name == 'checksum-retry':
                         assert len(calls) == 2, 'Double retry launched duplicate calculation reads'
                     if name == 'module-reload':

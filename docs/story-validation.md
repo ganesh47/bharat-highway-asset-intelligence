@@ -28,9 +28,10 @@ it does not fetch or independently authenticate the primary documents.
 The five chapters contain 21 semantic tables and two decorative figures. Each
 displayed value links to its observation, original definition, entity/perimeter,
 period, cutoff, assurance, caveats, primary-source URL and page. Derived claims
-also link to their calculation inputs. Exact source precision is preserved in
-the observation catalog; rounded display ratios retain exact values in the
-drilldown. Missing evidence is labelled unavailable, never converted to zero.
+also link to their calculation inputs. Reported source precision is preserved.
+Derived catalog summaries use their declared display precision (two decimal
+places by default for ratios); the full stored Decimal remains in the labelled
+calculation detail. Missing evidence is labelled unavailable, never converted to zero.
 
 NHAI classic statutory history, budget debt, administrative funding, gross-asset
 working tables and future annuity commitments remain separate. NHIT book capital,
@@ -66,7 +67,7 @@ queries, default analyst/All view, synthetic exclusion, existing catalog,
 research pipelines, source inventory and ontology are preserved.
 
 Targeted local validation uses seven Python calculation/citation regressions,
-five Node story tests alongside five existing snapshot tests, and
+six Node story tests alongside five existing snapshot tests, and
 `scripts/playwright_story.py`. The seven local browser scenarios cover desktop,
 mobile with enlarged text, direct and repeated claim links, both Pages paths,
 checksum retry, module reload and a module arriving after its start deadline.

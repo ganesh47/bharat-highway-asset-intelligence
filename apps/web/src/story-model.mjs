@@ -41,6 +41,13 @@ export function formatValue(row, decimals) {
   return (negative ? '−' : '') + BigInt(whole).toLocaleString('en-IN') + (fraction ? '.'+fraction : '');
 }
 
+export function formatSummaryValue(row, recipe) {
+  const decimals = row.value_status === 'derived'
+    ? recipe?.display_decimals ?? (['percent','times'].includes(row.unit) ? 2 : undefined)
+    : undefined;
+  return formatValue(row, decimals);
+}
+
 const table = (title, columns, rows) => ({title, columns, rows});
 const fact = (label, id, decimals) => ({label,id,decimals});
 
