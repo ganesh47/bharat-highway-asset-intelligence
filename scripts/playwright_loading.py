@@ -156,10 +156,12 @@ CLOSED_TARGET = "Target page, context or browser has been closed"
 
 def controlled_abort(name: str, origin: str, record: dict[str, Any]) -> bool:
     """Only the exact local request cancellation deliberately exercised here."""
+    path = CONTROLLED_ABORT_PATHS.get(name)
     return (
-        record.get("kind") != "AssertionError"
+        bool(origin) and bool(path)
+        and record.get("kind") != "AssertionError"
         and not record.get("tearing_down", False)
-        and record.get("url") == origin + CONTROLLED_ABORT_PATHS.get(name, "!no-controlled-abort!")
+        and record.get("url") == origin + path
         and record.get("failure", record.get("message")) == "net::ERR_ABORTED"
     )
 
