@@ -67,10 +67,11 @@ research pipelines, source inventory and ontology are preserved.
 
 Targeted local validation uses seven Python calculation/citation regressions,
 five Node story tests alongside five existing snapshot tests, and
-`scripts/playwright_story.py`. The six local browser scenarios cover desktop,
+`scripts/playwright_story.py`. The seven local browser scenarios cover desktop,
 mobile with enlarged text, direct and repeated claim links, both Pages paths,
-checksum retry and module reload. They use the real approved dataset; only the
-two explicitly named recovery scenarios inject a controlled response. Unexpected
+checksum retry, module reload and a module arriving after its start deadline.
+They use the real approved dataset; only the explicitly named recovery scenarios
+inject a controlled response or delay. Unexpected
 page, console, HTTP and request failures fail the harness, including late errors.
 
 CI runs the complete existing Python suite, the calculation validator, both Node

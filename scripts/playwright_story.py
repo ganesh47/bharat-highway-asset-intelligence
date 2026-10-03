@@ -49,7 +49,7 @@ async def run(args, url):
         browser = await playwright.chromium.launch(**options)
         try:
             root_url = url.replace('/apps/web/story.html','/story.html') if args.url else url.replace('/apps/web/story.html','/packaged/story.html')
-            scenarios = ['desktop', 'mobile', 'deep-link'] + (['root-route'] if root_url != url else []) + ([] if args.url else ['checksum-retry','module-reload'])
+            scenarios = ['desktop', 'mobile', 'deep-link'] + (['root-route'] if root_url != url else []) + ([] if args.url else ['checksum-retry','module-reload','module-late'])
             for name in scenarios:
                 context = await browser.new_context(viewport={'width': 390 if name == 'mobile' else 1280, 'height': 900}, reduced_motion='reduce')
                 page = await context.new_page()
@@ -61,10 +61,14 @@ async def run(args, url):
                 row = {'scenario': name, 'url': url, 'status': 'failed', 'page_errors': errors, 'request_failures': failed, 'console_errors': console, 'bad_http': bad_http}
                 results.append(row)
                 try:
-                    if name == 'module-reload':
+                    if name in {'module-reload','module-late'}:
                         await page.add_init_script('const timer=window.setTimeout.bind(window);window.setTimeout=(fn,ms,...args)=>timer(fn,ms===20000?700:ms,...args);')
                         async def block_once(route):
                             calls.append(route.request.url)
+                            if name=='module-late':
+                                await asyncio.sleep(1.4)
+                                await route.continue_()
+                                return
                             if len(calls)==1:
                                 await route.fulfill(status=200,body='await new Promise(()=>{});',content_type='text/javascript')
                             else:
@@ -83,7 +87,10 @@ async def run(args, url):
                         await page.route('**/calculations.v1.json', corrupt_once)
                     target = (root_url if name == 'root-route' else url) + ('#claim-' + CLAIM if name == 'deep-link' else '')
                     row['url'] = target
-                    await page.goto(target, wait_until='networkidle', timeout=60000)
+                    await page.goto(target, wait_until='commit' if name=='module-late' else 'networkidle', timeout=60000)
+                    if name=='module-late':
+                        await page.get_by_role('heading',name='Story viewer could not start').wait_for()
+                        assert await page.get_by_role('button',name='Reload story').is_visible()
                     if name == 'module-reload':
                         await page.get_by_role('heading',name='Story viewer could not start').wait_for()
                         assert await page.locator('.exhibit-content table').count()==0
@@ -103,6 +110,7 @@ async def run(args, url):
                     assert '55 reproducible calculations' in await page.locator('#story-status').inner_text()
                     assert await page.locator('#story-exhibits').get_attribute('aria-busy') == 'false'
                     assert await page.locator('#story-retry').is_hidden()
+                    assert await page.locator('#story-reload').is_hidden()
                     # Exact decimal, units, dates and classification in distinct scopes.
                     for identifier, text in [('NHAI-C148', '14,65,842.545'), (CLAIM, '2,234.2400'), ('NHIT-FY2026_DPU_return_of_capital', '0'), ('MISSING-AI_ROI', 'Unavailable')]:
                         anchor = page.locator('.exhibit-content a[data-observation="' + identifier + '"]')

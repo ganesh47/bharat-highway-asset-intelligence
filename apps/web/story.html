@@ -77,7 +77,11 @@
         document.getElementById('story-reload').hidden=false;
       };
       const deadline=setTimeout(fail,20000);
-      window.addEventListener('story-runtime-started',()=>clearTimeout(deadline),{once:true});
+      window.addEventListener('story-runtime-started',()=>{
+        clearTimeout(deadline);
+        document.getElementById('story-reload').hidden=true;
+        document.getElementById('evidence-status-title').textContent='Loading the source-linked research';
+      },{once:true});
       document.getElementById('story-reload').addEventListener('click',()=>location.reload());
       window.addEventListener('error',event=>{if(event.target?.id==='story-runtime'){clearTimeout(deadline);fail();}},true);
     })();
