@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import { inferOntologyCoverage } from './ontology.js';
+import { catalogSnapshot, fetchEvidence, verifyBuffer, withDeadline } from './loading.mjs';
 
 const DUCKDB_CDN_ROOT = 'https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/dist';
 const ESM_ARROW_IMPORTMAP_NOTE = 'Ensure importmap keeps apache-arrow local path.';
@@ -14,6 +15,8 @@ let cachedDuckDBModule = null;
 let cachedDuckDBInstance = null;
 let cachedDuckDBConnection = null;
 let sourceAliasCache = new Map();
+let sourceChecksums = new Map();
+const sourceRegistrations = new Map();
 
 function normalizePath(path) {
   return String(path || '/').replace(/\/+/g, '/');
@@ -198,11 +201,8 @@ async function readCatalog(path) {
   const candidates = candidateAssetPaths(path);
   for (const candidate of candidates) {
     try {
-      const response = await fetch(candidate, { cache: 'no-store' });
-      if (!response.ok) {
-        throw new Error(`${candidate}: ${response.status}`);
-      }
-      const payload = await response.json();
+      const buffer = await fetchEvidence(candidate);
+      const payload = JSON.parse(new TextDecoder().decode(buffer));
       if (!payload || !payload.datasets) {
         throw new Error(`${candidate}: missing datasets field`);
       }
@@ -282,8 +282,8 @@ async function initDuckDB() {
   if (cachedDuckDBInstance && cachedDuckDBConnection) {
     return cachedDuckDBConnection;
   }
-  const duckdb = await loadDuckDBModule();
-  const features = await duckdb.getPlatformFeatures();
+  const duckdb = await withDeadline(loadDuckDBModule(), 60000, 'Engine module download timed out');
+  const features = await withDeadline(duckdb.getPlatformFeatures(), 30000, 'Engine feature detection timed out');
   const bundles = getDuckDBBundleCandidates();
   const selected = features.wasmSIMD && features.wasmExceptions ? bundles.eh : bundles.mvp;
   const logger = new duckdb.ConsoleLogger();
@@ -291,8 +291,16 @@ async function initDuckDB() {
   const instantiate = async (mainModule, mainWorker, selectedBundle) => {
     const worker = new Worker(mainWorker, { type: 'module' });
     const db = new duckdb.AsyncDuckDB(logger, worker);
-    await db.instantiate(mainModule, selectedBundle.pthreadWorker);
-    return db;
+    try {
+      const conn = await withDeadline((async () => {
+        await db.instantiate(mainModule, selectedBundle.pthreadWorker);
+        return db.connect();
+      })(), 60000, 'Engine startup timed out');
+      return { db, conn };
+    } catch (error) {
+      worker.terminate();
+      throw error;
+    }
   };
 
   const tryBundle = async (bundle) => {
@@ -303,12 +311,12 @@ async function initDuckDB() {
       const moduleUrl = bundle.mainModuleCandidates[i] || bundle.mainModule;
       const workerUrl = bundle.mainWorkerCandidates[i] || bundle.mainWorker;
       try {
-        const db = await instantiate(moduleUrl, workerUrl, bundle);
-        const conn = await db.connect();
+        const { db, conn } = await instantiate(moduleUrl, workerUrl, bundle);
         cachedDuckDBInstance = db;
         cachedDuckDBConnection = conn;
         return conn;
       } catch (error) {
+        if (error?.message === 'Engine startup timed out') throw error;
         window.__duckDbLoadAttempts = window.__duckDbLoadAttempts || [];
         window.__duckDbLoadAttempts.push(`${moduleUrl} | ${workerUrl}: ${error?.message || error}`);
       }
@@ -319,7 +327,7 @@ async function initDuckDB() {
   try {
     return await tryBundle(selected);
   } catch (error) {
-    if (selected === bundles.mvp) {
+    if (selected === bundles.mvp || error?.message === 'Engine startup timed out') {
       throw error;
     }
     return tryBundle(bundles.mvp);
@@ -366,7 +374,7 @@ function extractRows(result) {
 }
 
 function ensureSourceAlias(conn, sourcePath) {
-  const cacheKey = normalizePath(sourcePath || '');
+  const cacheKey = `${normalizePath(sourcePath || '')}::${sourceChecksums.get(sourcePath)}`;
   if (sourceAliasCache.has(cacheKey)) {
     return sourceAliasCache.get(cacheKey);
   }
@@ -377,31 +385,35 @@ function ensureSourceAlias(conn, sourcePath) {
 
 async function registerSourceBuffer(conn, sourcePath) {
   const alias = ensureSourceAlias(conn, sourcePath);
-  if (alias && sourceAliasCache.get(`${sourcePath}::loaded`)) {
+  if (alias && sourceAliasCache.get(`${alias}::loaded`)) {
     return alias;
   }
-
+  if (sourceRegistrations.has(alias)) return sourceRegistrations.get(alias);
+  const register = async () => {
   const candidates = candidateAssetPaths(sourcePath);
   const lastError = [];
   for (const candidate of candidates) {
     try {
-      const response = await fetch(candidate, { cache: 'no-store' });
-      if (!response.ok) {
-        lastError.push(`${candidate}: ${response.status}`);
-        continue;
-      }
-      const buffer = await response.arrayBuffer();
+      const buffer = await fetchEvidence(candidate);
+      const checksum = sourceChecksums.get(sourcePath);
+      if (!checksum) throw new Error('Missing catalog checksum');
+      await verifyBuffer(buffer, checksum);
       if (!cachedDuckDBInstance || typeof cachedDuckDBInstance.registerFileBuffer !== 'function') {
         throw new Error('DuckDB instance is not ready for file registration');
       }
       await cachedDuckDBInstance.registerFileBuffer(alias, new Uint8Array(buffer));
-      sourceAliasCache.set(`${sourcePath}::loaded`, true);
+      sourceAliasCache.set(`${alias}::loaded`, true);
       return alias;
     } catch (error) {
       lastError.push(`${candidate}: ${error?.message || error}`);
     }
   }
   throw new Error(`Parquet unavailable: ${sourcePath}. Tried: ${lastError.join(' | ')}`);
+  };
+  const pending = register();
+  sourceRegistrations.set(alias, pending);
+  try { return await pending; }
+  finally { sourceRegistrations.delete(alias); }
 }
 
 async function queryParquetRows(conn, sourcePath, queryFactory) {
@@ -1979,7 +1991,7 @@ function MetricCard({ item, rowCount, sourceFilter }) {
     ),
     React.createElement('h3', null, source.title || item.source_id),
     React.createElement('div', { className: `source-type ${kind}` }, label),
-    React.createElement('div', { className: 'metric-meta' }, `Rows in parquet: ${rowCount}`),
+    React.createElement('div', { className: 'metric-meta' }, `Published rows in parquet: ${rowCount}`),
     React.createElement('div', { className: 'metric-meta' }, 'Primary source: ', source.url ? React.createElement('a', { href: source.url, target: '_blank', rel: 'noreferrer' }, primarySource) : primarySource),
     React.createElement('div', { className: 'metric-meta' }, `Retrieval date: ${retrievalDate}`),
     React.createElement('div', { className: 'metric-meta' }, `Permanent identifier: ${permanentIdentifier}`),
@@ -2046,12 +2058,13 @@ function CoverageCards({ catalog, rowCounts, disclosureRows = [] }) {
     .reduce((sum, entry) => sum + (entry.manifest?.columns?.includes('analytical_eligible') ? (eligibleCounts[entry.source_id] || 0) : (Number(rowCounts[entry.source_id]) || 0)), 0);
   const modelRows = entries.filter((entry) => sourceTypeTag(entry)[1] === 'model')
     .reduce((sum, entry) => sum + (Number(rowCounts[entry.source_id]) || 0), 0);
-  return React.createElement('section', { className: 'summary', 'aria-label': 'Validated evidence coverage' },
+  return React.createElement('section', { className: 'summary', 'aria-label': 'Evidence coverage from catalog and loaded disclosures' },
     React.createElement('div', { className: 'card' }, `Official measured sources: ${count('official')} validated`),
     React.createElement('div', { className: 'card' }, `Issuer disclosures: ${count('issuer')} validated`),
     React.createElement('div', { className: 'card' }, `Proxy-derived signals: ${entries.filter((entry) => sourceTypeTag(entry)[1] === 'proxy').length}`),
     React.createElement('div', { className: 'card' }, `Model output signals: ${entries.filter((entry) => sourceTypeTag(entry)[1] === 'model').length} · excluded by default`),
-    React.createElement('div', { className: 'card' }, `Measured evidence rows: ${evidenceRows.toLocaleString('en-IN')}`),
+    React.createElement('div', { className: 'card' }, `Measured evidence rows: ${evidenceRows.toLocaleString('en-IN')}`,
+      React.createElement('small', { className: 'metric-meta', 'data-coverage-note': true }, 'Combines loaded eligible disclosure rows with published counts for other validated sources.')),
     React.createElement('div', { className: 'card' }, `Catalog entries: ${entries.length} · ${modelRows.toLocaleString('en-IN')} model rows excluded`)
   );
 }
@@ -2626,13 +2639,21 @@ function MetricCoverage({ rows, catalog }) {
 }
 
 async function loadAnalyticCatalog(conn, catalog) {
+  const loadFailures = new Set();
+  const attemptedSources = new Set();
+  const successfulSources = new Set();
   const fetchById = async (sourceId, queryFactory) => {
     const manifest = catalog[sourceId];
     if (sourceTypeTag(manifest)[1] !== 'model' && !analyticalReady(manifest) && !disclosureReady(manifest)) return [];
     const sourcePath = manifest?.output_table_path || `data/processed/${sourceId}.parquet`;
+    attemptedSources.add(sourceId);
     try {
-      return await queryParquetRows(conn, sourcePath, queryFactory);
-    } catch {
+      const rows = await queryParquetRows(conn, sourcePath, queryFactory);
+      successfulSources.add(sourceId);
+      return rows;
+    } catch (error) {
+      console.warn('Evidence could not be loaded', sourceId, error);
+      loadFailures.add(sourceId);
       return [];
     }
   };
@@ -2795,6 +2816,7 @@ async function loadAnalyticCatalog(conn, catalog) {
 
   const morthSourcePath = catalog?.morth_annual_report_pdf?.output_table_path || 'data/processed/morth_annual_report_pdf.parquet';
   let morthAppendix = [];
+  if (analyticalReady(catalog.morth_annual_report_pdf)) attemptedSources.add('morth_annual_report_pdf');
   try {
     const morthRows = analyticalReady(catalog.morth_annual_report_pdf) ? await queryParquetRows(conn, morthSourcePath, (alias) => `
       SELECT
@@ -2804,6 +2826,7 @@ async function loadAnalyticCatalog(conn, catalog) {
         CAST("metric_value" AS VARCHAR) AS metric_value
       FROM read_parquet('${alias}')
     `) : [];
+    if (analyticalReady(catalog.morth_annual_report_pdf)) successfulSources.add('morth_annual_report_pdf');
     morthAppendix = pickByMetric(morthRows, (metricName) => [
       'appendix2_statewise_nh_count',
       'appendix2_statewise_nh_length_km',
@@ -2811,7 +2834,9 @@ async function loadAnalyticCatalog(conn, catalog) {
       'appendix3_crif_release',
       'appendix5_statewise_national_permit_fee',
     ].includes(metricName));
-  } catch {
+  } catch (error) {
+    console.warn('Evidence could not be loaded', 'morth_annual_report_pdf', error);
+    loadFailures.add('morth_annual_report_pdf');
     morthAppendix = [];
   }
 
@@ -3139,6 +3164,9 @@ async function loadAnalyticCatalog(conn, catalog) {
   morthAppendix2LengthRows.forEach((row) => stateList.add(row.state));
   morthPermitRows.forEach((row) => stateList.add(row.state));
   return {
+    loadFailures: [...loadFailures],
+    attemptedSources: [...attemptedSources],
+    successfulSources: [...successfulSources],
     disclosureRows,
     nhidclPortfolio,
     economicNetworkStock,
@@ -3168,17 +3196,52 @@ async function loadAnalyticCatalog(conn, catalog) {
   };
 }
 
+function LoadingStatus({ phase, slow, error, empty, retry, compact = false }) {
+  const title = error ? 'Evidence could not be loaded' : empty ? 'No evidence has been published yet' : 'Preparing your evidence console';
+  return React.createElement('section', { className: `card loading-card ${compact ? 'loading-compact' : ''}`, 'aria-labelledby': 'loading-title' },
+    React.createElement('div', { className: 'loading-road', 'aria-hidden': true }, !error && !empty ? React.createElement('span', { className: 'loading-marker' }) : null),
+    React.createElement('div', null,
+      React.createElement('h2', { id: 'loading-title' }, title),
+      React.createElement('p', { role: 'status', 'aria-live': 'polite', 'aria-atomic': true }, error || (empty ? 'The catalog is available, but contains no datasets. You can try again later.' : phase)),
+      !error && !empty && slow ? React.createElement('p', { className: 'loading-note' }, 'This is taking longer than usual. You can keep waiting or reload the page to start again.') : null,
+      error || empty ? React.createElement('button', { className: 'loading-action', type: 'button', onClick: retry }, 'Retry data') : null,
+      !error && !empty && slow ? React.createElement('button', { className: 'loading-action', type: 'button', onClick: () => window.location.reload() }, 'Reload page') : null),
+    !compact && !error && !empty ? React.createElement('div', { className: 'loading-skeleton', 'aria-hidden': true }, ...[0, 1, 2].map(key => React.createElement('div', { key }, React.createElement('span'), React.createElement('span')))) : null);
+}
+
+function LoadingShell(props) {
+  return React.createElement('main', { className: 'app-shell' },
+    React.createElement('header', null, React.createElement('h1', null, 'Bharat Highway Evidence Console'),
+      React.createElement('p', { className: 'subhead' }, 'Official and issuer evidence for highway construction, funding, debt, toll operations and asset monetisation.'),
+      React.createElement('p', null, React.createElement('a', { href: 'methodology.html' }, 'Read the evidence methodology'))),
+    React.createElement(LoadingStatus, props),
+    React.createElement('div', { 'aria-busy': !props.error && !props.empty, className: 'sr-only' }, 'Evidence panels'));
+}
+
 function App() {
   const [catalog, setCatalog] = useState({});
   const [rowCounts, setRowCounts] = useState({});
   const [analytics, setAnalytics] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [analyticsLoading, setAnalyticsLoading] = useState(true);
+  const [phase, setPhase] = useState('Reading the published evidence catalog…');
+  const [slow, setSlow] = useState(false);
+  const [empty, setEmpty] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
+  const attemptBusy = useRef(true);
   const [error, setError] = useState('');
   const [sourceFilter, setSourceFilter] = useState('analyst');
   const [chartScale, setChartScale] = useState('normal');
   const [selectedState, setSelectedState] = useState('All');
   const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0, text: '' });
+  const retryData = () => {
+    // Guard synchronously: two clicks before React renders must share one attempt.
+    if (attemptBusy.current) return;
+    attemptBusy.current = true;
+    setLoading(true);
+    setError('');
+    setEmpty(false);
+    setRetryCount(value => value + 1);
+  };
 
   const chartScaleValue = { compact: 0.86, normal: 1, large: 1.35, xlarge: 2.0 };
   const chartHeightsByScale = {
@@ -3192,15 +3255,23 @@ function App() {
 
   useEffect(() => {
     let mounted = true;
+    setLoading(true);
+    setError('');
+    setEmpty(false);
+    setSlow(false);
+    setPhase('Reading the published evidence catalog…');
+    const slowTimer = setTimeout(() => { if (mounted) setSlow(true); }, 15000);
 
     const run = async () => {
       try {
         const payload = await readCatalog('data/manifests/catalog.json');
-        const items = payload.datasets || [];
-        const map = {};
-        items.forEach((item) => {
-          map[item.source_id] = item;
-        });
+        const { catalog: map, counts, checksums } = catalogSnapshot(payload);
+        if (!Object.keys(map).length) {
+          if (mounted) { setEmpty(true); setAnalytics(null); setLoading(false); }
+          return;
+        }
+        sourceChecksums = checksums;
+        if (mounted) setPhase('Starting the local evidence engine…');
 
         let conn;
         try {
@@ -3209,32 +3280,27 @@ function App() {
           throw new Error(`DuckDB initialization failed: ${duckDbErr?.message || 'Unknown error'}`);
         }
 
-        const counts = {};
-        for (const item of items) {
-          const outputPath = item.output_table_path || `data/processed/${item.source_id}.parquet`;
-          try {
-            const value = await countRows(conn, outputPath);
-            counts[item.source_id] = Number.isFinite(value) ? value : Number(item?.manifest?.row_count || 0);
-          } catch {
-            counts[item.source_id] = item?.manifest?.row_count || 0;
-          }
-        }
-
+        if (mounted) setPhase('Loading evidence and preparing charts…');
         const analyticsData = await loadAnalyticCatalog(conn, map);
+        if (analyticsData.attemptedSources.length && !analyticsData.successfulSources.length) {
+          throw new Error('No evidence sources could be loaded');
+        }
 
         if (mounted) {
           setCatalog(map);
           setRowCounts(counts);
           setAnalytics(analyticsData);
           setLoading(false);
-          setAnalyticsLoading(false);
         }
       } catch (err) {
         if (mounted) {
-          setError(`${err?.message || 'Data pipeline init failed'}. Hard refresh (Ctrl/Cmd+Shift+R). If running locally: python -m pipelines.ingest then refresh.`);
+          console.warn('Evidence console startup failed', err);
+          setError('Check your connection and try again. The evidence may also be temporarily unavailable.');
           setLoading(false);
-          setAnalyticsLoading(false);
         }
+      } finally {
+        clearTimeout(slowTimer);
+        if (mounted) attemptBusy.current = false;
       }
     };
 
@@ -3242,8 +3308,9 @@ function App() {
 
     return () => {
       mounted = false;
+      clearTimeout(slowTimer);
     };
-  }, []);
+  }, [retryCount]);
 
   const confidenceCatalog = useMemo(() => {
     const entries = Object.values(catalog || {});
@@ -3322,16 +3389,8 @@ function App() {
     projectEconomics: latestDateFromRows(analytics?.modelByStateSummary || [], catalog, ['highway_project_risk_and_access_panel']),
   }), [analytics, catalog]);
 
-  if (loading) {
-    return React.createElement(
-      'div',
-      { className: 'app-shell' },
-      React.createElement('section', { className: 'card' }, 'Loading catalog and DuckDB...')
-    );
-  }
-
-  if (error) {
-    return React.createElement('div', { className: 'app-shell' }, React.createElement('section', { className: 'card' }, error));
+  if ((loading || error || empty) && !analytics) {
+    return React.createElement(LoadingShell, { phase, slow, error, empty, retry: retryData });
   }
 
   const methodologyUrl = candidateAssetPaths('methodology.html')[0] || 'methodology.html';
@@ -3554,6 +3613,12 @@ function App() {
       React.createElement(SourceMetaFooter, { label: `Catalog confidence floor: ${confidenceByAll.badge} · chart badges use their contributing sources`, confidence: confidenceByAll.badge }),
       React.createElement(MethodologyBadge, { label: 'Why these badges?', href: methodologyUrl })
     ),
+    loading ? React.createElement(LoadingStatus, { phase, slow, compact: true }) : null,
+    error ? React.createElement('section', { className: 'card load-warning', role: 'status' }, 'The refresh failed. Showing the previously loaded evidence. ', React.createElement('button', { className: 'loading-action', onClick: retryData, disabled: loading, type: 'button' }, 'Retry data')) : null,
+    analytics?.loadFailures?.length ? React.createElement('section', { className: 'card load-warning', 'aria-label': 'Evidence availability' },
+      React.createElement('p', { role: 'status' }, 'Some evidence could not be loaded. Showing available evidence; published row counts describe the catalog, not loaded observations. Coverage totals can include published counts for unavailable sources.'),
+      React.createElement('details', null, React.createElement('summary', null, `${analytics.loadFailures.length} unavailable sources`), React.createElement('ul', null, ...analytics.loadFailures.map(id => React.createElement('li', { key: id }, catalog[id]?.source?.title || id)))),
+      React.createElement('button', { className: 'loading-action', type: 'button', disabled: loading, onClick: retryData }, 'Retry data')) : null,
     React.createElement(CoverageCards, { catalog, rowCounts, disclosureRows: analytics?.disclosureRows || [] }),
     React.createElement(
       'div',
@@ -3877,7 +3942,6 @@ function App() {
     React.createElement(
       'section',
       { className: 'panel-grid' },
-      analyticsLoading ? React.createElement('div', { className: 'card' }, 'Loading insight panels...') : null,
       React.createElement(OntologyPanel, { catalog }),
       ...Object.values(catalog)
         .filter((item) => matchesSourceFilter(item, sourceFilter))
@@ -3894,4 +3958,5 @@ function App() {
   );
 }
 
+clearTimeout(window.__loadingShellTimer);
 createRoot(document.getElementById('root')).render(React.createElement(App));

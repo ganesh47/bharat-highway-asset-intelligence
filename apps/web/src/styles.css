@@ -27,6 +27,88 @@ body {
   margin: 0 auto;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.card.loading-card {
+  margin-top: 24px;
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  animation: none;
+}
+
+.loading-card h2 { margin: 0; font-size: 1.25rem; }
+.loading-card p { line-height: 1.5; max-width: 680px; }
+.loading-note { color: var(--muted); }
+.loading-road {
+  position: relative;
+  height: 100px;
+  width: 60px;
+  border-radius: 14px;
+  background: #e8eff8;
+  border: 1px solid #b9cde6;
+  overflow: hidden;
+}
+.loading-road::before {
+  content: '';
+  position: absolute;
+  inset: 8px 28px;
+  background: repeating-linear-gradient(to bottom, #7590b2 0 12px, transparent 12px 24px);
+}
+.loading-marker {
+  position: absolute;
+  width: 14px;
+  height: 22px;
+  top: 40px;
+  left: 10px;
+  border-radius: 5px;
+  background: var(--accent);
+  animation: evidence-road 2.5s ease-in-out infinite alternate;
+}
+@keyframes evidence-road { from { transform: translateY(-26px); } to { transform: translateY(26px); } }
+.loading-skeleton {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.loading-skeleton > div { border: 1px solid var(--line); border-radius: 12px; padding: 20px; height: 120px; }
+.loading-skeleton span { display: block; height: 10px; margin: 10px 0; width: 80%; background: #e5edf6; border-radius: 5px; }
+.loading-skeleton span + span { width: 55%; }
+.loading-action {
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: var(--accent);
+  color: white;
+  font: inherit;
+  padding: 9px 14px;
+  cursor: pointer;
+}
+.loading-action:disabled { opacity: 0.65; cursor: wait; }
+.loading-action:focus-visible, .load-warning summary:focus-visible { outline: 3px solid #1b4d91; outline-offset: 3px; }
+.load-warning { margin: 14px 0; border-color: #a56c16; }
+.load-warning summary { cursor: pointer; margin-bottom: 14px; }
+.loading-compact { margin: 14px 0; }
+@media (max-width: 700px) {
+  .card.loading-card { padding: 18px; grid-template-columns: 60px minmax(0, 1fr); gap: 14px; }
+  .loading-skeleton { grid-template-columns: 1fr; }
+  .loading-skeleton > div { height: 72px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card.card, .loading-marker { animation: none; }
+}
+
 header h1 {
   font-family: 'Georgia', 'Times New Roman', serif;
   font-size: clamp(1.4rem, 2.5vw, 2.1rem);

@@ -75,6 +75,23 @@ jobs:
           python -m compileall -q pipelines research scripts
           python -m unittest discover -s tests -v
 
+      - name: Validate web snapshot guards
+        run: node --test tests/web_loading.test.mjs
+
+      - name: Install existing Playwright browser
+        run: python -m playwright install --with-deps chromium
+
+      - name: Validate loading and recovery states
+        run: python scripts/playwright_loading.py --out artifacts/loading
+
+      - name: Upload loading validation evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: loading-validation
+          path: artifacts/loading
+          if-no-files-found: ignore
+
   artifact_validation:
     name: Artifact validation
     runs-on: ubuntu-latest
