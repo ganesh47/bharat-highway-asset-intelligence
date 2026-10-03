@@ -18,11 +18,33 @@ from scripts.nhai_annual_report_merge import _validate_shard_manifests
 from scripts.nhai_annual_report_extractor import preserve_failed_documents
 from scripts import nhai_annual_report_extractor as extractor
 from scripts.validate_checkout_artifacts import validate_checkout
+from scripts.validate_artifacts import _validate_deploy_docs_and_workflow
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 class ResearchDeliveryTests(unittest.TestCase):
+    def test_pages_validation_accepts_quoted_api_path_and_rejects_missing_type_query(self):
+        workflow_text = (ROOT / ".github/workflows/github-pages.yml").read_text()
+        type_query = 'gh api "repos/${GITHUB_REPOSITORY}/pages" --jq .build_type'
+        self.assertIn(type_query, workflow_text)
+        for query_present in [True, False]:
+            with self.subTest(query_present=query_present), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                workflows = root / ".github/workflows"
+                workflows.mkdir(parents=True)
+                text = workflow_text if query_present else workflow_text.replace(type_query, "true")
+                (workflows / "github-pages.yml").write_text(text)
+                (root / "README.md").write_text((ROOT / "README.md").read_text())
+                errors, warnings = [], []
+                with patch("scripts.validate_artifacts.ROOT", root):
+                    _validate_deploy_docs_and_workflow(errors, warnings)
+                self.assertEqual(warnings, [])
+                if query_present:
+                    self.assertEqual(errors, [])
+                else:
+                    self.assertTrue(any(type_query in error for error in errors), errors)
+
     def test_source_and_extractor_changes_are_detected(self):
         for path in ["requirements.txt", "research/source_inventory.yaml", "pipelines/ingest.py",
                      "pipelines/quality.py", "scripts/nhai_annual_report_extractor.py",

@@ -523,7 +523,7 @@ def _validate_deploy_docs_and_workflow(errors: List[str], warnings: List[str]) -
         "REQUIRED_PAGES_PATH: '/'",
         "Missing PAGES_DEPLOY_TOKEN secret.",
         "Publish built site to gh-pages branch",
-        "gh api repos/${GITHUB_REPOSITORY}/pages --jq .build_type",
+        'gh api "repos/${GITHUB_REPOSITORY}/pages" --jq .build_type',
     ]
     for marker in required_workflow_markers:
         if marker not in workflow_text:

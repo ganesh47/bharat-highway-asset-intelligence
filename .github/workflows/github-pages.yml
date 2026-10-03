@@ -51,7 +51,7 @@ jobs:
           fi
 
       - name: Checkout trusted workflow revision
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Require the triggering immutable research revision
         env:
@@ -206,7 +206,7 @@ jobs:
       name: production
     steps:
       - name: Checkout validated bundle verifier
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           persist-credentials: false
 
@@ -248,9 +248,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
         run: |
-          BUILD_TYPE="$(gh api repos/${GITHUB_REPOSITORY}/pages --jq .build_type)"
-          BRANCH="$(gh api repos/${GITHUB_REPOSITORY}/pages --jq .source.branch)"
-          PATH_VALUE="$(gh api repos/${GITHUB_REPOSITORY}/pages --jq .source.path)"
+          BUILD_TYPE="$(gh api "repos/${GITHUB_REPOSITORY}/pages" --jq .build_type)"
+          BRANCH="$(gh api "repos/${GITHUB_REPOSITORY}/pages" --jq .source.branch)"
+          PATH_VALUE="$(gh api "repos/${GITHUB_REPOSITORY}/pages" --jq .source.path)"
           if [ "${BUILD_TYPE}" != "${REQUIRED_PAGES_BUILD_TYPE}" ] || [ "${BRANCH}" != "${REQUIRED_PAGES_BRANCH}" ] || [ "${PATH_VALUE}" != "${REQUIRED_PAGES_PATH}" ]; then
             echo "Pages must publish from ${REQUIRED_PAGES_BUILD_TYPE}:${REQUIRED_PAGES_BRANCH}${REQUIRED_PAGES_PATH}. Got ${BUILD_TYPE}:${BRANCH}${PATH_VALUE}." >&2
             exit 1
@@ -290,7 +290,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
         run: |
-          echo "page_url=$(gh api repos/${GITHUB_REPOSITORY}/pages --jq .html_url)" >> "$GITHUB_OUTPUT"
+          echo "page_url=$(gh api "repos/${GITHUB_REPOSITORY}/pages" --jq .html_url)" >> "$GITHUB_OUTPUT"
 
   cd_smoke:
     name: Playwright CD smoke check
@@ -306,7 +306,7 @@ jobs:
       DEPLOY_BUNDLE_SHA256: ${{ needs.deploy.outputs.bundle_sha256 }}
     steps:
       - name: Checkout trusted workflow revision
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Require the build-validated immutable revision
         env:
