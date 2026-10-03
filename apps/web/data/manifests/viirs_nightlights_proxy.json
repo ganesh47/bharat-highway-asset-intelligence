@@ -1,0 +1,111 @@
+{
+  "source_id": "viirs_nightlights_proxy",
+  "connector": "viirs_nightlights_proxy_manual_csv",
+  "version": "0.1.0",
+  "status": "manual_ingest",
+  "metric_category": "proxy_derived",
+  "source": {
+    "publisher": "NASA VIIRS Land Science Investigator-led Processing System / LAADS DAAC",
+    "title": "NASA VNP46A4 yearly Black Marble nightlights proxy discovery",
+    "url": "https://ladsweb.modaps.eosdis.nasa.gov/missions-and-measurements/products/VNP46A4/",
+    "retrieved_at": "2026-03-11T05:17:35.842099+00:00",
+    "license_terms": "Use NASA VIIRS proxy dataset under official redistribution terms; separate from measured infrastructure condition metrics.",
+    "official_flag": false,
+    "domain": "ladsweb.modaps.eosdis.nasa.gov",
+    "observation_date_unknown": true,
+    "publication_date_unknown": true
+  },
+  "citations": {
+    "permanent_identifier": "official nightlight scene id or annual product release",
+    "anchor": "proxy_nightlight_tile_metrics",
+    "note": "VIIRS proxy indicators imported through approved manual artifact; clearly marked as proxy-derived."
+  },
+  "manifest": {
+    "raw_files": [],
+    "output_files": [
+      {
+        "path": "data/processed/viirs_nightlights_proxy.parquet",
+        "format": "parquet",
+        "sha256": "86c710f6a5871689b57b7607184e5b539deedbb68370d5c8b3d45230c7174955"
+      }
+    ],
+    "row_count": 3,
+    "columns": [
+      "state",
+      "year",
+      "nightlight_mean",
+      "nightlight_stddev",
+      "urban_activity_index",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ],
+    "unbound_raw_evidence": [
+      {
+        "path": "data/raw/manual/viirs_nightlights_proxy.csv",
+        "expected_sha256": "7ffa238bf0be57d49ff5f883c110590c535aad5d02f73e7ff36ac2a9bf752773",
+        "available_sha256": "140cedfad9614c86b4c074472c256ee5e5f93ea0acbce8786fb4e67df0b82b0f",
+        "original_binding": {
+          "path": "data/raw/manual/viirs_nightlights_proxy.csv",
+          "sha256": "7ffa238bf0be57d49ff5f883c110590c535aad5d02f73e7ff36ac2a9bf752773",
+          "size_bytes": 164
+        },
+        "availability": "present_unbound",
+        "binding_status": "quarantined",
+        "reason": "unsupported_legacy_input_checksum_mismatch",
+        "available_size_bytes": 160
+      }
+    ],
+    "raw_evidence_gaps": []
+  },
+  "retrieved_at": "2026-03-11T05:17:35.842099+00:00",
+  "completeness_score": 0.98,
+  "recency_score": 0.25,
+  "provenance_score": 0.588,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "Low",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency",
+    "Observation date is unavailable; collection time is not data freshness",
+    "Not eligible for measured analyst calculations",
+    "Document discovery is not validated financial extraction"
+  ],
+  "output_table_path": "data/processed/viirs_nightlights_proxy.parquet",
+  "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
+  "data_checksum": "eef1e0d187ca5cb8d2b9e61bd18bb9152523ed056ed265e5913bca44424a2874",
+  "last_checked_at": "2026-10-03T11:25:01.056918+00:00",
+  "refresh_outcome": "manual_evidence_required",
+  "analytical_scope": {
+    "observation_date_unknown": true
+  },
+  "evidence_status": "unverified",
+  "source_as_of_date": null,
+  "publication_date": null,
+  "disclosure_ready": false,
+  "analytical_ready": false,
+  "extraction_status": "pending",
+  "recency_basis": "unknown",
+  "validation_errors": [],
+  "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date",
+  "last_quality_check_at": "2026-10-01T22:14:43.661917+00:00",
+  "metric_coverage": [
+    {
+      "source_id": "viirs_nightlights_proxy",
+      "metric": "dataset",
+      "coverage_status": "not_calculation_ready",
+      "latest_observation_date": null,
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 3,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "research_cutoff": "2026-10-03",
+  "next_expected_publication_at": null
+}

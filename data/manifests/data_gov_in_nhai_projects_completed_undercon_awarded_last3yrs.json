@@ -1,0 +1,113 @@
+{
+  "source_id": "data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs",
+  "connector": "data_gov_in_ogd",
+  "version": "0.2.0",
+  "status": "ok",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI)",
+    "title": "Project-wise details of NH projects completed/under construction/awarded (2023)",
+    "domain": "data.gov.in",
+    "url": "https://www.data.gov.in/resource/project-wise-details-national-highway-projects-completedunder-constructionawarded-during",
+    "retrieval_method": "direct download",
+    "access_type": "HTML",
+    "retrieved_at": "2026-03-11T05:17:08.258352+00:00",
+    "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+    "official_flag": true,
+    "analytical_eligible": false,
+    "observation_date_unknown": true
+  },
+  "citations": {
+    "permanent_identifier": "nid=7578011 (resource page) / file RS_Session_259_AU_1679_1.csv",
+    "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_259_AU_1679_1.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs/raw_20260311_051708.csv",
+        "sha256": "b165b8a2ecd46c2cd677f0f0364e8e27eab674222f312c0ad7f2cafc55b29df2",
+        "size_bytes": 38969
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs.parquet",
+        "format": "parquet",
+        "sha256": "efb5eb69400dacb28c19aa29f44e18b93d97ad643c1ea349a1c4272b14a25702"
+      }
+    ],
+    "row_count": 218,
+    "columns": [
+      "sl._no.",
+      "state",
+      "project",
+      "length_in_km/_in_number",
+      "length",
+      "tpc_in_rs_crore",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": [
+      {
+        "path": "data/raw/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs/raw_20260311_051708.csv",
+        "sha256": "b165b8a2ecd46c2cd677f0f0364e8e27eab674222f312c0ad7f2cafc55b29df2",
+        "availability": "not_archived",
+        "reason": "raw_input_archive_missing"
+      }
+    ]
+  },
+  "retrieved_at": "2026-03-11T05:17:08.258352+00:00",
+  "completeness_score": 1.0,
+  "recency_score": 0.25,
+  "provenance_score": 1.0,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "Med",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency",
+    "Observation date is unavailable; collection time is not data freshness",
+    "Planned/estimated disclosure is readable evidence and excluded from measured calculations"
+  ],
+  "output_table_path": "data/processed/data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs.parquet",
+  "data_checksum": "8555103cb1dc8bf3dd0ead818b5e6eb51a1b6ad79c73c610f1c3bf8daddfeaff",
+  "last_successful_retrieval_at": "2026-10-02T04:55:32.982881+00:00",
+  "last_ingested_at": "2026-10-02T04:55:32.982881+00:00",
+  "last_checked_at": "2026-10-03T11:17:27.672366+00:00",
+  "refresh_outcome": "retained_after_failure",
+  "analytical_scope": {
+    "analytical_eligible": false,
+    "observation_date_unknown": true
+  },
+  "evidence_status": "validated",
+  "source_as_of_date": null,
+  "publication_date": null,
+  "disclosure_ready": true,
+  "analytical_ready": false,
+  "extraction_status": "validated",
+  "recency_basis": "unknown",
+  "validation_errors": [],
+  "metric_coverage": [
+    {
+      "source_id": "data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs",
+      "metric": "dataset",
+      "coverage_status": "date_unknown",
+      "latest_observation_date": null,
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 218,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "research_cutoff": "2026-10-03",
+  "next_expected_publication_at": null,
+  "last_quality_check_at": "2026-10-02T04:41:26.137112+00:00",
+  "refresh_error": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata."
+}

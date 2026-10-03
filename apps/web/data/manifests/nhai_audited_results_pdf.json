@@ -1,0 +1,149 @@
+{
+  "source_id": "nhai_audited_results_pdf",
+  "connector": "nhai_annual_documents",
+  "version": "0.1.1",
+  "status": "automated",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI)",
+    "title": "NHAI audited financial results (SEBI format), quarter and year ended 31 March 2024",
+    "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
+    "retrieved_at": "2026-10-02T04:56:19.797545+00:00",
+    "license_terms": "Official publication on NHAI website; reuse subject to official publication terms.",
+    "official_flag": true,
+    "domain": "nhai.gov.in"
+  },
+  "citations": {
+    "permanent_identifier": "Verified official NHAI audited-results PDF for31March2024",
+    "anchor": "discovery:https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
+    "note": "Official NHAI document discovery and ingestion succeeded.",
+    "primary_reference": {
+      "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
+      "sha256": "3e782fa352efdebc326e8b3f2f539690dd8784120e865855998b04b05548f9ad",
+      "table_page": 1,
+      "evidence_metadata_path": "data/raw/manual/evidence/nhai_audited_results_pdf.json"
+    }
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/nhai_audited_results_pdf/nhai_audited_results_pdf/raw_20261003_111838.pdf",
+        "sha256": "3e782fa352efdebc326e8b3f2f539690dd8784120e865855998b04b05548f9ad",
+        "size_bytes": 1733398
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/nhai_audited_results_pdf.parquet",
+        "format": "parquet",
+        "sha256": "55a209b23e2867a95679021c2dd265f1399fc2f360e0963816d08c22a61570e0"
+      }
+    ],
+    "row_count": 1,
+    "columns": [
+      "source_id",
+      "source_type",
+      "metric_category",
+      "dataset_source",
+      "metric_name",
+      "metric_value",
+      "unit",
+      "document_title",
+      "source_document_url",
+      "financial_year",
+      "as_of_timestamp",
+      "publication_date",
+      "document_checksum",
+      "retrieved_at"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
+  },
+  "retrieved_at": "2026-10-02T04:56:19.797545+00:00",
+  "completeness_score": 0.929,
+  "recency_score": 0.4,
+  "provenance_score": 0.85,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "Low",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency",
+    "Document discovery is not validated financial extraction"
+  ],
+  "source_as_of_date": "2024-03-31",
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/nhai_audited_results_pdf.parquet",
+  "data_checksum": "1b66f407380091876687a71a8d4679c971e5f7b46caeb3caa45e0f76722d606d",
+  "publication_generations": [
+    {
+      "source_id": "nhai_audited_results_pdf",
+      "observation_checksum": "337ffba7cc00de91c995a8287c01c6f57e872e816c092f0a2f2352ac88b39340",
+      "path": "data/processed/publication_history/nhai_audited_results_pdf/337ffba7cc00de91c995a8287c01c6f57e872e816c092f0a2f2352ac88b39340.parquet",
+      "sha256": "5ca2267ca0110f4ea45329651ad1167219a532ace8877ae5660de29dcdc9bd8b",
+      "row_count": 1,
+      "source_as_of_date": "2024-03-31",
+      "publication_date": null,
+      "citations": {
+        "permanent_identifier": "NHAI audited results annual PDFs from NHAI mix_file archive",
+        "anchor": "discovery:https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
+        "note": "Official NHAI document discovery and ingestion succeeded.",
+        "primary_reference": {
+          "url": "https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
+          "sha256": "3e782fa352efdebc326e8b3f2f539690dd8784120e865855998b04b05548f9ad",
+          "table_page": 1,
+          "evidence_metadata_path": "data/raw/manual/evidence/nhai_audited_results_pdf.json"
+        }
+      },
+      "source_documents": [],
+      "data_changed_at": "2026-10-01T20:08:33.760105+00:00"
+    },
+    {
+      "source_id": "nhai_audited_results_pdf",
+      "observation_checksum": "1b66f407380091876687a71a8d4679c971e5f7b46caeb3caa45e0f76722d606d",
+      "path": "data/processed/publication_history/nhai_audited_results_pdf/1b66f407380091876687a71a8d4679c971e5f7b46caeb3caa45e0f76722d606d.parquet",
+      "sha256": "55a209b23e2867a95679021c2dd265f1399fc2f360e0963816d08c22a61570e0",
+      "row_count": 1,
+      "source_as_of_date": "2024-03-31",
+      "publication_date": null,
+      "citations": {
+        "permanent_identifier": "Verified official NHAI audited-results PDF for31March2024",
+        "anchor": "discovery:https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
+        "note": "Official NHAI document discovery and ingestion succeeded."
+      },
+      "source_documents": [],
+      "data_changed_at": null
+    }
+  ],
+  "data_changed_at": "2026-10-02T04:56:19.793193+00:00",
+  "last_successful_retrieval_at": "2026-10-03T11:18:34.658967+00:00",
+  "last_ingested_at": "2026-10-03T11:18:34.658967+00:00",
+  "last_checked_at": "2026-10-03T11:18:34.658967+00:00",
+  "refresh_outcome": "checked_unchanged",
+  "analytical_scope": {
+    "source_as_of_date": "2024-03-31"
+  },
+  "evidence_status": "document_metadata",
+  "publication_date": null,
+  "disclosure_ready": false,
+  "analytical_ready": false,
+  "extraction_status": "fetched",
+  "research_cutoff": "2026-10-03",
+  "next_expected_publication_at": null,
+  "metric_coverage": [
+    {
+      "source_id": "nhai_audited_results_pdf",
+      "metric": "dataset",
+      "coverage_status": "not_calculation_ready",
+      "latest_observation_date": null,
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "last_quality_check_at": "2026-10-03T12:30:53.472772+00:00"
+}

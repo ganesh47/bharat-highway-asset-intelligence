@@ -1,0 +1,622 @@
+{
+  "source_id": "union_budget_highway_outcomes",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "refresh_outcome": "checked_unchanged",
+  "last_checked_at": "2026-10-03T11:25:03.500725+00:00",
+  "last_successful_retrieval_at": "2026-10-03T11:25:03.508100+00:00",
+  "data_changed_at": "2026-10-02T04:58:32.359377+00:00",
+  "publication_date": "2026-02-01",
+  "source_as_of_date": "2026-02-01",
+  "analytical_ready": false,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "",
+  "source": {
+    "publisher": "Ministry of Finance / MoRTH",
+    "title": "Output Outcome Monitoring Framework2026-27: Road Wing indicators",
+    "url": "https://www.indiabudget.gov.in/doc/OutcomeBudgetE2026_2027.pdf",
+    "retrieved_at": "2026-10-01T19:28:45.546713+00:00",
+    "official_flag": true,
+    "publisher_type": "government",
+    "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+    "domain": "www.indiabudget.gov.in"
+  },
+  "citations": {
+    "permanent_identifier": "union_budget_highway_outcomes",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": ""
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/primary_disclosures/union_budget_highway_outcomes/versions/e3535b4c027fa3c6b4f1236aa198d612fcb076a54d2d1ec8b2e2d1e712437039.pdf",
+        "sha256": "e3535b4c027fa3c6b4f1236aa198d612fcb076a54d2d1ec8b2e2d1e712437039",
+        "size_bytes": 3099218
+      },
+      {
+        "path": "data/raw/primary_disclosures/union_budget_highway_outcomes/document.pdf",
+        "sha256": "e3535b4c027fa3c6b4f1236aa198d612fcb076a54d2d1ec8b2e2d1e712437039",
+        "size_bytes": 3099218
+      },
+      {
+        "path": "data/raw/manual/union_budget_highway_outcomes.csv",
+        "sha256": "7f9ddbc01455eede0f482fb506d1cd2e9860da592fa2cbea470959f7e577d280",
+        "size_bytes": 8143
+      },
+      {
+        "path": "data/raw/manual/evidence/union_budget_highway_outcomes.json",
+        "sha256": "20996bcd5657073e0767ec16901295aa166df8f0429121e40235b1d74bed7798",
+        "size_bytes": 844
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://www.indiabudget.gov.in/doc/OutcomeBudgetE2026_2027.pdf",
+        "relative_path": "primary_disclosures/union_budget_highway_outcomes/document.pdf",
+        "sha256": "e3535b4c027fa3c6b4f1236aa198d612fcb076a54d2d1ec8b2e2d1e712437039",
+        "size_bytes": 3099218,
+        "availability": "archived"
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/union_budget_highway_outcomes.parquet",
+        "format": "parquet",
+        "sha256": "ffb506f3888ed64a917aa3c6caf117a5743ebfedaea989b39540d67e571a5529"
+      }
+    ],
+    "row_count": 12,
+    "columns": [
+      "entity_id",
+      "entity_name",
+      "entity_type",
+      "agency",
+      "state",
+      "road_class",
+      "metric",
+      "value",
+      "unit",
+      "original_value",
+      "original_unit",
+      "period_start",
+      "period_end",
+      "period_basis",
+      "estimate_type",
+      "statement_basis",
+      "data_as_of",
+      "published_at",
+      "source_id",
+      "citation_url",
+      "table_page",
+      "evidence_class",
+      "analytical_eligible",
+      "source_document_sha256",
+      "notes",
+      "entity",
+      "year",
+      "metric_name",
+      "metric_value",
+      "metric_category",
+      "source_type",
+      "asset_id",
+      "project_name",
+      "nh_number",
+      "project_stage",
+      "scheduled_completion_date",
+      "likely_completion_date",
+      "actual_completion_date",
+      "comparison_group",
+      "asset_owner_id",
+      "implementing_agency_id",
+      "operator_id",
+      "concessionaire_id",
+      "financing_entity_id",
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period",
+      "assurance",
+      "revision_identity",
+      "base_year",
+      "observation_status",
+      "price_basis"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
+  },
+  "retrieved_at": "2026-10-01T19:28:45.546713+00:00",
+  "semantic_rechecks": [],
+  "publication_history": null,
+  "research_cutoff": "2026-10-03",
+  "output_table_path": "data/processed/union_budget_highway_outcomes.parquet",
+  "data_checksum": "a288aa2428730b0e1bc4b4fdf943a10551f17351c39c1164eb6312d94b7db574",
+  "publication_generations": [
+    {
+      "source_id": "union_budget_highway_outcomes",
+      "observation_checksum": "85daafff9f48b1525387d362b70a57edb8a60f805af3b5c2ba17b4e1ad8c1a3c",
+      "path": "data/processed/publication_history/union_budget_highway_outcomes/85daafff9f48b1525387d362b70a57edb8a60f805af3b5c2ba17b4e1ad8c1a3c.parquet",
+      "sha256": "527ae95b6c3ec0dedb7157831fa207ffc7335442133c99643bbe16b32ed6133e",
+      "row_count": 12,
+      "source_as_of_date": "2026-02-01",
+      "publication_date": "2026-02-01",
+      "citations": {
+        "permanent_identifier": "union_budget_highway_outcomes",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": ""
+      },
+      "source_documents": [
+        {
+          "url": "https://www.indiabudget.gov.in/doc/OutcomeBudgetE2026_2027.pdf",
+          "relative_path": "primary_disclosures/union_budget_highway_outcomes/document.pdf",
+          "sha256": "e3535b4c027fa3c6b4f1236aa198d612fcb076a54d2d1ec8b2e2d1e712437039",
+          "size_bytes": 3099218
+        }
+      ],
+      "data_changed_at": "2026-10-01T23:17:25.358664+00:00"
+    },
+    {
+      "source_id": "union_budget_highway_outcomes",
+      "observation_checksum": "a288aa2428730b0e1bc4b4fdf943a10551f17351c39c1164eb6312d94b7db574",
+      "path": "data/processed/publication_history/union_budget_highway_outcomes/a288aa2428730b0e1bc4b4fdf943a10551f17351c39c1164eb6312d94b7db574.parquet",
+      "sha256": "ffb506f3888ed64a917aa3c6caf117a5743ebfedaea989b39540d67e571a5529",
+      "row_count": 12,
+      "source_as_of_date": "2026-02-01",
+      "publication_date": "2026-02-01",
+      "citations": {
+        "permanent_identifier": "union_budget_highway_outcomes",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": ""
+      },
+      "source_documents": [
+        {
+          "url": "https://www.indiabudget.gov.in/doc/OutcomeBudgetE2026_2027.pdf",
+          "relative_path": "primary_disclosures/union_budget_highway_outcomes/document.pdf",
+          "sha256": "e3535b4c027fa3c6b4f1236aa198d612fcb076a54d2d1ec8b2e2d1e712437039",
+          "size_bytes": 3099218
+        }
+      ],
+      "data_changed_at": "2026-10-01T19:28:45.546713+00:00"
+    }
+  ],
+  "last_ingested_at": "2026-10-03T11:25:03.500725+00:00",
+  "analytical_scope": {
+    "source_as_of_date": "2026-02-01",
+    "publisher_type": "government"
+  },
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "next_expected_publication_at": null,
+  "metric_coverage": [
+    {
+      "metric": "target_asset_monetisation_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "agency",
+      "agency": "MoRTH",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "Output Outcome Monitoring Framework",
+      "estimate_type": "target",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "union_budget_highway_outcomes",
+      "coverage_status": "estimate_vintage_known",
+      "latest_observation_date": "2026-02-01",
+      "earliest_entity_cutoff": "2026-02-01",
+      "latest_available_period_end": "2027-03-31",
+      "latest_publication_date": "2026-02-01",
+      "latest_disclosure_publication_date": "2026-02-01",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "morth": "2026-02-01"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "target_blackspots_removed_count",
+      "unit": "count",
+      "entity_type": "agency",
+      "agency": "MoRTH",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "Output Outcome Monitoring Framework",
+      "estimate_type": "target",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "union_budget_highway_outcomes",
+      "coverage_status": "estimate_vintage_known",
+      "latest_observation_date": "2026-02-01",
+      "earliest_entity_cutoff": "2026-02-01",
+      "latest_available_period_end": "2027-03-31",
+      "latest_publication_date": "2026-02-01",
+      "latest_disclosure_publication_date": "2026-02-01",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "morth": "2026-02-01"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "target_mlff_toll_coverage_km",
+      "unit": "km",
+      "entity_type": "agency",
+      "agency": "MoRTH",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "Output Outcome Monitoring Framework",
+      "estimate_type": "target",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "union_budget_highway_outcomes",
+      "coverage_status": "estimate_vintage_known",
+      "latest_observation_date": "2026-02-01",
+      "earliest_entity_cutoff": "2026-02-01",
+      "latest_available_period_end": "2027-03-31",
+      "latest_publication_date": "2026-02-01",
+      "latest_disclosure_publication_date": "2026-02-01",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "morth": "2026-02-01"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "target_nh_construction_km",
+      "unit": "km",
+      "entity_type": "agency",
+      "agency": "MoRTH",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "Output Outcome Monitoring Framework",
+      "estimate_type": "target",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "union_budget_highway_outcomes",
+      "coverage_status": "estimate_vintage_known",
+      "latest_observation_date": "2026-02-01",
+      "earliest_entity_cutoff": "2026-02-01",
+      "latest_available_period_end": "2027-03-31",
+      "latest_publication_date": "2026-02-01",
+      "latest_disclosure_publication_date": "2026-02-01",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "morth": "2026-02-01"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "target_northeast_nh_construction_km",
+      "unit": "km",
+      "entity_type": "agency",
+      "agency": "MoRTH",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "Output Outcome Monitoring Framework",
+      "estimate_type": "target",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "union_budget_highway_outcomes",
+      "coverage_status": "estimate_vintage_known",
+      "latest_observation_date": "2026-02-01",
+      "earliest_entity_cutoff": "2026-02-01",
+      "latest_available_period_end": "2027-03-31",
+      "latest_publication_date": "2026-02-01",
+      "latest_disclosure_publication_date": "2026-02-01",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "morth": "2026-02-01"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "target_operational_highspeed_corridor_km",
+      "unit": "km",
+      "entity_type": "agency",
+      "agency": "MoRTH",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "Output Outcome Monitoring Framework",
+      "estimate_type": "target",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "union_budget_highway_outcomes",
+      "coverage_status": "estimate_vintage_known",
+      "latest_observation_date": "2026-02-01",
+      "earliest_entity_cutoff": "2026-02-01",
+      "latest_available_period_end": "2027-03-31",
+      "latest_publication_date": "2026-02-01",
+      "latest_disclosure_publication_date": "2026-02-01",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "morth": "2026-02-01"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "target_ppp_awarded_length_share_percent",
+      "unit": "percent",
+      "entity_type": "agency",
+      "agency": "MoRTH",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "Output Outcome Monitoring Framework",
+      "estimate_type": "target",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "union_budget_highway_outcomes",
+      "coverage_status": "estimate_vintage_known",
+      "latest_observation_date": "2026-02-01",
+      "earliest_entity_cutoff": "2026-02-01",
+      "latest_available_period_end": "2027-03-31",
+      "latest_publication_date": "2026-02-01",
+      "latest_disclosure_publication_date": "2026-02-01",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "morth": "2026-02-01"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "target_private_investment_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "agency",
+      "agency": "MoRTH",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "Output Outcome Monitoring Framework",
+      "estimate_type": "target",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "union_budget_highway_outcomes",
+      "coverage_status": "estimate_vintage_known",
+      "latest_observation_date": "2026-02-01",
+      "earliest_entity_cutoff": "2026-02-01",
+      "latest_available_period_end": "2027-03-31",
+      "latest_publication_date": "2026-02-01",
+      "latest_disclosure_publication_date": "2026-02-01",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "morth": "2026-02-01"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "target_toll_wait_seconds",
+      "unit": "seconds",
+      "entity_type": "agency",
+      "agency": "MoRTH",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "Output Outcome Monitoring Framework",
+      "estimate_type": "target",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "union_budget_highway_outcomes",
+      "coverage_status": "estimate_vintage_known",
+      "latest_observation_date": "2026-02-01",
+      "earliest_entity_cutoff": "2026-02-01",
+      "latest_available_period_end": "2027-03-31",
+      "latest_publication_date": "2026-02-01",
+      "latest_disclosure_publication_date": "2026-02-01",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "morth": "2026-02-01"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "target_tribal_nh_construction_km",
+      "unit": "km",
+      "entity_type": "agency",
+      "agency": "MoRTH",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "Output Outcome Monitoring Framework",
+      "estimate_type": "target",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "union_budget_highway_outcomes",
+      "coverage_status": "estimate_vintage_known",
+      "latest_observation_date": "2026-02-01",
+      "earliest_entity_cutoff": "2026-02-01",
+      "latest_available_period_end": "2027-03-31",
+      "latest_publication_date": "2026-02-01",
+      "latest_disclosure_publication_date": "2026-02-01",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "morth": "2026-02-01"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "target_wayside_amenities_awarded_count",
+      "unit": "count",
+      "entity_type": "agency",
+      "agency": "MoRTH",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "Output Outcome Monitoring Framework",
+      "estimate_type": "target",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "union_budget_highway_outcomes",
+      "coverage_status": "estimate_vintage_known",
+      "latest_observation_date": "2026-02-01",
+      "earliest_entity_cutoff": "2026-02-01",
+      "latest_available_period_end": "2027-03-31",
+      "latest_publication_date": "2026-02-01",
+      "latest_disclosure_publication_date": "2026-02-01",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "morth": "2026-02-01"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "target_wayside_amenities_operational_count",
+      "unit": "count",
+      "entity_type": "agency",
+      "agency": "MoRTH",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "Output Outcome Monitoring Framework",
+      "estimate_type": "target",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "union_budget_highway_outcomes",
+      "coverage_status": "estimate_vintage_known",
+      "latest_observation_date": "2026-02-01",
+      "earliest_entity_cutoff": "2026-02-01",
+      "latest_available_period_end": "2027-03-31",
+      "latest_publication_date": "2026-02-01",
+      "latest_disclosure_publication_date": "2026-02-01",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "morth": "2026-02-01"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
+}

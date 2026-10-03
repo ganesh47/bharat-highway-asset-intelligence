@@ -1,0 +1,98 @@
+{
+  "source_id": "correlation_matrix",
+  "connector": "correlation_scoring",
+  "version": "0.2.0",
+  "status": "generated",
+  "output_table_path": "data/processed/correlation_matrix.parquet",
+  "metric_category": "model_output",
+  "evidence_status": "derived_analysis",
+  "analytical_ready": false,
+  "disclosure_ready": false,
+  "extraction_status": "validated",
+  "refresh_outcome": "model_generated",
+  "last_checked_at": "2026-10-03T12:30:04.108061+00:00",
+  "source": {
+    "publisher": "Bharat Highway correlation engine",
+    "title": "Approved descriptive comparisons",
+    "retrieved_at": "2026-10-03T12:30:04.108061+00:00",
+    "official_flag": false,
+    "license_terms": "Derived descriptive analysis; use input source licences."
+  },
+  "citations": {
+    "permanent_identifier": "correlation_matrix_v2",
+    "anchor": "data/manifests/correlation_diagnostics.json",
+    "note": "Approved compatible input pairs with overlap and coverage diagnostics; no causal claim."
+  },
+  "derivation_inputs": [
+    {
+      "source_id": "data_gov_in_nhai_stateut_project_delay_status_2024",
+      "data_checksum": "43828e52b648a8192b80a2abc5dc1ffb450d2e0318266527541bf1bb76700c27",
+      "output_files": [
+        {
+          "path": "data/processed/data_gov_in_nhai_stateut_project_delay_status_2024.parquet",
+          "format": "parquet",
+          "sha256": "6e1ee687a60676c72afa286d7ca219e8c24de3a13beaa7c534cf6fe680279092"
+        }
+      ]
+    },
+    {
+      "source_id": "data_gov_in_nh_fatalities_injuries_state_year",
+      "data_checksum": "f3b560e0a596ecd72d5deac86dab64e8c660fc5f1c3be843aed28bae12a2b116",
+      "output_files": [
+        {
+          "path": "data/processed/data_gov_in_nh_fatalities_injuries_state_year.parquet",
+          "format": "parquet",
+          "sha256": "dbe05c23dc6cc1176645269ef65cccb82dd6e814d4676b34d978db8111f9b29d"
+        }
+      ]
+    }
+  ],
+  "diagnostics_path": "data/manifests/correlation_diagnostics.json",
+  "manifest": {
+    "raw_files": [],
+    "output_files": [
+      {
+        "path": "data/processed/correlation_matrix.parquet",
+        "format": "parquet",
+        "sha256": "9520da35e4934a498e10471de678fccc6051c0dd926bd094499f045f8678ae6d"
+      }
+    ],
+    "row_count": 2,
+    "columns": [
+      "metric_a",
+      "metric_b",
+      "source_a",
+      "source_b",
+      "correlation",
+      "spearman",
+      "overlap_records",
+      "entity_count",
+      "period_count",
+      "coverage_a",
+      "coverage_b",
+      "year_min",
+      "year_max",
+      "created_at",
+      "method",
+      "scope",
+      "interpretation"
+    ]
+  },
+  "retrieved_at": "2026-10-03T12:30:04.108061+00:00",
+  "completeness_score": 0.5,
+  "recency_score": 0.25,
+  "provenance_score": 0.3,
+  "consistency_score": 0.5,
+  "overall_confidence_badge": "Low",
+  "overall_confidence_reason": [
+    "Low provenance confidence (source reliability category)",
+    "Missingness is high; check source completeness",
+    "Recency is stale against claimed update frequency",
+    "Schema/range checks showed potential consistency issues",
+    "Use for trend and risk ranking, not precise governance decisions",
+    "Observation date is unavailable; collection time is not data freshness"
+  ],
+  "source_as_of_date": null,
+  "recency_basis": "unknown",
+  "validation_errors": []
+}

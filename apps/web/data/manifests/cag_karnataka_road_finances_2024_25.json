@@ -1,0 +1,255 @@
+{
+  "source_id": "cag_karnataka_road_finances_2024_25",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "refresh_outcome": "retained_after_failure",
+  "last_checked_at": "2026-10-03T11:27:26.280953+00:00",
+  "last_successful_retrieval_at": "2026-10-02T04:40:27.518673+00:00",
+  "data_changed_at": "2026-10-02T04:40:27.514831+00:00",
+  "publication_date": null,
+  "source_as_of_date": "2025-03-31",
+  "analytical_ready": true,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "",
+  "source": {
+    "publisher": "Comptroller and Auditor General of India / Government of Karnataka",
+    "title": "Karnataka Finance Accounts2024-25 VolI, audited Roads and Bridges expenditure",
+    "url": "https://cag.gov.in/ae/karnataka/en/state-accounts-report?defuat_account_report_type=359",
+    "retrieved_at": "2026-10-02T04:22:43.569547+00:00",
+    "official_flag": true,
+    "publisher_type": "government",
+    "license_terms": "Public government accounts; attribution and statement/page citation required.",
+    "domain": "cag.gov.in"
+  },
+  "citations": {
+    "permanent_identifier": "cag_karnataka_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "CAG Karnataka FY2024-25 audited accounts; revenue and capital Roads/Bridges amounts validated against labelled pages. FY2023-24 capital comparative retained. Publication date unknown; excludes corporation/SH-only attribution."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/cag_karnataka_road_finances_2024_25.csv",
+        "sha256": "cb1b12ac8109d8b28a41672fd5fb1313d925d97db0ffb5b4499285b15469a4c6",
+        "size_bytes": 5368
+      },
+      {
+        "path": "data/raw/manual/evidence/cag_karnataka_road_finances_2024_25.json",
+        "sha256": "0c133f09c8466921cec10c1c2e4ad1a962f33a505a1082cb654f490a7778e95f",
+        "size_bytes": 1579
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-2-Finance-Accounts-Vol-I-2024-25-government-of-karnataka-06948f82bb28817-62582478.pdf",
+        "relative_path": "primary_disclosures/cag_karnataka_road_finances_2024_25/versions/a60e4f514b0fa63dc3862db3de74c2c778b832bd09cc05341e5ec0381fadf9a5.pdf",
+        "sha256": "a60e4f514b0fa63dc3862db3de74c2c778b832bd09cc05341e5ec0381fadf9a5",
+        "size_bytes": 10685712,
+        "availability": "not_archived"
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/cag_karnataka_road_finances_2024_25.parquet",
+        "format": "parquet",
+        "sha256": "95c29a2acae1f5d828cb196d1c03c3cb93ff9ac18845662a28bc84850a35aa6d"
+      }
+    ],
+    "row_count": 3,
+    "columns": [
+      "entity_id",
+      "entity_name",
+      "entity_type",
+      "agency",
+      "state",
+      "road_class",
+      "metric",
+      "value",
+      "unit",
+      "original_value",
+      "original_unit",
+      "period_start",
+      "period_end",
+      "period_basis",
+      "estimate_type",
+      "statement_basis",
+      "data_as_of",
+      "published_at",
+      "source_id",
+      "citation_url",
+      "table_page",
+      "evidence_class",
+      "analytical_eligible",
+      "source_document_sha256",
+      "notes",
+      "entity",
+      "year",
+      "metric_name",
+      "metric_value",
+      "metric_category",
+      "source_type",
+      "asset_id",
+      "project_name",
+      "nh_number",
+      "project_stage",
+      "scheduled_completion_date",
+      "likely_completion_date",
+      "actual_completion_date",
+      "comparison_group",
+      "asset_owner_id",
+      "implementing_agency_id",
+      "operator_id",
+      "concessionaire_id",
+      "financing_entity_id",
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period",
+      "observation_status",
+      "assurance",
+      "revision_identity",
+      "price_basis",
+      "base_year"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": [
+      {
+        "path": "data/raw/primary_disclosures/cag_karnataka_road_finances_2024_25/versions/a60e4f514b0fa63dc3862db3de74c2c778b832bd09cc05341e5ec0381fadf9a5.pdf",
+        "sha256": "a60e4f514b0fa63dc3862db3de74c2c778b832bd09cc05341e5ec0381fadf9a5",
+        "availability": "not_archived",
+        "reason": "primary_document_archive_missing"
+      }
+    ]
+  },
+  "retrieved_at": "2026-10-02T04:22:43.569547+00:00",
+  "semantic_rechecks": [],
+  "publication_history": {
+    "index_path": "history/cag_karnataka_road_finances_2024_25/index.json",
+    "version_count": 2,
+    "revision_count": 0,
+    "candidate_version_id": "8cf7fee5e11bb39da6fa7b16a7fe364cf034fc98a780376cb10c102d3798c514"
+  },
+  "research_cutoff": "2026-10-03",
+  "completeness_score": 0.98,
+  "recency_score": 0.7,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/cag_karnataka_road_finances_2024_25.parquet",
+  "data_checksum": "b9859dfbf9566776e0c91b5531ae5165261aa9f1978d46f416f5ea8f9c52499c",
+  "publication_generations": [
+    {
+      "source_id": "cag_karnataka_road_finances_2024_25",
+      "observation_checksum": "b9859dfbf9566776e0c91b5531ae5165261aa9f1978d46f416f5ea8f9c52499c",
+      "path": "data/processed/publication_history/cag_karnataka_road_finances_2024_25/b9859dfbf9566776e0c91b5531ae5165261aa9f1978d46f416f5ea8f9c52499c.parquet",
+      "sha256": "95c29a2acae1f5d828cb196d1c03c3cb93ff9ac18845662a28bc84850a35aa6d",
+      "row_count": 3,
+      "source_as_of_date": "2025-03-31",
+      "publication_date": null,
+      "citations": {
+        "permanent_identifier": "cag_karnataka_road_finances_2024_25",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "CAG Karnataka FY2024-25 audited accounts; revenue and capital Roads/Bridges amounts validated against labelled pages. FY2023-24 capital comparative retained. Publication date unknown; excludes corporation/SH-only attribution."
+      },
+      "source_documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-2-Finance-Accounts-Vol-I-2024-25-government-of-karnataka-06948f82bb28817-62582478.pdf",
+          "relative_path": "primary_disclosures/cag_karnataka_road_finances_2024_25/versions/a60e4f514b0fa63dc3862db3de74c2c778b832bd09cc05341e5ec0381fadf9a5.pdf",
+          "sha256": "a60e4f514b0fa63dc3862db3de74c2c778b832bd09cc05341e5ec0381fadf9a5",
+          "size_bytes": 10685712
+        }
+      ],
+      "data_changed_at": "2026-10-02T04:22:43.569547+00:00"
+    }
+  ],
+  "last_ingested_at": "2026-10-03T11:27:26.280953+00:00",
+  "analytical_scope": {
+    "source_as_of_date": "2025-03-31",
+    "publisher_type": "government"
+  },
+  "next_expected_publication_at": null,
+  "metric_coverage": [
+    {
+      "metric": "roads_bridges_capital_outlay_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "state_aggregate",
+      "agency": "CAG / Government of Karnataka",
+      "road_class": "roads_and_bridges_all_classes",
+      "period_basis": "fiscal_year",
+      "statement_basis": "state_finance_accounts_cash_expenditure_as_reported",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "cag_karnataka_road_finances_2024_25",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2025-03-31",
+      "earliest_entity_cutoff": "2025-03-31",
+      "latest_available_period_end": "2025-03-31",
+      "latest_publication_date": null,
+      "latest_disclosure_publication_date": null,
+      "publication_lag_days": null,
+      "observation_status": [
+        "final"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "state_karnataka": "2025-03-31"
+      },
+      "row_count": 2,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "roads_bridges_revenue_expenditure_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "state_aggregate",
+      "agency": "CAG / Government of Karnataka",
+      "road_class": "roads_and_bridges_all_classes",
+      "period_basis": "fiscal_year",
+      "statement_basis": "state_finance_accounts_cash_expenditure_as_reported",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "cag_karnataka_road_finances_2024_25",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2025-03-31",
+      "earliest_entity_cutoff": "2025-03-31",
+      "latest_available_period_end": "2025-03-31",
+      "latest_publication_date": null,
+      "latest_disclosure_publication_date": null,
+      "publication_lag_days": null,
+      "observation_status": [
+        "final"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "state_karnataka": "2025-03-31"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "governed_extract_binding_status": "validated_current_extract",
+  "remote_refresh_failed": true,
+  "remote_refresh_error": "failed_retrieval: URLError",
+  "refresh_error": "failed_retrieval: URLError",
+  "local_seed_used": true
+}

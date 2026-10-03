@@ -1,0 +1,23 @@
+{
+  "source_id": "nhidcl_monthly_project_progress",
+  "observation_checksum": "a64a67b65915b08c913ba9b828c9cb42b04c3d55ed38299d9a792c487bba525f",
+  "path": "data/processed/publication_history/nhidcl_monthly_project_progress/a64a67b65915b08c913ba9b828c9cb42b04c3d55ed38299d9a792c487bba525f.parquet",
+  "sha256": "47f3dc9d125c0f2b22318f83bf5f800634b33b6a34f58c49b4aafe807972504a",
+  "row_count": 2384,
+  "source_as_of_date": "2026-08-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "nhidcl_monthly_project_progress",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "410 detail projects; do not sum to page1 summary: summary has a narrower stage/agency classification. Emails excluded. State/UT canonicalization preserves original RO/MMLP labels in row notes."
+  },
+  "source_documents": [
+    {
+      "url": "https://www.nhidcl.com/sites/default/files/2026-09/nhidcl-completed_and_ongoing_projects_status_per_pmp_data_lake_portal_31-08-2026.pdf",
+      "relative_path": "primary_disclosures/nhidcl_monthly_project_progress/document.pdf",
+      "sha256": "8d651f90b0d4a1410cabf2e74b8fa4338936fc6b8e468541590c44ad3d2038f3",
+      "size_bytes": 687834
+    }
+  ],
+  "data_changed_at": "2026-10-01T23:17:25.592389+00:00"
+}

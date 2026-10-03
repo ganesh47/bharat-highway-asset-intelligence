@@ -1,0 +1,28 @@
+{
+  "source_id": "cag_mizoram_road_finances_2024_25",
+  "observation_checksum": "06a4841fde367665d3905af6ded877cb4fe2dcea3eba1d86fbee338c8abe8201",
+  "path": "data/processed/publication_history/cag_mizoram_road_finances_2024_25/06a4841fde367665d3905af6ded877cb4fe2dcea3eba1d86fbee338c8abe8201.parquet",
+  "sha256": "14e01deee7e5f76a8525acb3bffb2284fbabc27dd005af0a02d1643d8c2dd857",
+  "row_count": 3,
+  "source_as_of_date": "2025-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "cag_mizoram_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "CAG Mizoram FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure."
+  },
+  "source_documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Account-Volume-I-2024-25-069cced70026997-67273227.pdf",
+      "relative_path": "primary_disclosures/cag_mizoram_road_finances_2024_25/versions/791f92d1d029032ae2c87afa593dba00ee10c30e5ec90d8fe4bcfbc73aaacfa2.pdf",
+      "sha256": "791f92d1d029032ae2c87afa593dba00ee10c30e5ec90d8fe4bcfbc73aaacfa2",
+      "size_bytes": 3673789,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=82"
+    }
+  ],
+  "data_changed_at": "2026-10-02T08:01:59.678296+00:00"
+}

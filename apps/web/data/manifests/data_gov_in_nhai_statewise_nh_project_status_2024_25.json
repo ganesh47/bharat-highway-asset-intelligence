@@ -1,0 +1,158 @@
+{
+  "source_id": "data_gov_in_nhai_statewise_nh_project_status_2024_25",
+  "connector": "data_gov_in_ogd",
+  "version": "0.2.0",
+  "status": "ok",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "Ministry of Road Transport and Highways (MoRTH) / Parliament Secretariat",
+    "title": "Four-state Northeast NH project status and FY2024-25 YTD completions, reported 27 November 2024",
+    "domain": "data.gov.in",
+    "url": "https://www.data.gov.in/resource/state-wise-details-national-highway-nh-projects-under-construction-completed-approved-yet",
+    "retrieval_method": "direct download",
+    "access_type": "HTML",
+    "retrieved_at": "2026-10-02T04:55:33.052422+00:00",
+    "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "nid=603577044 (resource page) / file RS_Session_266_AU_210_A_to_B_i.csv",
+    "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_266_AU_210_A_to_B_i.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic.",
+    "primary_reference": {
+      "url": "https://sansad.in/getFile/annex/266/AU210_JMm1YS.pdf?source=pqars",
+      "sha256": "1c344b826ce5d0d529a645b20d936affe6b8bf9de4587c0306473a6722a7d508",
+      "table_page": 1,
+      "evidence_metadata_path": "data/raw/manual/evidence/data_gov_in_nhai_statewise_nh_project_status_2024_25.json"
+    }
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/data_gov_in_nhai_statewise_nh_project_status_2024_25/data_gov_in_nhai_statewise_nh_project_status_2024_25/raw_20261002_045533.csv",
+        "sha256": "bb70bd6d0b4df4a41d71bfe6213702ed6ae4524edd29171ef17c9709ed37f643",
+        "size_bytes": 814
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/data_gov_in_nhai_statewise_nh_project_status_2024_25.parquet",
+        "format": "parquet",
+        "sha256": "0549ede4ab4ab1d89206a3fe882d64ee890d2a21805e3beae7a12a0f6612a044"
+      }
+    ],
+    "row_count": 5,
+    "columns": [
+      "sl._no.",
+      "state-wise",
+      "details_of_under_construction_projects_-_number",
+      "details_of_under_construction_projects_-_length_kilometer",
+      "details_of_under_construction_projects_-_cost_rs_in_crore",
+      "details_of_projects_completed_during_2024-25_-_number",
+      "details_of_projects_completed_during_2024-25_-_length_kilometer",
+      "details_of_projects_completed_during_2024-25_-_cost_rs_in_crore",
+      "details_of_projects_approved_but_yet_to_be_commenced_-_number",
+      "details_of_projects_approved_but_yet_to_be_commenced_-_length_kilometer",
+      "details_of_projects_approved_but_yet_to_be_commenced_-_cost_rs_in_crore",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": [
+      {
+        "path": "data/raw/data_gov_in_nhai_statewise_nh_project_status_2024_25/data_gov_in_nhai_statewise_nh_project_status_2024_25/raw_20261002_045533.csv",
+        "sha256": "bb70bd6d0b4df4a41d71bfe6213702ed6ae4524edd29171ef17c9709ed37f643",
+        "availability": "not_archived",
+        "reason": "raw_input_archive_missing"
+      }
+    ]
+  },
+  "retrieved_at": "2026-10-02T04:55:33.052422+00:00",
+  "completeness_score": 0.988,
+  "recency_score": 0.7,
+  "provenance_score": 0.85,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "source_as_of_date": "2024-11-27",
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/data_gov_in_nhai_statewise_nh_project_status_2024_25.parquet",
+  "data_checksum": "bee2ec2e289406cb0f6beb57e96f12e869b705897a3302167502f50a7f638085",
+  "publication_generations": [
+    {
+      "source_id": "data_gov_in_nhai_statewise_nh_project_status_2024_25",
+      "observation_checksum": "c7f9767093fe4eaec101ad5360359aef5044b9a638d8017aa783549e10312ad7",
+      "path": "data/processed/publication_history/data_gov_in_nhai_statewise_nh_project_status_2024_25/c7f9767093fe4eaec101ad5360359aef5044b9a638d8017aa783549e10312ad7.parquet",
+      "sha256": "45a3ff644be27743fbb088c1667d0d5d566f620070a24870ca053bb2e972ee1f",
+      "row_count": 5,
+      "source_as_of_date": "2024-11-27",
+      "publication_date": "2024-11-27",
+      "citations": {
+        "permanent_identifier": "nid=603577044 (resource page) / file RS_Session_266_AU_210_A_to_B_i.csv",
+        "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_266_AU_210_A_to_B_i.csv",
+        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic.",
+        "primary_reference": {
+          "url": "https://sansad.in/getFile/annex/266/AU210_JMm1YS.pdf?source=pqars",
+          "sha256": "1c344b826ce5d0d529a645b20d936affe6b8bf9de4587c0306473a6722a7d508",
+          "table_page": 1,
+          "evidence_metadata_path": "data/raw/manual/evidence/data_gov_in_nhai_statewise_nh_project_status_2024_25.json"
+        }
+      },
+      "source_documents": [],
+      "data_changed_at": null
+    },
+    {
+      "source_id": "data_gov_in_nhai_statewise_nh_project_status_2024_25",
+      "observation_checksum": "bee2ec2e289406cb0f6beb57e96f12e869b705897a3302167502f50a7f638085",
+      "path": "data/processed/publication_history/data_gov_in_nhai_statewise_nh_project_status_2024_25/bee2ec2e289406cb0f6beb57e96f12e869b705897a3302167502f50a7f638085.parquet",
+      "sha256": "0549ede4ab4ab1d89206a3fe882d64ee890d2a21805e3beae7a12a0f6612a044",
+      "row_count": 5,
+      "source_as_of_date": "2024-11-27",
+      "publication_date": null,
+      "citations": {
+        "permanent_identifier": "nid=603577044 (resource page) / file RS_Session_266_AU_210_A_to_B_i.csv",
+        "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_266_AU_210_A_to_B_i.csv",
+        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+      },
+      "source_documents": [],
+      "data_changed_at": null
+    }
+  ],
+  "data_changed_at": "2026-10-02T04:55:33.047374+00:00",
+  "last_successful_retrieval_at": "2026-10-02T04:55:33.047374+00:00",
+  "last_ingested_at": "2026-10-02T04:55:33.047374+00:00",
+  "last_checked_at": "2026-10-03T11:17:29.480433+00:00",
+  "refresh_outcome": "retained_after_failure",
+  "analytical_scope": {
+    "entity_type": "state_aggregate",
+    "source_as_of_date": "2024-11-27"
+  },
+  "evidence_status": "validated",
+  "publication_date": "2024-11-27",
+  "disclosure_ready": true,
+  "analytical_ready": true,
+  "extraction_status": "validated",
+  "research_cutoff": "2026-10-03",
+  "next_expected_publication_at": null,
+  "metric_coverage": [
+    {
+      "source_id": "data_gov_in_nhai_statewise_nh_project_status_2024_25",
+      "metric": "dataset",
+      "coverage_status": "date_unknown",
+      "latest_observation_date": "2024-11-27",
+      "latest_publication_date": "2024-11-27",
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 5,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "refresh_error": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata."
+}

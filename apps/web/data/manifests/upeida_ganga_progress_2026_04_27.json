@@ -1,0 +1,482 @@
+{
+  "source_id": "upeida_ganga_progress_2026_04_27",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "refresh_outcome": "checked_unchanged",
+  "last_checked_at": "2026-10-03T11:52:14.409200+00:00",
+  "last_successful_retrieval_at": "2026-10-03T11:52:14.416302+00:00",
+  "data_changed_at": "2026-10-02T09:00:21.367014+00:00",
+  "publication_date": "2026-04-27",
+  "source_as_of_date": "2026-04-27",
+  "analytical_ready": true,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "failed_retrieval: URLError",
+  "source": {
+    "publisher": "Uttar Pradesh Expressways Industrial Development Authority",
+    "title": "Ganga Expressway dated construction progress27April2026",
+    "url": "https://upeida.up.gov.in/en/article/ganga-expressway",
+    "retrieved_at": "2026-10-02T08:18:26.655093+00:00",
+    "official_flag": true,
+    "publisher_type": "government",
+    "license_terms": "Public authority project-progress disclosure; attribution and exact table/page citation required. No separate open-data license inferred.",
+    "domain": "upeida.up.gov.in"
+  },
+  "citations": {
+    "permanent_identifier": "upeida_ganga_progress_2026_04_27",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "Eight dated administrative progress facts, verified rendered one-page publisher PDF. Observed/published27April2026; the later inauguration29April2026 does not advance these facts. No financial revenue or current October progress inferred. Asset owner/operator/concessionaire are not established by this progress disclosure."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/primary_disclosures/upeida_ganga_progress_2026_04_27/versions/b387e33686b57676bdf259f5e18ba239a17789cd33f3b968e89a0ae7adc9a399.pdf",
+        "sha256": "b387e33686b57676bdf259f5e18ba239a17789cd33f3b968e89a0ae7adc9a399",
+        "size_bytes": 122535
+      },
+      {
+        "path": "data/raw/manual/upeida_ganga_progress_2026_04_27.csv",
+        "sha256": "8a6579b73c4492a7b1b129352bf00bed51dcb5684194ef8f9cb5d6876d8b281a",
+        "size_bytes": 11913
+      },
+      {
+        "path": "data/raw/manual/evidence/upeida_ganga_progress_2026_04_27.json",
+        "sha256": "0f3877d38224765ff51f54fa09fa10f9823c078e18bee5cee41ccd0c9b7905d7",
+        "size_bytes": 1960
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://upeida.up.gov.in/downloadmedia/siteContent/202604271802004244Ganga%20Pdf.pdf",
+        "relative_path": "primary_disclosures/upeida_ganga_progress_2026_04_27/versions/b387e33686b57676bdf259f5e18ba239a17789cd33f3b968e89a0ae7adc9a399.pdf",
+        "sha256": "b387e33686b57676bdf259f5e18ba239a17789cd33f3b968e89a0ae7adc9a399",
+        "size_bytes": 122535,
+        "availability": "archived"
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/upeida_ganga_progress_2026_04_27.parquet",
+        "format": "parquet",
+        "sha256": "ad830b12b92a3f1b54109bf028ef3016cf84b8c7f208bb50e954f9ef5b24709e"
+      }
+    ],
+    "row_count": 8,
+    "columns": [
+      "entity_id",
+      "entity_name",
+      "entity_type",
+      "agency",
+      "state",
+      "road_class",
+      "metric",
+      "value",
+      "unit",
+      "original_value",
+      "original_unit",
+      "period_start",
+      "period_end",
+      "period_basis",
+      "estimate_type",
+      "statement_basis",
+      "data_as_of",
+      "published_at",
+      "source_id",
+      "citation_url",
+      "table_page",
+      "evidence_class",
+      "analytical_eligible",
+      "source_document_sha256",
+      "notes",
+      "entity",
+      "year",
+      "metric_name",
+      "metric_value",
+      "metric_category",
+      "source_type",
+      "asset_id",
+      "project_name",
+      "nh_number",
+      "project_stage",
+      "scheduled_completion_date",
+      "likely_completion_date",
+      "actual_completion_date",
+      "comparison_group",
+      "asset_owner_id",
+      "implementing_agency_id",
+      "operator_id",
+      "concessionaire_id",
+      "financing_entity_id",
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period",
+      "observation_status",
+      "assurance",
+      "revision_identity",
+      "price_basis",
+      "base_year"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
+  },
+  "retrieved_at": "2026-10-02T08:18:26.655093+00:00",
+  "semantic_rechecks": [],
+  "publication_history": {
+    "index_path": "history/upeida_ganga_progress_2026_04_27/index.json",
+    "version_count": 3,
+    "revision_count": 0,
+    "candidate_version_id": "f7060f815aef0634c0332dbf4687b626cf68c36612eb7ef856803f7029fc4e9c"
+  },
+  "research_cutoff": "2026-10-03",
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/upeida_ganga_progress_2026_04_27.parquet",
+  "data_checksum": "14a6959499bf4a0da90f808601ee0c816946aa72c03fb60a7be310cbf5406677",
+  "publication_generations": [
+    {
+      "source_id": "upeida_ganga_progress_2026_04_27",
+      "observation_checksum": "060a8c34430d93b6fb1b10d720c8776deba4f62ba61656ba7da342c307acd83a",
+      "path": "data/processed/publication_history/upeida_ganga_progress_2026_04_27/060a8c34430d93b6fb1b10d720c8776deba4f62ba61656ba7da342c307acd83a.parquet",
+      "sha256": "b8fd01092e75d3dd0e1b1259fa03dfde8faaae3ac3625f158e1ec11629f940c9",
+      "row_count": 8,
+      "source_as_of_date": "2026-04-27",
+      "publication_date": "2026-04-27",
+      "citations": {
+        "permanent_identifier": "upeida_ganga_progress_2026_04_27",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "Eight dated administrative progress facts, verified rendered one-page publisher PDF. Observed/published27April2026; the later inauguration29April2026 does not advance these facts. No financial revenue or current October progress inferred."
+      },
+      "source_documents": [
+        {
+          "url": "https://upeida.up.gov.in/downloadmedia/siteContent/202604271802004244Ganga%20Pdf.pdf",
+          "relative_path": "primary_disclosures/upeida_ganga_progress_2026_04_27/versions/b387e33686b57676bdf259f5e18ba239a17789cd33f3b968e89a0ae7adc9a399.pdf",
+          "sha256": "b387e33686b57676bdf259f5e18ba239a17789cd33f3b968e89a0ae7adc9a399",
+          "size_bytes": 122535
+        }
+      ],
+      "data_changed_at": "2026-10-02T08:18:26.655093+00:00"
+    },
+    {
+      "source_id": "upeida_ganga_progress_2026_04_27",
+      "observation_checksum": "14a6959499bf4a0da90f808601ee0c816946aa72c03fb60a7be310cbf5406677",
+      "path": "data/processed/publication_history/upeida_ganga_progress_2026_04_27/14a6959499bf4a0da90f808601ee0c816946aa72c03fb60a7be310cbf5406677.parquet",
+      "sha256": "ad830b12b92a3f1b54109bf028ef3016cf84b8c7f208bb50e954f9ef5b24709e",
+      "row_count": 8,
+      "source_as_of_date": "2026-04-27",
+      "publication_date": "2026-04-27",
+      "citations": {
+        "permanent_identifier": "upeida_ganga_progress_2026_04_27",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "Eight dated administrative progress facts, verified rendered one-page publisher PDF. Observed/published27April2026; the later inauguration29April2026 does not advance these facts. No financial revenue or current October progress inferred. Asset owner/operator/concessionaire are not established by this progress disclosure."
+      },
+      "source_documents": [
+        {
+          "url": "https://upeida.up.gov.in/downloadmedia/siteContent/202604271802004244Ganga%20Pdf.pdf",
+          "relative_path": "primary_disclosures/upeida_ganga_progress_2026_04_27/versions/b387e33686b57676bdf259f5e18ba239a17789cd33f3b968e89a0ae7adc9a399.pdf",
+          "sha256": "b387e33686b57676bdf259f5e18ba239a17789cd33f3b968e89a0ae7adc9a399",
+          "size_bytes": 122535
+        }
+      ],
+      "data_changed_at": "2026-10-02T08:18:26.655093+00:00"
+    }
+  ],
+  "last_ingested_at": "2026-10-03T11:52:14.409200+00:00",
+  "analytical_scope": {
+    "source_as_of_date": "2026-04-27",
+    "publisher_type": "government"
+  },
+  "next_expected_publication_at": null,
+  "metric_coverage": [
+    {
+      "metric": "clearing_grubbing_main_carriageway_progress_percent",
+      "unit": "percent",
+      "entity_type": "project",
+      "agency": "UPEIDA",
+      "road_class": "Expressway",
+      "period_basis": "project_snapshot",
+      "statement_basis": "UPEIDA_Ganga_construction_progress",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "upeida_ganga_progress_2026_04_27",
+      "coverage_status": "latest_reported",
+      "latest_observation_date": "2026-04-27",
+      "earliest_entity_cutoff": "2026-04-27",
+      "latest_available_period_end": "2026-04-27",
+      "latest_publication_date": "2026-04-27",
+      "latest_disclosure_publication_date": "2026-04-27",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_yet_reported",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "upeida_ganga_expressway": "2026-04-27"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "completed_structures_count",
+      "unit": "count",
+      "entity_type": "project",
+      "agency": "UPEIDA",
+      "road_class": "Expressway",
+      "period_basis": "project_snapshot",
+      "statement_basis": "UPEIDA_Ganga_construction_progress",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "upeida_ganga_progress_2026_04_27",
+      "coverage_status": "latest_reported",
+      "latest_observation_date": "2026-04-27",
+      "earliest_entity_cutoff": "2026-04-27",
+      "latest_available_period_end": "2026-04-27",
+      "latest_publication_date": "2026-04-27",
+      "latest_disclosure_publication_date": "2026-04-27",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_yet_reported",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "upeida_ganga_expressway": "2026-04-27"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "dbm_main_carriageway_progress_percent",
+      "unit": "percent",
+      "entity_type": "project",
+      "agency": "UPEIDA",
+      "road_class": "Expressway",
+      "period_basis": "project_snapshot",
+      "statement_basis": "UPEIDA_Ganga_construction_progress",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "upeida_ganga_progress_2026_04_27",
+      "coverage_status": "latest_reported",
+      "latest_observation_date": "2026-04-27",
+      "earliest_entity_cutoff": "2026-04-27",
+      "latest_available_period_end": "2026-04-27",
+      "latest_publication_date": "2026-04-27",
+      "latest_disclosure_publication_date": "2026-04-27",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_yet_reported",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "upeida_ganga_expressway": "2026-04-27"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "earthwork_main_carriageway_progress_percent",
+      "unit": "percent",
+      "entity_type": "project",
+      "agency": "UPEIDA",
+      "road_class": "Expressway",
+      "period_basis": "project_snapshot",
+      "statement_basis": "UPEIDA_Ganga_construction_progress",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "upeida_ganga_progress_2026_04_27",
+      "coverage_status": "latest_reported",
+      "latest_observation_date": "2026-04-27",
+      "earliest_entity_cutoff": "2026-04-27",
+      "latest_available_period_end": "2026-04-27",
+      "latest_publication_date": "2026-04-27",
+      "latest_disclosure_publication_date": "2026-04-27",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_yet_reported",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "upeida_ganga_expressway": "2026-04-27"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "gsb_main_carriageway_progress_percent",
+      "unit": "percent",
+      "entity_type": "project",
+      "agency": "UPEIDA",
+      "road_class": "Expressway",
+      "period_basis": "project_snapshot",
+      "statement_basis": "UPEIDA_Ganga_construction_progress",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "upeida_ganga_progress_2026_04_27",
+      "coverage_status": "latest_reported",
+      "latest_observation_date": "2026-04-27",
+      "earliest_entity_cutoff": "2026-04-27",
+      "latest_available_period_end": "2026-04-27",
+      "latest_publication_date": "2026-04-27",
+      "latest_disclosure_publication_date": "2026-04-27",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_yet_reported",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "upeida_ganga_expressway": "2026-04-27"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "overall_progress_percent",
+      "unit": "percent",
+      "entity_type": "project",
+      "agency": "UPEIDA",
+      "road_class": "Expressway",
+      "period_basis": "project_snapshot",
+      "statement_basis": "UPEIDA_Ganga_construction_progress",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "upeida_ganga_progress_2026_04_27",
+      "coverage_status": "latest_reported",
+      "latest_observation_date": "2026-04-27",
+      "earliest_entity_cutoff": "2026-04-27",
+      "latest_available_period_end": "2026-04-27",
+      "latest_publication_date": "2026-04-27",
+      "latest_disclosure_publication_date": "2026-04-27",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_yet_reported",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "upeida_ganga_expressway": "2026-04-27"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "total_structures_count",
+      "unit": "count",
+      "entity_type": "project",
+      "agency": "UPEIDA",
+      "road_class": "Expressway",
+      "period_basis": "project_snapshot",
+      "statement_basis": "UPEIDA_Ganga_construction_progress",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "upeida_ganga_progress_2026_04_27",
+      "coverage_status": "latest_reported",
+      "latest_observation_date": "2026-04-27",
+      "earliest_entity_cutoff": "2026-04-27",
+      "latest_available_period_end": "2026-04-27",
+      "latest_publication_date": "2026-04-27",
+      "latest_disclosure_publication_date": "2026-04-27",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_yet_reported",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "upeida_ganga_expressway": "2026-04-27"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "wmm_main_carriageway_progress_percent",
+      "unit": "percent",
+      "entity_type": "project",
+      "agency": "UPEIDA",
+      "road_class": "Expressway",
+      "period_basis": "project_snapshot",
+      "statement_basis": "UPEIDA_Ganga_construction_progress",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "upeida_ganga_progress_2026_04_27",
+      "coverage_status": "latest_reported",
+      "latest_observation_date": "2026-04-27",
+      "earliest_entity_cutoff": "2026-04-27",
+      "latest_available_period_end": "2026-04-27",
+      "latest_publication_date": "2026-04-27",
+      "latest_disclosure_publication_date": "2026-04-27",
+      "publication_lag_days": 0,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_yet_reported",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "upeida_ganga_expressway": "2026-04-27"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
+}

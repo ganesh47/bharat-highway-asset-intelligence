@@ -1,0 +1,96 @@
+{
+  "source_id": "nhai_press_release_index",
+  "connector": "nhai_publication_index",
+  "version": "0.1.0",
+  "status": "metadata_only",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI)",
+    "title": "NHAI publications and press release index",
+    "retrieved_at": "2026-03-11T05:17:32.818267+00:00",
+    "license_terms": "Official publication metadata reuse as per NHAI terms of use.",
+    "official_flag": true,
+    "domain": "nhai.gov.in",
+    "url": "https://www.nhai.gov.in/en/press-release"
+  },
+  "citations": {
+    "permanent_identifier": "nhai_press_release_index",
+    "anchor": "index_page",
+    "note": "Metadata-only connector. Full page content not fetched to avoid prohibited scraping."
+  },
+  "manifest": {
+    "raw_files": [],
+    "output_files": [
+      {
+        "path": "data/processed/nhai_press_release_index.parquet",
+        "format": "parquet",
+        "sha256": "69d23b91008e49d74ea483be75b4b6f840ebcdb0737ae1cedb1cde22000e9157"
+      }
+    ],
+    "row_count": 1,
+    "columns": [
+      "source_id",
+      "source_type",
+      "dataset_source",
+      "metric_name",
+      "metric_value",
+      "unit",
+      "retrieved_at",
+      "publisher",
+      "retrieval_url",
+      "metric_category"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
+  },
+  "retrieved_at": "2026-03-11T05:17:32.818626+00:00",
+  "completeness_score": 0.62,
+  "recency_score": 0.25,
+  "provenance_score": 0.527,
+  "consistency_score": 0.62,
+  "overall_confidence_badge": "Low",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency",
+    "Schema/range checks showed potential consistency issues",
+    "Use for trend and risk ranking, not precise governance decisions",
+    "Metadata-only path; does not contain source metric values.",
+    "Observation date is unavailable; collection time is not data freshness",
+    "Document discovery is not validated financial extraction"
+  ],
+  "output_table_path": "data/processed/nhai_press_release_index.parquet",
+  "refresh_error": "No validated observations retrieved",
+  "data_checksum": "dc12a92e398d8d4414dc4a1a9876bab5f9c74ce6c46c55abd9072d42ac6254d3",
+  "last_checked_at": "2026-10-03T11:23:51.474442+00:00",
+  "refresh_outcome": "metadata_only",
+  "analytical_scope": {
+    "road_class": "unspecified",
+    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+  },
+  "evidence_status": "document_metadata",
+  "source_as_of_date": null,
+  "publication_date": null,
+  "disclosure_ready": false,
+  "analytical_ready": false,
+  "extraction_status": "fetched",
+  "recency_basis": "unknown",
+  "validation_errors": [],
+  "last_quality_check_at": "2026-10-03T12:30:53.477634+00:00",
+  "metric_coverage": [
+    {
+      "source_id": "nhai_press_release_index",
+      "metric": "dataset",
+      "coverage_status": "not_calculation_ready",
+      "latest_observation_date": null,
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "research_cutoff": "2026-10-03",
+  "next_expected_publication_at": null
+}

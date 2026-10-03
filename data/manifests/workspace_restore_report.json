@@ -1,0 +1,720 @@
+{
+  "generated_at": "2026-10-03T11:17:18.420625+00:00",
+  "sources": [
+    {
+      "source_id": "data_gov_in_nhai_projects_api",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "data_gov_in_nhai_project_finance_api",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "data_gov_in_nhai_state_projects_api",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:55:32.099460+00:00",
+      "prior_data_changed_at": "2026-10-02T04:55:32.099460+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "data_gov_in_nhai_projects_district_target_2023",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:55:32.904625+00:00",
+      "prior_data_changed_at": "2026-10-02T04:55:32.904625+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "data_gov_in_nhai_statewise_nh_project_status_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:55:33.047374+00:00",
+      "prior_data_changed_at": "2026-10-02T04:55:33.047374+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "data_gov_in_nhai_stateut_project_delay_status_2024",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-01T20:22:52.808482+00:00",
+      "prior_data_changed_at": "2026-10-01T20:22:52.808482+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "data_gov_in_nhai_himachal_nhai_projects_ongoing",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "data_gov_in_nhai_punjab_42_projects_implementation",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:56:18.691352+00:00",
+      "prior_data_changed_at": "2026-10-02T04:56:18.691352+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "data_gov_in_nhai_yearwise_nh_constructed_2014_15",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "data_gov_in_nhai_stateut_length_constructed_2019_24",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:56:18.972155+00:00",
+      "prior_data_changed_at": "2026-10-02T04:56:18.972155+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "nhai_constructed_length_series_official",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-01T20:08:31.187397+00:00",
+      "prior_data_changed_at": "2026-10-01T20:08:31.187397+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "data_gov_in_nhai_district_projects_implemented",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:56:19.091374+00:00",
+      "prior_data_changed_at": "2026-10-02T04:56:19.091374+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "data_gov_in_road_accidents_nhs_2003_2016",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "data_gov_in_road_accidents_india_2003_2016",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "data_gov_in_road_fatal_accidents_2003_2016",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "morth_annual_report_pdf",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-01T20:08:33.692284+00:00",
+      "prior_data_changed_at": "2026-10-01T20:08:33.692284+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "nhai_audited_results_pdf",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:56:19.793193+00:00",
+      "prior_data_changed_at": "2026-10-02T04:56:19.793193+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "nhai_annual_report_documents",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:56:20.282807+00:00",
+      "prior_data_changed_at": "2026-10-02T04:56:20.282807+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "nhai_press_release_index",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "ncrb_road_accidents_state_year",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "data_gov_in_nh_fatalities_injuries_state_year",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:58:19.756798+00:00",
+      "prior_data_changed_at": "2026-10-02T04:58:19.756798+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "highway_project_risk_and_access_panel",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "parliament_qa_highway_queries",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "parliament_qa_nh_blackspots_state",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "rbi_mospi_macro_indicators",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "data_gov_in_gsdp_stateut_current_prices_2017_23",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "morh_procurement_awards",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "morh_contractor_disclosures",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "morh_arbitration_claims",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "ncrb_toll_fastag_claims",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "quality_maintenance_indicators",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "viirs_nightlights_proxy",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "union_budget_morth_demand86",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:58:32.185000+00:00",
+      "prior_data_changed_at": "2026-10-02T04:58:32.185000+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "union_budget_highway_outcomes",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:58:32.359377+00:00",
+      "prior_data_changed_at": "2026-10-02T04:58:32.359377+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "nhit_quarterly_operations_finance",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:58:32.609454+00:00",
+      "prior_data_changed_at": "2026-10-02T04:58:32.609454+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "nhit_quarterly_financial_filings",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:58:33.269455+00:00",
+      "prior_data_changed_at": "2026-10-02T04:58:33.269455+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "nhit_asset_valuation_assumptions",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:58:34.406753+00:00",
+      "prior_data_changed_at": "2026-10-02T04:58:34.406753+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "nhit_annual_report",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:58:35.075545+00:00",
+      "prior_data_changed_at": "2026-10-02T04:58:35.075545+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "nhidcl_monthly_project_progress",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:58:38.879629+00:00",
+      "prior_data_changed_at": "2026-10-02T04:58:38.879629+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "parliament_nhai_debt_tot_invit",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:58:41.686501+00:00",
+      "prior_data_changed_at": "2026-10-02T04:58:41.686501+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "nhai_monetisation_transactions",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:58:42.038599+00:00",
+      "prior_data_changed_at": "2026-10-02T04:58:42.038599+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "npci_netc_monthly_statistics",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:58:42.394681+00:00",
+      "prior_data_changed_at": "2026-10-02T04:58:42.394681+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "rbi_state_road_finances",
+      "selected": "prior",
+      "current_data_changed_at": "2026-10-02T04:58:42.463981+00:00",
+      "prior_data_changed_at": "2026-10-02T05:34:28.389971+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_bharatmala_performance_audit",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:58:43.356692+00:00",
+      "prior_data_changed_at": "2026-10-02T04:58:43.356692+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "morth_state_highway_network",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:58:46.420035+00:00",
+      "prior_data_changed_at": "2026-10-02T04:58:46.420035+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "upeida_expressway_projects",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:58:48.648946+00:00",
+      "prior_data_changed_at": "2026-10-02T04:58:48.648946+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "msrdc_financial_disclosures",
+      "selected": "current",
+      "current_data_changed_at": null,
+      "prior_data_changed_at": null,
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "adb_state_road_projects",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:58:48.713414+00:00",
+      "prior_data_changed_at": "2026-10-02T04:58:48.713414+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "mospi_paimana_monthly_projects",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:40:20.826350+00:00",
+      "prior_data_changed_at": "2026-10-02T04:40:20.826350+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "rbi_gsdp_current_prices_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:50:45.630773+00:00",
+      "prior_data_changed_at": "2026-10-02T04:50:45.630773+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_karnataka_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:40:27.514831+00:00",
+      "prior_data_changed_at": "2026-10-02T04:40:27.514831+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_maharashtra_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:40:29.988438+00:00",
+      "prior_data_changed_at": "2026-10-02T04:40:29.988438+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "morth_road_accidents_2024_final",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:58:52.115498+00:00",
+      "prior_data_changed_at": "2026-10-02T04:58:52.115498+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "nhai_fy2025_26_performance",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:58:57.100845+00:00",
+      "prior_data_changed_at": "2026-10-02T04:58:57.100845+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "morth_annual_report_2025_26",
+      "selected": "prior",
+      "current_data_changed_at": "2026-10-02T04:58:57.146088+00:00",
+      "prior_data_changed_at": "2026-10-02T05:36:59.709644+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "nhai_financial_results_2025_03_unaudited",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:58:57.507902+00:00",
+      "prior_data_changed_at": "2026-10-02T04:58:57.507902+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_gujarat_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:58:59.525699+00:00",
+      "prior_data_changed_at": "2026-10-02T04:58:59.525699+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_uttar_pradesh_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:59:00.318400+00:00",
+      "prior_data_changed_at": "2026-10-02T04:59:00.318400+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_telangana_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T04:59:02.163265+00:00",
+      "prior_data_changed_at": "2026-10-02T04:59:02.163265+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "mospi_nh_construction_2025_26",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T05:04:27.346366+00:00",
+      "prior_data_changed_at": "2026-10-02T05:04:27.346366+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_andhra_pradesh_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:27:04.703131+00:00",
+      "prior_data_changed_at": "2026-10-02T08:27:04.703131+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_arunachal_pradesh_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:27:08.584645+00:00",
+      "prior_data_changed_at": "2026-10-02T08:27:08.584645+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_assam_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:27:15.773256+00:00",
+      "prior_data_changed_at": "2026-10-02T08:27:15.773256+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_bihar_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:27:17.199161+00:00",
+      "prior_data_changed_at": "2026-10-02T08:27:17.199161+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_chhattisgarh_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:27:18.980770+00:00",
+      "prior_data_changed_at": "2026-10-02T08:27:18.980770+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_haryana_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:27:26.755779+00:00",
+      "prior_data_changed_at": "2026-10-02T08:27:26.755779+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_himachal_pradesh_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:27:28.120546+00:00",
+      "prior_data_changed_at": "2026-10-02T08:27:28.120546+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_jharkhand_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:27:30.970567+00:00",
+      "prior_data_changed_at": "2026-10-02T08:27:30.970567+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_kerala_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:27:32.003056+00:00",
+      "prior_data_changed_at": "2026-10-02T08:27:32.003056+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_madhya_pradesh_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:27:40.505577+00:00",
+      "prior_data_changed_at": "2026-10-02T08:27:40.505577+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_manipur_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:27:41.884613+00:00",
+      "prior_data_changed_at": "2026-10-02T08:27:41.884613+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_meghalaya_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:27:43.345932+00:00",
+      "prior_data_changed_at": "2026-10-02T08:27:43.345932+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_mizoram_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:27:45.061197+00:00",
+      "prior_data_changed_at": "2026-10-02T08:27:45.061197+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_nagaland_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:27:46.592141+00:00",
+      "prior_data_changed_at": "2026-10-02T08:27:46.592141+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_odisha_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:27:54.403289+00:00",
+      "prior_data_changed_at": "2026-10-02T08:27:54.403289+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_punjab_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:27:57.875045+00:00",
+      "prior_data_changed_at": "2026-10-02T08:27:57.875045+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_sikkim_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:28:09.620255+00:00",
+      "prior_data_changed_at": "2026-10-02T08:28:09.620255+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_tamil_nadu_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:28:11.632191+00:00",
+      "prior_data_changed_at": "2026-10-02T08:28:11.632191+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_tripura_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:28:13.574643+00:00",
+      "prior_data_changed_at": "2026-10-02T08:28:13.574643+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_uttarakhand_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:28:15.010112+00:00",
+      "prior_data_changed_at": "2026-10-02T08:28:15.010112+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_west_bengal_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:28:29.883645+00:00",
+      "prior_data_changed_at": "2026-10-02T08:28:29.883645+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_rajasthan_road_finances_2024_25",
+      "selected": "prior",
+      "current_data_changed_at": "2026-10-02T08:28:32.119583+00:00",
+      "prior_data_changed_at": "2026-10-02T09:47:26.187537+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_jammu_and_kashmir_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:28:36.506060+00:00",
+      "prior_data_changed_at": "2026-10-02T08:28:36.506060+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_delhi_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:41:16.430198+00:00",
+      "prior_data_changed_at": "2026-10-02T08:41:16.430198+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "cag_puducherry_road_finances_2024_25",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T08:28:37.461355+00:00",
+      "prior_data_changed_at": "2026-10-02T08:28:37.461355+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "nhai_financial_results_2025_26_to_2026_06",
+      "selected": "prior",
+      "current_data_changed_at": "2026-10-02T08:45:48.922159+00:00",
+      "prior_data_changed_at": "2026-10-02T09:49:14.995375+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    },
+    {
+      "source_id": "upeida_ganga_progress_2026_04_27",
+      "selected": "current",
+      "current_data_changed_at": "2026-10-02T09:00:21.367014+00:00",
+      "prior_data_changed_at": "2026-10-02T09:00:21.367014+00:00",
+      "current_validation_error": null,
+      "prior_validation_error": null
+    }
+  ],
+  "restored_source_count": 4,
+  "restored_matching_ocr_bundle": true,
+  "raw_manual_files_preserved": true
+}

@@ -1,0 +1,28 @@
+{
+  "source_id": "cag_andhra_pradesh_road_finances_2024_25",
+  "observation_checksum": "fece1677d1f8d47ed79e7895d8a7d17f8cc6a5746ba123d9b727b323dc89a811",
+  "path": "data/processed/publication_history/cag_andhra_pradesh_road_finances_2024_25/fece1677d1f8d47ed79e7895d8a7d17f8cc6a5746ba123d9b727b323dc89a811.parquet",
+  "sha256": "b9b34a60f0d2f0dd9b66d1a51dbc5c40b3d0b1d83423e45f69d6818e346c7154",
+  "row_count": 3,
+  "source_as_of_date": "2025-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "cag_andhra_pradesh_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "CAG Andhra Pradesh FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Statement5 has a separate amount-allocated column and bold unapportioned legacy cumulative balances of INR17182.87crore. Neither is an annual flow; omit both from current/prior capital facts."
+  },
+  "source_documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2024-25-069aadb8ce9dd98-48257159.pdf",
+      "relative_path": "primary_disclosures/cag_andhra_pradesh_road_finances_2024_25/versions/40a303fb86e66b321e5a29b1896c268fd6353a8257d63c43b8422f2b8de11a03.pdf",
+      "sha256": "40a303fb86e66b321e5a29b1896c268fd6353a8257d63c43b8422f2b8de11a03",
+      "size_bytes": 14487063,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=64"
+    }
+  ],
+  "data_changed_at": "2026-10-02T08:01:52.734535+00:00"
+}

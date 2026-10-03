@@ -1,0 +1,243 @@
+{
+  "source_id": "cag_delhi_road_finances_2024_25",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "refresh_outcome": "retained_after_failure",
+  "last_checked_at": "2026-10-03T11:50:20.762121+00:00",
+  "last_successful_retrieval_at": "2026-10-02T08:28:54.780981+00:00",
+  "data_changed_at": "2026-10-02T08:41:16.430198+00:00",
+  "publication_date": "2026-08-10",
+  "source_as_of_date": "2025-03-31",
+  "analytical_ready": true,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "",
+  "source": {
+    "publisher": "Comptroller and Auditor General of India / Government of Delhi",
+    "title": "Delhi audited FY2024-25 Roads and Bridges annual expenditure",
+    "url": "https://cag.gov.in/en/audit-report?gt=49&state%5B0%5D=69",
+    "retrieved_at": "2026-10-02T08:05:47.754591+00:00",
+    "official_flag": true,
+    "publisher_type": "government",
+    "license_terms": "Public government accounts; attribution and statement/page citation required.",
+    "domain": "cag.gov.in"
+  },
+  "citations": {
+    "permanent_identifier": "cag_delhi_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "Recovered regional/UT primary publication; dated audited annual actuals with labelled reconciliation and no inferred publication day."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/cag_delhi_road_finances_2024_25.csv",
+        "sha256": "dd0222c4933fbb043c3bab0fb7be2129f54d2b8e7aa9ee77929dce4371765ad6",
+        "size_bytes": 3157
+      },
+      {
+        "path": "data/raw/manual/evidence/cag_delhi_road_finances_2024_25.json",
+        "sha256": "5b831e0bc3bbc028450aab186325e73547c6f591f2657901d815eaebd497b28e",
+        "size_bytes": 1448
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://cag.gov.in/webroot/uploads/download_audit_report/2025/Report_No_2_of_2026_SFAR_English-06a7ae58e197ee5.14833566.pdf",
+        "relative_path": "primary_disclosures/cag_delhi_road_finances_2024_25/versions/8db2505cae00b0d29892cbfa88b96655dd0f37534a9c8ca4eef0c827cb43e274.pdf",
+        "sha256": "8db2505cae00b0d29892cbfa88b96655dd0f37534a9c8ca4eef0c827cb43e274",
+        "size_bytes": 5441255,
+        "availability": "not_archived"
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/cag_delhi_road_finances_2024_25.parquet",
+        "format": "parquet",
+        "sha256": "9ece7a1614e0a03e8ae6a5b7d296d62425ffc622c19bc63fd392b2b6beda7ba8"
+      }
+    ],
+    "row_count": 2,
+    "columns": [
+      "entity_id",
+      "entity_name",
+      "entity_type",
+      "agency",
+      "state",
+      "road_class",
+      "metric",
+      "value",
+      "unit",
+      "original_value",
+      "original_unit",
+      "period_start",
+      "period_end",
+      "period_basis",
+      "estimate_type",
+      "statement_basis",
+      "data_as_of",
+      "published_at",
+      "source_id",
+      "citation_url",
+      "table_page",
+      "evidence_class",
+      "analytical_eligible",
+      "source_document_sha256",
+      "notes",
+      "entity",
+      "year",
+      "metric_name",
+      "metric_value",
+      "metric_category",
+      "source_type",
+      "asset_id",
+      "project_name",
+      "nh_number",
+      "project_stage",
+      "scheduled_completion_date",
+      "likely_completion_date",
+      "actual_completion_date",
+      "comparison_group",
+      "asset_owner_id",
+      "implementing_agency_id",
+      "operator_id",
+      "concessionaire_id",
+      "financing_entity_id",
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period",
+      "observation_status",
+      "assurance",
+      "revision_identity",
+      "price_basis",
+      "base_year"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": [
+      {
+        "path": "data/raw/primary_disclosures/cag_delhi_road_finances_2024_25/versions/8db2505cae00b0d29892cbfa88b96655dd0f37534a9c8ca4eef0c827cb43e274.pdf",
+        "sha256": "8db2505cae00b0d29892cbfa88b96655dd0f37534a9c8ca4eef0c827cb43e274",
+        "availability": "not_archived",
+        "reason": "primary_document_archive_missing"
+      }
+    ]
+  },
+  "retrieved_at": "2026-10-02T08:05:47.754591+00:00",
+  "semantic_rechecks": [],
+  "publication_history": {
+    "index_path": "history/cag_delhi_road_finances_2024_25/index.json",
+    "version_count": 3,
+    "revision_count": 0,
+    "candidate_version_id": "aa0efad93fba5180581886f880d607ff2609a835d4bdbdda53dc6aa2c20e5aea"
+  },
+  "research_cutoff": "2026-10-03",
+  "completeness_score": 0.98,
+  "recency_score": 0.7,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/cag_delhi_road_finances_2024_25.parquet",
+  "data_checksum": "403276ad304ddabbd4a7a185b78591450417c6206b016b658e23c9af6a116a8a",
+  "publication_generations": [
+    {
+      "source_id": "cag_delhi_road_finances_2024_25",
+      "observation_checksum": "94a997ff42875065f46aa9694969ac4e2eb0b3c6731de80d9cf0a81c0d6f8aa0",
+      "path": "data/processed/publication_history/cag_delhi_road_finances_2024_25/94a997ff42875065f46aa9694969ac4e2eb0b3c6731de80d9cf0a81c0d6f8aa0.parquet",
+      "sha256": "6598e266c1898429622d33387db37ac6b70495f340d14c890ed01a235154095f",
+      "row_count": 2,
+      "source_as_of_date": "2025-03-31",
+      "publication_date": "2026-08-10",
+      "citations": {
+        "permanent_identifier": "cag_delhi_road_finances_2024_25",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "Recovered regional/UT primary publication; dated audited annual actuals with labelled reconciliation and no inferred publication day."
+      },
+      "source_documents": [
+        {
+          "url": "https://cag.gov.in/webroot/uploads/download_audit_report/2025/Report_No_2_of_2026_SFAR_English-06a7ae58e197ee5.14833566.pdf",
+          "relative_path": "primary_disclosures/cag_delhi_road_finances_2024_25/versions/8db2505cae00b0d29892cbfa88b96655dd0f37534a9c8ca4eef0c827cb43e274.pdf",
+          "sha256": "8db2505cae00b0d29892cbfa88b96655dd0f37534a9c8ca4eef0c827cb43e274",
+          "size_bytes": 5441255
+        }
+      ],
+      "data_changed_at": "2026-10-02T08:05:47.754591+00:00"
+    },
+    {
+      "source_id": "cag_delhi_road_finances_2024_25",
+      "observation_checksum": "403276ad304ddabbd4a7a185b78591450417c6206b016b658e23c9af6a116a8a",
+      "path": "data/processed/publication_history/cag_delhi_road_finances_2024_25/403276ad304ddabbd4a7a185b78591450417c6206b016b658e23c9af6a116a8a.parquet",
+      "sha256": "9ece7a1614e0a03e8ae6a5b7d296d62425ffc622c19bc63fd392b2b6beda7ba8",
+      "row_count": 2,
+      "source_as_of_date": "2025-03-31",
+      "publication_date": "2026-08-10",
+      "citations": {
+        "permanent_identifier": "cag_delhi_road_finances_2024_25",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "Recovered regional/UT primary publication; dated audited annual actuals with labelled reconciliation and no inferred publication day."
+      },
+      "source_documents": [
+        {
+          "url": "https://cag.gov.in/webroot/uploads/download_audit_report/2025/Report_No_2_of_2026_SFAR_English-06a7ae58e197ee5.14833566.pdf",
+          "relative_path": "primary_disclosures/cag_delhi_road_finances_2024_25/versions/8db2505cae00b0d29892cbfa88b96655dd0f37534a9c8ca4eef0c827cb43e274.pdf",
+          "sha256": "8db2505cae00b0d29892cbfa88b96655dd0f37534a9c8ca4eef0c827cb43e274",
+          "size_bytes": 5441255
+        }
+      ],
+      "data_changed_at": "2026-10-02T08:05:47.754591+00:00"
+    }
+  ],
+  "last_ingested_at": "2026-10-03T11:50:20.762121+00:00",
+  "analytical_scope": {
+    "source_as_of_date": "2025-03-31",
+    "publisher_type": "government"
+  },
+  "next_expected_publication_at": null,
+  "metric_coverage": [
+    {
+      "metric": "roads_bridges_capital_outlay_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "state_aggregate",
+      "agency": "CAG / Government of Delhi",
+      "road_class": "roads_and_bridges_all_classes",
+      "period_basis": "fiscal_year",
+      "statement_basis": "state_finance_audit_report_cash_capital_narrative",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "cag_delhi_road_finances_2024_25",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2025-03-31",
+      "earliest_entity_cutoff": "2025-03-31",
+      "latest_available_period_end": "2025-03-31",
+      "latest_publication_date": "2026-08-10",
+      "latest_disclosure_publication_date": "2026-08-10",
+      "publication_lag_days": 497,
+      "observation_status": [
+        "final"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "state_delhi": "2025-03-31"
+      },
+      "row_count": 2,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "governed_extract_binding_status": "validated_current_extract",
+  "remote_refresh_failed": true,
+  "remote_refresh_error": "failed_retrieval: URLError",
+  "refresh_error": "failed_retrieval: URLError",
+  "local_seed_used": true
+}
