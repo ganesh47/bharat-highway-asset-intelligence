@@ -3213,7 +3213,8 @@ function LoadingShell(props) {
   return React.createElement('main', { className: 'app-shell' },
     React.createElement('header', null, React.createElement('h1', null, 'Bharat Highway Evidence Console'),
       React.createElement('p', { className: 'subhead' }, 'Official and issuer evidence for highway construction, funding, debt, toll operations and asset monetisation.'),
-      React.createElement('p', null, React.createElement('a', { href: 'methodology.html' }, 'Read the evidence methodology'))),
+      React.createElement('p', null, React.createElement('a', { href: 'methodology.html' }, 'Read the evidence methodology')),
+      React.createElement('p', null, React.createElement('a', { href: 'story.html' }, 'Explore five source-linked research exhibits'))),
     React.createElement(LoadingStatus, props),
     React.createElement('div', { 'aria-busy': !props.error && !props.empty, className: 'sr-only' }, 'Evidence panels'));
 }
@@ -3611,7 +3612,8 @@ function App() {
       React.createElement('h1', null, 'Bharat Highway Evidence Console'),
       React.createElement('p', { className: 'subhead' }, 'Official and issuer evidence for highway construction, funding, debt, toll operations and asset monetisation. Observation periods and accounting entities remain separate; synthetic scenarios are excluded from the default analyst view.'),
       React.createElement(SourceMetaFooter, { label: `Catalog confidence floor: ${confidenceByAll.badge} · chart badges use their contributing sources`, confidence: confidenceByAll.badge }),
-      React.createElement(MethodologyBadge, { label: 'Why these badges?', href: methodologyUrl })
+      React.createElement(MethodologyBadge, { label: 'Why these badges?', href: methodologyUrl }),
+      React.createElement('p', null, React.createElement('a', { href: candidateAssetPaths('story.html')[0] || 'story.html' }, 'Explore five source-linked research exhibits'))
     ),
     loading ? React.createElement(LoadingStatus, { phase, slow, compact: true }) : null,
     error ? React.createElement('section', { className: 'card load-warning', role: 'status' }, 'The refresh failed. Showing the previously loaded evidence. ', React.createElement('button', { className: 'loading-action', onClick: retryData, disabled: loading, type: 'button' }, 'Retry data')) : null,
