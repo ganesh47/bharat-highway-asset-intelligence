@@ -2058,12 +2058,13 @@ function CoverageCards({ catalog, rowCounts, disclosureRows = [] }) {
     .reduce((sum, entry) => sum + (entry.manifest?.columns?.includes('analytical_eligible') ? (eligibleCounts[entry.source_id] || 0) : (Number(rowCounts[entry.source_id]) || 0)), 0);
   const modelRows = entries.filter((entry) => sourceTypeTag(entry)[1] === 'model')
     .reduce((sum, entry) => sum + (Number(rowCounts[entry.source_id]) || 0), 0);
-  return React.createElement('section', { className: 'summary', 'aria-label': 'Validated evidence coverage' },
+  return React.createElement('section', { className: 'summary', 'aria-label': 'Evidence coverage from catalog and loaded disclosures' },
     React.createElement('div', { className: 'card' }, `Official measured sources: ${count('official')} validated`),
     React.createElement('div', { className: 'card' }, `Issuer disclosures: ${count('issuer')} validated`),
     React.createElement('div', { className: 'card' }, `Proxy-derived signals: ${entries.filter((entry) => sourceTypeTag(entry)[1] === 'proxy').length}`),
     React.createElement('div', { className: 'card' }, `Model output signals: ${entries.filter((entry) => sourceTypeTag(entry)[1] === 'model').length} · excluded by default`),
-    React.createElement('div', { className: 'card' }, `Measured evidence rows: ${evidenceRows.toLocaleString('en-IN')}`),
+    React.createElement('div', { className: 'card' }, `Measured evidence rows: ${evidenceRows.toLocaleString('en-IN')}`,
+      React.createElement('small', { className: 'metric-meta', 'data-coverage-note': true }, 'Combines loaded eligible disclosure rows with published counts for other validated sources.')),
     React.createElement('div', { className: 'card' }, `Catalog entries: ${entries.length} · ${modelRows.toLocaleString('en-IN')} model rows excluded`)
   );
 }
@@ -3615,7 +3616,7 @@ function App() {
     loading ? React.createElement(LoadingStatus, { phase, slow, compact: true }) : null,
     error ? React.createElement('section', { className: 'card load-warning', role: 'status' }, 'The refresh failed. Showing the previously loaded evidence. ', React.createElement('button', { className: 'loading-action', onClick: retryData, disabled: loading, type: 'button' }, 'Retry data')) : null,
     analytics?.loadFailures?.length ? React.createElement('section', { className: 'card load-warning', 'aria-label': 'Evidence availability' },
-      React.createElement('p', { role: 'status' }, 'Some evidence could not be loaded. Showing available evidence; published row counts describe the catalog, not loaded observations.'),
+      React.createElement('p', { role: 'status' }, 'Some evidence could not be loaded. Showing available evidence; published row counts describe the catalog, not loaded observations. Coverage totals can include published counts for unavailable sources.'),
       React.createElement('details', null, React.createElement('summary', null, `${analytics.loadFailures.length} unavailable sources`), React.createElement('ul', null, ...analytics.loadFailures.map(id => React.createElement('li', { key: id }, catalog[id]?.source?.title || id)))),
       React.createElement('button', { className: 'loading-action', type: 'button', disabled: loading, onClick: retryData }, 'Retry data')) : null,
     React.createElement(CoverageCards, { catalog, rowCounts, disclosureRows: analytics?.disclosureRows || [] }),

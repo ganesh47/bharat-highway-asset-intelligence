@@ -20,7 +20,12 @@ connection have deadlines. Failed owned workers are terminated.
 Pages validates published manifest row counts and schemas against Parquet before
 deploying. Startup uses those nonnegative integer counts instead of downloading
 every output to repeat `COUNT(*)`. Source cards explicitly label published rows.
-Loaded measured coverage still comes from actual eligible disclosure rows.
+Coverage retains its existing calculation: sources with `analytical_eligible`
+contribute loaded measured-eligible disclosure rows; other validated measured
+sources contribute published manifest counts. This total combines loaded and
+published coverage, including catalog counts for unavailable sources outside
+the disclosure row calculation. The card and partial-load warning explain this
+distinction; charts use available analytical query results.
 Downloads must match their catalog SHA-256; registration aliases include that
 checksum, so refreshed catalog versions cannot reuse another version's buffers.
 Malformed metadata fails visibly rather than becoming zero.
@@ -54,8 +59,11 @@ The candidate shell painted immediately in this locally fulfilled setup; that
 timing is not a claimed public-network first-paint result. All 67 ordered
 analytical query source/SQL/result arrays matched exactly before/after, with
 SHA-256 `d1840b609a1059f3f30572cdd7bd0c4dfab229f8198fdc2c80073dbe66b96e90`.
-Coverage, tables, state options, headings, chart accessibility labels and default
-filters also matched exactly. The 24 removed downloads served startup recounts
+Coverage quantities, tables, state options, headings, chart accessibility labels
+and default filters also matched exactly. The coverage card now adds an explicit
+explanation of its inherited combination of loaded disclosure rows and published
+source counts; this wording is intentionally excluded from the semantic quantity
+comparison. The 24 removed downloads served startup recounts
 and were not referenced by the analytical queries.
 
 ## Repeatable checks
