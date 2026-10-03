@@ -70,6 +70,10 @@ and were not referenced by the analytical queries.
 
 - `node --test tests/web_loading.test.mjs`: count/hash guards, mixed publication
   rejection and body/engine deadlines.
+- `python -m unittest discover -s tests -p test_loading_harness.py`: unexpected
+  source/assertion/network diagnostics must fail the harness, including late
+  errors. Only the exact controlled cancellations and event-time teardown
+  cancellations are allowed; repeated faults and missing evidence fail.
 - `python scripts/playwright_loading.py --out artifacts/loading`: controlled
   fixture recovery, concurrency, slow load, empty data, mobile and reduced motion.
 - CI Quality runs both suites and uploads `loading-validation` screenshots/logs.

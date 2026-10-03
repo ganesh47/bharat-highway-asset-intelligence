@@ -147,14 +147,76 @@ def entry(source_id: str, body: bytes, *, count: int = 1) -> dict[str, Any]:
     }
 
 
+CONTROLLED_ABORT_PATHS = {
+    "module_reload": "/apps/web/src/app.js",
+    "catalog_timeout_retry": "/data/manifests/catalog.json",
+}
+CLOSED_TARGET = "Target page, context or browser has been closed"
+
+
+def controlled_abort(name: str, origin: str, record: dict[str, Any]) -> bool:
+    """Only the exact local request cancellation deliberately exercised here."""
+    return (
+        record.get("kind") != "AssertionError"
+        and not record.get("tearing_down", False)
+        and record.get("url") == origin + CONTROLLED_ABORT_PATHS.get(name, "!no-controlled-abort!")
+        and record.get("failure", record.get("message")) == "net::ERR_ABORTED"
+    )
+
+
+def teardown_cancellation(record: dict[str, Any]) -> bool:
+    if not record.get("tearing_down", False) or record.get("kind") == "AssertionError":
+        return False
+    if "failure" in record:
+        return record["failure"] == "net::ERR_ABORTED"
+    return (
+        record.get("kind") in {"Error", "TargetClosedError"}
+        and record.get("message", "").split(": ", 1)[-1] == CLOSED_TARGET
+    )
+
+
+def assert_diagnostics(
+    name: str, origin: str, route_errors: list[dict[str, Any]],
+    request_failures: list[dict[str, Any]], page_errors: list[str],
+) -> None:
+    """Pure/idempotent gate: inspect event-time records, never mutate allowances."""
+    problems = [f"Uncaught UI error: {message}" for message in page_errors]
+    controlled = []
+    for label, records in (("Route error", route_errors), ("Request failure", request_failures)):
+        for record in records:
+            if controlled_abort(name, origin, record):
+                controlled.append(record)
+            elif not teardown_cancellation(record):
+                problems.append(f"{label}: {record}")
+    if len(controlled) > 1:
+        problems.append(f"Repeated controlled cancellation: {len(controlled)} events")
+    if problems:
+        raise AssertionError("Unexpected harness diagnostics: " + " | ".join(problems))
+
+
+def gate_result(row: dict[str, Any], fixture: "Fixture") -> None:
+    try:
+        assert_diagnostics(fixture.name, fixture.origin, fixture.route_errors,
+                           row["request_failures"], row["page_errors"])
+        if row.get("evidence_error"):
+            raise AssertionError(f"Validation evidence failed: {row['evidence_error']}")
+    except AssertionError as exc:
+        row["status"] = "failed"
+        row.setdefault("error", f"AssertionError: {exc}")
+        row["diagnostic_error"] = str(exc)
+
+
 class Fixture:
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str, origin: str = "") -> None:
         self.name = name
+        self.origin = origin
+        self.tearing_down = False
+        self.active_routes: set[asyncio.Task[Any]] = set()
         self.catalog_calls = 0
         self.app_calls = 0
         self.data_calls: Counter[str] = Counter()
         self.request_log: list[dict[str, Any]] = []
-        self.route_errors: list[str] = []
+        self.route_errors: list[dict[str, Any]] = []
         self.app_seen = asyncio.Event()
         self.app_gate = asyncio.Event()
         self.catalog_seen = asyncio.Event()
@@ -196,6 +258,9 @@ class Fixture:
     async def route(self, route: Any) -> None:
         url = route.request.url
         path = urlparse(url).path
+        task = asyncio.current_task()
+        if task is not None:
+            self.active_routes.add(task)
         try:
             if path.endswith("/apps/web/src/app.js"):
                 self.app_calls += 1
@@ -224,14 +289,14 @@ class Fixture:
                 source_id = Path(path).stem
                 self.data_calls[source_id] += 1
                 _, bodies = self.snapshot()
+                body = bodies.get(source_id)
+                if body is None:
+                    raise AssertionError(f"Unexpected data request: {source_id}")
                 missing = (self.name == "all_reads_retry" and self.catalog_calls == 1) or (
                     self.name == "partial_missing_retry" and source_id == FINANCE and self.catalog_calls <= 2)
                 if missing:
                     await route.fulfill(status=503, body="Controlled missing evidence")
                     return
-                body = bodies.get(source_id)
-                if body is None:
-                    raise AssertionError(f"Unexpected data request: {source_id}")
                 if source_id == FINANCE and (self.name == "partial_checksum" or (
                     self.name == "checksum_retry_cache" and self.catalog_calls == 1)):
                     body = body + b" "  # Valid JSON, intentionally mismatched catalog SHA.
@@ -239,9 +304,20 @@ class Fixture:
                 return
             await route.continue_()
         except Exception as exc:
-            # A deliberate timed-out fetch, held route, or page teardown can
-            # cancel its request. Preserve diagnostics; UI assertions decide.
-            self.route_errors.append(f"{url}: {type(exc).__name__}: {exc}")
+            record = {"url": url, "kind": type(exc).__name__, "message": str(exc),
+                      "tearing_down": self.tearing_down}
+            self.route_errors.append(record)
+            if not controlled_abort(self.name, self.origin, record) and not teardown_cancellation(record):
+                # Do not leave an unexpected request waiting for the UI timeout.
+                try:
+                    await route.abort(error_code="failed")
+                except Exception as abort_error:
+                    self.route_errors.append({"url": url, "kind": type(abort_error).__name__,
+                                              "message": str(abort_error), "operation": "abort_after_error",
+                                              "tearing_down": self.tearing_down})
+        finally:
+            if task is not None:
+                self.active_routes.discard(task)
 
 
 class Handler(SimpleHTTPRequestHandler):
@@ -483,7 +559,8 @@ async def run(args: argparse.Namespace, url: str) -> int:
         report["browser_version"] = browser.version
         try:
             for name in selected:
-                fixture = Fixture(name)
+                parsed = urlparse(url)
+                fixture = Fixture(name, f"{parsed.scheme}://{parsed.netloc}")
                 context = await browser.new_context(
                     viewport={"width": 390, "height": 844} if name == "slow_mobile" else {"width": 1280, "height": 720},
                     reduced_motion="reduce" if name == "slow_mobile" else "no-preference",
@@ -498,11 +575,13 @@ async def run(args: argparse.Namespace, url: str) -> int:
                 row: dict[str, Any] = {"name": name, "expected_faults_are_controlled": True, "console": [], "page_errors": [], "request_failures": []}
                 page.on("console", lambda msg, row=row: row["console"].append({"type": msg.type, "text": msg.text}))
                 page.on("pageerror", lambda error, row=row: row["page_errors"].append(str(error)))
-                page.on("requestfailed", lambda request, row=row: row["request_failures"].append({"url": request.url, "failure": request.failure}))
+                page.on("requestfailed", lambda request, row=row, fixture=fixture: row["request_failures"].append({
+                    "url": request.url, "failure": request.failure, "tearing_down": fixture.tearing_down}))
                 page.on("request", lambda request, fixture=fixture: fixture.request_log.append({"method": request.method, "url": request.url}))
                 try:
                     await exercise(name, page, fixture, url, args.out)
-                    assert not row["page_errors"], f"Unexpected uncaught UI error: {row['page_errors']}"
+                    assert_diagnostics(name, fixture.origin, fixture.route_errors,
+                                       row["request_failures"], row["page_errors"])
                     current = await metrics(page)
                     recount = "SELECTCOUNT(*)::BIGINTASROW_COUNT"
                     assert not any(recount in re.sub(r"\s+", "", q["sql"].upper()) for q in current["queries"]), "Startup performed runtime row counts"
@@ -522,6 +601,20 @@ async def run(args: argparse.Namespace, url: str) -> int:
                         row["screenshot"] = str(screenshot)
                     except Exception as exc:
                         row["evidence_error"] = f"{type(exc).__name__}: {exc}"
+                    # Recheck after collecting evidence, then again after close:
+                    # a late failed route must not retain an earlier pass label.
+                    gate_result(row, fixture)
+                    fixture.tearing_down = True
+                    try:
+                        await context.close()
+                        pending = list(fixture.active_routes)
+                        if pending:
+                            await asyncio.wait_for(asyncio.gather(*pending, return_exceptions=True), timeout=5)
+                    except Exception as exc:
+                        fixture.route_errors.append({"url": url, "kind": type(exc).__name__,
+                                                     "message": str(exc), "tearing_down": True,
+                                                     "operation": "context_teardown"})
+                    gate_result(row, fixture)
                     row["catalog_requests"] = fixture.catalog_calls
                     row["app_requests"] = fixture.app_calls
                     row["data_requests"] = dict(fixture.data_calls)
@@ -530,7 +623,6 @@ async def run(args: argparse.Namespace, url: str) -> int:
                     report["scenarios"].append(row)
                     report["status"] = "failed" if any(r["status"] == "failed" for r in report["scenarios"]) else "passed"
                     results_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
-                    await context.close()
                 print(f"{name}: {row['status']}", flush=True)
         finally:
             await browser.close()
