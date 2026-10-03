@@ -76,13 +76,26 @@ jobs:
           python -m unittest discover -s tests -v
 
       - name: Validate web snapshot guards
-        run: node --test tests/web_loading.test.mjs
+        run: |
+          python scripts/validate_story_evidence.py
+          node --test tests/web_loading.test.mjs tests/web_story.test.mjs
 
       - name: Install existing Playwright browser
         run: python -m playwright install --with-deps chromium
 
       - name: Validate loading and recovery states
         run: python scripts/playwright_loading.py --out artifacts/loading
+
+      - name: Validate source-linked story and recovery states
+        run: python scripts/playwright_story.py --out artifacts/story
+
+      - name: Upload story validation evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: story-validation
+          path: artifacts/story
+          if-no-files-found: error
 
       - name: Upload loading validation evidence
         if: always()
