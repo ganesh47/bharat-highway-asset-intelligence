@@ -14,7 +14,46 @@
   </script>
 </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="./src/app.js"></script>
+    <div id="root">
+      <main class="app-shell">
+        <header>
+          <h1>Bharat Highway Evidence Console</h1>
+          <p class="subhead">Official and issuer evidence for highway construction, funding, debt, toll operations and asset monetisation.</p>
+          <p><a href="methodology.html">Read the evidence methodology</a></p>
+        </header>
+        <section class="card loading-card" aria-labelledby="loading-title">
+          <div class="loading-road" aria-hidden="true"><span class="loading-marker"></span></div>
+          <div>
+            <h2 id="loading-title">Preparing your evidence console</h2>
+            <p id="startup-status" role="status" aria-live="polite" aria-atomic="true">Starting the evidence console…</p>
+            <button id="startup-reload" class="loading-action" type="button" hidden>Reload page</button>
+          </div>
+          <div class="loading-skeleton" aria-hidden="true"><div><span></span><span></span></div><div><span></span><span></span></div><div><span></span><span></span></div></div>
+        </section>
+        <div aria-busy="true" class="sr-only">Evidence panels</div>
+        <noscript><p>JavaScript is required to explore the evidence console. The methodology remains available above.</p></noscript>
+      </main>
+    </div>
+    <script>
+      window.__loadingShellTimer = setTimeout(function () {
+        var status = document.getElementById('startup-status');
+        var retry = document.getElementById('startup-reload');
+        if (status && retry) {
+          status.textContent = 'Startup is taking longer than usual. Check your connection, keep waiting, or reload the page.';
+          retry.hidden = false;
+        }
+      }, 15000);
+      document.getElementById('startup-reload').addEventListener('click', function () { window.location.reload(); });
+      document.addEventListener('error', function (event) {
+        if (event.target.id !== 'evidence-app') return;
+        clearTimeout(window.__loadingShellTimer);
+        document.getElementById('loading-title').textContent = 'Evidence console could not start';
+        document.getElementById('startup-status').textContent = 'Check your connection and reload the page to try again.';
+        document.getElementById('startup-reload').hidden = false;
+        document.querySelector('[aria-busy]').setAttribute('aria-busy', 'false');
+        document.querySelector('.loading-marker').remove();
+      }, true);
+    </script>
+    <script id="evidence-app" type="module" src="./src/app.js"></script>
   </body>
 </html>
