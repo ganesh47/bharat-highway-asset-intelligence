@@ -78,7 +78,7 @@ and were not referenced by the analytical queries.
   fixture recovery, concurrency, slow load, empty data, mobile and reduced motion.
 - CI Quality runs both suites and uploads `loading-validation` screenshots/logs.
 - Existing Pages deployment smoke continues to verify the real published
-  evidence console, labels, units, controls, CSV and mobile chart integrity.
+  India Highway Explorer, labels, units, controls, CSV and mobile chart integrity.
 
 The task workspace retains baseline/candidate screenshots, network records,
 ordered result audits and semantic DOM comparisons. Published timings must be

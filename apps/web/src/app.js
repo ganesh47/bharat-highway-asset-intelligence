@@ -3197,7 +3197,7 @@ async function loadAnalyticCatalog(conn, catalog) {
 }
 
 function LoadingStatus({ phase, slow, error, empty, retry, compact = false }) {
-  const title = error ? 'Evidence could not be loaded' : empty ? 'No evidence has been published yet' : 'Preparing your evidence console';
+  const title = error ? 'Evidence could not be loaded' : empty ? 'No evidence has been published yet' : 'Preparing India Highway Explorer';
   return React.createElement('section', { className: `card loading-card ${compact ? 'loading-compact' : ''}`, 'aria-labelledby': 'loading-title' },
     React.createElement('div', { className: 'loading-road', 'aria-hidden': true }, !error && !empty ? React.createElement('span', { className: 'loading-marker' }) : null),
     React.createElement('div', null,
@@ -3211,7 +3211,7 @@ function LoadingStatus({ phase, slow, error, empty, retry, compact = false }) {
 
 function LoadingShell(props) {
   return React.createElement('main', { className: 'app-shell' },
-    React.createElement('header', null, React.createElement('h1', null, 'Bharat Highway Evidence Console'),
+    React.createElement('header', null, React.createElement('h1', null, 'India Highway Explorer'),
       React.createElement('p', { className: 'subhead' }, 'Official and issuer evidence for highway construction, funding, debt, toll operations and asset monetisation.'),
       React.createElement('p', null, React.createElement('a', { href: 'methodology.html' }, 'Read the evidence methodology')),
       React.createElement('p', null, React.createElement('a', { href: 'story.html' }, 'Explore five source-linked research exhibits'))),
@@ -3609,7 +3609,7 @@ function App() {
     React.createElement(
       'header',
       null,
-      React.createElement('h1', null, 'Bharat Highway Evidence Console'),
+      React.createElement('h1', null, 'India Highway Explorer'),
       React.createElement('p', { className: 'subhead' }, 'Official and issuer evidence for highway construction, funding, debt, toll operations and asset monetisation. Observation periods and accounting entities remain separate; synthetic scenarios are excluded from the default analyst view.'),
       React.createElement(SourceMetaFooter, { label: `Catalog confidence floor: ${confidenceByAll.badge} · chart badges use their contributing sources`, confidence: confidenceByAll.badge }),
       React.createElement(MethodologyBadge, { label: 'Why these badges?', href: methodologyUrl }),
