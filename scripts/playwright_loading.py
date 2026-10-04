@@ -387,7 +387,7 @@ async def exercise(name: str, page: Any, fixture: Fixture, url: str, out: Path) 
         await asyncio.wait_for(fixture.app_seen.wait(), timeout=20)
         await page.locator("#startup-status").wait_for(state="visible")
         assert fixture.catalog_calls == 0, "React/data initialization preceded static shell"
-        assert await page.get_by_role("heading", name="Bharat Highway Evidence Console", exact=True).count() == 1
+        assert await page.get_by_role("heading", name="India Highway Explorer", exact=True).count() == 1
         assert await page.locator('[role="status"]').count() == 1, "Static shell has competing live statuses"
         assert await page.locator(".loading-road").get_attribute("aria-hidden") == "true"
         assert await page.locator(".loading-skeleton").get_attribute("aria-hidden") == "true"
@@ -408,7 +408,7 @@ async def exercise(name: str, page: Any, fixture: Fixture, url: str, out: Path) 
 
     await page.goto(url, wait_until="domcontentloaded")
     if name == "module_reload":
-        await terminal(page, "Evidence console could not start")
+        await terminal(page, "India Highway Explorer could not start")
         assert fixture.catalog_calls == 0, "Failed module initialized data"
         await page.screenshot(path=str(out / "module-error.png"), full_page=True)
         button = page.get_by_role("button", name="Reload page", exact=True)

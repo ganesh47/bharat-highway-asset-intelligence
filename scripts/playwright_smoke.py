@@ -534,7 +534,7 @@ async def run_smoke(url: str, generate_screenshot: bool = True) -> int:
                 return 1
 
             header = (await header_locator.text_content()) or ""
-            if "Bharat Highway Evidence Console" not in header:
+            if "India Highway Explorer" not in header:
                 print("Unexpected header text:", header.strip())
                 await browser.close()
                 return 1
