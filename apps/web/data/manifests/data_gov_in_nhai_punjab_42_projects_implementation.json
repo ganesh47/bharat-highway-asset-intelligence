@@ -1,0 +1,145 @@
+{
+  "source_id": "data_gov_in_nhai_punjab_42_projects_implementation",
+  "connector": "data_gov_in_ogd",
+  "version": "0.2.0",
+  "status": "ok",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI)",
+    "title": "Project-wise list of 42 NH projects under implementation in Punjab",
+    "domain": "data.gov.in",
+    "url": "https://www.data.gov.in/resource/project-wise-details-42-national-highway-projects-are-under-implementation-punjab-reply",
+    "retrieval_method": "direct download",
+    "access_type": "HTML",
+    "retrieved_at": "2026-10-02T04:56:18.696544+00:00",
+    "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+    "official_flag": true,
+    "analytical_eligible": false,
+    "observation_date_unknown": true
+  },
+  "citations": {
+    "permanent_identifier": "nid=603256476 (resource page) / file RS_Session_265_AU_285_A_i.csv",
+    "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_265_AU_285_A_i.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/data_gov_in_nhai_punjab_42_projects_implementation/data_gov_in_nhai_punjab_42_projects_implementation/raw_20261002_045618.csv",
+        "sha256": "c6dab4f352ddaf735d72ee630ad75a587b2214fdf997af5969724ef6846917a2",
+        "size_bytes": 5399
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/data_gov_in_nhai_punjab_42_projects_implementation.parquet",
+        "format": "parquet",
+        "sha256": "041ff70777bb07b2e448f11fadc84e8828ace9f9d02f92044dd640be0ea505d4"
+      }
+    ],
+    "row_count": 43,
+    "columns": [
+      "sl._no.",
+      "name_of_project",
+      "scheduled_/revised_schedule_date_of_completion",
+      "length_km",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": [
+      {
+        "path": "data/raw/data_gov_in_nhai_punjab_42_projects_implementation/data_gov_in_nhai_punjab_42_projects_implementation/raw_20261002_045618.csv",
+        "sha256": "c6dab4f352ddaf735d72ee630ad75a587b2214fdf997af5969724ef6846917a2",
+        "availability": "not_archived",
+        "reason": "raw_input_archive_missing"
+      }
+    ]
+  },
+  "retrieved_at": "2026-10-02T04:56:18.696544+00:00",
+  "completeness_score": 0.995,
+  "recency_score": 0.25,
+  "provenance_score": 0.85,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "Med",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency",
+    "Observation date is unavailable; collection time is not data freshness",
+    "Planned/estimated disclosure is readable evidence and excluded from measured calculations"
+  ],
+  "source_as_of_date": null,
+  "recency_basis": "unknown",
+  "validation_errors": [],
+  "output_table_path": "data/processed/data_gov_in_nhai_punjab_42_projects_implementation.parquet",
+  "data_checksum": "6028df6a8b1b5befe65527c1acf673b2a8916395e404bf9a65a64c816c362670",
+  "publication_generations": [
+    {
+      "source_id": "data_gov_in_nhai_punjab_42_projects_implementation",
+      "observation_checksum": "b7b4c57b8532f15fd756dc434526291ae0fae3548aaab05fd3a0c392ba5ed8d5",
+      "path": "data/processed/publication_history/data_gov_in_nhai_punjab_42_projects_implementation/b7b4c57b8532f15fd756dc434526291ae0fae3548aaab05fd3a0c392ba5ed8d5.parquet",
+      "sha256": "ea58c9efdad9089022d13d984f6372ea5309a17a7b212c2aec5fd94259a109a9",
+      "row_count": 43,
+      "source_as_of_date": null,
+      "publication_date": null,
+      "citations": {
+        "permanent_identifier": "nid=603256476 (resource page) / file RS_Session_265_AU_285_A_i.csv",
+        "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_265_AU_285_A_i.csv",
+        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+      },
+      "source_documents": [],
+      "data_changed_at": null
+    },
+    {
+      "source_id": "data_gov_in_nhai_punjab_42_projects_implementation",
+      "observation_checksum": "6028df6a8b1b5befe65527c1acf673b2a8916395e404bf9a65a64c816c362670",
+      "path": "data/processed/publication_history/data_gov_in_nhai_punjab_42_projects_implementation/6028df6a8b1b5befe65527c1acf673b2a8916395e404bf9a65a64c816c362670.parquet",
+      "sha256": "041ff70777bb07b2e448f11fadc84e8828ace9f9d02f92044dd640be0ea505d4",
+      "row_count": 43,
+      "source_as_of_date": null,
+      "publication_date": null,
+      "citations": {
+        "permanent_identifier": "nid=603256476 (resource page) / file RS_Session_265_AU_285_A_i.csv",
+        "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_265_AU_285_A_i.csv",
+        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+      },
+      "source_documents": [],
+      "data_changed_at": null
+    }
+  ],
+  "data_changed_at": "2026-10-02T04:56:18.691352+00:00",
+  "last_successful_retrieval_at": "2026-10-02T04:56:18.691352+00:00",
+  "last_ingested_at": "2026-10-02T04:56:18.691352+00:00",
+  "last_checked_at": "2026-10-10T12:06:31.805645+00:00",
+  "refresh_outcome": "retained_after_failure",
+  "analytical_scope": {
+    "analytical_eligible": false,
+    "observation_date_unknown": true
+  },
+  "evidence_status": "validated",
+  "publication_date": null,
+  "disclosure_ready": true,
+  "analytical_ready": false,
+  "extraction_status": "validated",
+  "research_cutoff": "2026-10-10",
+  "next_expected_publication_at": null,
+  "metric_coverage": [
+    {
+      "source_id": "data_gov_in_nhai_punjab_42_projects_implementation",
+      "metric": "dataset",
+      "coverage_status": "date_unknown",
+      "latest_observation_date": null,
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 43,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "refresh_error": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata."
+}

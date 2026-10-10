@@ -1,0 +1,169 @@
+{
+  "source_id": "highway_project_risk_and_access_panel",
+  "connector": "highway_project_risk_panel",
+  "version": "0.1.0",
+  "status": "generated",
+  "metric_category": "model_output",
+  "source": {
+    "publisher": "Bharat Highway Intelligence Risk Lab",
+    "title": "Highway project decision support panel (model synthesis)",
+    "url": "",
+    "retrieved_at": "2026-03-11T05:17:32.833320+00:00",
+    "license_terms": "Model output for internal decision support only. Not an official measurement. Include uncertainty and confidence notes before policy use.",
+    "official_flag": false,
+    "domain": "bhai.local"
+  },
+  "citations": {
+    "permanent_identifier": "model_signature+build_date",
+    "anchor": "model_seed:2026 | segments_per_project:5238",
+    "note": "Deterministic model expansion for decision support dashboards. Not an official statement of fact."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "/tmp/bhai-ingest-_cjn876k/processed/data_gov_in_nhai_projects_api.parquet",
+        "sha256": "ddf16c0ce3032e96a9429546969c566a55976e0fbcb54d62535e283824e34100",
+        "size_bytes": 10998
+      },
+      {
+        "path": "/tmp/bhai-ingest-_cjn876k/processed/data_gov_in_nhai_project_finance_api.parquet",
+        "sha256": "a1fa78fbc8a4d44b880da3448c8158e29256b818c05fd170ba12fe4a4f200a20",
+        "size_bytes": 11249
+      },
+      {
+        "path": "/tmp/bhai-ingest-_cjn876k/processed/ncrb_road_accidents_state_year.parquet",
+        "sha256": "2a38f93d77363ca9ef3d14f92ef95017f3155f6e34630981e9162f0ff29704c2",
+        "size_bytes": 6125
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/highway_project_risk_and_access_panel.parquet",
+        "format": "parquet",
+        "sha256": "537fed9c7dc77bec902e992b09e09ae5f98d2c3e38159e0535688655638a6208"
+      }
+    ],
+    "row_count": 219996,
+    "columns": [
+      "source_id",
+      "source_type",
+      "metric_category",
+      "model_signature",
+      "project_id",
+      "project_name",
+      "segment_id",
+      "observation_year",
+      "observation_month",
+      "state_assigned",
+      "terrain_type",
+      "sea_level_m",
+      "road_length_km",
+      "sanctioned_cost_cr",
+      "construction_progress_pct",
+      "estimated_revenue_generated_cr",
+      "land_acquisition_cost_cr",
+      "maintenance_cost_cr",
+      "city_access_hours",
+      "quality_score",
+      "safety_risk_score",
+      "delay_risk_score",
+      "project_duration_months",
+      "distance_to_major_city_hrs",
+      "budget_share_of_national",
+      "segment_risk_flag",
+      "dataset_source",
+      "retrieved_at",
+      "model_notes"
+    ],
+    "unbound_raw_evidence": [
+      {
+        "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
+        "expected_sha256": "46ad0339a990c24b804e1f256fa17fe0ee646adbbf298558d4b67e5a53b4d43a",
+        "available_sha256": "a1fa78fbc8a4d44b880da3448c8158e29256b818c05fd170ba12fe4a4f200a20",
+        "original_binding": {
+          "path": "data/processed/data_gov_in_nhai_project_finance_api.parquet",
+          "sha256": "46ad0339a990c24b804e1f256fa17fe0ee646adbbf298558d4b67e5a53b4d43a",
+          "size_bytes": 11249
+        },
+        "availability": "present_unbound",
+        "binding_status": "quarantined",
+        "reason": "unsupported_legacy_input_checksum_mismatch",
+        "available_size_bytes": 11249
+      }
+    ],
+    "raw_evidence_gaps": [
+      {
+        "path": "/tmp/bhai-ingest-_cjn876k/processed/data_gov_in_nhai_projects_api.parquet",
+        "sha256": "ddf16c0ce3032e96a9429546969c566a55976e0fbcb54d62535e283824e34100",
+        "availability": "not_archived",
+        "reason": "raw_input_archive_missing"
+      },
+      {
+        "path": "/tmp/bhai-ingest-_cjn876k/processed/data_gov_in_nhai_project_finance_api.parquet",
+        "sha256": "a1fa78fbc8a4d44b880da3448c8158e29256b818c05fd170ba12fe4a4f200a20",
+        "availability": "not_archived",
+        "reason": "raw_input_archive_missing"
+      },
+      {
+        "path": "/tmp/bhai-ingest-_cjn876k/processed/ncrb_road_accidents_state_year.parquet",
+        "sha256": "2a38f93d77363ca9ef3d14f92ef95017f3155f6e34630981e9162f0ff29704c2",
+        "availability": "not_archived",
+        "reason": "raw_input_archive_missing"
+      }
+    ]
+  },
+  "retrieved_at": "2026-03-11T05:17:32.833320+00:00",
+  "note": "Model outputs must be treated as estimates and scenario inputs, never as certified official facts.",
+  "completeness_score": 0.5,
+  "recency_score": 0.25,
+  "provenance_score": 0.3,
+  "consistency_score": 0.5,
+  "overall_confidence_badge": "Low",
+  "overall_confidence_reason": [
+    "Low provenance confidence (source reliability category)",
+    "Missingness is high; check source completeness",
+    "Recency is stale against claimed update frequency",
+    "Schema/range checks showed potential consistency issues",
+    "Use for trend and risk ranking, not precise governance decisions",
+    "Observation date is unavailable; collection time is not data freshness",
+    "Not eligible for measured analyst calculations",
+    "Document discovery is not validated financial extraction"
+  ],
+  "output_table_path": "data/processed/highway_project_risk_and_access_panel.parquet",
+  "data_checksum": "1598884e476359c87a2bfe3e5b2853906359af5f76e1e88e976cdf420626bf19",
+  "last_successful_retrieval_at": "2026-10-10T12:13:20.808392+00:00",
+  "last_ingested_at": "2026-10-10T12:13:20.808392+00:00",
+  "last_checked_at": "2026-10-10T12:13:20.808392+00:00",
+  "refresh_outcome": "checked_unchanged",
+  "analytical_scope": {
+    "road_class": "unspecified",
+    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+  },
+  "evidence_status": "synthetic",
+  "source_as_of_date": null,
+  "publication_date": null,
+  "disclosure_ready": false,
+  "analytical_ready": false,
+  "extraction_status": "pending",
+  "recency_basis": "unknown",
+  "validation_errors": [],
+  "last_quality_check_at": "2026-10-01T21:28:26.597606+00:00",
+  "metric_coverage": [
+    {
+      "source_id": "highway_project_risk_and_access_panel",
+      "metric": "dataset",
+      "coverage_status": "not_calculation_ready",
+      "latest_observation_date": null,
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 219996,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "research_cutoff": "2026-10-10",
+  "next_expected_publication_at": null
+}

@@ -1,0 +1,112 @@
+{
+  "source_id": "morh_procurement_awards",
+  "connector": "morh_procurement_awards_stub",
+  "version": "0.1.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "Ministry of Road Transport and Highways (MoRTH)",
+    "title": "Procurement and award notices for highway works",
+    "url": "https://eprocure.gov.in/epublish//app",
+    "retrieved_at": "2026-03-11T05:17:35.811480+00:00",
+    "license_terms": "EProcurement portal terms and bidder-facing reuse restrictions.",
+    "official_flag": true,
+    "domain": "eprocure.gov.in",
+    "observation_date_unknown": true,
+    "publication_date_unknown": true
+  },
+  "citations": {
+    "permanent_identifier": "notice number and award order id",
+    "anchor": "manual_procurement_or_annual_release_track",
+    "note": "Procurement CSV imported through approved manual artifact."
+  },
+  "manifest": {
+    "raw_files": [],
+    "output_files": [
+      {
+        "path": "data/processed/morh_procurement_awards.parquet",
+        "format": "parquet",
+        "sha256": "f7785046699b0633a7de679d48a9445be69ab1baf2780bf02b797c8e0cc2d140"
+      }
+    ],
+    "row_count": 6,
+    "columns": [
+      "state",
+      "year",
+      "metric_name",
+      "metric_value",
+      "unit",
+      "notice_id",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ],
+    "unbound_raw_evidence": [
+      {
+        "path": "data/raw/manual/morh_procurement_awards.csv",
+        "expected_sha256": "f3bdd402ebbb666adc84b5d8d3180a27af1ccd874f96f9cede7f6921b1e62355",
+        "available_sha256": "275d633368319383c01d1e95089a49a847e8d2e2d255b9b70ccf8468d22567d1",
+        "original_binding": {
+          "path": "data/raw/manual/morh_procurement_awards.csv",
+          "sha256": "f3bdd402ebbb666adc84b5d8d3180a27af1ccd874f96f9cede7f6921b1e62355",
+          "size_bytes": 344
+        },
+        "availability": "present_unbound",
+        "binding_status": "quarantined",
+        "reason": "unsupported_legacy_input_checksum_mismatch",
+        "available_size_bytes": 337
+      }
+    ],
+    "raw_evidence_gaps": []
+  },
+  "retrieved_at": "2026-03-11T05:17:35.811480+00:00",
+  "completeness_score": 0.909,
+  "recency_score": 0.25,
+  "provenance_score": 0.833,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "Low",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency",
+    "Observation date is unavailable; collection time is not data freshness",
+    "Not eligible for measured analyst calculations",
+    "Document discovery is not validated financial extraction"
+  ],
+  "output_table_path": "data/processed/morh_procurement_awards.parquet",
+  "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
+  "data_checksum": "255386f168077c123f70388692b72603ce6456fdfd987f071d85d9070b7d7032",
+  "last_checked_at": "2026-10-10T12:13:42.827578+00:00",
+  "refresh_outcome": "restricted",
+  "analytical_scope": {
+    "observation_date_unknown": true
+  },
+  "evidence_status": "unverified",
+  "source_as_of_date": null,
+  "publication_date": null,
+  "disclosure_ready": false,
+  "analytical_ready": false,
+  "extraction_status": "pending",
+  "recency_basis": "unknown",
+  "validation_errors": [],
+  "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date",
+  "last_quality_check_at": "2026-10-01T22:14:43.653523+00:00",
+  "metric_coverage": [
+    {
+      "source_id": "morh_procurement_awards",
+      "metric": "dataset",
+      "coverage_status": "not_calculation_ready",
+      "latest_observation_date": null,
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 6,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "research_cutoff": "2026-10-10",
+  "next_expected_publication_at": null
+}

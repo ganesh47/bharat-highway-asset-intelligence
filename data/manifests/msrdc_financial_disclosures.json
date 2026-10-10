@@ -1,0 +1,147 @@
+{
+  "source_id": "msrdc_financial_disclosures",
+  "status": "manual_gap",
+  "metric_category": "issuer_disclosed",
+  "source": {
+    "publisher": "Maharashtra State Road Development Corporation Ltd.",
+    "title": "MSRDC annual reports, bond information and subsidiary audited financials",
+    "url": "https://msrdc.in/1262/Annual-Reports-and-Details-of-Bonds?format=print",
+    "official_flag": false,
+    "publisher_type": "issuer",
+    "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+    "domain": "msrdc.in"
+  },
+  "citations": {
+    "permanent_identifier": "msrdc_financial_disclosures",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "Public index/subsidiary FY23-24 filings identified; primary download timed out. Parent standalone latest visible FY18-19, not FY23-24. No statement facts without retrieved PDF."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/msrdc_financial_disclosures.csv",
+        "sha256": "00238de3ec0a91725467fc5092e033650f789412256294382f35cf54cba5dff4",
+        "size_bytes": 648
+      },
+      {
+        "path": "data/raw/manual/evidence/msrdc_financial_disclosures.json",
+        "sha256": "80aba930a8ed9455cfc6db372dfaadb644b7b9a9986b35bc30324e40b4ccdb49",
+        "size_bytes": 871
+      }
+    ],
+    "row_count": 0,
+    "columns": [
+      "entity_id",
+      "entity_name",
+      "entity_type",
+      "agency",
+      "state",
+      "road_class",
+      "metric",
+      "value",
+      "unit",
+      "original_value",
+      "original_unit",
+      "period_start",
+      "period_end",
+      "period_basis",
+      "estimate_type",
+      "statement_basis",
+      "data_as_of",
+      "published_at",
+      "source_id",
+      "citation_url",
+      "table_page",
+      "evidence_class",
+      "analytical_eligible",
+      "source_document_sha256",
+      "notes",
+      "entity",
+      "year",
+      "metric_name",
+      "metric_value",
+      "metric_category",
+      "source_type",
+      "asset_id",
+      "project_name",
+      "nh_number",
+      "project_stage",
+      "scheduled_completion_date",
+      "likely_completion_date",
+      "actual_completion_date",
+      "comparison_group",
+      "asset_owner_id",
+      "implementing_agency_id",
+      "operator_id",
+      "concessionaire_id",
+      "financing_entity_id",
+      "contractor_name"
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/msrdc_financial_disclosures.parquet",
+        "format": "parquet",
+        "sha256": "f4f94eac01503b05db3e2395aa8d84de7c2d2014378bf33d352945166cb7552c"
+      }
+    ],
+    "source_documents": [],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
+  },
+  "output_table_path": "data/processed/msrdc_financial_disclosures.parquet",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "refresh_outcome": "manual_evidence_required",
+  "last_checked_at": "2026-10-10T12:15:10.872022+00:00",
+  "data_changed_at": null,
+  "publication_date": null,
+  "source_as_of_date": null,
+  "analytical_ready": false,
+  "evidence_status": "unavailable",
+  "disclosure_ready": false,
+  "extraction_status": "evidence_gap",
+  "skip_reason": "Public index/subsidiary FY23-24 filings identified; primary download timed out. Parent standalone latest visible FY18-19, not FY23-24. No statement facts without retrieved PDF.",
+  "semantic_rechecks": [],
+  "refresh_error": "Public index/subsidiary FY23-24 filings identified; primary download timed out. Parent standalone latest visible FY18-19, not FY23-24. No statement facts without retrieved PDF.",
+  "data_checksum": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "analytical_scope": {
+    "source_as_of_date": null,
+    "publisher_type": "issuer"
+  },
+  "completeness_score": 0.0,
+  "recency_score": 0.25,
+  "provenance_score": 0.3,
+  "consistency_score": 0.3,
+  "overall_confidence_badge": "Low",
+  "overall_confidence_reason": [
+    "Low provenance confidence (source reliability category)",
+    "Missingness is high; check source completeness",
+    "Recency is stale against claimed update frequency",
+    "Schema/range checks showed potential consistency issues",
+    "Use for trend and risk ranking, not precise governance decisions",
+    "Observation date is unavailable; collection time is not data freshness",
+    "Not eligible for measured analyst calculations"
+  ],
+  "recency_basis": "unknown",
+  "validation_errors": [],
+  "metric_coverage": [
+    {
+      "source_id": "msrdc_financial_disclosures",
+      "metric": "dataset",
+      "coverage_status": "not_calculation_ready",
+      "latest_observation_date": null,
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 0,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "research_cutoff": "2026-10-10",
+  "next_expected_publication_at": null,
+  "publication_history": null,
+  "governed_extract_binding_status": "empty_gap_snapshot"
+}

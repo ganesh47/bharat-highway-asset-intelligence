@@ -1,0 +1,57 @@
+{
+  "generated_at": "2026-10-10T13:20:12.397496+00:00",
+  "minimum_overlap": 10,
+  "approved_pairs": [
+    {
+      "source_a": "data_gov_in_nh_fatalities_injuries_state_year",
+      "metric_a": "fatalities",
+      "source_b": "data_gov_in_nh_fatalities_injuries_state_year",
+      "metric_b": "injuries",
+      "reason": "Same reported NH/expressway safety universe and calendar year"
+    },
+    {
+      "source_a": "data_gov_in_nhai_stateut_project_delay_status_2024",
+      "metric_a": "number_of_projects",
+      "source_b": "data_gov_in_nhai_stateut_project_delay_status_2024",
+      "metric_b": "number_of_delayed_projects",
+      "reason": "Same NH project snapshot and State/UT universe"
+    }
+  ],
+  "pairs": [
+    {
+      "source_a": "data_gov_in_nh_fatalities_injuries_state_year",
+      "metric_a": "fatalities",
+      "source_b": "data_gov_in_nh_fatalities_injuries_state_year",
+      "metric_b": "injuries",
+      "approval_reason": "Same reported NH/expressway safety universe and calendar year",
+      "minimum_overlap": 10,
+      "overlap_records": 107,
+      "available_a": 107,
+      "available_b": 107,
+      "coverage_a": 1.0,
+      "coverage_b": 1.0,
+      "unit_a": "count",
+      "unit_b": "count",
+      "status": "published"
+    },
+    {
+      "source_a": "data_gov_in_nhai_stateut_project_delay_status_2024",
+      "metric_a": "number_of_projects",
+      "source_b": "data_gov_in_nhai_stateut_project_delay_status_2024",
+      "metric_b": "number_of_delayed_projects",
+      "approval_reason": "Same NH project snapshot and State/UT universe",
+      "minimum_overlap": 10,
+      "overlap_records": 32,
+      "available_a": 32,
+      "available_b": 32,
+      "coverage_a": 1.0,
+      "coverage_b": 1.0,
+      "unit_a": "count",
+      "unit_b": "count",
+      "status": "published"
+    }
+  ],
+  "excluded_sources": [],
+  "published_pair_count": 2,
+  "notes": "No automatic entity matching, duplicate averaging, causal inference or synthetic inputs."
+}

@@ -1,0 +1,300 @@
+{
+  "source_id": "cag_manipur_road_finances_2024_25",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "refresh_outcome": "retained_after_failure",
+  "last_checked_at": "2026-10-10T12:29:14.010618+00:00",
+  "last_successful_retrieval_at": "2026-10-02T08:27:41.890083+00:00",
+  "data_changed_at": "2026-10-02T08:27:41.884613+00:00",
+  "publication_date": null,
+  "source_as_of_date": "2025-03-31",
+  "analytical_ready": true,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "",
+  "source": {
+    "publisher": "Comptroller and Auditor General of India / Government of Manipur",
+    "title": "Manipur Finance Accounts2024-25 VolumeI, audited Roads and Bridges expenditure",
+    "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=80",
+    "retrieved_at": "2026-10-02T08:01:55.761454+00:00",
+    "official_flag": true,
+    "publisher_type": "government",
+    "license_terms": "Public government accounts; original publisher attribution and statement/page citation required.",
+    "domain": "cag.gov.in"
+  },
+  "citations": {
+    "permanent_identifier": "cag_manipur_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "CAG Manipur FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Published Statement4A current capital is INR617.35crore whereas Statement5 is INR617.36crore. Both reported cells retained, no synthetic correction; both current capital observations calculation-ineligible pending reconciliation."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/cag_manipur_road_finances_2024_25.csv",
+        "sha256": "4c9fcffe087c7ec2aba03ef5be143c6d497353b6a0b4c554bce5fb744e56c17e",
+        "size_bytes": 6906
+      },
+      {
+        "path": "data/raw/manual/evidence/cag_manipur_road_finances_2024_25.json",
+        "sha256": "1c60edaf5c3b6b8dc1f9ab39543a0110a01ecf93f6438b1a4677e7d105455be9",
+        "size_bytes": 2172
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-Manipur-2024-25-069c124bdb2ab84-33248794.pdf",
+        "relative_path": "primary_disclosures/cag_manipur_road_finances_2024_25/versions/7fdf6891e25fbce8d03e944d33c07f8beb46424e8eecc86d06fe47f235df9ae6.pdf",
+        "sha256": "7fdf6891e25fbce8d03e944d33c07f8beb46424e8eecc86d06fe47f235df9ae6",
+        "size_bytes": 2004209,
+        "extractor": "pipelines.state_accounts_completion",
+        "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+        "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+        "review_date": "2026-10-02",
+        "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=80",
+        "availability": "not_archived"
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/cag_manipur_road_finances_2024_25.parquet",
+        "format": "parquet",
+        "sha256": "9a598f926b2914246336ae4c77af2e7e4803a75719428f6e973140e2acad58c2"
+      }
+    ],
+    "row_count": 4,
+    "columns": [
+      "entity_id",
+      "entity_name",
+      "entity_type",
+      "agency",
+      "state",
+      "road_class",
+      "metric",
+      "value",
+      "unit",
+      "original_value",
+      "original_unit",
+      "period_start",
+      "period_end",
+      "period_basis",
+      "estimate_type",
+      "statement_basis",
+      "data_as_of",
+      "published_at",
+      "source_id",
+      "citation_url",
+      "table_page",
+      "evidence_class",
+      "analytical_eligible",
+      "source_document_sha256",
+      "notes",
+      "entity",
+      "year",
+      "metric_name",
+      "metric_value",
+      "metric_category",
+      "source_type",
+      "asset_id",
+      "project_name",
+      "nh_number",
+      "project_stage",
+      "scheduled_completion_date",
+      "likely_completion_date",
+      "actual_completion_date",
+      "comparison_group",
+      "asset_owner_id",
+      "implementing_agency_id",
+      "operator_id",
+      "concessionaire_id",
+      "financing_entity_id",
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period",
+      "observation_status",
+      "assurance",
+      "revision_identity",
+      "price_basis",
+      "base_year"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": [
+      {
+        "path": "data/raw/primary_disclosures/cag_manipur_road_finances_2024_25/versions/7fdf6891e25fbce8d03e944d33c07f8beb46424e8eecc86d06fe47f235df9ae6.pdf",
+        "sha256": "7fdf6891e25fbce8d03e944d33c07f8beb46424e8eecc86d06fe47f235df9ae6",
+        "availability": "not_archived",
+        "reason": "primary_document_archive_missing"
+      }
+    ]
+  },
+  "retrieved_at": "2026-10-02T08:01:55.761454+00:00",
+  "semantic_rechecks": [],
+  "publication_history": {
+    "index_path": "history/cag_manipur_road_finances_2024_25/index.json",
+    "version_count": 1,
+    "revision_count": 0,
+    "candidate_version_id": "0fe388e47df6d7a76af6c78d54cfab4c7f80c28da82afb8875e04865e901daf3"
+  },
+  "research_cutoff": "2026-10-10",
+  "completeness_score": 0.98,
+  "recency_score": 0.7,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/cag_manipur_road_finances_2024_25.parquet",
+  "data_checksum": "8a696f6d10fcccabe67aeebfcb0853f3d8b9b561e0e93a161f7e56345a48378e",
+  "publication_generations": [
+    {
+      "source_id": "cag_manipur_road_finances_2024_25",
+      "observation_checksum": "8a696f6d10fcccabe67aeebfcb0853f3d8b9b561e0e93a161f7e56345a48378e",
+      "path": "data/processed/publication_history/cag_manipur_road_finances_2024_25/8a696f6d10fcccabe67aeebfcb0853f3d8b9b561e0e93a161f7e56345a48378e.parquet",
+      "sha256": "9a598f926b2914246336ae4c77af2e7e4803a75719428f6e973140e2acad58c2",
+      "row_count": 4,
+      "source_as_of_date": "2025-03-31",
+      "publication_date": null,
+      "citations": {
+        "permanent_identifier": "cag_manipur_road_finances_2024_25",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "CAG Manipur FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Published Statement4A current capital is INR617.35crore whereas Statement5 is INR617.36crore. Both reported cells retained, no synthetic correction; both current capital observations calculation-ineligible pending reconciliation."
+      },
+      "source_documents": [
+        {
+          "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-Manipur-2024-25-069c124bdb2ab84-33248794.pdf",
+          "relative_path": "primary_disclosures/cag_manipur_road_finances_2024_25/versions/7fdf6891e25fbce8d03e944d33c07f8beb46424e8eecc86d06fe47f235df9ae6.pdf",
+          "sha256": "7fdf6891e25fbce8d03e944d33c07f8beb46424e8eecc86d06fe47f235df9ae6",
+          "size_bytes": 2004209,
+          "extractor": "pipelines.state_accounts_completion",
+          "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+          "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+          "review_date": "2026-10-02",
+          "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=80"
+        }
+      ],
+      "data_changed_at": "2026-10-02T08:01:55.761454+00:00"
+    }
+  ],
+  "last_ingested_at": "2026-10-10T12:29:14.010618+00:00",
+  "analytical_scope": {
+    "source_as_of_date": "2025-03-31",
+    "publisher_type": "government"
+  },
+  "next_expected_publication_at": null,
+  "metric_coverage": [
+    {
+      "metric": "roads_bridges_capital_outlay_functional_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "state_aggregate",
+      "agency": "CAG / Government of Manipur",
+      "road_class": "roads_and_bridges_all_classes",
+      "period_basis": "fiscal_year",
+      "statement_basis": "state_finance_accounts_cash_expenditure_as_reported",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "cag_manipur_road_finances_2024_25",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2025-03-31",
+      "earliest_entity_cutoff": "2025-03-31",
+      "latest_available_period_end": "2025-03-31",
+      "latest_publication_date": null,
+      "latest_disclosure_publication_date": null,
+      "publication_lag_days": null,
+      "observation_status": [
+        "final"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "state_manipur": "2025-03-31"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "roads_bridges_capital_outlay_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "state_aggregate",
+      "agency": "CAG / Government of Manipur",
+      "road_class": "roads_and_bridges_all_classes",
+      "period_basis": "fiscal_year",
+      "statement_basis": "state_finance_accounts_cash_expenditure_as_reported",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "cag_manipur_road_finances_2024_25",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2025-03-31",
+      "earliest_entity_cutoff": "2025-03-31",
+      "latest_available_period_end": "2025-03-31",
+      "latest_publication_date": null,
+      "latest_disclosure_publication_date": null,
+      "publication_lag_days": null,
+      "observation_status": [
+        "final"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "state_manipur": "2025-03-31"
+      },
+      "row_count": 2,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "roads_bridges_revenue_expenditure_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "state_aggregate",
+      "agency": "CAG / Government of Manipur",
+      "road_class": "roads_and_bridges_all_classes",
+      "period_basis": "fiscal_year",
+      "statement_basis": "state_finance_accounts_cash_expenditure_as_reported",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "cag_manipur_road_finances_2024_25",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2025-03-31",
+      "earliest_entity_cutoff": "2025-03-31",
+      "latest_available_period_end": "2025-03-31",
+      "latest_publication_date": null,
+      "latest_disclosure_publication_date": null,
+      "publication_lag_days": null,
+      "observation_status": [
+        "final"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "state_manipur": "2025-03-31"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "governed_extract_binding_status": "validated_current_extract",
+  "remote_refresh_failed": true,
+  "remote_refresh_error": "failed_retrieval: URLError",
+  "refresh_error": "failed_retrieval: URLError",
+  "local_seed_used": true
+}

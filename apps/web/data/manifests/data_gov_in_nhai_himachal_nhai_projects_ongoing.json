@@ -1,0 +1,113 @@
+{
+  "source_id": "data_gov_in_nhai_himachal_nhai_projects_ongoing",
+  "connector": "data_gov_in_ogd",
+  "version": "0.2.0",
+  "status": "ok",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI)",
+    "title": "Project-wise ongoing NH projects in Himachal Pradesh",
+    "domain": "data.gov.in",
+    "url": "https://jk.data.gov.in/resource/project-wise-details-ongoing-national-highways-authority-india-nhai-projects-himachal",
+    "retrieval_method": "direct download",
+    "access_type": "HTML",
+    "retrieved_at": "2026-03-11T05:17:08.552508+00:00",
+    "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+    "official_flag": true,
+    "analytical_eligible": false,
+    "observation_date_unknown": true
+  },
+  "citations": {
+    "permanent_identifier": "nid=603798536 (resource page) / file RS_Session_267_AU_1543_A_and_B.1.csv",
+    "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_267_AU_1543_A_and_B.1.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/data_gov_in_nhai_himachal_nhai_projects_ongoing/data_gov_in_nhai_himachal_nhai_projects_ongoing/raw_20260311_051708.csv",
+        "sha256": "5b3d253aef7274d1a0e59b6c8f46fc687607adbadd931216bb77201944b52625",
+        "size_bytes": 3465
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/data_gov_in_nhai_himachal_nhai_projects_ongoing.parquet",
+        "format": "parquet",
+        "sha256": "c25a1515e3b611cca73ab2bb814726ce422887bfdddb0146c5dfdaf4ad5b4e20"
+      }
+    ],
+    "row_count": 15,
+    "columns": [
+      "sl._no.",
+      "name_of_project",
+      "revised_schedule_date_of_completion",
+      "sanctioned_amount_rs._in_crore",
+      "expenditure_till_date_rs._in_crore",
+      "physical_progress_in_percentage",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": [
+      {
+        "path": "data/raw/data_gov_in_nhai_himachal_nhai_projects_ongoing/data_gov_in_nhai_himachal_nhai_projects_ongoing/raw_20260311_051708.csv",
+        "sha256": "5b3d253aef7274d1a0e59b6c8f46fc687607adbadd931216bb77201944b52625",
+        "availability": "not_archived",
+        "reason": "raw_input_archive_missing"
+      }
+    ]
+  },
+  "retrieved_at": "2026-03-11T05:17:08.552508+00:00",
+  "completeness_score": 1.0,
+  "recency_score": 0.25,
+  "provenance_score": 0.85,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "Med",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency",
+    "Observation date is unavailable; collection time is not data freshness",
+    "Planned/estimated disclosure is readable evidence and excluded from measured calculations"
+  ],
+  "output_table_path": "data/processed/data_gov_in_nhai_himachal_nhai_projects_ongoing.parquet",
+  "data_checksum": "0d7c1e055968890343fd09d4715c477f96c287e0b38970082f0c68ce4a54a7b9",
+  "last_successful_retrieval_at": "2026-10-02T04:56:18.591905+00:00",
+  "last_ingested_at": "2026-10-02T04:56:18.591905+00:00",
+  "last_checked_at": "2026-10-10T12:06:30.201801+00:00",
+  "refresh_outcome": "retained_after_failure",
+  "analytical_scope": {
+    "analytical_eligible": false,
+    "observation_date_unknown": true
+  },
+  "evidence_status": "validated",
+  "source_as_of_date": null,
+  "publication_date": null,
+  "disclosure_ready": true,
+  "analytical_ready": false,
+  "extraction_status": "validated",
+  "recency_basis": "unknown",
+  "validation_errors": [],
+  "metric_coverage": [
+    {
+      "source_id": "data_gov_in_nhai_himachal_nhai_projects_ongoing",
+      "metric": "dataset",
+      "coverage_status": "date_unknown",
+      "latest_observation_date": null,
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 15,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "research_cutoff": "2026-10-10",
+  "next_expected_publication_at": null,
+  "last_quality_check_at": "2026-10-02T04:41:26.140537+00:00",
+  "refresh_error": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata."
+}

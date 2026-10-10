@@ -1,0 +1,52 @@
+{
+  "checked_at": "2026-10-02T04:51:57Z",
+  "method": "CUA rendered DOM snapshot and visible official table, FY2026-27 selected",
+  "npci": {
+    "url": "https://www.npci.org.in/product/netc/product-statistics",
+    "latest_month": "2026-08",
+    "rows": [
+      {
+        "month": "2026-08",
+        "volume_million": 351.0,
+        "amount_inr_crore": 7185.03
+      },
+      {
+        "month": "2026-07",
+        "volume_million": 347.35,
+        "amount_inr_crore": 7142.99
+      },
+      {
+        "month": "2026-06",
+        "volume_million": 361.76,
+        "amount_inr_crore": 7214.76
+      },
+      {
+        "month": "2026-05",
+        "volume_million": 375.23,
+        "amount_inr_crore": 7308.07
+      },
+      {
+        "month": "2026-04",
+        "volume_million": 358.08,
+        "amount_inr_crore": 7024.61
+      }
+    ],
+    "exclusions": "Annual pass transactions and Maharashtra EV exempt transactions are not included.",
+    "september_status": "Not displayed in selected reporting-year table as checked; no extrapolation."
+  },
+  "nhit": {
+    "url": "https://nhit.co.in/reports/",
+    "visible_labels": [
+      "01st October, 2026 : Details of the Compliance Officer and RTA of the Company - NHIT",
+      "28th September, 2026: Regulation 60(2) Record Date Interest Payment",
+      "28th September, 2026: Intimation of Trading Window Closure for Sep 2026",
+      "31st August 2026: Investor Presentation_NHIT_Qtr ended 30th June, 2026",
+      "07th August, 2026: Outcome of Board Meeting of NHIIMPL",
+      "07th August, 2026: Valuation Report & NAV_NHIT_June 2026",
+      "Annual Report 2025-26"
+    ],
+    "latest_financial_quarter_end": "2026-06-30",
+    "september_status": "September-quarter financial results not listed in rendered disclosures as checked; September administrative notices are not financial results."
+  },
+  "scope": "Listing recheck only. Does not change numerical snapshots, original retrieval dates, publication dates or observation cutoffs. Automated HTTP failures remain separately recorded."
+}

@@ -1,0 +1,126 @@
+{
+  "source_id": "nhai_constructed_length_series_official",
+  "connector": "parliament_qa_highway_queries_manual_csv",
+  "version": "0.1.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI) / Parliament Secretariat",
+    "title": "Curated year-wise NHAI constructed NH length series",
+    "url": "https://nhai.gov.in/nhai/sites/default/files/2025-09/NHAI-Annual_Report_2023-24_English.pdf",
+    "retrieved_at": "2026-10-01T20:08:31.190674+00:00",
+    "license_terms": "Official public documents; cite annual report section, press release date, and parliamentary question/answer date.",
+    "official_flag": true,
+    "domain": "nhai.gov.in"
+  },
+  "citations": {
+    "permanent_identifier": "NHAI Annual Report2023-24 section8.1 + NHAI press release2025-04-02 + PIB PRID2247870,2026-04-01",
+    "anchor": "official_q_and_a_session_index",
+    "note": "Parliament Q&A snapshot CSV imported through approved manual artifact."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/nhai_constructed_length_series_official.csv",
+        "sha256": "83b77ec93f8862fdf7f14c56b4da544fb7be662bff2cf31d707131eb5af4850f",
+        "size_bytes": 4242
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/nhai_constructed_length_series_official.parquet",
+        "format": "parquet",
+        "sha256": "3ed9709b72647c0c52661b4bf80ececbd8d4fa4280e289c8c264c8d060cc0fe1"
+      }
+    ],
+    "row_count": 12,
+    "columns": [
+      "period",
+      "km_constructed",
+      "unit",
+      "metric_name",
+      "series_scope",
+      "series_status",
+      "source_url",
+      "citation_anchor",
+      "document_section",
+      "source_as_of_date",
+      "source_note",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
+  },
+  "retrieved_at": "2026-10-01T20:08:31.190674+00:00",
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "source_as_of_date": "2026-03-31",
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/nhai_constructed_length_series_official.parquet",
+  "data_checksum": "60eb9656f4ba07adc48dfc0b057435987a03e0b6b68daa954d45b80eabf948db",
+  "data_changed_at": "2026-10-01T20:08:31.187397+00:00",
+  "last_successful_retrieval_at": "2026-03-16T15:08:34.216622+00:00",
+  "last_ingested_at": "2026-10-10T12:06:37.263011+00:00",
+  "last_checked_at": "2026-10-10T12:06:37.263011+00:00",
+  "refresh_outcome": "checked_unchanged",
+  "analytical_scope": {
+    "agency": "NHAI",
+    "entity_type": "agency",
+    "entity_id": "nhai",
+    "road_class": "National Highway",
+    "scope_note": "NHAI-only annual construction flow; not national network stock."
+  },
+  "evidence_status": "validated_curated",
+  "publication_date": null,
+  "disclosure_ready": true,
+  "analytical_ready": true,
+  "extraction_status": "validated",
+  "metric_coverage": [
+    {
+      "metric": "nhai_constructed_length_km",
+      "unit": "km",
+      "entity_type": "agency",
+      "agency": "NHAI",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "source_specific_reported",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "nhai_constructed_length_series_official",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2026-03-31",
+      "earliest_entity_cutoff": "2026-03-31",
+      "latest_available_period_end": "2026-03-31",
+      "latest_publication_date": null,
+      "latest_disclosure_publication_date": null,
+      "publication_lag_days": null,
+      "observation_status": [
+        "final"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "All India": "2026-03-31"
+      },
+      "row_count": 12,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "research_cutoff": "2026-10-10",
+  "next_expected_publication_at": null
+}

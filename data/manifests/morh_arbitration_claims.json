@@ -1,0 +1,113 @@
+{
+  "source_id": "morh_arbitration_claims",
+  "connector": "morh_arbitration_claims_official_csv",
+  "version": "0.1.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "Ministry of Road Transport and Highways (MoRTH)",
+    "title": "Arbitration and claim settlements associated with highway projects",
+    "url": "https://sansad.in/rs/questions/questions-and-answers",
+    "retrieved_at": "2026-03-11T05:17:35.823747+00:00",
+    "license_terms": "Use only official releases, tribunal disclosures, and ministry-level replies.",
+    "official_flag": true,
+    "domain": "sansad.in",
+    "observation_date_unknown": true,
+    "publication_date_unknown": true
+  },
+  "citations": {
+    "permanent_identifier": "order/award/case identifier and publication note",
+    "anchor": "official_claim_order_or_dispute_disposition",
+    "note": "Arbitration claim CSV imported through approved manual artifact."
+  },
+  "manifest": {
+    "raw_files": [],
+    "output_files": [
+      {
+        "path": "data/processed/morh_arbitration_claims.parquet",
+        "format": "parquet",
+        "sha256": "d68c2bd2b02fcb881c5462410ef3fdc34bf7cfc35f2d14e800baa67d66a6fdf6"
+      }
+    ],
+    "row_count": 2,
+    "columns": [
+      "state",
+      "year",
+      "project_id",
+      "claim_id",
+      "claim_source",
+      "claim_amount_crores",
+      "claim_status",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ],
+    "unbound_raw_evidence": [
+      {
+        "path": "data/raw/manual/morh_arbitration_claims.csv",
+        "expected_sha256": "73d95afc7f758b2f190225cd4aba54eef98362d3e40d9b6f38d299e37f5de324",
+        "available_sha256": "d6a6890d72290880d7f89d0e8b05da9185e30077c25e60336a8dd766c7645ca5",
+        "original_binding": {
+          "path": "data/raw/manual/morh_arbitration_claims.csv",
+          "sha256": "73d95afc7f758b2f190225cd4aba54eef98362d3e40d9b6f38d299e37f5de324",
+          "size_bytes": 214
+        },
+        "availability": "present_unbound",
+        "binding_status": "quarantined",
+        "reason": "unsupported_legacy_input_checksum_mismatch",
+        "available_size_bytes": 211
+      }
+    ],
+    "raw_evidence_gaps": []
+  },
+  "retrieved_at": "2026-03-11T05:17:35.823747+00:00",
+  "completeness_score": 0.98,
+  "recency_score": 0.25,
+  "provenance_score": 0.833,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "Low",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency",
+    "Observation date is unavailable; collection time is not data freshness",
+    "Not eligible for measured analyst calculations",
+    "Document discovery is not validated financial extraction"
+  ],
+  "output_table_path": "data/processed/morh_arbitration_claims.parquet",
+  "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
+  "data_checksum": "cdb56af7237c1d1dba24bc3226db7f0b18e430058ff477d2b4e12fe287c649a1",
+  "last_checked_at": "2026-10-10T12:13:42.863453+00:00",
+  "refresh_outcome": "restricted",
+  "analytical_scope": {
+    "observation_date_unknown": true
+  },
+  "evidence_status": "unverified",
+  "source_as_of_date": null,
+  "publication_date": null,
+  "disclosure_ready": false,
+  "analytical_ready": false,
+  "extraction_status": "pending",
+  "recency_basis": "unknown",
+  "validation_errors": [],
+  "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date",
+  "last_quality_check_at": "2026-10-01T22:14:43.656692+00:00",
+  "metric_coverage": [
+    {
+      "source_id": "morh_arbitration_claims",
+      "metric": "dataset",
+      "coverage_status": "not_calculation_ready",
+      "latest_observation_date": null,
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 2,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "research_cutoff": "2026-10-10",
+  "next_expected_publication_at": null
+}

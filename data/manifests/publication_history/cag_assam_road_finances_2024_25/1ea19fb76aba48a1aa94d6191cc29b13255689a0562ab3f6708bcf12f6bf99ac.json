@@ -1,0 +1,28 @@
+{
+  "source_id": "cag_assam_road_finances_2024_25",
+  "observation_checksum": "1ea19fb76aba48a1aa94d6191cc29b13255689a0562ab3f6708bcf12f6bf99ac",
+  "path": "data/processed/publication_history/cag_assam_road_finances_2024_25/1ea19fb76aba48a1aa94d6191cc29b13255689a0562ab3f6708bcf12f6bf99ac.parquet",
+  "sha256": "e4170f85428596152351c983b60e5ab4248ffcfb702b746e7407847205dcdc68",
+  "row_count": 4,
+  "source_as_of_date": "2025-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "cag_assam_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "CAG Assam FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Published Statement4A current capital is INR9307.45crore whereas Statement5 is INR9307.46crore. Both reported cells retained, no synthetic correction; both current capital observations calculation-ineligible pending reconciliation."
+  },
+  "source_documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-24-25-Assam-24-12-2025-0699bdca0253803-90088290.pdf",
+      "relative_path": "primary_disclosures/cag_assam_road_finances_2024_25/versions/06ad76451cb68f9dc07acadc8f3c63a54335f848972d53ac1530426d18a97c09.pdf",
+      "sha256": "06ad76451cb68f9dc07acadc8f3c63a54335f848972d53ac1530426d18a97c09",
+      "size_bytes": 3318228,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=66"
+    }
+  ],
+  "data_changed_at": "2026-10-02T08:01:48.094488+00:00"
+}

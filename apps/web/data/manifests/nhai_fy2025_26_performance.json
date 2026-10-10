@@ -1,0 +1,358 @@
+{
+  "source_id": "nhai_fy2025_26_performance",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "refresh_outcome": "checked_unchanged",
+  "last_checked_at": "2026-10-10T12:17:59.442771+00:00",
+  "last_successful_retrieval_at": "2026-10-02T04:22:45.351478+00:00",
+  "data_changed_at": "2026-10-02T04:58:57.100845+00:00",
+  "publication_date": "2026-04-01",
+  "source_as_of_date": "2026-03-31",
+  "analytical_ready": true,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "",
+  "source": {
+    "publisher": "Ministry of Road Transport and Highways / National Highways Authority of India / Press Information Bureau",
+    "title": "NHAI FY2025-26 construction, capital expenditure and funding administrative actuals",
+    "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2247870&lang=1&reg=3",
+    "retrieved_at": "2026-10-02T04:22:45.351478+00:00",
+    "official_flag": true,
+    "publisher_type": "government",
+    "license_terms": "Public official press release; attribution and release identifier required.",
+    "domain": "pib.gov.in"
+  },
+  "citations": {
+    "permanent_identifier": "nhai_fy2025_26_performance",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "Official 1 April 2026 release:5,313 km constructed; capex ₹244,362 crore, Government Budgetary Support ₹238,384 crore and own resources ₹5,978 crore reconcile.4,640 km target remains ineligible for measured calculations."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/primary_disclosures/nhai_fy2025_26_performance/versions/0f5de32b5f62870df66f4df9bb54b65262e6f89f296675f286e1a61852d0bfb3.html",
+        "sha256": "0f5de32b5f62870df66f4df9bb54b65262e6f89f296675f286e1a61852d0bfb3",
+        "size_bytes": 72706
+      },
+      {
+        "path": "data/raw/manual/nhai_fy2025_26_performance.csv",
+        "sha256": "ea6ade54a8394d8cd3e887d4c347ebab68c848fc1134765d27a624cc188c1361",
+        "size_bytes": 5365
+      },
+      {
+        "path": "data/raw/manual/evidence/nhai_fy2025_26_performance.json",
+        "sha256": "d18e7c0304ab4d99c0d7de4622bc015f9e70d67356645f3d19592ce4c1341b65",
+        "size_bytes": 1686
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2247870&lang=1&reg=3",
+        "relative_path": "primary_disclosures/nhai_fy2025_26_performance/versions/0f5de32b5f62870df66f4df9bb54b65262e6f89f296675f286e1a61852d0bfb3.html",
+        "sha256": "0f5de32b5f62870df66f4df9bb54b65262e6f89f296675f286e1a61852d0bfb3",
+        "size_bytes": 72706,
+        "extractor": "pipelines.national_freshness; source-pinned reviewed table or labelled release extraction",
+        "semantic_document_sha256": "87f5b9102a0b75456205b723b73c4a52d92e13dd56d0e5937e0b2e3f39d56e5a",
+        "availability": "archived"
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/nhai_fy2025_26_performance.parquet",
+        "format": "parquet",
+        "sha256": "c3174d42801a0cabe7f955f202f43197dc24234914bc8781d863f39a8c82ccfe"
+      }
+    ],
+    "row_count": 5,
+    "columns": [
+      "entity_id",
+      "entity_name",
+      "entity_type",
+      "agency",
+      "state",
+      "road_class",
+      "metric",
+      "value",
+      "unit",
+      "original_value",
+      "original_unit",
+      "period_start",
+      "period_end",
+      "period_basis",
+      "estimate_type",
+      "statement_basis",
+      "data_as_of",
+      "published_at",
+      "source_id",
+      "citation_url",
+      "table_page",
+      "evidence_class",
+      "analytical_eligible",
+      "source_document_sha256",
+      "notes",
+      "entity",
+      "year",
+      "metric_name",
+      "metric_value",
+      "metric_category",
+      "source_type",
+      "asset_id",
+      "project_name",
+      "nh_number",
+      "project_stage",
+      "scheduled_completion_date",
+      "likely_completion_date",
+      "actual_completion_date",
+      "comparison_group",
+      "asset_owner_id",
+      "implementing_agency_id",
+      "operator_id",
+      "concessionaire_id",
+      "financing_entity_id",
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period",
+      "observation_status",
+      "assurance",
+      "revision_identity",
+      "price_basis",
+      "base_year"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": []
+  },
+  "retrieved_at": "2026-10-02T04:22:45.351478+00:00",
+  "semantic_rechecks": [],
+  "publication_history": {
+    "index_path": "history/nhai_fy2025_26_performance/index.json",
+    "version_count": 1,
+    "revision_count": 0,
+    "candidate_version_id": "aef704b3059cb00bf3dd7a0cab4aa103c239b3e2dbe9441d0ccfaaa9c62b53e2"
+  },
+  "research_cutoff": "2026-10-10",
+  "completeness_score": 0.98,
+  "recency_score": 0.98,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "High",
+  "overall_confidence_reason": [],
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/nhai_fy2025_26_performance.parquet",
+  "data_checksum": "2e9d67840b3d7589e98761966655827d3b3d1c7d25725780eadd2c77496d974f",
+  "publication_generations": [
+    {
+      "source_id": "nhai_fy2025_26_performance",
+      "observation_checksum": "2e9d67840b3d7589e98761966655827d3b3d1c7d25725780eadd2c77496d974f",
+      "path": "data/processed/publication_history/nhai_fy2025_26_performance/2e9d67840b3d7589e98761966655827d3b3d1c7d25725780eadd2c77496d974f.parquet",
+      "sha256": "c3174d42801a0cabe7f955f202f43197dc24234914bc8781d863f39a8c82ccfe",
+      "row_count": 5,
+      "source_as_of_date": "2026-03-31",
+      "publication_date": "2026-04-01",
+      "citations": {
+        "permanent_identifier": "nhai_fy2025_26_performance",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "Official 1 April 2026 release:5,313 km constructed; capex ₹244,362 crore, Government Budgetary Support ₹238,384 crore and own resources ₹5,978 crore reconcile.4,640 km target remains ineligible for measured calculations."
+      },
+      "source_documents": [
+        {
+          "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2247870&lang=1&reg=3",
+          "relative_path": "primary_disclosures/nhai_fy2025_26_performance/versions/0f5de32b5f62870df66f4df9bb54b65262e6f89f296675f286e1a61852d0bfb3.html",
+          "sha256": "0f5de32b5f62870df66f4df9bb54b65262e6f89f296675f286e1a61852d0bfb3",
+          "size_bytes": 72706,
+          "extractor": "pipelines.national_freshness; source-pinned reviewed table or labelled release extraction",
+          "semantic_document_sha256": "87f5b9102a0b75456205b723b73c4a52d92e13dd56d0e5937e0b2e3f39d56e5a"
+        }
+      ],
+      "data_changed_at": "2026-10-02T04:22:45.351478+00:00"
+    }
+  ],
+  "last_ingested_at": "2026-10-10T12:17:59.442771+00:00",
+  "analytical_scope": {
+    "source_as_of_date": "2026-03-31",
+    "publisher_type": "government"
+  },
+  "next_expected_publication_at": null,
+  "metric_coverage": [
+    {
+      "metric": "capital_expenditure_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "agency",
+      "agency": "NHAI",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "NHAI_administrative_performance",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "nhai_fy2025_26_performance",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2026-03-31",
+      "earliest_entity_cutoff": "2026-03-31",
+      "latest_available_period_end": "2026-03-31",
+      "latest_publication_date": "2026-04-01",
+      "latest_disclosure_publication_date": "2026-04-01",
+      "publication_lag_days": 1,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "nhai": "2026-03-31"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "constructed_length_km",
+      "unit": "km",
+      "entity_type": "agency",
+      "agency": "NHAI",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "NHAI_administrative_performance",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "nhai_fy2025_26_performance",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2026-03-31",
+      "earliest_entity_cutoff": "2026-03-31",
+      "latest_available_period_end": "2026-03-31",
+      "latest_publication_date": "2026-04-01",
+      "latest_disclosure_publication_date": "2026-04-01",
+      "publication_lag_days": 1,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "nhai": "2026-03-31"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "construction_target_km",
+      "unit": "km",
+      "entity_type": "agency",
+      "agency": "NHAI",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "NHAI_administrative_performance",
+      "estimate_type": "target",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "nhai_fy2025_26_performance",
+      "coverage_status": "estimate_vintage_known",
+      "latest_observation_date": "2026-03-31",
+      "earliest_entity_cutoff": "2026-03-31",
+      "latest_available_period_end": "2026-03-31",
+      "latest_publication_date": "2026-04-01",
+      "latest_disclosure_publication_date": "2026-04-01",
+      "publication_lag_days": 1,
+      "observation_status": [
+        "estimate"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "nhai": "2026-03-31"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "government_budgetary_support_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "agency",
+      "agency": "NHAI",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "NHAI_administrative_performance",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "nhai_fy2025_26_performance",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2026-03-31",
+      "earliest_entity_cutoff": "2026-03-31",
+      "latest_available_period_end": "2026-03-31",
+      "latest_publication_date": "2026-04-01",
+      "latest_disclosure_publication_date": "2026-04-01",
+      "publication_lag_days": 1,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "nhai": "2026-03-31"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "own_resources_funding_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "agency",
+      "agency": "NHAI",
+      "road_class": "National Highway",
+      "period_basis": "fiscal_year",
+      "statement_basis": "NHAI_administrative_performance",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "nhai_fy2025_26_performance",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2026-03-31",
+      "earliest_entity_cutoff": "2026-03-31",
+      "latest_available_period_end": "2026-03-31",
+      "latest_publication_date": "2026-04-01",
+      "latest_disclosure_publication_date": "2026-04-01",
+      "publication_lag_days": 1,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "nhai": "2026-03-31"
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
+}

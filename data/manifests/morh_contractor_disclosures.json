@@ -1,0 +1,113 @@
+{
+  "source_id": "morh_contractor_disclosures",
+  "connector": "morh_contractor_disclosures_official_csv",
+  "version": "0.1.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI) / Ministry of Road Transport and Highways (MoRTH)",
+    "title": "Contractor qualification, performance, and award disclosures",
+    "url": "https://eprocure.gov.in/epublish//app",
+    "retrieved_at": "2026-03-11T05:17:35.817631+00:00",
+    "license_terms": "Use official releases and disclosures only; verify reuse permissions in associated notices.",
+    "official_flag": true,
+    "domain": "eprocure.gov.in",
+    "observation_date_unknown": true,
+    "publication_date_unknown": true
+  },
+  "citations": {
+    "permanent_identifier": "notice/award order id and publication date",
+    "anchor": "official_notice_or_contract_award",
+    "note": "Contractor disclosure CSV imported through approved manual artifact."
+  },
+  "manifest": {
+    "raw_files": [],
+    "output_files": [
+      {
+        "path": "data/processed/morh_contractor_disclosures.parquet",
+        "format": "parquet",
+        "sha256": "4c4da604d82d99bf2473f75acc6594cbcde94c31ff0b173a07b54cb1d6fe70f6"
+      }
+    ],
+    "row_count": 2,
+    "columns": [
+      "state",
+      "year",
+      "project_id",
+      "project_name",
+      "contractor_name",
+      "contract_value_crores",
+      "award_status",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ],
+    "unbound_raw_evidence": [
+      {
+        "path": "data/raw/manual/morh_contractor_disclosures.csv",
+        "expected_sha256": "8bb4a055d461ebfdc510e9f4eb6ebc7d0e38c6ba9ac75ca093e4cbe5662e0325",
+        "available_sha256": "faf67e71edb6dfba035cb382fdec904e3e7eed0ba8e08b79498678a0632bfdeb",
+        "original_binding": {
+          "path": "data/raw/manual/morh_contractor_disclosures.csv",
+          "sha256": "8bb4a055d461ebfdc510e9f4eb6ebc7d0e38c6ba9ac75ca093e4cbe5662e0325",
+          "size_bytes": 265
+        },
+        "availability": "present_unbound",
+        "binding_status": "quarantined",
+        "reason": "unsupported_legacy_input_checksum_mismatch",
+        "available_size_bytes": 262
+      }
+    ],
+    "raw_evidence_gaps": []
+  },
+  "retrieved_at": "2026-03-11T05:17:35.817631+00:00",
+  "completeness_score": 0.98,
+  "recency_score": 0.25,
+  "provenance_score": 0.833,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "Low",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency",
+    "Observation date is unavailable; collection time is not data freshness",
+    "Not eligible for measured analyst calculations",
+    "Document discovery is not validated financial extraction"
+  ],
+  "output_table_path": "data/processed/morh_contractor_disclosures.parquet",
+  "refresh_error": "Manual/source evidence has no concrete document, anchor and observation date",
+  "data_checksum": "f60dfd6c412eec5eb39100ccd13b0b188da130b47b348f67baa12cff886a27ff",
+  "last_checked_at": "2026-10-10T12:13:42.847301+00:00",
+  "refresh_outcome": "restricted",
+  "analytical_scope": {
+    "observation_date_unknown": true
+  },
+  "evidence_status": "unverified",
+  "source_as_of_date": null,
+  "publication_date": null,
+  "disclosure_ready": false,
+  "analytical_ready": false,
+  "extraction_status": "pending",
+  "recency_basis": "unknown",
+  "validation_errors": [],
+  "quarantine_reason": "Manual/source evidence has no concrete document, anchor and observation date",
+  "last_quality_check_at": "2026-10-01T22:14:43.655100+00:00",
+  "metric_coverage": [
+    {
+      "source_id": "morh_contractor_disclosures",
+      "metric": "dataset",
+      "coverage_status": "not_calculation_ready",
+      "latest_observation_date": null,
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 2,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "research_cutoff": "2026-10-10",
+  "next_expected_publication_at": null
+}

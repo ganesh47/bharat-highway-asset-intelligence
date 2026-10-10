@@ -1,0 +1,1064 @@
+{
+  "research_cutoff": "2026-10-02",
+  "generated_at": "2026-10-02T04:53:13.104472+00:00",
+  "index": {
+    "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=79",
+    "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=79",
+    "http_status": 200,
+    "checked_at": "2026-10-02T04:52:58.232440+00:00",
+    "sha256": "6f4c603b1b23911378a2ea0561bd3dc465d64588296d27a7e8e54f422e5f89ff",
+    "size_bytes": 164019,
+    "outcome": "retrieved",
+    "capture_path": "data/raw/state_freshness/catalogue_audit/cag_state_index.html"
+  },
+  "jurisdiction_count": 36,
+  "jurisdictions": [
+    {
+      "jurisdiction": "Andaman and Nicobar Islands",
+      "status": "not_listed_in_state_selector",
+      "reason": "No current-jurisdiction state-account selector found; investigate territory/Union accounts or local accountant-general index separately. No assumed source URL, release or zero expenditure.",
+      "alternative_catalogue_url": "https://cag.gov.in/en/state-accounts-report?show_ut_only=1",
+      "finance_accounts": {}
+    },
+    {
+      "jurisdiction": "Andhra Pradesh",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=64",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=64",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:52:59.731936+00:00",
+        "sha256": "83e554397557ad570d1858cb64012739e4484f988f8a17dcc30d9fa503787eb3",
+        "size_bytes": 168239,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/andhra_pradesh.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2024-25-069aadb8ce9dd98-48257159.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-II-2024-25-069aadbc2ef08b4-64872690.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2023-24-06734a342316227-73410782.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-II-2023-24-06734a3f1280cd2-71345636.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2022-23-065c4cdd7dcf5a2-49832950.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-II-2022-23-065c4ce10397e71-57945957.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2021-2022-0641db2efcd6e27-94714183.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-II-2021-2022-0641db35e61f174-96576786.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Arunachal Pradesh",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=65",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=65",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:52:59.732132+00:00",
+        "sha256": "71c7452fa84c9ae5537bb780a693e041501023c9f1b2565c9d196bb030626e13",
+        "size_bytes": 171325,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/arunachal_pradesh.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-ARUNAC-1-069b7e15c0beb78-85004904.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-VOLUME-1-2024-25-Arunachal-Pradesh-19-12-2025-Final-for-net-uplouding-069b7e107e0c908-00595685.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-VOLUME-1-2023-24-Arunachal-Pradesh-12-02-2025-FINAL-FOR-PRINT-0680b260eb56a82-55884856.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-VOLUME-II-2023-24-Arunachal-Pradesh-12-02-2025-FINAL-FOR-PRINT-0680b26b8c6e3c3-80700521.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2022-23-Arunachal-Pradesh-065d48383b33be8-06909002.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-II-2022-23-Arunachal-Pradesh-065d483acc3f513-10652207.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-VOLUME-1-2021-22-Arunachal-Pradesh-16-12-2022-FINAL-FOR-net-uplouding-12-1-2023-0648990d0df25f6-43996619.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-VOLUME-II-2021-22-Arunachal-Pradesh-16-12-2022-FINAL-FOR-net-uploding-12-01-2023-064899103b655b1-83677951.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Assam",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=66",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=66",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:52:59.732362+00:00",
+        "sha256": "36f8bdfc472f693df2eec847e509fc39e63dcd399505f33c49eb0c6b6a3d6ff6",
+        "size_bytes": 163134,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/assam.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-24-25-Assam-24-12-2025-0699bdca0253803-90088290.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-II-24-25-Assam-24-12-2025-0699bdd31972846-72848880.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2023-24-Assam-17-03-2025-0684fa94f76b775-18520690.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-II-2023-24-Assam-17-03-2025-0684fb305591297-95645650.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-2021-22-0643ce7d5a00f40-95643197.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-I-2022-23-Assam-065df6895d81a22-50127435.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-II-2022-23-Assam-065df6923637760-36635454.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Bihar",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=67",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=67",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:52:59.732545+00:00",
+        "sha256": "d30ea6efe044a3ec2bbef1cee0fdd02db72064bbe0cd0ee615cb0c7eca8398b6",
+        "size_bytes": 172023,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/bihar.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Account-Volume-I-ENGLISH-2024-25-BIHAR-31-01-2026-069a011be9935a9-80886549.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Account-Volume-II-BIHAR-ENGLISH-2024-25-31-01-2026-069a013611b9233-45674079.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-2023-24-Vol-I-Bihar-English-067e4ed3e544e15-90011438.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-2023-24-Vol-II-Bihar-English-067e4ed97ed7ec8-78418916.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-I-2022-23-English-09-12-2023-065e01c767cb444-27138595.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-II-2022-23-English-09-12-2023-065e01c4a8212a3-53815950.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-I-2021-22-Bihar-English-14-12-2022-1-06437f697c65e70-62725007.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-II-2021-22-Bihar-English-14-12-2022-06437f6d9889694-56493467.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Chandigarh",
+      "status": "not_listed_in_state_selector",
+      "reason": "No current-jurisdiction state-account selector found; investigate territory/Union accounts or local accountant-general index separately. No assumed source URL, release or zero expenditure.",
+      "alternative_catalogue_url": "https://cag.gov.in/en/state-accounts-report?show_ut_only=1",
+      "finance_accounts": {}
+    },
+    {
+      "jurisdiction": "Chhattisgarh",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=68",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=68",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:01.811178+00:00",
+        "sha256": "c58b971965d5e1510ad4559e43beb49e9d096be47400485083a41790dfe874a6",
+        "size_bytes": 169896,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/chhattisgarh.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FINANCE-ACCOUNTS-VOL-01-English-069bb95632bd096-37549772.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FINANCE-ACCOUNTS-VOL-02-English-069bb9598898702-21523706.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Account-Vol-1-English-067651e2c85d528-44605179.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Account-Vol-2-English-067651e09896f21-18190555.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-7-Finance-Accounts-Volume-I-065cb5887ee28a4-00574614.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-8-Finance-Account-Volume-II-065cb58c85fe978-29899990.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-ENGLISH-VOLUME-2-063ce1faadd96e2-65152203.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Volume-1-english-063ce1f2b641844-26849832.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Dadra and Nagar Haveli and Daman and Diu",
+      "status": "not_listed_in_state_selector",
+      "reason": "No current-jurisdiction state-account selector found; investigate territory/Union accounts or local accountant-general index separately. No assumed source URL, release or zero expenditure.",
+      "alternative_catalogue_url": "https://cag.gov.in/en/state-accounts-report?show_ut_only=1",
+      "finance_accounts": {}
+    },
+    {
+      "jurisdiction": "Delhi",
+      "status": "no_finance_account_files_discovered",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=69",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=69",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:01.959142+00:00",
+        "sha256": "225622f9570b6aa1042b76c66b39a0ad414f77eb77fc07fd1fc02ed9ae10da47",
+        "size_bytes": 84156,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/delhi.html"
+      },
+      "finance_accounts": {},
+      "latest_indexed_account_year": null,
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Goa",
+      "status": "no_finance_account_files_discovered",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=70",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=70",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:02.007173+00:00",
+        "sha256": "1b5bfcfdfaa43c02005e41fcc401aadffb0f5ba1cc73ce59ebb8f712155648c9",
+        "size_bytes": 84154,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/goa.html"
+      },
+      "finance_accounts": {},
+      "latest_indexed_account_year": null,
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Gujarat",
+      "status": "roads_bridges_fy2024_25_extracted",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=71",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=71",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:02.091023+00:00",
+        "sha256": "37b76659f9e441c79c995e3c45e369a9899b79c07ee2b2b8f15a6d243bafa184",
+        "size_bytes": 170749,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/gujarat.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-VOL-I-2024-25-069c52aa2b34bf9-63690940.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-VOL-II-2024-25-069c52af8d4f245-78414170.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2023-24-067ebc6bb37e4c9-68088077.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-II-2023-24-067ebc71e89c1f1-35908776.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2022-23-Volume-1-065e1cccc00c3d1-64010864.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2022-23-Volume-2-065e1cd0bc8f857-53221550.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-VOL-I-2021-22-0642a7e90bbf6f1-50298101.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-VOL-II-2021-22-0642a7eaa542548-19209741.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Haryana",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=72",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=72",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:02.902271+00:00",
+        "sha256": "985fa528d8ea1998707e0f37560e3883df72dc3d38c7679fdbf594fa7b0930c7",
+        "size_bytes": 170032,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/haryana.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2024-25-1-06949342f0c1bd1-60544781.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-II-2024-25-2-069493484db5506-81988701.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2023-24-067ced4a07c15d4-44290970.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-II-2023-24-067ced4cd4434a4-10058366.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2022-23-06580293cb82ec6-44591486.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-II-2022-23-0658029704ce7c9-88051893.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2021-22-063b2c639e73e40-27939166.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-II-2021-22-063b2c6513b6a96-31291871.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Himachal Pradesh",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=73",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=73",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:02.974470+00:00",
+        "sha256": "839a335b95b650ae6d61cd8277b3fe204080e89c90634a6f53b0acd589866b0a",
+        "size_bytes": 167774,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/himachal_pradesh.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-I-2024-25-English-26-12-2025-069ccf778436f33-49613332.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-II-2024-25-English-26-12-2025-069ccf7f4c11343-22376520.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-I-2023-24-HP-English-14-02-2025-067ee2ca716e462-77791374.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-II-2023-24-HP-English-14-02-2025-067ee2ceaa44c76-55634028.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-2022-23-Vol-I-HP-English-04-12-2023-0659250f4f337a9-11319003.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-2022-23-Vol-II-HP-English-04-12-2023-065925121df5a54-05734212.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2021-22-Vol-I-English-063bcfbff43c6b6-49800051.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Voll-II-063e094e9bfb073-78810444.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Jammu and Kashmir",
+      "status": "no_finance_account_files_discovered",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=74",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=74",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:03.584984+00:00",
+        "sha256": "539fc2d17d0b3ecab9d85404ec6f0a7e5885a821248fdd8a4cd25891c065c774",
+        "size_bytes": 87070,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/jammu_and_kashmir.html"
+      },
+      "finance_accounts": {},
+      "latest_indexed_account_year": null,
+      "scope_review_required": true,
+      "notes": "Discovery index uses a legacy pre30October2019 J&K selector label; current document scope must be verified."
+    },
+    {
+      "jurisdiction": "Jharkhand",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=75",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=75",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:03.663655+00:00",
+        "sha256": "9502936b4d379d78d2c9e6e8429df5c1db5e0248af9578a76f56bcce9529fbd5",
+        "size_bytes": 167429,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/jharkhand.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-1-2024-25-ENGLISH-FINAL-0693c0e9a47b758-34211409.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-2-2024-25-ENGLISH-FINAL-0693c0f22646dd3-39260604.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-1-ENGLISH-2023-24-067caabe42b7b55-35337947.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-2-2023-24-ENGLISH-067caac018f1bf9-35780613.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-Vol-1-2022-23-English-Final-06593f538ef7682-55907718.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-Vol-2-2022-23-English-Final-06593f551d3cac9-94837870.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-V-2-2021-22-Eng-063dca8243111e5-13694047.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-Vol-1-2021-22-English-063dca839e2eac4-78884426.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Karnataka",
+      "status": "roads_bridges_fy2024_25_extracted",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=76",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=76",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:04.259828+00:00",
+        "sha256": "0a15299f45382e4958aca1c919ded480219cc3a6da9a21f68ed3460dc2e4bc6b",
+        "size_bytes": 177396,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/karnataka.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/3.Finance Accounts Vol.II_Part-I 2024-25_government_of_karnataka.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/4.Finance Accounts Vol.II_Part-II 2024-25_government_of_karnataka.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-2-Finance-Accounts-Vol-I-2024-25-government-of-karnataka-06948f82bb28817-62582478.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-2-Finance-Accounts-Vol-I-2023-24-0675c124b0fe469-27592717.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-3-Part-I-Finance-Accounts-Vol-II-2023-24-Edit-0675c12f157be78-41111978.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-4-Part-II-Finance-Accounts-Vol-II-2023-24-Edit-0675c18523abaf5-36823195.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-1-Finance-Account-Vol-I-2022-23-065cdab284010b5-12296940.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Account-Vol-II-2022-23.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-1-Finance-Accounts-Vol-I-2021-22-063ced8d3d07466-44502037.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-II-2021-22-063a98634a74042-25142059.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Kerala",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=77",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=77",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:04.312488+00:00",
+        "sha256": "3d256e4bbe77c72e802d58922d5f259bf3dee7d0025bf91997de2e0634ec8633",
+        "size_bytes": 171151,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/kerala.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finace-Accounts-Vol-I-2024-25-0699d360b32af96-97221491.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finace-Accounts-Vol-II-2024-25-0699d3699c2fc89-06955502.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2023-24-Vol-I-English-0678f325684d213-93893125.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2023-24-Vol-II-069b7f8d4690d13-96222241.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2022-23-Vol-I-Eng-065cda2de04ec29-36648036.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2022-23-Vol-II-Eng-065cda30f2e95e8-02014173.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2021-22-Vol-II-Eng-063e47e4b139362-81881249.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2021-22-Eng-1-063e47f339366f2-64894827.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Ladakh",
+      "status": "not_listed_in_state_selector",
+      "reason": "No current-jurisdiction state-account selector found; investigate territory/Union accounts or local accountant-general index separately. No assumed source URL, release or zero expenditure.",
+      "alternative_catalogue_url": "https://cag.gov.in/en/state-accounts-report?show_ut_only=1",
+      "finance_accounts": {}
+    },
+    {
+      "jurisdiction": "Lakshadweep",
+      "status": "not_listed_in_state_selector",
+      "reason": "No current-jurisdiction state-account selector found; investigate territory/Union accounts or local accountant-general index separately. No assumed source URL, release or zero expenditure.",
+      "alternative_catalogue_url": "https://cag.gov.in/en/state-accounts-report?show_ut_only=1",
+      "finance_accounts": {}
+    },
+    {
+      "jurisdiction": "Madhya Pradesh",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=78",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=78",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:04.516145+00:00",
+        "sha256": "9e907c73f45be526ae0983b7465309df29d624d5644e5e4094dd7182ccd50ce9",
+        "size_bytes": 169814,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/madhya_pradesh.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-VOLUME-I-2024-25-Gwalior-MP-English-06932b1d027cce6-16383283.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-VOLUME-II-2024-25-Gwalior-MP-English-06932b1b862d749-49571374.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2023-24-Vol-I-MP-English-0676554140fa0b7-11437363.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2023-24-Vol-II-MP-English-0676554730c12d8-41950225.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-MP-2022-23-Vol-I-English-065ca07f4e498b2-45101220.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-MP-2022-23-Vol-II-English-065ca08c706e6f0-88128429.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2021-22-Vol-I-MP-English-063aad0ed0d5893-75995671.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2021-22-Vol-II-MP-English-063aad130258ae4-38673105.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Maharashtra",
+      "status": "roads_bridges_fy2024_25_extracted",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=79",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=79",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:05.856389+00:00",
+        "sha256": "6f4c603b1b23911378a2ea0561bd3dc465d64588296d27a7e8e54f422e5f89ff",
+        "size_bytes": 164019,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/maharashtra.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-CD-ENGLISH-FINANCE-ACCOUNTS-VOL-I-06944f1e510c216-51074266.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-CD-ENGLISH-FINANCE-ACCOUNTS-VOL-II-06944f1067a9530-56372221.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2021-22-063aed1ed481d73-23726654.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2022-23-Vol-I-II-06582c7483562c3-98716060.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2023-24-VOL-II-0676693fd9db782-28932133.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Signed-Finance-Accounts-2023-24-VOL-I-0676693ad328318-35837768.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Manipur",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=80",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=80",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:06.037109+00:00",
+        "sha256": "ea74815ed07cbe9ab00295bdab539fa64b0aad0a2a1d31f7d2c2569f9ce6d3e5",
+        "size_bytes": 166041,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/manipur.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-Manipur-2024-25-069c124bdb2ab84-33248794.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-II-Manipur-2024-25-069c12547b6c608-78792443.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2023-24-Manipur-24-03-2025-069c123b63420d5-97382438.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-II-2023-24-Manipur-24-03-2025-069c1242980b241-76178901.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-I-2022-23-Manipur-13-02-2024-065e1f4e79a3d14-79067142.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-II-2022-23-Manipur-13-02-2024-065e1f54b005599-31786214.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-I-2021-22-Manipur-14-12-2022-1-06405be80e99a14-48905291.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-II-2021-22-Manipur-14-12-2022-1-06405be99e4d209-35122987.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Meghalaya",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=81",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=81",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:06.073674+00:00",
+        "sha256": "6cf167c13c510427c3b5d79c2d31a7fba669a49cc0b6c52139fb7a370b9ad7b2",
+        "size_bytes": 172590,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/meghalaya.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-069a184d5a6e4c7-22331771.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-II-2024-25-069a18518ae72a9-23127203.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Signed-Finance-Accounts-Vol-I-2023-24-067d2cd82d31510-17297073.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Signed-Finance-Accounts-Vol-II-2023-24-067d2cdc0b45c87-35051094.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-Meghalaya-065ddc8efb0ec74-81778493.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-II-Meghalaya-065ddc9531cdb03-98896683.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2021-22-GoMeghalaya-06422c0d3416672-81235021.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-II-2021-22-GoMeghalaya-06422c0fdceef90-77312363.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Mizoram",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=82",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=82",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:06.093695+00:00",
+        "sha256": "0930752964443d4ec6c4a554b5a12a8a5bcc45b31edb67e548dddabbd3a9de22",
+        "size_bytes": 190785,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/mizoram.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Account-Volume-I-2024-25-069cced70026997-67273227.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-II-2024-25-069ccedbfc2d503-00944831.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Account-Volume-I-2023-24-06810b56e14a654-61277747.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Account-Volume-II-2023-24-06810b5976d1b53-48301577.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Account-2022-23-Volume-I-All-page-03-11-2023-for-net-use-2-065df16779612a4-46116877.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Account-2022-23-Volume-II-03-11-2023-for-net-use-2-065df16988a7049-97697468.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Account-2021-22-Volume-I-Government-of-Mizoram-06409972aeff176-56092759.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Account-Volume-II-Government-of-Mizoram-06409976128f7e8-00488875.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Nagaland",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=83",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=83",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:07.461697+00:00",
+        "sha256": "b3a7fd358529febc89508f01f312c39541beb0f46fb7adc0efdc404eeae85f8e",
+        "size_bytes": 161200,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/nagaland.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2024-25-Vol-I-069d62e19e78f46-07358682.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2024-25-Vol-II-069d63367d633c5-36174827.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-2023-24-Vol-I-Nagaland-7-02-2025-067cfd613e5a616-84338450.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-2023-24-Vol-II-Ngagaland-7-02-2025-067cfd644ac9668-13339494.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-I-2022-23-Nagaland-01-01-2024-065e56803653583-76169372.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-II-2022-23-Nagaland-01-01-2024-065e5681adfc149-68351554.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-merge-0642a8f2b9d3a69-83832171.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Odisha",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=84",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=84",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:07.664728+00:00",
+        "sha256": "c7da19533f5d3660fd5bb0d038e26428e0d8052ddcfcfa082354624b474846de",
+        "size_bytes": 163618,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/odisha.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-06937f859281575-44134628.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-II-06937f8dc9af9d3-86399595.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-VOLUME-I-067543d68930668-29495091.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-VOLUME-II-067543db0c84406-46036372.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FINANCE-ACCOUNTS-VOLUME-I-065c6232cbaac13-17675723.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FINANCE-ACCOUNTS-VOLUME-II-065c62346ac4505-55396071.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Volume-I-06426bc6b8401d3-98633407.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Volume-II-06426bcaa0e08e2-38308325.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Puducherry",
+      "status": "no_finance_account_files_discovered",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=366",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=366",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:07.685338+00:00",
+        "sha256": "6b711cb0f7bd5490fed803620662dd05b430096588f73341bd3ff9bfbff71917",
+        "size_bytes": 84166,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/puducherry.html"
+      },
+      "finance_accounts": {},
+      "latest_indexed_account_year": null,
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Punjab",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=85",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=85",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:07.752900+00:00",
+        "sha256": "9fc14bad5e90da0fbe489d496a5b200d702f541b84162ecdc466a1c78a495a54",
+        "size_bytes": 174215,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/punjab.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-069b7e8a11653b5-25892762.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-II-2024-25-069b7e90cdff3f8-23906958.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-Vol-I-2023-24-06811c4a36fc251-28526502.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-Vol-II-2023-24-with-covers-067eb7adbf32a49-64892081.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2022-23-Vol-I-065e93f5c02f212-81183526.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2022-23-Vol-II-065e93f852095d8-76476105.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-1-0640974046c7806-57332279.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-2-06409741e459279-32609611.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Rajasthan",
+      "status": "no_finance_account_files_discovered",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=86",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=86",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:08.596273+00:00",
+        "sha256": "ffa4b858e77474f51ad1dfaf024cde7a2a011de8b8053c6864c5e550b0c3021b",
+        "size_bytes": 166546,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/rajasthan.html"
+      },
+      "finance_accounts": {},
+      "latest_indexed_account_year": null,
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Sikkim",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=87",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=87",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:08.941039+00:00",
+        "sha256": "bfe2fac3ab2740116cd8b2d08fd37c0f455dc79d045f7ccc0a4e4b50121cdd4b",
+        "size_bytes": 168924,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/sikkim.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-06a6ae045d18578-14615692.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-II-2024-25-06a6ae0aa3165e9-79938316.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2023-24-Vol-I-Placed-on-28-03-2025-in-the-House-067ee6478422e46-68036755.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2023-24-Vol-II-Placed-on-28-03-2025-in-the-House-067ee64a6761211-94704711.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Account-Vol-1-Sikkkim-2022-23-01-12-2023-065e9903e4a8e34-85160236.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Account-Vol-2-Sikkkim-2022-23-01-12-2023-065e99064ba20c5-79639005.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2021-22-Vol-I-Sikkim-14-12-2022-064226f86530849-63606876.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2021-22-Vol-II-Sikkim-14-12-2022-064226fa78aa202-10861587.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Tamil Nadu",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=88",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=88",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:09.006937+00:00",
+        "sha256": "0d6ce1000735687c50c509d01119e9fd43b55952b96e29687c4ef9d6fa215569",
+        "size_bytes": 169913,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/tamil_nadu.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-VOL-I-2024-25-069985766ce7b13-16162327.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finnace-Accounts-VOL-II-2024-25-069985791c52995-23338048.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FINANCE-ACCOUNTS-VOL-I-2023-24-067582fbf939f41-21256169.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FINANCE-ACCOUNTS-VOL-II-2023-24-067582ffdc25bf8-34784230.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accts-Vol-I-22-23-065d88622d755a9-42282986.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accts-Vol-II-22-23-065d8865a395be0-32026989.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FINANCE-ACCOUNTS-2021-22-VOLUME-I-063ce7b62c6faf6-89675658.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FINANCE-ACCOUNTS-2021-22-VOLUME-II-063ce7b89b45f10-33952371.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred. FY2024-25 Vol I PDF retrieved, but native font encoding and rotated table text prevent reliable row/column extraction. OCR and statement reconciliation remain pending; no numerical facts admitted.",
+      "document_retrieval": {
+        "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-VOL-I-2024-25-069985766ce7b13-16162327.pdf",
+        "sha256": "58828bcd7172dd20fc7dfdd15d4faa634f859ecc88c564b522a303516bcac4a6",
+        "size_bytes": 5806779,
+        "captured_at": "2026-10-02T04:41:06.645871+00:00"
+      },
+      "extraction_status": "pending_ocr_and_table_validation"
+    },
+    {
+      "jurisdiction": "Telangana",
+      "status": "roads_bridges_fy2024_25_extracted",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=93",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=93",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:09.928004+00:00",
+        "sha256": "2b9407bc236d4c290facb86f100a0b2e06ae270e6caac8dc3300fd4ce402cafc",
+        "size_bytes": 164689,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/telangana.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2024-25-069ce501b30f835-70020121.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-II-2024-25-069ce5095e7fc03-82827903.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-l-067ecf98999b8a6-05382264.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-ll-067ecf99b3c24d4-67621206.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2022-23-Volume-I-065d58e503e6057-49067585.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2022-23-Volume-II-065d58e69b92a97-86048646.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Telangana-Finance-Accounts-2021-22-Volume-I-064dc9f50eae004-69855624.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Telangana-Finance-Accounts-2021-22-Volume-II-064dc9f6b438460-67507494.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Tripura",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=89",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=89",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:10.743870+00:00",
+        "sha256": "4f9e514fb01a0960b9c907033435ebf6ccedc6628023147c9113fc53136ccab7",
+        "size_bytes": 170658,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/tripura.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-PRINT-069c11f2a724454-49441218.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-II-2024-25-PRINT-069c11f516639d0-96351911.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2023-24-Tripura-09-01-2025-067e29cc55171e3-11177012.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-II-2023-24-Tripura-09-01-2025-067e29ce5a1df22-80338579.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-I-2022-23-Tripura-20-11-2023-065eee8c6728651-51604832.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Vol-II-2022-23-Tripura-20-11-2023-065eee906a61580-61927418.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2021-22-2-12-2022-064243ae4d8e6d8-40521045.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-II-2021-22-2-12-2022-064243b05b7c924-60394791.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Uttar Pradesh",
+      "status": "roads_bridges_fy2024_25_extracted",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=90",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=90",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:10.868765+00:00",
+        "sha256": "905645aef7051e1da4b1ac58077f3dc9fdcb84a82cf00adf3a6e50715d80bc8a",
+        "size_bytes": 167515,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/uttar_pradesh.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2024-25-English-06964e82777f6d2-05539712.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-II-2024-25-English-06964e81ab346b6-31688191.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2023-24-vol-i-06765799ad78de5-10209445.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2023-24-vol-ii-0676579c8dab0a5-03342997.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2022-23-vol-1-Eng-0656da79dd9c441-46481097.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2022-23-vol-2-Eng-0656da7f0b985f7-07947392.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Account-2021-22-vol-1-0640b0e99259f37-89177930.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Account-2021-22-vol-2-0640b0f1e338aa7-47259576.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "Uttarakhand",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=91",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=91",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:10.949357+00:00",
+        "sha256": "6e75be0586741061c710dfe8618850f293ae56377a15a01e314d047291b03864",
+        "size_bytes": 169748,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/uttarakhand.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2024-25-Vol-I-069ba8ba24d8b91-33490234.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-2024-25-Vol-II-069ba8cfbf350d8-49771842.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-Vol-2-2023-24-067b71889181d37-07442335.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-vol-I-23-24-067b716a86ab414-47213668.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-I-2022-23-065e01cee1e0663-63439167.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-II-2022-23-065e01d07b76a86-95792602.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-Vol-I-Signed-06412aac6bfe865-66519114.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-Vol-II-06412aae5e09271-13468517.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    },
+    {
+      "jurisdiction": "West Bengal",
+      "status": "account_files_discovered_extraction_pending",
+      "catalogue": {
+        "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=92",
+        "resolved_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=92",
+        "http_status": 200,
+        "checked_at": "2026-10-02T04:53:11.327570+00:00",
+        "sha256": "771478001cfb4185964bdfd2de799e9975da180d83c81fc8fedb91f525a4ba38",
+        "size_bytes": 168502,
+        "outcome": "retrieved",
+        "capture_path": "data/raw/state_freshness/catalogue_audit/west_bengal.html"
+      },
+      "finance_accounts": {
+        "2024-25": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-WB-Finance-Accounts-Vol-I-2024-25-06a95158ec642d0-32051830.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-WB-Finance-Accounts-Vol-II-2024-25-06a9515f2c1dec4-04212989.pdf"
+        ],
+        "2023-24": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-WB-Finance-Accounts-Vol-I-2023-24-06a951501952df1-31390042.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-WB-Finance-Accounts-Vol-II-2023-24-06a95151c593c79-52189698.pdf"
+        ],
+        "2022-23": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-WB-Finance-Accounts-Vol-I-2022-23-06a9513247283f9-38340035.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-WB-Finance-Accounts-Vol-II-2022-23-06a9513622f4c32-58211628.pdf"
+        ],
+        "2021-22": [
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-WB-Finance-Accounts-Vol-I-2021-22-06a95128a997026-43985741.pdf",
+          "https://cag.gov.in/uploads/state_accounts_report/account-report-WB-Finance-Accounts-Vol-II-2021-22-06a9512ab465bc6-29280119.pdf"
+        ]
+      },
+      "latest_indexed_account_year": "2024-25",
+      "scope_review_required": false,
+      "notes": "Index proves document availability; no unextracted amount, publication date or observation cutoff inferred."
+    }
+  ],
+  "method": "Observed official CAG state selectors; Finance Accounts tab359 and labelled account-year PDF links. Availability audit only; extract and validate each statement before numerical use.",
+  "network_discovery": [
+    {
+      "source_url": "https://www.rbi.org.in/scripts/PublicationsView.aspx?id=23596",
+      "latest_observation": "2020-03-31",
+      "status": "older_than_existing_morth_2021_22",
+      "note": "RecentDecember2025 handbook edition does not make its SH series current; some table cells explicitly useMarch2018 observations."
+    },
+    {
+      "source_url": "https://mahades.maharashtra.gov.in/files/publication/MaharashtrasEconomyinFigures2024.pdf",
+      "latest_observation": null,
+      "status": "retrieval_blocked_tls_hostname_mismatch",
+      "note": "No numeric state network facts admitted without TLS-verified source retrieval and actual row-period/footnote checks."
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "source_id": "ncrb_toll_fastag_claims",
+  "connector": "ncrb_toll_fastag_claims_stub",
+  "version": "0.1.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Payments Corporation of India (NPCI)",
+    "title": "Toll and FASTag collection quality signal snapshots",
+    "url": "https://www.npci.org.in/product/ecosystem-statistics/netc",
+    "retrieved_at": "2026-03-11T05:17:35.830438+00:00",
+    "license_terms": "NPCI site/product terms apply; no NCRB, government OGL or public API licence is asserted. Cite the exact NETC statistics table and period.",
+    "official_flag": false,
+    "domain": "www.npci.org.in",
+    "publisher_type": "payment_system",
+    "observation_date_unknown": true,
+    "publication_date_unknown": true
+  },
+  "citations": {
+    "permanent_identifier": "API endpoint version and response schema",
+    "anchor": "manual_toll_fastag_release",
+    "note": "FASTag/quality snapshot CSV imported through approved manual artifact."
+  },
+  "manifest": {
+    "raw_files": [],
+    "output_files": [
+      {
+        "path": "data/processed/ncrb_toll_fastag_claims.parquet",
+        "format": "parquet",
+        "sha256": "ced5179e1b0d278ef56fd0c2e66e39a176c9868f1963a7512ccf61791a1b255e"
+      }
+    ],
+    "row_count": 6,
+    "columns": [
+      "state",
+      "year",
+      "metric_name",
+      "metric_value",
+      "unit",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ],
+    "unbound_raw_evidence": [
+      {
+        "path": "data/raw/manual/ncrb_toll_fastag_claims.csv",
+        "expected_sha256": "cc91af91f13d81a8da0a470e87bf4c2cdad18c9623c0519e7c6a0bc33a457678",
+        "available_sha256": "07540afcf8095df060c7b9a1776c2989e86436792e6056c59f0bf5417b97a10a",
+        "original_binding": {
+          "path": "data/raw/manual/ncrb_toll_fastag_claims.csv",
+          "sha256": "cc91af91f13d81a8da0a470e87bf4c2cdad18c9623c0519e7c6a0bc33a457678",
+          "size_bytes": 379
+        },
+        "availability": "present_unbound",
+        "binding_status": "quarantined",
+        "reason": "unsupported_legacy_input_checksum_mismatch",
+        "available_size_bytes": 372
+      }
+    ],
+    "raw_evidence_gaps": []
+  },
+  "retrieved_at": "2026-03-11T05:17:35.830438+00:00",
+  "completeness_score": 0.98,
+  "recency_score": 0.25,
+  "provenance_score": 0.588,
+  "consistency_score": 0.75,
+  "overall_confidence_badge": "Low",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency",
+    "Million-scale metric is labelled as an unscaled count",
+    "Observation date is unavailable; collection time is not data freshness",
+    "Not eligible for measured analyst calculations",
+    "Document discovery is not validated financial extraction"
+  ],
+  "output_table_path": "data/processed/ncrb_toll_fastag_claims.parquet",
+  "refresh_error": "Million-scale metric is labelled as an unscaled count",
+  "data_checksum": "6d6850811b134df363baa66698fb5b191623e27185774490dd6385e28407f0f8",
+  "last_checked_at": "2026-10-10T12:13:42.879428+00:00",
+  "refresh_outcome": "restricted",
+  "analytical_scope": {
+    "publisher_type": "payment_system",
+    "observation_date_unknown": true
+  },
+  "evidence_status": "unverified",
+  "source_as_of_date": null,
+  "publication_date": null,
+  "disclosure_ready": false,
+  "analytical_ready": false,
+  "extraction_status": "pending",
+  "recency_basis": "unknown",
+  "validation_errors": [
+    "Million-scale metric is labelled as an unscaled count"
+  ],
+  "quarantine_reason": "Million-scale metric is labelled as an unscaled count",
+  "last_quality_check_at": "2026-10-01T22:14:43.658462+00:00",
+  "metric_coverage": [
+    {
+      "source_id": "ncrb_toll_fastag_claims",
+      "metric": "dataset",
+      "coverage_status": "not_calculation_ready",
+      "latest_observation_date": null,
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 6,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "research_cutoff": "2026-10-10",
+  "next_expected_publication_at": null
+}

@@ -1,0 +1,108 @@
+{
+  "source_id": "data_gov_in_nhai_stateut_project_delay_status_2024",
+  "connector": "data_gov_in_ogd",
+  "version": "0.2.0",
+  "status": "ok",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI)",
+    "title": "State/UT-wise NH projects and delayed NH projects, as on March 2024",
+    "domain": "data.gov.in",
+    "url": "https://tn.data.gov.in/resource/stateut-wise-number-national-highway-projects-and-number-national-highway-delayed-projects",
+    "retrieval_method": "direct download",
+    "access_type": "HTML",
+    "retrieved_at": "2026-03-15T08:36:21.210347+00:00",
+    "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "nid=603636893 (resource page) / file RS_Session_266_AU_1845_A_to_C.csv",
+    "anchor": "resource_file:https://data.gov.in/sites/default/files/RS_Session_266_AU_1845_A_to_C.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/data_gov_in_nhai_stateut_project_delay_status_2024/data_gov_in_nhai_stateut_project_delay_status_2024/raw_20260315_083621.csv",
+        "sha256": "7d9e767b9adec4214ae7f526c6b3f15717f121655d65b75566e7aafbc7922332",
+        "size_bytes": 718
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/data_gov_in_nhai_stateut_project_delay_status_2024.parquet",
+        "format": "parquet",
+        "sha256": "6e1ee687a60676c72afa286d7ca219e8c24de3a13beaa7c534cf6fe680279092"
+      }
+    ],
+    "row_count": 33,
+    "columns": [
+      "sl._no.",
+      "state/ut",
+      "number_of_projects",
+      "number_of_delayed_projects",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": [
+      {
+        "path": "data/raw/data_gov_in_nhai_stateut_project_delay_status_2024/data_gov_in_nhai_stateut_project_delay_status_2024/raw_20260315_083621.csv",
+        "sha256": "7d9e767b9adec4214ae7f526c6b3f15717f121655d65b75566e7aafbc7922332",
+        "availability": "not_archived",
+        "reason": "raw_input_archive_missing"
+      }
+    ]
+  },
+  "retrieved_at": "2026-03-15T08:36:21.210347+00:00",
+  "completeness_score": 1.0,
+  "recency_score": 0.4,
+  "provenance_score": 1.0,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "Med",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency"
+  ],
+  "output_table_path": "data/processed/data_gov_in_nhai_stateut_project_delay_status_2024.parquet",
+  "data_checksum": "43828e52b648a8192b80a2abc5dc1ffb450d2e0318266527541bf1bb76700c27",
+  "last_successful_retrieval_at": "2026-10-01T20:08:28.025017+00:00",
+  "last_ingested_at": "2026-10-01T20:08:28.025017+00:00",
+  "last_checked_at": "2026-10-10T12:06:29.230710+00:00",
+  "refresh_outcome": "retained_after_failure",
+  "analytical_scope": {
+    "agency": "MoRTH",
+    "entity_type": "state_ut",
+    "road_class": "National Highway",
+    "source_as_of_date": "2024-03-31"
+  },
+  "evidence_status": "validated",
+  "source_as_of_date": "2024-03-31",
+  "publication_date": null,
+  "disclosure_ready": true,
+  "analytical_ready": true,
+  "extraction_status": "validated",
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "metric_coverage": [
+    {
+      "source_id": "data_gov_in_nhai_stateut_project_delay_status_2024",
+      "metric": "dataset",
+      "coverage_status": "date_unknown",
+      "latest_observation_date": "2024-03-31",
+      "latest_publication_date": null,
+      "next_expected_publication_at": null,
+      "current_quarter_coverage": "not_applicable",
+      "row_count": 33,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "refresh_error": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata.",
+  "research_cutoff": "2026-10-10",
+  "next_expected_publication_at": null
+}

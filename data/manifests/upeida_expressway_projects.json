@@ -1,0 +1,371 @@
+{
+  "source_id": "upeida_expressway_projects",
+  "connector": "primary_disclosures",
+  "version": "1.0.0",
+  "status": "manual_ingest",
+  "metric_category": "official_measured",
+  "refresh_outcome": "checked_unchanged",
+  "last_checked_at": "2026-10-10T12:15:10.788813+00:00",
+  "last_successful_retrieval_at": "2026-10-01T19:49:37.207385+00:00",
+  "data_changed_at": "2026-10-02T04:58:48.648946+00:00",
+  "publication_date": null,
+  "source_as_of_date": null,
+  "analytical_ready": false,
+  "evidence_status": "verified",
+  "disclosure_ready": true,
+  "extraction_status": "validated",
+  "skip_reason": "",
+  "source": {
+    "publisher": "Uttar Pradesh Expressways Industrial Development Authority",
+    "title": "UPEIDA Ganga/Agra-Lucknow expressway project and award grant disclosures",
+    "url": "https://upeida.up.gov.in/en/page/ganga-expressway",
+    "retrieved_at": "2026-10-01T19:49:37.207385+00:00",
+    "official_flag": true,
+    "publisher_type": "government",
+    "license_terms": "Public primary disclosure; attribution required. No blanket OGL claim for issuer/multilateral content; link to original document and cite table/page.",
+    "domain": "upeida.up.gov.in"
+  },
+  "citations": {
+    "permanent_identifier": "upeida_expressway_projects",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "TLS-verified macOS curl retrieved historical project/grant HTML; source publication/observation dates undisclosed, figures quarantined from dated rankings. Current Ganga progress PDF URL unavailable; no progress actuals claimed."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/manual/upeida_expressway_projects.csv",
+        "sha256": "bfc27a4a268fb65a729f0546895e0c3f1aa630837b3223f28516fb6313862a6c",
+        "size_bytes": 6280
+      },
+      {
+        "path": "data/raw/manual/evidence/upeida_expressway_projects.json",
+        "sha256": "6943bf31992aa96423f65daec2ddee56141689c7151c7d79c2c3a2a53088cd9f",
+        "size_bytes": 1338
+      }
+    ],
+    "source_documents": [
+      {
+        "url": "https://upeida.up.gov.in/en/page/ganga-expressway",
+        "relative_path": "primary_disclosures/upeida_expressway_projects/document.html",
+        "sha256": "b42ffae976f8e33384f83f4d34ebb63a80f950e8d235a5eb76067c4b795d3e0a",
+        "size_bytes": 80529,
+        "availability": "not_archived"
+      },
+      {
+        "url": "https://upeida.up.gov.in/en/page/agra-lucknow-expressway",
+        "relative_path": "primary_disclosures/upeida_expressway_projects/agra-lucknow.html",
+        "sha256": "251f5a62bfe6f859d0a900b211aec95d77bd77d4633cb55d893e9337fa41f51a",
+        "size_bytes": 41332,
+        "availability": "not_archived"
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/upeida_expressway_projects.parquet",
+        "format": "parquet",
+        "sha256": "40149817f51e6a420d4a632235aad0fc3fe74bb9acea26d184091698b0f1f805"
+      }
+    ],
+    "row_count": 8,
+    "columns": [
+      "entity_id",
+      "entity_name",
+      "entity_type",
+      "agency",
+      "state",
+      "road_class",
+      "metric",
+      "value",
+      "unit",
+      "original_value",
+      "original_unit",
+      "period_start",
+      "period_end",
+      "period_basis",
+      "estimate_type",
+      "statement_basis",
+      "data_as_of",
+      "published_at",
+      "source_id",
+      "citation_url",
+      "table_page",
+      "evidence_class",
+      "analytical_eligible",
+      "source_document_sha256",
+      "notes",
+      "entity",
+      "year",
+      "metric_name",
+      "metric_value",
+      "metric_category",
+      "source_type",
+      "asset_id",
+      "project_name",
+      "nh_number",
+      "project_stage",
+      "scheduled_completion_date",
+      "likely_completion_date",
+      "actual_completion_date",
+      "comparison_group",
+      "asset_owner_id",
+      "implementing_agency_id",
+      "operator_id",
+      "concessionaire_id",
+      "financing_entity_id",
+      "contractor_name",
+      "disclosure_as_of",
+      "estimate_vintage",
+      "reported_period",
+      "assurance",
+      "revision_identity",
+      "base_year",
+      "observation_status",
+      "price_basis"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": [
+      {
+        "path": "data/raw/primary_disclosures/upeida_expressway_projects/document.html",
+        "sha256": "b42ffae976f8e33384f83f4d34ebb63a80f950e8d235a5eb76067c4b795d3e0a",
+        "availability": "not_archived",
+        "reason": "primary_document_archive_missing"
+      },
+      {
+        "path": "data/raw/primary_disclosures/upeida_expressway_projects/agra-lucknow.html",
+        "sha256": "251f5a62bfe6f859d0a900b211aec95d77bd77d4633cb55d893e9337fa41f51a",
+        "availability": "not_archived",
+        "reason": "primary_document_archive_missing"
+      }
+    ]
+  },
+  "retrieved_at": "2026-10-01T19:49:37.207385+00:00",
+  "semantic_rechecks": [],
+  "publication_history": null,
+  "research_cutoff": "2026-10-10",
+  "output_table_path": "data/processed/upeida_expressway_projects.parquet",
+  "data_checksum": "9395f4dc07e61efc86f467cb489b6cd7c6164dc4e63d05613f463d11aea48d2b",
+  "publication_generations": [
+    {
+      "source_id": "upeida_expressway_projects",
+      "observation_checksum": "11bccaa5f36c2f8a27f2c9b02a9017d99e60b23d393913750c8074896dd7e3f3",
+      "path": "data/processed/publication_history/upeida_expressway_projects/11bccaa5f36c2f8a27f2c9b02a9017d99e60b23d393913750c8074896dd7e3f3.parquet",
+      "sha256": "7a576e39b4fee405294a0b35c999c5e7cda72164c1d46452950fed2038f93124",
+      "row_count": 8,
+      "source_as_of_date": null,
+      "publication_date": null,
+      "citations": {
+        "permanent_identifier": "upeida_expressway_projects",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "TLS-verified macOS curl retrieved historical project/grant HTML; source publication/observation dates undisclosed, figures quarantined from dated rankings. Current Ganga progress PDF URL unavailable; no progress actuals claimed."
+      },
+      "source_documents": [
+        {
+          "url": "https://upeida.up.gov.in/en/page/ganga-expressway",
+          "relative_path": "primary_disclosures/upeida_expressway_projects/document.html",
+          "sha256": "b42ffae976f8e33384f83f4d34ebb63a80f950e8d235a5eb76067c4b795d3e0a",
+          "size_bytes": 80529
+        },
+        {
+          "url": "https://upeida.up.gov.in/en/page/agra-lucknow-expressway",
+          "relative_path": "primary_disclosures/upeida_expressway_projects/agra-lucknow.html",
+          "sha256": "251f5a62bfe6f859d0a900b211aec95d77bd77d4633cb55d893e9337fa41f51a",
+          "size_bytes": 41332
+        }
+      ],
+      "data_changed_at": "2026-10-01T23:17:26.150409+00:00"
+    },
+    {
+      "source_id": "upeida_expressway_projects",
+      "observation_checksum": "9395f4dc07e61efc86f467cb489b6cd7c6164dc4e63d05613f463d11aea48d2b",
+      "path": "data/processed/publication_history/upeida_expressway_projects/9395f4dc07e61efc86f467cb489b6cd7c6164dc4e63d05613f463d11aea48d2b.parquet",
+      "sha256": "40149817f51e6a420d4a632235aad0fc3fe74bb9acea26d184091698b0f1f805",
+      "row_count": 8,
+      "source_as_of_date": null,
+      "publication_date": null,
+      "citations": {
+        "permanent_identifier": "upeida_expressway_projects",
+        "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+        "note": "TLS-verified macOS curl retrieved historical project/grant HTML; source publication/observation dates undisclosed, figures quarantined from dated rankings. Current Ganga progress PDF URL unavailable; no progress actuals claimed."
+      },
+      "source_documents": [
+        {
+          "url": "https://upeida.up.gov.in/en/page/ganga-expressway",
+          "relative_path": "primary_disclosures/upeida_expressway_projects/document.html",
+          "sha256": "b42ffae976f8e33384f83f4d34ebb63a80f950e8d235a5eb76067c4b795d3e0a",
+          "size_bytes": 80529
+        },
+        {
+          "url": "https://upeida.up.gov.in/en/page/agra-lucknow-expressway",
+          "relative_path": "primary_disclosures/upeida_expressway_projects/agra-lucknow.html",
+          "sha256": "251f5a62bfe6f859d0a900b211aec95d77bd77d4633cb55d893e9337fa41f51a",
+          "size_bytes": 41332
+        }
+      ],
+      "data_changed_at": "2026-10-01T19:49:37.207385+00:00"
+    }
+  ],
+  "last_ingested_at": "2026-10-10T12:15:10.788813+00:00",
+  "analytical_scope": {
+    "source_as_of_date": null,
+    "publisher_type": "government"
+  },
+  "completeness_score": 0.98,
+  "recency_score": 0.25,
+  "provenance_score": 0.98,
+  "consistency_score": 0.98,
+  "overall_confidence_badge": "Med",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency",
+    "Observation date is unavailable; collection time is not data freshness"
+  ],
+  "recency_basis": "unknown",
+  "validation_errors": [],
+  "next_expected_publication_at": null,
+  "metric_coverage": [
+    {
+      "metric": "government_grant_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "project_group",
+      "agency": "UPEIDA",
+      "road_class": "Expressway",
+      "period_basis": "project_disclosure",
+      "statement_basis": "award_grant_table",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "upeida_expressway_projects",
+      "coverage_status": "date_unknown",
+      "latest_observation_date": null,
+      "earliest_entity_cutoff": null,
+      "latest_available_period_end": null,
+      "latest_publication_date": null,
+      "latest_disclosure_publication_date": null,
+      "publication_lag_days": null,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_yet_reported",
+      "entity_count": 4,
+      "entity_cutoffs": {
+        "upeida_ganga_group_1": null,
+        "upeida_ganga_group_2": null,
+        "upeida_ganga_group_3": null,
+        "upeida_ganga_group_4": null
+      },
+      "row_count": 4,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "lane_count",
+      "unit": "count",
+      "entity_type": "project",
+      "agency": "UPEIDA",
+      "road_class": "Expressway",
+      "period_basis": "project_disclosure",
+      "statement_basis": "project_route",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "upeida_expressway_projects",
+      "coverage_status": "date_unknown",
+      "latest_observation_date": null,
+      "earliest_entity_cutoff": null,
+      "latest_available_period_end": null,
+      "latest_publication_date": null,
+      "latest_disclosure_publication_date": null,
+      "publication_lag_days": null,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_yet_reported",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "upeida_agra_lucknow": null
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "project_cost_excluding_land_inr_crore",
+      "unit": "INR crore",
+      "entity_type": "project",
+      "agency": "UPEIDA",
+      "road_class": "Expressway",
+      "period_basis": "project_disclosure",
+      "statement_basis": "project_cost_excluding_land",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "upeida_expressway_projects",
+      "coverage_status": "date_unknown",
+      "latest_observation_date": null,
+      "earliest_entity_cutoff": null,
+      "latest_available_period_end": null,
+      "latest_publication_date": null,
+      "latest_disclosure_publication_date": null,
+      "publication_lag_days": null,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_yet_reported",
+      "entity_count": 1,
+      "entity_cutoffs": {
+        "upeida_agra_lucknow": null
+      },
+      "row_count": 1,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    },
+    {
+      "metric": "project_length_km",
+      "unit": "km",
+      "entity_type": "project",
+      "agency": "UPEIDA",
+      "road_class": "Expressway",
+      "period_basis": "project_disclosure",
+      "statement_basis": "project_route",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "upeida_expressway_projects",
+      "coverage_status": "date_unknown",
+      "latest_observation_date": null,
+      "earliest_entity_cutoff": null,
+      "latest_available_period_end": null,
+      "latest_publication_date": null,
+      "latest_disclosure_publication_date": null,
+      "publication_lag_days": null,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_yet_reported",
+      "entity_count": 2,
+      "entity_cutoffs": {
+        "upeida_ganga": null,
+        "upeida_agra_lucknow": null
+      },
+      "row_count": 2,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "governed_extract_binding_status": "validated_current_extract"
+}

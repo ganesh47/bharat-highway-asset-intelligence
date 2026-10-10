@@ -1,0 +1,188 @@
+{
+  "source_id": "data_gov_in_nhai_stateut_length_constructed_2019_24",
+  "connector": "data_gov_in_ogd",
+  "version": "0.2.0",
+  "status": "ok",
+  "metric_category": "official_measured",
+  "source": {
+    "publisher": "National Highways Authority of India (NHAI)",
+    "title": "State/UT-wise length of national highways constructed by NHAI",
+    "domain": "data.gov.in",
+    "url": "https://www.data.gov.in/resource/stateut-wise-details-national-highway-length-constructed-national-highway-authority-india",
+    "retrieval_method": "direct download",
+    "access_type": "HTML",
+    "retrieved_at": "2026-10-02T04:56:18.978104+00:00",
+    "license_terms": "Open Government Data License - India (OGL), subject to data.gov.in terms",
+    "official_flag": true
+  },
+  "citations": {
+    "permanent_identifier": "nid=602994097 (resource page) / file RS_Session_263_AU_583_A_to_B.csv",
+    "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_263_AU_583_A_to_B.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "manifest": {
+    "raw_files": [
+      {
+        "path": "data/raw/data_gov_in_nhai_stateut_length_constructed_2019_24/data_gov_in_nhai_stateut_length_constructed_2019_24/raw_20261002_045619.csv",
+        "sha256": "86e2b9633f873b70d01ce36e04060cba1fa8c641b03d4559e953455916aa49e7",
+        "size_bytes": 1291
+      }
+    ],
+    "output_files": [
+      {
+        "path": "data/processed/data_gov_in_nhai_stateut_length_constructed_2019_24.parquet",
+        "format": "parquet",
+        "sha256": "50c10f8977af6bce77f5915d52e6c19eb3f29d553b8bd0b894682f237ebdcb76"
+      }
+    ],
+    "row_count": 24,
+    "columns": [
+      "sl._no.",
+      "state/ut",
+      "length_constructed_km._2019-20",
+      "length_constructed_km._2020-21",
+      "length_constructed_km._2021-22",
+      "length_constructed_km._2022-23",
+      "length_constructed_km._2023-24",
+      "source_type",
+      "source_id",
+      "metric_category",
+      "dataset_source",
+      "retrieved_at"
+    ],
+    "unbound_raw_evidence": [],
+    "raw_evidence_gaps": [
+      {
+        "path": "data/raw/data_gov_in_nhai_stateut_length_constructed_2019_24/data_gov_in_nhai_stateut_length_constructed_2019_24/raw_20261002_045619.csv",
+        "sha256": "86e2b9633f873b70d01ce36e04060cba1fa8c641b03d4559e953455916aa49e7",
+        "availability": "not_archived",
+        "reason": "raw_input_archive_missing"
+      }
+    ]
+  },
+  "retrieved_at": "2026-10-02T04:56:18.978104+00:00",
+  "completeness_score": 0.997,
+  "recency_score": 0.4,
+  "provenance_score": 0.85,
+  "consistency_score": 1.0,
+  "overall_confidence_badge": "Med",
+  "overall_confidence_reason": [
+    "Recency is stale against claimed update frequency"
+  ],
+  "source_as_of_date": "2024-03-31",
+  "recency_basis": "observation_date",
+  "validation_errors": [],
+  "output_table_path": "data/processed/data_gov_in_nhai_stateut_length_constructed_2019_24.parquet",
+  "data_checksum": "2701b15d7524696aff211f5b4b7bb09502566cee9dc7f4ed54d4bbcd85cb6785",
+  "publication_generations": [
+    {
+      "source_id": "data_gov_in_nhai_stateut_length_constructed_2019_24",
+      "observation_checksum": "adaee1351c08a12702a25d8b75f11afd1a0644eb13884c49a869a6b7e2faaa4d",
+      "path": "data/processed/publication_history/data_gov_in_nhai_stateut_length_constructed_2019_24/adaee1351c08a12702a25d8b75f11afd1a0644eb13884c49a869a6b7e2faaa4d.parquet",
+      "sha256": "1c723cafcc380e5e4040945028d0d49510e794dd80d7287e0737ed3618d779e2",
+      "row_count": 24,
+      "source_as_of_date": "2024-03-31",
+      "publication_date": null,
+      "citations": {
+        "permanent_identifier": "nid=602994097 (resource page) / file RS_Session_263_AU_583_A_to_B.csv",
+        "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_263_AU_583_A_to_B.csv",
+        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+      },
+      "source_documents": [],
+      "data_changed_at": null
+    },
+    {
+      "source_id": "data_gov_in_nhai_stateut_length_constructed_2019_24",
+      "observation_checksum": "2701b15d7524696aff211f5b4b7bb09502566cee9dc7f4ed54d4bbcd85cb6785",
+      "path": "data/processed/publication_history/data_gov_in_nhai_stateut_length_constructed_2019_24/2701b15d7524696aff211f5b4b7bb09502566cee9dc7f4ed54d4bbcd85cb6785.parquet",
+      "sha256": "50c10f8977af6bce77f5915d52e6c19eb3f29d553b8bd0b894682f237ebdcb76",
+      "row_count": 24,
+      "source_as_of_date": "2024-03-31",
+      "publication_date": null,
+      "citations": {
+        "permanent_identifier": "nid=602994097 (resource page) / file RS_Session_263_AU_583_A_to_B.csv",
+        "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_263_AU_583_A_to_B.csv",
+        "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+      },
+      "source_documents": [],
+      "data_changed_at": null
+    }
+  ],
+  "data_changed_at": "2026-10-02T04:56:18.972155+00:00",
+  "last_successful_retrieval_at": "2026-10-02T04:56:18.972155+00:00",
+  "last_ingested_at": "2026-10-02T04:56:18.972155+00:00",
+  "last_checked_at": "2026-10-10T12:06:35.285992+00:00",
+  "refresh_outcome": "retained_after_failure",
+  "analytical_scope": {
+    "road_class": "unspecified",
+    "scope_note": "Use source-specific row definitions; no cross-source identity inferred."
+  },
+  "evidence_status": "validated",
+  "publication_date": null,
+  "disclosure_ready": true,
+  "analytical_ready": true,
+  "extraction_status": "validated",
+  "research_cutoff": "2026-10-10",
+  "next_expected_publication_at": null,
+  "metric_coverage": [
+    {
+      "metric": "nhai_constructed_length_km",
+      "unit": "source_specific",
+      "entity_type": "unspecified",
+      "agency": "National Highways Authority of India (NHAI)",
+      "road_class": "unspecified",
+      "period_basis": "fiscal_year",
+      "statement_basis": "source_specific_reported",
+      "estimate_type": "actual",
+      "price_basis": "",
+      "base_year": "",
+      "source_id": "data_gov_in_nhai_stateut_length_constructed_2019_24",
+      "coverage_status": "annual_only",
+      "latest_observation_date": "2024-03-31",
+      "earliest_entity_cutoff": "2024-03-31",
+      "latest_available_period_end": "2024-03-31",
+      "latest_publication_date": null,
+      "latest_disclosure_publication_date": null,
+      "publication_lag_days": null,
+      "observation_status": [
+        "reported"
+      ],
+      "next_expected_publication_at": null,
+      "latest_complete_quarter_end": null,
+      "current_quarter_coverage": "not_applicable",
+      "entity_count": 24,
+      "entity_cutoffs": {
+        "Andhra Pradesh": "2024-03-31",
+        "Assam": "2024-03-31",
+        "Bihar": "2024-03-31",
+        "Chhattisgarh": "2024-03-31",
+        "Delhi": "2024-03-31",
+        "Gujarat": "2024-03-31",
+        "Haryana": "2024-03-31",
+        "Himachal Pradesh": "2024-03-31",
+        "Jammu and Kashmir": "2024-03-31",
+        "Jharkhand": "2024-03-31",
+        "Karnataka": "2024-03-31",
+        "Kerala": "2024-03-31",
+        "Madhya Pradesh": "2024-03-31",
+        "Maharashtra": "2024-03-31",
+        "Meghalaya": "2024-03-31",
+        "Odisha": "2024-03-31",
+        "Punjab": "2024-03-31",
+        "Rajasthan": "2024-03-31",
+        "Tamil Nadu": "2024-03-31",
+        "Telangana": "2024-03-31",
+        "Uttar Pradesh": "2024-03-31",
+        "Uttarakhand": "2024-03-31",
+        "West Bengal": "2024-03-31",
+        "Total": "2024-03-31"
+      },
+      "row_count": 120,
+      "calendar_quarter": "2026-Q4",
+      "fiscal_quarter": "FY2026-27-Q3",
+      "quarter_start": "2026-10-01",
+      "quarter_end": "2026-12-31"
+    }
+  ],
+  "refresh_error": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata."
+}

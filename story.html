@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>India's highways: an evidence companion</title>
+  <link rel="stylesheet" href="./src/story.css" />
+</head>
+<body>
+  <a class="skip-link" href="#story-main">Skip to evidence</a>
+  <header class="story-header">
+    <a class="console-link" href="./">India Highway Explorer</a>
+    <p class="eyebrow">Research companion</p>
+    <h1>India's highways, through the disclosures</h1>
+    <p class="lede">Explore construction, funding, balance sheets and asset monetisation with the source evidence alongside each observation.</p>
+    <nav aria-label="Evidence sections">
+      <a href="#public-authority">Public authority</a>
+      <a href="#portfolio-scale">NHIT scale</a>
+      <a href="#distribution">Distribution</a>
+      <a href="#resilience">Resilience</a>
+      <a href="#monitoring">Monitoring</a>
+      <a href="#story-sources">Sources</a>
+    </nav>
+  </header>
+  <main id="story-main" class="story-main" tabindex="-1">
+    <aside class="evidence-notice" aria-labelledby="evidence-status-title">
+      <h2 id="evidence-status-title">Loading the source-linked research</h2>
+      <p id="story-status" role="status" aria-live="polite">Reading the versioned observations, calculations and primary sources…</p>
+      <button id="story-retry" type="button" hidden>Retry evidence</button>
+      <button id="story-reload" type="button" hidden>Reload story</button>
+      <p><a href="./">Explore India Highway Explorer</a> or <a href="./methodology.html">read its methodology</a>.</p>
+    </aside>
+    <section class="reading-guide" aria-labelledby="reading-guide-title">
+      <h2 id="reading-guide-title">Read each figure in its own context</h2>
+      <p>Each exhibit retains its reporting entity, observation period, units, assurance and source location. Estimates, provisional updates and audited observations keep their published status.</p>
+    </section>
+    <div id="story-exhibits" aria-busy="true">
+    <section id="public-authority" class="exhibit" aria-labelledby="public-authority-title">
+      <p class="eyebrow">Exhibit 1</p>
+      <h2 id="public-authority-title">Funding the public authority</h2>
+      <div class="exhibit-content" data-exhibit="public-authority"><p class="missing-evidence">No verified observations loaded.</p></div>
+    </section>
+    <section id="portfolio-scale" class="exhibit" aria-labelledby="portfolio-scale-title">
+      <p class="eyebrow">Exhibit 2</p>
+      <h2 id="portfolio-scale-title">Scale from acquisitions and cash per unit</h2>
+      <div class="exhibit-content" data-exhibit="portfolio-scale"><p class="missing-evidence">No verified observations loaded.</p></div>
+    </section>
+    <section id="distribution" class="exhibit" aria-labelledby="distribution-title">
+      <p class="eyebrow">Exhibit 3</p>
+      <h2 id="distribution-title">Assemble the distribution</h2>
+      <div class="exhibit-content" data-exhibit="distribution"><p class="missing-evidence">No verified observations loaded.</p></div>
+    </section>
+    <section id="resilience" class="exhibit" aria-labelledby="resilience-title">
+      <p class="eyebrow">Exhibit 4</p>
+      <h2 id="resilience-title">Test resilience at the measurement boundary</h2>
+      <div class="exhibit-content" data-exhibit="resilience"><p class="missing-evidence">No verified observations loaded.</p></div>
+    </section>
+    <section id="monitoring" class="exhibit" aria-labelledby="monitoring-title">
+      <p class="eyebrow">Exhibit 5</p>
+      <h2 id="monitoring-title">Monitoring opportunity and implementation stage</h2>
+      <div class="exhibit-content" data-exhibit="monitoring"><p class="missing-evidence">No verified observations loaded.</p></div>
+    </section>
+    </div>
+    <section id="story-sources" class="exhibit" aria-labelledby="story-sources-title">
+      <h2 id="story-sources-title">Primary sources and calculations</h2>
+      <div id="story-source-list"><p class="missing-evidence">No story source inventory loaded.</p></div>
+    </section>
+  </main>
+  <footer class="story-footer"><a href="./">India Highway Explorer</a><a href="./methodology.html">Methodology and coverage</a></footer>
+  <noscript><style>#story-status,#evidence-status-title,.missing-evidence{display:none}#story-exhibits{display:none}</style><p class="story-main">The research exhibits could not start because JavaScript is disabled. Read the India Highway Explorer methodology above or enable JavaScript and reload this page.</p></noscript>
+  <script>
+    (() => {
+      const fail = () => {
+        document.getElementById('evidence-status-title').textContent='Story viewer could not start';
+        document.getElementById('story-status').textContent='No figures were loaded. Reload to try the story viewer again.';
+        document.getElementById('story-exhibits').setAttribute('aria-busy','false');
+        document.getElementById('story-reload').hidden=false;
+      };
+      const deadline=setTimeout(fail,20000);
+      window.addEventListener('story-runtime-started',()=>{
+        clearTimeout(deadline);
+        document.getElementById('story-reload').hidden=true;
+        document.getElementById('evidence-status-title').textContent='Loading the source-linked research';
+      },{once:true});
+      document.getElementById('story-reload').addEventListener('click',()=>location.reload());
+      window.addEventListener('error',event=>{if(event.target?.id==='story-runtime'){clearTimeout(deadline);fail();}},true);
+    })();
+  </script>
+  <script id="story-runtime" type="module" src="./src/story.mjs"></script>
+</body>
+</html>

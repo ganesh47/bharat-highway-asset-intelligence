@@ -1,0 +1,28 @@
+{
+  "source_id": "cag_jharkhand_road_finances_2024_25",
+  "observation_checksum": "01965107e829694728a7d9ad6c9a507baf1cff0e2d5fb97aaf12ad53f68d2128",
+  "path": "data/processed/publication_history/cag_jharkhand_road_finances_2024_25/01965107e829694728a7d9ad6c9a507baf1cff0e2d5fb97aaf12ad53f68d2128.parquet",
+  "sha256": "9bf3c370312a2caa452c8f2e09d5ea63e0c26996e9a78b429d9fa654466cef75",
+  "row_count": 3,
+  "source_as_of_date": "2025-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "cag_jharkhand_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "CAG Jharkhand FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure."
+  },
+  "source_documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Vol-1-2024-25-ENGLISH-FINAL-0693c0e9a47b758-34211409.pdf",
+      "relative_path": "primary_disclosures/cag_jharkhand_road_finances_2024_25/versions/0b818a52708b21f89490d876c6cfa216c294666ee6549118beb4c13371181739.pdf",
+      "sha256": "0b818a52708b21f89490d876c6cfa216c294666ee6549118beb4c13371181739",
+      "size_bytes": 1662629,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=75"
+    }
+  ],
+  "data_changed_at": "2026-10-02T08:01:51.862664+00:00"
+}
