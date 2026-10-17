@@ -1,0 +1,22 @@
+{
+  "source_id": "data_gov_in_nhai_projects_district_target_2023",
+  "observation_checksum": "b0b36cf12244b5cf2dade7b44bcf486a81dd759f0f3f561cbaf7e5312db5c0bf",
+  "path": "data/processed/publication_history/data_gov_in_nhai_projects_district_target_2023/b0b36cf12244b5cf2dade7b44bcf486a81dd759f0f3f561cbaf7e5312db5c0bf.parquet",
+  "sha256": "5c9c0e429d99f3e78da809448d86e590f5dd64010d1f4e06e9f76acfb0bf1247",
+  "row_count": 47,
+  "source_as_of_date": "2024-02-07",
+  "publication_date": "2024-02-07",
+  "citations": {
+    "permanent_identifier": "uuid 7d3d0adf-dce6-4440-afd5-bd88b7c3d653 or resource file RS_Session_263_AS_52_A_0.csv",
+    "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_263_AS_52_A_0.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic.",
+    "primary_reference": {
+      "url": "https://sansad.in/getFile/annex/263/AS52.pdf?source=pqars",
+      "sha256": "ca3280b26827d35995e5a947cef02c34df1902111d25725d6bd60ecf583ecdb4",
+      "table_page": "3-6",
+      "evidence_metadata_path": "data/raw/manual/evidence/data_gov_in_nhai_projects_district_target_2023.json"
+    }
+  },
+  "source_documents": [],
+  "data_changed_at": null
+}

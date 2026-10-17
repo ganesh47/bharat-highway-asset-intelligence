@@ -1,0 +1,23 @@
+{
+  "source_id": "upeida_ganga_progress_2026_04_27",
+  "observation_checksum": "060a8c34430d93b6fb1b10d720c8776deba4f62ba61656ba7da342c307acd83a",
+  "path": "data/processed/publication_history/upeida_ganga_progress_2026_04_27/060a8c34430d93b6fb1b10d720c8776deba4f62ba61656ba7da342c307acd83a.parquet",
+  "sha256": "b8fd01092e75d3dd0e1b1259fa03dfde8faaae3ac3625f158e1ec11629f940c9",
+  "row_count": 8,
+  "source_as_of_date": "2026-04-27",
+  "publication_date": "2026-04-27",
+  "citations": {
+    "permanent_identifier": "upeida_ganga_progress_2026_04_27",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "Eight dated administrative progress facts, verified rendered one-page publisher PDF. Observed/published27April2026; the later inauguration29April2026 does not advance these facts. No financial revenue or current October progress inferred."
+  },
+  "source_documents": [
+    {
+      "url": "https://upeida.up.gov.in/downloadmedia/siteContent/202604271802004244Ganga%20Pdf.pdf",
+      "relative_path": "primary_disclosures/upeida_ganga_progress_2026_04_27/versions/b387e33686b57676bdf259f5e18ba239a17789cd33f3b968e89a0ae7adc9a399.pdf",
+      "sha256": "b387e33686b57676bdf259f5e18ba239a17789cd33f3b968e89a0ae7adc9a399",
+      "size_bytes": 122535
+    }
+  ],
+  "data_changed_at": "2026-10-02T08:18:26.655093+00:00"
+}

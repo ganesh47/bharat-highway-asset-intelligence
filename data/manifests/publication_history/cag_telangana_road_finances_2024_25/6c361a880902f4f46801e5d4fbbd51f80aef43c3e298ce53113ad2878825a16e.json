@@ -1,0 +1,23 @@
+{
+  "source_id": "cag_telangana_road_finances_2024_25",
+  "observation_checksum": "6c361a880902f4f46801e5d4fbbd51f80aef43c3e298ce53113ad2878825a16e",
+  "path": "data/processed/publication_history/cag_telangana_road_finances_2024_25/6c361a880902f4f46801e5d4fbbd51f80aef43c3e298ce53113ad2878825a16e.parquet",
+  "sha256": "d9c17a148769b68f02a8cad35860e7bd9356cbf7eefb8da525155c2749790c90",
+  "row_count": 3,
+  "source_as_of_date": "2025-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "cag_telangana_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "CAG Telangana FY2024-25 audited accounts; revenue and capital Roads/Bridges amounts validated against labelled pages. FY2023-24 capital comparative retained. Publication date unknown; excludes corporation/SH-only attribution."
+  },
+  "source_documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-2024-25-069ce501b30f835-70020121.pdf",
+      "relative_path": "primary_disclosures/cag_telangana_road_finances_2024_25/versions/1c4ce5bab8dc25efcd6ae17cd28152e6bf11a1b184922d5ad782ef49b2fadcba.pdf",
+      "sha256": "1c4ce5bab8dc25efcd6ae17cd28152e6bf11a1b184922d5ad782ef49b2fadcba",
+      "size_bytes": 21101550
+    }
+  ],
+  "data_changed_at": "2026-10-02T04:41:11.027393+00:00"
+}

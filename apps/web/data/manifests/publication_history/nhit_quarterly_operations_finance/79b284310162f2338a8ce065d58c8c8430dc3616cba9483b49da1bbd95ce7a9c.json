@@ -1,0 +1,23 @@
+{
+  "source_id": "nhit_quarterly_operations_finance",
+  "observation_checksum": "79b284310162f2338a8ce065d58c8c8430dc3616cba9483b49da1bbd95ce7a9c",
+  "path": "data/processed/publication_history/nhit_quarterly_operations_finance/79b284310162f2338a8ce065d58c8c8430dc3616cba9483b49da1bbd95ce7a9c.parquet",
+  "sha256": "a284830b3888c40fd06c03c2f908bb1d96daecede85d2acf588096fcdd551d56",
+  "row_count": 117,
+  "source_as_of_date": "2026-06-30",
+  "publication_date": "2026-08-31",
+  "citations": {
+    "permanent_identifier": "nhit_quarterly_operations_finance",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": ""
+  },
+  "source_documents": [
+    {
+      "url": "https://nhit.co.in/pdf/investor-presentations/Investor%20Presentation%20June%202026.pdf",
+      "relative_path": "primary_disclosures/nhit_quarterly_operations_finance/document.pdf",
+      "sha256": "da8176d700cfc2e88e991e2a71e0a78d92d3397a519a7f13b240808a55db65f1",
+      "size_bytes": 3410545
+    }
+  ],
+  "data_changed_at": "2026-10-01T19:28:46.101037+00:00"
+}

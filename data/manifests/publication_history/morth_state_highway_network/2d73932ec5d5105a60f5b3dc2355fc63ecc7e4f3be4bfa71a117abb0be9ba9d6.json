@@ -1,0 +1,23 @@
+{
+  "source_id": "morth_state_highway_network",
+  "observation_checksum": "2d73932ec5d5105a60f5b3dc2355fc63ecc7e4f3be4bfa71a117abb0be9ba9d6",
+  "path": "data/processed/publication_history/morth_state_highway_network/2d73932ec5d5105a60f5b3dc2355fc63ecc7e4f3be4bfa71a117abb0be9ba9d6.parquet",
+  "sha256": "254f147ad44c6150059624ee4dfc3a67d8d1b02bb16f326dc5137304a32f0177",
+  "row_count": 75,
+  "source_as_of_date": "2022-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "morth_state_highway_network",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "SH network all states/UTs, older per-state footnotes preserved; Arunachal and inconsistent published total quarantined. NH stock is separately covered by existing MoRTH source; no duplicate NH series created."
+  },
+  "source_documents": [
+    {
+      "url": "https://morth.gov.in/backend/documents/uploaded/1781850176_EDsilQvsKL.pdf",
+      "relative_path": "primary_disclosures/morth_state_highway_network/document.pdf",
+      "sha256": "3288df12fb15571bfcdbcd388befe36e2cf7fdc07bf794024906e242fda73a9a",
+      "size_bytes": 9147734
+    }
+  ],
+  "data_changed_at": "2026-10-01T19:28:52.082854+00:00"
+}

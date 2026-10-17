@@ -1,0 +1,23 @@
+{
+  "source_id": "cag_jammu_and_kashmir_road_finances_2024_25",
+  "observation_checksum": "c8b0e0109be2e5b9cac07c4b55af0fad01d23831680370ba79bea472ebee3ebc",
+  "path": "data/processed/publication_history/cag_jammu_and_kashmir_road_finances_2024_25/c8b0e0109be2e5b9cac07c4b55af0fad01d23831680370ba79bea472ebee3ebc.parquet",
+  "sha256": "3aa782a6bb459fbb1ff8e6730ec7491b32580cb2856e2b762555a0a8f7ff2fca",
+  "row_count": 3,
+  "source_as_of_date": "2025-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "cag_jammu_and_kashmir_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "Recovered regional/UT primary publication; dated audited annual actuals with labelled reconciliation and no inferred publication day."
+  },
+  "source_documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-JK-Finance-Accounts-2024-25-Vol-I-15-12-2025-069d79132701351-89156562.pdf",
+      "relative_path": "primary_disclosures/cag_jammu_and_kashmir_road_finances_2024_25/versions/658c6fb7d2289942b1ca7612e0691a25fef2cd68bf6175363df3cd60652d9e93.pdf",
+      "sha256": "658c6fb7d2289942b1ca7612e0691a25fef2cd68bf6175363df3cd60652d9e93",
+      "size_bytes": 844031
+    }
+  ],
+  "data_changed_at": "2026-10-02T08:02:56.080208+00:00"
+}

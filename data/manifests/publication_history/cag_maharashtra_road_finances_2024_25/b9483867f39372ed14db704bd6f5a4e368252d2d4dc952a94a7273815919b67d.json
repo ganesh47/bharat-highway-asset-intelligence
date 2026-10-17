@@ -1,0 +1,23 @@
+{
+  "source_id": "cag_maharashtra_road_finances_2024_25",
+  "observation_checksum": "b9483867f39372ed14db704bd6f5a4e368252d2d4dc952a94a7273815919b67d",
+  "path": "data/processed/publication_history/cag_maharashtra_road_finances_2024_25/b9483867f39372ed14db704bd6f5a4e368252d2d4dc952a94a7273815919b67d.parquet",
+  "sha256": "b7d1282dedf388d45b35d2dcbd03aeec4335c40bcd484800eb51352eb75c94a3",
+  "row_count": 3,
+  "source_as_of_date": "2025-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "cag_maharashtra_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "CAG Maharashtra FY2024-25 audited accounts; revenue and capital Roads/Bridges amounts validated against labelled pages. FY2023-24 capital comparative retained. Publication date unknown; excludes corporation/SH-only attribution."
+  },
+  "source_documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-CD-ENGLISH-FINANCE-ACCOUNTS-VOL-I-06944f1e510c216-51074266.pdf",
+      "relative_path": "primary_disclosures/cag_maharashtra_road_finances_2024_25/versions/711cf4d8d72af4dbb87d75dca8974e6ba3785ed78bc24b145d775bd671742cbb.pdf",
+      "sha256": "711cf4d8d72af4dbb87d75dca8974e6ba3785ed78bc24b145d775bd671742cbb",
+      "size_bytes": 9319392
+    }
+  ],
+  "data_changed_at": "2026-10-02T04:22:48.988928+00:00"
+}
