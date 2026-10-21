@@ -1,0 +1,23 @@
+{
+  "source_id": "union_budget_morth_demand86",
+  "observation_checksum": "887551277fd25c9932982e4ab75abba9a6935337fdb3154eae9305b84c5d7259",
+  "path": "data/processed/publication_history/union_budget_morth_demand86/887551277fd25c9932982e4ab75abba9a6935337fdb3154eae9305b84c5d7259.parquet",
+  "sha256": "2d24dd44839afe5c9af245409008b50ee17682101e1f45181e65367ea9f79bf1",
+  "row_count": 40,
+  "source_as_of_date": "2026-02-01",
+  "publication_date": "2026-02-01",
+  "citations": {
+    "permanent_identifier": "union_budget_morth_demand86",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": ""
+  },
+  "source_documents": [
+    {
+      "url": "https://www.indiabudget.gov.in/doc/eb/sbe86.pdf",
+      "relative_path": "primary_disclosures/union_budget_morth_demand86/document.pdf",
+      "sha256": "b65b89fd24ce782082b314927e595d92dfb10eaa73a3c4c0f211ce0ed7a0fc08",
+      "size_bytes": 366442
+    }
+  ],
+  "data_changed_at": "2026-10-01T19:28:45.439777+00:00"
+}

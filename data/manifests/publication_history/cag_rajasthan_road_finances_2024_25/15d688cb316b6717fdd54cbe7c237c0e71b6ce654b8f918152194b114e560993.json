@@ -1,0 +1,23 @@
+{
+  "source_id": "cag_rajasthan_road_finances_2024_25",
+  "observation_checksum": "15d688cb316b6717fdd54cbe7c237c0e71b6ce654b8f918152194b114e560993",
+  "path": "data/processed/publication_history/cag_rajasthan_road_finances_2024_25/15d688cb316b6717fdd54cbe7c237c0e71b6ce654b8f918152194b114e560993.parquet",
+  "sha256": "48dbb543727ab26803b76d5864e30e28b4db12e2cdfb5918ebe173cb2c010bc8",
+  "row_count": 7,
+  "source_as_of_date": "2025-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "cag_rajasthan_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "Recovered regional/UT primary publication; dated audited annual actuals with labelled reconciliation and no inferred publication day."
+  },
+  "source_documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-FA-2024-25-Vol-I-E-002-06985d5ed9f3be2-90457272.pdf",
+      "relative_path": "primary_disclosures/cag_rajasthan_road_finances_2024_25/versions/44f59878f57f8640217e3ba84691491032e0dbe7348f1f7c59b053b06b09c547.pdf",
+      "sha256": "44f59878f57f8640217e3ba84691491032e0dbe7348f1f7c59b053b06b09c547",
+      "size_bytes": 15591110
+    }
+  ],
+  "data_changed_at": "2026-10-02T08:02:59.797745+00:00"
+}

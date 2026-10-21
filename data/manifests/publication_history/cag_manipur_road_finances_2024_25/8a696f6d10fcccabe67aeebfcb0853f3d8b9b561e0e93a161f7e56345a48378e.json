@@ -1,0 +1,28 @@
+{
+  "source_id": "cag_manipur_road_finances_2024_25",
+  "observation_checksum": "8a696f6d10fcccabe67aeebfcb0853f3d8b9b561e0e93a161f7e56345a48378e",
+  "path": "data/processed/publication_history/cag_manipur_road_finances_2024_25/8a696f6d10fcccabe67aeebfcb0853f3d8b9b561e0e93a161f7e56345a48378e.parquet",
+  "sha256": "9a598f926b2914246336ae4c77af2e7e4803a75719428f6e973140e2acad58c2",
+  "row_count": 4,
+  "source_as_of_date": "2025-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "cag_manipur_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "CAG Manipur FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Published Statement4A current capital is INR617.35crore whereas Statement5 is INR617.36crore. Both reported cells retained, no synthetic correction; both current capital observations calculation-ineligible pending reconciliation."
+  },
+  "source_documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-Manipur-2024-25-069c124bdb2ab84-33248794.pdf",
+      "relative_path": "primary_disclosures/cag_manipur_road_finances_2024_25/versions/7fdf6891e25fbce8d03e944d33c07f8beb46424e8eecc86d06fe47f235df9ae6.pdf",
+      "sha256": "7fdf6891e25fbce8d03e944d33c07f8beb46424e8eecc86d06fe47f235df9ae6",
+      "size_bytes": 2004209,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=80"
+    }
+  ],
+  "data_changed_at": "2026-10-02T08:01:55.761454+00:00"
+}

@@ -1,0 +1,28 @@
+{
+  "source_id": "cag_bihar_road_finances_2024_25",
+  "observation_checksum": "cacf15fd1f43cede3c52a07b3e7e50235c66f9a7d8a90e15be64282d824bff42",
+  "path": "data/processed/publication_history/cag_bihar_road_finances_2024_25/cacf15fd1f43cede3c52a07b3e7e50235c66f9a7d8a90e15be64282d824bff42.parquet",
+  "sha256": "f7a7d32e9bda7ef027dbda29e666fd71ea615496a57d74df37b3c25a9229bf5f",
+  "row_count": 3,
+  "source_as_of_date": "2025-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "cag_bihar_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "CAG Bihar FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure."
+  },
+  "source_documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Account-Volume-I-ENGLISH-2024-25-BIHAR-31-01-2026-069a011be9935a9-80886549.pdf",
+      "relative_path": "primary_disclosures/cag_bihar_road_finances_2024_25/versions/f7bd2666e69af57bf9bb1f7833edad7842bee1a6341b8a8642be22f40cea1e0d.pdf",
+      "sha256": "f7bd2666e69af57bf9bb1f7833edad7842bee1a6341b8a8642be22f40cea1e0d",
+      "size_bytes": 5247370,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=67"
+    }
+  ],
+  "data_changed_at": "2026-10-02T08:01:49.521832+00:00"
+}

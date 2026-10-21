@@ -1,0 +1,16 @@
+{
+  "source_id": "data_gov_in_nhai_stateut_length_constructed_2019_24",
+  "observation_checksum": "2701b15d7524696aff211f5b4b7bb09502566cee9dc7f4ed54d4bbcd85cb6785",
+  "path": "data/processed/publication_history/data_gov_in_nhai_stateut_length_constructed_2019_24/2701b15d7524696aff211f5b4b7bb09502566cee9dc7f4ed54d4bbcd85cb6785.parquet",
+  "sha256": "50c10f8977af6bce77f5915d52e6c19eb3f29d553b8bd0b894682f237ebdcb76",
+  "row_count": 24,
+  "source_as_of_date": "2024-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "nid=602994097 (resource page) / file RS_Session_263_AU_583_A_to_B.csv",
+    "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_263_AU_583_A_to_B.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "source_documents": [],
+  "data_changed_at": null
+}

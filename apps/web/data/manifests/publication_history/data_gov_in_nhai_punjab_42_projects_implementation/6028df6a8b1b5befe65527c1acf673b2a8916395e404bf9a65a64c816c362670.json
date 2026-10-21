@@ -1,0 +1,16 @@
+{
+  "source_id": "data_gov_in_nhai_punjab_42_projects_implementation",
+  "observation_checksum": "6028df6a8b1b5befe65527c1acf673b2a8916395e404bf9a65a64c816c362670",
+  "path": "data/processed/publication_history/data_gov_in_nhai_punjab_42_projects_implementation/6028df6a8b1b5befe65527c1acf673b2a8916395e404bf9a65a64c816c362670.parquet",
+  "sha256": "041ff70777bb07b2e448f11fadc84e8828ace9f9d02f92044dd640be0ea505d4",
+  "row_count": 43,
+  "source_as_of_date": null,
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "nid=603256476 (resource page) / file RS_Session_265_AU_285_A_i.csv",
+    "anchor": "resource_file:https://www.data.gov.in/sites/default/files/RS_Session_265_AU_285_A_i.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "source_documents": [],
+  "data_changed_at": null
+}

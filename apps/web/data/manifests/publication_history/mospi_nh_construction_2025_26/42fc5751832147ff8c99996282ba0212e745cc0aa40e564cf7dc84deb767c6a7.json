@@ -1,0 +1,25 @@
+{
+  "source_id": "mospi_nh_construction_2025_26",
+  "observation_checksum": "42fc5751832147ff8c99996282ba0212e745cc0aa40e564cf7dc84deb767c6a7",
+  "path": "data/processed/publication_history/mospi_nh_construction_2025_26/42fc5751832147ff8c99996282ba0212e745cc0aa40e564cf7dc84deb767c6a7.parquet",
+  "sha256": "9283bee8b53b8b8a3542328d926cf65a070dcc4add86567b007fe161d3af89a6",
+  "row_count": 1,
+  "source_as_of_date": "2026-03-31",
+  "publication_date": "2026-07-16",
+  "citations": {
+    "permanent_identifier": "mospi_nh_construction_2025_26",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "Official16July2026 MoSPI performance release reports9,360km all-NH construction inFY2025–26. Administrative reported fiscal-year actual; date31March2026, separate from publication16July2026. Distinct from NHAI5,313km and the PAIMANA-PROJ threshold portfolio."
+  },
+  "source_documents": [
+    {
+      "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2285365&lang=1&reg=48",
+      "relative_path": "primary_disclosures/mospi_nh_construction_2025_26/versions/dd7a83c27691f4aacb501a95c408de803dcc6234dfda5878a8dcaf924cfe5066.html",
+      "sha256": "dd7a83c27691f4aacb501a95c408de803dcc6234dfda5878a8dcaf924cfe5066",
+      "size_bytes": 190876,
+      "extractor": "pipelines.national_freshness; source-pinned reviewed table or labelled release extraction",
+      "semantic_document_sha256": "bd3d641baea3fb60b0e1544a13adb1bb0a10d01167afc8db9ea126d0c9d9ad38"
+    }
+  ],
+  "data_changed_at": "2026-10-02T05:00:42.130838+00:00"
+}

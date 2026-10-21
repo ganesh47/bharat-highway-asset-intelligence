@@ -1,0 +1,23 @@
+{
+  "source_id": "rbi_state_road_finances",
+  "observation_checksum": "18d5d3d311e071527ac3dfeddbe97792fa52a698951627169dd96741f2b04d03",
+  "path": "data/processed/publication_history/rbi_state_road_finances/18d5d3d311e071527ac3dfeddbe97792fa52a698951627169dd96741f2b04d03.parquet",
+  "sha256": "1259d0518eb96cb13df8debcf09aba54e0adb1c09aa25f12360c38ecc22ec37b",
+  "row_count": 1302,
+  "source_as_of_date": "2024-03-31",
+  "publication_date": "2026-01-23",
+  "citations": {
+    "permanent_identifier": "rbi_state_road_finances",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "Goa revenue Roads and Bridges rows contain dashes, left absent rather than invented zero. Road-corporation debt/guarantees and corridor attribution not inferred from state-government aggregates. Statements19/28 add1050all-sector state-government liabilities/guarantees, distinct from roads budgets and corporation finance."
+  },
+  "source_documents": [
+    {
+      "url": "https://rbidocs.rbi.org.in/rdocs/Publications/PDFs/0SF23012026877D47254C4F4B0793B2C38F05FB7EC5.PDF",
+      "relative_path": "primary_disclosures/rbi_state_road_finances/document.pdf",
+      "sha256": "0da62779a6cb5441149e0de4bad024d4d63c449dab564f821fdd307ea3e4fc77",
+      "size_bytes": 3616815
+    }
+  ],
+  "data_changed_at": "2026-10-01T19:28:49.237144+00:00"
+}
