@@ -1,5 +1,7 @@
 import copy
+import errno
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -59,6 +61,110 @@ class PublicationTests(unittest.TestCase):
         with patch("pipelines.ingest.find_connector_for_source", return_value=connector):
             return run_ingestion(str(self.inventory), raw_root=self.raw, processed_root=self.processed,
                                  manifest_root=self.manifests, catalog_path=self.catalog)["fixture_source"]
+
+    def test_cross_device_default_temp_allows_atomic_publication(self):
+        real_replace = os.replace
+        for relative in (False, True):
+            with self.subTest(relative_processed_root=relative):
+                root = self.root / ("relative" if relative else "absolute")
+                self.processed = root / "processed mount"
+                if relative:
+                    self.processed = Path(os.path.relpath(self.processed))
+                self.manifests = root / "manifests"
+                self.catalog = self.manifests / "catalog.json"
+                dependency = self.processed / "dependency.parquet"
+                write_parquet(self.frame, dependency)
+                dependency_bytes = dependency.read_bytes()
+                output = self.processed / "fixture_source.parquet"
+                sidecar = self.processed / "nested" / "quality.json"
+                final_outputs = {output.resolve(), sidecar.resolve()}
+                replacements, staging, dependencies = [], [], []
+
+                def replace_on_destination_filesystem(source, target):
+                    source, target = Path(source), Path(target)
+                    if target.resolve() in final_outputs and any(part.startswith("bhai-ingest-") for part in source.parts):
+                        # Model /tmp and a mounted processed_root as different
+                        # devices, regardless of the test machine's layout.
+                        if not source.resolve().is_relative_to(self.processed.resolve()):
+                            raise OSError(errno.EXDEV, "Invalid cross-device link", str(source))
+                        replacements.append(target.resolve())
+                    return real_replace(source, target)
+
+                with tempfile.TemporaryDirectory(dir=self.root) as system_temp:
+                    with patch("tempfile.tempdir", system_temp), patch("pipelines.ingest.os.replace", side_effect=replace_on_destination_filesystem):
+                        for length in (12.0, 24.0):
+                            frame = self.frame.assign(length_km=length)
+
+                            def run(source, raw_root, processed_root, manifest_root):
+                                staging.append(processed_root.parent)
+                                staged_dependency = processed_root / dependency.name
+                                dependencies.append((staged_dependency.is_symlink(), staged_dependency.read_bytes()))
+                                result = FixtureConnector(frame).run(source, raw_root, processed_root, manifest_root)
+                                write_json({"length_km": length}, processed_root / "nested" / "quality.json")
+                                return result
+
+                            connector = MagicMock()
+                            connector.run.side_effect = run
+                            entry = self.run_fixture(connector)
+                            self.assertEqual("updated", entry["refresh_outcome"])
+                            self.assertEqual(length, pd.read_parquet(output).iloc[0]["length_km"])
+                            self.assertEqual(length, json.loads(sidecar.read_text())["length_km"])
+                            self.assertEqual(str(output), entry["output_table_path"])
+                            self.assertEqual(str(output), entry["manifest"]["output_files"][0]["path"])
+                            self.assertEqual(sha256_for_file(output), entry["manifest"]["output_files"][0]["sha256"])
+                    self.assertEqual([], list(Path(system_temp).iterdir()))
+                self.assertCountEqual(replacements, list(final_outputs) * 2)
+                self.assertEqual([(True, dependency_bytes)] * 2, dependencies)
+                self.assertEqual(dependency_bytes, dependency.read_bytes())
+                self.assertEqual(2, len(staging))
+                for folder in staging:
+                    self.assertEqual(self.processed.resolve(), folder.parent.resolve())
+                    self.assertFalse(folder.exists())
+                self.assertEqual(2, len(entry["publication_generations"]))
+
+    def test_failed_candidates_clean_destination_staging_and_retain_lineage(self):
+        first = self.run_fixture(FixtureConnector(self.frame))
+        output = self.processed / "fixture_source.parquet"
+        before = output.read_bytes()
+        for connector in (FixtureConnector(self.frame, failure="upstream failure"),
+                          FixtureConnector(self.frame.assign(length_km=-1))):
+            with self.subTest(connector=connector):
+                staged = []
+                run = connector.run
+
+                def capture_staging(source, raw_root, processed_root, manifest_root):
+                    staged.append(processed_root.parent)
+                    return run(source, raw_root, processed_root, manifest_root)
+
+                with patch.object(connector, "run", side_effect=capture_staging):
+                    entry = self.run_fixture(connector)
+                self.assertEqual("retained_after_failure", entry["refresh_outcome"])
+                self.assertEqual(before, output.read_bytes())
+                for field in ("data_changed_at", "last_successful_retrieval_at", "data_checksum"):
+                    self.assertEqual(first[field], entry[field])
+                self.assertEqual(first["source"]["retrieved_at"], entry["source"]["retrieved_at"])
+                self.assertEqual(1, len(staged))
+                self.assertEqual(self.processed.resolve(), staged[0].parent.resolve())
+                self.assertFalse(staged[0].exists())
+
+    def test_failed_atomic_replacement_preserves_published_bytes_and_catalog(self):
+        self.run_fixture(FixtureConnector(self.frame))
+        output = self.processed / "fixture_source.parquet"
+        manifest = self.manifests / "fixture_source.json"
+        before = {path: path.read_bytes() for path in (output, manifest, self.catalog)}
+        real_replace = os.replace
+
+        def fail_publication(source, target):
+            if Path(target) == output:
+                raise OSError(errno.EIO, "simulated replacement failure")
+            return real_replace(source, target)
+
+        with patch("pipelines.ingest.os.replace", side_effect=fail_publication):
+            with self.assertRaises(OSError):
+                self.run_fixture(FixtureConnector(self.frame.assign(length_km=24.0)))
+        for path, content in before.items():
+            self.assertEqual(content, path.read_bytes())
+        self.assertEqual([], list(self.processed.glob("bhai-ingest-*")))
 
     def test_failed_fetch_and_invalid_candidate_preserve_published_bytes(self):
         first = self.run_fixture(FixtureConnector(self.frame))
