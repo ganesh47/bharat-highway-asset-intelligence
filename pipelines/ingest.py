@@ -321,7 +321,9 @@ def run_ingestion(
         failure = None
         candidate = None
         candidate_df = pd.DataFrame()
-        with tempfile.TemporaryDirectory(prefix="bhai-ingest-") as temp:
+        # Stage on the destination filesystem so publication can use atomic
+        # os.replace even when the system temporary directory is another mount.
+        with tempfile.TemporaryDirectory(prefix="bhai-ingest-", dir=processed_root) as temp:
             staged_processed, staged_manifests = Path(temp) / "processed", Path(temp) / "manifests"
             ensure_dirs(staged_processed, staged_manifests)
             # Derived connectors can read validated dependencies without writing over them.
