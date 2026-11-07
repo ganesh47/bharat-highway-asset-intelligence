@@ -1,0 +1,25 @@
+{
+  "source_id": "nhai_fy2025_26_performance",
+  "observation_checksum": "2e9d67840b3d7589e98761966655827d3b3d1c7d25725780eadd2c77496d974f",
+  "path": "data/processed/publication_history/nhai_fy2025_26_performance/2e9d67840b3d7589e98761966655827d3b3d1c7d25725780eadd2c77496d974f.parquet",
+  "sha256": "c3174d42801a0cabe7f955f202f43197dc24234914bc8781d863f39a8c82ccfe",
+  "row_count": 5,
+  "source_as_of_date": "2026-03-31",
+  "publication_date": "2026-04-01",
+  "citations": {
+    "permanent_identifier": "nhai_fy2025_26_performance",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "Official 1 April 2026 release:5,313 km constructed; capex ₹244,362 crore, Government Budgetary Support ₹238,384 crore and own resources ₹5,978 crore reconcile.4,640 km target remains ineligible for measured calculations."
+  },
+  "source_documents": [
+    {
+      "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2247870&lang=1&reg=3",
+      "relative_path": "primary_disclosures/nhai_fy2025_26_performance/versions/0f5de32b5f62870df66f4df9bb54b65262e6f89f296675f286e1a61852d0bfb3.html",
+      "sha256": "0f5de32b5f62870df66f4df9bb54b65262e6f89f296675f286e1a61852d0bfb3",
+      "size_bytes": 72706,
+      "extractor": "pipelines.national_freshness; source-pinned reviewed table or labelled release extraction",
+      "semantic_document_sha256": "87f5b9102a0b75456205b723b73c4a52d92e13dd56d0e5937e0b2e3f39d56e5a"
+    }
+  ],
+  "data_changed_at": "2026-10-02T04:22:45.351478+00:00"
+}

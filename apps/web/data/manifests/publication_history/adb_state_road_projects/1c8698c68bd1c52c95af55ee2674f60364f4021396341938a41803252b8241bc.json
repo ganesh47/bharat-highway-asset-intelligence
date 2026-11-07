@@ -1,0 +1,33 @@
+{
+  "source_id": "adb_state_road_projects",
+  "observation_checksum": "1c8698c68bd1c52c95af55ee2674f60364f4021396341938a41803252b8241bc",
+  "path": "data/processed/publication_history/adb_state_road_projects/1c8698c68bd1c52c95af55ee2674f60364f4021396341938a41803252b8241bc.parquet",
+  "sha256": "1d104fb83bf204c5953dea13d2b1ef0ef463f4bf8362a1ffadde33d8a8771f76",
+  "row_count": 77,
+  "source_as_of_date": "2025-05-19",
+  "publication_date": "2025-09-05",
+  "citations": {
+    "permanent_identifier": "adb_state_road_projects",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "Final scanned MPWD project accounts visually checked on physical pages3-8,11-13,24-25. Exact PDF hash pinned; OCR digit errors are not ingested. Cash basis; current1April2024-19May2025, priorFY2023-24, cumulative1April2020-19May2025. Authorised20August2025; auditor22August2025; ADB document pagepublished5September2025. Government of India borrower, ADB lender, MPWD executing agency. No state aggregate debt/guarantees inferred. Printed dashes remain absent. Investment components differ from printed subtotal by one INRthousand. Nine printed package deposits sum928394 versus reported total928530 INRthousand, an unreconciled136-thousand discrepancy; no cause inferred. Reported assertions retained separately. Project450km/5year-maintenance objectives and historical PAM cost plan are target context, excluded from measured arithmetic. Automated ADB requests remain restricted; manual browser download archive used, no automatic refresh claim.",
+    "primary_reference": {
+      "url": "https://www.adb.org/sites/default/files/project-documents/52298/52298-001-apfs-en_3.pdf",
+      "sha256": "d8d949023e38e46929f39edf948b642fcc670d34332e841ba186121d0b955ffd",
+      "table_page": null,
+      "evidence_metadata_path": "data/raw/manual/evidence/adb_state_road_projects.json"
+    }
+  },
+  "source_documents": [
+    {
+      "url": "https://www.adb.org/sites/default/files/project-documents/52298/52298-001-apfs-en_3.pdf",
+      "relative_path": "primary_disclosures/adb_state_road_projects/document.pdf",
+      "sha256": "d8d949023e38e46929f39edf948b642fcc670d34332e841ba186121d0b955ffd",
+      "size_bytes": 3005347,
+      "artifact_kind": "publisher_pdf",
+      "checksum_scope": "Exact downloaded publisher PDF bytes",
+      "extraction_method": "Checksum-pinned visual transcription of scanned tables; embedded OCR is not numerical authority",
+      "publication_reference_url": "https://www.adb.org/projects/documents/ind-52298-001-apfs-3"
+    }
+  ],
+  "data_changed_at": "2026-10-01T23:17:26.189198+00:00"
+}

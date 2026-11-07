@@ -1,0 +1,28 @@
+{
+  "source_id": "cag_west_bengal_road_finances_2024_25",
+  "observation_checksum": "7878e1dd63f845d26972fb9e11ac417be046f76a1fdbe47aa9a284ca3094c8cb",
+  "path": "data/processed/publication_history/cag_west_bengal_road_finances_2024_25/7878e1dd63f845d26972fb9e11ac417be046f76a1fdbe47aa9a284ca3094c8cb.parquet",
+  "sha256": "a39b54d11a9c47b459f3a342cf0d18744894d1f2997daaa9818d10cde7b50530",
+  "row_count": 3,
+  "source_as_of_date": "2025-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "cag_west_bengal_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "CAG West Bengal FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure."
+  },
+  "source_documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-WB-Finance-Accounts-Vol-I-2024-25-06a95158ec642d0-32051830.pdf",
+      "relative_path": "primary_disclosures/cag_west_bengal_road_finances_2024_25/versions/a34aaf556a4f714388f0bc79ef96baab58b58d1a21e0a9ecddc7cc461f2b394d.pdf",
+      "sha256": "a34aaf556a4f714388f0bc79ef96baab58b58d1a21e0a9ecddc7cc461f2b394d",
+      "size_bytes": 5109107,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=92"
+    }
+  ],
+  "data_changed_at": "2026-10-02T08:02:07.063069+00:00"
+}

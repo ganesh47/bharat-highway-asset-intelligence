@@ -1,0 +1,24 @@
+{
+  "source_id": "nhai_monetisation_transactions",
+  "observation_checksum": "a2eaf18e589f2893bc05367bea5d41522ba12c9fd5188d32d856bf4fd30e3b50",
+  "path": "data/processed/publication_history/nhai_monetisation_transactions/a2eaf18e589f2893bc05367bea5d41522ba12c9fd5188d32d856bf4fd30e3b50.parquet",
+  "sha256": "a636de9c14479a2e15b5b348ac85262df004d1f686d526f78defbb965b09db67",
+  "row_count": 6,
+  "source_as_of_date": "2026-03-30",
+  "publication_date": "2026-03-30",
+  "citations": {
+    "permanent_identifier": "nhai_monetisation_transactions",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "PIB release30March2026 reports FY25-26 progress before year end; target30000crore is not actual."
+  },
+  "source_documents": [
+    {
+      "url": "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2247011&lang=2&reg=48",
+      "relative_path": "primary_disclosures/nhai_monetisation_transactions/document.html",
+      "sha256": "c2ff31f3a1530bee63a9fd061d31366ad69abfce3869ba5ecbe62e041049a683",
+      "size_bytes": 90217,
+      "semantic_document_sha256": "1c0d94d382ddc7a0dfb13a87259a0e55fa95836388b2a84cbefa74cbfaf20bf9"
+    }
+  ],
+  "data_changed_at": "2026-10-01T23:17:25.881870+00:00"
+}
