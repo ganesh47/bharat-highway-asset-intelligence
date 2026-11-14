@@ -1,0 +1,16 @@
+{
+  "source_id": "data_gov_in_nhai_state_projects_api",
+  "observation_checksum": "f66a80d1ec4f059c58dc87e56c36915524c1268b41e0105b3b31b5a4321e41b7",
+  "path": "data/processed/publication_history/data_gov_in_nhai_state_projects_api/f66a80d1ec4f059c58dc87e56c36915524c1268b41e0105b3b31b5a4321e41b7.parquet",
+  "sha256": "4cfcd2ac08a08a792cb9ce802a15bab7e845026652eb1f16117bc1d0fe7fa773",
+  "row_count": 5,
+  "source_as_of_date": null,
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "uuid b358bfbb-1eee-4e3f-9ebd-956cae5040a7",
+    "anchor": "resource_file:https://data.gov.in/sites/default/files/dataurl08122021/RS_Session_253_AU2230.C.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "source_documents": [],
+  "data_changed_at": null
+}

@@ -1,0 +1,16 @@
+{
+  "source_id": "nhai_audited_results_pdf",
+  "observation_checksum": "1b66f407380091876687a71a8d4679c971e5f7b46caeb3caa45e0f76722d606d",
+  "path": "data/processed/publication_history/nhai_audited_results_pdf/1b66f407380091876687a71a8d4679c971e5f7b46caeb3caa45e0f76722d606d.parquet",
+  "sha256": "55a209b23e2867a95679021c2dd265f1399fc2f360e0963816d08c22a61570e0",
+  "row_count": 1,
+  "source_as_of_date": "2024-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "Verified official NHAI audited-results PDF for31March2024",
+    "anchor": "discovery:https://nhai.gov.in/nhai/sites/default/files/mix_file/Audited_Results_2023-24(SEBI_Format).pdf",
+    "note": "Official NHAI document discovery and ingestion succeeded."
+  },
+  "source_documents": [],
+  "data_changed_at": null
+}

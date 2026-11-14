@@ -1,0 +1,38 @@
+{
+  "reference_path": "data/raw/manual/morth_annual_report_pdf_validation_2025.csv",
+  "available": true,
+  "errors": [],
+  "warnings": [],
+  "mismatches": [
+    {
+      "state": "Madhya Pradesh",
+      "current_nh_count": 47.0,
+      "reference_nh_count": 47.0,
+      "delta_nh_count": 0.0,
+      "current_nh_length_km": 9160.0,
+      "reference_nh_length_km": 9169.0,
+      "delta_nh_length_km": -9.0,
+      "reference_source_as_of_date": "2025-06-30"
+    }
+  ],
+  "summary": {
+    "shared_state_count": 35,
+    "reference_state_count": 35,
+    "reference_source_as_of_dates": [
+      "2025-06-30"
+    ]
+  },
+  "appendix2_snapshot": {
+    "state_count": 36,
+    "source_as_of_dates": [
+      "2024-12-31"
+    ],
+    "total_length_km": 146194.0,
+    "max_count_state": {
+      "state": "Maharashtra",
+      "count": 102.0
+    }
+  },
+  "appendix2_errors": [],
+  "appendix2_warnings": []
+}

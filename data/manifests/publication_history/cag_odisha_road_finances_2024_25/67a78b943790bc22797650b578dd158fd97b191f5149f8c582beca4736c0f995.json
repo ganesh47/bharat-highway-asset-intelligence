@@ -1,0 +1,28 @@
+{
+  "source_id": "cag_odisha_road_finances_2024_25",
+  "observation_checksum": "67a78b943790bc22797650b578dd158fd97b191f5149f8c582beca4736c0f995",
+  "path": "data/processed/publication_history/cag_odisha_road_finances_2024_25/67a78b943790bc22797650b578dd158fd97b191f5149f8c582beca4736c0f995.parquet",
+  "sha256": "b627ad6a8204fb7a6a163bb25bfcec51ce2f088e2a5e3c76bb7ca8efb1c5cfe7",
+  "row_count": 3,
+  "source_as_of_date": "2025-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "cag_odisha_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "CAG Odisha FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure."
+  },
+  "source_documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-Volume-I-06937f859281575-44134628.pdf",
+      "relative_path": "primary_disclosures/cag_odisha_road_finances_2024_25/versions/85f480e4cdcdccc099043a84a58b00d89aae6fadde7a61f3fca9b21ba49cf1b1.pdf",
+      "sha256": "85f480e4cdcdccc099043a84a58b00d89aae6fadde7a61f3fca9b21ba49cf1b1",
+      "size_bytes": 11784010,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=84"
+    }
+  ],
+  "data_changed_at": "2026-10-02T08:02:03.517440+00:00"
+}

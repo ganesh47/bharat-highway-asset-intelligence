@@ -1,0 +1,23 @@
+{
+  "source_id": "parliament_nhai_debt_tot_invit",
+  "observation_checksum": "c7cc2fecf53817916514fc94cb25de737922c0c5e8a1f81bebf635b3c4d76b5a",
+  "path": "data/processed/publication_history/parliament_nhai_debt_tot_invit/c7cc2fecf53817916514fc94cb25de737922c0c5e8a1f81bebf635b3c4d76b5a.parquet",
+  "sha256": "06efef1ea65583dce60ca82685f3cbcc9c7322c777d5617bd4b3168952b9e05b",
+  "row_count": 33,
+  "source_as_of_date": "2026-02-05",
+  "publication_date": "2026-02-05",
+  "citations": {
+    "permanent_identifier": "parliament_nhai_debt_tot_invit",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": ""
+  },
+  "source_documents": [
+    {
+      "url": "https://sansad.in/getFile/loksabhaquestions/annex/187/AU963_8iM1pC.pdf?source=pqals",
+      "relative_path": "primary_disclosures/parliament_nhai_debt_tot_invit/document.pdf",
+      "sha256": "a8fc9ba166a457d2644c4d9defd18e860b680de96cad1b7daeca489813e7efc7",
+      "size_bytes": 191392
+    }
+  ],
+  "data_changed_at": "2026-10-01T19:28:46.561911+00:00"
+}
