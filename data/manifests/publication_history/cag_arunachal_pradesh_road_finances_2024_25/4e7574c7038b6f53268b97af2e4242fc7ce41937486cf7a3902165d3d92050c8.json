@@ -1,0 +1,28 @@
+{
+  "source_id": "cag_arunachal_pradesh_road_finances_2024_25",
+  "observation_checksum": "4e7574c7038b6f53268b97af2e4242fc7ce41937486cf7a3902165d3d92050c8",
+  "path": "data/processed/publication_history/cag_arunachal_pradesh_road_finances_2024_25/4e7574c7038b6f53268b97af2e4242fc7ce41937486cf7a3902165d3d92050c8.parquet",
+  "sha256": "9a4a42b41a852a8e0b988d1fdcc54fae291f8b016a229a51ec3788a1f83f93a0",
+  "row_count": 3,
+  "source_as_of_date": "2025-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "cag_arunachal_pradesh_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "CAG Arunachal Pradesh FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure."
+  },
+  "source_documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-VOLUME-1-2024-25-Arunachal-Pradesh-19-12-2025-Final-for-net-uplouding-069b7e107e0c908-00595685.pdf",
+      "relative_path": "primary_disclosures/cag_arunachal_pradesh_road_finances_2024_25/versions/95ad64b54938bc46e27563002f307ac07eef8f6869d6ee2829901bf557cf1f6c.pdf",
+      "sha256": "95ad64b54938bc46e27563002f307ac07eef8f6869d6ee2829901bf557cf1f6c",
+      "size_bytes": 5591458,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=65"
+    }
+  ],
+  "data_changed_at": "2026-10-02T08:01:48.695606+00:00"
+}

@@ -1,0 +1,16 @@
+{
+  "source_id": "data_gov_in_nh_fatalities_injuries_state_year",
+  "observation_checksum": "78773d68a17aed9ffad3fe11b997e1cfffa1f91c7b0a60a03c3569e82f3d2500",
+  "path": "data/processed/publication_history/data_gov_in_nh_fatalities_injuries_state_year/78773d68a17aed9ffad3fe11b997e1cfffa1f91c7b0a60a03c3569e82f3d2500.parquet",
+  "sha256": "619f945a4079f915b1a306a544bf24ac502dcced54ca71a1357f68b33ea5126e",
+  "row_count": 37,
+  "source_as_of_date": "2022-12-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "RS_Session_262_AS_120_A_to_D_iv",
+    "anchor": "resource_file:https://data.gov.in/sites/default/files/RS_Session_262_AS_120_A_to_D_iv.csv",
+    "note": "Official file discovered from data.gov.in resource metadata and parsed with deterministic connector logic."
+  },
+  "source_documents": [],
+  "data_changed_at": null
+}

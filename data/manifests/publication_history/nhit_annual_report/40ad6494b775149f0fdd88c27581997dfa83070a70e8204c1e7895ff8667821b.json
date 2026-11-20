@@ -1,0 +1,23 @@
+{
+  "source_id": "nhit_annual_report",
+  "observation_checksum": "40ad6494b775149f0fdd88c27581997dfa83070a70e8204c1e7895ff8667821b",
+  "path": "data/processed/publication_history/nhit_annual_report/40ad6494b775149f0fdd88c27581997dfa83070a70e8204c1e7895ff8667821b.parquet",
+  "sha256": "7fe1d790000a7f02feaf7ea6743fe643fb3daf46191543986c1d9f895f5dffe7",
+  "row_count": 62,
+  "source_as_of_date": "2026-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "nhit_annual_report",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "Audited consolidated balance sheet/P&L and financial-risk debt maturity note extracted and unit-checked. Eight NCD/zero-coupon bond <1year and1-3year source dashes on physicalp205 are nonnumeric and omitted, not converted to zero. Numeric debt-overview totals remain separately sourced. Issuer SPV operating overview is separately labelled approximate; publication day not asserted."
+  },
+  "source_documents": [
+    {
+      "url": "https://nhit.co.in/pdf/annual-report/NHIT_Annual%20Report%20FY%202025-26.pdf",
+      "relative_path": "primary_disclosures/nhit_annual_report/document.pdf",
+      "sha256": "e3f4ef047898465a34c8fa72fca6dcfea44596ec5e7fe2210118e343be465997",
+      "size_bytes": 63634629
+    }
+  ],
+  "data_changed_at": "2026-10-01T19:28:59.062600+00:00"
+}

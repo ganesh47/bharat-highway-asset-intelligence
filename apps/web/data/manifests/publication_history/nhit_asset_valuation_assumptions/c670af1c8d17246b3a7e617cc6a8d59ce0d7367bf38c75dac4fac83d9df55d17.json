@@ -1,0 +1,23 @@
+{
+  "source_id": "nhit_asset_valuation_assumptions",
+  "observation_checksum": "c670af1c8d17246b3a7e617cc6a8d59ce0d7367bf38c75dac4fac83d9df55d17",
+  "path": "data/processed/publication_history/nhit_asset_valuation_assumptions/c670af1c8d17246b3a7e617cc6a8d59ce0d7367bf38c75dac4fac83d9df55d17.parquet",
+  "sha256": "98c4075aac657be43c971666476408b87eace736d9515bc31f8121031f4e5a5d",
+  "row_count": 17,
+  "source_as_of_date": "2026-06-30",
+  "publication_date": "2026-08-07",
+  "citations": {
+    "permanent_identifier": "nhit_asset_valuation_assumptions",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": ""
+  },
+  "source_documents": [
+    {
+      "url": "https://nhit.co.in/pdf/valuation-report/Valuation%20Report%20F_08_08_26.pdf",
+      "relative_path": "primary_disclosures/nhit_asset_valuation_assumptions/document.pdf",
+      "sha256": "6df526244e98e9eaa56e6f0f44de160ffbb774bfe334159fd2885fdb606a7e92",
+      "size_bytes": 5622960
+    }
+  ],
+  "data_changed_at": "2026-10-01T23:17:25.473279+00:00"
+}

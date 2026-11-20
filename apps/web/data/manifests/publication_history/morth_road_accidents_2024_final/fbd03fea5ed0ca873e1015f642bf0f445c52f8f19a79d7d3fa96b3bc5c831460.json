@@ -1,0 +1,28 @@
+{
+  "source_id": "morth_road_accidents_2024_final",
+  "observation_checksum": "fbd03fea5ed0ca873e1015f642bf0f445c52f8f19a79d7d3fa96b3bc5c831460",
+  "path": "data/processed/publication_history/morth_road_accidents_2024_final/fbd03fea5ed0ca873e1015f642bf0f445c52f8f19a79d7d3fa96b3bc5c831460.parquet",
+  "sha256": "6bdbbb230f03b6becc20643bc667288614de7b66704b81da422de555e18a1975",
+  "row_count": 1776,
+  "source_as_of_date": "2024-12-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "morth_road_accidents_2024_final",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "1,776 validated count facts:12 annexures,36 states/UTs plus national totals,4 calendar years 2021–24.48 state-column reconciliations pass. CY2024 cutoff is31 December 2024; no 2026 safety actual inferred. Prior report vintages retained elsewhere."
+  },
+  "source_documents": [
+    {
+      "url": "https://morth.gov.in/backend/documents/uploaded/1781177676_V1gUW8tJWT.pdf",
+      "relative_path": "primary_disclosures/morth_road_accidents_2024_final/versions/b45b0e4d8e14a8d4653790f9080a01b9b95b79008359ba93dc12497064be69b2.pdf",
+      "sha256": "b45b0e4d8e14a8d4653790f9080a01b9b95b79008359ba93dc12497064be69b2",
+      "size_bytes": 21376701,
+      "extractor": "pipelines.national_freshness; source-pinned reviewed table or labelled release extraction",
+      "reviewed_table_relative_path": "manual/evidence/morth_road_accidents_2024_reviewed_tables.json",
+      "reviewed_table_sha256": "8a54930c708f6b5c9e8912e51601c297100244e9ab81fad3f89b09e70f425384",
+      "listing_metadata_relative_path": "manual/evidence/national_freshness_official_listing_records.json",
+      "listing_metadata_sha256": "e9de7161de73d34ad9139836f7273ecdb3f5807d238efa9a19da44c7a5178008"
+    }
+  ],
+  "data_changed_at": "2026-10-02T04:22:58.785902+00:00"
+}

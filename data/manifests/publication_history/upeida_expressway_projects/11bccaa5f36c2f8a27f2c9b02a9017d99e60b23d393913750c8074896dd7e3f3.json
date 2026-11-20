@@ -1,0 +1,29 @@
+{
+  "source_id": "upeida_expressway_projects",
+  "observation_checksum": "11bccaa5f36c2f8a27f2c9b02a9017d99e60b23d393913750c8074896dd7e3f3",
+  "path": "data/processed/publication_history/upeida_expressway_projects/11bccaa5f36c2f8a27f2c9b02a9017d99e60b23d393913750c8074896dd7e3f3.parquet",
+  "sha256": "7a576e39b4fee405294a0b35c999c5e7cda72164c1d46452950fed2038f93124",
+  "row_count": 8,
+  "source_as_of_date": null,
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "upeida_expressway_projects",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "TLS-verified macOS curl retrieved historical project/grant HTML; source publication/observation dates undisclosed, figures quarantined from dated rankings. Current Ganga progress PDF URL unavailable; no progress actuals claimed."
+  },
+  "source_documents": [
+    {
+      "url": "https://upeida.up.gov.in/en/page/ganga-expressway",
+      "relative_path": "primary_disclosures/upeida_expressway_projects/document.html",
+      "sha256": "b42ffae976f8e33384f83f4d34ebb63a80f950e8d235a5eb76067c4b795d3e0a",
+      "size_bytes": 80529
+    },
+    {
+      "url": "https://upeida.up.gov.in/en/page/agra-lucknow-expressway",
+      "relative_path": "primary_disclosures/upeida_expressway_projects/agra-lucknow.html",
+      "sha256": "251f5a62bfe6f859d0a900b211aec95d77bd77d4633cb55d893e9337fa41f51a",
+      "size_bytes": 41332
+    }
+  ],
+  "data_changed_at": "2026-10-01T23:17:26.150409+00:00"
+}

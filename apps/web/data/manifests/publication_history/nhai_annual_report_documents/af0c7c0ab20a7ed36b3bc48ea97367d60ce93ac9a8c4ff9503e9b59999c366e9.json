@@ -1,0 +1,16 @@
+{
+  "source_id": "nhai_annual_report_documents",
+  "observation_checksum": "af0c7c0ab20a7ed36b3bc48ea97367d60ce93ac9a8c4ff9503e9b59999c366e9",
+  "path": "data/processed/publication_history/nhai_annual_report_documents/af0c7c0ab20a7ed36b3bc48ea97367d60ce93ac9a8c4ff9503e9b59999c366e9.parquet",
+  "sha256": "6ffe9182c4e88883634cab8a0e90252c27e3bd639f1ba31c92afeeb99a02a381",
+  "row_count": 29,
+  "source_as_of_date": null,
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "NHAI annual report index and policy/circular feeds",
+    "anchor": "discovery:https://nhai.gov.in/nhai/sites/default/files/2025-09/NHAI-Annual_Report_2023-24_English.pdf",
+    "note": "Official NHAI document discovery and ingestion succeeded."
+  },
+  "source_documents": [],
+  "data_changed_at": null
+}

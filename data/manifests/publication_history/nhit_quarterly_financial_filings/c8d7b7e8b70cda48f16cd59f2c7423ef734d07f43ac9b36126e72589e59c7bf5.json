@@ -1,0 +1,23 @@
+{
+  "source_id": "nhit_quarterly_financial_filings",
+  "observation_checksum": "c8d7b7e8b70cda48f16cd59f2c7423ef734d07f43ac9b36126e72589e59c7bf5",
+  "path": "data/processed/publication_history/nhit_quarterly_financial_filings/c8d7b7e8b70cda48f16cd59f2c7423ef734d07f43ac9b36126e72589e59c7bf5.parquet",
+  "sha256": "fd383b5adc20b3f306c7926eb4e6ae4970db33b31748d0ac394336374c7373d1",
+  "row_count": 6,
+  "source_as_of_date": "2026-06-30",
+  "publication_date": "2026-08-07",
+  "citations": {
+    "permanent_identifier": "nhit_quarterly_financial_filings",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "Board text validated. Annexure I scanned statement pages remain quarantined; no unvalidated OCR accounting lines entered."
+  },
+  "source_documents": [
+    {
+      "url": "https://nhit.co.in/pdf/communication-to-stock-exchange/BM%20Outcome%2007082026%20F.pdf",
+      "relative_path": "primary_disclosures/nhit_quarterly_financial_filings/document.pdf",
+      "sha256": "2b8d33b472e4f84eef04f951d477bb85199095d1c1d8df52e8238b212a1b9d0b",
+      "size_bytes": 5869520
+    }
+  ],
+  "data_changed_at": "2026-10-01T19:28:46.194237+00:00"
+}
