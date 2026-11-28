@@ -1,0 +1,28 @@
+{
+  "source_id": "cag_madhya_pradesh_road_finances_2024_25",
+  "observation_checksum": "6900606dc7062ec9c439a7423a46b3638073abd98ea0c96ebf5962fb2f67b47b",
+  "path": "data/processed/publication_history/cag_madhya_pradesh_road_finances_2024_25/6900606dc7062ec9c439a7423a46b3638073abd98ea0c96ebf5962fb2f67b47b.parquet",
+  "sha256": "7eb70381573731840f8dbb3b69810f28a5f6c9a48e576d26abc5a56ee662367d",
+  "row_count": 3,
+  "source_as_of_date": "2025-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "cag_madhya_pradesh_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "CAG Madhya Pradesh FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Annual capital reconciles between Statements4A and5. Neighbouring cumulative amounts are not annual expenditure."
+  },
+  "source_documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-VOLUME-I-2024-25-Gwalior-MP-English-06932b1d027cce6-16383283.pdf",
+      "relative_path": "primary_disclosures/cag_madhya_pradesh_road_finances_2024_25/versions/43198ecbd5e99e46ccc9978633bc8c7c659853b0280b99f5e8f7e9feb9f79919.pdf",
+      "sha256": "43198ecbd5e99e46ccc9978633bc8c7c659853b0280b99f5e8f7e9feb9f79919",
+      "size_bytes": 2107334,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=78"
+    }
+  ],
+  "data_changed_at": "2026-10-02T08:01:54.865982+00:00"
+}

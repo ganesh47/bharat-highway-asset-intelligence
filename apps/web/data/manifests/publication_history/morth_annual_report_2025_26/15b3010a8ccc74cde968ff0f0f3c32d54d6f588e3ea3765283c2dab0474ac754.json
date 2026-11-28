@@ -1,0 +1,28 @@
+{
+  "source_id": "morth_annual_report_2025_26",
+  "observation_checksum": "15b3010a8ccc74cde968ff0f0f3c32d54d6f588e3ea3765283c2dab0474ac754",
+  "path": "data/processed/publication_history/morth_annual_report_2025_26/15b3010a8ccc74cde968ff0f0f3c32d54d6f588e3ea3765283c2dab0474ac754.parquet",
+  "sha256": "f3a59b5aa0f21618e1ef1acc1e784a8593da0ead1cb4d25212c861e15835fb16",
+  "row_count": 207,
+  "source_as_of_date": "2025-12-31",
+  "publication_date": "2026-03-30",
+  "citations": {
+    "permanent_identifier": "morth_annual_report_2025_26",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "207 reviewed facts:36 state network rows×2plus 2 quarantined national cells;26 CRIF years×2;33 state permit disbursements plus total;22 major-head rows×BE/YTD;3 construction/award observations. Observation dates per table, publication 30 March 2026 separate.50 funding estimates/aggregate cells excluded from calculations; no full FY2025–26 cash actuals inferred."
+  },
+  "source_documents": [
+    {
+      "url": "https://morth.gov.in/backend/documents/uploaded/RTH%20Annual%20Report%20English.pdf",
+      "relative_path": "primary_disclosures/morth_annual_report_2025_26/versions/d0dd808600a8a2d0013b1fe4772d104f14dc18fc810c21a09a16aad01ea5624a.pdf",
+      "sha256": "d0dd808600a8a2d0013b1fe4772d104f14dc18fc810c21a09a16aad01ea5624a",
+      "size_bytes": 81369305,
+      "extractor": "pipelines.national_freshness; source-pinned reviewed table or labelled release extraction",
+      "reviewed_table_relative_path": "manual/evidence/morth_annual_report_2025_26_reviewed_tables.json",
+      "reviewed_table_sha256": "5a72990102ff4b75866747582b83c314f009e755ca4e0d090a2e9f1a91ec8f2c",
+      "listing_metadata_relative_path": "manual/evidence/national_freshness_official_listing_records.json",
+      "listing_metadata_sha256": "e9de7161de73d34ad9139836f7273ecdb3f5807d238efa9a19da44c7a5178008"
+    }
+  ],
+  "data_changed_at": "2026-10-02T04:23:00.277342+00:00"
+}

@@ -1,0 +1,23 @@
+{
+  "source_id": "cag_bharatmala_performance_audit",
+  "observation_checksum": "c05d3a438ec9045f7dfeba85b116d3c0deaf97420f4da14ecb5aaebed0d92bc1",
+  "path": "data/processed/publication_history/cag_bharatmala_performance_audit/c05d3a438ec9045f7dfeba85b116d3c0deaf97420f4da14ecb5aaebed0d92bc1.parquet",
+  "sha256": "2e4292d8f74851dfd95bd147e6d8fa9b620583a8c58065f4722fb00b4c55570c",
+  "row_count": 6,
+  "source_as_of_date": "2023-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "cag_bharatmala_performance_audit",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": ""
+  },
+  "source_documents": [
+    {
+      "url": "https://saiindia.gov.in/webroot/uploads/download_audit_report/2023/Report-No.-19-of-203--Bharatmala-English-064d5db7bc63c20.06754442.pdf",
+      "relative_path": "primary_disclosures/cag_bharatmala_performance_audit/document.pdf",
+      "sha256": "bfeaffbdc6ba8d52a6c0b08d5805c2c5d61d58ebf3a03cd3d1a605a67b2609d5",
+      "size_bytes": 8105572
+    }
+  ],
+  "data_changed_at": "2026-10-01T19:28:51.317541+00:00"
+}

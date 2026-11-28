@@ -1,0 +1,28 @@
+{
+  "source_id": "cag_tamil_nadu_road_finances_2024_25",
+  "observation_checksum": "5adc2c11d98a5d2e9fcdc5dfbaaeb3230b5b2a2c3066f732d01e3c162bc79fd6",
+  "path": "data/processed/publication_history/cag_tamil_nadu_road_finances_2024_25/5adc2c11d98a5d2e9fcdc5dfbaaeb3230b5b2a2c3066f732d01e3c162bc79fd6.parquet",
+  "sha256": "9ac1d4c0b33801e65c9e1130d8d3792b8a2807698acfcb1fab99569a16c0e511",
+  "row_count": 3,
+  "source_as_of_date": "2025-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "cag_tamil_nadu_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "CAG Tamil Nadu FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. Rotated Statement5 and encoded duplicate-facing-page text were visually reviewed. Statement5 MH5054 footnote says current capital includes INR372.06crore investment in Tamil Nadu State Transport Development Finance Corporation, INR163.42crore capital assistance (KfW), and INR1500crore other state transport undertakings. Keep the as-reported head scope; do not interpret as pure construction or reallocate to head5055."
+  },
+  "source_documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finance-Accounts-VOL-I-2024-25-069985766ce7b13-16162327.pdf",
+      "relative_path": "primary_disclosures/cag_tamil_nadu_road_finances_2024_25/versions/58828bcd7172dd20fc7dfdd15d4faa634f859ecc88c564b522a303516bcac4a6.pdf",
+      "sha256": "58828bcd7172dd20fc7dfdd15d4faa634f859ecc88c564b522a303516bcac4a6",
+      "size_bytes": 5806779,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=88"
+    }
+  ],
+  "data_changed_at": "2026-10-02T08:02:02.079203+00:00"
+}

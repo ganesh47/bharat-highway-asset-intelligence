@@ -1,0 +1,28 @@
+{
+  "source_id": "cag_kerala_road_finances_2024_25",
+  "observation_checksum": "8645f09a6caa09a3ea847cdf9328bdadae904afc242109bbffb1f9e08f3913d2",
+  "path": "data/processed/publication_history/cag_kerala_road_finances_2024_25/8645f09a6caa09a3ea847cdf9328bdadae904afc242109bbffb1f9e08f3913d2.parquet",
+  "sha256": "5c76fa3d4e668059ca3f513aa6092cadf795e7dbe3d84e97549f8d0a1436ebc5",
+  "row_count": 3,
+  "source_as_of_date": "2025-03-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "cag_kerala_road_finances_2024_25",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "CAG Kerala FY2024-25 Finance Accounts VolumeI; visually reviewed Statements4A/5; revenue and current/prior annual capital flows, original INRcrore, historical cutoffs retained. Publication date unknown. The PDF contains duplicate facing-page spreads and rotated capital text. Physical36/46 identify the single printed18/28 tables; duplicate spread not counted. Loans/advances cell is blank and omitted, never filled with zero."
+  },
+  "source_documents": [
+    {
+      "url": "https://cag.gov.in/uploads/state_accounts_report/account-report-Finace-Accounts-Vol-I-2024-25-0699d360b32af96-97221491.pdf",
+      "relative_path": "primary_disclosures/cag_kerala_road_finances_2024_25/versions/a4cf0c21d439e6a1ce20ff7eb90f1b761bc1250c31b605a1e409f921275061ba.pdf",
+      "sha256": "a4cf0c21d439e6a1ce20ff7eb90f1b761bc1250c31b605a1e409f921275061ba",
+      "size_bytes": 5709595,
+      "extractor": "pipelines.state_accounts_completion",
+      "reviewed_tables_relative_path": "data/raw/manual/evidence/cag_state_accounts_completion_reviewed_tables.json",
+      "reviewed_tables_sha256": "0767b8c698dacbb1228467e910295baa6b7330c190c0225c47a601607dbccd1d",
+      "review_date": "2026-10-02",
+      "source_catalogue_url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=77"
+    }
+  ],
+  "data_changed_at": "2026-10-02T08:01:55.705650+00:00"
+}

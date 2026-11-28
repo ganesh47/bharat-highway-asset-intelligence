@@ -1,0 +1,1511 @@
+{
+  "checked_at": "2026-11-28T15:25:12.232626+00:00",
+  "research_cutoff": "2026-11-28",
+  "registered_source_count": 89,
+  "source_count": 89,
+  "sources": [
+    {
+      "source_id": "data_gov_in_nhai_projects_api",
+      "refresh_outcome": "manual_evidence_required",
+      "last_checked_at": "2026-11-28T15:13:43.986353+00:00",
+      "observation_cutoff": null,
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Manual/source evidence has no concrete document, anchor and observation date"
+    },
+    {
+      "source_id": "data_gov_in_nhai_project_finance_api",
+      "refresh_outcome": "manual_evidence_required",
+      "last_checked_at": "2026-11-28T15:13:47.477698+00:00",
+      "observation_cutoff": "2025-01-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [
+        "nhai_fy2025_26_performance"
+      ],
+      "successor_policy": "Separate scopes/vintages; compatible metric selection only, never concatenate totals",
+      "research_outcome": "newer_companion_verified",
+      "gap_reason": "Manual/source evidence has no concrete document, anchor and observation date"
+    },
+    {
+      "source_id": "data_gov_in_nhai_state_projects_api",
+      "refresh_outcome": "manual_evidence_required",
+      "last_checked_at": "2026-11-28T15:13:50.258000+00:00",
+      "observation_cutoff": null,
+      "publication_date": "2021-12-23",
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "historical_context",
+      "gap_reason": "Manual/source evidence has no concrete document, anchor and observation date"
+    },
+    {
+      "source_id": "data_gov_in_nhai_projects_district_target_2023",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:13:50.866510+00:00",
+      "observation_cutoff": "2024-02-07",
+      "publication_date": "2024-02-07",
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "historical_context",
+      "gap_reason": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata."
+    },
+    {
+      "source_id": "data_gov_in_nhai_projects_completed_undercon_awarded_last3yrs",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:13:52.725316+00:00",
+      "observation_cutoff": null,
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata."
+    },
+    {
+      "source_id": "data_gov_in_nhai_statewise_nh_project_status_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:13:54.634763+00:00",
+      "observation_cutoff": "2024-11-27",
+      "publication_date": "2024-11-27",
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata."
+    },
+    {
+      "source_id": "data_gov_in_nhai_stateut_project_delay_status_2024",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:13:56.185979+00:00",
+      "observation_cutoff": "2024-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata."
+    },
+    {
+      "source_id": "data_gov_in_nhai_tamil_nh_major_ongoing_2024_2026",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:13:57.063347+00:00",
+      "observation_cutoff": "2024-07-24",
+      "publication_date": "2024-07-24",
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata."
+    },
+    {
+      "source_id": "data_gov_in_nhai_himachal_nhai_projects_ongoing",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:13:58.660293+00:00",
+      "observation_cutoff": null,
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata."
+    },
+    {
+      "source_id": "data_gov_in_nhai_punjab_42_projects_implementation",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:14:00.236889+00:00",
+      "observation_cutoff": null,
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata."
+    },
+    {
+      "source_id": "data_gov_in_nhai_yearwise_nh_constructed_2014_15",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:14:01.826792+00:00",
+      "observation_cutoff": "2022-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata."
+    },
+    {
+      "source_id": "data_gov_in_nhai_stateut_length_constructed_2019_24",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:14:03.440121+00:00",
+      "observation_cutoff": "2024-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata."
+    },
+    {
+      "source_id": "nhai_constructed_length_series_official",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:14:05.050434+00:00",
+      "observation_cutoff": "2026-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": null
+    },
+    {
+      "source_id": "data_gov_in_nhai_district_projects_implemented",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:14:05.077174+00:00",
+      "observation_cutoff": null,
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata."
+    },
+    {
+      "source_id": "data_gov_in_road_accidents_nhs_2003_2016",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:14:07.482387+00:00",
+      "observation_cutoff": "2016-12-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [
+        "morth_road_accidents_2024_final"
+      ],
+      "successor_policy": "Separate scopes/vintages; compatible metric selection only, never concatenate totals",
+      "research_outcome": "newer_companion_verified",
+      "gap_reason": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata."
+    },
+    {
+      "source_id": "data_gov_in_road_accidents_india_2003_2016",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:14:09.553407+00:00",
+      "observation_cutoff": "2016-12-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [
+        "morth_road_accidents_2024_final"
+      ],
+      "successor_policy": "Separate scopes/vintages; compatible metric selection only, never concatenate totals",
+      "research_outcome": "newer_companion_verified",
+      "gap_reason": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata."
+    },
+    {
+      "source_id": "data_gov_in_road_fatal_accidents_2003_2016",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:14:10.134462+00:00",
+      "observation_cutoff": "2016-12-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [
+        "morth_road_accidents_2024_final"
+      ],
+      "successor_policy": "Separate scopes/vintages; compatible metric selection only, never concatenate totals",
+      "research_outcome": "newer_companion_verified",
+      "gap_reason": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata."
+    },
+    {
+      "source_id": "morth_annual_report_pdf",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:14:11.888608+00:00",
+      "observation_cutoff": "2024-12-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [
+        "morth_annual_report_2025_26"
+      ],
+      "successor_policy": "Separate scopes/vintages; compatible metric selection only, never concatenate totals",
+      "research_outcome": "newer_companion_verified",
+      "gap_reason": null
+    },
+    {
+      "source_id": "nhai_audited_results_pdf",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:14:11.983132+00:00",
+      "observation_cutoff": "2024-03-31",
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [
+        "nhai_financial_results_2025_03_unaudited",
+        "nhai_financial_results_2025_26_to_2026_06"
+      ],
+      "successor_policy": "Separate scopes/vintages; compatible metric selection only, never concatenate totals",
+      "research_outcome": "newer_companion_verified",
+      "gap_reason": null
+    },
+    {
+      "source_id": "nhai_annual_report_documents",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:14:15.084536+00:00",
+      "observation_cutoff": null,
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": null
+    },
+    {
+      "source_id": "nhai_press_release_index",
+      "refresh_outcome": "metadata_only",
+      "last_checked_at": "2026-11-28T15:18:19.415036+00:00",
+      "observation_cutoff": null,
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "No validated observations retrieved"
+    },
+    {
+      "source_id": "ncrb_road_accidents_state_year",
+      "refresh_outcome": "manual_evidence_required",
+      "last_checked_at": "2026-11-28T15:18:19.427779+00:00",
+      "observation_cutoff": null,
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Manual/source evidence has no concrete document, anchor and observation date"
+    },
+    {
+      "source_id": "data_gov_in_nh_fatalities_injuries_state_year",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:18:19.439103+00:00",
+      "observation_cutoff": "2022-12-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [
+        "morth_road_accidents_2024_final"
+      ],
+      "successor_policy": "Separate scopes/vintages; compatible metric selection only, never concatenate totals",
+      "research_outcome": "newer_companion_verified",
+      "gap_reason": "Duplicate State/UT observations; Missing fatalities 2020 observations; Missing fatalities 2021 observations; Missing fatalities 2022 observations; Missing injuries 2020 observations; Missing injuries 2021 observations; Missing injuries 2022 observations"
+    },
+    {
+      "source_id": "highway_project_risk_and_access_panel",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:19:05.182455+00:00",
+      "observation_cutoff": null,
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Model outputs must be treated as estimates and scenario inputs, never as certified official facts."
+    },
+    {
+      "source_id": "parliament_qa_highway_queries",
+      "refresh_outcome": "manual_evidence_required",
+      "last_checked_at": "2026-11-28T15:19:18.188777+00:00",
+      "observation_cutoff": null,
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Manual/source evidence has no concrete document, anchor and observation date"
+    },
+    {
+      "source_id": "parliament_qa_nh_blackspots_state",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:19:18.201731+00:00",
+      "observation_cutoff": "2020-12-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": null
+    },
+    {
+      "source_id": "rbi_mospi_macro_indicators",
+      "refresh_outcome": "manual_evidence_required",
+      "last_checked_at": "2026-11-28T15:19:18.229919+00:00",
+      "observation_cutoff": null,
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Manual/source evidence has no concrete document, anchor and observation date"
+    },
+    {
+      "source_id": "data_gov_in_gsdp_stateut_current_prices_2017_23",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:19:18.242468+00:00",
+      "observation_cutoff": "2023-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [
+        "rbi_gsdp_current_prices_2024_25"
+      ],
+      "successor_policy": "Separate scopes/vintages; compatible metric selection only, never concatenate totals",
+      "research_outcome": "newer_companion_verified",
+      "gap_reason": "official_page_fetch_failed:No downloadable official table/file link was discoverable from resource page metadata."
+    },
+    {
+      "source_id": "morh_procurement_awards",
+      "refresh_outcome": "restricted",
+      "last_checked_at": "2026-11-28T15:19:20.878182+00:00",
+      "observation_cutoff": null,
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Manual/source evidence has no concrete document, anchor and observation date"
+    },
+    {
+      "source_id": "morh_contractor_disclosures",
+      "refresh_outcome": "restricted",
+      "last_checked_at": "2026-11-28T15:19:20.891141+00:00",
+      "observation_cutoff": null,
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Manual/source evidence has no concrete document, anchor and observation date"
+    },
+    {
+      "source_id": "morh_arbitration_claims",
+      "refresh_outcome": "restricted",
+      "last_checked_at": "2026-11-28T15:19:20.902329+00:00",
+      "observation_cutoff": null,
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Manual/source evidence has no concrete document, anchor and observation date"
+    },
+    {
+      "source_id": "ncrb_toll_fastag_claims",
+      "refresh_outcome": "restricted",
+      "last_checked_at": "2026-11-28T15:19:20.913998+00:00",
+      "observation_cutoff": null,
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Million-scale metric is labelled as an unscaled count"
+    },
+    {
+      "source_id": "quality_maintenance_indicators",
+      "refresh_outcome": "manual_evidence_required",
+      "last_checked_at": "2026-11-28T15:19:20.926742+00:00",
+      "observation_cutoff": null,
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unsupported roughness unit km_per_km"
+    },
+    {
+      "source_id": "viirs_nightlights_proxy",
+      "refresh_outcome": "manual_evidence_required",
+      "last_checked_at": "2026-11-28T15:19:20.938743+00:00",
+      "observation_cutoff": null,
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Manual/source evidence has no concrete document, anchor and observation date"
+    },
+    {
+      "source_id": "union_budget_morth_demand86",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:19:20.949558+00:00",
+      "observation_cutoff": "2026-02-01",
+      "publication_date": "2026-02-01",
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": ""
+    },
+    {
+      "source_id": "union_budget_highway_outcomes",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:19:23.232948+00:00",
+      "observation_cutoff": "2026-02-01",
+      "publication_date": "2026-02-01",
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": ""
+    },
+    {
+      "source_id": "nhit_quarterly_operations_finance",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:19:25.590282+00:00",
+      "observation_cutoff": "2026-06-30",
+      "publication_date": "2026-08-31",
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Response is not a PDF"
+    },
+    {
+      "source_id": "nhit_quarterly_financial_filings",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:19:26.631579+00:00",
+      "observation_cutoff": "2026-06-30",
+      "publication_date": "2026-08-07",
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Response is not a PDF"
+    },
+    {
+      "source_id": "nhit_asset_valuation_assumptions",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:19:27.547079+00:00",
+      "observation_cutoff": "2026-06-30",
+      "publication_date": "2026-08-07",
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Response is not a PDF"
+    },
+    {
+      "source_id": "nhit_annual_report",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:19:28.465016+00:00",
+      "observation_cutoff": "2026-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Response is not a PDF"
+    },
+    {
+      "source_id": "nhidcl_monthly_project_progress",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:19:29.356644+00:00",
+      "observation_cutoff": "2026-08-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "failed_retrieval: URLError"
+    },
+    {
+      "source_id": "parliament_nhai_debt_tot_invit",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:19:31.379098+00:00",
+      "observation_cutoff": "2026-02-05",
+      "publication_date": "2026-02-05",
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": ""
+    },
+    {
+      "source_id": "nhai_monetisation_transactions",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:19:33.734989+00:00",
+      "observation_cutoff": "2026-03-30",
+      "publication_date": "2026-03-30",
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "changed_document_requires_extraction"
+    },
+    {
+      "source_id": "npci_netc_monthly_statistics",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:19:34.617103+00:00",
+      "observation_cutoff": "2026-08-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": ""
+    },
+    {
+      "source_id": "rbi_state_road_finances",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:19:34.687250+00:00",
+      "observation_cutoff": "2024-03-31",
+      "publication_date": "2026-01-23",
+      "analytical_ready": true,
+      "successor_source_ids": [
+        "cag_andhra_pradesh_road_finances_2024_25",
+        "cag_arunachal_pradesh_road_finances_2024_25",
+        "cag_assam_road_finances_2024_25",
+        "cag_bihar_road_finances_2024_25",
+        "cag_chhattisgarh_road_finances_2024_25",
+        "cag_delhi_road_finances_2024_25",
+        "cag_gujarat_road_finances_2024_25",
+        "cag_haryana_road_finances_2024_25",
+        "cag_himachal_pradesh_road_finances_2024_25",
+        "cag_jammu_and_kashmir_road_finances_2024_25",
+        "cag_jharkhand_road_finances_2024_25",
+        "cag_karnataka_road_finances_2024_25",
+        "cag_kerala_road_finances_2024_25",
+        "cag_madhya_pradesh_road_finances_2024_25",
+        "cag_maharashtra_road_finances_2024_25",
+        "cag_manipur_road_finances_2024_25",
+        "cag_meghalaya_road_finances_2024_25",
+        "cag_mizoram_road_finances_2024_25",
+        "cag_nagaland_road_finances_2024_25",
+        "cag_odisha_road_finances_2024_25",
+        "cag_puducherry_road_finances_2024_25",
+        "cag_punjab_road_finances_2024_25",
+        "cag_rajasthan_road_finances_2024_25",
+        "cag_sikkim_road_finances_2024_25",
+        "cag_tamil_nadu_road_finances_2024_25",
+        "cag_telangana_road_finances_2024_25",
+        "cag_tripura_road_finances_2024_25",
+        "cag_uttar_pradesh_road_finances_2024_25",
+        "cag_uttarakhand_road_finances_2024_25",
+        "cag_west_bengal_road_finances_2024_25"
+      ],
+      "successor_policy": "Separate scopes/vintages; compatible metric selection only, never concatenate totals",
+      "research_outcome": "newer_companion_verified",
+      "gap_reason": "Response is not a PDF"
+    },
+    {
+      "source_id": "cag_bharatmala_performance_audit",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:19:36.685574+00:00",
+      "observation_cutoff": "2023-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "historical_context",
+      "gap_reason": "failed_retrieval: URLError"
+    },
+    {
+      "source_id": "morth_state_highway_network",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:20:22.036727+00:00",
+      "observation_cutoff": "2022-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": ""
+    },
+    {
+      "source_id": "upeida_expressway_projects",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:20:32.475345+00:00",
+      "observation_cutoff": null,
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": ""
+    },
+    {
+      "source_id": "msrdc_financial_disclosures",
+      "refresh_outcome": "manual_evidence_required",
+      "last_checked_at": "2026-11-28T15:20:32.519604+00:00",
+      "observation_cutoff": null,
+      "publication_date": null,
+      "analytical_ready": false,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Public index/subsidiary FY23-24 filings identified; primary download timed out. Parent standalone latest visible FY18-19, not FY23-24. No statement facts without retrieved PDF."
+    },
+    {
+      "source_id": "adb_state_road_projects",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:20:32.535892+00:00",
+      "observation_cutoff": "2025-05-19",
+      "publication_date": "2025-09-05",
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "historical_context",
+      "gap_reason": ""
+    },
+    {
+      "source_id": "mospi_paimana_monthly_projects",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:20:32.738682+00:00",
+      "observation_cutoff": "2026-08-31",
+      "publication_date": "2026-09-25",
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "failed_retrieval: URLError"
+    },
+    {
+      "source_id": "rbi_gsdp_current_prices_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:21:21.869531+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": "2025-12-11",
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Response is not a PDF"
+    },
+    {
+      "source_id": "cag_karnataka_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:21:23.329210+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_maharashtra_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:21:25.885743+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "morth_road_accidents_2024_final",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:21:28.132568+00:00",
+      "observation_cutoff": "2024-12-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": ""
+    },
+    {
+      "source_id": "nhai_fy2025_26_performance",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:21:52.497279+00:00",
+      "observation_cutoff": "2026-03-31",
+      "publication_date": "2026-04-01",
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": ""
+    },
+    {
+      "source_id": "morth_annual_report_2025_26",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:21:52.550503+00:00",
+      "observation_cutoff": "2025-12-31",
+      "publication_date": "2026-03-30",
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": ""
+    },
+    {
+      "source_id": "nhai_financial_results_2025_03_unaudited",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:23:18.404891+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [
+        "nhai_financial_results_2025_26_to_2026_06"
+      ],
+      "successor_policy": "Separate scopes/vintages; compatible metric selection only, never concatenate totals",
+      "research_outcome": "newer_companion_verified",
+      "gap_reason": ""
+    },
+    {
+      "source_id": "cag_gujarat_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:21.659471+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_uttar_pradesh_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:23.870385+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_telangana_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:25.849473+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "mospi_nh_construction_2025_26",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:23:27.489790+00:00",
+      "observation_cutoff": "2026-03-31",
+      "publication_date": "2026-07-16",
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": ""
+    },
+    {
+      "source_id": "cag_andhra_pradesh_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:27.531846+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_arunachal_pradesh_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:29.180013+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_assam_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:30.799770+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_bihar_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:32.719458+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_chhattisgarh_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:34.916520+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_haryana_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:37.143201+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_himachal_pradesh_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:38.772492+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_jharkhand_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:40.665106+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_kerala_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:42.194609+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_madhya_pradesh_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:44.101156+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_manipur_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:45.721208+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_meghalaya_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:47.891399+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_mizoram_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:49.902536+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_nagaland_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:51.486718+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_odisha_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:53.427981+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_punjab_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:54.990136+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_sikkim_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:56.524793+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_tamil_nadu_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:58.136801+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_tripura_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:23:59.857220+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_uttarakhand_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:24:01.428752+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_west_bengal_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:24:03.038914+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "failed_retrieval: HTTPError"
+    },
+    {
+      "source_id": "cag_rajasthan_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:24:04.527551+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_jammu_and_kashmir_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:24:06.200727+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_delhi_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:24:07.910059+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": "2026-08-10",
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "Unapproved cross-host redirect"
+    },
+    {
+      "source_id": "cag_puducherry_road_finances_2024_25",
+      "refresh_outcome": "retained_after_failure",
+      "last_checked_at": "2026-11-28T15:24:09.587033+00:00",
+      "observation_cutoff": "2025-03-31",
+      "publication_date": "2026-08-31",
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "failed_retrieval: HTTPError"
+    },
+    {
+      "source_id": "nhai_financial_results_2025_26_to_2026_06",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:24:11.121100+00:00",
+      "observation_cutoff": "2026-06-30",
+      "publication_date": null,
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": ""
+    },
+    {
+      "source_id": "upeida_ganga_progress_2026_04_27",
+      "refresh_outcome": "checked_unchanged",
+      "last_checked_at": "2026-11-28T15:24:25.378613+00:00",
+      "observation_cutoff": "2026-04-27",
+      "publication_date": "2026-04-27",
+      "analytical_ready": true,
+      "successor_source_ids": [],
+      "successor_policy": null,
+      "research_outcome": "no_verified_successor_recorded",
+      "gap_reason": "failed_retrieval: URLError"
+    }
+  ],
+  "publisher_indexes": [
+    {
+      "index": "morth_reports",
+      "url": "https://morth.gov.in/backend/api/reports",
+      "checked_at": "2026-11-28T15:24:46.723528+00:00",
+      "http_status": 200,
+      "status": "checked",
+      "checksum": "0c7458a2bd43ccaee4c2fbdef59924162bebc38d140eb9c10d434ecad8e1a8bf",
+      "candidates": [
+        {
+          "title": "View Metadata Basic Road Statistics of India (BRS)",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Basic Road Statistics in India_1792175349.pdf",
+          "publisher_date": "2026-10-16",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Basic Road Statistics of India 2020-22",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Basic Road Statistics of India 2020_22.pdf",
+          "publisher_date": "2020-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Basic Road Statistics of India 2019-20",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755601133_Basic Road Statistics of India-2019-20.pdf",
+          "publisher_date": "2019-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Basic Road Statistics in India-2018-19",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755601133_Basic Road Statistics in India-2018-19.pdf",
+          "publisher_date": "2018-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Basic Road Statistics of India 2017-18",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755601133_BRS_Final.pdf",
+          "publisher_date": "2017-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Basic Road Statistics of India 2016-17",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Basic _Road_Statics_of_India.pdf",
+          "publisher_date": "2016-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Basic Road Statistics of India 2015-16",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Basic _Road_Statics_of_India_1763967659.pdf",
+          "publisher_date": "2015-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Basic Road Statistics of India 2013-14 and 2014-15",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Basic _Road_Statics_of_India_1763967660.pdf",
+          "publisher_date": "2013-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "View Metadata Road Accidents in India (RAI)",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Road Accidents in India.pdf",
+          "publisher_date": "2026-10-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Road Accident in India - 2024",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Road Accidents in India - 2024.pdf",
+          "publisher_date": "2024-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Road Accidents in India - 2023",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Road-Accident-in-India-2023-Publications.pdf",
+          "publisher_date": "2023-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Road Accidents in India - 2022",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755600426_RA_2022_30_Oct.pdf",
+          "publisher_date": "2022-01-12",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Road Accidents in India - 2021",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755600426_RA_2021_Compressed.pdf",
+          "publisher_date": "2021-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Road Accidents in India - 2020",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755600426_RA_2020.pdf",
+          "publisher_date": "2020-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Road Accidents in India - 2019",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755600426_RA_Uploading.pdf",
+          "publisher_date": "2019-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Road Accidents in India - 2018 (Corrigendum dated 20-02-2019)",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755600426_Corrigendum.pdf",
+          "publisher_date": "2018-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Road Accidents in India - 2018",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755600426_Road_Accidednts.pdf",
+          "publisher_date": "2018-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Road Accidents in India - 2017",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755600426_Road_Accidents_in_India_2017.pdf",
+          "publisher_date": "2017-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Road Accidents in India - 2016",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Road_Accidents_in_India_2016.pdf",
+          "publisher_date": "2016-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Road Accidents in India - 2015",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Road_Accidents_in_India_2015.pdf",
+          "publisher_date": "2015-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Road Accidents in India - 2014",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Road_Accidents_in_India_2014.pdf",
+          "publisher_date": "2014-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Road Accidents in India - 2013",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Road_Accidents_in_India_2013 (1).pdf",
+          "publisher_date": "2013-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Road Accidents in India - 2012",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Road_Accidents_in_India_2012.pdf",
+          "publisher_date": "2012-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Road Accidents in India - 2011",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Road_Accidents_in_India_2011.pdf",
+          "publisher_date": "2011-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Road Accidents in India - 2010",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Road_Accidents_in_India_2010.pdf",
+          "publisher_date": "2010-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Road Accidents in India - 2009",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Road_Accidents_in_India_2009.pdf",
+          "publisher_date": "2009-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Road Accidents in India - 2008",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Road_Accidents_in_India_2008_compressed (1).pdf",
+          "publisher_date": "2008-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Annual Report 2025-26 of Ministry of Road Transport and Highways (English)",
+          "url": "https://morth.gov.in/backend/documents/uploaded/RTH Annual Report English.pdf",
+          "publisher_date": "2026-03-30",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Annual Report 2025-26 of Ministry of Road Transport and Highways (hindi)",
+          "url": "https://morth.gov.in/backend/documents/uploaded/RTH  Hindi Annual Report Final.pdf",
+          "publisher_date": "2026-03-30",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Annual Report 2024-25",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755600919_Annual-Report-English-with-Cover.pdf",
+          "publisher_date": "2024-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Annual Report 2023-24",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755600919_AR-MoRTH_Annual Report_2023-24_English.pdf",
+          "publisher_date": "2023-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Annual Report 2022-23",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755600919_MoRTH Annual Report for the Year 2022-23 in English.pdf",
+          "publisher_date": "2022-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Annual Report 2021-22",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755600919_Annual Report_21-22-1.pdf",
+          "publisher_date": "2021-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Annual Report 2020-21",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755600919_Annual Report - 2021 (English)_compressed.pdf",
+          "publisher_date": "2020-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Annual Report 2019-20",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755600919_Ministry Annual Report_2019-20.pdf",
+          "publisher_date": "2019-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Annual Report 2018-19",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755600919_Annual_Report_English_2018-19.pdf",
+          "publisher_date": "2018-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Annual Report 2017-18",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755600919_Annual-Report-2017-18.pdf",
+          "publisher_date": "2017-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Annual Report 2016-17",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755600919_Annual-Report-2016-17.pdf",
+          "publisher_date": "2016-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Annual Report 2015-2016",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755600919_Annual-Report-2015-16.pdf",
+          "publisher_date": "2015-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Annual Report 2013-2014",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755600919_ilovepdf_merged (2).pdf",
+          "publisher_date": "2013-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Annual Report 2012-2013",
+          "url": "https://morth.gov.in/backend/documents/uploaded/1755600919_Annual Report 2012-2013.pdf",
+          "publisher_date": "2012-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Annual Report 2011-2012",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Annual-Report-2011-2012.pdf",
+          "publisher_date": "2011-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Annual Report 2010-2011",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Annual-Report-2010-2011.pdf",
+          "publisher_date": "2010-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Annual Report 2008-2009",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Annual-Report-2008-2009_0.pdf",
+          "publisher_date": "2008-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Annual Report 2007-2008",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Annual-Report-2007-2008_1.pdf",
+          "publisher_date": "2007-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Annual Report 2006-2007",
+          "url": "https://morth.gov.in/backend/documents/uploaded/Annual-Report-2006-2007.pdf",
+          "publisher_date": "2006-01-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        },
+        {
+          "title": "Road Accident Data Management System",
+          "url": "https://morth.gov.in/backend/old_files/RADMS-3454866047.pdf",
+          "publisher_date": "2012-03-01",
+          "date_kind": "publisher_metadata",
+          "extraction_status": "not_validated_by_discovery"
+        }
+      ]
+    },
+    {
+      "index": "paimana_reports",
+      "url": "https://paimana-proj.mospi.gov.in/ReportPage/Report?fyear=N&month=0&quater=0&reportType=F",
+      "checked_at": "2026-11-28T15:24:46.723880+00:00",
+      "status": "retrieval_failed",
+      "error": "HTTPSConnectionPool(host='paimana-proj.mospi.gov.in', port=443): Max retries exceeded with url: /ReportPage/Report?fyear=N&month=0&quater=0&reportType=F (Caused by ConnectTimeoutError(<HTTPSConnection(host='paimana-proj.mospi.gov.in', port=443) at 0x77939c248690>, 'Connection to paimana-proj.mospi.gov.in timed out. (connect timeout=25)'))",
+      "candidates": []
+    },
+    {
+      "index": "nhidcl_projects",
+      "url": "https://www.nhidcl.com/en/current-status",
+      "checked_at": "2026-11-28T15:24:46.724079+00:00",
+      "status": "retrieval_failed",
+      "error": "HTTPSConnectionPool(host='www.nhidcl.com', port=443): Max retries exceeded with url: /en/current-status (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1018)')))",
+      "candidates": []
+    },
+    {
+      "index": "nhit_reports",
+      "url": "https://nhit.co.in/reports/",
+      "checked_at": "2026-11-28T15:24:46.724348+00:00",
+      "http_status": 200,
+      "status": "checked",
+      "checksum": "0c8b7542c6091619ff4e5579c6cdb3066f7d1dadfea6601bb22e931736d9108c",
+      "candidates": [],
+      "qualification": "HTTP index can be cached; browser verification required before claiming no newer quarter release."
+    },
+    {
+      "index": "npci_netc",
+      "url": "https://www.npci.org.in/product/netc/product-statistics",
+      "checked_at": "2026-11-28T15:24:46.724491+00:00",
+      "http_status": 403,
+      "status": "retrieval_blocked",
+      "error": "403 Client Error: Forbidden for url: https://www.npci.org.in/product/netc/product-statistics",
+      "candidates": []
+    },
+    {
+      "index": "cag_state_accounts",
+      "url": "https://cag.gov.in/en/state-accounts-report?defuat_state_id=79",
+      "checked_at": "2026-11-28T15:24:46.726397+00:00",
+      "status": "retrieval_failed",
+      "error": "HTTPSConnectionPool(host='cag.gov.in', port=443): Read timed out. (read timeout=25)",
+      "candidates": []
+    }
+  ],
+  "policy": "Candidate links are discovery evidence only. No new observation or publication date is inferred; unvalidated disclosures do not replace data."
+}

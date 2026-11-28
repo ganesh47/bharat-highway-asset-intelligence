@@ -1,0 +1,28 @@
+{
+  "source_id": "npci_netc_monthly_statistics",
+  "observation_checksum": "d386416ba88fc8ffce2eab0bc846f8738870b379345e3bb435a5681d96e8d2f3",
+  "path": "data/processed/publication_history/npci_netc_monthly_statistics/d386416ba88fc8ffce2eab0bc846f8738870b379345e3bb435a5681d96e8d2f3.parquet",
+  "sha256": "33433c2b346a9ba83e3305d19c81e5b2bab32244ee134a055dbf09a0b9a6ce92",
+  "row_count": 34,
+  "source_as_of_date": "2026-08-31",
+  "publication_date": null,
+  "citations": {
+    "permanent_identifier": "npci_netc_monthly_statistics",
+    "anchor": "row.citation_url + row.table_page + row.source_document_sha256",
+    "note": "Governed manual browser capture of seventeen official monthly rows, April2025-August2026, captured2026-10-01T21:49:22+00:00. Publication date undisclosed. NETC payment transactions and scheme payment amounts are not NHAI toll receipts, vehicle counts, PCU traffic or corridor revenue. Published exclusions: Annual pass and Maharashtra Electric Vehicle exempted data is not included in the NETC transaction data. Document SHA256 pins local rendered JSON, not publisher response bytes; future months require a new reviewed capture."
+  },
+  "source_documents": [
+    {
+      "url": "https://www.npci.org.in/product/netc/product-statistics",
+      "relative_path": "manual/evidence/npci_netc_rendered_snapshot_2026-10-02.json",
+      "sha256": "3743b75a8a0b48a4aba9b6c328164248ebf3ff2da8eb0a954f95d249c230cf99",
+      "size_bytes": 2547,
+      "artifact_kind": "governed_rendered_table_snapshot",
+      "checksum_scope": "Local governed rendered-table JSON, not publisher HTML/PDF bytes",
+      "capture_method": "Manual browser review of rendered official NETC FASTag Statistics table; selected reporting years and scrolled to load all twelve prior-year rows. This is a governed rendered-table snapshot, not publisher PDF bytes.",
+      "captured_at": "2026-10-01T21:49:22+00:00",
+      "publisher_document_checksum_available": false
+    }
+  ],
+  "data_changed_at": "2026-10-01T21:49:22+00:00"
+}
